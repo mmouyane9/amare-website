@@ -17,33 +17,30 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 <link rel="stylesheet" href="../style.css">
-
 <style>
 :root {
-  --ms-sky: #19B8F2;
-  --ms-navy: #123b78;
-  --ms-gold: #F6B300;
-  --ms-dark: #222222;
-  --ms-white: #FFFFFF;
-  --ms-red: #E74C3C;
-  --ms-bg: #F0F5FE;
-  --ms-border: rgba(18, 59, 120, 0.08);
-  --ms-shadow: 0 24px 80px rgba(18, 59, 120, 0.08);
-  --ms-radius: 24px;
-  --ms-radius-sm: 14px;
-  --ms-ease: cubic-bezier(0.22, 0.8, 0.32, 1);
+  --m-primary: #123B78;
+  --m-accent: #F6B300;
+  --m-bg: #F7F9FC;
+  --m-white: #FFFFFF;
+  --m-text: #24324B;
+  --m-border: rgba(18,59,120,.12);
+  --m-shadow: 0 15px 40px rgba(18,59,120,.08);
+  --m-radius: 24px;
+  --m-btn-radius: 18px;
+  --m-input-radius: 16px;
+  --m-container: 1320px;
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
-
-.ms-section {
-  padding: 100px 0;
+/* ===== GLOBAL ===== */
+.m-section {
+  padding: 80px 0;
   position: relative;
   overflow: hidden;
 }
 
-.ms-section .container {
-  max-width: 1040px;
+.m-section .container {
+  max-width: var(--m-container);
   width: 100%;
   margin: 0 auto;
   padding: 0 24px;
@@ -51,173 +48,191 @@
   z-index: 2;
 }
 
+.section-head {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.section-head .eyebrow {
+  display: inline-block;
+  background: rgba(18,59,120,.06);
+  color: var(--m-primary);
+  padding: 8px 24px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+
+.section-head .section-title {
+  font-size: clamp(28px, 3.5vw, 42px);
+  font-weight: 900;
+  color: var(--m-text);
+  margin-bottom: 12px;
+  line-height: 1.15;
+}
+
+.section-head .section-desc {
+  font-size: 16px;
+  color: #5B6B7C;
+  max-width: 560px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
 /* ===== HERO ===== */
-.ms-hero {
+.m-hero {
   position: relative;
-  min-height: 70vh;
+  min-height: 60vh;
+  max-height: 70vh;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  background: linear-gradient(160deg, #080e1f 0%, #0f2a5a 35%, #1a3a7a 60%, #0d1f42 100%);
+  background: linear-gradient(160deg, #0a1628 0%, #0f2a5a 35%, #1a3a7a 60%, #0d1f42 100%);
   overflow: hidden;
-  padding: 140px 24px 80px;
+  padding: 120px 24px 60px;
 }
 
-.ms-hero-pattern {
+.m-hero-pattern {
   position: absolute;
   inset: 0;
-  opacity: 0.04;
+  opacity: .045;
   pointer-events: none;
-  background-image:
-    repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(255,255,255,0.08) 40px, rgba(255,255,255,0.08) 41px),
-    repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(255,255,255,0.08) 40px, rgba(255,255,255,0.08) 41px);
-  background-size: 80px 80px;
+  background-image: repeating-conic-gradient(from 0deg at 50% 50%, transparent 0deg, transparent 88deg, rgba(255,255,255,.15) 88deg, rgba(255,255,255,.15) 90deg), repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(255,255,255,.04) 40px, rgba(255,255,255,.04) 41px);
+  background-size: 180px 180px, 80px 80px;
 }
 
-.ms-hero-circle {
+.m-hero-circle {
   position: absolute;
   border-radius: 50%;
   pointer-events: none;
 }
 
-.ms-hero-circle-1 {
+.m-hero-circle-1 {
   width: 300px; height: 300px;
   border: 1.5px solid rgba(246,179,0,.08);
   top: -80px; left: -80px;
-  animation: msFloat1 14s ease-in-out infinite;
+  animation: mFloat1 14s ease-in-out infinite;
 }
 
-.ms-hero-circle-2 {
+.m-hero-circle-2 {
   width: 180px; height: 180px;
-  border: 1.5px solid rgba(25,184,242,.08);
+  border: 1.5px solid rgba(246,179,0,.06);
   bottom: 10%; right: 5%;
-  animation: msFloat2 12s ease-in-out infinite reverse;
+  animation: mFloat2 12s ease-in-out infinite reverse;
 }
 
-.ms-hero-circle-3 {
-  width: 500px; height: 500px;
+.m-hero-circle-3 {
+  width: 400px; height: 400px;
   background: radial-gradient(circle, rgba(246,179,0,.04) 0%, transparent 70%);
   top: 50%; left: 50%;
   transform: translate(-50%, -50%);
-  animation: msPulse 8s ease-in-out infinite;
+  animation: mPulse 8s ease-in-out infinite;
 }
 
-@keyframes msFloat1 {
+@keyframes mFloat1 {
   0%, 100% { transform: translate(0,0) rotate(0deg); }
   33% { transform: translate(30px,-20px) rotate(3deg); }
   66% { transform: translate(-15px,15px) rotate(-2deg); }
 }
 
-@keyframes msFloat2 {
+@keyframes mFloat2 {
   0%, 100% { transform: translate(0,0); }
   50% { transform: translate(-20px,-30px); }
 }
 
-@keyframes msPulse {
+@keyframes mPulse {
   0%, 100% { opacity: .3; transform: translate(-50%,-50%) scale(1); }
   50% { opacity: .5; transform: translate(-50%,-50%) scale(1.1); }
 }
 
-.ms-hero-inner {
+.m-hero-inner {
   position: relative;
   z-index: 2;
   max-width: 720px;
 }
 
-.ms-hero-logo {
-  width: 80px;
-  height: 80px;
+.m-hero-logo {
+  width: 76px;
+  height: 76px;
   object-fit: contain;
-  margin: 0 auto 28px;
+  margin: 0 auto 24px;
   filter: brightness(0) invert(1);
   opacity: .9;
 }
 
-.ms-hero-eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(246,179,0,.12);
-  border: 1px solid rgba(246,179,0,.25);
-  backdrop-filter: blur(10px);
-  padding: 8px 22px;
-  border-radius: 999px;
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--ms-gold);
-  margin-bottom: 20px;
-}
-
-.ms-hero-title {
-  font-size: clamp(34px, 5vw, 54px);
+.m-hero-title {
+  font-size: clamp(36px, 5vw, 60px);
   font-weight: 900;
   color: #fff;
-  line-height: 1.15;
-  margin-bottom: 18px;
+  line-height: 1.1;
+  margin-bottom: 16px;
 }
 
-.ms-hero-title-em {
-  background: linear-gradient(135deg, var(--ms-gold), #FFD34D);
+.m-hero-title-em {
+  background: linear-gradient(135deg, var(--m-accent), #FFD34D);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-.ms-hero-desc {
-  font-size: clamp(15px, 1.2vw, 17px);
-  color: rgba(255,255,255,.72);
-  line-height: 1.8;
-  margin-bottom: 36px;
-  max-width: 560px;
+.m-hero-desc {
+  font-size: clamp(15px, 1.2vw, 18px);
+  color: rgba(255,255,255,.7);
+  line-height: 1.7;
+  margin-bottom: 32px;
+  max-width: 580px;
   margin-inline: auto;
 }
 
-.ms-hero-actions {
+.m-hero-actions {
   display: flex;
   gap: 14px;
   justify-content: center;
   flex-wrap: wrap;
 }
 
-.ms-btn {
+.m-btn {
   display: inline-flex;
   align-items: center;
   gap: 10px;
   padding: 16px 36px;
-  border-radius: 999px;
+  border-radius: var(--m-btn-radius);
   font-weight: 700;
   font-size: 16px;
   font-family: 'Cairo', sans-serif;
   text-decoration: none;
-  transition: transform .3s var(--ms-ease), box-shadow .3s var(--ms-ease);
+  transition: transform .3s cubic-bezier(.22,.8,.32,1), box-shadow .3s cubic-bezier(.22,.8,.32,1);
   cursor: pointer;
   border: none;
   outline: none;
 }
 
-.ms-btn:hover { transform: translateY(-2px); }
-.ms-btn:active { transform: scale(.98); }
+.m-btn:hover { transform: scale(1.02); }
+.m-btn:active { transform: scale(.98); }
 
-.ms-btn-primary {
-  background: var(--ms-gold);
-  color: #080e1f;
+.m-btn-primary {
+  background: var(--m-accent);
+  color: #0a1628;
   box-shadow: 0 8px 24px rgba(246,179,0,.3);
 }
 
-.ms-btn-primary:hover { box-shadow: 0 12px 36px rgba(246,179,0,.45); }
+.m-btn-primary:hover { box-shadow: 0 12px 36px rgba(246,179,0,.45); }
 
-.ms-btn-outline {
+.m-btn-outline {
   background: rgba(255,255,255,.08);
   color: #fff;
-  border: 1.5px solid rgba(255,255,255,.18);
+  border: 1.5px solid rgba(255,255,255,.15);
 }
 
-.ms-btn-outline:hover { background: rgba(255,255,255,.14); border-color: rgba(255,255,255,.28); }
+.m-btn-outline:hover { background: rgba(255,255,255,.14); border-color: rgba(255,255,255,.25); }
 
-.ms-scroll-indicator {
+.m-btn i, .m-btn .bi { font-size: 18px; }
+
+.m-scroll-indicator {
   position: absolute;
-  bottom: 28px;
+  bottom: 24px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 2;
@@ -225,1159 +240,882 @@
   flex-direction: column;
   align-items: center;
   gap: 6px;
-  color: rgba(255,255,255,.3);
+  color: rgba(255,255,255,.35);
   font-size: 11px;
   font-weight: 600;
-  animation: msScrollBounce 2s ease-in-out infinite;
+  animation: mScrollBounce 2s ease-in-out infinite;
 }
 
-@keyframes msScrollBounce {
+.m-scroll-indicator .bi { font-size: 16px; }
+
+@keyframes mScrollBounce {
   0%, 100% { transform: translateX(-50%) translateY(0); }
   50% { transform: translateX(-50%) translateY(6px); }
 }
 
-/* ===== SECTION HEADER ===== */
-.ms-head {
-  text-align: center;
-  margin-bottom: 40px;
-}
-
-.ms-head-eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(18,59,120,.06);
-  color: var(--ms-navy);
-  padding: 8px 22px;
-  border-radius: 999px;
-  font-size: 14px;
-  font-weight: 700;
-  margin-bottom: 14px;
-}
-
-.ms-head-title {
-  font-size: clamp(26px, 3vw, 36px);
-  font-weight: 900;
-  color: var(--ms-dark);
-  margin-bottom: 10px;
-  line-height: 1.2;
-}
-
-.ms-head-desc {
-  font-size: 15px;
-  color: #5B6B7C;
-  max-width: 520px;
-  margin: 0 auto;
-  line-height: 1.7;
-}
-
-/* ===== PROGRESS STEPS ===== */
-.ms-steps-wrap {
-  max-width: 900px;
-  margin: 0 auto 48px;
-  padding: 0 20px;
-}
-
-.ms-steps {
-  display: flex;
-  justify-content: space-between;
-  position: relative;
-}
-
-.ms-steps-progress-bg {
-  position: absolute;
-  top: 24px;
-  left: 60px;
-  right: 60px;
-  height: 3px;
-  background: rgba(18,59,120,.1);
-  border-radius: 3px;
-  z-index: 0;
-}
-
-.ms-steps-progress-line {
-  position: absolute;
-  top: 24px;
-  left: 60px;
-  height: 3px;
-  background: linear-gradient(90deg, var(--ms-sky), var(--ms-navy));
-  border-radius: 3px;
-  z-index: 1;
-  transition: width .7s var(--ms-ease);
-  width: 0%;
-}
-
-html[dir="rtl"] .ms-steps-progress-bg {
-  left: 60px;
-  right: 60px;
-}
-
-html[dir="rtl"] .ms-steps-progress-line {
-  left: auto;
-  right: 60px;
-  background: linear-gradient(-90deg, var(--ms-sky), var(--ms-navy));
-}
-
-.ms-step {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-  z-index: 2;
-  flex: 1;
-  cursor: pointer;
-}
-
-.ms-step-circle {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background: var(--ms-white);
-  border: 3px solid rgba(18,59,120,.15);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  font-weight: 800;
-  color: #B0BEC5;
-  transition: all .4s var(--ms-ease);
-  margin-bottom: 8px;
-  position: relative;
-}
-
-.ms-step.active .ms-step-circle {
-  border-color: var(--ms-navy);
-  background: var(--ms-navy);
-  color: #fff;
-  box-shadow: 0 8px 24px rgba(18,59,120,.2);
-  transform: scale(1.08);
-}
-
-.ms-step.done .ms-step-circle {
-  border-color: var(--ms-sky);
-  background: var(--ms-sky);
-  color: #fff;
-  box-shadow: 0 6px 20px rgba(25,184,242,.2);
-}
-
-.ms-step-icon {
-  display: none;
-  font-size: 18px;
-}
-
-.ms-step.done .ms-step-num { display: none; }
-.ms-step.done .ms-step-icon { display: block; }
-
-.ms-step-label {
-  font-size: 11px;
-  font-weight: 700;
-  color: #B0BEC5;
-  text-align: center;
-  transition: color .4s ease;
-  line-height: 1.3;
-}
-
-.ms-step.active .ms-step-label { color: var(--ms-navy); }
-.ms-step.done .ms-step-label { color: var(--ms-navy); }
-
-/* ===== FORM AREA ===== */
-.ms-form-area {
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-.ms-card {
-  background: rgba(255,255,255,.72);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255,255,255,.4);
-  border-radius: var(--ms-radius);
-  box-shadow: var(--ms-shadow);
-  padding: 40px 36px;
-  margin-bottom: 24px;
-  transition: box-shadow .4s ease, transform .4s ease;
-}
-
-.ms-card:hover {
-  box-shadow: 0 28px 80px rgba(18,59,120,.1);
-}
-
-.ms-card-header {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin-bottom: 28px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid var(--ms-border);
-}
-
-.ms-card-icon {
-  width: 48px;
-  height: 48px;
-  border-radius: 14px;
-  background: rgba(18,59,120,.06);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  transition: background .3s ease, transform .3s ease;
-}
-
-.ms-card:hover .ms-card-icon {
-  background: rgba(18,59,120,.1);
-  transform: scale(1.05);
-}
-
-.ms-card-icon .bi,
-.ms-card-icon i { font-size: 22px; color: var(--ms-navy); }
-
-.ms-card-title {
-  font-size: 19px;
-  font-weight: 800;
-  color: var(--ms-dark);
-  margin-bottom: 2px;
-}
-
-.ms-card-sub {
-  font-size: 13px;
-  color: #5B6B7C;
-}
-
-/* ===== FLOATING LABEL FIELDS ===== */
-.ms-row {
+/* ===== TIMELINE CARDS ===== */
+.m-timeline {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 18px;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
 }
 
-.ms-field {
-  margin-bottom: 6px;
+.m-timeline-item {
+  background: var(--m-white);
+  border-radius: var(--m-radius);
+  box-shadow: var(--m-shadow);
+  padding: 32px 24px;
+  text-align: center;
   position: relative;
+  transition: transform .4s cubic-bezier(.22,.8,.32,1), box-shadow .4s ease;
+  border: 1px solid var(--m-border);
 }
 
-.ms-field-full {
-  grid-column: 1 / -1;
+.m-timeline-item:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 50px rgba(18,59,120,.12);
+  border-color: var(--m-primary);
 }
 
-.ms-floating-group {
-  position: relative;
-  margin-bottom: 20px;
-}
-
-.ms-floating-input {
-  width: 100%;
-  height: 60px;
-  padding: 24px 48px 8px 16px;
-  font-size: 15px;
-  font-family: 'Cairo', sans-serif;
-  color: var(--ms-dark);
-  background: var(--ms-white);
-  border: 2px solid var(--ms-border);
-  border-radius: var(--ms-radius-sm);
-  outline: none;
-  transition: border-color .3s var(--ms-ease), box-shadow .3s var(--ms-ease);
-}
-
-.ms-floating-input:focus {
-  border-color: var(--ms-sky);
-  box-shadow: 0 0 0 4px rgba(25,184,242,.1);
-}
-
-.ms-floating-input.error {
-  border-color: var(--ms-red);
-  box-shadow: 0 0 0 4px rgba(231,76,60,.08);
-}
-
-.ms-floating-label {
-  position: absolute;
-  top: 50%;
-  right: 48px;
-  transform: translateY(-50%);
-  font-size: 14px;
-  color: #8A9BB5;
-  pointer-events: none;
-  transition: all .25s var(--ms-ease);
-  font-weight: 500;
-  line-height: 1;
-}
-
-.ms-floating-input:focus ~ .ms-floating-label,
-.ms-floating-input:not(:placeholder-shown) ~ .ms-floating-label {
-  top: 8px;
-  transform: translateY(0);
-  font-size: 11px;
-  color: var(--ms-sky);
-  font-weight: 700;
-}
-
-.ms-floating-input.error ~ .ms-floating-label {
-  color: var(--ms-red);
-}
-
-.ms-input-icon {
-  position: absolute;
-  top: 50%;
-  left: 16px;
-  transform: translateY(-50%);
-  font-size: 16px;
-  color: #8A9BB5;
-  pointer-events: none;
-  transition: color .3s var(--ms-ease);
-}
-
-.ms-floating-input:focus ~ .ms-input-icon,
-.ms-floating-input:focus + .ms-floating-label + .ms-input-icon {
-  color: var(--ms-sky);
-}
-
-.ms-field-error {
-  font-size: 12px;
-  color: var(--ms-red);
-  display: none;
-  align-items: center;
-  gap: 4px;
-  margin-top: -14px;
-  margin-bottom: 14px;
-  font-weight: 500;
-}
-
-.ms-field-error.show { display: flex; }
-
-.ms-field-error i { font-size: 12px; }
-
-/* ===== OTP INPUT ===== */
-.ms-otp-container {
-  direction: ltr;
-  display: flex;
-  gap: 12px;
-  justify-content: center;
-  margin: 32px 0 24px;
-}
-
-.ms-otp-input {
-  width: 52px;
-  height: 60px;
-  text-align: center;
-  font-size: 24px;
-  font-weight: 800;
-  font-family: 'Cairo', sans-serif;
-  color: var(--ms-navy);
-  background: var(--ms-white);
-  border: 2px solid var(--ms-border);
-  border-radius: var(--ms-radius-sm);
-  outline: none;
-  transition: border-color .3s var(--ms-ease), box-shadow .3s var(--ms-ease), transform .3s var(--ms-ease);
-}
-
-.ms-otp-input:focus {
-  border-color: var(--ms-sky);
-  box-shadow: 0 0 0 4px rgba(25,184,242,.1);
-  transform: scale(1.05);
-}
-
-.ms-otp-input.filled {
-  border-color: var(--ms-sky);
-  background: rgba(25,184,242,.04);
-}
-
-.ms-otp-input.error {
-  border-color: var(--ms-red);
-  box-shadow: 0 0 0 4px rgba(231,76,60,.08);
-  animation: msShake .4s var(--ms-ease);
-}
-
-@keyframes msShake {
-  0%, 100% { transform: translateX(0); }
-  20% { transform: translateX(-6px); }
-  40% { transform: translateX(6px); }
-  60% { transform: translateX(-4px); }
-  80% { transform: translateX(4px); }
-}
-
-.ms-otp-info {
-  text-align: center;
-  font-size: 14px;
-  color: #5B6B7C;
-  margin-bottom: 8px;
-}
-
-.ms-otp-email {
-  font-weight: 700;
-  color: var(--ms-navy);
-  direction: ltr;
-  display: inline-block;
-}
-
-.ms-otp-actions {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 24px;
-  margin-top: 20px;
-}
-
-.ms-otp-resend {
-  background: none;
-  border: none;
-  font-family: 'Cairo', sans-serif;
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--ms-sky);
-  cursor: pointer;
-  transition: color .3s var(--ms-ease);
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.ms-otp-resend:hover { color: var(--ms-navy); }
-.ms-otp-resend:disabled {
-  color: #B0BEC5;
-  cursor: not-allowed;
-}
-
-.ms-otp-timer {
-  font-size: 14px;
-  font-weight: 600;
-  color: #B0BEC5;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.ms-otp-timer i { font-size: 14px; }
-
-/* ===== OTP SUCCESS ===== */
-.ms-otp-success {
-  display: none;
-  text-align: center;
-  padding: 24px;
-  animation: msFadeIn .5s var(--ms-ease);
-}
-
-.ms-otp-success.show { display: block; }
-
-.ms-otp-success-icon {
+.m-timeline-icon-wrap {
   width: 64px;
   height: 64px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #27ae60, #2ecc71);
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0 auto 16px;
-  font-size: 28px;
-  color: #fff;
-  box-shadow: 0 8px 24px rgba(39,174,96,.25);
-  animation: msSuccessBounce .6s var(--ms-ease);
-}
-
-@keyframes msSuccessBounce {
-  0% { transform: scale(0); }
-  50% { transform: scale(1.2); }
-  100% { transform: scale(1); }
-}
-
-.ms-otp-success-title {
-  font-size: 20px;
-  font-weight: 800;
-  color: var(--ms-dark);
-  margin-bottom: 6px;
-}
-
-.ms-otp-success-desc {
-  font-size: 14px;
-  color: #5B6B7C;
-}
-
-/* ===== UPLOAD ===== */
-.ms-upload-area {
+  background: rgba(18,59,120,.06);
   position: relative;
-  border: 2px dashed rgba(18,59,120,.15);
-  border-radius: var(--ms-radius-sm);
-  padding: 48px 24px;
+  transition: background .4s ease, transform .4s ease;
+}
+
+.m-timeline-item:hover .m-timeline-icon-wrap {
+  background: rgba(18,59,120,.1);
+  transform: scale(1.05);
+}
+
+.m-timeline-num {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--m-primary);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 8px rgba(18,59,120,.2);
+}
+
+.m-timeline-icon-wrap .bi {
+  font-size: 24px;
+  color: var(--m-primary);
+}
+
+.m-timeline-title {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--m-text);
+  margin-bottom: 4px;
+}
+
+.m-timeline-desc {
+  font-size: 12px;
+  color: #5B6B7C;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ===== FORM SECTION ===== */
+.m-form-section {
+  padding: 80px 0;
+  background: var(--m-bg);
+}
+
+.m-form-layout {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+/* Form cards */
+.m-form-card {
+  background: var(--m-white);
+  border-radius: var(--m-radius);
+  box-shadow: var(--m-shadow);
+  padding: 36px 32px;
+  margin-bottom: 24px;
+  transition: box-shadow .3s ease, transform .3s ease;
+}
+
+.m-form-card:hover { box-shadow: 0 18px 48px rgba(18,59,120,.1); }
+
+.m-form-card:last-child { margin-bottom: 0; }
+
+.m-form-card-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 28px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--m-border);
+}
+
+.m-form-card-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(18,59,120,.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.m-form-card-icon .bi { font-size: 20px; color: var(--m-primary); }
+
+.m-form-card-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--m-text);
+  margin-bottom: 2px;
+}
+
+.m-form-card-sub { font-size: 13px; color: #5B6B7C; }
+
+/* Progress inside card */
+.m-progress-card {
+  margin-bottom: 24px;
+}
+
+.m-progress-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--m-text);
+  margin-bottom: 10px;
+}
+
+.m-progress-bar {
+  width: 100%;
+  height: 8px;
+  background: rgba(18,59,120,.08);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.m-progress-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--m-primary), #2a6fd4);
+  transition: width .6s cubic-bezier(.22,.8,.32,1);
+  width: 0%;
+  position: relative;
+}
+
+.m-progress-fill::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.3), transparent);
+  animation: mShimmer 2s ease-in-out infinite;
+}
+
+@keyframes mShimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Wizard step indicator */
+.m-wizard-step {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 16px 4px 12px;
+  border-radius: 999px;
+  background: rgba(18,59,120,.06);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--m-primary);
+  margin-bottom: 20px;
+}
+
+.m-wizard-step .bi { font-size: 14px; }
+
+/* Form fields */
+.m-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+@media (max-width: 640px) {
+  .m-row { grid-template-columns: 1fr; }
+}
+
+/* Override global join- styles */
+.m-form-card .join-field { margin-bottom: 20px; }
+
+.m-form-card .join-label {
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--m-text);
+  margin-bottom: 8px;
+  background: none;
+  padding: 0;
+  border-radius: 0;
+}
+
+.m-form-card .join-label .required { color: #E74C3C; }
+
+.m-form-card .join-input-wrap {
+  position: relative;
+  border: none;
+  background: none;
+  border-radius: 0;
+}
+
+.m-form-card .join-input {
+  width: 100%;
+  height: 58px;
+  padding: 0 52px 0 18px;
+  border: 1.5px solid var(--m-border);
+  border-radius: var(--m-input-radius);
+  font-size: 15px;
+  font-family: 'Cairo', sans-serif;
+  color: var(--m-text);
+  background: var(--m-white);
+  transition: border-color .3s ease, box-shadow .3s ease;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.m-form-card .join-input:focus {
+  border-color: var(--m-accent);
+  box-shadow: 0 0 0 4px rgba(246,179,0,.1);
+}
+
+.m-form-card .join-input::placeholder { color: #B0BEC5; }
+
+.m-form-card .join-input.error {
+  border-color: #E74C3C;
+  box-shadow: 0 0 0 4px rgba(231,76,60,.08);
+}
+
+.m-form-card .join-input[type="date"] { padding-left: 18px; }
+
+.m-form-card .join-input-icon {
+  position: absolute;
+  top: 50%;
+  right: 18px;
+  transform: translateY(-50%);
+  font-size: 18px;
+  color: #8A9BB5;
+  pointer-events: none;
+  background: none;
+  width: auto;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color .3s ease;
+}
+
+.m-form-card .join-input:focus ~ .join-input-icon,
+.m-form-card .join-input:focus + .join-input-icon { color: var(--m-primary); }
+
+.m-form-card .join-error {
+  font-size: 13px;
+  color: #E74C3C;
+  margin-top: 6px;
+  background: none;
+  padding: 0;
+  border-radius: 0;
+  display: block;
+}
+
+/* Upload */
+.m-form-card .join-upload-area {
+  position: relative;
+  border: 2px dashed var(--m-border);
+  border-radius: var(--m-input-radius);
+  padding: 40px 20px;
   text-align: center;
   cursor: pointer;
-  transition: border-color .3s var(--ms-ease), background .3s var(--ms-ease), box-shadow .3s var(--ms-ease);
-  background: rgba(25,184,242,.03);
-  min-height: 240px;
+  transition: border-color .3s ease, background .3s ease;
+  background: rgba(18,59,120,.02);
+  min-height: 180px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.ms-upload-area:hover {
-  border-color: var(--ms-sky);
-  background: rgba(25,184,242,.06);
-}
+.m-form-card .join-upload-area:hover { border-color: var(--m-primary); background: rgba(18,59,120,.04); }
 
-.ms-upload-area.dragover {
-  border-color: var(--ms-gold);
-  background: rgba(246,179,0,.06);
-  box-shadow: 0 0 0 4px rgba(246,179,0,.1);
-}
+.m-form-card .join-upload-area.dragover { border-color: var(--m-accent); background: rgba(246,179,0,.05); }
 
-.ms-upload-area.has-image .ms-upload-content { display: none; }
+.m-form-card .join-upload-content { text-align: center; }
 
-.ms-upload-content { text-align: center; }
+.m-form-card .join-upload-area.has-image .join-upload-content { display: none; }
 
-.ms-upload-icon {
-  width: 72px;
-  height: 72px;
+.m-form-card .join-upload-icon {
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
   background: rgba(18,59,120,.06);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 16px;
-  font-size: 30px;
-  color: var(--ms-navy);
-  transition: transform .3s var(--ms-ease);
+  margin: 0 auto 14px;
+  font-size: 24px;
+  color: var(--m-primary);
 }
 
-.ms-upload-area:hover .ms-upload-icon {
-  transform: scale(1.08) rotate(-4deg);
-}
+.m-form-card .join-upload-title { font-size: 15px; font-weight: 700; color: var(--m-text); margin-bottom: 4px; }
 
-.ms-upload-title {
-  font-size: 17px;
-  font-weight: 700;
-  color: var(--ms-dark);
-  margin-bottom: 6px;
-}
+.m-form-card .join-upload-desc { font-size: 13px; color: #5B6B7C; margin-bottom: 4px; }
 
-.ms-upload-desc {
-  font-size: 14px;
-  color: #5B6B7C;
-  margin-bottom: 6px;
-}
+.m-form-card .join-upload-hint { font-size: 12px; color: #8A9BB5; }
 
-.ms-upload-hint {
-  font-size: 12px;
-  color: #8A9BB5;
-}
+.m-form-card .join-upload-preview { display: none; position: relative; }
 
-.ms-upload-preview {
-  display: none;
-  position: relative;
+.m-form-card .join-upload-area.has-image .join-upload-preview {
+  display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
 }
 
-.ms-upload-area.has-image .ms-upload-preview { display: flex; }
-
-.ms-upload-preview img {
-  width: 160px;
-  height: 160px;
+.m-form-card .join-upload-preview img {
+  width: 140px;
+  height: 140px;
   object-fit: cover;
-  border-radius: 50%;
-  border: 4px solid var(--ms-white);
-  box-shadow: 0 8px 32px rgba(18,59,120,.12);
+  border-radius: 14px;
+  border: 3px solid var(--m-white);
+  box-shadow: 0 8px 24px rgba(18,59,120,.1);
 }
 
-.ms-upload-remove {
+.m-form-card .join-upload-remove {
   position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  margin-left: 90px;
-  width: 32px;
-  height: 32px;
+  top: -6px;
+  right: calc(50% - 70px - 10px);
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
-  background: var(--ms-red);
+  background: #E74C3C;
   color: #fff;
   border: none;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 13px;
   box-shadow: 0 4px 12px rgba(231,76,60,.3);
-  transition: transform .3s var(--ms-ease);
+  transition: transform .3s ease;
 }
 
-.ms-upload-remove:hover { transform: translateX(-50%) scale(1.15); }
+.m-form-card .join-upload-remove:hover { transform: scale(1.1); }
 
-/* ===== DOCUMENTS ===== */
-.ms-doc-list {
+/* Signature */
+.m-sig-wrap {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid var(--m-border);
+}
+
+.m-sig-label {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--m-text);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.m-sig-canvas-wrap {
+  position: relative;
+  border: 1.5px solid var(--m-border);
+  border-radius: var(--m-input-radius);
+  overflow: hidden;
+  background: #FAFBFD;
+  transition: border-color .3s ease;
+}
+
+.m-sig-canvas-wrap:focus-within { border-color: var(--m-accent); box-shadow: 0 0 0 4px rgba(246,179,0,.1); }
+
+.m-sig-canvas-wrap canvas {
+  display: block;
+  width: 100%;
+  height: 130px;
+  cursor: crosshair;
+}
+
+.join-signature-placeholder {
+  position: absolute;
+  inset: 0;
   display: flex;
   flex-direction: column;
-  gap: 16px;
-}
-
-.ms-doc-item {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  background: rgba(255,255,255,.5);
-  border: 1.5px solid var(--ms-border);
-  border-radius: var(--ms-radius-sm);
-  padding: 18px 20px;
-  transition: border-color .3s var(--ms-ease), background .3s var(--ms-ease), box-shadow .3s var(--ms-ease);
-}
-
-.ms-doc-item:hover {
-  border-color: var(--ms-sky);
-  background: rgba(25,184,242,.03);
-}
-
-.ms-doc-item.accepted {
-  border-color: var(--ms-sky);
-  background: rgba(25,184,242,.04);
-}
-
-.ms-doc-icon {
-  width: 48px;
-  height: 48px;
-  border-radius: 12px;
-  display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
-  background: rgba(231,76,60,.08);
-  color: var(--ms-red);
-  font-size: 22px;
+  gap: 4px;
+  color: #B0BEC5;
+  pointer-events: none;
+  font-size: 13px;
 }
 
-.ms-doc-info {
-  flex: 1;
-  min-width: 0;
-}
+.join-signature-placeholder.hidden { display: none; }
 
-.ms-doc-name {
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--ms-dark);
-  margin-bottom: 2px;
-}
+.join-signature-placeholder .bi,
+.join-signature-placeholder i { font-size: 24px; }
 
-.ms-doc-size {
-  font-size: 12px;
+.join-sig-clear {
+  position: absolute;
+  bottom: 6px;
+  left: 10px;
+  font-size: 11px;
   color: #8A9BB5;
-}
-
-.ms-doc-actions {
-  display: flex;
-  gap: 8px;
-  flex-shrink: 0;
-}
-
-.ms-doc-btn {
-  width: 38px;
-  height: 38px;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1.5px solid var(--ms-border);
-  background: var(--ms-white);
-  color: #5B6B7C;
+  background: rgba(255,255,255,.8);
+  border: 1px solid var(--m-border);
+  border-radius: 6px;
+  padding: 3px 10px;
   cursor: pointer;
-  transition: all .3s var(--ms-ease);
-  font-size: 15px;
-  text-decoration: none;
+  font-family: 'Cairo', sans-serif;
+  font-weight: 600;
+  transition: color .3s ease, border-color .3s ease;
 }
 
-.ms-doc-btn:hover {
-  border-color: var(--ms-navy);
-  color: var(--ms-navy);
-  background: rgba(18,59,120,.04);
-}
+.join-sig-clear:hover { color: #E74C3C; border-color: #E74C3C; }
 
-.ms-doc-check {
+/* Checkbox */
+.m-form-card .join-checkbox {
   display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-shrink: 0;
+  align-items: flex-start;
+  gap: 12px;
   cursor: pointer;
-  padding: 6px 14px;
-  border-radius: 10px;
-  transition: background .3s var(--ms-ease);
+  background: none;
+  padding: 12px 16px;
+  border-radius: 12px;
+  margin: 0;
+  border: 1px solid var(--m-border);
+  transition: border-color .3s ease, background .3s ease;
+  position: relative;
 }
 
-.ms-doc-check:hover {
-  background: rgba(25,184,242,.06);
+.m-form-card .join-checkbox:hover { border-color: var(--m-primary); background: rgba(18,59,120,.02); }
+
+.m-form-card .join-checkbox .join-checkbox-input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  margin: 0;
+  overflow: hidden;
 }
 
-.ms-doc-check input {
-  display: none;
+.m-form-card .join-checkbox-text {
+  font-size: 14px;
+  color: var(--m-text);
+  line-height: 1.6;
+  font-weight: 400;
 }
 
-.ms-doc-check-box {
+.m-form-card .join-checkbox-check {
   width: 22px;
   height: 22px;
   border-radius: 6px;
-  border: 2px solid var(--ms-border);
+  border: 2px solid var(--m-border);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all .3s var(--ms-ease);
   flex-shrink: 0;
+  margin-top: 2px;
+  background: none;
+  transition: all .3s ease;
 }
 
-.ms-doc-check-box i {
-  font-size: 11px;
+.m-form-card .join-checkbox-check i {
+  font-size: 13px;
   color: #fff;
   opacity: 0;
   transform: scale(0);
-  transition: all .3s var(--ms-ease);
+  transition: all .3s ease;
 }
 
-.ms-doc-check input:checked + .ms-doc-check-box {
-  background: var(--ms-sky);
-  border-color: var(--ms-sky);
+.m-form-card .join-checkbox .join-checkbox-input:checked + .join-checkbox-check {
+  background: var(--m-primary);
+  border-color: var(--m-primary);
 }
 
-.ms-doc-check input:checked + .ms-doc-check-box i {
+.m-form-card .join-checkbox .join-checkbox-input:checked + .join-checkbox-check i {
   opacity: 1;
   transform: scale(1);
 }
 
-.ms-doc-check-text {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--ms-dark);
-  white-space: nowrap;
+.m-form-card .join-checkbox .join-checkbox-input:focus + .join-checkbox-check {
+  outline: 2px solid var(--m-accent);
+  outline-offset: 3px;
 }
 
-/* ===== PAYMENT ===== */
-.ms-payment-card {
-  background: linear-gradient(135deg, rgba(18,59,120,.04) 0%, rgba(25,184,242,.04) 100%);
-  border: 1.5px solid rgba(18,59,120,.08);
-  border-radius: var(--ms-radius-sm);
-  padding: 32px;
-  text-align: center;
-}
+/* Submit */
+.m-submit-wrap { margin-top: 24px; }
 
-.ms-payment-amount {
-  font-size: 48px;
-  font-weight: 900;
-  color: var(--ms-navy);
-  line-height: 1;
-  margin-bottom: 4px;
-}
-
-.ms-payment-amount-currency {
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--ms-navy);
-}
-
-.ms-payment-label {
-  font-size: 15px;
-  color: #5B6B7C;
-  margin-bottom: 20px;
-  font-weight: 500;
-}
-
-.ms-payment-status {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 20px;
-  border-radius: 999px;
-  font-size: 13px;
-  font-weight: 700;
-  background: rgba(246,179,0,.1);
-  color: #B8860B;
-  border: 1px solid rgba(246,179,0,.2);
-  margin-bottom: 24px;
-}
-
-.ms-payment-status i { font-size: 14px; }
-
-.ms-payment-desc {
-  font-size: 14px;
-  color: #5B6B7C;
-  line-height: 1.7;
-  max-width: 400px;
-  margin: 0 auto;
-}
-
-/* ===== REVIEW ===== */
-.ms-review-section {
-  margin-bottom: 24px;
-}
-
-.ms-review-section-title {
-  font-size: 15px;
-  font-weight: 800;
-  color: var(--ms-navy);
-  margin-bottom: 14px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.ms-review-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-}
-
-.ms-review-item {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.ms-review-label {
-  font-size: 12px;
-  font-weight: 700;
-  color: #8A9BB5;
-  text-transform: uppercase;
-  letter-spacing: .5px;
-}
-
-.ms-review-value {
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--ms-dark);
-}
-
-.ms-review-photo {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid var(--ms-white);
-  box-shadow: 0 4px 16px rgba(18,59,120,.1);
-}
-
-.ms-review-edit {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--ms-sky);
-  cursor: pointer;
-  background: none;
+.m-form-card .join-submit-btn {
+  width: 100%;
+  min-height: 58px;
+  background: linear-gradient(135deg, var(--m-primary), #1a4a8a);
+  color: #fff;
   border: none;
+  border-radius: var(--m-btn-radius);
+  font-size: 16px;
+  font-weight: 800;
   font-family: 'Cairo', sans-serif;
-  transition: color .3s var(--ms-ease);
-  margin-top: 12px;
-}
-
-.ms-review-edit:hover { color: var(--ms-navy); }
-
-/* ===== NAVIGATION ===== */
-.ms-nav {
+  cursor: pointer;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  margin-top: 32px;
-  padding-top: 24px;
-  border-top: 1px solid var(--ms-border);
-}
-
-.ms-nav-btn {
-  display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  padding: 14px 32px;
-  border-radius: 999px;
-  font-weight: 700;
-  font-size: 15px;
-  font-family: 'Cairo', sans-serif;
-  cursor: pointer;
-  border: none;
-  outline: none;
-  transition: transform .3s var(--ms-ease), box-shadow .3s var(--ms-ease), background .3s var(--ms-ease), color .3s var(--ms-ease);
-  min-height: 52px;
+  transition: transform .3s ease, box-shadow .3s ease;
+  box-shadow: 0 8px 24px rgba(18,59,120,.25);
+  position: relative;
+  overflow: hidden;
 }
 
-.ms-nav-btn:hover { transform: translateY(-2px); }
-.ms-nav-btn:active { transform: scale(.98); }
+.m-form-card .join-submit-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 36px rgba(18,59,120,.35); }
 
-.ms-nav-btn:disabled {
-  opacity: .4;
+.m-form-card .join-submit-btn:active { transform: translateY(0); }
+
+.m-form-card .join-submit-btn:disabled {
+  opacity: .45;
   cursor: not-allowed;
   transform: none !important;
   box-shadow: none !important;
 }
 
-.ms-nav-prev {
-  background: rgba(18,59,120,.06);
-  color: var(--ms-navy);
-}
+.m-form-card .join-submit-btn.loading { pointer-events: none; opacity: .85; }
 
-.ms-nav-prev:hover { background: rgba(18,59,120,.1); }
+.m-form-card .join-submit-text { display: inline-flex; align-items: center; gap: 10px; }
 
-.ms-nav-next {
-  background: linear-gradient(135deg, var(--ms-navy), #1a4a8a);
-  color: #fff;
-  box-shadow: 0 8px 24px rgba(18,59,120,.25);
-}
+.m-form-card .join-submit-loading { display: none; align-items: center; gap: 10px; }
 
-.ms-nav-next:hover { box-shadow: 0 12px 36px rgba(18,59,120,.35); }
+.m-form-card .join-submit-btn.loading .join-submit-text { display: none; }
 
-.ms-nav-next i, .ms-nav-prev i { font-size: 16px; }
+.m-form-card .join-submit-btn.loading .join-submit-loading { display: inline-flex; }
 
-.ms-nav-spacer { flex: 1; }
-
-/* ===== STEP CONTAINERS ===== */
-.ms-step-container {
-  display: none;
-  animation: msFadeSlideIn .5s var(--ms-ease);
-}
-
-.ms-step-container.active {
-  display: block;
-}
-
-@keyframes msFadeSlideIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* ===== SUCCESS ===== */
-.ms-success {
-  display: none;
-  text-align: center;
-  padding: 60px 40px;
-  background: rgba(255,255,255,.75);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255,255,255,.4);
-  border-radius: var(--ms-radius);
-  box-shadow: var(--ms-shadow);
-  max-width: 520px;
-  margin: 40px auto 0;
-  animation: msFadeIn .6s var(--ms-ease);
-}
-
-.ms-success.show { display: block; }
-
-.ms-success-icon {
-  width: 80px;
-  height: 80px;
+.join-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2.5px solid rgba(255,255,255,.2);
+  border-top-color: #fff;
   border-radius: 50%;
-  background: linear-gradient(135deg, #27ae60, #2ecc71);
+  animation: mSpin .6s linear infinite;
+}
+
+@keyframes mSpin { to { transform: rotate(360deg); } }
+
+/* ===== SIDEBAR ===== */
+.m-sidebar { position: sticky; top: 140px; }
+
+.m-sidebar-card {
+  background: var(--m-white);
+  border-radius: var(--m-radius);
+  box-shadow: var(--m-shadow);
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.m-sidebar-card:last-child { margin-bottom: 0; }
+
+.m-sidebar-header {
+  background: var(--m-primary);
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.m-sidebar-header .bi { font-size: 20px; color: #fff; }
+
+.m-sidebar-header h4 {
+  font-size: 16px;
+  font-weight: 800;
+  color: #fff;
+  margin: 0;
+}
+
+.m-sidebar-body { padding: 20px 24px; }
+
+.m-sidebar-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.m-sidebar-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 0;
+  font-size: 13px;
+  color: #5B6B7C;
+  line-height: 1.6;
+  border-bottom: 1px solid var(--m-border);
+}
+
+.m-sidebar-list li:last-child { border-bottom: none; }
+
+.m-sidebar-list li .bi { color: var(--m-accent); font-size: 14px; margin-top: 3px; flex-shrink: 0; }
+
+.m-sidebar-support-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--m-border);
+  font-size: 13px;
+  color: #5B6B7C;
+}
+
+.m-sidebar-support-item:last-child { border-bottom: none; }
+
+.m-sidebar-support-item .bi {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: rgba(18,59,120,.06);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 22px;
-  font-size: 36px;
-  color: #fff;
-  box-shadow: 0 12px 36px rgba(39,174,96,.25);
-  animation: msSuccessBounce .6s var(--ms-ease);
+  font-size: 16px;
+  color: var(--m-primary);
+  flex-shrink: 0;
 }
 
-.ms-success-title {
+.m-sidebar-support-item span { direction: ltr; text-align: start; }
+
+.m-sidebar-whatsapp {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 12px;
+  background: var(--m-primary);
+  color: #fff;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 14px;
+  text-decoration: none;
+  transition: transform .3s ease, box-shadow .3s ease;
+  margin-top: 14px;
+}
+
+.m-sidebar-whatsapp:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(18,59,120,.3); }
+
+.m-sidebar-whatsapp .bi { font-size: 18px; color: #fff; }
+
+/* ===== SUCCESS ===== */
+.m-form-section .join-success {
+  display: none;
+  text-align: center;
+  padding: 64px 40px;
+  background: var(--m-white);
+  border-radius: var(--m-radius);
+  box-shadow: var(--m-shadow);
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.m-form-section .join-success.show { display: block; animation: mFadeIn .6s ease; }
+
+.m-form-section .join-success-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: rgba(18,59,120,.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  font-size: 32px;
+  color: var(--m-primary);
+}
+
+.m-form-section .join-success-title {
   font-size: 24px;
   font-weight: 900;
-  color: var(--ms-dark);
-  margin-bottom: 12px;
+  color: var(--m-text);
+  margin-bottom: 10px;
 }
 
-.ms-success-desc {
+.m-form-section .join-success-desc {
   font-size: 15px;
   color: #5B6B7C;
-  margin-bottom: 24px;
+  margin-bottom: 28px;
   line-height: 1.7;
 }
 
-.ms-success-actions {
+.m-form-section .join-success-id {
   display: flex;
-  gap: 14px;
   justify-content: center;
-  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #5B6B7C;
+  margin-bottom: 24px;
 }
 
-.ms-success-btn {
+.m-form-section .join-success-id strong { color: var(--m-primary); font-size: 16px; }
+
+.m-form-section .join-success-btn {
   display: inline-flex;
   align-items: center;
   gap: 10px;
   padding: 14px 32px;
-  border-radius: 999px;
+  border-radius: var(--m-btn-radius);
   font-weight: 700;
   font-size: 15px;
   font-family: 'Cairo', sans-serif;
   text-decoration: none;
-  transition: transform .3s var(--ms-ease), box-shadow .3s var(--ms-ease);
-  cursor: pointer;
-  border: none;
-}
-
-.ms-success-btn-primary {
-  background: var(--ms-gold);
-  color: #080e1f;
+  transition: transform .3s ease, box-shadow .3s ease;
+  background: var(--m-accent);
+  color: #0a1628;
   box-shadow: 0 8px 24px rgba(246,179,0,.3);
 }
 
-.ms-success-btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 36px rgba(246,179,0,.45); }
+.m-form-section .join-success-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 36px rgba(246,179,0,.45); }
 
-.ms-success-btn-secondary {
-  background: rgba(18,59,120,.06);
-  color: var(--ms-navy);
+.m-success-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+/* ===== PREVIEW ===== */
+.m-preview-section { padding: 80px 0; background: var(--m-bg); display: none; }
+
+.m-preview-section.show { display: block; }
+
+.m-preview-grid {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 40px;
+  align-items: start;
 }
 
-.ms-success-btn-secondary:hover { background: rgba(18,59,120,.1); transform: translateY(-2px); }
-
-/* ===== GLOW ===== */
-.ms-glow {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(80px);
-  pointer-events: none;
-  opacity: .35;
+.m-preview-summary {
+  background: var(--m-white);
+  border-radius: var(--m-radius);
+  box-shadow: var(--m-shadow);
+  padding: 36px 32px;
 }
 
-.ms-glow-1 {
-  width: 400px;
-  height: 400px;
-  background: rgba(25,184,242,.08);
-  top: -100px;
-  right: -100px;
-}
-
-.ms-glow-2 {
-  width: 350px;
-  height: 350px;
-  background: rgba(246,179,0,.06);
-  bottom: -100px;
-  left: -80px;
-}
-
-/* ===== ANIMATIONS ===== */
-@keyframes msFadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* ===== TOAST ===== */
-.ms-toast-container {
-  position: fixed;
-  top: 24px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 99999;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  align-items: center;
-  pointer-events: none;
-  width: 100%;
-  max-width: 480px;
-  padding: 0 16px;
-}
-
-.ms-toast {
-  pointer-events: auto;
+.m-preview-summary-header {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 16px 24px;
-  border-radius: 16px;
+  gap: 14px;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--m-border);
+}
+
+.m-preview-summary-header .bi { font-size: 22px; color: var(--m-primary); }
+
+.m-preview-summary-header h3 { font-size: 18px; font-weight: 800; color: var(--m-text); margin: 0; }
+
+.m-preview-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--m-border);
   font-size: 14px;
-  font-weight: 600;
-  line-height: 1.5;
-  box-shadow: 0 12px 40px rgba(0,0,0,.12);
-  animation: msToastIn .4s var(--ms-ease);
-  width: 100%;
 }
 
-.ms-toast.removing {
-  animation: msToastOut .3s var(--ms-ease) forwards;
+.m-preview-row:last-child { border-bottom: none; }
+
+.m-preview-row-label { color: #5B6B7C; font-weight: 500; }
+
+.m-preview-row-value { color: var(--m-text); font-weight: 700; text-align: left; }
+
+.m-preview-visual-card {
+  background: var(--m-white);
+  border-radius: var(--m-radius);
+  box-shadow: var(--m-shadow);
+  padding: 32px 24px;
+  text-align: center;
+  position: sticky;
+  top: 140px;
 }
 
-.ms-toast-success {
-  background: #fff;
-  color: #222;
-  border: 1.5px solid rgba(39,174,96,.2);
-  direction: rtl;
+.m-preview-visual-placeholder {
+  width: 140px;
+  height: 180px;
+  border: 2px dashed var(--m-border);
+  border-radius: 16px;
+  margin: 0 auto 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #B0BEC5;
+  font-size: 36px;
+  background: rgba(18,59,120,.02);
 }
 
-.ms-toast-success i { color: #27ae60; font-size: 18px; }
-
-.ms-toast-error {
-  background: #fff;
-  color: #222;
-  border: 1.5px solid rgba(231,76,60,.2);
-  direction: rtl;
-}
-
-.ms-toast-error i { color: var(--ms-red); font-size: 18px; }
-
-@keyframes msToastIn {
-  from { opacity: 0; transform: translateY(-16px) scale(.96); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-@keyframes msToastOut {
-  from { opacity: 1; transform: translateY(0) scale(1); }
-  to { opacity: 0; transform: translateY(-16px) scale(.96); }
-}
+.m-preview-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 20px; }
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 1024px) {
-  .ms-section { padding: 70px 0; }
-  .ms-hero { min-height: 60vh; padding: 120px 20px 60px; }
-  .ms-card { padding: 32px 28px; }
+  .m-form-layout { grid-template-columns: 1fr; }
+  .m-sidebar { position: static; }
+  .m-preview-grid { grid-template-columns: 1fr; }
+  .m-timeline { grid-template-columns: repeat(3, 1fr); }
 }
 
 @media (max-width: 768px) {
-  .ms-section { padding: 50px 0; }
-  .ms-hero { min-height: 50vh; padding: 100px 20px 40px; }
-  .ms-hero-logo { width: 64px; height: 64px; margin-bottom: 20px; }
-  .ms-card { padding: 28px 20px; border-radius: 18px; }
-  .ms-card-header { margin-bottom: 20px; padding-bottom: 12px; }
-  .ms-row { grid-template-columns: 1fr; }
-  .ms-floating-input { height: 54px; padding: 22px 42px 8px 14px; font-size: 14px; }
-  .ms-floating-label { right: 42px; font-size: 13px; }
-  .ms-input-icon { left: 14px; font-size: 15px; }
-  .ms-steps-wrap { padding: 0 10px; }
-  .ms-step-circle { width: 40px; height: 40px; font-size: 16px; margin-bottom: 6px; }
-  .ms-steps-progress-bg { top: 20px; left: 30px; right: 30px; }
-  html[dir="rtl"] .ms-steps-progress-line { right: 30px; }
-  .ms-steps-progress-line { top: 20px; left: 30px; }
-  .ms-step-label { font-size: 10px; }
-  .ms-btn { width: 100%; justify-content: center; padding: 14px 28px; }
-  .ms-upload-area { padding: 36px 20px; min-height: 200px; }
-  .ms-head { margin-bottom: 28px; }
-  .ms-success { padding: 40px 24px; }
-  .ms-nav { flex-wrap: wrap; }
-  .ms-nav-btn { flex: 1; }
-  .ms-nav-spacer { display: none; }
-  .ms-otp-input { width: 44px; height: 52px; font-size: 20px; }
-  .ms-otp-container { gap: 8px; }
-  .ms-review-grid { grid-template-columns: 1fr; }
-  .ms-payment-amount { font-size: 36px; }
-  .ms-doc-item { flex-wrap: wrap; }
-  .ms-doc-check-text { font-size: 12px; }
+  .m-section { padding: 56px 0; }
+  .m-form-section { padding: 56px 0; }
+  .m-hero { min-height: 50vh; max-height: 60vh; padding: 100px 20px 40px; }
+  .m-hero-logo { width: 60px; height: 60px; margin-bottom: 20px; }
+  .m-form-card { padding: 28px 20px; }
+  .m-form-card .join-input { height: 52px; font-size: 14px; padding: 0 44px 0 14px; }
+  .m-form-card .join-input-icon { right: 14px; font-size: 16px; }
+  .m-timeline { grid-template-columns: 1fr 1fr; gap: 16px; }
+  .m-btn { width: 100%; justify-content: center; padding: 14px 28px; }
+  .m-preview-section { padding: 56px 0; }
+  .m-preview-summary { padding: 28px 20px; }
+  .m-preview-visual-card { padding: 24px 20px; }
+  .m-sidebar-header { padding: 16px 20px; }
+  .m-sidebar-body { padding: 16px 20px; }
+  .m-section .section-head { margin-bottom: 36px; }
 }
 
 @media (max-width: 480px) {
-  .ms-hero-title { font-size: 28px; }
-  .ms-card { padding: 24px 16px; border-radius: 16px; }
-  .ms-card-icon { width: 40px; height: 40px; }
-  .ms-card-icon .bi, .ms-card-icon i { font-size: 18px; }
-  .ms-card-title { font-size: 17px; }
-  .ms-step-circle { width: 36px; height: 36px; font-size: 14px; }
-  .ms-step-label { font-size: 9px; }
-  .ms-steps-progress-bg { top: 18px; left: 20px; right: 20px; }
-  html[dir="rtl"] .ms-steps-progress-line { right: 20px; }
-  .ms-steps-progress-line { top: 18px; left: 20px; }
-  .ms-upload-preview img { width: 120px; height: 120px; }
-  .ms-section { padding: 40px 0; }
-  .ms-hero { min-height: 45vh; }
-  .ms-otp-input { width: 40px; height: 46px; font-size: 18px; }
-  .ms-otp-container { gap: 6px; }
-  .ms-doc-item { flex-direction: column; align-items: stretch; }
-  .ms-doc-actions { justify-content: flex-end; }
-  .ms-doc-check { justify-content: flex-end; }
+  .m-form-card { padding: 24px 16px; border-radius: 20px; }
+  .m-form-card-header { flex-wrap: wrap; }
+  .m-form-card-icon { width: 36px; height: 36px; }
+  .m-form-card-icon .bi { font-size: 16px; }
+  .m-form-card-title { font-size: 16px; }
+  .m-timeline { grid-template-columns: 1fr; gap: 14px; }
+  .m-timeline-item { padding: 24px 20px; }
+  .m-hero-title { font-size: 28px; }
+  .m-section { padding: 40px 0; }
+  .m-form-section { padding: 40px 0; }
 }
-</style>
 
+/* ===== ANIMATIONS ===== */
+@keyframes mFadeIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+[data-aos] { pointer-events: none; }
+[data-aos].aos-animate { pointer-events: auto; }
+</style>
 </head>
 <body>
 
@@ -1388,660 +1126,645 @@ html[dir="rtl"] .ms-steps-progress-line {
 
 <a href="#main" class="visually-hidden">تخطَّ إلى المحتوى الرئيسي</a>
 
-<div id="navbar" data-base=".."></div>
+<div class="topbar">
+  <div class="container">
+    <div class="topbar-right">
+      <a href="../index.html" class="topbar-brand" aria-label="الرئيسية">
+        <span class="topbar-brand-mark">
+          <img src="../Amare%20files%20/logo.png" alt="AMARE Logo" class="topbar-brand-logo">
+        </span>
+        <span class="topbar-brand-name">الجمعية المغربية لهواة البحث والاستكشاف</span>
+      </a>
+    </div>
+    <div class="topbar-left">
+      <div class="topbar-social">
+        <a href="#" aria-label="فيسبوك"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg></a>
+        <a href="#" aria-label="إنستغرام"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+        <a href="#" aria-label="لينكدإن"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 5 3.79 6.2 2.3 6.2 1 6.2 0 5 0 3.5 0 2 1.1.8 2.5.8s2.48 1.2 2.48 2.7zM.2 8.5h4.6V23H.2V8.5zM8 8.5h4.4v2h.06c.6-1.2 2.1-2.4 4.4-2.4 4.7 0 5.6 3.1 5.6 7.1V23h-4.6v-6.7c0-1.6 0-3.7-2.3-3.7s-2.6 1.8-2.6 3.6V23H8V8.5z"/></svg></a>
+      </div>
+      <div class="topbar-lang">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg>
+        <select aria-label="اختيار اللغة">
+          <option value="ar" selected>العربية</option>
+          <option value="fr">Français</option>
+          <option value="en">English</option>
+        </select>
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <a href="https://wa.me/212600000000" target="_blank" rel="noopener" class="topbar-whatsapp ripple" aria-label="تواصل عبر واتساب">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.6.1-.2.3-.7 1-.9 1.2-.1.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.2-.4.1-.2 0-.4 0-.5s-.6-1.5-.8-2c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s1 2.6 1.1 2.7c.1.2 2 3 4.7 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 2-1.4.2-.6.2-1.2.1-1.3-.1-.1-.3-.2-.6-.3z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.6 1.4 5.1L2 22l5.1-1.3C8.5 21.5 10.2 22 12 22c5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18c-1.6 0-3.1-.4-4.5-1.2l-.3-.2-3.3.9.9-3.2-.2-.3C3.7 14.6 3.2 13.3 3.2 12c0-4.9 3.9-8.8 8.8-8.8s8.8 3.9 8.8 8.8-3.9 8.8-8.8 8.8z"/></svg>
+        <span>واتساب</span>
+      </a>
+      <a href="#" class="topbar-login ripple" aria-label="تسجيل الدخول">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M15 3h6v18h-6M10 17l5-5-5-5M15 12H3"/>
+        </svg>
+        <span>تسجيل الدخول</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<header>
+  <nav class="navbar" id="navbar" aria-label="التنقل الرئيسي">
+    <div class="container">
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html">الرئيسية</a></li>
+        <li data-dropdown="about"><a href="../index.html#about">من نحن</a></li>
+        <li data-dropdown="activities"><a href="#">أنشطتنا</a></li>
+        <li data-dropdown="partners"><a href="#">شركاؤنا</a></li>
+        <li data-dropdown="services"><a href="../index.html#services">خدماتنا</a></li>
+        <li data-dropdown="news"><a href="../index.html#news">الأخبار</a></li>
+        <li data-dropdown="archive"><a href="#">الأرشيف</a></li>
+        <li data-dropdown="branches"><a href="#">الفروع الجهوية</a></li>
+        <li data-dropdown="join"><a href="index.html" class="active">انخرط معنا</a></li>
+        <li><a href="../index.html#contact">اتصل بنا</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="index.html" class="nav-join-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="8.5" cy="7" r="4"/>
+            <line x1="20" y1="8" x2="20" y2="14"/>
+            <line x1="23" y1="11" x2="17" y2="11"/>
+          </svg>
+          <span>انخرط في الجمعية</span>
+        </a>
+        <a href="#" class="nav-store-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+            <path d="M3 6h18"/>
+            <path d="M16 10a4 4 0 0 1-8 0"/>
+          </svg>
+          <span>متجر AMARE</span>
+        </a>
+        <button class="hamburger" id="hamburger" aria-label="فتح القائمة" aria-expanded="false" aria-controls="navLinks">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <div class="mega-dropdown" id="megaDropdown"></div>
+  </nav>
+</header>
 
 <main id="main">
 
-<!-- ===== HERO ===== -->
-<section class="ms-hero" id="msHero">
-  <div class="ms-hero-pattern" aria-hidden="true"></div>
-  <div class="ms-hero-circle ms-hero-circle-1" aria-hidden="true"></div>
-  <div class="ms-hero-circle ms-hero-circle-2" aria-hidden="true"></div>
-  <div class="ms-hero-circle ms-hero-circle-3" aria-hidden="true"></div>
+<!-- ====== HERO ====== -->
+<section class="m-hero" id="hero">
+  <div class="m-hero-pattern" aria-hidden="true"></div>
+  <div class="m-hero-circle m-hero-circle-1" aria-hidden="true"></div>
+  <div class="m-hero-circle m-hero-circle-2" aria-hidden="true"></div>
+  <div class="m-hero-circle m-hero-circle-3" aria-hidden="true"></div>
 
-  <div class="ms-hero-inner" data-aos="fade-up" data-aos-duration="800">
+  <div class="m-hero-inner" data-aos="fade-up" data-aos-duration="800">
+    <img src="../Amare%20files%20/logo.png" alt="AMARE" class="m-hero-logo">
 
-
-    <div class="ms-hero-eyebrow">
-      <i class="bi bi-person-plus"></i>
-      انخرط معنا
-    </div>
-
-    <h1 class="ms-hero-title">
-      الأنخراط  <span class="ms-hero-title-em">Online</span>
+    <h1 class="m-hero-title">
+      انخرط <span class="m-hero-title-em">معنا</span>
     </h1>
 
-    <p class="ms-hero-desc">
-      7 خطوات فقط تفصلك عن أن تصبح عضواً رسمياً في الجمعية. ابدأ بتعبئة معلوماتك.
+    <p class="m-hero-desc">
+      انضم إلى الجمعية المغربية لهواة البحث والاستكشاف وكن جزءًا من مجتمع يجمع شغف الاستكشاف وصون التراث الوطني.
     </p>
 
-    <div class="ms-hero-actions">
-      <a href="#msForm" class="ms-btn ms-btn-primary">
-        <i class="bi bi-arrow-down"></i>
-        ابدأ الآن
+    <div class="m-hero-actions">
+      <a href="#m-form" class="m-btn m-btn-primary">
+        <i class="bi bi-person-plus"></i>
+        ابدأ الانخراط
+      </a>
+      <a href="#m-process" class="m-btn m-btn-outline">
+        <i class="bi bi-info-circle"></i>
+        تعرف على المراحل
       </a>
     </div>
   </div>
 
-  <div class="ms-scroll-indicator" aria-hidden="true">
+  <div class="m-scroll-indicator" aria-hidden="true">
     <span>مرر للأسفل</span>
     <i class="bi bi-chevron-down"></i>
   </div>
 </section>
 
-<!-- ===== FORM SECTION ===== -->
-<section class="ms-section" id="msForm" style="background: var(--ms-bg);">
-  <div class="ms-glow ms-glow-1" aria-hidden="true"></div>
-  <div class="ms-glow ms-glow-2" aria-hidden="true"></div>
-
+<!-- ====== MEMBERSHIP PROCESS ====== -->
+<section class="m-section" id="m-process">
   <div class="container">
-
-    <div class="ms-head" data-aos="fade-up" data-aos-duration="600">
-      <span class="ms-head-eyebrow">
-        <i class="bi bi-layers"></i>
-        خطوات الانخراط
-      </span>
-      <h2 class="ms-head-title">أكمل الخطوات أدناه</h2>
-      <p class="ms-head-desc">جميع المعلومات محفوظة تلقائياً، يمكنك العودة لاحقاً لإكمال طلبك.</p>
+    <div class="section-head" data-aos="fade-up" data-aos-duration="600">
+      <span class="eyebrow">مراحل الانخراط</span>
+      <h2 class="section-title">خمس خطوات بسيطة</h2>
+      <p class="section-desc">عملية سريعة ومبسطة لتصبح عضوًا فاعلاً في الجمعية</p>
     </div>
 
-    <!-- Progress Steps -->
-    <div class="ms-steps-wrap" data-aos="fade-up" data-aos-duration="600">
-      <div class="ms-steps" id="msSteps">
-        <div class="ms-step active" data-step="1" onclick="msGoToStep(1)">
-          <div class="ms-step-circle">
-            <span class="ms-step-num">1</span>
-            <i class="bi bi-check-lg ms-step-icon"></i>
-          </div>
-          <span class="ms-step-label">المعلومات<br>الشخصية</span>
+    <div class="m-timeline" data-aos="fade-up" data-aos-duration="600">
+      <div class="m-timeline-item">
+        <div class="m-timeline-icon-wrap">
+          <span class="m-timeline-num">1</span>
+          <i class="bi bi-pencil-square"></i>
         </div>
-        <div class="ms-step" data-step="2" onclick="msGoToStep(2)">
-          <div class="ms-step-circle">
-            <span class="ms-step-num">2</span>
-            <i class="bi bi-check-lg ms-step-icon"></i>
-          </div>
-          <span class="ms-step-label">البريد<br>الإلكتروني</span>
+        <h3 class="m-timeline-title">تعبئة المعلومات</h3>
+        <p class="m-timeline-desc">قم بتعبئة بياناتك الشخصية ومعلومات الاتصال بدقة</p>
+      </div>
+
+      <div class="m-timeline-item">
+        <div class="m-timeline-icon-wrap">
+          <span class="m-timeline-num">2</span>
+          <i class="bi bi-search"></i>
         </div>
-        <div class="ms-step" data-step="3" onclick="msGoToStep(3)">
-          <div class="ms-step-circle">
-            <span class="ms-step-num">3</span>
-            <i class="bi bi-check-lg ms-step-icon"></i>
-          </div>
-          <span class="ms-step-label">رقم<br>الهاتف</span>
+        <h3 class="m-timeline-title">مراجعة البيانات</h3>
+        <p class="m-timeline-desc">تأكد من صحة جميع المعلومات قبل الإرسال</p>
+      </div>
+
+      <div class="m-timeline-item">
+        <div class="m-timeline-icon-wrap">
+          <span class="m-timeline-num">3</span>
+          <i class="bi bi-file-earmark-pdf"></i>
         </div>
-        <div class="ms-step" data-step="4" onclick="msGoToStep(4)">
-          <div class="ms-step-circle">
-            <span class="ms-step-num">4</span>
-            <i class="bi bi-check-lg ms-step-icon"></i>
-          </div>
-          <span class="ms-step-label">الصورة<br>الشخصية</span>
+        <h3 class="m-timeline-title">إنشاء PDF</h3>
+        <p class="m-timeline-desc">يتم إنشاء استمارة الانخراط بصيغة PDF رسمية</p>
+      </div>
+
+      <div class="m-timeline-item">
+        <div class="m-timeline-icon-wrap">
+          <span class="m-timeline-num">4</span>
+          <i class="bi bi-download"></i>
         </div>
-        <div class="ms-step" data-step="5" onclick="msGoToStep(5)">
-          <div class="ms-step-circle">
-            <span class="ms-step-num">5</span>
-            <i class="bi bi-check-lg ms-step-icon"></i>
-          </div>
-          <span class="ms-step-label">الوثائق</span>
+        <h3 class="m-timeline-title">تحميل الاستمارة</h3>
+        <p class="m-timeline-desc">قم بتحميل الاستمارة وطباعتها للتوقيع</p>
+      </div>
+
+      <div class="m-timeline-item">
+        <div class="m-timeline-icon-wrap">
+          <span class="m-timeline-num">5</span>
+          <i class="bi bi-shield-check"></i>
         </div>
-        <div class="ms-step" data-step="6" onclick="msGoToStep(6)">
-          <div class="ms-step-circle">
-            <span class="ms-step-num">6</span>
-            <i class="bi bi-check-lg ms-step-icon"></i>
-          </div>
-          <span class="ms-step-label">رسوم<br>الانخراط</span>
-        </div>
-        <div class="ms-step" data-step="7" onclick="msGoToStep(7)">
-          <div class="ms-step-circle">
-            <span class="ms-step-num">7</span>
-            <i class="bi bi-check-lg ms-step-icon"></i>
-          </div>
-          <span class="ms-step-label">مراجعة<br>وإرسال</span>
-        </div>
-        <div class="ms-steps-progress-bg"></div>
-        <div class="ms-steps-progress-line" id="msStepLine"></div>
+        <h3 class="m-timeline-title">المصادقة والإيداع</h3>
+        <p class="m-timeline-desc">صادق على الاستمارة وأودعها لدى مقر الجمعية</p>
       </div>
     </div>
+  </div>
+</section>
 
-    <!-- Form Area -->
-    <div class="ms-form-area">
+<!-- ====== FORM SECTION ====== -->
+<section class="m-form-section" id="m-form">
+  <div class="container">
+    <div class="section-head" data-aos="fade-up" data-aos-duration="600">
+      <span class="eyebrow">استمارة إلكترونية</span>
+      <h2 class="section-title">طلب الانخراط</h2>
+      <p class="section-desc">يرجى تعبئة جميع المعلومات المطلوبة بدقة</p>
+    </div>
 
-      <!-- ====== STEP 1: PERSONAL INFORMATION ====== -->
-      <div class="ms-step-container active" data-step="1">
-        <div class="ms-card" data-aos="fade-up" data-aos-duration="600">
-          <div class="ms-card-header">
-            <div class="ms-card-icon"><i class="bi bi-person-badge"></i></div>
-            <div>
-              <h3 class="ms-card-title">المعلومات الشخصية</h3>
-              <span class="ms-card-sub">يرجى تعبئة جميع البيانات المطلوبة بدقة</span>
-            </div>
+    <div class="m-form-layout">
+
+      <!-- Sidebar (first in RTL = right side visually) -->
+      <aside class="m-sidebar" data-aos="fade-up" data-aos-duration="600">
+        <div class="m-sidebar-card">
+          <div class="m-sidebar-header">
+            <i class="bi bi-question-circle"></i>
+            <h4>ماذا بعد؟</h4>
           </div>
-
-          <form id="msForm1" novalidate>
-            <div class="ms-row">
-              <div class="ms-floating-group">
-                <input type="text" id="msFirstName" class="ms-floating-input" placeholder=" " autocomplete="given-name">
-                <label for="msFirstName" class="ms-floating-label">الاسم الشخصي <span style="color:var(--ms-red)">*</span></label>
-                <span class="ms-input-icon"><i class="fas fa-user"></i></span>
-              </div>
-              <div class="ms-floating-group">
-                <input type="text" id="msLastName" class="ms-floating-input" placeholder=" " autocomplete="family-name">
-                <label for="msLastName" class="ms-floating-label">الاسم العائلي <span style="color:var(--ms-red)">*</span></label>
-                <span class="ms-input-icon"><i class="fas fa-user"></i></span>
-              </div>
-            </div>
-
-            <div class="ms-row">
-              <div class="ms-floating-group">
-                <input type="date" id="msBirthDate" class="ms-floating-input" placeholder=" ">
-                <label for="msBirthDate" class="ms-floating-label">تاريخ الازدياد <span style="color:var(--ms-red)">*</span></label>
-                <span class="ms-input-icon"><i class="fas fa-calendar"></i></span>
-              </div>
-              <div class="ms-floating-group">
-                <input type="text" id="msBirthPlace" class="ms-floating-input" placeholder=" ">
-                <label for="msBirthPlace" class="ms-floating-label">مكان الازدياد <span style="color:var(--ms-red)">*</span></label>
-                <span class="ms-input-icon"><i class="fas fa-city"></i></span>
-              </div>
-            </div>
-
-            <div class="ms-floating-group">
-              <input type="text" id="msCin" class="ms-floating-input" placeholder=" ">
-              <label for="msCin" class="ms-floating-label">رقم البطاقة الوطنية (CIN) <span style="color:var(--ms-red)">*</span></label>
-              <span class="ms-input-icon"><i class="fas fa-id-card"></i></span>
-            </div>
-
-            <div class="ms-row">
-              <div class="ms-floating-group">
-                <input type="email" id="msEmail" class="ms-floating-input" placeholder=" " autocomplete="email">
-                <label for="msEmail" class="ms-floating-label">البريد الإلكتروني <span style="color:var(--ms-red)">*</span></label>
-                <span class="ms-input-icon"><i class="fas fa-envelope"></i></span>
-              </div>
-              <div class="ms-floating-group">
-                <input type="tel" id="msPhone" class="ms-floating-input" placeholder=" " autocomplete="tel">
-                <label for="msPhone" class="ms-floating-label">رقم الهاتف <span style="color:var(--ms-red)">*</span></label>
-                <span class="ms-input-icon"><i class="fas fa-phone"></i></span>
-              </div>
-            </div>
-
-            <div class="ms-floating-group">
-              <input type="text" id="msAddress" class="ms-floating-input" placeholder=" " autocomplete="street-address">
-              <label for="msAddress" class="ms-floating-label">العنوان <span style="color:var(--ms-red)">*</span></label>
-              <span class="ms-input-icon"><i class="fas fa-home"></i></span>
-            </div>
-
-            <div class="ms-field-error" id="msStep1Error"><i class="fas fa-exclamation-circle"></i> <span></span></div>
-          </form>
-        </div>
-
-        <div class="ms-nav">
-          <div></div>
-          <button class="ms-nav-btn ms-nav-next" id="msStep1Next" onclick="msNextStep()">
-            التالي
-            <i class="bi bi-arrow-left"></i>
-          </button>
-        </div>
-      </div>
-
-      <!-- ====== STEP 2: EMAIL VERIFICATION ====== -->
-      <div class="ms-step-container" data-step="2">
-        <div class="ms-card" data-aos="fade-up" data-aos-duration="600">
-          <div class="ms-card-header">
-            <div class="ms-card-icon"><i class="bi bi-envelope-check"></i></div>
-            <div>
-              <h3 class="ms-card-title">التحقق من البريد الإلكتروني</h3>
-              <span class="ms-card-sub">أدخل رمز التأكيد المرسل إلى بريدك الإلكتروني</span>
-            </div>
-          </div>
-
-          <div class="ms-otp-info">
-            تم إرسال رمز التأكيد إلى
-            <span class="ms-otp-email" id="msEmailDisplay">---</span>
-          </div>
-
-          <div class="ms-otp-container" id="msEmailOtp" dir="ltr">
-            <input type="text" class="ms-otp-input" maxlength="1" inputmode="numeric" pattern="[0-9]" autocomplete="one-time-code">
-            <input type="text" class="ms-otp-input" maxlength="1" inputmode="numeric" pattern="[0-9]">
-            <input type="text" class="ms-otp-input" maxlength="1" inputmode="numeric" pattern="[0-9]">
-            <input type="text" class="ms-otp-input" maxlength="1" inputmode="numeric" pattern="[0-9]">
-            <input type="text" class="ms-otp-input" maxlength="1" inputmode="numeric" pattern="[0-9]">
-            <input type="text" class="ms-otp-input" maxlength="1" inputmode="numeric" pattern="[0-9]">
-          </div>
-
-          <div class="ms-field-error" id="msStep2Error" style="text-align:center;justify-content:center;margin-top:-8px;margin-bottom:16px;"><i class="fas fa-exclamation-circle"></i> <span></span></div>
-
-          <div class="ms-otp-actions">
-            <button class="ms-otp-resend" id="msEmailResend" onclick="msResendEmailOtp()">
-              <i class="bi bi-arrow-clockwise"></i>
-              إعادة إرسال الرمز
-            </button>
-            <span class="ms-otp-timer" id="msEmailTimer">
-              <i class="bi bi-clock"></i>
-              <span id="msEmailTimerValue">02:00</span>
-            </span>
-          </div>
-
-          <div class="ms-otp-success" id="msEmailSuccess">
-            <div class="ms-otp-success-icon"><i class="fas fa-check"></i></div>
-            <div class="ms-otp-success-title">تم التحقق من البريد الإلكتروني</div>
-            <div class="ms-otp-success-desc">بريدك الإلكتروني موثوق الآن.</div>
+          <div class="m-sidebar-body">
+            <ul class="m-sidebar-list">
+              <li><i class="bi bi-check-circle"></i><span>سيتم إنشاء استمارة الانخراط بصيغة PDF رسمية</span></li>
+              <li><i class="bi bi-check-circle"></i><span>قم بطباعة الاستمارة والتأكد من صحة البيانات</span></li>
+              <li><i class="bi bi-check-circle"></i><span>صادق عليها بتوقيعك الشخصي</span></li>
+              <li><i class="bi bi-check-circle"></i><span>أودع الملف لدى مقر الجمعية أو عبر البريد</span></li>
+            </ul>
           </div>
         </div>
 
-        <div class="ms-nav">
-          <button class="ms-nav-btn ms-nav-prev" onclick="msPrevStep()">
-            <i class="bi bi-arrow-right"></i>
-            السابق
-          </button>
-          <button class="ms-nav-btn ms-nav-next" id="msStep2Next" onclick="msNextStep()" disabled>
-            التالي
-            <i class="bi bi-arrow-left"></i>
-          </button>
-        </div>
-      </div>
-
-      <!-- ====== STEP 3: PHONE VERIFICATION ====== -->
-      <div class="ms-step-container" data-step="3">
-        <div class="ms-card" data-aos="fade-up" data-aos-duration="600">
-          <div class="ms-card-header">
-            <div class="ms-card-icon"><i class="bi bi-phone-check"></i></div>
-            <div>
-              <h3 class="ms-card-title">التحقق من رقم الهاتف</h3>
-              <span class="ms-card-sub">أدخل رمز التأكيد المرسل إلى هاتفك</span>
+        <div class="m-sidebar-card">
+          <div class="m-sidebar-header">
+            <i class="bi bi-headset"></i>
+            <h4>الدعم والمساعدة</h4>
+          </div>
+          <div class="m-sidebar-body">
+            <div class="m-sidebar-support-item">
+              <i class="bi bi-telephone"></i>
+              <span dir="ltr">+212 684869996</span>
             </div>
+            <div class="m-sidebar-support-item">
+              <i class="bi bi-envelope"></i>
+              <span dir="ltr">association.amare.agadir@gmail.com</span>
+            </div>
+            <a href="https://wa.me/212600000000" target="_blank" rel="noopener" class="m-sidebar-whatsapp">
+              <i class="bi bi-whatsapp"></i>
+              تواصل عبر واتساب
+            </a>
           </div>
+        </div>
+      </aside>
 
-          <div class="ms-otp-info">
-            تم إرسال رمز التأكيد إلى
-            <span class="ms-otp-email" id="msPhoneDisplay">---</span>
+      <!-- Form -->
+      <div class="m-form-main">
+
+        <!-- Progress Bar inside first card -->
+        <div class="m-form-card m-progress-card">
+          <div class="m-progress-label">
+            <span>اكتمال النموذج</span>
+            <span id="mProgressPercent">0%</span>
           </div>
-
-          <div class="ms-otp-container" id="msPhoneOtp" dir="ltr">
-            <input type="text" class="ms-otp-input" maxlength="1" inputmode="numeric" pattern="[0-9]">
-            <input type="text" class="ms-otp-input" maxlength="1" inputmode="numeric" pattern="[0-9]">
-            <input type="text" class="ms-otp-input" maxlength="1" inputmode="numeric" pattern="[0-9]">
-            <input type="text" class="ms-otp-input" maxlength="1" inputmode="numeric" pattern="[0-9]">
-            <input type="text" class="ms-otp-input" maxlength="1" inputmode="numeric" pattern="[0-9]">
-            <input type="text" class="ms-otp-input" maxlength="1" inputmode="numeric" pattern="[0-9]">
-          </div>
-
-          <div class="ms-field-error" id="msStep3Error" style="text-align:center;justify-content:center;margin-top:-8px;margin-bottom:16px;"><i class="fas fa-exclamation-circle"></i> <span></span></div>
-
-          <div class="ms-otp-actions">
-            <button class="ms-otp-resend" id="msPhoneResend" onclick="msResendPhoneOtp()">
-              <i class="bi bi-arrow-clockwise"></i>
-              إعادة إرسال الرمز
-            </button>
-            <span class="ms-otp-timer" id="msPhoneTimer">
-              <i class="bi bi-clock"></i>
-              <span id="msPhoneTimerValue">02:00</span>
-            </span>
-          </div>
-
-          <div class="ms-otp-success" id="msPhoneSuccess">
-            <div class="ms-otp-success-icon"><i class="fas fa-check"></i></div>
-            <div class="ms-otp-success-title">تم التحقق من رقم الهاتف</div>
-            <div class="ms-otp-success-desc">رقم هاتفك موثوق الآن.</div>
+          <div class="m-progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+            <div class="m-progress-fill" id="mProgressFill"></div>
           </div>
         </div>
 
-        <div class="ms-nav">
-          <button class="ms-nav-btn ms-nav-prev" onclick="msPrevStep()">
-            <i class="bi bi-arrow-right"></i>
-            السابق
-          </button>
-          <button class="ms-nav-btn ms-nav-next" id="msStep3Next" onclick="msNextStep()" disabled>
-            التالي
-            <i class="bi bi-arrow-left"></i>
-          </button>
-        </div>
-      </div>
+        <form id="joinForm" novalidate>
 
-      <!-- ====== STEP 4: IDENTITY (PHOTO) ====== -->
-      <div class="ms-step-container" data-step="4">
-        <div class="ms-card" data-aos="fade-up" data-aos-duration="600">
-          <div class="ms-card-header">
-            <div class="ms-card-icon"><i class="bi bi-camera"></i></div>
-            <div>
-              <h3 class="ms-card-title">الصورة الشخصية</h3>
-              <span class="ms-card-sub">صورة واضحة بخلفية فاتحة</span>
+          <!-- Step 1: Personal Info -->
+          <div class="m-form-card">
+            <div class="m-wizard-step">
+              <i class="bi bi-1-circle"></i>
+              الخطوة 1 من 5
+            </div>
+            <div class="m-form-card-header">
+              <div class="m-form-card-icon"><i class="bi bi-person-badge"></i></div>
+              <div>
+                <h3 class="m-form-card-title">المعلومات الشخصية</h3>
+                <span class="m-form-card-sub">البيانات الأساسية للعضو</span>
+              </div>
+            </div>
+
+            <div class="m-row">
+              <div class="join-field">
+                <label class="join-label" for="firstName">الاسم الشخصي <span class="required">*</span></label>
+                <div class="join-input-wrap">
+                  <input type="text" id="firstName" class="join-input" placeholder="الاسم الشخصي" required autocomplete="given-name">
+                  <span class="join-input-icon"><i class="fas fa-user"></i></span>
+                </div>
+                <div class="join-error" id="firstNameError" role="alert"></div>
+              </div>
+              <div class="join-field">
+                <label class="join-label" for="lastName">الاسم العائلي <span class="required">*</span></label>
+                <div class="join-input-wrap">
+                  <input type="text" id="lastName" class="join-input" placeholder="الاسم العائلي" required autocomplete="family-name">
+                  <span class="join-input-icon"><i class="fas fa-user"></i></span>
+                </div>
+                <div class="join-error" id="lastNameError" role="alert"></div>
+              </div>
+            </div>
+
+            <div class="m-row">
+              <div class="join-field">
+                <label class="join-label" for="birthDate">تاريخ الازدياد <span class="required">*</span></label>
+                <div class="join-input-wrap">
+                  <input type="date" id="birthDate" class="join-input" required>
+                  <span class="join-input-icon"><i class="fas fa-calendar"></i></span>
+                </div>
+                <div class="join-error" id="birthDateError" role="alert"></div>
+              </div>
+              <div class="join-field">
+                <label class="join-label" for="birthPlace">مكان الازدياد <span class="required">*</span></label>
+                <div class="join-input-wrap">
+                  <input type="text" id="birthPlace" class="join-input" placeholder="مدينة الازدياد" required>
+                  <span class="join-input-icon"><i class="fas fa-city"></i></span>
+                </div>
+                <div class="join-error" id="birthPlaceError" role="alert"></div>
+              </div>
+            </div>
+
+            <div class="join-field">
+              <label class="join-label" for="cin">رقم البطاقة الوطنية <span class="required">*</span></label>
+              <div class="join-input-wrap">
+                <input type="text" id="cin" class="join-input" placeholder="رقم البطاقة الوطنية" required>
+                <span class="join-input-icon"><i class="fas fa-id-card"></i></span>
+              </div>
+              <div class="join-error" id="cinError" role="alert"></div>
             </div>
           </div>
 
-          <div class="ms-upload-area" id="msUploadArea" role="button" tabindex="0">
-            <input type="file" id="msPhotoInput" accept="image/png,image/jpeg,image/jpg" hidden>
-            <div class="ms-upload-content" id="msUploadContent">
-              <div class="ms-upload-icon"><i class="fas fa-cloud-upload-alt"></i></div>
-              <div class="ms-upload-title">اسحب وأفلت الصورة هنا</div>
-              <div class="ms-upload-desc">أو انقر لاختيار صورة من جهازك</div>
-              <div class="ms-upload-hint">PNG, JPG — حد أقصى 5MB</div>
+          <!-- Step 2: Contact Info -->
+          <div class="m-form-card">
+            <div class="m-wizard-step">
+              <i class="bi bi-2-circle"></i>
+              الخطوة 2 من 5
             </div>
-            <div class="ms-upload-preview" id="msUploadPreview">
-              <img id="msPreviewImage" src="" alt="معاينة الصورة">
-              <button type="button" class="ms-upload-remove" id="msRemoveImage" aria-label="إزالة الصورة">
-                <i class="fas fa-times"></i>
-              </button>
-            </div>
-          </div>
-
-          <div class="ms-field-error" id="msStep4Error" style="margin-top:8px;"><i class="fas fa-exclamation-circle"></i> <span></span></div>
-        </div>
-
-        <div class="ms-nav">
-          <button class="ms-nav-btn ms-nav-prev" onclick="msPrevStep()">
-            <i class="bi bi-arrow-right"></i>
-            السابق
-          </button>
-          <button class="ms-nav-btn ms-nav-next" id="msStep4Next" onclick="msNextStep()">
-            التالي
-            <i class="bi bi-arrow-left"></i>
-          </button>
-        </div>
-      </div>
-
-      <!-- ====== STEP 5: DOCUMENTS ====== -->
-      <div class="ms-step-container" data-step="5">
-        <div class="ms-card" data-aos="fade-up" data-aos-duration="600">
-          <div class="ms-card-header">
-            <div class="ms-card-icon"><i class="bi bi-file-earmark-text"></i></div>
-            <div>
-              <h3 class="ms-card-title">الوثائق</h3>
-              <span class="ms-card-sub">يرجى الاطلاع على الوثائق وقبولها للمتابعة</span>
-            </div>
-          </div>
-
-          <div class="ms-doc-list" id="msDocList">
-            <div class="ms-doc-item" data-doc="1">
-              <div class="ms-doc-icon"><i class="fas fa-file-signature"></i></div>
-              <div class="ms-doc-info">
-                <div class="ms-doc-name">استمارة الانخراط</div>
-                <div class="ms-doc-size">PDF - 1.2 MB</div>
+            <div class="m-form-card-header">
+              <div class="m-form-card-icon"><i class="bi bi-envelope-paper"></i></div>
+              <div>
+                <h3 class="m-form-card-title">معلومات التواصل</h3>
+                <span class="m-form-card-sub">بيانات الاتصال للتواصل معك</span>
               </div>
-              <div class="ms-doc-actions">
-                <a href="#" class="ms-doc-btn" title="عرض" target="_blank"><i class="fas fa-eye"></i></a>
-                <a href="#" class="ms-doc-btn" title="تحميل"><i class="fas fa-download"></i></a>
-              </div>
-              <label class="ms-doc-check">
-                <input type="checkbox" class="ms-doc-checkbox">
-                <span class="ms-doc-check-box"><i class="fas fa-check"></i></span>
-                <span class="ms-doc-check-text">اطلعت وأوافق</span>
-              </label>
             </div>
 
-            <div class="ms-doc-item" data-doc="2">
-              <div class="ms-doc-icon"><i class="fas fa-gavel"></i></div>
-              <div class="ms-doc-info">
-                <div class="ms-doc-name">القانون الداخلي</div>
-                <div class="ms-doc-size">PDF - 980 KB</div>
+            <div class="m-row">
+              <div class="join-field">
+                <label class="join-label" for="phone">رقم الهاتف <span class="required">*</span></label>
+                <div class="join-input-wrap">
+                  <input type="tel" id="phone" class="join-input" placeholder="رقم الهاتف المحمول" required autocomplete="tel">
+                  <span class="join-input-icon"><i class="fas fa-phone"></i></span>
+                </div>
+                <div class="join-error" id="phoneError" role="alert"></div>
               </div>
-              <div class="ms-doc-actions">
-                <a href="#" class="ms-doc-btn" title="عرض" target="_blank"><i class="fas fa-eye"></i></a>
-                <a href="#" class="ms-doc-btn" title="تحميل"><i class="fas fa-download"></i></a>
+              <div class="join-field">
+                <label class="join-label" for="email">البريد الإلكتروني <span class="required">*</span></label>
+                <div class="join-input-wrap">
+                  <input type="email" id="email" class="join-input" placeholder="بريدك الإلكتروني" required autocomplete="email">
+                  <span class="join-input-icon"><i class="fas fa-envelope"></i></span>
+                </div>
+                <div class="join-error" id="emailError" role="alert"></div>
               </div>
-              <label class="ms-doc-check">
-                <input type="checkbox" class="ms-doc-checkbox">
-                <span class="ms-doc-check-box"><i class="fas fa-check"></i></span>
-                <span class="ms-doc-check-text">اطلعت وأوافق</span>
-              </label>
             </div>
 
-            <div class="ms-doc-item" data-doc="3">
-              <div class="ms-doc-icon"><i class="fas fa-handshake"></i></div>
-              <div class="ms-doc-info">
-                <div class="ms-doc-name">ميثاق العضوية</div>
-                <div class="ms-doc-size">PDF - 750 KB</div>
+            <div class="join-field">
+              <label class="join-label" for="address">العنوان <span class="required">*</span></label>
+              <div class="join-input-wrap">
+                <input type="text" id="address" class="join-input" placeholder="العنوان الكامل" required autocomplete="street-address">
+                <span class="join-input-icon"><i class="fas fa-home"></i></span>
               </div>
-              <div class="ms-doc-actions">
-                <a href="#" class="ms-doc-btn" title="عرض" target="_blank"><i class="fas fa-eye"></i></a>
-                <a href="#" class="ms-doc-btn" title="تحميل"><i class="fas fa-download"></i></a>
-              </div>
-              <label class="ms-doc-check">
-                <input type="checkbox" class="ms-doc-checkbox">
-                <span class="ms-doc-check-box"><i class="fas fa-check"></i></span>
-                <span class="ms-doc-check-text">اطلعت وأوافق</span>
-              </label>
-            </div>
-
-            <div class="ms-doc-item" data-doc="4">
-              <div class="ms-doc-icon"><i class="fas fa-file-contract"></i></div>
-              <div class="ms-doc-info">
-                <div class="ms-doc-name">التزام العضو</div>
-                <div class="ms-doc-size">PDF - 620 KB</div>
-              </div>
-              <div class="ms-doc-actions">
-                <a href="#" class="ms-doc-btn" title="عرض" target="_blank"><i class="fas fa-eye"></i></a>
-                <a href="#" class="ms-doc-btn" title="تحميل"><i class="fas fa-download"></i></a>
-              </div>
-              <label class="ms-doc-check">
-                <input type="checkbox" class="ms-doc-checkbox">
-                <span class="ms-doc-check-box"><i class="fas fa-check"></i></span>
-                <span class="ms-doc-check-text">اطلعت وأوافق</span>
-              </label>
+              <div class="join-error" id="addressError" role="alert"></div>
             </div>
           </div>
 
-          <div class="ms-field-error" id="msStep5Error" style="margin-top:16px;"><i class="fas fa-exclamation-circle"></i> <span></span></div>
-        </div>
+          <!-- Step 3: Photo -->
+          <div class="m-form-card">
+            <div class="m-wizard-step">
+              <i class="bi bi-3-circle"></i>
+              الخطوة 3 من 5
+            </div>
+            <div class="m-form-card-header">
+              <div class="m-form-card-icon"><i class="bi bi-camera"></i></div>
+              <div>
+                <h3 class="m-form-card-title">الصورة الشخصية</h3>
+                <span class="m-form-card-sub">صورة واضحة بخلفية فاتحة</span>
+              </div>
+            </div>
 
-        <div class="ms-nav">
-          <button class="ms-nav-btn ms-nav-prev" onclick="msPrevStep()">
-            <i class="bi bi-arrow-right"></i>
-            السابق
-          </button>
-          <button class="ms-nav-btn ms-nav-next" id="msStep5Next" onclick="msNextStep()" disabled>
-            التالي
-            <i class="bi bi-arrow-left"></i>
-          </button>
-        </div>
-      </div>
+            <div class="join-field">
+              <label class="join-label">الصورة الشخصية <span class="required">*</span></label>
+              <div class="join-upload-area" id="uploadArea" role="button" tabindex="0">
+                <input type="file" id="photoInput" accept="image/png,image/jpeg" hidden>
+                <div class="join-upload-content" id="uploadContent">
+                  <div class="join-upload-icon"><i class="fas fa-camera"></i></div>
+                  <div class="join-upload-title">ارفع صورتك</div>
+                  <div class="join-upload-desc">اسحب وأفلت الصورة هنا أو انقر للاختيار</div>
+                  <div class="join-upload-hint">PNG, JPG — حد أقصى 5MB</div>
+                </div>
+                <div class="join-upload-preview">
+                  <img id="previewImage" src="" alt="معاينة الصورة">
+                  <button type="button" class="join-upload-remove" id="removeImage" aria-label="إزالة الصورة">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="join-error" id="photoError" role="alert"></div>
+            </div>
 
-      <!-- ====== STEP 6: MEMBERSHIP FEE ====== -->
-      <div class="ms-step-container" data-step="6">
-        <div class="ms-card" data-aos="fade-up" data-aos-duration="600">
-          <div class="ms-card-header">
-            <div class="ms-card-icon"><i class="bi bi-credit-card"></i></div>
-            <div>
-              <h3 class="ms-card-title">رسوم الانخراط</h3>
-              <span class="ms-card-sub">رسوم العضوية السنوية للجمعية</span>
+            <!-- Signature -->
+            <div class="m-sig-wrap">
+              <div class="m-sig-label">
+                <i class="bi bi-pen"></i>
+                التوقيع <span class="required">*</span>
+              </div>
+              <div class="m-sig-canvas-wrap">
+                <canvas id="sigMember" class="join-signature-canvas" width="400" height="130"></canvas>
+                <div class="join-signature-placeholder" id="sigMemberPlaceholder">
+                  <i class="bi bi-pencil"></i>
+                  <span>وقع هنا</span>
+                </div>
+                <button type="button" class="join-sig-clear" data-canvas="sigMember">
+                  <i class="fas fa-eraser"></i>
+                  مسح
+                </button>
+              </div>
+              <div class="join-error" id="sigMemberError" role="alert"></div>
+            </div>
+
+            <div style="display:none">
+              <canvas id="sigPresident" width="400" height="130"></canvas>
+              <div id="sigPresidentPlaceholder"></div>
+              <button type="button" class="join-sig-clear" data-canvas="sigPresident"></button>
             </div>
           </div>
 
-          <div class="ms-payment-card">
-            <div class="ms-payment-label">رسوم الانخراط السنوية</div>
-            <div class="ms-payment-amount">
-              200 <span class="ms-payment-amount-currency">درهم</span>
+          <!-- Step 4: Review & Declaration -->
+          <div class="m-form-card">
+            <div class="m-wizard-step">
+              <i class="bi bi-4-circle"></i>
+              الخطوة 4 من 5
             </div>
-            <div class="ms-payment-status">
-              <i class="fas fa-clock"></i>
-              في انتظار الدفع
+            <div class="m-form-card-header">
+              <div class="m-form-card-icon"><i class="bi bi-file-earmark-check"></i></div>
+              <div>
+                <h3 class="m-form-card-title">مراجعة البيانات</h3>
+                <span class="m-form-card-sub">تأكد من صحة جميع المعلومات</span>
+              </div>
             </div>
-            <p class="ms-payment-desc">
-              رسوم الانخراط تغطي العضوية السنوية وتكاليف البطاقة التعريفية. سيتم تفعيل الدفع الإلكتروني قريباً.
-            </p>
-          </div>
 
-          <div class="ms-field-error" id="msStep6Error" style="margin-top:16px;"><i class="fas fa-exclamation-circle"></i> <span></span></div>
-        </div>
+            <label class="join-checkbox" for="agreeCheck">
+              <input type="checkbox" id="agreeCheck" class="join-checkbox-input">
+              <span class="join-checkbox-check"><i class="fas fa-check"></i></span>
+              <span class="join-checkbox-text">أقر بأن جميع المعلومات <strong>صحيحة وكاملة</strong> ويتحمل الموقع كامل المسؤولية القانونية</span>
+            </label>
+            <div class="join-error" id="agreeError" role="alert" style="margin-top:8px;"></div>
 
-        <div class="ms-nav">
-          <button class="ms-nav-btn ms-nav-prev" onclick="msPrevStep()">
-            <i class="bi bi-arrow-right"></i>
-            السابق
-          </button>
-          <button class="ms-nav-btn ms-nav-next" id="msStep6Next" onclick="msNextStep()">
-            متابعة
-            <i class="bi bi-arrow-left"></i>
-          </button>
-        </div>
-      </div>
-
-      <!-- ====== STEP 7: REVIEW ====== -->
-      <div class="ms-step-container" data-step="7">
-        <div class="ms-card" data-aos="fade-up" data-aos-duration="600">
-          <div class="ms-card-header">
-            <div class="ms-card-icon"><i class="bi bi-clipboard-check"></i></div>
-            <div>
-              <h3 class="ms-card-title">مراجعة المعلومات</h3>
-              <span class="ms-card-sub">تأكد من صحة جميع المعلومات قبل الإرسال</span>
-            </div>
-          </div>
-
-          <!-- Personal Info -->
-          <div class="ms-review-section">
-            <div class="ms-review-section-title">
-              <i class="bi bi-person-badge" style="color:var(--ms-sky)"></i>
-              المعلومات الشخصية
-              <button class="ms-review-edit" onclick="msGoToStep(1)">
-                <i class="bi bi-pencil"></i> تعديل
-              </button>
-            </div>
-            <div class="ms-review-grid">
-              <div class="ms-review-item">
-                <span class="ms-review-label">الاسم الشخصي</span>
-                <span class="ms-review-value" id="msRvFirstName">---</span>
+            <!-- Step 5: Submit -->
+            <div class="m-submit-wrap">
+              <div class="m-wizard-step" style="margin-bottom:16px;">
+                <i class="bi bi-5-circle"></i>
+                الخطوة 5 من 5
               </div>
-              <div class="ms-review-item">
-                <span class="ms-review-label">الاسم العائلي</span>
-                <span class="ms-review-value" id="msRvLastName">---</span>
-              </div>
-              <div class="ms-review-item">
-                <span class="ms-review-label">تاريخ الازدياد</span>
-                <span class="ms-review-value" id="msRvBirthDate">---</span>
-              </div>
-              <div class="ms-review-item">
-                <span class="ms-review-label">مكان الازدياد</span>
-                <span class="ms-review-value" id="msRvBirthPlace">---</span>
-              </div>
-              <div class="ms-review-item">
-                <span class="ms-review-label">رقم البطاقة الوطنية</span>
-                <span class="ms-review-value" id="msRvCin">---</span>
-              </div>
-              <div class="ms-review-item">
-                <span class="ms-review-label">البريد الإلكتروني</span>
-                <span class="ms-review-value" id="msRvEmail">---</span>
-              </div>
-              <div class="ms-review-item">
-                <span class="ms-review-label">رقم الهاتف</span>
-                <span class="ms-review-value" id="msRvPhone">---</span>
-              </div>
-              <div class="ms-review-item">
-                <span class="ms-review-label">العنوان</span>
-                <span class="ms-review-value" id="msRvAddress">---</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Verification Status -->
-          <div class="ms-review-section">
-            <div class="ms-review-section-title">
-              <i class="bi bi-shield-check" style="color:var(--ms-sky)"></i>
-              حالة التحقق
-            </div>
-            <div class="ms-review-grid">
-              <div class="ms-review-item">
-                <span class="ms-review-label">البريد الإلكتروني</span>
-                <span class="ms-review-value" style="color:#27ae60" id="msRvEmailStatus">
-                  <i class="fas fa-check-circle"></i> تم التحقق
+              <div id="formErrorContainer"></div>
+              <button type="submit" class="join-submit-btn" id="submitBtn" disabled>
+                <span class="join-submit-text" id="submitText">
+                  <i class="fas fa-file-pdf"></i>
+                  إنشاء ملف الانخراط
                 </span>
-              </div>
-              <div class="ms-review-item">
-                <span class="ms-review-label">رقم الهاتف</span>
-                <span class="ms-review-value" style="color:#27ae60" id="msRvPhoneStatus">
-                  <i class="fas fa-check-circle"></i> تم التحقق
+                <span class="join-submit-loading" id="submitLoading">
+                  <span class="join-spinner"></span>
+                  جارٍ إنشاء ملف الانخراط...
                 </span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Photo -->
-          <div class="ms-review-section">
-            <div class="ms-review-section-title">
-              <i class="bi bi-camera" style="color:var(--ms-sky)"></i>
-              الصورة الشخصية
-              <button class="ms-review-edit" onclick="msGoToStep(4)">
-                <i class="bi bi-pencil"></i> تعديل
               </button>
             </div>
-            <img id="msRvPhoto" class="ms-review-photo" src="" alt="الصورة الشخصية" style="display:none">
-            <span id="msRvPhotoPlaceholder" style="font-size:14px;color:#8A9BB5;">---</span>
           </div>
 
-          <!-- Documents -->
-          <div class="ms-review-section">
-            <div class="ms-review-section-title">
-              <i class="bi bi-file-earmark-check" style="color:var(--ms-sky)"></i>
-              الوثائق
-              <button class="ms-review-edit" onclick="msGoToStep(5)">
-                <i class="bi bi-pencil"></i> تعديل
-              </button>
-            </div>
-            <div style="font-size:14px;color:var(--ms-dark);font-weight:600;">
-              <i class="fas fa-check-circle" style="color:#27ae60"></i> تم الاطلاع وقبول جميع الوثائق
-            </div>
-          </div>
+        </form>
 
-          <!-- Membership Fee -->
-          <div class="ms-review-section">
-            <div class="ms-review-section-title">
-              <i class="bi bi-credit-card" style="color:var(--ms-sky)"></i>
-              رسوم الانخراط
-            </div>
-            <div style="font-size:14px;color:var(--ms-dark);font-weight:600;">
-              200 درهم — <span style="color:#B8860B;">في انتظار الدفع</span>
-            </div>
+        <!-- Success State -->
+        <div class="join-success" id="joinSuccess">
+          <div class="join-success-icon"><i class="fas fa-check-circle"></i></div>
+          <h3 class="join-success-title">تم إنشاء الاستمارة بنجاح</h3>
+          <p class="join-success-desc">تم إنشاء استمارة الانخراط الخاصة بك. يمكنك الآن تحميلها أو العودة للصفحة الرئيسية.</p>
+          <div class="join-success-id">
+            <span>رقم الطلب:</span>
+            <strong id="requestId">AMARE-0000</strong>
           </div>
-
-          <div class="ms-field-error" id="msStep7Error" style="margin-top:8px;"><i class="fas fa-exclamation-circle"></i> <span></span></div>
+          <div class="m-success-actions">
+            <a href="#" class="join-success-btn" id="downloadPdfBtn">
+              <i class="bi bi-download"></i>
+              تحميل PDF
+            </a>
+            <a href="../index.html" class="m-btn m-btn-outline" style="color:var(--m-text);border-color:var(--m-border);background:transparent;">
+              <i class="bi bi-house"></i>
+              العودة للرئيسية
+            </a>
+          </div>
         </div>
 
-        <div class="ms-nav">
-          <button class="ms-nav-btn ms-nav-prev" onclick="msPrevStep()">
-            <i class="bi bi-arrow-right"></i>
-            السابق
-          </button>
-          <button class="ms-nav-btn ms-nav-next" id="msStep7Submit" onclick="msSubmit()" style="background:linear-gradient(135deg, var(--ms-gold), #FFD34D);color:#080e1f;box-shadow:0 8px 24px rgba(246,179,0,.3);">
-            <i class="bi bi-send"></i>
-            إرسال الطلب
-          </button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ====== PREVIEW SECTION ====== -->
+<section class="m-preview-section" id="m-preview">
+  <div class="container">
+    <div class="section-head" data-aos="fade-up" data-aos-duration="600">
+      <span class="eyebrow">معاينة</span>
+      <h2 class="section-title">مراجعة الاستمارة</h2>
+      <p class="section-desc">راجع معلوماتك قبل إنشاء PDF</p>
+    </div>
+
+    <div class="m-preview-grid">
+      <div class="m-preview-summary">
+        <div class="m-preview-summary-header">
+          <i class="bi bi-file-text"></i>
+          <h3>ملخص البيانات</h3>
+        </div>
+        <div id="mPreviewContent">
+          <div class="m-preview-row"><span class="m-preview-row-label">الاسم الشخصي</span><span class="m-preview-row-value" id="pv-firstName">—</span></div>
+          <div class="m-preview-row"><span class="m-preview-row-label">الاسم العائلي</span><span class="m-preview-row-value" id="pv-lastName">—</span></div>
+          <div class="m-preview-row"><span class="m-preview-row-label">تاريخ الازدياد</span><span class="m-preview-row-value" id="pv-birthDate">—</span></div>
+          <div class="m-preview-row"><span class="m-preview-row-label">مكان الازدياد</span><span class="m-preview-row-value" id="pv-birthPlace">—</span></div>
+          <div class="m-preview-row"><span class="m-preview-row-label">رقم البطاقة</span><span class="m-preview-row-value" id="pv-cin">—</span></div>
+          <div class="m-preview-row"><span class="m-preview-row-label">رقم الهاتف</span><span class="m-preview-row-value" id="pv-phone">—</span></div>
+          <div class="m-preview-row"><span class="m-preview-row-label">البريد الإلكتروني</span><span class="m-preview-row-value" id="pv-email">—</span></div>
+          <div class="m-preview-row"><span class="m-preview-row-label">العنوان</span><span class="m-preview-row-value" id="pv-address">—</span></div>
         </div>
       </div>
 
-      <!-- ====== SUCCESS ====== -->
-      <div class="ms-success" id="msSuccess">
-        <div class="ms-success-icon"><i class="fas fa-check-circle"></i></div>
-        <h3 class="ms-success-title">تم إرسال طلبك بنجاح!</h3>
-        <p class="ms-success-desc">سيتم مراجعة ملفك من طرف إدارة الجمعية والتواصل معك في أقرب وقت ممكن.</p>
-        <div class="ms-success-actions">
-          <a href="../index.html" class="ms-success-btn ms-success-btn-primary">
-            <i class="bi bi-house"></i>
-            العودة للرئيسية
-          </a>
-          <a href="#" class="ms-success-btn ms-success-btn-secondary" onclick="msReset()">
-            <i class="bi bi-plus-circle"></i>
-            طلب جديد
-          </a>
+      <div>
+        <div class="m-preview-visual-card">
+          <div class="m-preview-visual-placeholder">
+            <i class="bi bi-file-earmark-text"></i>
+          </div>
+          <p style="font-size:14px;color:#5B6B7C;margin-bottom:20px;">معاينة استمارة العضوية الرسمية</p>
+          <div class="m-preview-actions">
+            <button class="m-btn m-btn-outline" style="color:var(--m-text);border-color:var(--m-border);padding:12px 24px;font-size:14px;background:transparent;">
+              <i class="bi bi-arrow-right"></i>
+              عودة
+            </button>
+            <button class="m-btn m-btn-primary" style="padding:12px 24px;font-size:14px;">
+              <i class="bi bi-file-earmark-pdf"></i>
+              Generate PDF
+            </button>
+          </div>
         </div>
       </div>
-
     </div>
   </div>
 </section>
 
 </main>
 
-<div id="footer" data-base=".."></div>
+<footer class="footer" id="contact">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-about">
+        <div class="footer-brand">
+          <span class="brand-mark">
+            <img src="../Amare%20files%20/logo.png" alt="AMARE Logo" class="topbar-brand-logo">
+          </span>
+          <span>
+            <span class="brand-name">الجمعية المغربية لهواة البحث والاستكشاف</span><br>
+          </span>
+        </div>
+        <p>الجمعية المغربية لهواة البحث والاستكشاف هي إطار قانوني وطني يجمع الهواة تحت راية واحدة لصون التراث الوطني المغربي.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="فيسبوك"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg></a>
+          <a href="#" aria-label="إنستغرام"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+          <a href="#" aria-label="لينكدإن"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 5 3.79 6.2 2.3 6.2 1 6.2 0 5 0 3.5 0 2 1.1.8 2.5.8s2.48 1.2 2.48 2.7zM.2 8.5h4.6V23H.2V8.5zM8 8.5h4.4v2h.06c.6-1.2 2.1-2.4 4.4-2.4 4.7 0 5.6 3.1 5.6 7.1V23h-4.6v-6.7c0-1.6 0-3.7-2.3-3.7s-2.6 1.8-2.6 3.6V23H8V8.5z"/></svg></a>
+        </div>
+      </div>
+
+      <nav aria-label="روابط سريعة">
+        <h4>روابط سريعة</h4>
+        <ul class="footer-links">
+          <li><a href="../index.html">الرئيسية</a></li>
+          <li><a href="../index.html#about">اتصل بنا</a></li>
+          <li><a href="../index.html#services">خدماتنا</a></li>
+          <li><a href="../index.html#news">الاخبار</a></li>
+          <li><a href="index.html">الانخراط online</a></li>
+          <li><a href="documents.html">وثائق الانخراط</a></li>
+          <li><a href="commitment.html">التزام العضو</a></li>
+          <li><a href="bylaws.html">القانون الأساسي</a></li>
+          <li><a href="application.html">استمارة الانخراط</a></li>
+          <li><a href="internal-regulations.html">النظام الداخلي</a></li>
+        </ul>
+      </nav>
+
+      <nav aria-label="برامجنا">
+        <h4>برامجنا</h4>
+        <ul class="footer-links">
+          <li><a href="../index.html#services">SOS Amare</a></li>
+          <li><a href="../index.html#services">متجر Amare</a></li>
+          <li><a href="../index.html#services">بيت المستكشف Amare</a></li>
+          <li><a href="../index.html#services">مجلة Amare</a></li>
+        </ul>
+      </nav>
+
+      <div>
+        <h4>تواصل معنا</h4>
+        <ul class="footer-contact">
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>ص.ب 749 أيت ملول 86150</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .3 2 .7 2.9a2 2 0 0 1-.4 2.1L8 10a16 16 0 0 0 6 6l1.3-1.4a2 2 0 0 1 2.1-.4c.9.4 1.9.6 2.9.7a2 2 0 0 1 1.7 2.1z"/></svg>
+            <span dir="ltr">+212 684869996</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z" opacity="0"/><path d="M22 6 12 13 2 6"/><path d="M2 6h20v12H2z"/></svg>
+            <span dir="ltr">association.amare.agadir@gmail.com</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="footer-location">
+        <h4>موقعنا</h4>
+        <div class="footer-map-card">
+          <span class="footer-map-badge">📍 Ait Melloul, Agadir</span>
+          <iframe
+            src="https://www.google.com/maps?q=30.385528,-9.448611&z=16&output=embed"
+            loading="lazy"
+            allowfullscreen
+            referrerpolicy="no-referrer-when-downgrade"
+            title="موقع الجمعية على الخريطة"
+            class="footer-map-frame"></iframe>
+          <div class="footer-map-footer">
+            <a href="https://www.google.com/maps?q=30.385528,-9.448611" target="_blank" rel="noopener" class="footer-map-btn">Open in Google Maps</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2026 جمعية الأمل للتنمية. جميع الحقوق محفوظة.</p>
+      <div class="footer-bottom-links">
+        <a href="#">سياسة الخصوصية</a>
+        <a href="#">الشروط والأحكام</a>
+      </div>
+    </div>
+  </div>
+</footer>
 
 <button class="back-to-top" id="backToTop" aria-label="العودة إلى الأعلى">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M18 15l-6-6-6 6"/></svg>
 </button>
 
-<script src="../js/component-loader.js"></script>
-<script>
-  loadComponent('#navbar', '../components/navbar.html');
-  loadComponent('#footer', '../components/footer.html');
-</script>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script src="../script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/pdf-lib@1/dist/pdf-lib.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@pdf-lib/fontkit@1/dist/fontkit.umd.min.js"></script>
+<script src="https://unpkg.com/bidi-js@1/dist/bidi-js.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="../js/supabase.js"></script>
+<script src="../supabase-config.js"></script>
+<script src="../script.js"></script>
+<script src="../js/arabic.js"></script>
+<script src="../js/pdf-config.js"></script>
+<script src="../js/pdf-utils.js"></script>
+<script src="../js/pdf-generator.js"></script>
+<script src="../js/form-handler.js"></script>
 <script>
 (function() {
   'use strict';
@@ -2055,682 +1778,354 @@ html[dir="rtl"] .ms-steps-progress-line {
     });
   }
 
-  /* ===== STATE ===== */
-  var msCurrentStep = 1;
-  var msTotalSteps = 7;
-  var msEmailVerified = false;
-  var msPhoneVerified = false;
-  var msPhotoDataUrl = null;
-  var msEmailOtpCode = '123456';
-  var msPhoneOtpCode = '654321';
-  var msEmailTimerInterval = null;
-  var msPhoneTimerInterval = null;
+  /* ---------- Form Handling ---------- */
+  var oldForm = document.getElementById('joinForm');
+  if (!oldForm) return;
+  var joinForm = oldForm.cloneNode(true);
+  oldForm.parentNode.replaceChild(joinForm, oldForm);
 
-  /* ===== ELEMENTS ===== */
-  var msFirstName = document.getElementById('msFirstName');
-  var msLastName = document.getElementById('msLastName');
-  var msBirthDate = document.getElementById('msBirthDate');
-  var msBirthPlace = document.getElementById('msBirthPlace');
-  var msCin = document.getElementById('msCin');
-  var msEmail = document.getElementById('msEmail');
-  var msPhone = document.getElementById('msPhone');
-  var msAddress = document.getElementById('msAddress');
-  var msStepContainers = document.querySelectorAll('.ms-step-container');
-  var msStepItems = document.querySelectorAll('.ms-step');
-  var msStepLine = document.getElementById('msStepLine');
+  /* ---------- Elements ---------- */
+  var firstName = document.getElementById('firstName');
+  var lastName = document.getElementById('lastName');
+  var birthDate = document.getElementById('birthDate');
+  var birthPlace = document.getElementById('birthPlace');
+  var cin = document.getElementById('cin');
+  var phone = document.getElementById('phone');
+  var email = document.getElementById('email');
+  var address = document.getElementById('address');
+  var agreeCheck = document.getElementById('agreeCheck');
+  var submitBtn = document.getElementById('submitBtn');
+  var submitText = document.getElementById('submitText');
+  var submitLoading = document.getElementById('submitLoading');
+  var joinSuccess = document.getElementById('joinSuccess');
+  var requestId = document.getElementById('requestId');
 
-  /* ===== HELPERS ===== */
-  function msFormatDate(dateStr) {
-    if (!dateStr) return '---';
-    var parts = dateStr.split('-');
-    if (parts.length !== 3) return dateStr;
-    return parts[2] + '/' + parts[1] + '/' + parts[0];
-  }
-
-  function msShowError(id, msg) {
-    var el = document.getElementById(id);
-    if (!el) return;
-    el.classList.add('show');
-    el.querySelector('span').textContent = msg;
-  }
-
-  function msClearError(id) {
-    var el = document.getElementById(id);
-    if (!el) return;
-    el.classList.remove('show');
-    el.querySelector('span').textContent = '';
-  }
-
-  function msShowToast(type, message) {
-    var container = document.getElementById('msToastContainer');
-    if (!container) return;
-    var toast = document.createElement('div');
-    toast.className = 'ms-toast ms-toast-' + type;
-    var icon = type === 'success' ? 'check-circle' : 'exclamation-circle';
-    toast.innerHTML = '<i class="fas fa-' + icon + '"></i> ' + message;
-    container.appendChild(toast);
-    setTimeout(function() {
-      toast.classList.add('removing');
-      setTimeout(function() { toast.remove(); }, 300);
-    }, 4000);
-  }
-
-  /* ===== STEP NAVIGATION ===== */
-  function msUpdateSteps() {
-    msStepItems.forEach(function(el, i) {
-      var stepNum = i + 1;
-      el.classList.remove('active', 'done');
-      if (stepNum < msCurrentStep) el.classList.add('done');
-      else if (stepNum === msCurrentStep) el.classList.add('active');
-    });
-    var pct = ((msCurrentStep - 1) / (msTotalSteps - 1)) * 100;
-    msStepLine.style.width = pct + '%';
-  }
-
-  function msShowStep(step) {
-    msStepContainers.forEach(function(el) {
-      el.classList.remove('active');
-      if (parseInt(el.getAttribute('data-step')) === step) {
-        el.classList.add('active');
-      }
-    });
-    msCurrentStep = step;
-    msUpdateSteps();
-    document.getElementById('msForm').scrollIntoView({ behavior: 'smooth', block: 'start' });
-    msSaveState();
-  }
-
-  window.msGoToStep = function(step) {
-    var canGo = true;
-    if (step > msCurrentStep) {
-      for (var s = msCurrentStep; s < step; s++) {
-        if (!msValidateStep(s)) {
-          canGo = false;
-          break;
-        }
-      }
-    }
-    if (canGo) msShowStep(step);
+  var errorEls = {
+    firstName: document.getElementById('firstNameError'),
+    lastName: document.getElementById('lastNameError'),
+    birthDate: document.getElementById('birthDateError'),
+    birthPlace: document.getElementById('birthPlaceError'),
+    cin: document.getElementById('cinError'),
+    phone: document.getElementById('phoneError'),
+    email: document.getElementById('emailError'),
+    address: document.getElementById('addressError'),
+    photo: document.getElementById('photoError'),
+    sigMember: document.getElementById('sigMemberError'),
+    agree: document.getElementById('agreeError'),
   };
 
-  window.msNextStep = function() {
-    if (!msValidateStep(msCurrentStep)) return;
-    if (msCurrentStep === 1) {
-      msSendEmailOtp();
-      return;
-    }
-    if (msCurrentStep < msTotalSteps) {
-      msShowStep(msCurrentStep + 1);
-    }
-  };
+  /* ---------- Photo Upload ---------- */
+  var uploadArea = document.getElementById('uploadArea');
+  var uploadContent = document.getElementById('uploadContent');
+  var photoInput = document.getElementById('photoInput');
+  var previewImage = document.getElementById('previewImage');
+  var removeImage = document.getElementById('removeImage');
+  var uploadedFile = null;
 
-  window.msPrevStep = function() {
-    if (msCurrentStep > 1) {
-      msShowStep(msCurrentStep - 1);
-    }
-  };
-
-  /* ===== VALIDATION ===== */
-  function msValidateStep(step) {
-    switch (step) {
-      case 1: return msValidateStep1();
-      case 2: return msValidateStep2();
-      case 3: return msValidateStep3();
-      case 4: return msValidateStep4();
-      case 5: return msValidateStep5();
-      case 6: return msValidateStep6();
-      case 7: return msValidateStep7();
-      default: return true;
-    }
-  }
-
-  function msValidateStep1() {
-    msClearError('msStep1Error');
-    var fields = [
-      { el: msFirstName, name: 'الاسم الشخصي' },
-      { el: msLastName, name: 'الاسم العائلي' },
-      { el: msBirthDate, name: 'تاريخ الازدياد' },
-      { el: msBirthPlace, name: 'مكان الازدياد' },
-      { el: msCin, name: 'رقم البطاقة الوطنية' },
-      { el: msEmail, name: 'البريد الإلكتروني' },
-      { el: msPhone, name: 'رقم الهاتف' },
-      { el: msAddress, name: 'العنوان' },
-    ];
-    for (var i = 0; i < fields.length; i++) {
-      var f = fields[i];
-      if (!f.el.value.trim()) {
-        msShowError('msStep1Error', 'حقل "' + f.name + '" مطلوب');
-        f.el.classList.add('error');
-        f.el.focus();
-        return false;
-      }
-      f.el.classList.remove('error');
-    }
-    var emailVal = msEmail.value.trim();
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)) {
-      msShowError('msStep1Error', 'البريد الإلكتروني غير صحيح');
-      msEmail.classList.add('error');
-      msEmail.focus();
-      return false;
-    }
-    msEmail.classList.remove('error');
-    var phoneVal = msPhone.value.trim();
-    if (phoneVal.length < 8) {
-      msShowError('msStep1Error', 'رقم الهاتف يجب أن يتكون من 8 أرقام على الأقل');
-      msPhone.classList.add('error');
-      msPhone.focus();
-      return false;
-    }
-    msPhone.classList.remove('error');
-    msSaveDraft();
-    return true;
-  }
-
-  function msValidateStep2() {
-    if (msEmailVerified) return true;
-    msClearError('msStep2Error');
-    var code = msGetOtpValue('msEmailOtp');
-    if (code.length < 6) {
-      msShowError('msStep2Error', 'يرجى إدخال رمز التأكيد كاملاً');
-      return false;
-    }
-    if (code !== msEmailOtpCode) {
-      msShowError('msStep2Error', 'رمز التأكيد غير صحيح');
-      var inputs = document.querySelectorAll('#msEmailOtp .ms-otp-input');
-      inputs.forEach(function(inp) { inp.classList.add('error'); });
-      setTimeout(function() {
-        inputs.forEach(function(inp) { inp.classList.remove('error'); });
-      }, 600);
-      return false;
-    }
-    msEmailVerified = true;
-    document.getElementById('msEmailSuccess').classList.add('show');
-    document.getElementById('msStep2Next').disabled = false;
-    msSaveState();
-    return true;
-  }
-
-  function msValidateStep3() {
-    if (msPhoneVerified) return true;
-    msClearError('msStep3Error');
-    var code = msGetOtpValue('msPhoneOtp');
-    if (code.length < 6) {
-      msShowError('msStep3Error', 'يرجى إدخال رمز التأكيد كاملاً');
-      return false;
-    }
-    if (code !== msPhoneOtpCode) {
-      msShowError('msStep3Error', 'رمز التأكيد غير صحيح');
-      var inputs = document.querySelectorAll('#msPhoneOtp .ms-otp-input');
-      inputs.forEach(function(inp) { inp.classList.add('error'); });
-      setTimeout(function() {
-        inputs.forEach(function(inp) { inp.classList.remove('error'); });
-      }, 600);
-      return false;
-    }
-    msPhoneVerified = true;
-    document.getElementById('msPhoneSuccess').classList.add('show');
-    document.getElementById('msStep3Next').disabled = false;
-    msSaveState();
-    return true;
-  }
-
-  function msValidateStep4() {
-    msClearError('msStep4Error');
-    if (!msPhotoDataUrl) {
-      msShowError('msStep4Error', 'يرجى إرفاق صورة شخصية');
-      return false;
-    }
-    return true;
-  }
-
-  function msValidateStep5() {
-    msClearError('msStep5Error');
-    var checkboxes = document.querySelectorAll('#msDocList .ms-doc-checkbox');
-    var allChecked = true;
-    checkboxes.forEach(function(cb) {
-      if (!cb.checked) allChecked = false;
-    });
-    if (!allChecked) {
-      msShowError('msStep5Error', 'يرجى الاطلاع وقبول جميع الوثائق');
-      return false;
-    }
-    return true;
-  }
-
-  function msValidateStep6() {
-    return true;
-  }
-
-  function msValidateStep7() {
-    return true;
-  }
-
-  /* ===== OTP HELPERS ===== */
-  function msGetOtpValue(containerId) {
-    var inputs = document.querySelectorAll('#' + containerId + ' .ms-otp-input');
-    var val = '';
-    inputs.forEach(function(inp) { val += inp.value; });
-    return val;
-  }
-
-  function msSetupOtp(containerId) {
-    var inputs = document.querySelectorAll('#' + containerId + ' .ms-otp-input');
-    inputs.forEach(function(input, index) {
-      input.addEventListener('input', function() {
-        this.value = this.value.replace(/[^0-9]/g, '').slice(0, 1);
-        if (this.value) {
-          this.classList.add('filled');
-          if (index < inputs.length - 1) {
-            inputs[index + 1].focus();
-          }
-        } else {
-          this.classList.remove('filled');
-        }
-        msUpdateOtpNextButton(containerId);
-      });
-      input.addEventListener('keydown', function(e) {
-        if (e.key === 'Backspace' && !this.value && index > 0) {
-          inputs[index - 1].focus();
-        }
-      });
-      input.addEventListener('paste', function(e) {
-        e.preventDefault();
-        var paste = (e.clipboardData || window.clipboardData).getData('text').replace(/[^0-9]/g, '').slice(0, 6);
-        for (var i = 0; i < paste.length && i < inputs.length; i++) {
-          inputs[i].value = paste[i];
-          inputs[i].classList.add('filled');
-        }
-        if (paste.length > 0) {
-          var nextIdx = Math.min(paste.length, inputs.length - 1);
-          inputs[nextIdx].focus();
-        }
-        msUpdateOtpNextButton(containerId);
-      });
-    });
-  }
-
-  function msUpdateOtpNextButton(containerId) {
-    var val = msGetOtpValue(containerId);
-    var isEmail = containerId === 'msEmailOtp';
-    var btnId = isEmail ? 'msStep2Next' : 'msStep3Next';
-    var verified = isEmail ? msEmailVerified : msPhoneVerified;
-    document.getElementById(btnId).disabled = (val.length < 6 && !verified);
-  }
-
-  /* ===== SEND EMAIL OTP ===== */
-  async function msSendEmailOtp() {
-    var email = msEmail.value.trim();
-    if (!email) return;
-
-    var btn = document.getElementById('msStep1Next');
-    var originalHtml = btn.innerHTML;
-    btn.disabled = true;
-    btn.innerHTML = '<span class="join-spinner" style="width:20px;height:20px;border-width:2.5px;display:inline-block;border-radius:50%;border:2.5px solid rgba(0,0,0,.15);border-top-color:#000;animation:spin .6s linear infinite;margin-left:8px;vertical-align:middle;"></span> جارٍ الإرسال...';
-
-    try {
-      var client = typeof getSupabaseClient === 'function' ? getSupabaseClient() : null;
-      if (!client) throw new Error('تعذر الاتصال بالخادم');
-
-      var result = await client.functions.invoke('send-email-otp', {
-        body: { email: email }
-      });
-
-      if (result.error) throw result.error;
-
-      msShowToast('success', 'تم إرسال رمز التحقق إلى بريدك الإلكتروني.');
-      msShowStep(msCurrentStep + 1);
-    } catch (err) {
-      msShowToast('error', 'فشل إرسال رمز التحقق. الرجاء المحاولة مرة أخرى.');
-    } finally {
-      btn.disabled = false;
-      btn.innerHTML = originalHtml;
-    }
-  }
-
-  /* ===== OTP TIMERS ===== */
-  function msStartTimer(timerId, displayId, resendId, onExpire) {
-    var duration = 120;
-    var display = document.getElementById(displayId);
-    var resend = document.getElementById(resendId);
-    var timer = document.getElementById(timerId);
-
-    function tick() {
-      var minutes = Math.floor(duration / 60);
-      var seconds = duration % 60;
-      display.textContent = String(minutes).padStart(2, '0') + ':' + String(seconds).padStart(2, '0');
-      if (--duration < 0) {
-        clearInterval(interval);
-        resend.disabled = false;
-        timer.style.display = 'none';
-        if (onExpire) onExpire();
-      }
-    }
-
-    if (window['msTimer_' + timerId]) {
-      clearInterval(window['msTimer_' + timerId]);
-    }
-
-    resend.disabled = true;
-    timer.style.display = 'inline-flex';
-    tick();
-    var interval = setInterval(tick, 1000);
-    window['msTimer_' + timerId] = interval;
-  }
-
-  window.msResendEmailOtp = function() {
-    var inputs = document.querySelectorAll('#msEmailOtp .ms-otp-input');
-    inputs.forEach(function(inp) { inp.value = ''; inp.classList.remove('filled'); });
-    document.getElementById('msEmailSuccess').classList.remove('show');
-    msEmailVerified = false;
-    document.getElementById('msStep2Next').disabled = true;
-
-    var email = msEmail.value.trim();
-    if (!email) { msShowToast('error', 'البريد الإلكتروني غير متوفر'); return; }
-
-    var client = typeof getSupabaseClient === 'function' ? getSupabaseClient() : null;
-    if (!client) { msShowToast('error', 'فشل الاتصال بالخادم'); return; }
-
-    var resendBtn = document.getElementById('msEmailResend');
-    resendBtn.disabled = true;
-
-    client.functions.invoke('send-email-otp', { body: { email: email } })
-      .then(function(result) {
-        if (result.error) throw result.error;
-        msStartTimer('msEmailTimer', 'msEmailTimerValue', 'msEmailResend', function() {});
-        msShowToast('success', 'تم إعادة إرسال رمز التحقق إلى بريدك الإلكتروني.');
-      })
-      .catch(function(err) {
-        resendBtn.disabled = false;
-        msShowToast('error', 'فشل إعادة إرسال رمز التحقق. الرجاء المحاولة مرة أخرى.');
-      });
-  };
-
-  window.msResendPhoneOtp = function() {
-    msPhoneOtpCode = String(Math.floor(100000 + Math.random() * 900000));
-    msStartTimer('msPhoneTimer', 'msPhoneTimerValue', 'msPhoneResend', function() {
-      msPhoneOtpCode = String(Math.floor(100000 + Math.random() * 900000));
-    });
-    var inputs = document.querySelectorAll('#msPhoneOtp .ms-otp-input');
-    inputs.forEach(function(inp) { inp.value = ''; inp.classList.remove('filled'); });
-    document.getElementById('msPhoneSuccess').classList.remove('show');
-    msPhoneVerified = false;
-    document.getElementById('msStep3Next').disabled = true;
-    alert('تم إرسال رمز جديد إلى هاتفك: ' + msPhoneOtpCode);
-  };
-
-  /* ===== PHOTO UPLOAD ===== */
-  var msUploadArea = document.getElementById('msUploadArea');
-  var msPhotoInput = document.getElementById('msPhotoInput');
-  var msPreviewImage = document.getElementById('msPreviewImage');
-  var msRemoveImage = document.getElementById('msRemoveImage');
-
-  msUploadArea.addEventListener('click', function() {
-    if (!msUploadArea.classList.contains('has-image')) {
-      msPhotoInput.click();
+  uploadArea.addEventListener('click', function() {
+    if (!uploadArea.classList.contains('has-image')) {
+      photoInput.click();
     }
   });
 
-  msPhotoInput.addEventListener('change', function(e) {
+  photoInput.addEventListener('change', function(e) {
     var file = e.target.files[0];
-    if (file) msHandleFile(file);
+    if (file) handleFile(file);
   });
 
-  msUploadArea.addEventListener('dragover', function(e) {
+  uploadArea.addEventListener('dragover', function(e) {
     e.preventDefault();
-    msUploadArea.classList.add('dragover');
+    uploadArea.classList.add('dragover');
   });
-
-  msUploadArea.addEventListener('dragleave', function() {
-    msUploadArea.classList.remove('dragover');
+  uploadArea.addEventListener('dragleave', function() {
+    uploadArea.classList.remove('dragover');
   });
-
-  msUploadArea.addEventListener('drop', function(e) {
+  uploadArea.addEventListener('drop', function(e) {
     e.preventDefault();
-    msUploadArea.classList.remove('dragover');
+    uploadArea.classList.remove('dragover');
     var file = e.dataTransfer.files[0];
-    if (file) msHandleFile(file);
+    if (file) handleFile(file);
   });
 
-  function msHandleFile(file) {
+  function handleFile(file) {
     if (!file.type.match('image/(png|jpeg|jpg)')) {
-      msShowError('msStep4Error', 'يرجى اختيار صورة بصيغة PNG أو JPG');
+      showError('photo', 'يرجى اختيار صورة بصيغة PNG أو JPG');
       return;
     }
     if (file.size > 5 * 1024 * 1024) {
-      msShowError('msStep4Error', 'حجم الصورة يتجاوز 5MB');
+      showError('photo', 'حجم الصورة يتجاوز 5MB');
       return;
     }
-    msClearError('msStep4Error');
+    uploadedFile = file;
+    clearError('photo');
     var reader = new FileReader();
     reader.onload = function(e) {
-      msPhotoDataUrl = e.target.result;
-      msPreviewImage.src = msPhotoDataUrl;
-      msUploadArea.classList.add('has-image');
-      msSaveState();
+      previewImage.src = e.target.result;
+      uploadArea.classList.add('has-image');
     };
     reader.readAsDataURL(file);
   }
 
-  msRemoveImage.addEventListener('click', function(e) {
+  removeImage.addEventListener('click', function(e) {
     e.stopPropagation();
-    msPhotoDataUrl = null;
-    msPreviewImage.src = '';
-    msUploadArea.classList.remove('has-image');
-    msPhotoInput.value = '';
-    msSaveState();
+    uploadedFile = null;
+    previewImage.src = '';
+    uploadArea.classList.remove('has-image');
+    photoInput.value = '';
   });
 
-  /* ===== DOCUMENTS ===== */
-  var msDocCheckboxes = document.querySelectorAll('#msDocList .ms-doc-checkbox');
-  msDocCheckboxes.forEach(function(cb) {
-    cb.addEventListener('change', function() {
-      var item = this.closest('.ms-doc-item');
-      if (this.checked) {
-        item.classList.add('accepted');
+  /* ---------- Signature Pads ---------- */
+  function initSignature(canvasId, placeholderId) {
+    var canvas = document.getElementById(canvasId);
+    var placeholder = document.getElementById(placeholderId);
+    if (!canvas || !placeholder) return;
+
+    var ctx = canvas.getContext('2d');
+    var drawing = false;
+    var hasDrawn = false;
+
+    function getPos(e) {
+      var rect = canvas.getBoundingClientRect();
+      var scaleX = canvas.width / rect.width;
+      var scaleY = canvas.height / rect.height;
+      var clientX, clientY;
+      if (e.touches) {
+        clientX = e.touches[0].clientX;
+        clientY = e.touches[0].clientY;
+        e.preventDefault();
       } else {
-        item.classList.remove('accepted');
+        clientX = e.clientX;
+        clientY = e.clientY;
       }
-      msUpdateDocNextButton();
-      msSaveState();
-    });
-  });
-
-  function msUpdateDocNextButton() {
-    var allChecked = true;
-    msDocCheckboxes.forEach(function(cb) {
-      if (!cb.checked) allChecked = false;
-    });
-    document.getElementById('msStep5Next').disabled = !allChecked;
-  }
-
-  /* ===== AUTO-SAVE ===== */
-  function msSaveState() {
-    try {
-      var state = {
-        currentStep: msCurrentStep,
-        firstName: msFirstName.value,
-        lastName: msLastName.value,
-        birthDate: msBirthDate.value,
-        birthPlace: msBirthPlace.value,
-        cin: msCin.value,
-        email: msEmail.value,
-        phone: msPhone.value,
-        address: msAddress.value,
-        emailVerified: msEmailVerified,
-        phoneVerified: msPhoneVerified,
-        photoDataUrl: msPhotoDataUrl,
-        docsAccepted: msGetDocStates(),
+      return {
+        x: (clientX - rect.left) * scaleX,
+        y: (clientY - rect.top) * scaleY,
       };
-      localStorage.setItem('amare_ms_state', JSON.stringify(state));
-    } catch(e) {}
+    }
+
+    function startDrawing(e) {
+      drawing = true;
+      var pos = getPos(e);
+      ctx.beginPath();
+      ctx.moveTo(pos.x, pos.y);
+      placeholder.classList.add('hidden');
+    }
+
+    function draw(e) {
+      if (!drawing) return;
+      hasDrawn = true;
+      var pos = getPos(e);
+      ctx.lineWidth = 2.5;
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+      ctx.strokeStyle = '#123B78';
+      ctx.lineTo(pos.x, pos.y);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(pos.x, pos.y);
+    }
+
+    function stopDrawing() {
+      drawing = false;
+      if (!hasDrawn) placeholder.classList.remove('hidden');
+    }
+
+    canvas.addEventListener('mousedown', startDrawing);
+    canvas.addEventListener('mousemove', draw);
+    canvas.addEventListener('mouseup', stopDrawing);
+    canvas.addEventListener('mouseleave', stopDrawing);
+    canvas.addEventListener('touchstart', startDrawing, { passive: false });
+    canvas.addEventListener('touchmove', draw, { passive: false });
+    canvas.addEventListener('touchend', stopDrawing);
+
+    return canvas;
   }
 
-  function msGetDocStates() {
-    var states = [];
-    msDocCheckboxes.forEach(function(cb) {
-      states.push(cb.checked);
+  var sigMember = initSignature('sigMember', 'sigMemberPlaceholder');
+  initSignature('sigPresident', 'sigPresidentPlaceholder');
+
+  function clearSignature(canvasId) {
+    var canvas = document.getElementById(canvasId);
+    var ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    var pid = canvasId === 'sigMember' ? 'sigMemberPlaceholder' : 'sigPresidentPlaceholder';
+    var placeholder = document.getElementById(pid);
+    if (placeholder) placeholder.classList.remove('hidden');
+  }
+
+  document.querySelectorAll('.join-sig-clear').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      clearSignature(this.dataset.canvas);
     });
-    return states;
+  });
+
+  function isSignatureEmpty(canvasId) {
+    var canvas = document.getElementById(canvasId);
+    if (!canvas) return true;
+    var ctx = canvas.getContext('2d');
+    var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    var pixels = imageData.data;
+    for (var i = 3; i < pixels.length; i += 4) {
+      if (pixels[i] > 10) return false;
+    }
+    return true;
   }
 
-  function msLoadState() {
-    try {
-      var raw = localStorage.getItem('amare_ms_state');
-      if (!raw) return;
-      var state = JSON.parse(raw);
-      if (state.firstName) msFirstName.value = state.firstName;
-      if (state.lastName) msLastName.value = state.lastName;
-      if (state.birthDate) msBirthDate.value = state.birthDate;
-      if (state.birthPlace) msBirthPlace.value = state.birthPlace;
-      if (state.cin) msCin.value = state.cin;
-      if (state.email) msEmail.value = state.email;
-      if (state.phone) msPhone.value = state.phone;
-      if (state.address) msAddress.value = state.address;
-      if (state.emailVerified) {
-        msEmailVerified = true;
-        document.getElementById('msEmailSuccess').classList.add('show');
-        document.getElementById('msStep2Next').disabled = false;
-      }
-      if (state.phoneVerified) {
-        msPhoneVerified = true;
-        document.getElementById('msPhoneSuccess').classList.add('show');
-        document.getElementById('msStep3Next').disabled = false;
-      }
-      if (state.photoDataUrl) {
-        msPhotoDataUrl = state.photoDataUrl;
-        msPreviewImage.src = msPhotoDataUrl;
-        msUploadArea.classList.add('has-image');
-      }
-      if (state.docsAccepted && state.docsAccepted.length === msDocCheckboxes.length) {
-        msDocCheckboxes.forEach(function(cb, i) {
-          cb.checked = state.docsAccepted[i];
-          if (state.docsAccepted[i]) {
-            cb.closest('.ms-doc-item').classList.add('accepted');
-          }
-        });
-        msUpdateDocNextButton();
-      }
-      if (state.currentStep) {
-        msCurrentStep = state.currentStep;
-      }
-    } catch(e) {}
+  /* ---------- Validation ---------- */
+  function showError(field, message) {
+    if (errorEls[field]) {
+      errorEls[field].textContent = message;
+      var input = document.getElementById(field);
+      if (input && input.classList) input.classList.add('error');
+    }
   }
 
-  function msSaveDraft() {
-    msSaveState();
+  function clearError(field) {
+    if (errorEls[field]) {
+      errorEls[field].textContent = '';
+      var input = document.getElementById(field);
+      if (input && input.classList) input.classList.remove('error');
+    }
   }
 
-  /* ===== REAL-TIME VALIDATION ===== */
-  var msInputs = document.querySelectorAll('#msForm1 .ms-floating-input');
-  msInputs.forEach(function(input) {
+  function clearAllErrors() {
+    for (var key in errorEls) {
+      if (errorEls[key]) errorEls[key].textContent = '';
+    }
+    document.querySelectorAll('.join-input.error').forEach(function(el) {
+      el.classList.remove('error');
+    });
+  }
+
+  joinForm.querySelectorAll('.join-input').forEach(function(input) {
     input.addEventListener('input', function() {
-      this.classList.remove('error');
-      msClearError('msStep1Error');
-      msSaveDraft();
+      clearError(this.id);
+    });
+    input.addEventListener('blur', function() {
+      if (this.hasAttribute('required') && this.value.trim() === '') {
+        showError(this.id, 'هذا الحقل مطلوب');
+      }
     });
   });
 
-  /* ===== SUBMIT ===== */
-  window.msSubmit = function() {
-    if (!msValidateStep(7)) return;
-    document.getElementById('msStep7Submit').disabled = true;
-    document.getElementById('msStep7Submit').innerHTML = '<span class="join-spinner" style="width:20px;height:20px;border-width:2.5px;display:inline-block;border-radius:50%;border:2.5px solid rgba(0,0,0,.15);border-top-color:#000;animation:spin .6s linear infinite;margin-left:8px;vertical-align:middle;"></span> جارٍ الإرسال...';
+  /* ---------- Form Submission ---------- */
+  joinForm.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    clearAllErrors();
+    var isValid = true;
 
-    setTimeout(function() {
-      try { localStorage.removeItem('amare_ms_state'); } catch(e) {}
-      document.getElementById('msStep7Submit').style.display = 'none';
-      document.querySelector('.ms-step-container[data-step="7"] .ms-nav .ms-nav-prev').style.display = 'none';
-      document.getElementById('msSuccess').classList.add('show');
-      document.getElementById('msSuccess').scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }, 1500);
-  };
+    if (!firstName.value.trim()) { showError('firstName', 'هذا الحقل مطلوب'); isValid = false; }
+    if (!lastName.value.trim()) { showError('lastName', 'هذا الحقل مطلوب'); isValid = false; }
+    if (!birthDate.value) { showError('birthDate', 'هذا الحقل مطلوب'); isValid = false; }
+    if (!birthPlace.value.trim()) { showError('birthPlace', 'هذا الحقل مطلوب'); isValid = false; }
 
-  /* ===== RESET ===== */
-  window.msReset = function() {
-    try { localStorage.removeItem('amare_ms_state'); } catch(e) {}
-    location.reload();
-  };
-
-  /* ===== REVIEW POPULATION ===== */
-  function msPopulateReview() {
-    var map = {
-      msRvFirstName: msFirstName,
-      msRvLastName: msLastName,
-      msRvBirthPlace: msBirthPlace,
-      msRvCin: msCin,
-      msRvEmail: msEmail,
-      msRvPhone: msPhone,
-      msRvAddress: msAddress,
-    };
-    for (var id in map) {
-      var el = document.getElementById(id);
-      if (el) el.textContent = map[id].value || '---';
+    if (!cin.value.trim()) { showError('cin', 'هذا الحقل مطلوب'); isValid = false; }
+    else if (!/^[A-Za-z0-9]{5,10}$/.test(cin.value.trim())) {
+      showError('cin', 'يرجى إدخال رقم بطاقة وطنية صحيح');
+      isValid = false;
     }
-    document.getElementById('msRvBirthDate').textContent = msFormatDate(msBirthDate.value);
-    document.getElementById('msRvEmailStatus').innerHTML = msEmailVerified
-      ? '<i class="fas fa-check-circle"></i> تم التحقق'
-      : '<i class="fas fa-times-circle" style="color:var(--ms-red)"></i> لم يتم التحقق';
-    document.getElementById('msRvPhoneStatus').innerHTML = msPhoneVerified
-      ? '<i class="fas fa-check-circle"></i> تم التحقق'
-      : '<i class="fas fa-times-circle" style="color:var(--ms-red)"></i> لم يتم التحقق';
-    var photoEl = document.getElementById('msRvPhoto');
-    var photoPlaceholder = document.getElementById('msRvPhotoPlaceholder');
-    if (msPhotoDataUrl) {
-      photoEl.src = msPhotoDataUrl;
-      photoEl.style.display = 'inline-block';
-      photoPlaceholder.style.display = 'none';
-    } else {
-      photoEl.style.display = 'none';
-      photoPlaceholder.style.display = 'inline';
+    if (!phone.value.trim()) { showError('phone', 'هذا الحقل مطلوب'); isValid = false; }
+    else if (!/^[0-9+\-\s]{8,15}$/.test(phone.value.trim())) {
+      showError('phone', 'يرجى إدخال رقم هاتف صحيح');
+      isValid = false;
     }
-    document.getElementById('msEmailDisplay').textContent = msEmail.value || '---';
-    document.getElementById('msPhoneDisplay').textContent = msPhone.value || '---';
-  }
+    if (!email.value.trim()) { showError('email', 'هذا الحقل مطلوب'); isValid = false; }
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())) {
+      showError('email', 'يرجى إدخال بريد إلكتروني صحيح');
+      isValid = false;
+    }
 
-  /* ===== EVENT LISTENERS ===== */
-  document.querySelectorAll('.ms-step-container[data-step]').forEach(function(container) {
-    var step = parseInt(container.getAttribute('data-step'));
-    if (step === 7) {
-      container.addEventListener('msbeforeopen', function() {
-        msPopulateReview();
-      });
+    if (!address.value.trim()) { showError('address', 'هذا الحقل مطلوب'); isValid = false; }
+
+    if (!uploadedFile) { showError('photo', 'يرجى إرفاق صورة شخصية'); isValid = false; }
+
+    if (isSignatureEmpty('sigMember')) { showError('sigMember', 'يرجى التوقيع'); isValid = false; }
+
+    if (!agreeCheck.checked) { showError('agree', 'يرجى الموافقة على الشروط'); isValid = false; }
+
+    if (!isValid) {
+      var firstError = document.querySelector('.join-error:not(:empty)');
+      if (firstError) {
+        firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+      return;
+    }
+
+    FormHandler.clearErrorMessage();
+    submitBtn.classList.add('loading');
+
+    try {
+      var data = FormHandler.collectData();
+
+      await FormHandler.generateAndDownload(data);
+
+      joinForm.reset();
+      uploadArea.classList.remove('has-image');
+      previewImage.src = '';
+      uploadedFile = null;
+      clearSignature('sigMember');
+      clearSignature('sigPresident');
+      if (typeof updateProgress === 'function') setTimeout(updateProgress, 200);
+
+    } catch (err) {
+      console.error('[Form] PDF generation error:', err);
+      FormHandler.showErrorMessage(
+        err.message || 'حدث خطأ غير متوقع أثناء إنشاء الاستمارة'
+      );
+    } finally {
+      submitBtn.classList.remove('loading');
+      submitText.innerHTML = '<i class="fas fa-file-pdf"></i> إنشاء ملف الانخراط';
     }
   });
 
-  /* Override msShowStep to populate review */
-  var origShowStep = msShowStep;
-  msShowStep = function(step) {
-    if (step === 7) msPopulateReview();
-    origShowStep(step);
-  };
+  /* ---------- Progress Indicator ---------- */
+  function updateProgress() {
+    var fields = [
+      firstName, lastName, birthDate, birthPlace, cin,
+      phone, email, address, agreeCheck
+    ];
+    var filled = 0;
+    var total = fields.length;
 
-  /* ===== INIT ===== */
-  msSetupOtp('msEmailOtp');
-  msSetupOtp('msPhoneOtp');
-  msLoadState();
-  msShowStep(msCurrentStep);
-  msStartTimer('msEmailTimer', 'msEmailTimerValue', 'msEmailResend');
-  msStartTimer('msPhoneTimer', 'msPhoneTimerValue', 'msPhoneResend');
-  msPopulateReview();
+    if (uploadedFile) filled += 1;
+    total += 1;
 
-  window.ms = {
-    firstName: msFirstName,
-    lastName: msLastName,
-    birthDate: msBirthDate,
-    birthPlace: msBirthPlace,
-    cin: msCin,
-    email: msEmail,
-    phone: msPhone,
-    address: msAddress,
-    photoDataUrl: function() { return msPhotoDataUrl; },
-  };
+    if (!isSignatureEmpty('sigMember')) filled += 1;
+    total += 1;
+
+    fields.forEach(function(f) {
+      if (f && f.type === 'checkbox') {
+        if (f.checked) filled++;
+      } else if (f && f.value && f.value.toString().trim() !== '') {
+        filled++;
+      }
+    });
+
+    var pct = Math.min(100, Math.round((filled / total) * 100));
+    var fill = document.getElementById('mProgressFill');
+    var label = document.getElementById('mProgressPercent');
+    if (fill) fill.style.width = pct + '%';
+    if (label) label.textContent = pct + '%';
+  }
+
+  joinForm.querySelectorAll('.join-input').forEach(function(el) {
+    el.addEventListener('input', updateProgress);
+    el.addEventListener('change', updateProgress);
+  });
+  if (agreeCheck) {
+    agreeCheck.addEventListener('change', function() {
+      submitBtn.disabled = !agreeCheck.checked;
+    });
+    agreeCheck.addEventListener('change', updateProgress);
+  }
+  if (photoInput) photoInput.addEventListener('change', function() {
+    setTimeout(updateProgress, 200);
+  });
+
+  setTimeout(updateProgress, 500);
 
 })();
 </script>
-
-<script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
-<script src="../assets/js/pdf-fields.js"></script>
-<script src="../assets/js/pdf-generator.js"></script>
 
 </body>
 </html>

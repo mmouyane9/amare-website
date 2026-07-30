@@ -25,61 +25,61 @@
   handleScrollEffects();
   window.addEventListener('scroll', handleScrollEffects, { passive: true });
 
-  /* ---------- 3. Mobile Drawer with slide panel + scroll lock ---------- */
+  /* ---------- 3. Mobile Hamburger Menu with slide panel + scroll lock ---------- */
   const hamburger = document.getElementById('hamburger');
-  const mobileDrawer = document.getElementById('mobileDrawer');
-  const drawerBackdrop = document.getElementById('drawerBackdrop');
-  const drawerPanel = document.getElementById('drawerPanel');
+  const navLinks = document.getElementById('navLinks');
+  let overlay = null;
 
-  function openDrawer() {
+  function createOverlay() {
+    overlay = document.createElement('div');
+    overlay.className = 'menu-overlay';
+    document.body.appendChild(overlay);
+    requestAnimationFrame(() => overlay.classList.add('open'));
+    overlay.addEventListener('click', closeMenu);
+  }
+
+  function removeOverlay() {
+    if (!overlay) return;
+    overlay.classList.remove('open');
+    setTimeout(() => {
+      if (overlay && overlay.parentNode) overlay.parentNode.removeChild(overlay);
+      overlay = null;
+    }, 300);
+  }
+
+  function openMenu() {
     hamburger.classList.add('open');
-    mobileDrawer.classList.add('open');
-    mobileDrawer.setAttribute('aria-hidden', 'false');
+    navLinks.classList.add('open');
     hamburger.setAttribute('aria-expanded', 'true');
     document.body.style.overflow = 'hidden';
+    createOverlay();
   }
 
-  function closeDrawer() {
+  function closeMenu() {
     hamburger.classList.remove('open');
-    mobileDrawer.classList.remove('open');
-    mobileDrawer.setAttribute('aria-hidden', 'true');
+    navLinks.classList.remove('open');
     hamburger.setAttribute('aria-expanded', 'false');
     document.body.style.overflow = '';
-    // Reset all accordion submenus
-    drawerPanel.querySelectorAll('.drawer-submenu.open').forEach(function(s) { s.classList.remove('open'); });
-    drawerPanel.querySelectorAll('.drawer-toggle.open').forEach(function(t) { t.classList.remove('open'); t.setAttribute('aria-expanded', 'false'); });
+    removeOverlay();
+    navLinks.querySelectorAll('.mobile-submenu.open').forEach(function(s) { s.classList.remove('open'); });
+    navLinks.querySelectorAll('.sub-toggle.open').forEach(function(t) { t.classList.remove('open'); t.setAttribute('aria-expanded', 'false'); });
+    navLinks.querySelectorAll('.nav-link-chevron.rotated').forEach(function(c) { c.classList.remove('rotated'); });
   }
 
-  function toggleDrawer() {
-    const isOpen = mobileDrawer.classList.contains('open');
-    isOpen ? closeDrawer() : openDrawer();
-  }
-
-  hamburger.addEventListener('click', toggleDrawer);
-
-  // Close on backdrop click
-  if (drawerBackdrop) {
-    drawerBackdrop.addEventListener('click', closeDrawer);
-  }
-
-  // Close on ESC key
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape' && mobileDrawer.classList.contains('open')) {
-      closeDrawer();
-    }
+  hamburger.addEventListener('click', () => {
+    const isOpen = navLinks.classList.contains('open');
+    isOpen ? closeMenu() : openMenu();
   });
 
-  // Close drawer after a nav link is tapped (skip dropdown parent links)
-  drawerPanel.addEventListener('click', function(e) {
-    var link = e.target.closest('.drawer-nav a');
-    if (link && !link.closest('li[data-dropdown]')) {
-      closeDrawer();
-    }
+  // Close mobile menu after a link is tapped (skip dropdown parent links)
+  navLinks.querySelectorAll('a').forEach((link) => {
+    if (link.closest('li[data-dropdown]') && !link.closest('.mobile-submenu')) return;
+    link.addEventListener('click', closeMenu);
   });
 
   /* ---------- 4. Active link highlighting on scroll ---------- */
   const sections = document.querySelectorAll('main section[id], footer[id]');
-  const navAnchors = document.querySelectorAll('.nav-links a, .drawer-nav a');
+  const navAnchors = document.querySelectorAll('.nav-links a');
 
   function setActiveLink() {
     let currentId = '';
@@ -282,71 +282,15 @@
         ]
       },
       join: {
-        
-          title: 'انخرط معنا',
-          items: [
-            {
-              icon: 'userPlus',
-              title: 'الانخراط Online',
-              desc: 'كن عضواً في الجمعية',
-              href: '/Join%20us/join-us-online.html'
-            },
-            {
-              icon: 'file',
-              title: 'وثائق الانخراط',
-              desc: 'حمّل جميع وثائق الانخراط',
-              href: '/Join%20us/documents.html'
-            },
-            {
-              icon: 'clipboard',
-              title: 'استمارة الانخراط',
-              desc: 'تحميل استمارة الانخراط',
-              href: '/Join%20us/application.html'
-            },
-            {
-              icon: 'heart',
-              title: 'التزام الانخراط',
-              desc: 'وثيقة التزام العضو',
-              href: '/Join%20us/commitment.html'
-            },
-            {
-              icon: 'book',
-              title: 'القانون الأساسي',
-              desc: 'القانون الأساسي للجمعية',
-              href: '/Join%20us/bylaws.html'
-            },
-            {
-              icon: 'book',
-              title: 'القانون الداخلي',
-              desc: 'القانون الداخلي للجمعية',
-              href: '/Join%20us/internal-regulations.html'
-            },
-            {
-              icon: 'compass',
-              title: 'ميثاق الاستكشاف المسؤول',
-              desc: 'ميثاق المستكشف المسؤول',
-              href: '/Join%20us/charter.html'
-            },
-            {
-              icon: 'folder',
-              title: 'الإيداع الخارجي',
-              desc: 'إيداع الملفات الخارجية',
-              href: '/Join%20us/external-deposit-receipt.html'
-            },
-            {
-              icon: 'folder',
-              title: 'الإيداع الداخلي',
-              desc: 'إيداع الملفات الداخلية',
-              href: '/Join%20us/deposit-receipt.html'
-            },
-            {
-              icon: 'bell',
-              title: 'الإشعار بالخرجات',
-              desc: 'الإشعارات الخاصة بالخرجات',
-              href: '/Join%20us/activity-notifications.html'
-            }
-          ]
-        }
+        title: 'انخرط معنا', href: '/Join%20us/index.html',
+        items: [
+          { icon: 'userPlus', title: 'الانخراط online', desc: 'كن عضواً في الجمعية', href: '/Join%20us/index.html' },
+          { icon: 'file', title: 'وثائق الانخراط', desc: 'حمّل وثائق الانخراط', href: '/Join%20us/documents.html' },
+          { icon: 'clipboard', title: 'استمارة الانخراط', desc: 'قدّم طلب الانخراط', href: '/Join%20us/application.html' },
+          { icon: 'heart', title: 'التزام الانخراط', desc: 'وثيقة التزام العضو', href: '/Join%20us/commitment.html' },
+          { icon: 'book', title: 'القانون الأساسي', desc: 'النظام الأساسي للجمعية', href: '/Join%20us/bylaws.html' },
+        ]
+      }
     };
 
     function svg(path) {
@@ -438,120 +382,86 @@
       }
     }
 
-    function buildDrawerNav() {
-      var drawerNav = document.getElementById('drawerNav');
-      if (!drawerNav) return;
-      var ul = document.createElement('ul');
+    function buildMobileSubmenus() {
+      for (var i = 0; i < triggers.length; i++) {
+        var li = triggers[i];
+        var key = li.getAttribute('data-dropdown');
+        var group = dropdownData[key];
+        if (!group) continue;
 
-      // Non-dropdown links (الرئيسية, اتصل بنا)
-      var simpleLinks = [
-        { href: '#home', text: 'الرئيسية', active: true },
-      ];
+        var link = li.querySelector('a');
+        var linkWrap = document.createElement('div');
+        linkWrap.className = 'nav-link-row';
+        link.parentNode.insertBefore(linkWrap, link);
+        linkWrap.appendChild(link);
 
-      // Build all items in order
-      var allItems = [
-        { key: null, href: '#home', text: 'الرئيسية', active: true },
-        { key: 'about', href: '#about', text: 'من نحن' },
-        { key: 'activities', href: '#', text: 'أنشطتنا' },
-        { key: 'partners', href: '#', text: 'شركاؤنا' },
-        { key: 'services', href: '#services', text: 'خدماتنا' },
-        { key: 'news', href: '#news', text: 'الأخبار' },
-        { key: 'archive', href: '#', text: 'الأرشيف' },
-        { key: 'branches', href: '#', text: 'الفروع الجهوية' },
-        { key: 'join', href: '/', text: 'انخرط معنا' },
-        { key: null, href: '#contact', text: 'اتصل بنا' },
-      ];
+        var toggle = document.createElement('button');
+        toggle.className = 'sub-toggle';
+        toggle.setAttribute('aria-label', 'فتح القائمة الفرعية');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>';
+        linkWrap.appendChild(toggle);
 
-      for (var i = 0; i < allItems.length; i++) {
-        var item = allItems[i];
-        var li = document.createElement('li');
+        var submenu = document.createElement('ul');
+        submenu.className = 'mobile-submenu';
+        for (var j = 0; j < group.items.length; j++) {
+          var item = group.items[j];
+          var subLi = document.createElement('li');
+          subLi.innerHTML = '<a href="' + (item.href || '#') + '">' + svg(icons[item.icon]) + item.title + '</a>';
+          submenu.appendChild(subLi);
+        }
+        li.appendChild(submenu);
 
-        if (item.key && dropdownData[item.key]) {
-          // Dropdown item
-          var group = dropdownData[item.key];
-          var linkRow = document.createElement('div');
-          linkRow.className = 'drawer-link-row';
+        var chevron = li.querySelector('.nav-link-chevron');
 
-          var a = document.createElement('a');
-          a.href = item.href;
-          a.textContent = item.text;
-          if (item.active) a.className = 'active';
-          linkRow.appendChild(a);
-
-          var toggle = document.createElement('button');
-          toggle.className = 'drawer-toggle';
-          toggle.setAttribute('aria-label', 'فتح القائمة الفرعية');
-          toggle.setAttribute('aria-expanded', 'false');
-          toggle.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>';
-          linkRow.appendChild(toggle);
-
-          li.appendChild(linkRow);
-
-          var submenu = document.createElement('ul');
-          submenu.className = 'drawer-submenu';
-          for (var j = 0; j < group.items.length; j++) {
-            var subItem = group.items[j];
-            var subLi = document.createElement('li');
-            subLi.innerHTML = '<a href="' + (subItem.href || '#') + '">' + svg(icons[subItem.icon]) + subItem.title + '</a>';
-            submenu.appendChild(subLi);
-          }
-          li.appendChild(submenu);
-
-          // Accordion toggle with only-one-open behavior
-          toggle.addEventListener(function(tog, sub) {
-            return function(e) {
-              e.stopPropagation();
-              var isOpen = sub.classList.contains('open');
-              closeAllDrawerSubmenus();
-              if (!isOpen) {
-                sub.classList.add('open');
-                tog.classList.add('open');
-                tog.setAttribute('aria-expanded', 'true');
-              }
-            };
-          }(toggle, submenu));
-
-          a.addEventListener(function(tog, sub) {
-            return function(e) {
-              if (sub.classList.contains('open')) return;
-              e.preventDefault();
-              e.stopPropagation();
-              closeAllDrawerSubmenus();
+        toggle.addEventListener('click', function(tog, sub, ch) {
+          return function(e) {
+            if (!isMobile()) return;
+            e.stopPropagation();
+            var isOpen = sub.classList.contains('open');
+            closeAllMobileSubmenus();
+            if (!isOpen) {
               sub.classList.add('open');
               tog.classList.add('open');
               tog.setAttribute('aria-expanded', 'true');
-            };
-          }(toggle, submenu));
-        } else {
-          // Simple link
-          var a = document.createElement('a');
-          a.href = item.href;
-          a.textContent = item.text;
-          if (item.active) a.className = 'active';
-          li.appendChild(a);
-        }
+              if (ch) ch.classList.add('rotated');
+            }
+          };
+        }(toggle, submenu, chevron));
 
-        ul.appendChild(li);
+        link.addEventListener('click', function(tog, sub, ch) {
+          return function(e) {
+            if (!isMobile()) return;
+            if (sub.classList.contains('open')) return;
+            e.preventDefault();
+            closeAllMobileSubmenus();
+            sub.classList.add('open');
+            tog.classList.add('open');
+            tog.setAttribute('aria-expanded', 'true');
+            if (ch) ch.classList.add('rotated');
+          };
+        }(toggle, submenu, chevron));
       }
-
-      drawerNav.innerHTML = '';
-      drawerNav.appendChild(ul);
     }
 
-    function closeAllDrawerSubmenus() {
-      var submenus = document.querySelectorAll('.drawer-submenu.open');
+    function closeAllMobileSubmenus() {
+      var submenus = document.querySelectorAll('.mobile-submenu.open');
       for (var i = 0; i < submenus.length; i++) {
         submenus[i].classList.remove('open');
       }
-      var toggles = document.querySelectorAll('.drawer-toggle.open');
+      var toggles = document.querySelectorAll('.sub-toggle.open');
       for (var i = 0; i < toggles.length; i++) {
         toggles[i].classList.remove('open');
         toggles[i].setAttribute('aria-expanded', 'false');
       }
+      var chevrons = document.querySelectorAll('li[data-dropdown] .nav-link-chevron.rotated');
+      for (var i = 0; i < chevrons.length; i++) {
+        chevrons[i].classList.remove('rotated');
+      }
     }
 
     function isMobile() {
-      return window.innerWidth <= 767;
+      return window.innerWidth <= 1024;
     }
 
     function setupDesktop() {
@@ -601,7 +511,7 @@
       addChevrons();
       buildPanels();
       setupDesktop();
-      buildDrawerNav();
+      buildMobileSubmenus();
       document.addEventListener('keydown', handleKeydown);
     }
 

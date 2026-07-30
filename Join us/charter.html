@@ -21,377 +21,1246 @@
 <link rel="stylesheet" href="../style.css">
 
 <style>
-:root {
-  --ms-sky: #19B8F2;
-  --ms-navy: #123b78;
-  --ms-gold: #F6B300;
-  --ms-dark: #222222;
-  --ms-white: #FFFFFF;
-  --ms-red: #E74C3C;
-  --ms-bg: #F0F5FE;
-  --ms-border: rgba(18,59,120,.08);
-  --ms-shadow: 0 24px 80px rgba(18,59,120,.08);
-  --ms-radius: 24px;
-  --ms-radius-sm: 14px;
-  --ms-ease: cubic-bezier(.22,.8,.32,1);
-}
 
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(24px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.doc-hero {
+.char-hero {
   position: relative;
-  min-height: 420px;
+  min-height: 92vh;
   display: flex;
   align-items: center;
   overflow: hidden;
-  background: linear-gradient(180deg, var(--ms-white) 0%, var(--ms-bg) 100%);
+  background: linear-gradient(160deg, #080e1f 0%, #0f2a5a 35%, #1a3a7a 60%, #0d1f42 100%);
+  color: #fff;
 }
-.doc-hero-pattern {
-  position: absolute; inset: 0;
-  opacity: .03;
+
+.char-hero-pattern {
+  position: absolute;
+  inset: 0;
+  opacity: 0.04;
   background-image:
-    repeating-linear-gradient(0deg, transparent, transparent 32px, var(--ms-border) 32px, var(--ms-border) 33px),
-    repeating-linear-gradient(90deg, transparent, transparent 32px, var(--ms-border) 32px, var(--ms-border) 33px);
+    repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(255,255,255,0.08) 40px, rgba(255,255,255,0.08) 41px),
+    repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(255,255,255,0.08) 40px, rgba(255,255,255,0.08) 41px);
+  background-size: 80px 80px, 80px 80px;
   pointer-events: none;
-}
-.doc-hero .container { position: relative; z-index: 1; }
-.doc-hero-inner {
-  max-width: 720px; margin: 0 auto; text-align: center;
-}
-.doc-hero-eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(25,184,242,.08);
-  border: 1px solid rgba(25,184,242,.12);
-  padding: 8px 20px;
-  border-radius: 999px;
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--ms-sky);
-  margin-bottom: 20px;
-}
-.doc-hero-title {
-  font-size: clamp(30px, 3.5vw, 48px);
-  font-weight: 900;
-  line-height: 1.15;
-  margin-bottom: 12px;
-  color: var(--ms-navy);
-}
-.doc-hero-title-em { color: var(--ms-sky); }
-.doc-hero-desc {
-  font-size: 18px;
-  color: var(--ms-dark);
-  opacity: .6;
-  max-width: 520px;
-  margin: 0 auto 28px;
-  line-height: 1.7;
-}
-.doc-hero-actions {
-  display: flex; flex-wrap: wrap; gap: 12px; justify-content: center;
-}
-.doc-hero-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  height: 50px;
-  padding: 0 28px;
-  border-radius: var(--ms-radius-sm);
-  font-weight: 700;
-  font-size: 16px;
-  font-family: inherit;
-  text-decoration: none;
-  transition: transform .3s var(--ms-ease), box-shadow .3s var(--ms-ease);
-  border: none;
-  cursor: pointer;
-}
-.doc-hero-btn-primary {
-  background: var(--ms-navy);
-  color: var(--ms-white);
-  box-shadow: 0 8px 24px rgba(18,59,120,.15);
-}
-.doc-hero-btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 32px rgba(18,59,120,.2);
-}
-.doc-hero-btn-ghost {
-  background: transparent;
-  color: var(--ms-navy);
-  border: 1.5px solid var(--ms-border);
-}
-.doc-hero-btn-ghost:hover {
-  transform: translateY(-2px);
-  border-color: var(--ms-sky);
-  background: rgba(25,184,242,.04);
+  z-index: 1;
 }
 
-.doc-section {
+.char-hero-shape {
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.char-hero-shape-1 {
+  width: 260px; height: 260px;
+  top: 3%; inset-inline-start: 2%;
+  animation: charFloat1 10s ease-in-out infinite;
+}
+
+.char-hero-shape-2 {
+  width: 200px; height: 200px;
+  bottom: 8%; inset-inline-end: 4%;
+  animation: charFloat2 12s ease-in-out infinite;
+}
+
+.char-hero-shape-3 {
+  width: 140px; height: 140px;
+  top: 50%; inset-inline-start: 55%;
+  animation: charFloat3 14s ease-in-out infinite;
+}
+
+@keyframes charFloat1 {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  33% { transform: translate(18px, -28px) rotate(4deg); }
+  66% { transform: translate(-8px, 12px) rotate(-2deg); }
+}
+
+@keyframes charFloat2 {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  50% { transform: translate(-22px, -18px) rotate(-6deg); }
+}
+
+@keyframes charFloat3 {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(12px, -16px); }
+  75% { transform: translate(-12px, 8px); }
+}
+
+.char-hero .container {
   position: relative;
-  padding: 60px 0;
+  z-index: 2;
 }
-.doc-section-light { background: var(--ms-white); }
-.doc-section-gradient { background: var(--ms-bg); }
-.doc-section .container { position: relative; z-index: 1; }
 
-.doc-preview-card {
-  max-width: 640px;
+.char-hero-inner {
+  max-width: 860px;
   margin: 0 auto;
-  background: var(--ms-white);
-  border: 1px solid var(--ms-border);
-  border-radius: var(--ms-radius);
-  overflow: hidden;
-  box-shadow: var(--ms-shadow);
-  transition: transform .3s var(--ms-ease), box-shadow .3s var(--ms-ease);
-}
-.doc-preview-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 32px 100px rgba(18,59,120,.12);
-}
-.doc-preview-header {
-  position: relative;
-  aspect-ratio: 3/4;
-  overflow: hidden;
-  background: var(--ms-bg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.doc-preview-header img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform .5s var(--ms-ease);
-}
-.doc-preview-card:hover .doc-preview-header img {
-  transform: scale(1.02);
-}
-.doc-preview-body {
-  padding: 24px 28px 28px;
-}
-.doc-preview-badges {
-  display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px;
-}
-.doc-preview-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  padding: 6px 12px;
-  border-radius: 8px;
-  font-size: 12px;
-  font-weight: 700;
-}
-.doc-preview-badge-pdf { background: rgba(231,76,60,.08); color: var(--ms-red); }
-.doc-preview-badge-official { background: rgba(25,184,242,.08); color: var(--ms-sky); }
-.doc-preview-badge-update { background: rgba(246,179,0,.08); color: #b38600; }
-.doc-preview-desc {
-  font-size: 15px;
-  color: var(--ms-dark);
-  opacity: .6;
-  line-height: 1.7;
-  margin-bottom: 20px;
-}
-.doc-preview-actions {
-  display: flex; flex-wrap: wrap; gap: 10px;
-}
-.doc-preview-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  height: 46px;
-  padding: 0 22px;
-  border-radius: var(--ms-radius-sm);
-  font-weight: 700;
-  font-size: 14px;
-  font-family: inherit;
-  text-decoration: none;
-  transition: transform .3s var(--ms-ease), box-shadow .3s var(--ms-ease);
-  border: none;
-  cursor: pointer;
-}
-.doc-preview-btn-primary {
-  background: var(--ms-navy);
-  color: var(--ms-white);
-  box-shadow: 0 6px 16px rgba(18,59,120,.12);
-}
-.doc-preview-btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 24px rgba(18,59,120,.18);
-}
-.doc-preview-btn-secondary {
-  background: transparent;
-  color: var(--ms-navy);
-  border: 1.5px solid var(--ms-border);
-}
-.doc-preview-btn-secondary:hover {
-  transform: translateY(-2px);
-  border-color: var(--ms-sky);
-  background: rgba(25,184,242,.04);
-}
-
-.doc-importance-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-}
-.doc-importance-card {
-  background: var(--ms-white);
-  border: 1px solid var(--ms-border);
-  border-radius: var(--ms-radius-sm);
-  padding: 24px 20px;
   text-align: center;
-  box-shadow: 0 2px 12px rgba(18,59,120,.03);
-  transition: transform .3s var(--ms-ease), box-shadow .3s var(--ms-ease);
-}
-.doc-importance-card:hover {
-  transform: translateY(-6px);
-  box-shadow: var(--ms-shadow);
-}
-.doc-importance-icon {
-  width: 52px; height: 52px;
-  margin: 0 auto 14px;
-  border-radius: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 24px;
-  transition: transform .3s var(--ms-ease);
-}
-.doc-importance-card:hover .doc-importance-icon { transform: scale(1.12) rotate(-4deg); }
-.doc-importance-icon-blue { background: rgba(25,184,242,.1); }
-.doc-importance-icon-green { background: rgba(46,204,113,.1); }
-.doc-importance-icon-gold { background: rgba(246,179,0,.1); }
-.doc-importance-icon-purple { background: rgba(155,89,182,.1); }
-.doc-importance-label {
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--ms-navy);
-  line-height: 1.4;
 }
 
-.doc-notice-card {
-  max-width: 640px;
-  margin: 0 auto;
-  background: var(--ms-white);
-  border: 1px solid var(--ms-border);
-  border-radius: var(--ms-radius-sm);
-  padding: 24px 28px;
+.char-hero-icon-wrap {
+  margin-bottom: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 110px;
+  height: 110px;
+  border-radius: 28px;
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(12px);
+  border: 1.5px solid rgba(255,255,255,0.08);
+  color: var(--color-accent);
+  font-size: 48px;
+  transition: transform 0.4s var(--ease);
+}
+
+.char-hero-icon-wrap:hover {
+  transform: scale(1.06) rotate(-4deg);
+}
+
+.char-hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(246,179,0,0.2);
+  padding: 10px 24px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-accent);
+  margin-bottom: 28px;
+}
+
+.char-hero-title {
+  font-size: clamp(36px, 5.5vw, 60px);
+  font-weight: 900;
+  line-height: 1.25;
+  margin-bottom: 20px;
+  text-shadow: 0 4px 30px rgba(0,0,0,0.15);
+}
+
+.char-hero-title-em {
+  background: linear-gradient(135deg, var(--color-accent) 0%, #FFD34D 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.char-hero-desc {
+  font-size: clamp(16px, 1.5vw, 18px);
+  color: rgba(255,255,255,0.8);
+  max-width: 700px;
+  margin: 0 auto 40px;
+  line-height: 1.85;
+}
+
+.char-hero-actions {
   display: flex;
-  align-items: flex-start;
+  flex-wrap: wrap;
   gap: 16px;
-  transition: box-shadow .3s var(--ms-ease);
+  justify-content: center;
 }
-.doc-notice-card:hover {
-  box-shadow: var(--ms-shadow);
+
+.char-scroll-cue {
+  position: absolute;
+  bottom: 34px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255,255,255,0.5);
+  font-size: 12px;
+  z-index: 2;
 }
-.doc-notice-icon {
-  flex-shrink: 0;
-  width: 40px; height: 40px;
+
+.char-scroll-line {
+  width: 1px;
+  height: 34px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.6), transparent);
+  animation: charPulse 1.8s ease-in-out infinite;
+}
+
+@keyframes charPulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+.char-section {
+  position: relative;
+  padding: 100px 0;
+  overflow: hidden;
+}
+
+.char-section-light {
+  background: var(--color-light);
+}
+
+.char-section-gradient {
+  background: linear-gradient(180deg, #f4f8ff 0%, #e8f0fe 50%, #f0f4ff 100%);
+}
+
+.char-section-navy {
+  background: linear-gradient(160deg, #080e1f 0%, #0f2a5a 35%, #1a3a7a 60%, #0d1f42 100%);
+  color: #fff;
+}
+
+.char-blobs {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.char-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.22;
+}
+
+.char-blob-1 {
+  width: 500px; height: 500px;
+  background: rgba(25,184,242,0.06);
+  top: -200px; inset-inline-end: -100px;
+  animation: charBlobFloat 10s ease-in-out infinite;
+}
+
+.char-blob-2 {
+  width: 400px; height: 400px;
+  background: rgba(246,179,0,0.04);
+  bottom: -150px; inset-inline-start: -80px;
+  animation: charBlobFloat 12s ease-in-out infinite reverse;
+}
+
+@keyframes charBlobFloat {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -30px) scale(1.05); }
+  66% { transform: translate(-20px, 20px) scale(0.95); }
+}
+
+.char-section .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* ---- Scroll Progress ---- */
+.char-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  z-index: 9998;
+  background: transparent;
+}
+
+.char-progress-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+  transition: width 0.15s ease-out;
+}
+
+/* ---- Table of Contents ---- */
+.char-toc-wrap {
+  position: sticky;
+  top: 80px;
+  z-index: 10;
+  margin-top: -40px;
+  margin-bottom: 40px;
+}
+
+.char-toc-card {
+  max-width: 900px;
+  margin: 0 auto;
+  background: rgba(255,255,255,0.8);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255,255,255,0.5);
+  border-radius: 24px;
+  box-shadow: 0 16px 60px rgba(18,59,120,0.1);
+  padding: 28px 32px;
+  position: relative;
+  overflow: hidden;
+}
+
+.char-toc-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--color-primary), var(--color-accent), transparent);
+}
+
+.char-toc-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.char-toc-header-icon {
+  width: 36px;
+  height: 36px;
   border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(231,76,60,.1);
-  color: var(--ms-red);
-  font-size: 18px;
-}
-.doc-notice-content { flex: 1; }
-.doc-notice-title {
-  font-size: 15px;
-  font-weight: 800;
-  color: var(--ms-navy);
-  margin-bottom: 2px;
-}
-.doc-notice-text {
-  font-size: 14px;
-  color: var(--ms-dark);
-  opacity: .6;
-  line-height: 1.6;
+  background: linear-gradient(135deg, rgba(25,184,242,0.1) 0%, rgba(25,184,242,0.04) 100%);
+  color: var(--color-primary);
+  font-size: 16px;
 }
 
-.doc-download-card {
-  max-width: 640px;
+.char-toc-header-title {
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--color-navy);
+}
+
+.char-toc-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.char-toc-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-soft);
+  text-decoration: none;
+  transition: all 0.3s var(--ease);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-main);
+  text-align: start;
+}
+
+.char-toc-link:hover {
+  background: rgba(25,184,242,0.06);
+  color: var(--color-primary);
+}
+
+.char-toc-link.active {
+  background: rgba(25,184,242,0.1);
+  color: var(--color-primary);
+  box-shadow: 0 4px 12px rgba(25,184,242,0.08);
+}
+
+.char-toc-num {
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 800;
+  background: rgba(18,59,120,0.06);
+  color: var(--color-text-soft);
+  flex-shrink: 0;
+  transition: all 0.3s var(--ease);
+}
+
+.char-toc-link.active .char-toc-num {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.char-toc-icon {
+  font-size: 13px;
+  color: var(--color-primary);
+  opacity: 0;
+  transition: opacity 0.3s var(--ease);
+  margin-inline-start: auto;
+}
+
+.char-toc-link.active .char-toc-icon {
+  opacity: 1;
+}
+
+/* ---- Intro Card ---- */
+.char-intro-card {
+  max-width: 860px;
   margin: 0 auto;
-  background: var(--ms-white);
-  border: 1px solid var(--ms-border);
-  border-radius: var(--ms-radius);
-  padding: 40px 36px;
-  text-align: center;
-  box-shadow: var(--ms-shadow);
-  transition: transform .3s var(--ms-ease), box-shadow .3s var(--ms-ease);
+  background: rgba(255,255,255,0.75);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255,255,255,0.5);
+  border-radius: 32px;
+  box-shadow: 0 24px 80px rgba(18,59,120,0.08), 0 0 0 1px rgba(255,255,255,0.25) inset;
+  padding: 52px 48px;
+  position: relative;
+  overflow: hidden;
 }
-.doc-download-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 32px 100px rgba(18,59,120,.12);
-}
-.doc-download-card::before {
+
+.char-intro-card::before {
   content: '';
-  display: block;
-  width: 48px; height: 4px;
-  background: var(--ms-gold);
-  border-radius: 4px;
-  margin: 0 auto 24px;
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, var(--color-primary), var(--color-accent), transparent);
 }
-.doc-download-title {
-  font-size: 24px;
-  font-weight: 900;
-  color: var(--ms-navy);
-  margin-bottom: 8px;
-}
-.doc-download-desc {
-  font-size: 16px;
-  color: var(--ms-dark);
-  opacity: .6;
-  line-height: 1.7;
-  max-width: 460px;
-  margin: 0 auto 24px;
-}
-.doc-download-btn {
+
+.char-intro-badge {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  height: 54px;
-  padding: 0 36px;
-  border-radius: var(--ms-radius-sm);
-  font-weight: 800;
-  font-size: 16px;
-  font-family: inherit;
-  text-decoration: none;
-  transition: transform .3s var(--ms-ease), box-shadow .3s var(--ms-ease);
-  border: none;
-  cursor: pointer;
-  background: var(--ms-navy);
-  color: var(--ms-white);
-  box-shadow: 0 8px 24px rgba(18,59,120,.15);
-}
-.doc-download-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 16px 40px rgba(18,59,120,.2);
+  padding: 8px 20px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(25,184,242,0.08) 0%, rgba(25,184,242,0.03) 100%);
+  color: var(--color-primary);
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 20px;
 }
 
+.char-intro-title {
+  font-size: clamp(26px, 3.5vw, 36px);
+  font-weight: 900;
+  color: var(--color-navy);
+  margin-bottom: 16px;
+  line-height: 1.3;
+}
+
+.char-intro-text {
+  font-size: 16.5px;
+  color: var(--color-text-soft);
+  line-height: 2;
+  margin-bottom: 8px;
+}
+
+.char-intro-seal {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(18,59,120,0.06);
+}
+
+.char-intro-seal-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--color-accent) 0%, #FFD34D 100%);
+  color: var(--color-navy);
+  font-size: 26px;
+  flex-shrink: 0;
+}
+
+.char-intro-seal-text {
+  font-size: 14px;
+  color: var(--color-text-soft);
+  line-height: 1.6;
+  font-weight: 600;
+}
+
+/* ---- Principles Numbered Grid ---- */
+.char-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 20px;
+}
+
+.char-principle-card {
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.5);
+  border-radius: var(--radius-md);
+  padding: 28px 24px;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease), background 0.35s var(--ease);
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  position: relative;
+  overflow: hidden;
+}
+
+.char-principle-card::before {
+  content: '';
+  position: absolute;
+  inset-inline-start: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, var(--color-primary), var(--color-accent));
+  opacity: 0;
+  transition: opacity 0.35s var(--ease);
+}
+
+.char-principle-card:hover::before {
+  opacity: 1;
+}
+
+.char-principle-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+  background: rgba(255,255,255,0.88);
+}
+
+.char-principle-num {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+  font-weight: 900;
+  background: linear-gradient(135deg, rgba(25,184,242,0.1) 0%, rgba(25,184,242,0.04) 100%);
+  color: var(--color-primary);
+  flex-shrink: 0;
+  transition: transform 0.35s var(--ease), background 0.35s var(--ease), color 0.35s var(--ease);
+}
+
+.char-principle-card:hover .char-principle-num {
+  transform: scale(1.08) rotate(-4deg);
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-navy) 100%);
+  color: #fff;
+}
+
+.char-principle-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.char-principle-text {
+  font-size: 15.5px;
+  font-weight: 600;
+  color: var(--color-navy);
+  line-height: 1.7;
+}
+
+/* ---- Values Grid ---- */
+.char-values-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.char-value-card {
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.5);
+  border-radius: var(--radius-md);
+  padding: 30px 24px;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease), background 0.35s var(--ease);
+  position: relative;
+  overflow: hidden;
+}
+
+.char-value-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--color-primary), var(--color-accent), transparent);
+  opacity: 0;
+  transition: opacity 0.35s var(--ease);
+}
+
+.char-value-card:hover::before {
+  opacity: 1;
+}
+
+.char-value-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
+  background: rgba(255,255,255,0.88);
+}
+
+.char-value-icon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 18px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(25,184,242,0.1) 0%, rgba(25,184,242,0.04) 100%);
+  color: var(--color-primary);
+  font-size: 28px;
+  transition: transform 0.35s var(--ease), background 0.35s var(--ease), color 0.35s var(--ease);
+}
+
+.char-value-card:hover .char-value-icon {
+  transform: scale(1.08) rotate(-4deg);
+  background: linear-gradient(135deg, var(--color-accent) 0%, #FFD34D 100%);
+  color: var(--color-navy);
+}
+
+.char-value-title {
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--color-navy);
+  line-height: 1.4;
+}
+
+/* ---- Do & Don't ---- */
+.char-compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.char-compare-col {
+  background: rgba(255,255,255,0.75);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255,255,255,0.5);
+  border-radius: 28px;
+  padding: 40px 36px;
+  box-shadow: var(--shadow-md);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
+}
+
+.char-compare-col:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.char-compare-col::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+}
+
+.char-compare-do::before {
+  background: linear-gradient(90deg, transparent, #22c55e, #16a34a, transparent);
+}
+
+.char-compare-dont::before {
+  background: linear-gradient(90deg, transparent, #ef4444, #dc2626, transparent);
+}
+
+.char-compare-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 24px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid rgba(18,59,120,0.06);
+}
+
+.char-compare-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  flex-shrink: 0;
+}
+
+.char-compare-icon-do {
+  background: linear-gradient(135deg, rgba(34,197,94,0.12) 0%, rgba(34,197,94,0.04) 100%);
+  color: #22c55e;
+}
+
+.char-compare-icon-dont {
+  background: linear-gradient(135deg, rgba(239,68,68,0.12) 0%, rgba(239,68,68,0.04) 100%);
+  color: #ef4444;
+}
+
+.char-compare-title {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--color-navy);
+}
+
+.char-compare-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.char-compare-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(18,59,120,0.04);
+  font-size: 15.5px;
+  font-weight: 600;
+  color: var(--color-navy);
+  line-height: 1.6;
+}
+
+.char-compare-item:last-child {
+  border-bottom: none;
+}
+
+.char-compare-mark {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.char-compare-mark-do {
+  background: linear-gradient(135deg, rgba(34,197,94,0.1) 0%, rgba(34,197,94,0.04) 100%);
+  color: #22c55e;
+}
+
+.char-compare-mark-dont {
+  background: linear-gradient(135deg, rgba(239,68,68,0.1) 0%, rgba(239,68,68,0.04) 100%);
+  color: #ef4444;
+}
+
+/* ---- Notice Box ---- */
+.char-notice {
+  max-width: 780px;
+  margin: 0 auto;
+  border-radius: 28px;
+  padding: 40px 36px;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, rgba(231,76,60,0.04) 0%, rgba(231,76,60,0.01) 100%);
+  border: 1.5px solid rgba(231,76,60,0.12);
+  box-shadow: 0 8px 32px rgba(231,76,60,0.04);
+}
+
+.char-notice::before {
+  content: '';
+  position: absolute;
+  inset-inline-start: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(180deg, #e74c3c, #c0392b);
+  border-radius: 0 4px 4px 0;
+}
+
+.char-notice-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.char-notice-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(231,76,60,0.12) 0%, rgba(231,76,60,0.04) 100%);
+  color: #e74c3c;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.char-notice-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: #c0392b;
+}
+
+.char-notice-text {
+  font-size: 15.5px;
+  color: var(--color-text-soft);
+  line-height: 1.9;
+  padding-inline-start: 58px;
+}
+
+/* ---- Declaration Card ---- */
+.char-declare-card {
+  max-width: 700px;
+  margin: 0 auto;
+  background: rgba(255,255,255,0.75);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255,255,255,0.5);
+  border-radius: 32px;
+  box-shadow: 0 24px 80px rgba(18,59,120,0.08);
+  padding: 48px 44px;
+  position: relative;
+  overflow: hidden;
+}
+
+.char-declare-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, var(--color-accent), var(--color-primary), transparent);
+}
+
+.char-declare-title {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--color-navy);
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.char-declare-desc {
+  font-size: 15px;
+  color: var(--color-text-soft);
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.char-checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  cursor: pointer;
+  margin-bottom: 16px;
+}
+
+.char-checkbox:last-of-type {
+  margin-bottom: 0;
+}
+
+.char-checkbox input[type="checkbox"] {
+  display: none;
+}
+
+.char-checkbox-check {
+  width: 24px;
+  height: 24px;
+  border-radius: 8px;
+  border: 2px solid rgba(18,59,120,0.14);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.3s var(--ease);
+  background: #fff;
+  margin-top: 1px;
+}
+
+.char-checkbox-check i {
+  font-size: 12px;
+  color: #fff;
+  opacity: 0;
+  transform: scale(0);
+  transition: all 0.3s var(--ease);
+}
+
+.char-checkbox input:checked + .char-checkbox-check {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-navy));
+  border-color: var(--color-primary);
+  box-shadow: 0 4px 12px rgba(25,184,242,0.2);
+}
+
+.char-checkbox input:checked + .char-checkbox-check i {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.char-checkbox-text {
+  font-size: 15px;
+  color: #222;
+  font-weight: 500;
+  line-height: 1.7;
+}
+
+.char-checkbox:hover .char-checkbox-check {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px rgba(25,184,242,0.05);
+}
+
+/* ---- Download Card ---- */
+.char-download-card {
+  max-width: 720px;
+  margin: 0 auto;
+  background: rgba(255,255,255,0.75);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255,255,255,0.5);
+  border-radius: 32px;
+  padding: 48px 40px;
+  text-align: center;
+  box-shadow: var(--shadow-md);
+  position: relative;
+  overflow: hidden;
+}
+
+.char-download-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, var(--color-primary), var(--color-accent), transparent);
+}
+
+.char-download-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 24px;
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(246,179,0,0.12) 0%, rgba(246,179,0,0.05) 100%);
+  color: var(--color-accent);
+  font-size: 36px;
+  transition: transform 0.35s var(--ease);
+}
+
+.char-download-card:hover .char-download-icon {
+  transform: scale(1.06) rotate(-4deg);
+}
+
+.char-download-title {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--color-navy);
+  margin-bottom: 12px;
+}
+
+.char-download-desc {
+  font-size: 16px;
+  color: var(--color-text-soft);
+  line-height: 1.7;
+  max-width: 520px;
+  margin: 0 auto 28px;
+}
+
+.char-download-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 40px;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 16px;
+  font-family: var(--font-main);
+  text-decoration: none;
+  transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(135deg, var(--color-accent) 0%, #FFD34D 100%);
+  color: var(--color-navy);
+  box-shadow: var(--shadow-accent);
+}
+
+.char-download-btn:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 52px rgba(246,179,0,0.5);
+}
+
+.char-download-btn i {
+  font-size: 18px;
+  transition: transform 0.3s var(--ease);
+}
+
+.char-download-btn:hover i {
+  transform: translateY(-3px);
+}
+
+/* ---- FAQ ---- */
+.char-faq-list {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.char-faq-item {
+  background: rgba(255,255,255,0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.5);
+  border-radius: var(--radius-md);
+  margin-bottom: 14px;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.3s var(--ease);
+}
+
+.char-faq-item:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.char-faq-item.active {
+  box-shadow: var(--shadow-md);
+}
+
+.char-faq-question {
+  width: 100%;
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--color-navy);
+  background: none;
+  border: none;
+  font-family: var(--font-main);
+  text-align: start;
+  transition: color 0.3s var(--ease);
+}
+
+.char-faq-question:hover {
+  color: var(--color-primary);
+}
+
+.char-faq-item.active .char-faq-question {
+  color: var(--color-primary);
+}
+
+.char-faq-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(25,184,242,0.08);
+  color: var(--color-primary);
+  font-size: 12px;
+  flex-shrink: 0;
+  transition: transform 0.3s var(--ease), background 0.3s var(--ease), color 0.3s var(--ease);
+}
+
+.char-faq-item.active .char-faq-icon {
+  transform: rotate(180deg);
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.char-faq-answer {
+  padding: 0 24px 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s var(--ease), padding 0.4s var(--ease);
+  color: var(--color-text-soft);
+  line-height: 1.8;
+  font-size: 15px;
+}
+
+.char-faq-item.active .char-faq-answer {
+  max-height: 300px;
+  padding: 0 24px 24px;
+}
+
+/* ---- Final CTA ---- */
+.char-cta {
+  position: relative;
+  padding: 110px 0;
+  background: linear-gradient(160deg, #080e1f 0%, #0f2a5a 35%, #1a3a7a 60%, #0d1f42 100%);
+  overflow: hidden;
+  text-align: center;
+  color: #fff;
+}
+
+.char-cta-pattern {
+  position: absolute;
+  inset: 0;
+  opacity: 0.03;
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(255,255,255,0.08) 40px, rgba(255,255,255,0.08) 41px),
+    repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(255,255,255,0.08) 40px, rgba(255,255,255,0.08) 41px);
+  background-size: 80px 80px, 80px 80px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.char-cta-blobs {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.char-cta-blob {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.06;
+}
+
+.char-cta-blob-1 {
+  width: 350px; height: 350px;
+  background: radial-gradient(circle, var(--color-primary), transparent);
+  top: -80px; inset-inline-end: -80px;
+  animation: charCtaFloat 12s ease-in-out infinite;
+}
+
+.char-cta-blob-2 {
+  width: 280px; height: 280px;
+  background: radial-gradient(circle, var(--color-accent), transparent);
+  bottom: -60px; inset-inline-start: -60px;
+  animation: charCtaFloat 15s ease-in-out infinite reverse;
+}
+
+@keyframes charCtaFloat {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(20px, -20px) scale(1.1); }
+  66% { transform: translate(-15px, 15px) scale(0.9); }
+}
+
+.char-cta .container {
+  position: relative;
+  z-index: 2;
+}
+
+.char-cta-content {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.char-cta-title {
+  font-size: clamp(30px, 4.5vw, 48px);
+  font-weight: 900;
+  line-height: 1.25;
+  margin-bottom: 16px;
+}
+
+.char-cta-title-em {
+  background: linear-gradient(135deg, var(--color-accent), #FFD34D);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.char-cta-desc {
+  font-size: 17px;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.8;
+  margin-bottom: 32px;
+}
+
+.char-cta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+  align-items: center;
+}
+
+.char-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 20px 44px;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 17px;
+  font-family: var(--font-main);
+  text-decoration: none;
+  transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
+  border: none;
+  cursor: pointer;
+}
+
+.char-cta-btn-primary {
+  background: linear-gradient(135deg, var(--color-accent) 0%, #FFD34D 100%);
+  color: var(--color-navy);
+  box-shadow: var(--shadow-accent);
+}
+
+.char-cta-btn-primary:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 52px rgba(246,179,0,0.5);
+}
+
+.char-cta-btn-secondary {
+  background: transparent;
+  color: #fff;
+  border: 2px solid rgba(255,255,255,0.3);
+  box-shadow: none;
+}
+
+.char-cta-btn-secondary:hover {
+  border-color: #fff;
+  background: rgba(255,255,255,0.08);
+  transform: translateY(-4px);
+  box-shadow: none;
+}
+
+.char-cta-btn i {
+  font-size: 18px;
+  transition: transform 0.3s var(--ease);
+}
+
+.char-cta-btn:hover i {
+  transform: translateX(-4px);
+}
+
+/* ---- Responsive ---- */
 @media (max-width: 1024px) {
-  .doc-importance-grid { grid-template-columns: repeat(2, 1fr); }
+  .char-hero { min-height: 78vh; }
+  .char-hero-shape-1 { width: 160px; height: 160px; }
+  .char-hero-shape-2 { width: 120px; height: 120px; }
+  .char-hero-shape-3 { width: 90px; height: 90px; }
+  .char-toc-grid { grid-template-columns: 1fr; }
+  .char-toc-wrap { position: static; margin-top: 0; }
 }
+
 @media (max-width: 768px) {
-  .doc-hero { min-height: 360px; }
-  .doc-section { padding: 40px 0; }
-  .doc-hero-eyebrow { font-size: 12px; padding: 6px 16px; }
-  .doc-preview-body { padding: 20px; }
-  .doc-preview-card { margin: 0 12px; }
-  .doc-notice-card { margin: 0 12px; padding: 20px; }
-  .doc-download-card { padding: 32px 24px; }
+  .char-hero { min-height: 70vh; }
+  .char-hero-shape-1 { width: 110px; height: 110px; }
+  .char-hero-shape-2 { width: 80px; height: 80px; }
+  .char-hero-shape-3 { display: none; }
+  .char-hero-icon-wrap { width: 80px; height: 80px; font-size: 34px; }
+  .char-hero-eyebrow { font-size: 12.5px; padding: 8px 18px; }
+  .char-section { padding: 70px 0; }
+  .char-intro-card { padding: 36px 28px; }
+  .char-intro-title { font-size: 22px; }
+  .char-grid { grid-template-columns: 1fr; }
+  .char-principle-card { padding: 24px 20px; }
+  .char-values-grid { grid-template-columns: repeat(2, 1fr); }
+  .char-compare { grid-template-columns: 1fr; }
+  .char-compare-col { padding: 32px 28px; }
+  .char-declare-card { padding: 36px 28px; }
+  .char-download-card { padding: 36px 24px; }
+  .char-download-title { font-size: 20px; }
+  .char-notice { padding: 32px 24px; }
+  .char-notice-text { padding-inline-start: 0; margin-top: 8px; }
+  .char-cta { padding: 80px 0; }
+  .char-faq-question { padding: 16px 18px; font-size: 15px; }
 }
+
 @media (max-width: 560px) {
-  .doc-hero-title { font-size: 28px; }
-  .doc-hero-desc { font-size: 16px; }
-  .doc-download-btn { width: 100%; justify-content: center; }
-  .doc-preview-actions { flex-direction: column; }
-  .doc-preview-btn { width: 100%; justify-content: center; }
-  .doc-importance-grid { grid-template-columns: 1fr; }
+  .char-hero-title { font-size: 28px; }
+  .char-intro-card { padding: 28px 20px; border-radius: 24px; }
+  .char-intro-seal { flex-direction: column; text-align: center; }
+  .char-values-grid { grid-template-columns: 1fr; }
+  .char-value-card { padding: 24px 18px; }
+  .char-principle-num { width: 38px; height: 38px; font-size: 15px; }
+  .char-principle-text { font-size: 14.5px; }
+  .char-declare-card { padding: 28px 20px; border-radius: 24px; }
+  .char-declare-title { font-size: 20px; }
+  .char-download-card { padding: 28px 18px; border-radius: 24px; }
+  .char-download-btn { width: 100%; justify-content: center; }
+  .char-cta-btn { width: 100%; justify-content: center; }
+  .char-notice { padding: 28px 20px; border-radius: 20px; }
+  .char-compare-col { padding: 24px 18px; border-radius: 20px; }
 }
+
 </style>
 </head>
 <body>
@@ -402,131 +1271,638 @@
 </div>
 
 <a href="#main" class="visually-hidden">تخطَّ إلى المحتوى الرئيسي</a>
-<div id="navbar" data-base=".."></div>
+
+<div class="topbar">
+  <div class="container">
+    <div class="topbar-right">
+      <a href="../index.html" class="topbar-brand" aria-label="الرئيسية">
+        <span class="topbar-brand-mark">
+          <img src="../Amare%20files%20/logo.png" alt="AMARE Logo" class="topbar-brand-logo">
+        </span>
+        <span class="topbar-brand-name">الجمعية المغربية لهواة البحث والاستكشاف</span>
+      </a>
+    </div>
+    <div class="topbar-left">
+      <div class="topbar-social">
+        <a href="#" aria-label="فيسبوك"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg></a>
+        <a href="#" aria-label="إنستغرام"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+        <a href="#" aria-label="لينكدإن"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 5 3.79 6.2 2.3 6.2 1 6.2 0 5 0 3.5 0 2 1.1.8 2.5.8s2.48 1.2 2.48 2.7zM.2 8.5h4.6V23H.2V8.5zM8 8.5h4.4v2h.06c.6-1.2 2.1-2.4 4.4-2.4 4.7 0 5.6 3.1 5.6 7.1V23h-4.6v-6.7c0-1.6 0-3.7-2.3-3.7s-2.6 1.8-2.6 3.6V23H8V8.5z"/></svg></a>
+      </div>
+      <div class="topbar-lang">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg>
+        <select aria-label="اختيار اللغة">
+          <option value="ar" selected>العربية</option>
+          <option value="fr">Français</option>
+          <option value="en">English</option>
+        </select>
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <a href="https://wa.me/212600000000" target="_blank" rel="noopener" class="topbar-whatsapp ripple" aria-label="تواصل عبر واتساب">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.6.1-.2.3-.7 1-.9 1.2-.1.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.2-.4.1-.2 0-.4 0-.5s-.6-1.5-.8-2c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s1 2.6 1.1 2.7c.1.2 2 3 4.7 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 2-1.4.2-.6.2-1.2.1-1.3-.1-.1-.3-.2-.6-.3z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.6 1.4 5.1L2 22l5.1-1.3C8.5 21.5 10.2 22 12 22c5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18c-1.6 0-3.1-.4-4.5-1.2l-.3-.2-3.3.9.9-3.2-.2-.3C3.7 14.6 3.2 13.3 3.2 12c0-4.9 3.9-8.8 8.8-8.8s8.8 3.9 8.8 8.8-3.9 8.8-8.8 8.8z"/></svg>
+        <span>واتساب</span>
+      </a>
+      <a href="#" class="topbar-login ripple" aria-label="تسجيل الدخول">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M15 3h6v18h-6M10 17l5-5-5-5M15 12H3"/>
+        </svg>
+        <span>تسجيل الدخول</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<header>
+  <nav class="navbar" id="navbar" aria-label="التنقل الرئيسي">
+    <div class="container">
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html">الرئيسية</a></li>
+        <li data-dropdown="about"><a href="../index.html#about">من نحن</a></li>
+        <li data-dropdown="activities"><a href="#">أنشطتنا</a></li>
+        <li data-dropdown="partners"><a href="#">شركاؤنا</a></li>
+        <li data-dropdown="services"><a href="../index.html#services">خدماتنا</a></li>
+        <li data-dropdown="news"><a href="../index.html#news">الأخبار</a></li>
+        <li data-dropdown="archive"><a href="#">الأرشيف</a></li>
+        <li data-dropdown="branches"><a href="#">الفروع الجهوية</a></li>
+        <li data-dropdown="join"><a href="index.html">انخرط معنا</a></li>
+        <li><a href="../index.html#contact">اتصل بنا</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="index.html" class="nav-join-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="8.5" cy="7" r="4"/>
+            <line x1="20" y1="8" x2="20" y2="14"/>
+            <line x1="23" y1="11" x2="17" y2="11"/>
+          </svg>
+          <span>انخرط في الجمعية</span>
+        </a>
+        <a href="#" class="nav-store-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+            <path d="M3 6h18"/>
+            <path d="M16 10a4 4 0 0 1-8 0"/>
+          </svg>
+          <span>متجر AMARE</span>
+        </a>
+        <button class="hamburger" id="hamburger" aria-label="فتح القائمة" aria-expanded="false" aria-controls="navLinks">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <div class="mega-dropdown" id="megaDropdown"></div>
+  </nav>
+</header>
 
 <main id="main">
 
-<!-- ===== 1. HERO ===== -->
-<section class="doc-hero" id="hero">
-  <div class="doc-hero-pattern"></div>
+<!-- ============================== -->
+<!-- 1. HERO                       -->
+<!-- ============================== -->
+<section class="char-hero" id="hero">
+  <div class="char-hero-pattern"></div>
+
+  <div class="char-hero-shape char-hero-shape-1">
+    <svg viewBox="0 0 260 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="16" y="16" width="228" height="228" rx="18" stroke="rgba(246,179,0,0.1)" stroke-width="1.5"/>
+      <rect x="36" y="36" width="188" height="188" rx="12" stroke="rgba(246,179,0,0.06)" stroke-width="1"/>
+      <circle cx="130" cy="100" r="34" stroke="rgba(246,179,0,0.08)" stroke-width="0.8" fill="none"/>
+      <path d="M110 100L125 100M130 100L150 100" stroke="rgba(246,179,0,0.08)" stroke-width="0.8" stroke-linecap="round"/>
+      <path d="M130 80L130 90M130 105L130 120" stroke="rgba(246,179,0,0.08)" stroke-width="0.8" stroke-linecap="round"/>
+      <path d="M80 170L100 170M120 170L180 170" stroke="rgba(246,179,0,0.07)" stroke-width="0.8" stroke-linecap="round"/>
+      <path d="M90 190L140 190" stroke="rgba(246,179,0,0.06)" stroke-width="0.8" stroke-linecap="round"/>
+    </svg>
+  </div>
+
+  <div class="char-hero-shape char-hero-shape-2">
+    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M100 12L118 54L162 60L128 90L142 136L100 114L58 136L72 90L38 60L82 54L100 12Z" fill="rgba(25,184,242,0.05)" stroke="rgba(25,184,242,0.08)" stroke-width="1"/>
+      <path d="M100 28L112 54L142 58L118 76L126 106L100 92L74 106L82 76L58 58L88 54L100 28Z" fill="rgba(255,255,255,0.02)" stroke="rgba(25,184,242,0.04)" stroke-width="0.6"/>
+      <path d="M100 42L106 56L120 58L110 68L114 82L100 76L86 82L90 68L80 58L94 56L100 42Z" fill="rgba(246,179,0,0.03)" stroke="rgba(246,179,0,0.04)" stroke-width="0.4"/>
+    </svg>
+  </div>
+
+  <div class="char-hero-shape char-hero-shape-3">
+    <svg viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="70" cy="70" r="55" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+      <circle cx="70" cy="70" r="38" stroke="rgba(255,255,255,0.03)" stroke-width="0.8"/>
+      <circle cx="70" cy="70" r="20" stroke="rgba(255,255,255,0.03)" stroke-width="0.5"/>
+      <path d="M70 15L70 125M15 70L125 70" stroke="rgba(255,255,255,0.02)" stroke-width="0.4"/>
+    </svg>
+  </div>
+
   <div class="container">
-    <div class="doc-hero-inner" data-aos="fade-up" data-aos-duration="700">
-      <span class="doc-hero-eyebrow">
-        <i class="fas fa-file-contract"></i>
-        وثيقة رسمية
+    <div class="char-hero-inner" data-aos="fade-up" data-aos-duration="900">
+      <div class="char-hero-icon-wrap">
+        <i class="fas fa-scroll"></i>
+      </div>
+
+      <span class="char-hero-eyebrow">
+        <i class="fas fa-stamp"></i>
+        الميثاق الرسمي
       </span>
-      <h1 class="doc-hero-title">
-        ميثاق <span class="doc-hero-title-em">المستكشف المسؤول</span>
+
+      <h1 class="char-hero-title">
+        ميثاق الاستكشاف <span class="char-hero-title-em">المسؤول</span>
       </h1>
-      <p class="doc-hero-desc">
-        اطلع على ميثاق المستكشف المسؤول الذي يحدد المبادئ والقيم والسلوكيات التي يجب على كل عضو الالتزام بها أثناء الأنشطة والرحلات الاستكشافية.
+
+      <p class="char-hero-desc">
+        يهدف هذا الميثاق إلى تعزيز ثقافة الاستكشاف المسؤول والمحافظة على التراث الطبيعي والتاريخي والثقافي، مع احترام القوانين والقيم الأخلاقية.
       </p>
-      <div class="doc-hero-actions">
-        <a href="../Amare%20files%20/%D9%85%D9%8A%D8%AB%D8%A7%D9%82%20%D8%A7%D9%84%D9%85%D8%B3%D8%AA%D9%83%D8%B4%D9%81%20%D8%A7%D9%84%D9%85%D8%B3%D8%A4%D9%88%D9%842026.pdf" download class="doc-hero-btn doc-hero-btn-primary">
+
+      <div class="char-hero-actions">
+        <a href="#char-toc" class="join-btn join-btn-primary">
+          <i class="fas fa-list"></i>
+          عرض بنود الميثاق
+        </a>
+        <a href="#char-download" class="join-btn join-btn-ghost">
           <i class="fas fa-download"></i>
-          تحميل الميثاق
-        </a>
-        <a href="../Amare%20files%20/%D9%85%D9%8A%D8%AB%D8%A7%D9%82%20%D8%A7%D9%84%D9%85%D8%B3%D8%AA%D9%83%D8%B4%D9%81%20%D8%A7%D9%84%D9%85%D8%B3%D8%A4%D9%88%D9%842026.pdf" target="_blank" class="doc-hero-btn doc-hero-btn-ghost">
-          <i class="fas fa-eye"></i>
-          معاينة الميثاق
+          تحميل PDF
         </a>
       </div>
     </div>
   </div>
+
+  <div class="char-scroll-cue">
+    <span>مرر للأسفل</span>
+    <div class="char-scroll-line"></div>
+  </div>
 </section>
 
-<!-- ===== 2. MAIN PREVIEW CARD ===== -->
-<section class="doc-section doc-section-light" id="doc-preview">
+<!-- ============================== -->
+<!-- 2. SCROLL PROGRESS             -->
+<!-- ============================== -->
+<div class="char-progress" id="charProgress">
+  <div class="char-progress-bar" id="charProgressBar"></div>
+</div>
+
+<!-- ============================== -->
+<!-- 3. TABLE OF CONTENTS           -->
+<!-- ============================== -->
+<section class="char-section char-section-gradient" id="char-toc">
+  <div class="char-blobs" aria-hidden="true">
+    <div class="char-blob char-blob-1"></div>
+    <div class="char-blob char-blob-2"></div>
+  </div>
+
   <div class="container">
-    <div class="doc-preview-card" data-aos="fade-up" data-aos-duration="700">
-      <div class="doc-preview-header">
-        <img src="../templates/membership-preview.png" alt="معاينة ميثاق المستكشف المسؤول">
-      </div>
-      <div class="doc-preview-body">
-        <div class="doc-preview-badges">
-          <span class="doc-preview-badge doc-preview-badge-pdf"><i class="fas fa-file-pdf"></i> PDF</span>
-          <span class="doc-preview-badge doc-preview-badge-official"><i class="fas fa-check-circle"></i> وثيقة رسمية</span>
-          <span class="doc-preview-badge doc-preview-badge-update"><i class="fas fa-calendar-alt"></i> آخر تحديث: 2026</span>
+    <div class="char-toc-wrap" id="charTocWrap">
+      <div class="char-toc-card" id="charTocCard">
+        <div class="char-toc-header">
+          <span class="char-toc-header-icon"><i class="fas fa-list-tree"></i></span>
+          <span class="char-toc-header-title">فهرس الميثاق</span>
         </div>
-        <p class="doc-preview-desc">
-          ميثاق المستكشف المسؤول الرسمي للجمعية المغربية لهواة البحث والاستكشاف، يحدد المبادئ والقيم والسلوكيات الواجب الالتزام بها أثناء الأنشطة والرحلات الاستكشافية.
+
+        <div class="char-toc-grid" id="charTocGrid">
+          <button class="char-toc-link active" data-target="charIntro">
+            <span class="char-toc-num">1</span>
+            مقدمة الميثاق
+            <span class="char-toc-icon"><i class="fas fa-chevron-left"></i></span>
+          </button>
+          <button class="char-toc-link" data-target="charPrinciples">
+            <span class="char-toc-num">2</span>
+            مبادئ الميثاق
+            <span class="char-toc-icon"><i class="fas fa-chevron-left"></i></span>
+          </button>
+          <button class="char-toc-link" data-target="charValues">
+            <span class="char-toc-num">3</span>
+            قيم المستكشف
+            <span class="char-toc-icon"><i class="fas fa-chevron-left"></i></span>
+          </button>
+          <button class="char-toc-link" data-target="charRules">
+            <span class="char-toc-num">4</span>
+            المسموح والممنوع
+            <span class="char-toc-icon"><i class="fas fa-chevron-left"></i></span>
+          </button>
+          <button class="char-toc-link" data-target="charNotice">
+            <span class="char-toc-num">5</span>
+            تنبيه
+            <span class="char-toc-icon"><i class="fas fa-chevron-left"></i></span>
+          </button>
+          <button class="char-toc-link" data-target="charDeclare">
+            <span class="char-toc-num">6</span>
+            إقرار العضو
+            <span class="char-toc-icon"><i class="fas fa-chevron-left"></i></span>
+          </button>
+          <button class="char-toc-link" data-target="charFaq" style="grid-column:1/-1;justify-self:center;min-width:300px;">
+            <span class="char-toc-num">7</span>
+            الأسئلة الشائعة
+            <span class="char-toc-icon"><i class="fas fa-chevron-left"></i></span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================== -->
+    <!-- 4. INTRODUCTION                -->
+    <!-- ============================== -->
+    <div id="charIntro">
+      <div class="char-intro-card" data-aos="fade-up" data-aos-duration="800">
+        <span class="char-intro-badge">
+          <i class="fas fa-book-open"></i>
+          مقدمة
+        </span>
+
+        <h2 class="char-intro-title">مقدمة</h2>
+
+        <p class="char-intro-text">
+          يهدف هذا الميثاق إلى تعزيز ثقافة الاستكشاف المسؤول والمحافظة على التراث الطبيعي والتاريخي والثقافي، مع احترام القوانين والقيم الأخلاقية. يلتزم كل عضو ومنخرط باحترام هذا الميثاق خلال جميع أنشطة الاستكشاف التي تنظمها الجمعية المغربية لهواة البحث والاستكشاف.
         </p>
-        <div class="doc-preview-actions">
-          <a href="../Amare%20files%20/%D9%85%D9%8A%D8%AB%D8%A7%D9%82%20%D8%A7%D9%84%D9%85%D8%B3%D8%AA%D9%83%D8%B4%D9%81%20%D8%A7%D9%84%D9%85%D8%B3%D8%A4%D9%88%D9%842026.pdf" download class="doc-preview-btn doc-preview-btn-primary">
-            <i class="fas fa-download"></i>
-            تحميل الميثاق
-          </a>
-          <a href="../Amare%20files%20/%D9%85%D9%8A%D8%AB%D8%A7%D9%82%20%D8%A7%D9%84%D9%85%D8%B3%D8%AA%D9%83%D8%B4%D9%81%20%D8%A7%D9%84%D9%85%D8%B3%D8%A4%D9%88%D9%842026.pdf" target="_blank" class="doc-preview-btn doc-preview-btn-secondary">
-            <i class="fas fa-file-pdf"></i>
-            معاينة PDF
-          </a>
+
+        <p class="char-intro-text">
+          يعتبر هذا الميثاق وثيقة مرجعية تحدد المبادئ الأساسية والقيم التوجيهية التي يجب أن يتحلى بها كل مستكشف، وتشكل إطاراً أخلاقياً وقانونياً لضمان ممارسة مسؤولة تحافظ على التراث الوطني وتصون الموارد الطبيعية والتاريخية للأجيال القادمة.
+        </p>
+
+        <div class="char-intro-seal">
+          <div class="char-intro-seal-icon"><i class="fas fa-scroll"></i></div>
+          <span class="char-intro-seal-text">هذا الميثاق معتمد من الجمعية المغربية لهواة البحث والاستكشاف ويسري على جميع الأعضاء والمنخرطين</span>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===== 3. CHARTER PRINCIPLES ===== -->
-<section class="doc-section doc-section-gradient" id="doc-principles">
+<!-- ============================== -->
+<!-- 5. CHARTER PRINCIPLES          -->
+<!-- ============================== -->
+<section class="char-section char-section-light" id="charPrinciples">
   <div class="container">
-    <div class="section-head" data-aos="fade-up" data-aos-duration="700">
+    <div class="section-head" data-aos="fade-up" data-aos-duration="800">
       <span class="eyebrow">مبادئ الميثاق</span>
-      <h2 class="section-title">مبادئ المستكشف المسؤول</h2>
-      <p class="section-desc" style="margin-inline:auto;">المبادئ الأساسية التي يقوم عليها ميثاق المستكشف المسؤول</p>
+      <h2 class="section-title">مبادئ الاستكشاف المسؤول</h2>
+      <p class="section-desc" style="margin-inline:auto;">المبادئ الأساسية التي يجب على كل مستكشف الالتزام بها</p>
     </div>
 
-    <div class="doc-importance-grid">
-      <div class="doc-importance-card" data-aos="fade-up" data-aos-duration="500">
-        <div class="doc-importance-icon doc-importance-icon-blue" style="font-size:28px;">🧭</div>
-        <p class="doc-importance-label">الالتزام بالأخلاق والقيم</p>
+    <div class="char-grid stagger" data-aos="fade-up" data-aos-duration="800">
+      <div class="char-principle-card">
+        <span class="char-principle-num">01</span>
+        <div class="char-principle-content">
+          <p class="char-principle-text">احترام القوانين المغربية المنظمة للتراث والبيئة.</p>
+        </div>
       </div>
-      <div class="doc-importance-card" data-aos="fade-up" data-aos-duration="500" data-aos-delay="80">
-        <div class="doc-importance-icon doc-importance-icon-green" style="font-size:28px;">🌿</div>
-        <p class="doc-importance-label">احترام البيئة والمحافظة عليها</p>
+
+      <div class="char-principle-card">
+        <span class="char-principle-num">02</span>
+        <div class="char-principle-content">
+          <p class="char-principle-text">الحفاظ على المواقع الأثرية والطبيعية وعدم إتلافها.</p>
+        </div>
       </div>
-      <div class="doc-importance-card" data-aos="fade-up" data-aos-duration="500" data-aos-delay="160">
-        <div class="doc-importance-icon doc-importance-icon-gold" style="font-size:28px;">🤝</div>
-        <p class="doc-importance-label">روح التعاون والعمل الجماعي</p>
+
+      <div class="char-principle-card">
+        <span class="char-principle-num">03</span>
+        <div class="char-principle-content">
+          <p class="char-principle-text">عدم استخراج أو نقل أي قطعة أثرية أو تاريخية.</p>
+        </div>
       </div>
-      <div class="doc-importance-card" data-aos="fade-up" data-aos-duration="500" data-aos-delay="240">
-        <div class="doc-importance-icon doc-importance-icon-purple" style="font-size:28px;">🛡️</div>
-        <p class="doc-importance-label">تحمل المسؤولية والانضباط</p>
+
+      <div class="char-principle-card">
+        <span class="char-principle-num">04</span>
+        <div class="char-principle-content">
+          <p class="char-principle-text">احترام الملكيات الخاصة والحصول على التراخيص اللازمة.</p>
+        </div>
+      </div>
+
+      <div class="char-principle-card">
+        <span class="char-principle-num">05</span>
+        <div class="char-principle-content">
+          <p class="char-principle-text">المحافظة على نظافة أماكن الاستكشاف.</p>
+        </div>
+      </div>
+
+      <div class="char-principle-card">
+        <span class="char-principle-num">06</span>
+        <div class="char-principle-content">
+          <p class="char-principle-text">احترام الحياة البرية وعدم الإضرار بالنظام البيئي.</p>
+        </div>
+      </div>
+
+      <div class="char-principle-card">
+        <span class="char-principle-num">07</span>
+        <div class="char-principle-content">
+          <p class="char-principle-text">التعامل بأخلاق واحترام مع السكان المحليين.</p>
+        </div>
+      </div>
+
+      <div class="char-principle-card">
+        <span class="char-principle-num">08</span>
+        <div class="char-principle-content">
+          <p class="char-principle-text">الإبلاغ عن أي اكتشاف مهم إلى الجهات المختصة.</p>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===== 4. IMPORTANT NOTICE ===== -->
-<section class="doc-section doc-section-light" id="doc-notice">
+<!-- ============================== -->
+<!-- 6. RESPONSIBLE EXPLORER VALUES -->
+<!-- ============================== -->
+<section class="char-section char-section-gradient" id="charValues">
+  <div class="char-blobs" aria-hidden="true">
+    <div class="char-blob char-blob-1"></div>
+    <div class="char-blob char-blob-2"></div>
+  </div>
+
   <div class="container">
-    <div class="doc-notice-card" data-aos="fade-up" data-aos-duration="700">
-      <div class="doc-notice-icon">
-        <i class="fas fa-exclamation-triangle"></i>
+    <div class="section-head" data-aos="fade-up" data-aos-duration="800">
+      <span class="eyebrow">قيم المستكشف</span>
+      <h2 class="section-title">قيم المستكشف المسؤول</h2>
+      <p class="section-desc" style="margin-inline:auto;">القيم والمبادئ التي يتحلى بها المستكشف المسؤول</p>
+    </div>
+
+    <div class="char-values-grid stagger" data-aos="fade-up" data-aos-duration="800">
+      <div class="char-value-card">
+        <div class="char-value-icon"><i class="fas fa-hand-holding-heart"></i></div>
+        <h3 class="char-value-title">المسؤولية</h3>
       </div>
-      <div class="doc-notice-content">
-        <h3 class="doc-notice-title">تنبيه مهم</h3>
-        <p class="doc-notice-text">يجب على كل عضو قراءة ميثاق المستكشف المسؤول والالتزام بجميع المبادئ الواردة فيه قبل المشاركة في أي نشاط أو رحلة استكشافية.</p>
+
+      <div class="char-value-card">
+        <div class="char-value-icon"><i class="fas fa-shield-halved"></i></div>
+        <h3 class="char-value-title">الأمانة</h3>
+      </div>
+
+      <div class="char-value-card">
+        <div class="char-value-icon"><i class="fas fa-landmark"></i></div>
+        <h3 class="char-value-title">احترام التراث</h3>
+      </div>
+
+      <div class="char-value-card">
+        <div class="char-value-icon"><i class="fas fa-leaf"></i></div>
+        <h3 class="char-value-title">حماية البيئة</h3>
+      </div>
+
+      <div class="char-value-card">
+        <div class="char-value-icon"><i class="fas fa-handshake"></i></div>
+        <h3 class="char-value-title">التعاون</h3>
+      </div>
+
+      <div class="char-value-card">
+        <div class="char-value-icon"><i class="fas fa-hard-hat"></i></div>
+        <h3 class="char-value-title">السلامة</h3>
+      </div>
+
+      <div class="char-value-card">
+        <div class="char-value-icon"><i class="fas fa-scale-balanced"></i></div>
+        <h3 class="char-value-title">الالتزام بالقانون</h3>
+      </div>
+
+      <div class="char-value-card">
+        <div class="char-value-icon"><i class="fas fa-people-group"></i></div>
+        <h3 class="char-value-title">العمل الجماعي</h3>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===== 5. FINAL CTA ===== -->
-<section class="doc-section doc-section-gradient" id="doc-cta">
+<!-- ============================== -->
+<!-- 7. DO & DON'T                 -->
+<!-- ============================== -->
+<section class="char-section char-section-light" id="charRules">
   <div class="container">
-    <div class="doc-download-card" data-aos="fade-up" data-aos-duration="700">
-      <h2 class="doc-download-title">تحميل ميثاق المستكشف المسؤول</h2>
-      <p class="doc-download-desc">قم بتحميل النسخة الرسمية من الميثاق والاحتفاظ بها للرجوع إليها عند الحاجة.</p>
-      <a href="../Amare%20files%20/%D9%85%D9%8A%D8%AB%D8%A7%D9%82%20%D8%A7%D9%84%D9%85%D8%B3%D8%AA%D9%83%D8%B4%D9%81%20%D8%A7%D9%84%D9%85%D8%B3%D8%A4%D9%88%D9%842026.pdf" download class="doc-download-btn">
+    <div class="section-head" data-aos="fade-up" data-aos-duration="800">
+      <span class="eyebrow">المسموح والممنوع</span>
+      <h2 class="section-title">قواعد الاستكشاف</h2>
+      <p class="section-desc" style="margin-inline:auto;">ما هو مسموح وما هو ممنوع أثناء أنشطة الاستكشاف</p>
+    </div>
+
+    <div class="char-compare stagger" data-aos="fade-up" data-aos-duration="800">
+      <div class="char-compare-col char-compare-do">
+        <div class="char-compare-header">
+          <span class="char-compare-icon char-compare-icon-do"><i class="fas fa-check"></i></span>
+          <h3 class="char-compare-title">مسموح</h3>
+        </div>
+        <ul class="char-compare-list">
+          <li class="char-compare-item">
+            <span class="char-compare-mark char-compare-mark-do"><i class="fas fa-check"></i></span>
+            احترام التعليمات
+          </li>
+          <li class="char-compare-item">
+            <span class="char-compare-mark char-compare-mark-do"><i class="fas fa-check"></i></span>
+            المحافظة على البيئة
+          </li>
+          <li class="char-compare-item">
+            <span class="char-compare-mark char-compare-mark-do"><i class="fas fa-check"></i></span>
+            التعاون مع الفريق
+          </li>
+          <li class="char-compare-item">
+            <span class="char-compare-mark char-compare-mark-do"><i class="fas fa-check"></i></span>
+            توثيق الأنشطة
+          </li>
+          <li class="char-compare-item">
+            <span class="char-compare-mark char-compare-mark-do"><i class="fas fa-check"></i></span>
+            احترام المواقع
+          </li>
+        </ul>
+      </div>
+
+      <div class="char-compare-col char-compare-dont">
+        <div class="char-compare-header">
+          <span class="char-compare-icon char-compare-icon-dont"><i class="fas fa-xmark"></i></span>
+          <h3 class="char-compare-title">ممنوع</h3>
+        </div>
+        <ul class="char-compare-list">
+          <li class="char-compare-item">
+            <span class="char-compare-mark char-compare-mark-dont"><i class="fas fa-xmark"></i></span>
+            تخريب المواقع
+          </li>
+          <li class="char-compare-item">
+            <span class="char-compare-mark char-compare-mark-dont"><i class="fas fa-xmark"></i></span>
+            رمي النفايات
+          </li>
+          <li class="char-compare-item">
+            <span class="char-compare-mark char-compare-mark-dont"><i class="fas fa-xmark"></i></span>
+            استخراج القطع الأثرية
+          </li>
+          <li class="char-compare-item">
+            <span class="char-compare-mark char-compare-mark-dont"><i class="fas fa-xmark"></i></span>
+            دخول الأماكن الممنوعة
+          </li>
+          <li class="char-compare-item">
+            <span class="char-compare-mark char-compare-mark-dont"><i class="fas fa-xmark"></i></span>
+            مخالفة القوانين
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== -->
+<!-- 8. IMPORTANT NOTICE           -->
+<!-- ============================== -->
+<section class="char-section char-section-gradient" id="charNotice">
+  <div class="char-blobs" aria-hidden="true">
+    <div class="char-blob char-blob-1"></div>
+    <div class="char-blob char-blob-2"></div>
+  </div>
+
+  <div class="container">
+    <div class="section-head" data-aos="fade-up" data-aos-duration="800">
+      <span class="eyebrow">تنبيه</span>
+      <h2 class="section-title">إشعار هام</h2>
+      <p class="section-desc" style="margin-inline:auto;">العواقب المترتبة عن مخالفة الميثاق</p>
+    </div>
+
+    <div class="char-notice" data-aos="fade-up" data-aos-duration="800">
+      <div class="char-notice-header">
+        <span class="char-notice-icon"><i class="fas fa-exclamation-triangle"></i></span>
+        <h2 class="char-notice-title">تنبيه</h2>
+      </div>
+      <p class="char-notice-text">
+        أي مخالفة لهذا الميثاق قد تعرض العضو لإجراءات تنظيمية داخل الجمعية، بالإضافة إلى المسؤولية القانونية وفق القوانين المغربية.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== -->
+<!-- 9. MEMBER DECLARATION         -->
+<!-- ============================== -->
+<section class="char-section char-section-light" id="charDeclare">
+  <div class="container">
+    <div class="section-head" data-aos="fade-up" data-aos-duration="800">
+      <span class="eyebrow">إقرار العضو</span>
+      <h2 class="section-title">إقرار والتزام</h2>
+      <p class="section-desc" style="margin-inline:auto;">يرجى قراءة الإقرارات التالية والموافقة عليها</p>
+    </div>
+
+    <div class="char-declare-card" data-aos="fade-up" data-aos-duration="800">
+      <h2 class="char-declare-title">إقرار العضو</h2>
+      <p class="char-declare-desc">بقراءة هذا الإقرار والموافقة عليه، تؤكد التزامك بميثاق الاستكشاف المسؤول</p>
+
+      <label class="char-checkbox">
+        <input type="checkbox" id="agreeRead">
+        <span class="char-checkbox-check"><i class="fas fa-check"></i></span>
+        <span class="char-checkbox-text">أقر بأنني قرأت ميثاق الاستكشاف المسؤول.</span>
+      </label>
+
+      <label class="char-checkbox">
+        <input type="checkbox" id="agreeCommit">
+        <span class="char-checkbox-check"><i class="fas fa-check"></i></span>
+        <span class="char-checkbox-text">أتعهد باحترام جميع بنوده.</span>
+      </label>
+
+      <label class="char-checkbox">
+        <input type="checkbox" id="agreeRules">
+        <span class="char-checkbox-check"><i class="fas fa-check"></i></span>
+        <span class="char-checkbox-text">ألتزم بالحفاظ على التراث والبيئة.</span>
+      </label>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== -->
+<!-- 10. DOWNLOAD SECTION          -->
+<!-- ============================== -->
+<section class="char-section char-section-gradient" id="char-download">
+  <div class="char-blobs" aria-hidden="true">
+    <div class="char-blob char-blob-1"></div>
+    <div class="char-blob char-blob-2"></div>
+  </div>
+
+  <div class="container">
+    <div class="char-download-card" data-aos="fade-up" data-aos-duration="800">
+      <div class="char-download-icon"><i class="fas fa-file-pdf"></i></div>
+      <h2 class="char-download-title">تحميل الميثاق</h2>
+      <p class="char-download-desc">يمكنك تحميل النسخة الرسمية من ميثاق الاستكشاف المسؤول بصيغة PDF.</p>
+      <a href="../Amare%20files%20/%D9%85%D9%8A%D8%AB%D8%A7%D9%82%20%D8%A7%D9%84%D9%85%D8%B3%D8%AA%D9%83%D8%B4%D9%81%20%D8%A7%D9%84%D9%85%D8%B3%D8%A4%D9%88%D9%842026.pdf" class="char-download-btn" id="downloadCharterBtn" download>
         <i class="fas fa-download"></i>
-        تحميل الميثاق PDF
+        تحميل PDF
       </a>
     </div>
   </div>
 </section>
 
+<!-- ============================== -->
+<!-- 11. FAQ                       -->
+<!-- ============================== -->
+<section class="char-section char-section-light" id="charFaq">
+  <div class="container">
+    <div class="section-head" data-aos="fade-up" data-aos-duration="800">
+      <span class="eyebrow">الأسئلة الشائعة</span>
+      <h2 class="section-title">أسئلة شائعة حول الميثاق</h2>
+      <p class="section-desc" style="margin-inline:auto;">إجابات على أهم الأسئلة المتعلقة بميثاق الاستكشاف المسؤول</p>
+    </div>
+
+    <div class="char-faq-list" data-aos="fade-up" data-aos-duration="800">
+      <div class="char-faq-item">
+        <button class="char-faq-question" aria-expanded="false">
+          <span>لماذا تم إعداد هذا الميثاق؟</span>
+          <span class="char-faq-icon"><i class="fas fa-chevron-down"></i></span>
+        </button>
+        <div class="char-faq-answer">
+          تم إعداد هذا الميثاق لتحديد المبادئ والقيم الأخلاقية والقانونية التي يجب أن يتحلى بها كل مستكشف، ولضمان ممارسة مسؤولة تحافظ على التراث الوطني المغربي وتصون الموارد الطبيعية والتاريخية والثقافية، مع تعزيز ثقافة الاستكشاف المسؤول بين أعضاء الجمعية.
+        </div>
+      </div>
+
+      <div class="char-faq-item">
+        <button class="char-faq-question" aria-expanded="false">
+          <span>هل يلتزم جميع الأعضاء به؟</span>
+          <span class="char-faq-icon"><i class="fas fa-chevron-down"></i></span>
+        </button>
+        <div class="char-faq-answer">
+          نعم، يلتزم جميع أعضاء الجمعية المغربية لهواة البحث والاستكشاف بهذا الميثاق منذ لحظة انخراطهم. يعتبر الميثاق جزءاً لا يتجزأ من وثائق الانخراط ويسري على جميع الأنشطة والفعاليات التي تنظمها الجمعية.
+        </div>
+      </div>
+
+      <div class="char-faq-item">
+        <button class="char-faq-question" aria-expanded="false">
+          <span>ماذا يحدث عند مخالفة الميثاق؟</span>
+          <span class="char-faq-icon"><i class="fas fa-chevron-down"></i></span>
+        </button>
+        <div class="char-faq-answer">
+          أي مخالفة لهذا الميثاق قد تعرض العضو لإجراءات تنظيمية داخل الجمعية تبدأ بالإنذار وصولاً إلى إسقاط العضوية، بالإضافة إلى المسؤولية القانونية وفق القوانين المغربية الجاري بها العمل، خاصة تلك المتعلقة بحماية التراث والبيئة.
+        </div>
+      </div>
+
+      <div class="char-faq-item">
+        <button class="char-faq-question" aria-expanded="false">
+          <span>هل يتم تحديث الميثاق؟</span>
+          <span class="char-faq-icon"><i class="fas fa-chevron-down"></i></span>
+        </button>
+        <div class="char-faq-answer">
+          نعم، يتم مراجعة هذا الميثاق وتحديثه بشكل دوري من قبل المكتب التنفيذي للجمعية لمواكبة التطورات القانونية والتغيرات في مجال الاستكشاف. يتم إبلاغ جميع الأعضاء بأي تحديثات تطرأ على الميثاق عبر القنوات الرسمية للجمعية.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== -->
+<!-- 12. FINAL CTA                 -->
+<!-- ============================== -->
+<section class="char-cta" id="char-cta">
+  <div class="char-cta-pattern"></div>
+  <div class="char-cta-blobs" aria-hidden="true">
+    <div class="char-cta-blob char-cta-blob-1"></div>
+    <div class="char-cta-blob char-cta-blob-2"></div>
+  </div>
+
+  <div class="container">
+    <div class="char-cta-content" data-aos="fade-up" data-aos-duration="900">
+      <h2 class="char-cta-title">
+        كن مستكشفاً <span class="char-cta-title-em">مسؤولاً</span>
+      </h2>
+
+      <p class="char-cta-desc">
+        انضم إلى الجمعية وساهم في حماية التراث المغربي ونشر ثقافة الاستكشاف المسؤول.
+      </p>
+
+      <div class="char-cta-actions">
+        <a href="index.html" class="char-cta-btn char-cta-btn-primary">
+          <i class="fas fa-user-plus"></i>
+          انخرط معنا
+        </a>
+        <a href="application.html" class="char-cta-btn char-cta-btn-secondary">
+          <i class="fas fa-file-edit"></i>
+          استمارة الانخراط
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
 </main>
-<div id="footer" data-base=".."></div>
+
+<footer class="footer" id="contact">
   <div class="container">
     <div class="footer-grid">
       <div class="footer-about">
@@ -623,11 +1999,6 @@
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M18 15l-6-6-6 6"/></svg>
 </button>
 
-<script src="../js/component-loader.js"></script>
-<script>
-  loadComponent('#navbar', '../components/navbar.html');
-  loadComponent('#footer', '../components/footer.html');
-</script>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script src="../script.js"></script>
 <script>
@@ -642,6 +2013,71 @@
       easing: 'cubic-bezier(0.22, 0.8, 0.32, 1)',
     });
   }
+
+  /* ---------- Scroll Progress ---------- */
+  var progressBar = document.getElementById('charProgressBar');
+  if (progressBar) {
+    window.addEventListener('scroll', function() {
+      var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+      var scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      var progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+      progressBar.style.width = progress + '%';
+    });
+  }
+
+  /* ---------- Table of Contents ---------- */
+  var tocLinks = document.querySelectorAll('.char-toc-link');
+  var sections = document.querySelectorAll('[id^="charIntro"],[id^="charPrinciples"],[id^="charValues"],[id^="charRules"],[id^="charNotice"],[id^="charDeclare"],[id^="charFaq"]');
+
+  function getSectionId(link) {
+    var target = link.getAttribute('data-target');
+    if (target === 'charIntro') return 'charIntro';
+    if (target === 'charPrinciples') return 'charPrinciples';
+    if (target === 'charValues') return 'charValues';
+    if (target === 'charRules') return 'charRules';
+    if (target === 'charNotice') return 'charNotice';
+    if (target === 'charDeclare') return 'charDeclare';
+    if (target === 'charFaq') return 'charFaq';
+    return null;
+  }
+
+  tocLinks.forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      tocLinks.forEach(function(l) { l.classList.remove('active'); });
+      this.classList.add('active');
+      var targetId = this.getAttribute('data-target');
+      var targetEl = document.getElementById(targetId);
+      if (targetEl) {
+        var offset = 100;
+        var rect = targetEl.getBoundingClientRect();
+        var top = rect.top + window.pageYOffset - offset;
+        window.scrollTo({ top: top, behavior: 'smooth' });
+      }
+    });
+  });
+
+  /* ---------- FAQ Accordion ---------- */
+  var faqItems = document.querySelectorAll('.char-faq-item');
+  faqItems.forEach(function(item) {
+    var question = item.querySelector('.char-faq-question');
+    question.addEventListener('click', function() {
+      var isActive = item.classList.contains('active');
+      faqItems.forEach(function(i) { i.classList.remove('active'); });
+      if (!isActive) {
+        item.classList.add('active');
+        item.querySelector('.char-faq-question').setAttribute('aria-expanded', 'true');
+      } else {
+        item.querySelector('.char-faq-question').setAttribute('aria-expanded', 'false');
+      }
+    });
+  });
+
+  /* ---------- Checkbox ---------- */
+  var checkboxes = document.querySelectorAll('.char-checkbox input[type="checkbox"]');
+  checkboxes.forEach(function(cb) {
+    cb.addEventListener('change', function() {});
+  });
 
 })();
 </script>

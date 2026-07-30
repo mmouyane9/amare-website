@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PDF Calibration Tool</title>
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #121216;
+  --panel: #1a1a22;
+  --surface: #22222c;
+  --border: rgba(255,255,255,0.06);
+  --text: #c8c8d0;
+  --text-dim: #666;
+  --accent: #19b8f2;
+  --gold: #f6b300;
+  --red: #e74c3c;
+  --green: #27ae60;
+  --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, monospace;
+  --radius: 6px;
+}
+
+html, body { height: 100%; overflow: hidden; }
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  display: flex;
+}
+
+/* ===== LEFT PANEL ===== */
+.left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  position: relative;
+}
+
+.left-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: var(--panel);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
+
+.left-toolbar .title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0.4px;
+  margin-right: 12px;
+}
+
+.zoom-group {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.zoom-group label {
+  font-size: 11px;
+  color: var(--text-dim);
+  margin-right: 4px;
+}
+
+.zoom-btn {
+  padding: 4px 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--text);
+  font-size: 11px;
+  font-family: var(--font);
+  cursor: pointer;
+  transition: all 0.12s;
+}
+
+.zoom-btn:hover { background: var(--surface); }
+.zoom-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+.canvas-wrap {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  cursor: grab;
+}
+
+.canvas-wrap.dragging { cursor: grabbing; }
+
+.canvas-inner {
+  position: absolute;
+  top: 0; left: 0;
+  transform-origin: 0 0;
+  transition: transform 0.05s;
+}
+
+.canvas-inner img {
+  display: block;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* ===== DRAGGABLE LABELS ===== */
+.field-label {
+  position: absolute;
+  padding: 3px 8px;
+  font-size: 11px;
+  font-weight: 700;
+  font-family: var(--font);
+  background: rgba(25,184,242,0.85);
+  color: #fff;
+  border-radius: 3px;
+  cursor: grab;
+  user-select: none;
+  white-space: nowrap;
+  z-index: 10;
+  border: 1px solid rgba(255,255,255,0.15);
+  transition: box-shadow 0.12s, background 0.12s;
+  letter-spacing: 0.2px;
+}
+
+.field-label:hover { box-shadow: 0 0 0 2px rgba(25,184,242,0.4); }
+
+.field-label.dragging {
+  cursor: grabbing;
+  z-index: 30;
+  background: rgba(246,179,0,0.9);
+  box-shadow: 0 0 0 2px var(--gold);
+  transition: none;
+}
+
+.field-label.active {
+  background: rgba(246,179,0,0.9);
+  box-shadow: 0 0 0 2px var(--gold);
+}
+
+/* ===== GUIDE LINES ===== */
+.guide-h, .guide-v {
+  position: absolute;
+  pointer-events: none;
+  z-index: 20;
+  display: none;
+}
+
+.guide-h {
+  left: 0; right: 0;
+  height: 1px;
+  background: rgba(246,179,0,0.5);
+}
+
+.guide-v {
+  top: 0; bottom: 0;
+  width: 1px;
+  background: rgba(246,179,0,0.5);
+}
+
+.guide-h.show, .guide-v.show { display: block; }
+
+/* ===== GRID ===== */
+.grid-overlay {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 5;
+  display: none;
+}
+
+.grid-overlay.show { display: block; }
+
+/* ===== RESIZE HANDLE ===== */
+.resize-handle {
+  width: 4px;
+  cursor: col-resize;
+  background: var(--border);
+  flex-shrink: 0;
+  position: relative;
+  z-index: 50;
+  transition: background 0.15s;
+}
+
+.resize-handle:hover { background: var(--accent); }
+
+/* ===== RIGHT PANEL ===== */
+.right {
+  width: 340px;
+  min-width: 260px;
+  max-width: 500px;
+  flex-shrink: 0;
+  background: var(--panel);
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.right-header {
+  padding: 16px 20px 12px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.right-header h1 {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0.4px;
+}
+
+.right-header p {
+  font-size: 11px;
+  color: var(--text-dim);
+  margin-top: 4px;
+}
+
+.right-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ===== FIELD LIST ===== */
+.field-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.field-list-title {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+
+.field-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 500;
+  transition: background 0.12s;
+  border: 1px solid transparent;
+}
+
+.field-item:hover { background: var(--surface); }
+
+.field-item.active {
+  background: rgba(246,179,0,0.1);
+  border-color: rgba(246,179,0,0.3);
+  color: var(--gold);
+}
+
+.field-item .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: var(--accent);
+}
+
+/* ===== COORDINATES ===== */
+.coord-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.coord-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background: var(--surface);
+  border-radius: var(--radius);
+}
+
+.coord-row label {
+  font-size: 11px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.coord-row .val {
+  font-size: 14px;
+  font-weight: 700;
+  font-family: monospace;
+  color: #fff;
+}
+
+/* ===== BUTTONS ===== */
+.btn-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.btn {
+  width: 100%;
+  padding: 9px 0;
+  border: none;
+  border-radius: var(--radius);
+  font-size: 12px;
+  font-weight: 700;
+  font-family: var(--font);
+  cursor: pointer;
+  transition: opacity 0.12s, transform 0.08s;
+}
+
+.btn:hover { opacity: 0.85; }
+.btn:active { transform: scale(0.98); }
+
+.btn-accent { background: var(--accent); color: #fff; }
+.btn-gold { background: var(--gold); color: #121216; }
+.btn-dim { background: var(--surface); color: var(--text); border: 1px solid var(--border); }
+.btn-green { background: var(--green); color: #fff; }
+
+/* ===== TOGGLE GROUP ===== */
+.toggle-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.toggle-group label {
+  font-size: 11px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.toggle-btn {
+  padding: 4px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--text);
+  font-size: 11px;
+  font-family: var(--font);
+  cursor: pointer;
+  transition: all 0.12s;
+}
+
+.toggle-btn:hover { background: var(--surface); }
+.toggle-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+/* ===== EXPORT BOX ===== */
+.export-box {
+  background: #0a0a0e;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px;
+  font-family: monospace;
+  font-size: 11px;
+  line-height: 1.5;
+  color: #a0a0a8;
+  white-space: pre-wrap;
+  overflow: auto;
+  max-height: 200px;
+  user-select: all;
+}
+
+/* ===== TOAST ===== */
+.toast {
+  position: fixed;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 24px;
+  border-radius: var(--radius);
+  font-size: 13px;
+  font-weight: 700;
+  font-family: var(--font);
+  color: #fff;
+  opacity: 0;
+  transition: opacity 0.25s;
+  pointer-events: none;
+  z-index: 100;
+}
+
+.toast.show { opacity: 1; }
+.toast-success { background: var(--green); }
+.toast-warn { background: var(--red); }
+
+/* ===== STATUS BAR ===== */
+.status-bar {
+  padding: 6px 16px;
+  font-size: 11px;
+  color: var(--text-dim);
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+  flex-shrink: 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* ===== SCROLLBAR ===== */
+.right-scroll::-webkit-scrollbar { width: 4px; }
+.right-scroll::-webkit-scrollbar-track { background: transparent; }
+.right-scroll::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+</style>
+</head>
+<body>
+
+<!-- ===== GUIDE LINES ===== -->
+<div class="guide-h" id="guideH"></div>
+<div class="guide-v" id="guideV"></div>
+
+<!-- ===== LEFT PANEL ===== -->
+<div class="left">
+  <div class="left-toolbar">
+    <span class="title">PDF CALIBRATION</span>
+    <div class="zoom-group">
+      <label>Zoom</label>
+      <button class="zoom-btn" data-zoom="0.5">50%</button>
+      <button class="zoom-btn" data-zoom="0.75">75%</button>
+      <button class="zoom-btn active" data-zoom="1">100%</button>
+      <button class="zoom-btn" data-zoom="1.25">125%</button>
+      <button class="zoom-btn" data-zoom="1.5">150%</button>
+      <button class="zoom-btn" data-zoom="2">200%</button>
+    </div>
+  </div>
+
+  <div class="canvas-wrap" id="canvasWrap">
+    <div class="canvas-inner" id="canvasInner">
+      <img id="templateImage" src="../assets/pdf/membership-template.png.png" alt="Template">
+    </div>
+  </div>
+
+  <div class="status-bar">
+    <span id="statusField">No field selected</span>
+    <span id="statusZoom">100%</span>
+  </div>
+</div>
+
+<!-- ===== RESIZE HANDLE ===== -->
+<div class="resize-handle" id="resizeHandle"></div>
+
+<!-- ===== RIGHT PANEL ===== -->
+<div class="right" id="rightPanel">
+  <div class="right-header">
+    <h1>Developer Panel</h1>
+    <p>Drag labels to position PDF fields</p>
+  </div>
+
+  <div class="right-scroll">
+    <!-- Field List -->
+    <div>
+      <div class="field-list-title">Field List</div>
+      <div class="field-list" id="fieldList"></div>
+    </div>
+
+    <!-- Coordinates -->
+    <div>
+      <div class="field-list-title">Position</div>
+      <div class="coord-group">
+        <div class="coord-row">
+          <label>X</label>
+          <span class="val" id="coordX">—</span>
+        </div>
+        <div class="coord-row">
+          <label>Y</label>
+          <span class="val" id="coordY">—</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div>
+      <div class="field-list-title">Actions</div>
+      <div class="btn-group">
+        <button class="btn btn-accent" id="saveBtn">Save Position</button>
+        <button class="btn btn-dim" id="resetBtn">Reset Position</button>
+      </div>
+    </div>
+
+    <!-- Grid & Snap -->
+    <div>
+      <div class="field-list-title">Guides</div>
+      <div class="toggle-group" style="margin-bottom:6px;">
+        <label>Grid</label>
+        <button class="toggle-btn" id="gridToggle">Show Grid</button>
+        <span style="font-size:11px;color:var(--text-dim);">10px</span>
+      </div>
+      <div class="toggle-group">
+        <label>Snap</label>
+        <button class="toggle-btn" id="snapToggle">Snap to Grid</button>
+      </div>
+    </div>
+
+    <!-- Export -->
+    <div>
+      <div class="field-list-title">Export</div>
+      <div class="btn-group">
+        <button class="btn btn-gold" id="exportCopyBtn">Copy to Clipboard</button>
+        <button class="btn btn-green" id="exportDownloadBtn">Download JSON</button>
+      </div>
+      <div style="margin-top:8px;">
+        <div class="export-box" id="exportBox">Select a field and adjust its position, then export.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== TOAST ===== -->
+<div class="toast" id="toast"></div>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ---------- config ---------- */
+  var FIELDS = [
+    { id: 'firstName', label: 'Nom' },
+    { id: 'lastName', label: 'Prénom' },
+    { id: 'birthDate', label: 'Date de naissance' },
+    { id: 'birthPlace', label: 'Lieu de naissance' },
+    { id: 'cin', label: 'CIN' },
+    { id: 'phone', label: 'Téléphone' },
+    { id: 'address', label: 'Adresse' },
+    { id: 'photo', label: 'Photo' },
+  ];
+
+  var STORAGE_KEY = 'pdf_calibration_positions';
+  var GRID_SIZE = 10;
+
+  /* ---------- DOM refs ---------- */
+  var canvasWrap = document.getElementById('canvasWrap');
+  var canvasInner = document.getElementById('canvasInner');
+  var img = document.getElementById('templateImage');
+  var fieldList = document.getElementById('fieldList');
+  var coordX = document.getElementById('coordX');
+  var coordY = document.getElementById('coordY');
+  var exportBox = document.getElementById('exportBox');
+  var toast = document.getElementById('toast');
+  var statusField = document.getElementById('statusField');
+  var statusZoom = document.getElementById('statusZoom');
+  var guideH = document.getElementById('guideH');
+  var guideV = document.getElementById('guideV');
+
+  /* ---------- state ---------- */
+  var positions = {};
+  var activeField = null;
+  var zoom = 1;
+  var panX = 0;
+  var panY = 0;
+  var showGrid = false;
+  var snapEnabled = false;
+  var dragState = null;
+  var imageNaturalW = 0;
+  var imageNaturalH = 0;
+
+  /* ---------- defaults ---------- */
+  function computeDefaults() {
+    var w = imageNaturalW;
+    var h = imageNaturalH;
+    if (!w || !h) { w = 1055; h = 1491; }
+    return {
+      firstName:  { x: Math.round(w * 0.08), y: Math.round(h * 0.28) },
+      lastName:   { x: Math.round(w * 0.52), y: Math.round(h * 0.28) },
+      birthDate:  { x: Math.round(w * 0.08), y: Math.round(h * 0.36) },
+      birthPlace: { x: Math.round(w * 0.52), y: Math.round(h * 0.36) },
+      cin:        { x: Math.round(w * 0.08), y: Math.round(h * 0.44) },
+      phone:      { x: Math.round(w * 0.08), y: Math.round(h * 0.52) },
+      address:    { x: Math.round(w * 0.08), y: Math.round(h * 0.60) },
+      photo:      { x: Math.round(w * 0.72), y: Math.round(h * 0.28) },
+    };
+  }
+
+  function loadPositions() {
+    var saved;
+    try { saved = JSON.parse(localStorage.getItem(STORAGE_KEY)); } catch (_) {}
+    if (saved) { positions = saved; return; }
+    positions = computeDefaults();
+  }
+
+  function savePositions() {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(positions)); } catch (_) {}
+  }
+
+  loadPositions();
+
+  /* ---------- snap ---------- */
+  function snap(v) {
+    if (!snapEnabled) return v;
+    return Math.round(v / GRID_SIZE) * GRID_SIZE;
+  }
+
+  /* ---------- build field list + labels ---------- */
+  function buildUI() {
+    fieldList.innerHTML = '';
+
+    FIELDS.forEach(function (f) {
+      var item = document.createElement('div');
+      item.className = 'field-item';
+      item.dataset.fieldId = f.id;
+      item.innerHTML = '<span class="dot"></span>' + f.label;
+      item.addEventListener('click', function () { setActive(f.id); });
+      fieldList.appendChild(item);
+
+      /* label overlay */
+      var label = document.createElement('div');
+      label.className = 'field-label';
+      label.id = 'label-' + f.id;
+      label.textContent = f.label;
+      label.dataset.fieldId = f.id;
+
+      var pos = positions[f.id] || { x: 0, y: 0 };
+      label.style.left = pos.x + 'px';
+      label.style.top = pos.y + 'px';
+
+      label.addEventListener('mousedown', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        startDrag(e.clientX, e.clientY, label, f.id);
+      });
+
+      label.addEventListener('touchstart', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var t = e.touches[0];
+        startDrag(t.clientX, t.clientY, label, f.id);
+      }, { passive: false });
+
+      canvasInner.appendChild(label);
+    });
+  }
+
+  /* ---------- drag ---------- */
+  function startDrag(clientX, clientY, el, fieldId) {
+    setActive(fieldId);
+
+    var wrapRect = canvasWrap.getBoundingClientRect();
+    var innerRect = canvasInner.getBoundingClientRect();
+    var scale = innerRect.width / imageNaturalW;
+
+    var offsetX = (clientX - innerRect.left) / scale - el.offsetLeft;
+    var offsetY = (clientY - innerRect.top) / scale - el.offsetTop;
+
+    dragState = {
+      el: el, fieldId: fieldId,
+      offsetX: offsetX, offsetY: offsetY,
+      startX: clientX, startY: clientY,
+    };
+
+    el.classList.add('dragging');
+    canvasWrap.classList.add('dragging');
+  }
+
+  function moveDrag(clientX, clientY) {
+    if (!dragState) return;
+    var innerRect = canvasInner.getBoundingClientRect();
+    var scale = innerRect.width / imageNaturalW;
+
+    var rawX = (clientX - innerRect.left) / scale - dragState.offsetX;
+    var rawY = (clientY - innerRect.top) / scale - dragState.offsetY;
+
+    var maxX = imageNaturalW - dragState.el.offsetWidth;
+    var maxY = imageNaturalH - dragState.el.offsetHeight;
+
+    var x = snap(Math.round(Math.max(0, Math.min(rawX, maxX))));
+    var y = snap(Math.round(Math.max(0, Math.min(rawY, maxY))));
+
+    dragState.el.style.left = x + 'px';
+    dragState.el.style.top = y + 'px';
+
+    coordX.textContent = x;
+    coordY.textContent = y;
+    positions[dragState.fieldId] = { x: x, y: y };
+
+    /* guide lines */
+    var innerW = innerRect.width;
+    var innerH = innerRect.height;
+    var guideX = innerRect.left + (x / imageNaturalW) * innerW;
+    var guideY = innerRect.top + (y / imageNaturalH) * innerH;
+
+    guideV.style.left = guideX + 'px';
+    guideH.style.top = guideY + 'px';
+    guideV.classList.add('show');
+    guideH.classList.add('show');
+
+    updateExport();
+  }
+
+  function stopDrag() {
+    if (!dragState) return;
+    dragState.el.classList.remove('dragging');
+    canvasWrap.classList.remove('dragging');
+    guideV.classList.remove('show');
+    guideH.classList.remove('show');
+    savePositions();
+    dragState = null;
+  }
+
+  /* global move / up */
+  document.addEventListener('mousemove', function (e) {
+    moveDrag(e.clientX, e.clientY);
+  });
+
+  document.addEventListener('touchmove', function (e) {
+    if (!dragState) return;
+    e.preventDefault();
+    var t = e.touches[0];
+    moveDrag(t.clientX, t.clientY);
+  }, { passive: false });
+
+  document.addEventListener('mouseup', stopDrag);
+  document.addEventListener('touchend', stopDrag);
+
+  /* ---------- set active ---------- */
+  function setActive(fieldId) {
+    document.querySelectorAll('.field-item.active').forEach(function (el) {
+      el.classList.remove('active');
+    });
+    document.querySelectorAll('.field-label.active').forEach(function (el) {
+      el.classList.remove('active');
+    });
+
+    var item = document.querySelector('.field-item[data-field-id="' + fieldId + '"]');
+    var label = document.getElementById('label-' + fieldId);
+    if (item) item.classList.add('active');
+    if (label) label.classList.add('active');
+
+    activeField = fieldId;
+
+    var pos = positions[fieldId] || { x: 0, y: 0 };
+    coordX.textContent = pos.x;
+    coordY.textContent = pos.y;
+    statusField.textContent = fieldId + '  (' + pos.x + ', ' + pos.y + ')';
+
+    updateExport();
+  }
+
+  /* ---------- export ---------- */
+  function buildExportObject() {
+    var out = {};
+    FIELDS.forEach(function (f) {
+      var p = positions[f.id] || { x: 0, y: 0 };
+      out[f.id] = { x: p.x, y: p.y };
+    });
+    return out;
+  }
+
+  function buildExportCode() {
+    var data = buildExportObject();
+    return 'const PDF_FIELDS = ' + JSON.stringify(data, null, 4) + ';';
+  }
+
+  function updateExport() {
+    exportBox.textContent = buildExportCode();
+  }
+
+  /* ---------- zoom / pan ---------- */
+  function applyTransform() {
+    var w = imageNaturalW;
+    var h = imageNaturalH;
+    canvasInner.style.transform = 'translate(' + panX + 'px, ' + panY + 'px) scale(' + zoom + ')';
+
+    /* update grid if visible */
+    if (showGrid) drawGrid();
+
+    statusZoom.textContent = Math.round(zoom * 100) + '%';
+  }
+
+  /* zoom buttons */
+  document.querySelectorAll('.zoom-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      document.querySelectorAll('.zoom-btn').forEach(function (b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      zoom = parseFloat(btn.dataset.zoom);
+      applyTransform();
+    });
+  });
+
+  /* pan via middle-click / space+drag */
+  var panState = null;
+
+  canvasWrap.addEventListener('mousedown', function (e) {
+    if (e.target.closest('.field-label')) return;
+    if (e.button === 1 || e.shiftKey) {
+      e.preventDefault();
+      panState = { x: e.clientX - panX, y: e.clientY - panY };
+      canvasWrap.classList.add('dragging');
+    }
+  });
+
+  document.addEventListener('mousemove', function (e) {
+    if (!panState) return;
+    panX = e.clientX - panState.x;
+    panY = e.clientY - panState.y;
+    applyTransform();
+  });
+
+  document.addEventListener('mouseup', function () {
+    if (panState) {
+      panState = null;
+      canvasWrap.classList.remove('dragging');
+    }
+  });
+
+  /* wheel zoom */
+  canvasWrap.addEventListener('wheel', function (e) {
+    if (!e.ctrlKey && !e.metaKey) return;
+    e.preventDefault();
+    var delta = e.deltaY > 0 ? -0.1 : 0.1;
+    zoom = Math.max(0.3, Math.min(3, zoom + delta));
+    applyTransform();
+  }, { passive: false });
+
+  /* ---------- grid ---------- */
+  var gridCanvas = document.createElement('canvas');
+  gridCanvas.className = 'grid-overlay';
+  gridCanvas.id = 'gridCanvas';
+  canvasInner.appendChild(gridCanvas);
+
+  function drawGrid() {
+    var w = imageNaturalW;
+    var h = imageNaturalH;
+    gridCanvas.width = w;
+    gridCanvas.height = h;
+    gridCanvas.style.width = w + 'px';
+    gridCanvas.style.height = h + 'px';
+
+    var ctx = gridCanvas.getContext('2d');
+    ctx.clearRect(0, 0, w, h);
+    ctx.strokeStyle = 'rgba(255,255,255,0.06)';
+    ctx.lineWidth = 1;
+
+    for (var x = 0; x <= w; x += GRID_SIZE) {
+      ctx.beginPath();
+      ctx.moveTo(x + 0.5, 0);
+      ctx.lineTo(x + 0.5, h);
+      ctx.stroke();
+    }
+    for (var y = 0; y <= h; y += GRID_SIZE) {
+      ctx.beginPath();
+      ctx.moveTo(0, y + 0.5);
+      ctx.lineTo(w, y + 0.5);
+      ctx.stroke();
+    }
+  }
+
+  document.getElementById('gridToggle').addEventListener('click', function () {
+    showGrid = !showGrid;
+    this.textContent = showGrid ? 'Hide Grid' : 'Show Grid';
+    this.classList.toggle('active');
+    gridCanvas.classList.toggle('show', showGrid);
+    if (showGrid) drawGrid();
+  });
+
+  document.getElementById('snapToggle').addEventListener('click', function () {
+    snapEnabled = !snapEnabled;
+    this.textContent = snapEnabled ? 'Snap: ON' : 'Snap to Grid';
+    this.classList.toggle('active');
+  });
+
+  /* ---------- save / reset ---------- */
+  document.getElementById('saveBtn').addEventListener('click', function () {
+    if (!activeField) { showToast('No field selected', 'warn'); return; }
+    savePositions();
+    showToast('Saved ' + activeField, 'success');
+  });
+
+  document.getElementById('resetBtn').addEventListener('click', function () {
+    if (!activeField) { showToast('No field selected', 'warn'); return; }
+    var def = computeDefaults();
+    if (!def[activeField]) return;
+    var p = def[activeField];
+    positions[activeField] = { x: p.x, y: p.y };
+
+    var label = document.getElementById('label-' + activeField);
+    if (label) {
+      label.style.left = p.x + 'px';
+      label.style.top = p.y + 'px';
+    }
+    coordX.textContent = p.x;
+    coordY.textContent = p.y;
+    statusField.textContent = activeField + '  (' + p.x + ', ' + p.y + ')';
+    savePositions();
+    updateExport();
+    showToast('Reset ' + activeField, 'success');
+  });
+
+  /* ---------- export actions ---------- */
+  document.getElementById('exportCopyBtn').addEventListener('click', function () {
+    var code = buildExportCode();
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(code).then(function () {
+        showToast('Copied to clipboard', 'success');
+      }, function () {
+        fallbackCopy(code);
+      });
+    } else {
+      fallbackCopy(code);
+    }
+  });
+
+  function fallbackCopy(text) {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); showToast('Copied to clipboard', 'success'); }
+    catch (_) { showToast('Copy failed', 'warn'); }
+    document.body.removeChild(ta);
+  }
+
+  document.getElementById('exportDownloadBtn').addEventListener('click', function () {
+    var data = buildExportObject();
+    var blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'pdf-fields-coordinates.json';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    showToast('Downloaded JSON', 'success');
+  });
+
+  /* ---------- resize panel ---------- */
+  (function () {
+    var handle = document.getElementById('resizeHandle');
+    var panel = document.getElementById('rightPanel');
+    var startX, startW;
+
+    handle.addEventListener('mousedown', function (e) {
+      e.preventDefault();
+      startX = e.clientX;
+      startW = panel.offsetWidth;
+      document.addEventListener('mousemove', onMove);
+      document.addEventListener('mouseup', onUp);
+    });
+
+    function onMove(e) {
+      var dx = startX - e.clientX;
+      var newW = Math.max(260, Math.min(500, startW + dx));
+      panel.style.width = newW + 'px';
+    }
+
+    function onUp() {
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup', onUp);
+    }
+  })();
+
+  /* ---------- toast ---------- */
+  function showToast(msg, type) {
+    toast.textContent = msg;
+    toast.className = 'toast toast-' + (type || 'success');
+    toast.classList.add('show');
+    clearTimeout(toast._t);
+    toast._t = setTimeout(function () { toast.classList.remove('show'); }, 2000);
+  }
+
+  /* ---------- init ---------- */
+  img.addEventListener('load', function () {
+    imageNaturalW = img.naturalWidth;
+    imageNaturalH = img.naturalHeight;
+
+    /* reconcile saved vs default positions */
+    var def = computeDefaults();
+    var changed = false;
+    FIELDS.forEach(function (f) {
+      if (!positions[f.id]) {
+        positions[f.id] = def[f.id];
+        changed = true;
+      }
+    });
+    if (changed) savePositions();
+
+    buildUI();
+    setActive('firstName');
+    applyTransform();
+    updateExport();
+    showToast('Ready', 'success');
+  });
+
+  /* if image already loaded */
+  if (img.complete && img.naturalWidth) {
+    img.dispatchEvent(new Event('load'));
+  }
+})();
+</script>
+</body>
+</html>

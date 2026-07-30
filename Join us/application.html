@@ -4,12 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>استمارة الانخراط | الجمعية المغربية لهواة البحث والاستكشاف</title>
-<meta name="description" content="استمارة الانخراط الإلكتروني في الجمعية المغربية لهواة البحث والاستكشاف. قدم طلبك الآن.">
+<meta name="description" content="حمّل استمارة الانخراط الرسمية للجمعية المغربية لهواة البحث والاستكشاف. قم بتعبئتها وإرسالها مع باقي الوثائق المطلوبة.">
 <meta name="author" content="الجمعية المغربية لهواة البحث والاستكشاف">
 <link rel="shortcut icon" href="../Amare%20files%20/logo.png" type="image/x-icon">
 
 <meta property="og:title" content="استمارة الانخراط | الجمعية المغربية لهواة البحث والاستكشاف">
-<meta property="og:description" content="قدم طلب الانخراط في الجمعية المغربية لهواة البحث والاستكشاف.">
+<meta property="og:description" content="حمّل استمارة الانخراط الرسمية للجمعية المغربية لهواة البحث والاستكشاف.">
 <meta property="og:type" content="website">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,1157 +21,333 @@
 <link rel="stylesheet" href="../style.css">
 
 <style>
-
-.app-hero {
-  position: relative;
-  padding: 80px 0 60px;
-  background: linear-gradient(160deg, #080e1f 0%, #0f2a5a 35%, #1a3a7a 60%, #0d1f42 100%);
-  color: #fff;
-  overflow: hidden;
+:root {
+  --ms-sky: #19B8F2;
+  --ms-navy: #123b78;
+  --ms-gold: #F6B300;
+  --ms-dark: #222222;
+  --ms-white: #FFFFFF;
+  --ms-red: #E74C3C;
+  --ms-bg: #F0F5FE;
+  --ms-border: rgba(18,59,120,.08);
+  --ms-shadow: 0 24px 80px rgba(18,59,120,.08);
+  --ms-radius: 24px;
+  --ms-radius-sm: 14px;
+  --ms-ease: cubic-bezier(.22,.8,.32,1);
 }
 
-.app-hero-pattern {
-  position: absolute;
-  inset: 0;
-  opacity: 0.04;
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.doc-hero {
+  position: relative;
+  min-height: 420px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: linear-gradient(180deg, var(--ms-white) 0%, var(--ms-bg) 100%);
+}
+.doc-hero-pattern {
+  position: absolute; inset: 0;
+  opacity: .03;
   background-image:
-    repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(255,255,255,0.08) 40px, rgba(255,255,255,0.08) 41px),
-    repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(255,255,255,0.08) 40px, rgba(255,255,255,0.08) 41px);
-  background-size: 80px 80px, 80px 80px;
+    repeating-linear-gradient(0deg, transparent, transparent 32px, var(--ms-border) 32px, var(--ms-border) 33px),
+    repeating-linear-gradient(90deg, transparent, transparent 32px, var(--ms-border) 32px, var(--ms-border) 33px);
   pointer-events: none;
-  z-index: 1;
 }
-
-.app-hero .container {
-  position: relative;
-  z-index: 2;
+.doc-hero .container { position: relative; z-index: 1; }
+.doc-hero-inner {
+  max-width: 720px; margin: 0 auto; text-align: center;
 }
-
-.app-hero-inner {
-  max-width: 780px;
-  margin: 0 auto;
-  text-align: center;
-}
-
-.app-hero-icon {
-  width: 80px;
-  height: 80px;
-  margin: 0 auto 24px;
-  border-radius: 24px;
-  display: flex;
+.doc-hero-eyebrow {
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
-  background: rgba(255,255,255,0.06);
-  backdrop-filter: blur(12px);
-  border: 1.5px solid rgba(255,255,255,0.08);
-  color: var(--color-accent);
-  font-size: 36px;
-  transition: transform 0.4s var(--ease);
-}
-
-.app-hero-icon:hover {
-  transform: scale(1.06) rotate(-4deg);
-}
-
-.app-hero-title {
-  font-size: clamp(30px, 4.5vw, 48px);
-  font-weight: 900;
-  line-height: 1.25;
-  margin-bottom: 14px;
-  text-shadow: 0 4px 30px rgba(0,0,0,0.1);
-}
-
-.app-hero-title-em {
-  background: linear-gradient(135deg, var(--color-accent) 0%, #FFD34D 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.app-hero-desc {
-  font-size: 16.5px;
-  color: rgba(255,255,255,0.78);
-  max-width: 580px;
-  margin: 0 auto;
-  line-height: 1.8;
-}
-
-.app-progress {
-  max-width: 780px;
-  margin: 40px auto 0;
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  position: relative;
-}
-
-.app-progress::before {
-  content: '';
-  position: absolute;
-  top: 16px;
-  inset-inline-start: 60px;
-  inset-inline-end: 60px;
-  height: 2px;
-  background: rgba(255,255,255,0.12);
-  z-index: 0;
-}
-
-.app-progress::after {
-  content: '';
-  position: absolute;
-  top: 16px;
-  inset-inline-start: 60px;
-  height: 2px;
-  background: linear-gradient(90deg, var(--color-accent), var(--color-primary));
-  z-index: 1;
-  transition: width 0.6s var(--ease);
-  width: 0%;
-}
-
-.app-progress-step {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  position: relative;
-  z-index: 2;
-  flex: 1;
-  text-align: center;
-}
-
-.app-progress-num {
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  font-weight: 800;
-  background: rgba(255,255,255,0.1);
-  border: 2px solid rgba(255,255,255,0.15);
-  color: rgba(255,255,255,0.4);
-  transition: all 0.4s var(--ease);
-  flex-shrink: 0;
-}
-
-.app-progress-step.active .app-progress-num {
-  background: var(--color-accent);
-  border-color: var(--color-accent);
-  color: var(--color-navy);
-  box-shadow: 0 6px 20px rgba(246,179,0,0.3);
-}
-
-.app-progress-step.done .app-progress-num {
-  background: #27ae60;
-  border-color: #27ae60;
-  color: #fff;
-}
-
-.app-progress-label {
-  font-size: 11.5px;
-  font-weight: 600;
-  color: rgba(255,255,255,0.35);
-  transition: color 0.4s var(--ease);
-  line-height: 1.4;
-  max-width: 100px;
-}
-
-.app-progress-step.active .app-progress-label {
-  color: var(--color-accent);
-}
-
-.app-progress-step.done .app-progress-label {
-  color: rgba(255,255,255,0.6);
-}
-
-.app-form-section {
-  position: relative;
-  padding: 80px 0 100px;
-  background: linear-gradient(180deg, #f4f8ff 0%, #e8f0fe 50%, #f0f4ff 100%);
-  overflow: hidden;
-}
-
-.app-form-blobs {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  overflow: hidden;
-  z-index: 0;
-}
-
-.app-form-blob {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(80px);
-  opacity: 0.2;
-}
-
-.app-form-blob-1 {
-  width: 500px; height: 500px;
-  background: rgba(25,184,242,0.06);
-  top: -200px; inset-inline-end: -100px;
-  animation: appBlob 10s ease-in-out infinite;
-}
-
-.app-form-blob-2 {
-  width: 400px; height: 400px;
-  background: rgba(246,179,0,0.04);
-  bottom: -150px; inset-inline-start: -80px;
-  animation: appBlob 12s ease-in-out infinite reverse;
-}
-
-@keyframes appBlob {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  33% { transform: translate(30px, -30px) scale(1.05); }
-  66% { transform: translate(-20px, 20px) scale(0.95); }
-}
-
-.app-form-section .container {
-  position: relative;
-  z-index: 1;
-}
-
-.app-card {
-  max-width: 860px;
-  margin: 0 auto;
-  background: rgba(255,255,255,0.75);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255,255,255,0.5);
-  border-radius: 32px;
-  box-shadow: 0 24px 80px rgba(18,59,120,0.08), 0 0 0 1px rgba(255,255,255,0.25) inset;
-  padding: 48px 44px;
-  position: relative;
-  overflow: hidden;
-}
-
-.app-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, transparent, var(--color-primary), var(--color-accent), transparent);
-}
-
-.app-section {
-  margin-bottom: 36px;
-  padding-bottom: 32px;
-  border-bottom: 1px solid rgba(18,59,120,0.06);
-}
-
-.app-section:last-of-type {
-  border-bottom: none;
-  margin-bottom: 0;
-  padding-bottom: 0;
-}
-
-.app-section-head {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  margin-bottom: 26px;
-}
-
-.app-section-icon {
-  width: 44px;
-  height: 44px;
-  border-radius: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, rgba(25,184,242,0.1) 0%, rgba(25,184,242,0.04) 100%);
-  color: var(--color-primary);
-  font-size: 18px;
-  flex-shrink: 0;
-  transition: transform 0.3s var(--ease), background 0.3s var(--ease);
-}
-
-.app-section:hover .app-section-icon {
-  transform: rotate(-4deg) scale(1.05);
-  background: linear-gradient(135deg, rgba(25,184,242,0.16) 0%, rgba(25,184,242,0.08) 100%);
-}
-
-.app-section-title {
-  font-size: 19px;
-  font-weight: 800;
-  color: var(--color-navy);
-}
-
-.app-section-sub {
+  gap: 8px;
+  background: rgba(25,184,242,.08);
+  border: 1px solid rgba(25,184,242,.12);
+  padding: 8px 20px;
+  border-radius: 999px;
   font-size: 13px;
-  color: var(--color-text-soft);
-  margin-top: 2px;
-}
-
-.app-section-num {
-  font-size: 11px;
-  font-weight: 800;
-  color: rgba(25,184,242,0.3);
-  background: rgba(25,184,242,0.06);
-  padding: 4px 12px;
-  border-radius: 20px;
-  letter-spacing: 1px;
-  flex-shrink: 0;
-  margin-inline-start: auto;
-}
-
-.app-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 18px;
-  margin-bottom: 18px;
-}
-
-.app-row:last-child {
-  margin-bottom: 0;
-}
-
-.app-field {
-  display: flex;
-  flex-direction: column;
-}
-
-.app-field-full {
-  grid-column: 1 / -1;
-}
-
-.app-label {
-  font-size: 14px;
   font-weight: 700;
-  color: var(--color-navy);
-  margin-bottom: 7px;
-  display: flex;
-  align-items: center;
-  gap: 4px;
+  color: var(--ms-sky);
+  margin-bottom: 20px;
 }
-
-.app-required {
-  color: #e74c3c;
-  font-size: 15px;
+.doc-hero-title {
+  font-size: clamp(30px, 3.5vw, 48px);
+  font-weight: 900;
+  line-height: 1.15;
+  margin-bottom: 12px;
+  color: var(--ms-navy);
 }
-
-.app-input-wrap {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-.app-input {
-  width: 100%;
-  padding: 13px 46px 13px 14px;
-  font-size: 14.5px;
-  font-family: var(--font-main);
-  color: #222;
-  background: rgba(255,255,255,0.7);
-  border: 1.5px solid rgba(18,59,120,0.1);
-  border-radius: var(--radius-sm);
-  transition: border-color 0.3s var(--ease), box-shadow 0.3s var(--ease), background 0.3s var(--ease);
-  outline: none;
-}
-
-.app-input:focus {
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 4px rgba(25,184,242,0.1), 0 0 20px rgba(25,184,242,0.04);
-  background: #fff;
-}
-
-.app-input::placeholder {
-  color: rgba(18,59,120,0.22);
-  font-size: 13.5px;
-}
-
-.app-input-icon {
-  position: absolute;
-  inset-inline-start: 14px;
-  z-index: 2;
-  color: rgba(18,59,120,0.25);
-  font-size: 15px;
-  transition: color 0.3s var(--ease);
-  pointer-events: none;
-}
-
-.app-input:focus ~ .app-input-icon {
-  color: var(--color-primary);
-}
-
-.app-input.error {
-  border-color: #e74c3c;
-  box-shadow: 0 0 0 4px rgba(231,76,60,0.08);
-}
-
-.app-input:focus.error {
-  box-shadow: 0 0 0 4px rgba(231,76,60,0.08);
-}
-
-.app-error {
-  font-size: 12px;
-  font-weight: 600;
-  color: #e74c3c;
-  min-height: 20px;
-  margin-top: 5px;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-
-.app-textarea {
-  min-height: 110px;
-  resize: vertical;
-  padding-top: 14px;
+.doc-hero-title-em { color: var(--ms-sky); }
+.doc-hero-desc {
+  font-size: 18px;
+  color: var(--ms-dark);
+  opacity: .6;
+  max-width: 520px;
+  margin: 0 auto 28px;
   line-height: 1.7;
 }
-
-.app-select-wrap {
-  position: relative;
+.doc-hero-actions {
+  display: flex; flex-wrap: wrap; gap: 12px; justify-content: center;
 }
-
-.app-select {
-  width: 100%;
-  padding: 13px 46px 13px 14px;
-  font-size: 14.5px;
-  font-family: var(--font-main);
-  color: #222;
-  background: rgba(255,255,255,0.7);
-  border: 1.5px solid rgba(18,59,120,0.1);
-  border-radius: var(--radius-sm);
-  transition: border-color 0.3s var(--ease), box-shadow 0.3s var(--ease);
-  outline: none;
-  cursor: pointer;
-  appearance: none;
-  -webkit-appearance: none;
-}
-
-.app-select:focus {
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 4px rgba(25,184,242,0.1);
-  background: #fff;
-}
-
-.app-select-arrow {
-  position: absolute;
-  inset-inline-start: 14px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: rgba(18,59,120,0.25);
-  font-size: 12px;
-  pointer-events: none;
-  z-index: 2;
-}
-
-.app-upload-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 18px;
-}
-
-.app-upload-area {
-  position: relative;
-  border: 2px dashed rgba(18,59,120,0.1);
-  border-radius: var(--radius-md);
-  padding: 32px 16px;
-  text-align: center;
-  cursor: pointer;
-  transition: border-color 0.3s var(--ease), background 0.3s var(--ease);
-  background: rgba(255,255,255,0.35);
-  min-height: 200px;
-  display: flex;
+.doc-hero-btn {
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
-}
-
-.app-upload-area:hover {
-  border-color: var(--color-primary);
-  background: rgba(25,184,242,0.03);
-}
-
-.app-upload-area.dragover {
-  border-color: var(--color-primary);
-  background: rgba(25,184,242,0.06);
-  box-shadow: 0 0 0 4px rgba(25,184,242,0.08);
-}
-
-.app-upload-area.has-file {
-  border-style: solid;
-  border-color: #27ae60;
-  background: rgba(39,174,96,0.03);
-}
-
-.app-upload-area.has-file .app-upload-content {
-  display: none;
-}
-
-.app-upload-icon {
-  width: 56px;
-  height: 56px;
-  margin: 0 auto 14px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, rgba(25,184,242,0.08) 0%, rgba(25,184,242,0.03) 100%);
-  color: var(--color-primary);
-  font-size: 24px;
-  transition: transform 0.3s var(--ease);
-}
-
-.app-upload-area:hover .app-upload-icon {
-  transform: scale(1.06) rotate(-4deg);
-}
-
-.app-upload-title {
-  font-size: 15px;
+  gap: 8px;
+  height: 50px;
+  padding: 0 28px;
+  border-radius: var(--ms-radius-sm);
   font-weight: 700;
-  color: var(--color-navy);
-  margin-bottom: 4px;
+  font-size: 16px;
+  font-family: inherit;
+  text-decoration: none;
+  transition: transform .3s var(--ms-ease), box-shadow .3s var(--ms-ease);
+  border: none;
+  cursor: pointer;
+}
+.doc-hero-btn-primary {
+  background: var(--ms-navy);
+  color: var(--ms-white);
+  box-shadow: 0 8px 24px rgba(18,59,120,.15);
+}
+.doc-hero-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(18,59,120,.2);
+}
+.doc-hero-btn-ghost {
+  background: transparent;
+  color: var(--ms-navy);
+  border: 1.5px solid var(--ms-border);
+}
+.doc-hero-btn-ghost:hover {
+  transform: translateY(-2px);
+  border-color: var(--ms-sky);
+  background: rgba(25,184,242,.04);
 }
 
-.app-upload-desc {
-  font-size: 13px;
-  color: var(--color-text-soft);
-  margin-bottom: 6px;
+.doc-section {
+  position: relative;
+  padding: 60px 0;
 }
+.doc-section-light { background: var(--ms-white); }
+.doc-section-gradient { background: var(--ms-bg); }
+.doc-section .container { position: relative; z-index: 1; }
 
-.app-upload-hint {
-  font-size: 11.5px;
-  color: rgba(18,59,120,0.3);
-  font-weight: 500;
+.doc-preview-card {
+  max-width: 640px;
+  margin: 0 auto;
+  background: var(--ms-white);
+  border: 1px solid var(--ms-border);
+  border-radius: var(--ms-radius);
+  overflow: hidden;
+  box-shadow: var(--ms-shadow);
+  transition: transform .3s var(--ms-ease), box-shadow .3s var(--ms-ease);
 }
-
-.app-upload-result {
-  display: none;
-  width: 100%;
-  text-align: start;
+.doc-preview-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 32px 100px rgba(18,59,120,.12);
 }
-
-.app-upload-area.has-file .app-upload-result {
-  display: block;
-}
-
-.app-upload-file {
+.doc-preview-header {
+  position: relative;
+  aspect-ratio: 3/4;
+  overflow: hidden;
+  background: var(--ms-bg);
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 12px 14px;
-  background: rgba(255,255,255,0.7);
-  border-radius: 12px;
-  border: 1px solid rgba(39,174,96,0.15);
+  justify-content: center;
+}
+.doc-preview-header img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .5s var(--ms-ease);
+}
+.doc-preview-card:hover .doc-preview-header img {
+  transform: scale(1.02);
+}
+.doc-preview-body {
+  padding: 24px 28px 28px;
+}
+.doc-preview-badges {
+  display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px;
+}
+.doc-preview-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+}
+.doc-preview-badge-pdf { background: rgba(231,76,60,.08); color: var(--ms-red); }
+.doc-preview-badge-official { background: rgba(25,184,242,.08); color: var(--ms-sky); }
+.doc-preview-badge-update { background: rgba(246,179,0,.08); color: #b38600; }
+.doc-preview-desc {
+  font-size: 15px;
+  color: var(--ms-dark);
+  opacity: .6;
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+.doc-preview-actions {
+  display: flex; flex-wrap: wrap; gap: 10px;
+}
+.doc-preview-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 46px;
+  padding: 0 22px;
+  border-radius: var(--ms-radius-sm);
+  font-weight: 700;
+  font-size: 14px;
+  font-family: inherit;
+  text-decoration: none;
+  transition: transform .3s var(--ms-ease), box-shadow .3s var(--ms-ease);
+  border: none;
+  cursor: pointer;
+}
+.doc-preview-btn-primary {
+  background: var(--ms-navy);
+  color: var(--ms-white);
+  box-shadow: 0 6px 16px rgba(18,59,120,.12);
+}
+.doc-preview-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(18,59,120,.18);
+}
+.doc-preview-btn-secondary {
+  background: transparent;
+  color: var(--ms-navy);
+  border: 1.5px solid var(--ms-border);
+}
+.doc-preview-btn-secondary:hover {
+  transform: translateY(-2px);
+  border-color: var(--ms-sky);
+  background: rgba(25,184,242,.04);
 }
 
-.app-upload-file-icon {
-  width: 40px;
-  height: 40px;
+.doc-notice-card {
+  max-width: 640px;
+  margin: 0 auto;
+  background: var(--ms-white);
+  border: 1px solid var(--ms-border);
+  border-radius: var(--ms-radius-sm);
+  padding: 24px 28px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  transition: box-shadow .3s var(--ms-ease);
+}
+.doc-notice-card:hover {
+  box-shadow: var(--ms-shadow);
+}
+.doc-notice-icon {
+  flex-shrink: 0;
+  width: 40px; height: 40px;
   border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(39,174,96,0.08);
-  color: #27ae60;
+  background: rgba(246,179,0,.1);
+  color: var(--ms-gold);
   font-size: 18px;
-  flex-shrink: 0;
 }
-
-.app-upload-file-info {
-  flex: 1;
-  min-width: 0;
+.doc-notice-content { flex: 1; }
+.doc-notice-title {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--ms-navy);
+  margin-bottom: 2px;
 }
-
-.app-upload-file-name {
-  font-size: 13.5px;
-  font-weight: 700;
-  color: var(--color-navy);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.app-upload-file-size {
-  font-size: 11.5px;
-  color: var(--color-text-soft);
-  margin-top: 2px;
-}
-
-.app-upload-file-status {
-  color: #27ae60;
-  font-size: 18px;
-  flex-shrink: 0;
-}
-
-.app-upload-remove {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(231,76,60,0.08);
-  color: #e74c3c;
-  border: none;
-  cursor: pointer;
-  font-size: 13px;
-  transition: transform 0.3s var(--ease), background 0.3s var(--ease);
-  flex-shrink: 0;
-}
-
-.app-upload-remove:hover {
-  transform: scale(1.1);
-  background: rgba(231,76,60,0.15);
-}
-
-.app-upload-progress {
-  width: 100%;
-  height: 4px;
-  background: rgba(18,59,120,0.06);
-  border-radius: 4px;
-  margin-top: 8px;
-  overflow: hidden;
-}
-
-.app-upload-progress-bar {
-  height: 100%;
-  background: linear-gradient(90deg, var(--color-primary), #27ae60);
-  border-radius: 4px;
-  width: 0%;
-  transition: width 0.5s var(--ease);
-}
-
-.app-upload-label {
+.doc-notice-text {
   font-size: 14px;
-  font-weight: 700;
-  color: var(--color-navy);
-  margin-bottom: 8px;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.app-declaration {
-  margin-top: 8px;
-}
-
-.app-checkbox {
-  display: flex;
-  align-items: flex-start;
-  gap: 14px;
-  cursor: pointer;
-  margin-bottom: 14px;
-}
-
-.app-checkbox:last-child {
-  margin-bottom: 0;
-}
-
-.app-checkbox input[type="checkbox"] {
-  display: none;
-}
-
-.app-checkbox-check {
-  width: 22px;
-  height: 22px;
-  border-radius: 7px;
-  border: 2px solid rgba(18,59,120,0.14);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  transition: all 0.3s var(--ease);
-  background: #fff;
-  margin-top: 2px;
-}
-
-.app-checkbox-check i {
-  font-size: 11px;
-  color: #fff;
-  opacity: 0;
-  transform: scale(0);
-  transition: all 0.3s var(--ease);
-}
-
-.app-checkbox input:checked + .app-checkbox-check {
-  background: linear-gradient(135deg, var(--color-primary), var(--color-navy));
-  border-color: var(--color-primary);
-}
-
-.app-checkbox input:checked + .app-checkbox-check i {
-  opacity: 1;
-  transform: scale(1);
-}
-
-.app-checkbox-text {
-  font-size: 14.5px;
-  color: #222;
-  font-weight: 500;
+  color: var(--ms-dark);
+  opacity: .6;
   line-height: 1.6;
 }
 
-.app-checkbox:hover .app-checkbox-check {
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 4px rgba(25,184,242,0.05);
-}
-
-.app-submit-wrap {
-  margin-top: 32px;
+.doc-download-card {
+  max-width: 640px;
+  margin: 0 auto;
+  background: var(--ms-white);
+  border: 1px solid var(--ms-border);
+  border-radius: var(--ms-radius);
+  padding: 40px 36px;
   text-align: center;
+  box-shadow: var(--ms-shadow);
+  transition: transform .3s var(--ms-ease), box-shadow .3s var(--ms-ease);
 }
-
-.app-submit-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  padding: 18px 48px;
-  border-radius: 999px;
-  font-weight: 800;
-  font-size: 16.5px;
-  font-family: var(--font-main);
-  border: none;
-  cursor: pointer;
-  background: linear-gradient(135deg, var(--color-navy) 0%, #0e2d5c 100%);
-  color: #fff;
-  box-shadow: 0 14px 36px rgba(18,59,120,0.3);
-  transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
-  position: relative;
-  overflow: hidden;
-  min-width: 240px;
-  min-height: 60px;
-}
-
-.app-submit-btn::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, transparent, rgba(255,255,255,0.05), transparent);
-  transform: translateX(-100%);
-  transition: transform 0.6s var(--ease);
-}
-
-.app-submit-btn:hover::before {
-  transform: translateX(100%);
-}
-
-.app-submit-btn:hover {
+.doc-download-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 20px 48px rgba(18,59,120,0.4);
+  box-shadow: 0 32px 100px rgba(18,59,120,.12);
 }
-
-.app-submit-btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-  transform: none !important;
-}
-
-.app-submit-btn i {
-  font-size: 17px;
-  transition: transform 0.3s var(--ease);
-}
-
-.app-submit-btn:hover i {
-  transform: translateX(-4px);
-}
-
-.app-btn-prev {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 14px 28px;
-  border-radius: 999px;
-  font-weight: 700;
-  font-size: 15px;
-  font-family: var(--font-main);
-  border: 1.5px solid rgba(18,59,120,0.1);
-  cursor: pointer;
-  background: rgba(255,255,255,0.6);
-  color: var(--color-navy);
-  transition: transform 0.3s var(--ease), background 0.3s var(--ease);
-}
-
-.app-btn-prev:hover {
-  background: rgba(25,184,242,0.06);
-  transform: translateY(-2px);
-}
-
-.app-nav-btns {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 16px;
-  margin-top: 36px;
-  padding-top: 28px;
-  border-top: 1px solid rgba(18,59,120,0.06);
-}
-
-.app-review {
-  display: none;
-  max-width: 860px;
-  margin: 40px auto 0;
-}
-
-.app-review.show {
-  display: block;
-}
-
-.app-review-card {
-  background: rgba(255,255,255,0.75);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255,255,255,0.5);
-  border-radius: 32px;
-  box-shadow: 0 24px 80px rgba(18,59,120,0.08);
-  padding: 48px 44px;
-}
-
-.app-review-card::before {
+.doc-download-card::before {
   content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, transparent, var(--color-accent), var(--color-primary), transparent);
-  border-radius: 32px 32px 0 0;
+  display: block;
+  width: 48px; height: 4px;
+  background: var(--ms-gold);
+  border-radius: 4px;
+  margin: 0 auto 24px;
 }
-
-.app-review-card {
-  position: relative;
-  overflow: hidden;
-}
-
-.app-review-title {
+.doc-download-title {
   font-size: 24px;
-  font-weight: 800;
-  color: var(--color-navy);
-  text-align: center;
-  margin-bottom: 6px;
-}
-
-.app-review-desc {
-  font-size: 15px;
-  color: var(--color-text-soft);
-  text-align: center;
-  margin-bottom: 32px;
-}
-
-.app-review-group {
-  margin-bottom: 24px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid rgba(18,59,120,0.06);
-}
-
-.app-review-group:last-of-type {
-  border-bottom: none;
-  margin-bottom: 0;
-  padding-bottom: 0;
-}
-
-.app-review-group-title {
-  font-size: 15px;
-  font-weight: 800;
-  color: var(--color-primary);
-  margin-bottom: 14px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.app-review-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px 24px;
+  font-weight: 900;
+  color: var(--ms-navy);
   margin-bottom: 8px;
 }
-
-.app-review-item {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
+.doc-download-desc {
+  font-size: 16px;
+  color: var(--ms-dark);
+  opacity: .6;
+  line-height: 1.7;
+  max-width: 460px;
+  margin: 0 auto 24px;
 }
-
-.app-review-label {
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--color-text-soft);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.app-review-value {
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--color-navy);
-}
-
-.app-review-actions {
-  display: flex;
-  gap: 16px;
-  justify-content: center;
-  margin-top: 32px;
-  flex-wrap: wrap;
-}
-
-.app-review-edit-btn {
+.doc-download-btn {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  padding: 16px 32px;
-  border-radius: 999px;
-  font-weight: 700;
-  font-size: 15px;
-  font-family: var(--font-main);
-  border: 1.5px solid rgba(18,59,120,0.1);
-  cursor: pointer;
-  background: rgba(255,255,255,0.6);
-  color: var(--color-navy);
+  height: 54px;
+  padding: 0 36px;
+  border-radius: var(--ms-radius-sm);
+  font-weight: 800;
+  font-size: 16px;
+  font-family: inherit;
   text-decoration: none;
-  transition: transform 0.3s var(--ease), background 0.3s var(--ease);
+  transition: transform .3s var(--ms-ease), box-shadow .3s var(--ms-ease);
+  border: none;
+  cursor: pointer;
+  background: var(--ms-navy);
+  color: var(--ms-white);
+  box-shadow: 0 8px 24px rgba(18,59,120,.15);
 }
-
-.app-review-edit-btn:hover {
-  background: rgba(25,184,242,0.06);
+.doc-download-btn:hover {
   transform: translateY(-3px);
+  box-shadow: 0 16px 40px rgba(18,59,120,.2);
 }
-
-.app-review-submit-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  padding: 16px 36px;
-  border-radius: 999px;
-  font-weight: 800;
-  font-size: 16px;
-  font-family: var(--font-main);
-  border: none;
-  cursor: pointer;
-  background: linear-gradient(135deg, var(--color-accent) 0%, #FFD34D 100%);
-  color: var(--color-navy);
-  box-shadow: var(--shadow-accent);
-  transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
-}
-
-.app-review-submit-btn:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 20px 48px rgba(246,179,0,0.5);
-}
-
-.app-success {
-  display: none;
-  max-width: 560px;
-  margin: 40px auto 0;
-}
-
-.app-success.show {
-  display: block;
-}
-
-.app-success-card {
-  background: rgba(255,255,255,0.85);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255,255,255,0.5);
-  border-radius: 32px;
-  padding: 50px 40px;
-  text-align: center;
-  box-shadow: 0 24px 80px rgba(18,59,120,0.1);
-}
-
-.app-success-icon {
-  width: 76px;
-  height: 76px;
-  margin: 0 auto 22px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, #27ae60, #2ecc71);
-  color: #fff;
-  font-size: 36px;
-  box-shadow: 0 12px 36px rgba(39,174,96,0.25);
-  animation: appBounce 0.6s var(--ease);
-}
-
-@keyframes appBounce {
-  0% { transform: scale(0); }
-  50% { transform: scale(1.15); }
-  100% { transform: scale(1); }
-}
-
-.app-success-title {
-  font-size: 24px;
-  font-weight: 800;
-  color: var(--color-navy);
-  margin-bottom: 12px;
-}
-
-.app-success-desc {
-  font-size: 15.5px;
-  color: var(--color-text-soft);
-  line-height: 1.8;
-  margin-bottom: 28px;
-}
-
-.app-success-btn {
-  display: inline-flex !important;
-  margin: 0 auto;
-}
-
-@media (max-width: 900px) {
-  .app-card { padding: 36px 28px; }
-  .app-review-card { padding: 36px 28px; }
-  .app-row { grid-template-columns: 1fr; }
-  .app-upload-grid { grid-template-columns: 1fr; }
-  .app-progress { gap: 8px; }
-  .app-progress::before,
-  .app-progress::after { display: none; }
-  .app-progress-label { font-size: 10px; max-width: 70px; }
-  .app-review-row { grid-template-columns: 1fr; }
-  .app-nav-btns { flex-direction: column; }
-  .app-hero { padding: 60px 0 40px; }
-  .app-form-section { padding: 60px 0 80px; }
-}
-
-@media (max-width: 640px) {
-  .app-card { padding: 24px 16px; border-radius: 24px; }
-  .app-review-card { padding: 24px 16px; border-radius: 24px; }
-  .app-section { margin-bottom: 28px; padding-bottom: 24px; }
-  .app-section-head { flex-wrap: wrap; }
-  .app-section-num { display: none; }
-  .app-input { padding: 12px 40px 12px 12px; font-size: 14px; }
-  .app-submit-btn { min-width: 100%; padding: 16px 24px; }
-  .app-hero-title { font-size: 26px; }
-  .app-hero-icon { width: 60px; height: 60px; font-size: 28px; }
-  .app-upload-area { min-height: 170px; padding: 24px 12px; }
-  .app-upload-grid { gap: 14px; }
-  .app-success-card { padding: 36px 24px; }
-  .app-review-edit-btn { width: 100%; justify-content: center; }
-  .app-review-submit-btn { width: 100%; justify-content: center; }
-}
-
-
-/* ===== APP CTA ===== */
-.app-cta {
-  position: relative;
-  padding: 100px 0;
-  background: linear-gradient(135deg, var(--color-navy) 0%, #0f2a4a 100%);
-  overflow: hidden;
-  text-align: center;
-}
-.app-cta-pattern {
-  position: absolute;
-  inset: 0;
-  background-image:
-    radial-gradient(circle at 20% 50%, rgba(25,184,242,0.08) 0%, transparent 50%),
-    radial-gradient(circle at 80% 50%, rgba(246,179,0,0.06) 0%, transparent 50%);
-  pointer-events: none;
-}
-.app-cta-blobs { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
-.app-cta-blob {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(80px);
-  opacity: 0.15;
-}
-.app-cta-blob-1 {
-  width: 400px; height: 400px;
-  background: var(--color-accent);
-  top: -120px; inset-inline-end: -80px;
-  animation: appBlobFloat 8s ease-in-out infinite alternate;
-}
-.app-cta-blob-2 {
-  width: 350px; height: 350px;
-  background: var(--color-primary);
-  bottom: -100px; inset-inline-start: -60px;
-  animation: appBlobFloat 10s ease-in-out infinite alternate-reverse;
-}
-@keyframes appBlobFloat {
-  0% { transform: translate(0, 0) scale(1); }
-  100% { transform: translate(30px, -30px) scale(1.1); }
-}
-.app-cta .container { position: relative; z-index: 2; }
-.app-cta-content { max-width: 720px; margin: 0 auto; }
-.app-cta-eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 24px;
-  border-radius: 999px;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.08);
-  font-size: 13px;
-  font-weight: 700;
-  color: rgba(255,255,255,0.7);
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  margin-bottom: 24px;
-}
-.app-cta-eyebrow i { color: var(--color-accent); font-size: 14px; }
-.app-cta-title {
-  font-size: 36px;
-  font-weight: 900;
-  color: #fff;
-  margin: 0 0 16px;
-  line-height: 1.3;
-}
-.app-cta-title-em {
-  background: linear-gradient(135deg, var(--color-accent), #FFD34D);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-.app-cta-desc {
-  font-size: 17px;
-  color: rgba(255,255,255,0.7);
-  line-height: 1.8;
-  margin: 0 0 36px;
-  max-width: 560px;
-  margin-inline: auto;
-}
-.app-cta-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  justify-content: center;
-  align-items: center;
-}
-.app-cta-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  padding: 18px 38px;
-  border-radius: 999px;
-  font-weight: 800;
-  font-size: 16px;
-  font-family: var(--font-main);
-  text-decoration: none;
-  transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
-  border: none;
-  cursor: pointer;
-}
-.app-cta-btn-primary {
-  background: linear-gradient(135deg, var(--color-accent) 0%, #FFD34D 100%);
-  color: var(--color-navy);
-  box-shadow: var(--shadow-accent);
-}
-.app-cta-btn-primary:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 24px 52px rgba(246,179,0,0.5);
-}
-.app-cta-btn-secondary {
-  background: rgba(255,255,255,0.08);
-  color: #fff;
-  border: 1.5px solid rgba(255,255,255,0.15);
-  backdrop-filter: blur(8px);
-}
-.app-cta-btn-secondary:hover {
-  background: rgba(255,255,255,0.15);
-  transform: translateY(-4px);
-}
-.app-cta-btn i { font-size: 16px; transition: transform 0.3s var(--ease); }
-.app-cta-btn-primary:hover i { transform: translateX(-4px); }
 
 @media (max-width: 768px) {
-  .app-cta { padding: 70px 0; }
-  .app-cta-title { font-size: 26px; }
-  .app-cta-desc { font-size: 15px; }
-  .app-cta-btn { width: 100%; justify-content: center; }
+  .doc-hero { min-height: 360px; }
+  .doc-section { padding: 40px 0; }
+  .doc-hero-eyebrow { font-size: 12px; padding: 6px 16px; }
+  .doc-preview-body { padding: 20px; }
+  .doc-preview-card { margin: 0 12px; }
+  .doc-notice-card { margin: 0 12px; padding: 20px; }
+  .doc-download-card { padding: 32px 24px; }
 }
-
+@media (max-width: 560px) {
+  .doc-hero-title { font-size: 28px; }
+  .doc-hero-desc { font-size: 16px; }
+  .doc-download-btn { width: 100%; justify-content: center; }
+  .doc-preview-actions { flex-direction: column; }
+  .doc-preview-btn { width: 100%; justify-content: center; }
+}
 </style>
 </head>
 <body>
@@ -1183,788 +359,113 @@
 
 <a href="#main" class="visually-hidden">تخطَّ إلى المحتوى الرئيسي</a>
 
-<div class="topbar">
-  <div class="container">
-    <div class="topbar-right">
-      <a href="../index.html" class="topbar-brand" aria-label="الرئيسية">
-        <span class="topbar-brand-mark">
-          <img src="../Amare%20files%20/logo.png" alt="AMARE Logo" class="topbar-brand-logo">
-        </span>
-        <span class="topbar-brand-name">الجمعية المغربية لهواة البحث والاستكشاف</span>
-      </a>
-    </div>
-    <div class="topbar-left">
-      <div class="topbar-social">
-        <a href="#" aria-label="فيسبوك"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg></a>
-        <a href="#" aria-label="إنستغرام"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
-        <a href="#" aria-label="لينكدإن"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 5 3.79 6.2 2.3 6.2 1 6.2 0 5 0 3.5 0 2 1.1.8 2.5.8s2.48 1.2 2.48 2.7zM.2 8.5h4.6V23H.2V8.5zM8 8.5h4.4v2h.06c.6-1.2 2.1-2.4 4.4-2.4 4.7 0 5.6 3.1 5.6 7.1V23h-4.6v-6.7c0-1.6 0-3.7-2.3-3.7s-2.6 1.8-2.6 3.6V23H8V8.5z"/></svg></a>
-      </div>
-      <div class="topbar-lang">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg>
-        <select aria-label="اختيار اللغة">
-          <option value="ar" selected>العربية</option>
-          <option value="fr">Français</option>
-          <option value="en">English</option>
-        </select>
-        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M6 9l6 6 6-6"/></svg>
-      </div>
-      <a href="https://wa.me/212600000000" target="_blank" rel="noopener" class="topbar-whatsapp ripple" aria-label="تواصل عبر واتساب">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.6.1-.2.3-.7 1-.9 1.2-.1.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.2-.4.1-.2 0-.4 0-.5s-.6-1.5-.8-2c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s1 2.6 1.1 2.7c.1.2 2 3 4.7 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 2-1.4.2-.6.2-1.2.1-1.3-.1-.1-.3-.2-.6-.3z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.6 1.4 5.1L2 22l5.1-1.3C8.5 21.5 10.2 22 12 22c5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18c-1.6 0-3.1-.4-4.5-1.2l-.3-.2-3.3.9.9-3.2-.2-.3C3.7 14.6 3.2 13.3 3.2 12c0-4.9 3.9-8.8 8.8-8.8s8.8 3.9 8.8 8.8-3.9 8.8-8.8 8.8z"/></svg>
-        <span>واتساب</span>
-      </a>
-      <a href="#" class="topbar-login ripple" aria-label="تسجيل الدخول">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-          <path d="M15 3h6v18h-6M10 17l5-5-5-5M15 12H3"/>
-        </svg>
-        <span>تسجيل الدخول</span>
-      </a>
-    </div>
-  </div>
-</div>
-
-<header>
-  <nav class="navbar" id="navbar" aria-label="التنقل الرئيسي">
-    <div class="container">
-      <ul class="nav-links" id="navLinks">
-        <li><a href="../index.html">الرئيسية</a></li>
-        <li data-dropdown="about"><a href="../index.html#about">من نحن</a></li>
-        <li data-dropdown="activities"><a href="#">أنشطتنا</a></li>
-        <li data-dropdown="partners"><a href="#">شركاؤنا</a></li>
-        <li data-dropdown="services"><a href="../index.html#services">خدماتنا</a></li>
-        <li data-dropdown="news"><a href="../index.html#news">الأخبار</a></li>
-        <li data-dropdown="archive"><a href="#">الأرشيف</a></li>
-        <li data-dropdown="branches"><a href="#">الفروع الجهوية</a></li>
-        <li data-dropdown="join"><a href="index.html">انخرط معنا</a></li>
-        <li><a href="../index.html#contact">اتصل بنا</a></li>
-      </ul>
-      <div class="nav-actions">
-        <a href="index.html" class="nav-join-btn">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-            <circle cx="8.5" cy="7" r="4"/>
-            <line x1="20" y1="8" x2="20" y2="14"/>
-            <line x1="23" y1="11" x2="17" y2="11"/>
-          </svg>
-          <span>انخرط في الجمعية</span>
-        </a>
-        <a href="#" class="nav-store-btn">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
-            <path d="M3 6h18"/>
-            <path d="M16 10a4 4 0 0 1-8 0"/>
-          </svg>
-          <span>متجر AMARE</span>
-        </a>
-        <button class="hamburger" id="hamburger" aria-label="فتح القائمة" aria-expanded="false" aria-controls="navLinks">
-          <span></span><span></span><span></span>
-        </button>
-      </div>
-    </div>
-    <div class="mega-dropdown" id="megaDropdown"></div>
-  </nav>
-</header>
+<div id="navbar" data-base=".."></div>
 
 <main id="main">
 
 <!-- ===== 1. HERO ===== -->
-<section class="app-hero" id="hero">
-  <div class="app-hero-pattern"></div>
+<section class="doc-hero" id="hero">
+  <div class="doc-hero-pattern"></div>
   <div class="container">
-    <div class="app-hero-inner" data-aos="fade-up" data-aos-duration="800">
-      <div class="app-hero-icon"><i class="fas fa-file-signature"></i></div>
-      <h1 class="app-hero-title">استمارة <span class="app-hero-title-em">الانخراط</span></h1>
-      <p class="app-hero-desc">يرجى تعبئة جميع المعلومات المطلوبة بدقة، وسيتم مراجعة طلبكم من طرف إدارة الجمعية قبل تأكيد العضوية.</p>
-
-      <div class="app-progress" id="appProgress">
-        <div class="app-progress-step active" data-step="1">
-          <span class="app-progress-num"><i class="fas fa-user"></i></span>
-          <span class="app-progress-label">البيانات الشخصية</span>
-        </div>
-        <div class="app-progress-step" data-step="2">
-          <span class="app-progress-num"><i class="fas fa-phone"></i></span>
-          <span class="app-progress-label">معلومات التواصل</span>
-        </div>
-        <div class="app-progress-step" data-step="3">
-          <span class="app-progress-num"><i class="fas fa-info-circle"></i></span>
-          <span class="app-progress-label">معلومات الانخراط</span>
-        </div>
-        <div class="app-progress-step" data-step="4">
-          <span class="app-progress-num"><i class="fas fa-upload"></i></span>
-          <span class="app-progress-label">رفع الوثائق</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== 2. FORM ===== -->
-<section class="app-form-section" id="app-form">
-  <div class="app-form-blobs" aria-hidden="true">
-    <div class="app-form-blob app-form-blob-1"></div>
-    <div class="app-form-blob app-form-blob-2"></div>
-  </div>
-
-  <div class="container">
-    <div class="app-card" data-aos="fade-up" data-aos-duration="800">
-      <form id="applicationForm" novalidate>
-
-        <!-- SECTION 1: Personal Info -->
-        <div class="app-section" data-section="1">
-          <div class="app-section-head">
-            <span class="app-section-icon"><i class="fas fa-user"></i></span>
-            <div>
-              <h2 class="app-section-title">البيانات الشخصية</h2>
-              <span class="app-section-sub">المعلومات الأساسية للتعريف بالشخص</span>
-            </div>
-            <span class="app-section-num">01</span>
-          </div>
-
-          <div class="app-row">
-            <div class="app-field">
-              <label class="app-label" for="fullName">الاسم الكامل <span class="app-required">*</span></label>
-              <div class="app-input-wrap">
-                <input type="text" id="fullName" class="app-input" placeholder="الاسم الكامل كما في البطاقة الوطنية" required autocomplete="name">
-                <span class="app-input-icon"><i class="fas fa-user"></i></span>
-              </div>
-              <div class="app-error" id="fullNameError" role="alert"></div>
-            </div>
-            <div class="app-field">
-              <label class="app-label" for="nameFrench">الاسم بالفرنسية</label>
-              <div class="app-input-wrap">
-                <input type="text" id="nameFrench" class="app-input" placeholder="Nom et prénom" dir="ltr" autocomplete="name">
-                <span class="app-input-icon"><i class="fas fa-language"></i></span>
-              </div>
-            </div>
-          </div>
-
-          <div class="app-row">
-            <div class="app-field">
-              <label class="app-label" for="birthDate">تاريخ الازدياد <span class="app-required">*</span></label>
-              <div class="app-input-wrap">
-                <input type="date" id="birthDate" class="app-input" required>
-                <span class="app-input-icon"><i class="fas fa-calendar"></i></span>
-              </div>
-              <div class="app-error" id="birthDateError" role="alert"></div>
-            </div>
-            <div class="app-field">
-              <label class="app-label">الجنس <span class="app-required">*</span></label>
-              <div class="app-select-wrap">
-                <div class="app-input-wrap">
-                  <select id="gender" class="app-select" required>
-                    <option value="">اختر الجنس</option>
-                    <option value="ذكر">ذكر</option>
-                    <option value="أنثى">أنثى</option>
-                  </select>
-                  <span class="app-input-icon"><i class="fas fa-venus-mars"></i></span>
-                </div>
-              </div>
-              <div class="app-error" id="genderError" role="alert"></div>
-            </div>
-          </div>
-
-          <div class="app-row">
-            <div class="app-field">
-              <label class="app-label" for="maritalStatus">الحالة العائلية</label>
-              <div class="app-select-wrap">
-                <div class="app-input-wrap">
-                  <select id="maritalStatus" class="app-select">
-                    <option value="">اختر الحالة العائلية</option>
-                    <option value="أعزب">أعزب</option>
-                    <option value="متزوج">متزوج</option>
-                    <option value="مطلق">مطلق</option>
-                    <option value="أرمل">أرمل</option>
-                  </select>
-                  <span class="app-input-icon"><i class="fas fa-users"></i></span>
-                </div>
-              </div>
-            </div>
-            <div class="app-field">
-              <label class="app-label" for="cin">رقم البطاقة الوطنية <span class="app-required">*</span></label>
-              <div class="app-input-wrap">
-                <input type="text" id="cin" class="app-input" placeholder="رقم البطاقة الوطنية" required>
-                <span class="app-input-icon"><i class="fas fa-id-card"></i></span>
-              </div>
-              <div class="app-error" id="cinError" role="alert"></div>
-            </div>
-          </div>
-
-          <div class="app-row">
-            <div class="app-field">
-              <label class="app-label" for="nationality">الجنسية</label>
-              <div class="app-input-wrap">
-                <input type="text" id="nationality" class="app-input" placeholder="الجنسية" value="مغربية">
-                <span class="app-input-icon"><i class="fas fa-globe"></i></span>
-              </div>
-            </div>
-            <div class="app-field">
-              <label class="app-label" for="profession">المهنة <span class="app-required">*</span></label>
-              <div class="app-input-wrap">
-                <input type="text" id="profession" class="app-input" placeholder="المهنة" required>
-                <span class="app-input-icon"><i class="fas fa-briefcase"></i></span>
-              </div>
-              <div class="app-error" id="professionError" role="alert"></div>
-            </div>
-          </div>
-
-          <div class="app-row">
-            <div class="app-field app-field-full">
-              <label class="app-label" for="educationLevel">المستوى الدراسي</label>
-              <div class="app-select-wrap">
-                <div class="app-input-wrap">
-                  <select id="educationLevel" class="app-select">
-                    <option value="">اختر المستوى الدراسي</option>
-                    <option value="أمي">أمي</option>
-                    <option value="ابتدائي">ابتدائي</option>
-                    <option value="إعدادي">إعدادي</option>
-                    <option value="ثانوي">ثانوي</option>
-                    <option value="جامعي">جامعي</option>
-                    <option value="دراسات عليا">دراسات عليا</option>
-                  </select>
-                  <span class="app-input-icon"><i class="fas fa-graduation-cap"></i></span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- SECTION 2: Contact Info -->
-        <div class="app-section" data-section="2">
-          <div class="app-section-head">
-            <span class="app-section-icon"><i class="fas fa-phone-alt"></i></span>
-            <div>
-              <h2 class="app-section-title">معلومات التواصل</h2>
-              <span class="app-section-sub">بيانات الاتصال للتواصل معكم</span>
-            </div>
-            <span class="app-section-num">02</span>
-          </div>
-
-          <div class="app-row">
-            <div class="app-field">
-              <label class="app-label" for="email">البريد الإلكتروني <span class="app-required">*</span></label>
-              <div class="app-input-wrap">
-                <input type="email" id="email" class="app-input" placeholder="بريدك الإلكتروني" required autocomplete="email" dir="ltr">
-                <span class="app-input-icon"><i class="fas fa-envelope"></i></span>
-              </div>
-              <div class="app-error" id="emailError" role="alert"></div>
-            </div>
-            <div class="app-field">
-              <label class="app-label" for="phone">رقم الهاتف <span class="app-required">*</span></label>
-              <div class="app-input-wrap">
-                <input type="tel" id="phone" class="app-input" placeholder="رقم الهاتف" required autocomplete="tel" dir="ltr">
-                <span class="app-input-icon"><i class="fas fa-phone"></i></span>
-              </div>
-              <div class="app-error" id="phoneError" role="alert"></div>
-            </div>
-          </div>
-
-          <div class="app-row">
-            <div class="app-field">
-              <label class="app-label" for="whatsapp">رقم واتساب</label>
-              <div class="app-input-wrap">
-                <input type="tel" id="whatsapp" class="app-input" placeholder="رقم واتساب" dir="ltr">
-                <span class="app-input-icon"><i class="fab fa-whatsapp"></i></span>
-              </div>
-            </div>
-            <div class="app-field">
-              <label class="app-label" for="city">المدينة <span class="app-required">*</span></label>
-              <div class="app-input-wrap">
-                <input type="text" id="city" class="app-input" placeholder="المدينة" required>
-                <span class="app-input-icon"><i class="fas fa-city"></i></span>
-              </div>
-              <div class="app-error" id="cityError" role="alert"></div>
-            </div>
-          </div>
-
-          <div class="app-row">
-            <div class="app-field">
-              <label class="app-label" for="address">العنوان الكامل <span class="app-required">*</span></label>
-              <div class="app-input-wrap">
-                <input type="text" id="address" class="app-input" placeholder="العنوان الكامل" required autocomplete="street-address">
-                <span class="app-input-icon"><i class="fas fa-home"></i></span>
-              </div>
-              <div class="app-error" id="addressError" role="alert"></div>
-            </div>
-            <div class="app-field">
-              <label class="app-label" for="postalCode">الرمز البريدي</label>
-              <div class="app-input-wrap">
-                <input type="text" id="postalCode" class="app-input" placeholder="الرمز البريدي" dir="ltr">
-                <span class="app-input-icon"><i class="fas fa-map-pin"></i></span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- SECTION 3: Membership Info -->
-        <div class="app-section" data-section="3">
-          <div class="app-section-head">
-            <span class="app-section-icon"><i class="fas fa-info-circle"></i></span>
-            <div>
-              <h2 class="app-section-title">معلومات الانخراط</h2>
-              <span class="app-section-sub">معلومات إضافية حول دوافع انخراطكم</span>
-            </div>
-            <span class="app-section-num">03</span>
-          </div>
-
-          <div class="app-row">
-            <div class="app-field app-field-full">
-              <label class="app-label" for="reason">سبب الانخراط <span class="app-required">*</span></label>
-              <div class="app-input-wrap" style="align-items:flex-start;">
-                <textarea id="reason" class="app-input app-textarea" placeholder="ما الذي يحفزك للانضمام إلى الجمعية؟" required style="padding-inline-start:46px;"></textarea>
-                <span class="app-input-icon" style="top:16px;"><i class="fas fa-pen"></i></span>
-              </div>
-              <div class="app-error" id="reasonError" role="alert"></div>
-            </div>
-          </div>
-
-          <div class="app-row">
-            <div class="app-field">
-              <label class="app-label" for="hobbies">الهوايات</label>
-              <div class="app-input-wrap" style="align-items:flex-start;">
-                <textarea id="hobbies" class="app-input app-textarea" placeholder="ما هي هواياتك واهتماماتك؟" style="padding-inline-start:46px;"></textarea>
-                <span class="app-input-icon" style="top:16px;"><i class="fas fa-heart"></i></span>
-              </div>
-            </div>
-            <div class="app-field">
-              <label class="app-label" for="experience">الخبرات السابقة</label>
-              <div class="app-input-wrap" style="align-items:flex-start;">
-                <textarea id="experience" class="app-input app-textarea" placeholder="هل لديك خبرات سابقة في مجال البحث والاستكشاف؟" style="padding-inline-start:46px;"></textarea>
-                <span class="app-input-icon" style="top:16px;"><i class="fas fa-star"></i></span>
-              </div>
-            </div>
-          </div>
-
-          <div class="app-row">
-            <div class="app-field">
-              <label class="app-label" for="skills">المهارات</label>
-              <div class="app-input-wrap" style="align-items:flex-start;">
-                <textarea id="skills" class="app-input app-textarea" placeholder="ما هي المهارات التي تتمتع بها؟" style="padding-inline-start:46px;"></textarea>
-                <span class="app-input-icon" style="top:16px;"><i class="fas fa-lightbulb"></i></span>
-              </div>
-            </div>
-            <div class="app-field">
-              <label class="app-label" for="howHeard">كيف تعرفت على الجمعية؟</label>
-              <div class="app-select-wrap">
-                <div class="app-input-wrap">
-                  <select id="howHeard" class="app-select">
-                    <option value="">اختر...</option>
-                    <option value="وسائل التواصل">وسائل التواصل الاجتماعي</option>
-                    <option value="صديق">صديق أو معارف</option>
-                    <option value="فعالية">فعالية أو نشاط</option>
-                    <option value="الموقع">الموقع الإلكتروني</option>
-                    <option value="أخرى">أخرى</option>
-                  </select>
-                  <span class="app-input-icon"><i class="fas fa-search"></i></span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="app-row">
-            <div class="app-field app-field-full">
-              <label class="app-label" for="prevMembership">هل سبق لك الانخراط في جمعية أخرى؟</label>
-              <div class="app-select-wrap">
-                <div class="app-input-wrap">
-                  <select id="prevMembership" class="app-select">
-                    <option value="">اختر...</option>
-                    <option value="لا">لا</option>
-                    <option value="نعم، جمعية تنموية">نعم، جمعية تنموية</option>
-                    <option value="نعم، جمعية ثقافية">نعم، جمعية ثقافية</option>
-                    <option value="نعم، جمعية رياضية">نعم، جمعية رياضية</option>
-                    <option value="نعم، أخرى">نعم، أخرى</option>
-                  </select>
-                  <span class="app-input-icon"><i class="fas fa-history"></i></span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- SECTION 4: Uploads -->
-        <div class="app-section" data-section="4">
-          <div class="app-section-head">
-            <span class="app-section-icon"><i class="fas fa-upload"></i></span>
-            <div>
-              <h2 class="app-section-title">رفع الوثائق</h2>
-              <span class="app-section-sub">يرجى رفع الوثائق المطلوبة إلكترونياً</span>
-            </div>
-            <span class="app-section-num">04</span>
-          </div>
-
-          <div class="app-upload-grid">
-            <div>
-              <label class="app-upload-label">صورة شخصية <span class="app-required">*</span></label>
-              <div class="app-upload-area" id="uploadPhoto" role="button" tabindex="0">
-                <input type="file" id="photoInput" accept="image/png,image/jpeg" hidden>
-                <div class="app-upload-content">
-                  <div class="app-upload-icon"><i class="fas fa-camera"></i></div>
-                  <div class="app-upload-title">صورة شخصية</div>
-                  <div class="app-upload-desc">اسحب وأفلت الصورة هنا</div>
-                  <div class="app-upload-hint">PNG, JPG — حد أقصى 5MB</div>
-                </div>
-                <div class="app-upload-result">
-                  <div class="app-upload-file">
-                    <span class="app-upload-file-icon"><i class="fas fa-image"></i></span>
-                    <div class="app-upload-file-info">
-                      <div class="app-upload-file-name" id="photoFileName">photo.jpg</div>
-                      <div class="app-upload-file-size" id="photoFileSize">2.4 MB</div>
-                    </div>
-                    <span class="app-upload-file-status"><i class="fas fa-check-circle"></i></span>
-                    <button type="button" class="app-upload-remove" data-target="uploadPhoto" aria-label="إزالة الملف">
-                      <i class="fas fa-times"></i>
-                    </button>
-                  </div>
-                  <div class="app-upload-progress"><div class="app-upload-progress-bar" style="width:100%;"></div></div>
-                </div>
-              </div>
-              <div class="app-error" id="photoError" role="alert"></div>
-            </div>
-
-            <div>
-              <label class="app-upload-label">نسخة البطاقة الوطنية <span class="app-required">*</span></label>
-              <div class="app-upload-area" id="uploadCin" role="button" tabindex="0">
-                <input type="file" accept="image/png,image/jpeg,application/pdf" hidden>
-                <div class="app-upload-content">
-                  <div class="app-upload-icon"><i class="fas fa-id-card"></i></div>
-                  <div class="app-upload-title">نسخة البطاقة الوطنية</div>
-                  <div class="app-upload-desc">اسحب وأفلت الملف هنا</div>
-                  <div class="app-upload-hint">PNG, JPG, PDF — حد أقصى 5MB</div>
-                </div>
-                <div class="app-upload-result">
-                  <div class="app-upload-file">
-                    <span class="app-upload-file-icon"><i class="fas fa-file"></i></span>
-                    <div class="app-upload-file-info">
-                      <div class="app-upload-file-name">cin.pdf</div>
-                      <div class="app-upload-file-size">1.8 MB</div>
-                    </div>
-                    <span class="app-upload-file-status"><i class="fas fa-check-circle"></i></span>
-                    <button type="button" class="app-upload-remove" data-target="uploadCin" aria-label="إزالة الملف">
-                      <i class="fas fa-times"></i>
-                    </button>
-                  </div>
-                  <div class="app-upload-progress"><div class="app-upload-progress-bar" style="width:100%;"></div></div>
-                </div>
-              </div>
-              <div class="app-error" id="cinDocError" role="alert"></div>
-            </div>
-          </div>
-
-          <div class="app-row" style="margin-top:18px;">
-            <div class="app-field app-field-full">
-              <label class="app-upload-label">استمارة الانخراط موقعة</label>
-              <div class="app-upload-area" id="uploadForm" role="button" tabindex="0" style="min-height:160px;">
-                <input type="file" accept="application/pdf" hidden>
-                <div class="app-upload-content">
-                  <div class="app-upload-icon"><i class="fas fa-file-signature"></i></div>
-                  <div class="app-upload-title">استمارة الانخراط موقعة</div>
-                  <div class="app-upload-desc">إن وجدت، يمكنك رفع الاستمارة الموقعة</div>
-                  <div class="app-upload-hint">PDF — حد أقصى 10MB</div>
-                </div>
-                <div class="app-upload-result">
-                  <div class="app-upload-file">
-                    <span class="app-upload-file-icon"><i class="fas fa-file-pdf"></i></span>
-                    <div class="app-upload-file-info">
-                      <div class="app-upload-file-name">form_signed.pdf</div>
-                      <div class="app-upload-file-size">3.1 MB</div>
-                    </div>
-                    <span class="app-upload-file-status"><i class="fas fa-check-circle"></i></span>
-                    <button type="button" class="app-upload-remove" data-target="uploadForm" aria-label="إزالة الملف">
-                      <i class="fas fa-times"></i>
-                    </button>
-                  </div>
-                  <div class="app-upload-progress"><div class="app-upload-progress-bar" style="width:100%;"></div></div>
-                </div>
-              </div>
-              <div class="app-error" id="formDocError" role="alert"></div>
-            </div>
-          </div>
-
-          <div class="app-row">
-            <div class="app-field app-field-full">
-              <label class="app-upload-label">ملفات إضافية</label>
-              <div class="app-upload-area" id="uploadExtra" role="button" tabindex="0" style="min-height:140px;">
-                <input type="file" multiple accept=".pdf,.doc,.docx,.png,.jpg,.jpeg" hidden>
-                <div class="app-upload-content">
-                  <div class="app-upload-icon"><i class="fas fa-folder-open"></i></div>
-                  <div class="app-upload-title">ملفات إضافية</div>
-                  <div class="app-upload-desc">شهادات، سيرة ذاتية، أو أي وثائق داعمة</div>
-                  <div class="app-upload-hint">PDF, DOC, JPG, PNG — حد أقصى 20MB</div>
-                </div>
-                <div class="app-upload-result">
-                  <div class="app-upload-file">
-                    <span class="app-upload-file-icon"><i class="fas fa-file"></i></span>
-                    <div class="app-upload-file-info">
-                      <div class="app-upload-file-name">docs.zip</div>
-                      <div class="app-upload-file-size">5.2 MB</div>
-                    </div>
-                    <span class="app-upload-file-status"><i class="fas fa-check-circle"></i></span>
-                    <button type="button" class="app-upload-remove" data-target="uploadExtra" aria-label="إزالة الملف">
-                      <i class="fas fa-times"></i>
-                    </button>
-                  </div>
-                  <div class="app-upload-progress"><div class="app-upload-progress-bar" style="width:100%;"></div></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- SECTION 5: Declaration -->
-        <div class="app-section" data-section="5">
-          <div class="app-section-head">
-            <span class="app-section-icon"><i class="fas fa-check-circle"></i></span>
-            <div>
-              <h2 class="app-section-title">الإقرار</h2>
-              <span class="app-section-sub">يرجى قراءة والموافقة على الشروط التالية</span>
-            </div>
-            <span class="app-section-num">05</span>
-          </div>
-
-          <div class="app-declaration">
-            <label class="app-checkbox">
-              <input type="checkbox" id="agreeCorrect">
-              <span class="app-checkbox-check"><i class="fas fa-check"></i></span>
-              <span class="app-checkbox-text">أقر بأن جميع المعلومات المقدمة أعلاه <strong>صحيحة وكاملة</strong>، وأتحمل مسؤولية أي خطأ في البيانات.</span>
-            </label>
-
-            <label class="app-checkbox">
-              <input type="checkbox" id="agreeRules">
-              <span class="app-checkbox-check"><i class="fas fa-check"></i></span>
-              <span class="app-checkbox-text">أوافق على <strong>القانون الداخلي</strong> للجمعية وألتزم بجميع بنوده وواجبات العضوية.</span>
-            </label>
-
-            <label class="app-checkbox">
-              <input type="checkbox" id="agreePrivacy">
-              <span class="app-checkbox-check"><i class="fas fa-check"></i></span>
-              <span class="app-checkbox-text">أوافق على <strong>معالجة بياناتي</strong> الشخصية وفقاً لسياسة الخصوصية المعتمدة لدى الجمعية.</span>
-            </label>
-
-            <div class="app-error" id="agreeError" role="alert" style="margin-top:8px;"></div>
-          </div>
-        </div>
-
-        <!-- Submit -->
-        <div class="app-submit-wrap">
-          <button type="submit" class="app-submit-btn" id="submitBtn">
-            <i class="fas fa-paper-plane"></i>
-            مراجعة الطلب
-          </button>
-        </div>
-
-      </form>
-    </div>
-
-    <!-- REVIEW CARD -->
-    <div class="app-review" id="appReview">
-      <div class="app-review-card" data-aos="fade-up" data-aos-duration="800">
-        <h2 class="app-review-title">مراجعة طلب الانخراط</h2>
-        <p class="app-review-desc">يرجى التحقق من صحة جميع المعلومات قبل الإرسال النهائي</p>
-
-        <div class="app-review-group">
-          <div class="app-review-group-title"><i class="fas fa-user"></i> البيانات الشخصية</div>
-          <div class="app-review-row" id="reviewPersonal"></div>
-        </div>
-
-        <div class="app-review-group">
-          <div class="app-review-group-title"><i class="fas fa-phone-alt"></i> معلومات التواصل</div>
-          <div class="app-review-row" id="reviewContact"></div>
-        </div>
-
-        <div class="app-review-group">
-          <div class="app-review-group-title"><i class="fas fa-info-circle"></i> معلومات الانخراط</div>
-          <div class="app-review-row" id="reviewMembership"></div>
-        </div>
-
-        <div class="app-review-group">
-          <div class="app-review-group-title"><i class="fas fa-check-circle"></i> الإقرار</div>
-          <div class="app-review-row">
-            <div class="app-review-item">
-              <span class="app-review-label">الموافقة على الشروط</span>
-              <span class="app-review-value" id="reviewAgree">تمت الموافقة على جميع الشروط</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="app-review-actions">
-          <button class="app-review-edit-btn" id="editBtn">
-            <i class="fas fa-pen"></i>
-            تعديل المعلومات
-          </button>
-          <button class="app-review-submit-btn" id="finalSubmitBtn">
-            <i class="fas fa-check-circle"></i>
-            تأكيد وإرسال الطلب
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- SUCCESS CARD -->
-    <div class="app-success" id="appSuccess">
-      <div class="app-success-card" data-aos="fade-up" data-aos-duration="800">
-        <div class="app-success-icon"><i class="fas fa-check-circle"></i></div>
-        <h2 class="app-success-title">تم إرسال طلبكم بنجاح</h2>
-        <p class="app-success-desc">سيتم مراجعة الطلب من طرف إدارة الجمعية، وسيتم التواصل معكم عبر البريد الإلكتروني أو الهاتف في أقرب وقت.</p>
-        <a href="../index.html" class="join-btn join-btn-primary app-success-btn">
-          <i class="fas fa-home"></i>
-          العودة إلى الصفحة الرئيسية
-        </a>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-
-<!-- ===== CTA SECTION ===== -->
-<section class="app-cta" id="app-cta">
-  <div class="app-cta-pattern"></div>
-  <div class="app-cta-blobs" aria-hidden="true">
-    <div class="app-cta-blob app-cta-blob-1"></div>
-    <div class="app-cta-blob app-cta-blob-2"></div>
-  </div>
-
-  <div class="container">
-    <div class="app-cta-content" data-aos="fade-up" data-aos-duration="900">
-      <span class="app-cta-eyebrow">
+    <div class="doc-hero-inner" data-aos="fade-up" data-aos-duration="700">
+      <span class="doc-hero-eyebrow">
         <i class="fas fa-file-alt"></i>
-        قبل إرسال طلبك
+        استمارة رسمية
       </span>
-
-      <h2 class="app-cta-title">
-        راجع جميع <span class="app-cta-title-em">الوثائق المطلوبة</span>
-      </h2>
-
-      <p class="app-cta-desc">
-        تأكد من الاطلاع على جميع الوثائق والشروط قبل تقديم طلب الانخراط. يمكنك العودة إلى أي صفحة من الصفحات التالية للمراجعة.
+      <h1 class="doc-hero-title">
+        استمارة <span class="doc-hero-title-em">الانخراط</span>
+      </h1>
+      <p class="doc-hero-desc">
+        قم بتحميل استمارة الانخراط الرسمية، ثم قم بتعبئتها وإرسالها مع باقي الوثائق المطلوبة.
       </p>
-
-      <div class="app-cta-actions">
-        <a href="index.html" class="app-cta-btn app-cta-btn-primary">
-          <i class="fas fa-home"></i>
-          صفحة الانخراط
+      <div class="doc-hero-actions">
+        <a href="../Amare%20files%20/%D8%A7%D8%B3%D8%AA%D9%85%D8%A7%D8%B1%D8%A9%20%20%D8%A7%D9%84%D8%A7%D9%86%D8%AE%D8%B1%D8%A7%D8%B7%202026%20%20.pdf" download class="doc-hero-btn doc-hero-btn-primary">
+          <i class="fas fa-download"></i>
+          تحميل الاستمارة
         </a>
-        <a href="documents.html" class="app-cta-btn app-cta-btn-secondary">
-          <i class="fas fa-file-alt"></i>
-          وثائق الانخراط
-        </a>
-        <a href="commitment.html" class="app-cta-btn app-cta-btn-secondary">
-          <i class="fas fa-file-signature"></i>
-          التزام العضو
-        </a>
-        <a href="bylaws.html" class="app-cta-btn app-cta-btn-secondary">
-          <i class="fas fa-gavel"></i>
-          القانون الأساسي
-        </a>
-        <a href="internal-regulations.html" class="app-cta-btn app-cta-btn-secondary">
-          <i class="fas fa-book"></i>
-          النظام الداخلي
+        <a href="../templates/membership-preview.png" target="_blank" class="doc-hero-btn doc-hero-btn-ghost">
+          <i class="fas fa-eye"></i>
+          معاينة الاستمارة
         </a>
       </div>
     </div>
   </div>
 </section>
 
+<!-- ===== 2. MAIN PREVIEW CARD ===== -->
+<section class="doc-section doc-section-light" id="doc-preview">
+  <div class="container">
+    <div class="doc-preview-card" data-aos="fade-up" data-aos-duration="700">
+      <div class="doc-preview-header">
+        <img src="../templates/membership-preview.png" alt="معاينة استمارة الانخراط">
+      </div>
+      <div class="doc-preview-body">
+        <div class="doc-preview-badges">
+          <span class="doc-preview-badge doc-preview-badge-pdf"><i class="fas fa-file-pdf"></i> PDF</span>
+          <span class="doc-preview-badge doc-preview-badge-official"><i class="fas fa-check-circle"></i> وثيقة رسمية</span>
+          <span class="doc-preview-badge doc-preview-badge-update"><i class="fas fa-calendar-alt"></i> آخر تحديث: 2026</span>
+        </div>
+        <p class="doc-preview-desc">
+          استمارة رسمية لطلب الانضمام إلى الجمعية المغربية لهواة البحث والاستكشاف، تتضمن المعلومات الشخصية والبيانات الأساسية للعضو.
+        </p>
+        <div class="doc-preview-actions">
+          <a href="../Amare%20files%20/%D8%A7%D8%B3%D8%AA%D9%85%D8%A7%D8%B1%D8%A9%20%20%D8%A7%D9%84%D8%A7%D9%86%D8%AE%D8%B1%D8%A7%D8%B7%202026%20%20.pdf" download class="doc-preview-btn doc-preview-btn-primary">
+            <i class="fas fa-download"></i>
+            تحميل الاستمارة
+          </a>
+          <a href="../templates/membership-template.pdf" target="_blank" class="doc-preview-btn doc-preview-btn-secondary">
+            <i class="fas fa-file-pdf"></i>
+            معاينة PDF
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 3. IMPORTANT NOTICE ===== -->
+<section class="doc-section doc-section-gradient" id="doc-notice">
+  <div class="container">
+    <div class="doc-notice-card" data-aos="fade-up" data-aos-duration="700">
+      <div class="doc-notice-icon">
+        <i class="fas fa-info-circle"></i>
+      </div>
+      <div class="doc-notice-content">
+        <h3 class="doc-notice-title">ملاحظة</h3>
+        <p class="doc-notice-text">بعد تحميل الاستمارة، يرجى تعبئتها بالكامل وإرفاقها مع الوثائق المطلوبة قبل إرسال طلب الانخراط.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 4. FINAL CTA ===== -->
+<section class="doc-section doc-section-light" id="doc-cta">
+  <div class="container">
+    <div class="doc-download-card" data-aos="fade-up" data-aos-duration="700">
+      <h2 class="doc-download-title">جاهز للتحميل؟</h2>
+      <p class="doc-download-desc">يمكنك تحميل استمارة الانخراط الرسمية مباشرة من الزر أسفله.</p>
+      <a href="../Amare%20files%20/%D8%A7%D8%B3%D8%AA%D9%85%D8%A7%D8%B1%D8%A9%20%20%D8%A7%D9%84%D8%A7%D9%86%D8%AE%D8%B1%D8%A7%D8%B7%202026%20%20.pdf" download class="doc-download-btn">
+        <i class="fas fa-download"></i>
+        تحميل استمارة الانخراط
+      </a>
+    </div>
+  </div>
+</section>
 
 </main>
 
-<footer class="footer" id="contact">
-  <div class="container">
-    <div class="footer-grid">
-      <div class="footer-about">
-        <div class="footer-brand">
-          <span class="brand-mark">
-            <img src="../Amare%20files%20/logo.png" alt="AMARE Logo" class="topbar-brand-logo">
-          </span>
-          <span>
-            <span class="brand-name">الجمعية المغربية لهواة البحث والاستكشاف</span><br>
-          </span>
-        </div>
-        <p>الجمعية المغربية لهواة البحث والاستكشاف هي إطار قانوني وطني يجمع الهواة تحت راية واحدة لصون التراث الوطني المغربي.</p>
-        <div class="footer-social">
-          <a href="#" aria-label="فيسبوك"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg></a>
-          <a href="#" aria-label="إنستغرام"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
-          <a href="#" aria-label="لينكدإن"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 5 3.79 6.2 2.3 6.2 1 6.2 0 5 0 3.5 0 2 1.1.8 2.5.8s2.48 1.2 2.48 2.7zM.2 8.5h4.6V23H.2V8.5zM8 8.5h4.4v2h.06c.6-1.2 2.1-2.4 4.4-2.4 4.7 0 5.6 3.1 5.6 7.1V23h-4.6v-6.7c0-1.6 0-3.7-2.3-3.7s-2.6 1.8-2.6 3.6V23H8V8.5z"/></svg></a>
-        </div>
-      </div>
-
-      <nav aria-label="روابط سريعة">
-        <h4>روابط سريعة</h4>
-        <ul class="footer-links">
-          <li><a href="../index.html">الرئيسية</a></li>
-          <li><a href="../index.html#about">اتصل بنا</a></li>
-          <li><a href="../index.html#services">خدماتنا</a></li>
-          <li><a href="../index.html#news">الاخبار</a></li>
-          <li><a href="index.html">الانخراط online</a></li>
-          <li><a href="documents.html">وثائق الانخراط</a></li>
-          <li><a href="commitment.html">التزام العضو</a></li>
-          <li><a href="bylaws.html">القانون الأساسي</a></li>
-          <li><a href="application.html">استمارة الانخراط</a></li>
-          <li><a href="internal-regulations.html">النظام الداخلي</a></li>
-        </ul>
-      </nav>
-
-      <nav aria-label="برامجنا">
-        <h4>برامجنا</h4>
-        <ul class="footer-links">
-          <li><a href="../index.html#services">SOS Amare</a></li>
-          <li><a href="../index.html#services">متجر Amare</a></li>
-          <li><a href="../index.html#services">بيت المستكشف Amare</a></li>
-          <li><a href="../index.html#services">مجلة Amare</a></li>
-        </ul>
-      </nav>
-
-      <div>
-        <h4>تواصل معنا</h4>
-        <ul class="footer-contact">
-          <li>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            <span>ص.ب 749 أيت ملول 86150</span>
-          </li>
-          <li>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .3 2 .7 2.9a2 2 0 0 1-.4 2.1L8 10a16 16 0 0 0 6 6l1.3-1.4a2 2 0 0 1 2.1-.4c.9.4 1.9.6 2.9.7a2 2 0 0 1 1.7 2.1z"/></svg>
-            <span dir="ltr">+212 684869996</span>
-          </li>
-          <li>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z" opacity="0"/><path d="M22 6 12 13 2 6"/><path d="M2 6h20v12H2z"/></svg>
-            <span dir="ltr">association.amare.agadir@gmail.com</span>
-          </li>
-        </ul>
-      </div>
-
-      <div class="footer-location">
-        <h4>موقعنا</h4>
-        <div class="footer-map-card">
-          <span class="footer-map-badge">📍 Ait Melloul, Agadir</span>
-          <iframe
-            src="https://www.google.com/maps?q=30.385528,-9.448611&z=16&output=embed"
-            loading="lazy"
-            allowfullscreen
-            referrerpolicy="no-referrer-when-downgrade"
-            title="موقع الجمعية على الخريطة"
-            class="footer-map-frame"></iframe>
-          <div class="footer-map-footer">
-            <a href="https://www.google.com/maps?q=30.385528,-9.448611" target="_blank" rel="noopener" class="footer-map-btn">Open in Google Maps</a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="footer-bottom">
-      <p>© 2026 جمعية الأمل للتنمية. جميع الحقوق محفوظة.</p>
-      <div class="footer-bottom-links">
-        <a href="#">سياسة الخصوصية</a>
-        <a href="#">الشروط والأحكام</a>
-      </div>
-    </div>
-  </div>
-</footer>
+<div id="footer" data-base=".."></div>
 
 <button class="back-to-top" id="backToTop" aria-label="العودة إلى الأعلى">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M18 15l-6-6-6 6"/></svg>
 </button>
 
+<script src="../js/component-loader.js"></script>
+<script>
+  loadComponent('#navbar', '../components/navbar.html');
+  loadComponent('#footer', '../components/footer.html');
+</script>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="../js/supabase.js"></script>
 <script src="../script.js"></script>
 <script>
 (function() {
@@ -1978,276 +479,6 @@
       easing: 'cubic-bezier(0.22, 0.8, 0.32, 1)',
     });
   }
-
-  var form = document.getElementById('applicationForm');
-  if (!form) return;
-
-  var currentSection = 1;
-  var totalSections = 4;
-  var uploadFiles = {};
-
-  /* ---------- Progress Update ---------- */
-  function updateProgress(step) {
-    var steps = document.querySelectorAll('.app-progress-step');
-    steps.forEach(function(el, idx) {
-      el.classList.remove('active', 'done');
-      if (idx + 1 < step) el.classList.add('done');
-      else if (idx + 1 === step) el.classList.add('active');
-    });
-    var pct = Math.min(((step - 1) / (totalSections - 1)) * 100, 100);
-    var afterStyle = document.createElement('style');
-    afterStyle.id = 'progress-dynamic';
-    var existing = document.getElementById('progress-dynamic');
-    if (existing) existing.remove();
-    afterStyle.id = 'progress-dynamic';
-    afterStyle.textContent = '.app-progress::after { width: ' + pct + '% !important; }';
-    document.head.appendChild(afterStyle);
-  }
-
-  /* ---------- Validation ---------- */
-  function showError(id, msg) {
-    var el = document.getElementById(id);
-    if (el) el.textContent = msg;
-    var input = document.querySelector('[id="' + id.replace('Error', '') + '"]');
-    if (input) input.classList.add('error');
-  }
-
-  function clearError(id) {
-    var el = document.getElementById(id);
-    if (el) el.textContent = '';
-    var input = document.querySelector('[id="' + id.replace('Error', '') + '"]');
-    if (input) input.classList.remove('error');
-  }
-
-  function clearAll() {
-    document.querySelectorAll('.app-error').forEach(function(el) { el.textContent = ''; });
-    document.querySelectorAll('.app-input.error, .app-select.error').forEach(function(el) { el.classList.remove('error'); });
-  }
-
-  function getVal(id) { var el = document.getElementById(id); return el ? el.value.trim() : ''; }
-
-  function isValidEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
-
-  function isValidPhone(v) { return /^[0-9+\-\s]{8,15}$/.test(v); }
-
-  function scrollToError() {
-    var first = document.querySelector('.app-error:not(:empty)');
-    if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  }
-
-  function validateSection(section) {
-    var valid = true;
-    if (section === 1) {
-      if (!getVal('fullName')) { showError('fullNameError', 'هذا الحقل مطلوب'); valid = false; }
-      if (!getVal('birthDate')) { showError('birthDateError', 'هذا الحقل مطلوب'); valid = false; }
-      if (!getVal('gender')) { showError('genderError', 'يرجى اختيار الجنس'); valid = false; }
-      if (!getVal('cin')) { showError('cinError', 'هذا الحقل مطلوب'); valid = false; }
-      else if (!/^[A-Za-z0-9]{5,10}$/.test(getVal('cin'))) { showError('cinError', 'رقم بطاقة وطنية غير صحيح'); valid = false; }
-      if (!getVal('profession')) { showError('professionError', 'هذا الحقل مطلوب'); valid = false; }
-    }
-    if (section === 2) {
-      if (!getVal('email')) { showError('emailError', 'هذا الحقل مطلوب'); valid = false; }
-      else if (!isValidEmail(getVal('email'))) { showError('emailError', 'بريد إلكتروني غير صحيح'); valid = false; }
-      if (!getVal('phone')) { showError('phoneError', 'هذا الحقل مطلوب'); valid = false; }
-      else if (!isValidPhone(getVal('phone'))) { showError('phoneError', 'رقم هاتف غير صحيح'); valid = false; }
-      if (!getVal('city')) { showError('cityError', 'هذا الحقل مطلوب'); valid = false; }
-      if (!getVal('address')) { showError('addressError', 'هذا الحقل مطلوب'); valid = false; }
-    }
-    if (section === 3) {
-      if (!getVal('reason')) { showError('reasonError', 'هذا الحقل مطلوب'); valid = false; }
-    }
-    if (section === 4) {
-      if (!uploadFiles['photo']) { showError('photoError', 'يرجى رفع صورة شخصية'); valid = false; }
-      if (!uploadFiles['cin']) { showError('cinDocError', 'يرجى رفع نسخة البطاقة الوطنية'); valid = false; }
-    }
-    return valid;
-  }
-
-  function validateAll() {
-    var valid = true;
-    for (var i = 1; i <= 4; i++) {
-      if (!validateSection(i)) valid = false;
-    }
-    if (!document.getElementById('agreeCorrect').checked ||
-        !document.getElementById('agreeRules').checked ||
-        !document.getElementById('agreePrivacy').checked) {
-      showError('agreeError', 'يرجى الموافقة على جميع الشروط');
-      valid = false;
-    }
-    return valid;
-  }
-
-  /* ---------- Live validation ---------- */
-  form.querySelectorAll('.app-input, .app-select').forEach(function(el) {
-    el.addEventListener('input', function() { clearError(this.id + 'Error'); });
-    el.addEventListener('change', function() { clearError(this.id + 'Error'); });
-    el.addEventListener('blur', function() {
-      if (this.hasAttribute('required') && !this.value.trim()) {
-        showError(this.id + 'Error', 'هذا الحقل مطلوب');
-      }
-    });
-  });
-
-  /* ---------- File Uploads ---------- */
-  var uploadErrorMap = {
-    uploadPhoto: 'photoError',
-    uploadCin: 'cinDocError',
-    uploadForm: 'formDocError',
-  };
-
-  function clearUploadError(areaId) {
-    var errId = uploadErrorMap[areaId];
-    if (errId) clearError(errId);
-  }
-
-  function uploadKey(areaId) {
-    var k = areaId.replace('upload', '').toLowerCase();
-    if (k === 'photo') return 'photo';
-    if (k === 'cin') return 'cin';
-    if (k === 'form') return 'form';
-    return 'extra';
-  }
-
-  function initUpload(areaId) {
-    var area = document.getElementById(areaId);
-    if (!area) return;
-    var input = area.querySelector('input[type="file"]');
-    var result = area.querySelector('.app-upload-result');
-    var removeBtn = area.querySelector('.app-upload-remove');
-    var nameEl = result ? result.querySelector('.app-upload-file-name') : null;
-    var sizeEl = result ? result.querySelector('.app-upload-file-size') : null;
-
-    area.addEventListener('click', function() { if (!area.classList.contains('has-file')) input.click(); });
-
-    input.addEventListener('change', function(e) {
-      var file = e.target.files[0];
-      if (file) handleUpload(area, file, nameEl, sizeEl);
-    });
-
-    area.addEventListener('dragover', function(e) { e.preventDefault(); area.classList.add('dragover'); });
-    area.addEventListener('dragleave', function() { area.classList.remove('dragover'); });
-    area.addEventListener('drop', function(e) {
-      e.preventDefault();
-      area.classList.remove('dragover');
-      var file = e.dataTransfer.files[0];
-      if (file) handleUpload(area, file, nameEl, sizeEl);
-    });
-
-    if (removeBtn) {
-      removeBtn.addEventListener('click', function(e) {
-        e.stopPropagation();
-        var target = this.dataset.target || areaId;
-        var a = document.getElementById(target);
-        if (a) {
-          a.classList.remove('has-file');
-          a.querySelector('input[type="file"]').value = '';
-        }
-        delete uploadFiles[uploadKey(areaId)];
-        clearUploadError(areaId);
-      });
-    }
-  }
-
-  function handleUpload(area, file, nameEl, sizeEl) {
-    var key = uploadKey(area.id);
-    var maxSize = key === 'form' ? 10 * 1024 * 1024 : key === 'extra' ? 20 * 1024 * 1024 : 5 * 1024 * 1024;
-    if (file.size > maxSize) { alert('حجم الملف يتجاوز الحد المسموح'); return; }
-
-    area.classList.add('has-file');
-    if (nameEl) nameEl.textContent = file.name;
-    if (sizeEl) sizeEl.textContent = (file.size / 1024 / 1024).toFixed(1) + ' MB';
-    uploadFiles[key] = file;
-    clearUploadError(area.id);
-
-    var bar = area.querySelector('.app-upload-progress-bar');
-    if (bar) { bar.style.width = '0%'; setTimeout(function() { bar.style.width = '100%'; }, 200); }
-  }
-
-  initUpload('uploadPhoto');
-  initUpload('uploadCin');
-  initUpload('uploadForm');
-  initUpload('uploadExtra');
-
-  /* ---------- Form Submit → Review ---------- */
-  form.addEventListener('submit', function(e) {
-    e.preventDefault();
-    clearAll();
-
-    if (!validateAll()) { scrollToError(); return; }
-
-    populateReview();
-    form.style.display = 'none';
-    document.getElementById('appReview').classList.add('show');
-    document.getElementById('appSuccess').classList.remove('show');
-    window.scrollTo({ top: document.getElementById('appReview').offsetTop - 40, behavior: 'smooth' });
-    updateProgress(5);
-  });
-
-  /* ---------- Edit Button ---------- */
-  document.getElementById('editBtn').addEventListener('click', function() {
-    document.getElementById('appReview').classList.remove('show');
-    form.style.display = 'block';
-    window.scrollTo({ top: form.offsetTop - 40, behavior: 'smooth' });
-    updateProgress(4);
-  });
-
-  /* ---------- Populate Review ---------- */
-  function addReviewItem(containerId, label, value) {
-    var container = document.getElementById(containerId);
-    if (!container) return;
-    var div = document.createElement('div');
-    div.className = 'app-review-item';
-    div.innerHTML = '<span class="app-review-label">' + label + '</span><span class="app-review-value">' + (value || '—') + '</span>';
-    container.appendChild(div);
-  }
-
-  function populateReview() {
-    var p = document.getElementById('reviewPersonal');
-    p.innerHTML = '';
-    addReviewItem('reviewPersonal', 'الاسم الكامل', getVal('fullName'));
-    addReviewItem('reviewPersonal', 'الاسم بالفرنسية', getVal('nameFrench'));
-    addReviewItem('reviewPersonal', 'تاريخ الازدياد', getVal('birthDate'));
-    addReviewItem('reviewPersonal', 'الجنس', getVal('gender'));
-    addReviewItem('reviewPersonal', 'الحالة العائلية', getVal('maritalStatus') || '—');
-    addReviewItem('reviewPersonal', 'رقم البطاقة الوطنية', getVal('cin'));
-    addReviewItem('reviewPersonal', 'الجنسية', getVal('nationality') || 'مغربية');
-    addReviewItem('reviewPersonal', 'المهنة', getVal('profession'));
-    addReviewItem('reviewPersonal', 'المستوى الدراسي', getVal('educationLevel') || '—');
-
-    var c = document.getElementById('reviewContact');
-    c.innerHTML = '';
-    addReviewItem('reviewContact', 'البريد الإلكتروني', getVal('email'));
-    addReviewItem('reviewContact', 'رقم الهاتف', getVal('phone'));
-    addReviewItem('reviewContact', 'رقم واتساب', getVal('whatsapp') || '—');
-    addReviewItem('reviewContact', 'المدينة', getVal('city'));
-    addReviewItem('reviewContact', 'العنوان الكامل', getVal('address'));
-    addReviewItem('reviewContact', 'الرمز البريدي', getVal('postalCode') || '—');
-
-    var m = document.getElementById('reviewMembership');
-    m.innerHTML = '';
-    addReviewItem('reviewMembership', 'سبب الانخراط', getVal('reason'));
-    addReviewItem('reviewMembership', 'الهوايات', getVal('hobbies') || '—');
-    addReviewItem('reviewMembership', 'الخبرات السابقة', getVal('experience') || '—');
-    addReviewItem('reviewMembership', 'المهارات', getVal('skills') || '—');
-    addReviewItem('reviewMembership', 'كيف تعرفت على الجمعية؟', getVal('howHeard') || '—');
-    addReviewItem('reviewMembership', 'انخراط سابق', getVal('prevMembership') || '—');
-  }
-
-  /* ---------- Final Submit ---------- */
-  document.getElementById('finalSubmitBtn').addEventListener('click', function() {
-    var btn = this;
-    btn.disabled = true;
-    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الإرسال...';
-
-    setTimeout(function() {
-      btn.disabled = false;
-      document.getElementById('appReview').classList.remove('show');
-      document.getElementById('appSuccess').classList.add('show');
-      window.scrollTo({ top: document.getElementById('appSuccess').offsetTop - 40, behavior: 'smooth' });
-    }, 1500);
-  });
-
-  updateProgress(1);
 
 })();
 </script>

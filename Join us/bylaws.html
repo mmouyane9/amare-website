@@ -21,946 +21,377 @@
 <link rel="stylesheet" href="../style.css">
 
 <style>
-/* =============================
-   BYLAWS PAGE — القانون الأساسي
-   ============================= */
+:root {
+  --ms-sky: #19B8F2;
+  --ms-navy: #123b78;
+  --ms-gold: #F6B300;
+  --ms-dark: #222222;
+  --ms-white: #FFFFFF;
+  --ms-red: #E74C3C;
+  --ms-bg: #F0F5FE;
+  --ms-border: rgba(18,59,120,.08);
+  --ms-shadow: 0 24px 80px rgba(18,59,120,.08);
+  --ms-radius: 24px;
+  --ms-radius-sm: 14px;
+  --ms-ease: cubic-bezier(.22,.8,.32,1);
+}
 
-.bylaw-hero {
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.doc-hero {
   position: relative;
-  min-height: 80vh;
+  min-height: 420px;
   display: flex;
   align-items: center;
   overflow: hidden;
-  background: linear-gradient(160deg, #080e1f 0%, #0f2a5a 35%, #1a3a7a 60%, #0d1f42 100%);
-  color: #fff;
+  background: linear-gradient(180deg, var(--ms-white) 0%, var(--ms-bg) 100%);
 }
-
-.bylaw-hero-pattern {
-  position: absolute;
-  inset: 0;
-  opacity: 0.04;
+.doc-hero-pattern {
+  position: absolute; inset: 0;
+  opacity: .03;
   background-image:
-    repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(255,255,255,0.08) 40px, rgba(255,255,255,0.08) 41px),
-    repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(255,255,255,0.08) 40px, rgba(255,255,255,0.08) 41px);
-  background-size: 80px 80px, 80px 80px;
+    repeating-linear-gradient(0deg, transparent, transparent 32px, var(--ms-border) 32px, var(--ms-border) 33px),
+    repeating-linear-gradient(90deg, transparent, transparent 32px, var(--ms-border) 32px, var(--ms-border) 33px);
   pointer-events: none;
-  z-index: 1;
 }
-
-.bylaw-hero-shape {
-  position: absolute;
-  z-index: 1;
-  pointer-events: none;
-  opacity: 0.7;
+.doc-hero .container { position: relative; z-index: 1; }
+.doc-hero-inner {
+  max-width: 720px; margin: 0 auto; text-align: center;
 }
-
-.bylaw-hero-shape-1 {
-  width: 200px; height: 200px;
-  top: 5%; inset-inline-start: 3%;
-  animation: bylawFloat1 10s ease-in-out infinite;
-}
-
-.bylaw-hero-shape-2 {
-  width: 160px; height: 160px;
-  bottom: 10%; inset-inline-end: 5%;
-  animation: bylawFloat2 12s ease-in-out infinite;
-}
-
-.bylaw-hero-shape-3 {
-  width: 100px; height: 100px;
-  top: 50%; inset-inline-start: 55%;
-  animation: bylawFloat3 14s ease-in-out infinite;
-}
-
-@keyframes bylawFloat1 {
-  0%, 100% { transform: translate(0, 0) rotate(0deg); }
-  33% { transform: translate(18px, -28px) rotate(4deg); }
-  66% { transform: translate(-8px, 12px) rotate(-2deg); }
-}
-
-@keyframes bylawFloat2 {
-  0%, 100% { transform: translate(0, 0) rotate(0deg); }
-  50% { transform: translate(-22px, -18px) rotate(-6deg); }
-}
-
-@keyframes bylawFloat3 {
-  0%, 100% { transform: translate(0, 0); }
-  25% { transform: translate(12px, -16px); }
-  75% { transform: translate(-12px, 8px); }
-}
-
-.bylaw-hero .container {
-  position: relative;
-  z-index: 2;
-}
-
-.bylaw-hero-inner {
-  max-width: 820px;
-  margin: 0 auto;
-  text-align: center;
-}
-
-.bylaw-hero-icon-wrap {
-  margin-bottom: 28px;
+.doc-hero-eyebrow {
   display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 100px;
-  height: 100px;
-  border-radius: 28px;
-  background: rgba(255,255,255,0.06);
-  backdrop-filter: blur(12px);
-  border: 1.5px solid rgba(255,255,255,0.08);
-  color: var(--color-accent);
-  font-size: 42px;
-  transition: transform 0.4s var(--ease);
-}
-
-.bylaw-hero-icon-wrap:hover {
-  transform: scale(1.06) rotate(-4deg);
-}
-
-.bylaw-hero-eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  background: rgba(255,255,255,0.07);
-  border: 1px solid rgba(246,179,0,0.2);
-  padding: 10px 24px;
-  border-radius: 999px;
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--color-accent);
-  margin-bottom: 28px;
-}
-
-.bylaw-hero-title {
-  font-size: clamp(34px, 5.5vw, 58px);
-  font-weight: 900;
-  line-height: 1.25;
-  margin-bottom: 20px;
-  text-shadow: 0 4px 30px rgba(0,0,0,0.15);
-}
-
-.bylaw-hero-title-em {
-  background: linear-gradient(135deg, var(--color-accent) 0%, #FFD34D 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.bylaw-hero-desc {
-  font-size: clamp(16px, 1.5vw, 18px);
-  color: rgba(255,255,255,0.8);
-  max-width: 660px;
-  margin: 0 auto 40px;
-  line-height: 1.85;
-}
-
-.bylaw-hero-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  justify-content: center;
-}
-
-.bylaw-scroll-cue {
-  position: absolute;
-  bottom: 34px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
   align-items: center;
   gap: 8px;
-  color: rgba(255,255,255,0.5);
-  font-size: 12px;
-  z-index: 2;
+  background: rgba(25,184,242,.08);
+  border: 1px solid rgba(25,184,242,.12);
+  padding: 8px 20px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ms-sky);
+  margin-bottom: 20px;
 }
-
-.bylaw-scroll-line {
-  width: 1px;
-  height: 34px;
-  background: linear-gradient(180deg, rgba(255,255,255,0.6), transparent);
-  animation: bylawPulse 1.8s ease-in-out infinite;
+.doc-hero-title {
+  font-size: clamp(30px, 3.5vw, 48px);
+  font-weight: 900;
+  line-height: 1.15;
+  margin-bottom: 12px;
+  color: var(--ms-navy);
 }
-
-@keyframes bylawPulse {
-  0%, 100% { opacity: 0.4; }
-  50% { opacity: 1; }
+.doc-hero-title-em { color: var(--ms-sky); }
+.doc-hero-desc {
+  font-size: 18px;
+  color: var(--ms-dark);
+  opacity: .6;
+  max-width: 520px;
+  margin: 0 auto 28px;
+  line-height: 1.7;
 }
-
-/* ---- Sections ---- */
-.bylaw-section {
-  position: relative;
-  padding: 80px 0;
-  overflow: hidden;
+.doc-hero-actions {
+  display: flex; flex-wrap: wrap; gap: 12px; justify-content: center;
 }
-
-.bylaw-section-light {
-  background: var(--color-light);
+.doc-hero-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 50px;
+  padding: 0 28px;
+  border-radius: var(--ms-radius-sm);
+  font-weight: 700;
+  font-size: 16px;
+  font-family: inherit;
+  text-decoration: none;
+  transition: transform .3s var(--ms-ease), box-shadow .3s var(--ms-ease);
+  border: none;
+  cursor: pointer;
 }
-
-.bylaw-section-gradient {
-  background: linear-gradient(180deg, #f4f8ff 0%, #e8f0fe 50%, #f0f4ff 100%);
+.doc-hero-btn-primary {
+  background: var(--ms-navy);
+  color: var(--ms-white);
+  box-shadow: 0 8px 24px rgba(18,59,120,.15);
 }
-
-.bylaw-blobs {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  overflow: hidden;
-  z-index: 0;
+.doc-hero-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(18,59,120,.2);
 }
-
-.bylaw-blob {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(80px);
-  opacity: 0.22;
-}
-
-.bylaw-blob-1 {
-  width: 500px; height: 500px;
-  background: rgba(25,184,242,0.06);
-  top: -200px; inset-inline-end: -100px;
-  animation: bylawBlobFloat 10s ease-in-out infinite;
-}
-
-.bylaw-blob-2 {
-  width: 400px; height: 400px;
-  background: rgba(246,179,0,0.04);
-  bottom: -150px; inset-inline-start: -80px;
-  animation: bylawBlobFloat 12s ease-in-out infinite reverse;
-}
-
-@keyframes bylawBlobFloat {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  33% { transform: translate(30px, -30px) scale(1.05); }
-  66% { transform: translate(-20px, 20px) scale(0.95); }
-}
-
-.bylaw-section .container {
-  position: relative;
-  z-index: 1;
-}
-
-/* ---- Scroll Progress Indicator ---- */
-.bylaw-progress {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 3px;
-  z-index: 9998;
+.doc-hero-btn-ghost {
   background: transparent;
+  color: var(--ms-navy);
+  border: 1.5px solid var(--ms-border);
+}
+.doc-hero-btn-ghost:hover {
+  transform: translateY(-2px);
+  border-color: var(--ms-sky);
+  background: rgba(25,184,242,.04);
 }
 
-.bylaw-progress-bar {
-  height: 100%;
-  width: 0%;
-  background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
-  transition: width 0.15s ease-out;
-}
-
-/* ---- Table of Contents ---- */
-.bylaw-toc-wrap {
-  position: sticky;
-  top: 80px;
-  z-index: 10;
-  margin-top: -40px;
-  margin-bottom: 40px;
-}
-
-.bylaw-toc-card {
-  max-width: 860px;
-  margin: 0 auto;
-  background: rgba(255,255,255,0.8);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255,255,255,0.5);
-  border-radius: 24px;
-  box-shadow: 0 16px 60px rgba(18,59,120,0.1);
-  padding: 28px 32px;
+.doc-section {
   position: relative;
+  padding: 60px 0;
+}
+.doc-section-light { background: var(--ms-white); }
+.doc-section-gradient { background: var(--ms-bg); }
+.doc-section .container { position: relative; z-index: 1; }
+
+.doc-preview-card {
+  max-width: 640px;
+  margin: 0 auto;
+  background: var(--ms-white);
+  border: 1px solid var(--ms-border);
+  border-radius: var(--ms-radius);
   overflow: hidden;
+  box-shadow: var(--ms-shadow);
+  transition: transform .3s var(--ms-ease), box-shadow .3s var(--ms-ease);
 }
-
-.bylaw-toc-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, transparent, var(--color-primary), var(--color-accent), transparent);
+.doc-preview-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 32px 100px rgba(18,59,120,.12);
 }
-
-.bylaw-toc-header {
+.doc-preview-header {
+  position: relative;
+  aspect-ratio: 3/4;
+  overflow: hidden;
+  background: var(--ms-bg);
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 18px;
+  justify-content: center;
+}
+.doc-preview-header img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .5s var(--ms-ease);
+}
+.doc-preview-card:hover .doc-preview-header img {
+  transform: scale(1.02);
+}
+.doc-preview-body {
+  padding: 24px 28px 28px;
+}
+.doc-preview-badges {
+  display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px;
+}
+.doc-preview-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+}
+.doc-preview-badge-pdf { background: rgba(231,76,60,.08); color: var(--ms-red); }
+.doc-preview-badge-official { background: rgba(25,184,242,.08); color: var(--ms-sky); }
+.doc-preview-badge-update { background: rgba(246,179,0,.08); color: #b38600; }
+.doc-preview-desc {
+  font-size: 15px;
+  color: var(--ms-dark);
+  opacity: .6;
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+.doc-preview-actions {
+  display: flex; flex-wrap: wrap; gap: 10px;
+}
+.doc-preview-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 46px;
+  padding: 0 22px;
+  border-radius: var(--ms-radius-sm);
+  font-weight: 700;
+  font-size: 14px;
+  font-family: inherit;
+  text-decoration: none;
+  transition: transform .3s var(--ms-ease), box-shadow .3s var(--ms-ease);
+  border: none;
+  cursor: pointer;
+}
+.doc-preview-btn-primary {
+  background: var(--ms-navy);
+  color: var(--ms-white);
+  box-shadow: 0 6px 16px rgba(18,59,120,.12);
+}
+.doc-preview-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(18,59,120,.18);
+}
+.doc-preview-btn-secondary {
+  background: transparent;
+  color: var(--ms-navy);
+  border: 1.5px solid var(--ms-border);
+}
+.doc-preview-btn-secondary:hover {
+  transform: translateY(-2px);
+  border-color: var(--ms-sky);
+  background: rgba(25,184,242,.04);
 }
 
-.bylaw-toc-header-icon {
-  width: 36px;
-  height: 36px;
+.doc-importance-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+.doc-importance-card {
+  background: var(--ms-white);
+  border: 1px solid var(--ms-border);
+  border-radius: var(--ms-radius-sm);
+  padding: 24px 20px;
+  text-align: center;
+  box-shadow: 0 2px 12px rgba(18,59,120,.03);
+  transition: transform .3s var(--ms-ease), box-shadow .3s var(--ms-ease);
+}
+.doc-importance-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--ms-shadow);
+}
+.doc-importance-icon {
+  width: 52px; height: 52px;
+  margin: 0 auto 14px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  transition: transform .3s var(--ms-ease);
+}
+.doc-importance-card:hover .doc-importance-icon { transform: scale(1.12) rotate(-4deg); }
+.doc-importance-icon-blue { background: rgba(25,184,242,.1); }
+.doc-importance-icon-green { background: rgba(46,204,113,.1); }
+.doc-importance-icon-gold { background: rgba(246,179,0,.1); }
+.doc-importance-icon-purple { background: rgba(155,89,182,.1); }
+.doc-importance-label {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ms-navy);
+  line-height: 1.4;
+}
+
+.doc-notice-card {
+  max-width: 640px;
+  margin: 0 auto;
+  background: var(--ms-white);
+  border: 1px solid var(--ms-border);
+  border-radius: var(--ms-radius-sm);
+  padding: 24px 28px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  transition: box-shadow .3s var(--ms-ease);
+}
+.doc-notice-card:hover {
+  box-shadow: var(--ms-shadow);
+}
+.doc-notice-icon {
+  flex-shrink: 0;
+  width: 40px; height: 40px;
   border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, rgba(25,184,242,0.1) 0%, rgba(25,184,242,0.04) 100%);
-  color: var(--color-primary);
-  font-size: 16px;
-}
-
-.bylaw-toc-header-title {
-  font-size: 17px;
-  font-weight: 800;
-  color: var(--color-navy);
-}
-
-.bylaw-toc-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-}
-
-.bylaw-toc-link {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 14px;
-  border-radius: 12px;
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--color-text-soft);
-  text-decoration: none;
-  transition: all 0.3s var(--ease);
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  font-family: var(--font-main);
-  text-align: start;
-}
-
-.bylaw-toc-link:hover {
-  background: rgba(25,184,242,0.06);
-  color: var(--color-primary);
-}
-
-.bylaw-toc-link.active {
-  background: rgba(25,184,242,0.1);
-  color: var(--color-primary);
-  box-shadow: 0 4px 12px rgba(25,184,242,0.08);
-}
-
-.bylaw-toc-num {
-  width: 26px;
-  height: 26px;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 11px;
-  font-weight: 800;
-  background: rgba(18,59,120,0.06);
-  color: var(--color-text-soft);
-  flex-shrink: 0;
-  transition: all 0.3s var(--ease);
-}
-
-.bylaw-toc-link.active .bylaw-toc-num {
-  background: var(--color-primary);
-  color: #fff;
-}
-
-.bylaw-toc-icon {
-  font-size: 13px;
-  color: var(--color-primary);
-  opacity: 0;
-  transition: opacity 0.3s var(--ease);
-  margin-inline-start: auto;
-}
-
-.bylaw-toc-link.active .bylaw-toc-icon {
-  opacity: 1;
-}
-
-/* ---- Legal Content Cards ---- */
-.bylaw-chapter {
-  max-width: 860px;
-  margin: 0 auto 24px;
-  background: rgba(255,255,255,0.75);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255,255,255,0.5);
-  border-radius: 24px;
-  box-shadow: 0 12px 48px rgba(18,59,120,0.06);
-  padding: 40px 40px;
-  position: relative;
-  overflow: hidden;
-  transition: box-shadow 0.35s var(--ease);
-}
-
-.bylaw-chapter:hover {
-  box-shadow: 0 20px 64px rgba(18,59,120,0.1);
-}
-
-.bylaw-chapter:last-of-type {
-  margin-bottom: 0;
-}
-
-.bylaw-chapter::before {
-  content: '';
-  position: absolute;
-  inset-inline-start: 0;
-  top: 0;
-  bottom: 0;
-  width: 4px;
-  background: linear-gradient(180deg, var(--color-primary), var(--color-accent));
-  border-radius: 0 4px 4px 0;
-  opacity: 0.6;
-}
-
-.bylaw-chapter-head {
-  display: flex;
-  align-items: flex-start;
-  gap: 16px;
-  margin-bottom: 20px;
-}
-
-.bylaw-chapter-badge {
-  width: 48px;
-  height: 48px;
-  border-radius: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, rgba(25,184,242,0.1) 0%, rgba(25,184,242,0.04) 100%);
-  color: var(--color-primary);
+  background: rgba(25,184,242,.1);
+  color: var(--ms-sky);
   font-size: 18px;
-  flex-shrink: 0;
-  transition: transform 0.3s var(--ease);
 }
-
-.bylaw-chapter:hover .bylaw-chapter-badge {
-  transform: scale(1.06) rotate(-4deg);
-}
-
-.bylaw-chapter-info {
-  flex: 1;
-}
-
-.bylaw-chapter-label {
-  font-size: 12.5px;
-  font-weight: 700;
-  color: var(--color-primary);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 4px;
-}
-
-.bylaw-chapter-title {
-  font-size: 22px;
-  font-weight: 800;
-  color: var(--color-navy);
-  line-height: 1.35;
-}
-
-.bylaw-chapter-content {
-  padding-inline-start: 64px;
-}
-
-.bylaw-article {
-  margin-bottom: 16px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid rgba(18,59,120,0.04);
-}
-
-.bylaw-article:last-child {
-  margin-bottom: 0;
-  padding-bottom: 0;
-  border-bottom: none;
-}
-
-.bylaw-article-title {
-  font-size: 15.5px;
-  font-weight: 700;
-  color: var(--color-navy);
-  margin-bottom: 6px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.bylaw-article-title i {
-  color: var(--color-primary);
-  font-size: 13px;
-}
-
-.bylaw-article-text {
-  font-size: 14.5px;
-  color: var(--color-text-soft);
-  line-height: 1.8;
-  margin: 0;
-}
-
-.bylaw-article-text-placeholder {
-  font-style: italic;
-  opacity: 0.5;
-}
-
-/* ---- Notice Card ---- */
-.bylaw-notice {
-  max-width: 780px;
-  margin: 0 auto;
-  border-radius: 28px;
-  padding: 36px 36px;
-  position: relative;
-  overflow: hidden;
-  background: linear-gradient(135deg, rgba(25,184,242,0.04) 0%, rgba(25,184,242,0.01) 100%);
-  border: 1.5px solid rgba(25,184,242,0.12);
-  box-shadow: 0 8px 32px rgba(25,184,242,0.04);
-}
-
-.bylaw-notice::before {
-  content: '';
-  position: absolute;
-  inset-inline-start: 0;
-  top: 0;
-  bottom: 0;
-  width: 4px;
-  background: linear-gradient(180deg, var(--color-primary), var(--color-accent));
-  border-radius: 0 4px 4px 0;
-}
-
-.bylaw-notice-header {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  margin-bottom: 12px;
-}
-
-.bylaw-notice-icon {
-  width: 44px;
-  height: 44px;
-  border-radius: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, rgba(25,184,242,0.12) 0%, rgba(25,184,242,0.04) 100%);
-  color: var(--color-primary);
-  font-size: 20px;
-  flex-shrink: 0;
-}
-
-.bylaw-notice-title {
-  font-size: 20px;
-  font-weight: 800;
-  color: var(--color-navy);
-}
-
-.bylaw-notice-text {
-  font-size: 15.5px;
-  color: var(--color-text-soft);
-  line-height: 1.9;
-  padding-inline-start: 58px;
-}
-
-/* ---- Download / Print Cards ---- */
-.bylaw-action-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
-  max-width: 860px;
-  margin: 0 auto;
-}
-
-.bylaw-action-card {
-  background: rgba(255,255,255,0.75);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255,255,255,0.5);
-  border-radius: 28px;
-  padding: 36px 32px;
-  text-align: center;
-  box-shadow: var(--shadow-md);
-  position: relative;
-  overflow: hidden;
-  transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
-}
-
-.bylaw-action-card:hover {
-  transform: translateY(-6px);
-  box-shadow: var(--shadow-lg);
-}
-
-.bylaw-action-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, transparent, var(--color-primary), var(--color-accent), transparent);
-}
-
-.bylaw-action-icon {
-  width: 68px;
-  height: 68px;
-  margin: 0 auto 18px;
-  border-radius: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 30px;
-  transition: transform 0.35s var(--ease);
-}
-
-.bylaw-action-card:hover .bylaw-action-icon {
-  transform: scale(1.06) rotate(-4deg);
-}
-
-.bylaw-action-icon-download {
-  background: linear-gradient(135deg, rgba(246,179,0,0.12) 0%, rgba(246,179,0,0.05) 100%);
-  color: var(--color-accent);
-}
-
-.bylaw-action-icon-print {
-  background: linear-gradient(135deg, rgba(25,184,242,0.1) 0%, rgba(25,184,242,0.04) 100%);
-  color: var(--color-primary);
-}
-
-.bylaw-action-title {
-  font-size: 20px;
-  font-weight: 800;
-  color: var(--color-navy);
-  margin-bottom: 8px;
-}
-
-.bylaw-action-desc {
-  font-size: 14.5px;
-  color: var(--color-text-soft);
-  line-height: 1.7;
-  margin-bottom: 22px;
-}
-
-.bylaw-action-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 16px 32px;
-  border-radius: 999px;
-  font-weight: 800;
+.doc-notice-content { flex: 1; }
+.doc-notice-title {
   font-size: 15px;
-  font-family: var(--font-main);
-  text-decoration: none;
-  transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
-  border: none;
-  cursor: pointer;
+  font-weight: 800;
+  color: var(--ms-navy);
+  margin-bottom: 2px;
+}
+.doc-notice-text {
+  font-size: 14px;
+  color: var(--ms-dark);
+  opacity: .6;
+  line-height: 1.6;
 }
 
-.bylaw-action-btn-download {
-  background: linear-gradient(135deg, var(--color-accent) 0%, #FFD34D 100%);
-  color: var(--color-navy);
-  box-shadow: var(--shadow-accent);
-}
-
-.bylaw-action-btn-download:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 20px 44px rgba(246,179,0,0.5);
-}
-
-.bylaw-action-btn-print {
-  background: linear-gradient(135deg, var(--color-navy) 0%, #0e2d5c 100%);
-  color: #fff;
-  box-shadow: 0 10px 24px rgba(18,59,120,0.2);
-}
-
-.bylaw-action-btn-print:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 16px 36px rgba(18,59,120,0.35);
-}
-
-.bylaw-action-btn i {
-  font-size: 16px;
-  transition: transform 0.3s var(--ease);
-}
-
-.bylaw-action-btn:hover i {
-  transform: translateY(-2px);
-}
-
-/* ---- FAQ ---- */
-.bylaw-faq-list {
-  max-width: 720px;
-  margin: 0 auto;
-}
-
-.bylaw-faq-item {
-  background: rgba(255,255,255,0.75);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255,255,255,0.5);
-  border-radius: var(--radius-md);
-  margin-bottom: 14px;
-  overflow: hidden;
-  box-shadow: var(--shadow-sm);
-  transition: box-shadow 0.3s var(--ease);
-}
-
-.bylaw-faq-item:hover {
-  box-shadow: var(--shadow-md);
-}
-
-.bylaw-faq-item.active {
-  box-shadow: var(--shadow-md);
-}
-
-.bylaw-faq-question {
-  width: 100%;
-  padding: 20px 24px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  cursor: pointer;
-  font-weight: 700;
-  font-size: 16px;
-  color: var(--color-navy);
-  background: none;
-  border: none;
-  font-family: var(--font-main);
-  text-align: start;
-  transition: color 0.3s var(--ease);
-}
-
-.bylaw-faq-question:hover {
-  color: var(--color-primary);
-}
-
-.bylaw-faq-item.active .bylaw-faq-question {
-  color: var(--color-primary);
-}
-
-.bylaw-faq-icon {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(25,184,242,0.08);
-  color: var(--color-primary);
-  font-size: 12px;
-  flex-shrink: 0;
-  transition: transform 0.3s var(--ease), background 0.3s var(--ease), color 0.3s var(--ease);
-}
-
-.bylaw-faq-item.active .bylaw-faq-icon {
-  transform: rotate(180deg);
-  background: var(--color-primary);
-  color: #fff;
-}
-
-.bylaw-faq-answer {
-  padding: 0 24px 0;
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.4s var(--ease), padding 0.4s var(--ease);
-  color: var(--color-text-soft);
-  line-height: 1.8;
-  font-size: 15px;
-}
-
-.bylaw-faq-item.active .bylaw-faq-answer {
-  max-height: 300px;
-  padding: 0 24px 24px;
-}
-
-/* ---- Final CTA ---- */
-.bylaw-cta {
-  position: relative;
-  padding: 100px 0;
-  background: linear-gradient(160deg, #080e1f 0%, #0f2a5a 35%, #1a3a7a 60%, #0d1f42 100%);
-  overflow: hidden;
-  text-align: center;
-  color: #fff;
-}
-
-.bylaw-cta-pattern {
-  position: absolute;
-  inset: 0;
-  opacity: 0.03;
-  background-image:
-    repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(255,255,255,0.08) 40px, rgba(255,255,255,0.08) 41px),
-    repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(255,255,255,0.08) 40px, rgba(255,255,255,0.08) 41px);
-  background-size: 80px 80px, 80px 80px;
-  pointer-events: none;
-  z-index: 1;
-}
-
-.bylaw-cta-blobs {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 1;
-  overflow: hidden;
-}
-
-.bylaw-cta-blob {
-  position: absolute;
-  border-radius: 50%;
-  opacity: 0.06;
-}
-
-.bylaw-cta-blob-1 {
-  width: 350px; height: 350px;
-  background: radial-gradient(circle, var(--color-primary), transparent);
-  top: -80px; inset-inline-end: -80px;
-  animation: bylawCtaFloat 12s ease-in-out infinite;
-}
-
-.bylaw-cta-blob-2 {
-  width: 280px; height: 280px;
-  background: radial-gradient(circle, var(--color-accent), transparent);
-  bottom: -60px; inset-inline-start: -60px;
-  animation: bylawCtaFloat 15s ease-in-out infinite reverse;
-}
-
-@keyframes bylawCtaFloat {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  33% { transform: translate(20px, -20px) scale(1.1); }
-  66% { transform: translate(-15px, 15px) scale(0.9); }
-}
-
-.bylaw-cta .container {
-  position: relative;
-  z-index: 2;
-}
-
-.bylaw-cta-content {
+.doc-download-card {
   max-width: 640px;
   margin: 0 auto;
+  background: var(--ms-white);
+  border: 1px solid var(--ms-border);
+  border-radius: var(--ms-radius);
+  padding: 40px 36px;
+  text-align: center;
+  box-shadow: var(--ms-shadow);
+  transition: transform .3s var(--ms-ease), box-shadow .3s var(--ms-ease);
 }
-
-.bylaw-cta-title {
-  font-size: clamp(28px, 4.5vw, 44px);
+.doc-download-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 32px 100px rgba(18,59,120,.12);
+}
+.doc-download-card::before {
+  content: '';
+  display: block;
+  width: 48px; height: 4px;
+  background: var(--ms-gold);
+  border-radius: 4px;
+  margin: 0 auto 24px;
+}
+.doc-download-title {
+  font-size: 24px;
   font-weight: 900;
-  line-height: 1.25;
-  margin-bottom: 16px;
+  color: var(--ms-navy);
+  margin-bottom: 8px;
 }
-
-.bylaw-cta-title-em {
-  background: linear-gradient(135deg, var(--color-accent), #FFD34D);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+.doc-download-desc {
+  font-size: 16px;
+  color: var(--ms-dark);
+  opacity: .6;
+  line-height: 1.7;
+  max-width: 460px;
+  margin: 0 auto 24px;
 }
-
-.bylaw-cta-desc {
-  font-size: 17px;
-  color: rgba(255,255,255,0.75);
-  line-height: 1.8;
-  margin-bottom: 32px;
-}
-
-.bylaw-cta-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  justify-content: center;
-}
-
-.bylaw-cta-btn {
+.doc-download-btn {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
-  padding: 18px 36px;
-  border-radius: 999px;
+  gap: 10px;
+  height: 54px;
+  padding: 0 36px;
+  border-radius: var(--ms-radius-sm);
   font-weight: 800;
   font-size: 16px;
-  font-family: var(--font-main);
+  font-family: inherit;
   text-decoration: none;
-  transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
+  transition: transform .3s var(--ms-ease), box-shadow .3s var(--ms-ease);
   border: none;
   cursor: pointer;
+  background: var(--ms-navy);
+  color: var(--ms-white);
+  box-shadow: 0 8px 24px rgba(18,59,120,.15);
+}
+.doc-download-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 40px rgba(18,59,120,.2);
 }
 
-.bylaw-cta-btn-primary {
-  background: linear-gradient(135deg, var(--color-accent) 0%, #FFD34D 100%);
-  color: var(--color-navy);
-  box-shadow: var(--shadow-accent);
-}
-
-.bylaw-cta-btn-primary:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 24px 52px rgba(246,179,0,0.5);
-}
-
-.bylaw-cta-btn-secondary {
-  background: rgba(255,255,255,0.08);
-  color: #fff;
-  border: 1.5px solid rgba(255,255,255,0.15);
-}
-
-.bylaw-cta-btn-secondary:hover {
-  transform: translateY(-4px);
-  background: rgba(255,255,255,0.12);
-  border-color: rgba(255,255,255,0.25);
-}
-
-.bylaw-cta-btn i {
-  font-size: 17px;
-  transition: transform 0.3s var(--ease);
-}
-
-.bylaw-cta-btn:hover i {
-  transform: translateX(-4px);
-}
-
-/* ---- Responsive ---- */
 @media (max-width: 1024px) {
-  .bylaw-hero { min-height: 75vh; }
-  .bylaw-hero-shape-1 { width: 140px; height: 140px; }
-  .bylaw-hero-shape-2 { width: 100px; height: 100px; }
-  .bylaw-hero-shape-3 { width: 70px; height: 70px; }
-  .bylaw-toc-grid { grid-template-columns: 1fr; }
-  .bylaw-toc-wrap { position: static; margin-top: 0; }
+  .doc-importance-grid { grid-template-columns: repeat(2, 1fr); }
 }
-
 @media (max-width: 768px) {
-  .bylaw-hero { min-height: 65vh; }
-  .bylaw-hero-shape-1 { width: 100px; height: 100px; }
-  .bylaw-hero-shape-2 { width: 70px; height: 70px; }
-  .bylaw-hero-shape-3 { display: none; }
-  .bylaw-hero-icon-wrap { width: 80px; height: 80px; font-size: 34px; }
-  .bylaw-hero-eyebrow { font-size: 12.5px; padding: 8px 18px; }
-  .bylaw-section { padding: 60px 0; }
-  .bylaw-chapter { padding: 28px 24px; }
-  .bylaw-chapter-content { padding-inline-start: 0; }
-  .bylaw-chapter-head { flex-direction: column; }
-  .bylaw-toc-card { padding: 20px 20px; }
-  .bylaw-action-grid { grid-template-columns: 1fr; }
-  .bylaw-action-card { padding: 28px 24px; }
-  .bylaw-notice { padding: 28px 24px; }
-  .bylaw-notice-text { padding-inline-start: 0; }
-  .bylaw-cta { padding: 70px 0; }
-  .bylaw-faq-question { padding: 16px 18px; font-size: 15px; }
+  .doc-hero { min-height: 360px; }
+  .doc-section { padding: 40px 0; }
+  .doc-hero-eyebrow { font-size: 12px; padding: 6px 16px; }
+  .doc-preview-body { padding: 20px; }
+  .doc-preview-card { margin: 0 12px; }
+  .doc-notice-card { margin: 0 12px; padding: 20px; }
+  .doc-download-card { padding: 32px 24px; }
 }
-
 @media (max-width: 560px) {
-  .bylaw-hero-title { font-size: 28px; }
-  .bylaw-chapter { padding: 24px 18px; border-radius: 20px; }
-  .bylaw-chapter-title { font-size: 19px; }
-  .bylaw-article-title { font-size: 14.5px; }
-  .bylaw-article-text { font-size: 14px; }
-  .bylaw-toc-card { padding: 16px 14px; border-radius: 18px; }
-  .bylaw-toc-link { font-size: 13px; padding: 8px 10px; }
-  .bylaw-action-btn { width: 100%; justify-content: center; }
-  .bylaw-cta-btn { width: 100%; justify-content: center; }
-  .bylaw-notice { padding: 24px 18px; border-radius: 20px; }
-  .bylaw-notice-header { flex-direction: column; text-align: center; }
+  .doc-hero-title { font-size: 28px; }
+  .doc-hero-desc { font-size: 16px; }
+  .doc-download-btn { width: 100%; justify-content: center; }
+  .doc-preview-actions { flex-direction: column; }
+  .doc-preview-btn { width: 100%; justify-content: center; }
+  .doc-importance-grid { grid-template-columns: 1fr; }
 }
-
 </style>
 </head>
 <body>
@@ -972,827 +403,154 @@
 
 <a href="#main" class="visually-hidden">تخطَّ إلى المحتوى الرئيسي</a>
 
-<div class="topbar">
-  <div class="container">
-    <div class="topbar-right">
-      <a href="../index.html" class="topbar-brand" aria-label="الرئيسية">
-        <span class="topbar-brand-mark">
-          <img src="../Amare%20files%20/logo.png" alt="AMARE Logo" class="topbar-brand-logo">
-        </span>
-        <span class="topbar-brand-name">الجمعية المغربية لهواة البحث والاستكشاف</span>
-      </a>
-    </div>
-    <div class="topbar-left">
-      <div class="topbar-social">
-        <a href="#" aria-label="فيسبوك"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg></a>
-        <a href="#" aria-label="إنستغرام"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
-        <a href="#" aria-label="لينكدإن"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 5 3.79 6.2 2.3 6.2 1 6.2 0 5 0 3.5 0 2 1.1.8 2.5.8s2.48 1.2 2.48 2.7zM.2 8.5h4.6V23H.2V8.5zM8 8.5h4.4v2h.06c.6-1.2 2.1-2.4 4.4-2.4 4.7 0 5.6 3.1 5.6 7.1V23h-4.6v-6.7c0-1.6 0-3.7-2.3-3.7s-2.6 1.8-2.6 3.6V23H8V8.5z"/></svg></a>
-      </div>
-      <div class="topbar-lang">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg>
-        <select aria-label="اختيار اللغة">
-          <option value="ar" selected>العربية</option>
-          <option value="fr">Français</option>
-          <option value="en">English</option>
-        </select>
-        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M6 9l6 6 6-6"/></svg>
-      </div>
-      <a href="https://wa.me/212600000000" target="_blank" rel="noopener" class="topbar-whatsapp ripple" aria-label="تواصل عبر واتساب">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.6.1-.2.3-.7 1-.9 1.2-.1.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.2-.4.1-.2 0-.4 0-.5s-.6-1.5-.8-2c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s1 2.6 1.1 2.7c.1.2 2 3 4.7 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 2-1.4.2-.6.2-1.2.1-1.3-.1-.1-.3-.2-.6-.3z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.6 1.4 5.1L2 22l5.1-1.3C8.5 21.5 10.2 22 12 22c5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18c-1.6 0-3.1-.4-4.5-1.2l-.3-.2-3.3.9.9-3.2-.2-.3C3.7 14.6 3.2 13.3 3.2 12c0-4.9 3.9-8.8 8.8-8.8s8.8 3.9 8.8 8.8-3.9 8.8-8.8 8.8z"/></svg>
-        <span>واتساب</span>
-      </a>
-      <a href="#" class="topbar-login ripple" aria-label="تسجيل الدخول">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-          <path d="M15 3h6v18h-6M10 17l5-5-5-5M15 12H3"/>
-        </svg>
-        <span>تسجيل الدخول</span>
-      </a>
-    </div>
-  </div>
-</div>
-
-<header>
-  <nav class="navbar" id="navbar" aria-label="التنقل الرئيسي">
-    <div class="container">
-      <ul class="nav-links" id="navLinks">
-        <li><a href="../index.html">الرئيسية</a></li>
-        <li data-dropdown="about"><a href="../index.html#about">من نحن</a></li>
-        <li data-dropdown="activities"><a href="#">أنشطتنا</a></li>
-        <li data-dropdown="partners"><a href="#">شركاؤنا</a></li>
-        <li data-dropdown="services"><a href="../index.html#services">خدماتنا</a></li>
-        <li data-dropdown="news"><a href="../index.html#news">الأخبار</a></li>
-        <li data-dropdown="archive"><a href="#">الأرشيف</a></li>
-        <li data-dropdown="branches"><a href="#">الفروع الجهوية</a></li>
-        <li data-dropdown="join"><a href="index.html">انخرط معنا</a></li>
-        <li><a href="../index.html#contact">اتصل بنا</a></li>
-      </ul>
-      <div class="nav-actions">
-        <a href="index.html" class="nav-join-btn">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-            <circle cx="8.5" cy="7" r="4"/>
-            <line x1="20" y1="8" x2="20" y2="14"/>
-            <line x1="23" y1="11" x2="17" y2="11"/>
-          </svg>
-          <span>انخرط في الجمعية</span>
-        </a>
-        <a href="#" class="nav-store-btn">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
-            <path d="M3 6h18"/>
-            <path d="M16 10a4 4 0 0 1-8 0"/>
-          </svg>
-          <span>متجر AMARE</span>
-        </a>
-        <button class="hamburger" id="hamburger" aria-label="فتح القائمة" aria-expanded="false" aria-controls="navLinks">
-          <span></span><span></span><span></span>
-        </button>
-      </div>
-    </div>
-    <div class="mega-dropdown" id="megaDropdown"></div>
-  </nav>
-</header>
+<div id="navbar" data-base=".."></div>
 
 <main id="main">
 
-<!-- ============================== -->
-<!-- 1. HERO                       -->
-<!-- ============================== -->
-<section class="bylaw-hero" id="hero">
-  <div class="bylaw-hero-pattern"></div>
-
-  <div class="bylaw-hero-shape bylaw-hero-shape-1">
-    <svg viewBox="0 0 200 200" fill="none">
-      <rect x="12" y="12" width="176" height="176" rx="14" stroke="rgba(246,179,0,0.1)" stroke-width="1.5"/>
-      <rect x="30" y="30" width="140" height="140" rx="8" stroke="rgba(246,179,0,0.06)" stroke-width="1"/>
-      <path d="M50 70L150 70M50 90L130 90M50 110L120 110M50 130L140 130M50 150L100 150" stroke="rgba(246,179,0,0.08)" stroke-width="0.8" stroke-linecap="round"/>
-    </svg>
-  </div>
-
-  <div class="bylaw-hero-shape bylaw-hero-shape-2">
-    <svg viewBox="0 0 160 160" fill="none">
-      <path d="M80 10L96 42L130 48L102 70L112 104L80 86L48 104L58 70L30 48L64 42L80 10Z" fill="rgba(25,184,242,0.05)" stroke="rgba(25,184,242,0.08)" stroke-width="1"/>
-      <path d="M80 24L90 46L114 50L96 66L102 92L80 80L58 92L64 66L46 50L70 46L80 24Z" fill="rgba(255,255,255,0.02)" stroke="rgba(25,184,242,0.04)" stroke-width="0.6"/>
-    </svg>
-  </div>
-
-  <div class="bylaw-hero-shape bylaw-hero-shape-3">
-    <svg viewBox="0 0 100 100" fill="none">
-      <circle cx="50" cy="50" r="40" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
-      <circle cx="50" cy="50" r="26" stroke="rgba(255,255,255,0.03)" stroke-width="0.8"/>
-      <circle cx="50" cy="50" r="12" stroke="rgba(255,255,255,0.03)" stroke-width="0.5"/>
-    </svg>
-  </div>
-
+<!-- ===== 1. HERO ===== -->
+<section class="doc-hero" id="hero">
+  <div class="doc-hero-pattern"></div>
   <div class="container">
-    <div class="bylaw-hero-inner" data-aos="fade-up" data-aos-duration="900">
-      <div class="bylaw-hero-icon-wrap">
+    <div class="doc-hero-inner" data-aos="fade-up" data-aos-duration="700">
+      <span class="doc-hero-eyebrow">
         <i class="fas fa-gavel"></i>
-      </div>
-
-      <span class="bylaw-hero-eyebrow">
-        <i class="fas fa-book"></i>
-        القانون الأساسي
+        وثيقة قانونية
       </span>
-
-      <h1 class="bylaw-hero-title">
-        القانون <span class="bylaw-hero-title-em">الأساسي</span>
+      <h1 class="doc-hero-title">
+        القانون <span class="doc-hero-title-em">الأساسي</span> للجمعية
       </h1>
-
-      <p class="bylaw-hero-desc">
-        يحدد هذا القانون الأساسي أهداف الجمعية المغربية لهواة البحث والاستكشاف، وكيفية تنظيمها، وحقوق وواجبات أعضائها.
+      <p class="doc-hero-desc">
+        يمكنك الاطلاع على القانون الأساسي الرسمي للجمعية المغربية لهواة البحث والاستكشاف وتحميله بصيغة PDF.
       </p>
-
-      <div class="bylaw-hero-actions">
-        <a href="#bylaw-toc" class="join-btn join-btn-primary">
-          <i class="fas fa-list"></i>
-          عرض فهرس القانون
-        </a>
-        <a href="#bylaw-download" class="join-btn join-btn-ghost">
+      <div class="doc-hero-actions">
+        <a href="../Amare%20files%20/%D8%A7%D9%84%D9%82%D8%A7%D9%86%D9%88%D9%86%20%D8%A7%D9%84%D8%A7%D8%B3%D8%A7%D8%B3%D9%8A%20%D9%84%D8%AC%D9%85%D8%B9%D9%8A%D8%A9%20(%D9%85%D9%88%D9%82%D8%B9)2026%20%20%20%20AMARE%20%20%20.pdf" download class="doc-hero-btn doc-hero-btn-primary">
           <i class="fas fa-download"></i>
-          تحميل PDF
+          تحميل القانون
+        </a>
+        <a href="../Amare%20files%20/%D8%A7%D9%84%D9%82%D8%A7%D9%86%D9%88%D9%86%20%D8%A7%D9%84%D8%A7%D8%B3%D8%A7%D8%B3%D9%8A%20%D9%84%D8%AC%D9%85%D8%B9%D9%8A%D8%A9%20(%D9%85%D9%88%D9%82%D8%B9)2026%20%20%20%20AMARE%20%20%20.pdf" target="_blank" class="doc-hero-btn doc-hero-btn-ghost">
+          <i class="fas fa-eye"></i>
+          معاينة القانون
         </a>
       </div>
     </div>
   </div>
-
-  <div class="bylaw-scroll-cue">
-    <span>مرر للأسفل</span>
-    <div class="bylaw-scroll-line"></div>
-  </div>
 </section>
 
-<!-- ============================== -->
-<!-- 2. SCROLL PROGRESS             -->
-<!-- ============================== -->
-<div class="bylaw-progress" id="bylawProgress">
-  <div class="bylaw-progress-bar" id="bylawProgressBar"></div>
-</div>
-
-<!-- ============================== -->
-<!-- 3. TABLE OF CONTENTS           -->
-<!-- ============================== -->
-<section class="bylaw-section bylaw-section-gradient" id="bylaw-toc">
-  <div class="bylaw-blobs" aria-hidden="true">
-    <div class="bylaw-blob bylaw-blob-1"></div>
-    <div class="bylaw-blob bylaw-blob-2"></div>
-  </div>
-
+<!-- ===== 2. MAIN PREVIEW CARD ===== -->
+<section class="doc-section doc-section-light" id="doc-preview">
   <div class="container">
-    <div class="bylaw-toc-wrap" id="bylawTocWrap">
-      <div class="bylaw-toc-card" id="bylawTocCard">
-        <div class="bylaw-toc-header">
-          <span class="bylaw-toc-header-icon"><i class="fas fa-list-tree"></i></span>
-          <span class="bylaw-toc-header-title">فهرس القانون الأساسي</span>
-        </div>
-
-        <div class="bylaw-toc-grid" id="bylawTocGrid">
-          <button class="bylaw-toc-link active" data-target="chapter1">
-            <span class="bylaw-toc-num">1</span>
-            الباب الأول: التعريف والأهداف
-            <span class="bylaw-toc-icon"><i class="fas fa-chevron-left"></i></span>
-          </button>
-          <button class="bylaw-toc-link" data-target="chapter2">
-            <span class="bylaw-toc-num">2</span>
-            الباب الثاني: العضوية
-            <span class="bylaw-toc-icon"><i class="fas fa-chevron-left"></i></span>
-          </button>
-          <button class="bylaw-toc-link" data-target="chapter3">
-            <span class="bylaw-toc-num">3</span>
-            الباب الثالث: أجهزة الجمعية
-            <span class="bylaw-toc-icon"><i class="fas fa-chevron-left"></i></span>
-          </button>
-          <button class="bylaw-toc-link" data-target="chapter4">
-            <span class="bylaw-toc-num">4</span>
-            الباب الرابع: الاجتماعات
-            <span class="bylaw-toc-icon"><i class="fas fa-chevron-left"></i></span>
-          </button>
-          <button class="bylaw-toc-link" data-target="chapter5">
-            <span class="bylaw-toc-num">5</span>
-            الباب الخامس: الموارد المالية
-            <span class="bylaw-toc-icon"><i class="fas fa-chevron-left"></i></span>
-          </button>
-          <button class="bylaw-toc-link" data-target="chapter6">
-            <span class="bylaw-toc-num">6</span>
-            الباب السادس: تعديل القانون
-            <span class="bylaw-toc-icon"><i class="fas fa-chevron-left"></i></span>
-          </button>
-          <button class="bylaw-toc-link" data-target="chapter7" style="grid-column:1/-1;justify-self:center;min-width:300px;">
-            <span class="bylaw-toc-num">7</span>
-            الباب السابع: أحكام عامة
-            <span class="bylaw-toc-icon"><i class="fas fa-chevron-left"></i></span>
-          </button>
-        </div>
+    <div class="doc-preview-card" data-aos="fade-up" data-aos-duration="700">
+      <div class="doc-preview-header">
+        <img src="../Amare%20files%20/%D9%88%D8%AB%D8%A7%D8%A6%D9%82%20%D8%A7%D9%84%D8%A7%D9%86%D8%AE%D8%B1%D8%A7%D8%B7%20.jpeg" alt="معاينة القانون الأساسي">
       </div>
-    </div>
-
-    <!-- ============================== -->
-    <!-- 4. LEGAL CONTENT — 7 CHAPTERS  -->
-    <!-- ============================== -->
-
-    <!-- CHAPTER 1 -->
-    <div class="bylaw-chapter" id="chapter1">
-      <div class="bylaw-chapter-head">
-        <span class="bylaw-chapter-badge"><i class="fas fa-book-open"></i></span>
-        <div class="bylaw-chapter-info">
-          <div class="bylaw-chapter-label">الباب الأول</div>
-          <h2 class="bylaw-chapter-title">التعريف والأهداف</h2>
+      <div class="doc-preview-body">
+        <div class="doc-preview-badges">
+          <span class="doc-preview-badge doc-preview-badge-pdf"><i class="fas fa-file-pdf"></i> PDF</span>
+          <span class="doc-preview-badge doc-preview-badge-official"><i class="fas fa-check-circle"></i> وثيقة رسمية</span>
+          <span class="doc-preview-badge doc-preview-badge-update"><i class="fas fa-calendar-alt"></i> آخر تحديث: 2026</span>
         </div>
-      </div>
-      <div class="bylaw-chapter-content">
-        <div class="bylaw-article">
-          <div class="bylaw-article-title"><i class="fas fa-circle" style="font-size:6px;"></i> اسم الجمعية</div>
-          <p class="bylaw-article-text bylaw-article-text-placeholder">[تحدد المادة الأولى اسم الجمعية المغربية لهواة البحث والاستكشاف كما هو مسجل في سجل المعاملات الوطنية.]</p>
-        </div>
-        <div class="bylaw-article">
-          <div class="bylaw-article-title"><i class="fas fa-circle" style="font-size:6px;"></i> المقر</div>
-          <p class="bylaw-article-text bylaw-article-text-placeholder">[يحدد مقر الجمعية الرئيسي في مدينة أيت ملول، إقليم إنزكان آيت ملول، مع إمكانية فتح فروع جهوية في مختلف مدن المملكة.]</p>
-        </div>
-        <div class="bylaw-article">
-          <div class="bylaw-article-title"><i class="fas fa-circle" style="font-size:6px;"></i> الأهداف</div>
-          <p class="bylaw-article-text bylaw-article-text-placeholder">[تحدد هذه المادة أهداف الجمعية الرئيسية والمتمثلة في تنظيم وتأطير هواة البحث والاستكشاف، والمحافظة على التراث الوطني، ونشر ثقافة البحث العلمي بين الشباب المغربي.]</p>
-        </div>
-        <div class="bylaw-article">
-          <div class="bylaw-article-title"><i class="fas fa-circle" style="font-size:6px;"></i> مجالات الاشتغال</div>
-          <p class="bylaw-article-text bylaw-article-text-placeholder">[تشتغل الجمعية في مجالات البحث الأثري، الاستكشاف الجغرافي، التوثيق التاريخي، الحفاظ على التراث الثقافي والطبيعي، وتنظيم الرحلات الاستكشافية العلمية.]</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- CHAPTER 2 -->
-    <div class="bylaw-chapter" id="chapter2">
-      <div class="bylaw-chapter-head">
-        <span class="bylaw-chapter-badge"><i class="fas fa-users"></i></span>
-        <div class="bylaw-chapter-info">
-          <div class="bylaw-chapter-label">الباب الثاني</div>
-          <h2 class="bylaw-chapter-title">العضوية</h2>
-        </div>
-      </div>
-      <div class="bylaw-chapter-content">
-        <div class="bylaw-article">
-          <div class="bylaw-article-title"><i class="fas fa-circle" style="font-size:6px;"></i> شروط الانخراط</div>
-          <p class="bylaw-article-text bylaw-article-text-placeholder">[يشترط في العضو أن يكون مغربيا أو مقيما بالمغرب، بالغا من العمر 18 سنة على الأقل، متمتعا بحقوقه القانونية والمدنية، ملتزما بأهداف الجمعية ومبادئها.]</p>
-        </div>
-        <div class="bylaw-article">
-          <div class="bylaw-article-title"><i class="fas fa-circle" style="font-size:6px;"></i> أنواع العضوية</div>
-          <p class="bylaw-article-text bylaw-article-text-placeholder">[تتضمن العضوية عدة أنواع: العضو العادي، العضو الفخري، العضو الداعم، والعضو الشرفي. لكل نوع حقوقه وواجباته التي يحددها النظام الداخلي.]</p>
-        </div>
-        <div class="bylaw-article">
-          <div class="bylaw-article-title"><i class="fas fa-circle" style="font-size:6px;"></i> حقوق الأعضاء</div>
-          <p class="bylaw-article-text bylaw-article-text-placeholder">[لكل عضو حق المشاركة في أنشطة الجمعية، والتصويت في الجمع العام، والترشح للمكتب التنفيذي، والاطلاع على محاضر الاجتماعات، والاستفادة من خدمات الجمعية.]</p>
-        </div>
-        <div class="bylaw-article">
-          <div class="bylaw-article-title"><i class="fas fa-circle" style="font-size:6px;"></i> واجبات الأعضاء</div>
-          <p class="bylaw-article-text bylaw-article-text-placeholder">[على كل عضو احترام القانون الأساسي والنظام الداخلي، وأداء واجبات الانخراط، والمشاركة في أنشطة الجمعية، والحفاظ على ممتلكاتها، وتمثيل الجمعية تمثيلا مشرفا.]</p>
-        </div>
-        <div class="bylaw-article">
-          <div class="bylaw-article-title"><i class="fas fa-circle" style="font-size:6px;"></i> فقدان العضوية</div>
-          <p class="bylaw-article-text bylaw-article-text-placeholder">[تفقد العضوية بالاستقالة الكتابية، أو الإقصاء بقرار من المكتب التنفيذي بسبب الإخلال الجسيم بواجبات العضوية، أو الوفاة، أو عدم أداء واجبات الانخراط لمدة سنة كاملة.]</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- CHAPTER 3 -->
-    <div class="bylaw-chapter" id="chapter3">
-      <div class="bylaw-chapter-head">
-        <span class="bylaw-chapter-badge"><i class="fas fa-sitemap"></i></span>
-        <div class="bylaw-chapter-info">
-          <div class="bylaw-chapter-label">الباب الثالث</div>
-          <h2 class="bylaw-chapter-title">أجهزة الجمعية</h2>
-        </div>
-      </div>
-      <div class="bylaw-chapter-content">
-        <div class="bylaw-article">
-          <div class="bylaw-article-title"><i class="fas fa-circle" style="font-size:6px;"></i> الجمع العام</div>
-          <p class="bylaw-article-text bylaw-article-text-placeholder">[الجمع العام هو أعلى سلطة في الجمعية، ويتكون من جميع الأعضاء المنخرطين، ويجتمع مرة كل سنة في دورة عادية، ويمكن عقده في دورات استثنائية عند الضرورة.]</p>
-        </div>
-        <div class="bylaw-article">
-          <div class="bylaw-article-title"><i class="fas fa-circle" style="font-size:6px;"></i> المكتب التنفيذي</div>
-          <p class="bylaw-article-text bylaw-article-text-placeholder">[يتكون المكتب التنفيذي من الرئيس، ونائب الرئيس، والكاتب العام، وأمين المال، ومستشارين. ينتخب من قبل الجمع العام لمدة ثلاث سنوات قابلة للتجديد مرة واحدة.]</p>
-        </div>
-        <div class="bylaw-article">
-          <div class="bylaw-article-title"><i class="fas fa-circle" style="font-size:6px;"></i> الرئيس</div>
-          <p class="bylaw-article-text bylaw-article-text-placeholder">[يمثل الرئيس الجمعية في جميع المحافل الرسمية، ويرأس الاجتماعات، ويشرف على تنفيذ قرارات المكتب التنفيذي، ويوقع باسم الجمعية على جميع الوثائق الرسمية.]</p>
-        </div>
-        <div class="bylaw-article">
-          <div class="bylaw-article-title"><i class="fas fa-circle" style="font-size:6px;"></i> اللجان</div>
-          <p class="bylaw-article-text bylaw-article-text-placeholder">[يمكن للمكتب التنفيذي تشكيل لجان عمل متخصصة (لجنة الأنشطة، لجنة الإعلام، لجنة التدريب، لجنة التراث) تساهم في تنفيذ برامج الجمعية وتحقيق أهدافها.]</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- CHAPTER 4 -->
-    <div class="bylaw-chapter" id="chapter4">
-      <div class="bylaw-chapter-head">
-        <span class="bylaw-chapter-badge"><i class="fas fa-calendar-check"></i></span>
-        <div class="bylaw-chapter-info">
-          <div class="bylaw-chapter-label">الباب الرابع</div>
-          <h2 class="bylaw-chapter-title">الاجتماعات</h2>
-        </div>
-      </div>
-      <div class="bylaw-chapter-content">
-        <div class="bylaw-article">
-          <div class="bylaw-article-title"><i class="fas fa-circle" style="font-size:6px;"></i> الاجتماعات العادية</div>
-          <p class="bylaw-article-text bylaw-article-text-placeholder">[يعقد المكتب التنفيذي اجتماعات عادية مرة كل شهر على الأقل، ويعقد الجمع العام اجتماعا عاديا مرة كل سنة لمناقشة التقرير الأدبي والمالي والمصادقة عليهما.]</p>
-        </div>
-        <div class="bylaw-article">
-          <div class="bylaw-article-title"><i class="fas fa-circle" style="font-size:6px;"></i> الاجتماعات الاستثنائية</div>
-          <p class="bylaw-article-text bylaw-article-text-placeholder">[يمكن عقد جمع عام استثنائي بناء على طلب من المكتب التنفيذي، أو بناء على طلب موقع من نصف الأعضاء المنخرطين على الأقل، لمناقشة قضايا طارئة أو تعديل القانون الأساسي.]</p>
-        </div>
-        <div class="bylaw-article">
-          <div class="bylaw-article-title"><i class="fas fa-circle" style="font-size:6px;"></i> النصاب القانوني</div>
-          <p class="bylaw-article-text bylaw-article-text-placeholder">[لا يكون انعقاد الجمع العام صحيحا إلا بحضور نصف الأعضاء المنخرطين على الأقل. فإن لم يتوفر النصاب، يؤجل الاجتماع إلى وقت لاحق ويعقد بأي عدد من الحاضرين.]</p>
-        </div>
-        <div class="bylaw-article">
-          <div class="bylaw-article-title"><i class="fas fa-circle" style="font-size:6px;"></i> التصويت</div>
-          <p class="bylaw-article-text bylaw-article-text-placeholder">[تتخذ القرارات في الجمع العام بالأغلبية المطلقة للأصوات الحاضرة. تتطلب القرارات المتعلقة بتعديل القانون الأساسي أغلبية ثلثي الأعضاء الحاضرين.]</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- CHAPTER 5 -->
-    <div class="bylaw-chapter" id="chapter5">
-      <div class="bylaw-chapter-head">
-        <span class="bylaw-chapter-badge"><i class="fas fa-coins"></i></span>
-        <div class="bylaw-chapter-info">
-          <div class="bylaw-chapter-label">الباب الخامس</div>
-          <h2 class="bylaw-chapter-title">الموارد المالية</h2>
-        </div>
-      </div>
-      <div class="bylaw-chapter-content">
-        <div class="bylaw-article">
-          <div class="bylaw-article-title"><i class="fas fa-circle" style="font-size:6px;"></i> واجبات الانخراط</div>
-          <p class="bylaw-article-text bylaw-article-text-placeholder">[يحدد الجمع العام قيمة واجب الانخراط السنوي، ويمكن أن تختلف قيمته حسب فئة العضوية (عادي، داعم، شرفي). يؤدي العضو واجبه في بداية كل سنة مالية.]</p>
-        </div>
-        <div class="bylaw-article">
-          <div class="bylaw-article-title"><i class="fas fa-circle" style="font-size:6px;"></i> التبرعات</div>
-          <p class="bylaw-article-text bylaw-article-text-placeholder">[تقبل الجمعية التبرعات والهبات من الأشخاص الذاتيين والاعتباريين وفقا للقوانين المغربية الجاري بها العمل، مع احترام شفافية الموارد المالية وتوثيقها.]</p>
-        </div>
-        <div class="bylaw-article">
-          <div class="bylaw-article-title"><i class="fas fa-circle" style="font-size:6px;"></i> الدعم</div>
-          <p class="bylaw-article-text bylaw-article-text-placeholder">[يمكن للجمعية الحصول على دعم من المؤسسات العمومية والخاصة، والمنظمات الوطنية والدولية، وفق الشروط القانونية المعمول بها في المغرب.]</p>
-        </div>
-        <div class="bylaw-article">
-          <div class="bylaw-article-title"><i class="fas fa-circle" style="font-size:6px;"></i> الممتلكات</div>
-          <p class="bylaw-article-text bylaw-article-text-placeholder">[تتكون ممتلكات الجمعية من المنقولات والعقارات التي تمتلكها أو تشتريها، وتديرها وفق القوانين الجاري بها العمل، وتصرف حصرا في تحقيق أهداف الجمعية.]</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- CHAPTER 6 -->
-    <div class="bylaw-chapter" id="chapter6">
-      <div class="bylaw-chapter-head">
-        <span class="bylaw-chapter-badge"><i class="fas fa-pen-to-square"></i></span>
-        <div class="bylaw-chapter-info">
-          <div class="bylaw-chapter-label">الباب السادس</div>
-          <h2 class="bylaw-chapter-title">تعديل القانون</h2>
-        </div>
-      </div>
-      <div class="bylaw-chapter-content">
-        <div class="bylaw-article">
-          <div class="bylaw-article-title"><i class="fas fa-circle" style="font-size:6px;"></i> إجراءات التعديل</div>
-          <p class="bylaw-article-text bylaw-article-text-placeholder">[لا يمكن تعديل القانون الأساسي إلا في جمع عام استثنائي بدعوة من المكتب التنفيذي، وبعد موافقة ثلثي الأعضاء الحاضرين. يجب أن يدرج مشروع التعديل في جدول أعمال الجمع العام.]</p>
-        </div>
-        <div class="bylaw-article">
-          <div class="bylaw-article-title"><i class="fas fa-circle" style="font-size:6px;"></i> المصادقة</div>
-          <p class="bylaw-article-text bylaw-article-text-placeholder">[تخضع التعديلات للمصادقة من قبل السلطات المختصة طبقا للقوانين المغربية الجاري بها العمل. لا تدخل التعديلات حيز التنفيذ إلا بعد المصادقة عليها ونشرها وفق المساطر القانونية.]</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- CHAPTER 7 -->
-    <div class="bylaw-chapter" id="chapter7">
-      <div class="bylaw-chapter-head">
-        <span class="bylaw-chapter-badge"><i class="fas fa-file-lines"></i></span>
-        <div class="bylaw-chapter-info">
-          <div class="bylaw-chapter-label">الباب السابع</div>
-          <h2 class="bylaw-chapter-title">أحكام عامة</h2>
-        </div>
-      </div>
-      <div class="bylaw-chapter-content">
-        <div class="bylaw-article">
-          <div class="bylaw-article-title"><i class="fas fa-circle" style="font-size:6px;"></i> مدة الجمعية</div>
-          <p class="bylaw-article-text bylaw-article-text-placeholder">[تحدد مدة الجمعية بخمسين سنة قابلة للتجديد بقرار من الجمع العام، وفقا لأحكام الظهير الشريف المنظم للحق في تأسيس الجمعيات.]</p>
-        </div>
-        <div class="bylaw-article">
-          <div class="bylaw-article-title"><i class="fas fa-circle" style="font-size:6px;"></i> حل الجمعية</div>
-          <p class="bylaw-article-text bylaw-article-text-placeholder">[لا يمكن حل الجمعية إلا بقرار من جمع عام استثنائي، بأغلبية ثلثي الأعضاء. في حالة الحل، تؤول ممتلكات الجمعية إلى جمعية أخرى ذات أهداف مماثلة يختارها الجمع العام.]</p>
-        </div>
-        <div class="bylaw-article">
-          <div class="bylaw-article-title"><i class="fas fa-circle" style="font-size:6px;"></i> القانون المطبق</div>
-          <p class="bylaw-article-text bylaw-article-text-placeholder">[تخضع الجمعية في جميع أنشطتها وتصرفاتها للقوانين المغربية الجاري بها العمل، وعلى وجه الخصوص الظهير الشريف المتعلق بتأسيس الجمعيات والنظام الداخلي للجمعية.]</p>
+        <p class="doc-preview-desc">
+          القانون الأساسي الرسمي للجمعية المغربية لهواة البحث والاستكشاف، يحدد أهداف الجمعية، تنظيمها، حقوق وواجبات الأعضاء، وأجهزة التسيير.
+        </p>
+        <div class="doc-preview-actions">
+          <a href="../Amare%20files%20/%D8%A7%D9%84%D9%82%D8%A7%D9%86%D9%88%D9%86%20%D8%A7%D9%84%D8%A7%D8%B3%D8%A7%D8%B3%D9%8A%20%D9%84%D8%AC%D9%85%D8%B9%D9%8A%D8%A9%20(%D9%85%D9%88%D9%82%D8%B9)2026%20%20%20%20AMARE%20%20%20.pdf" download class="doc-preview-btn doc-preview-btn-primary">
+            <i class="fas fa-download"></i>
+            تحميل القانون
+          </a>
+          <a href="../Amare%20files%20/%D8%A7%D9%84%D9%82%D8%A7%D9%86%D9%88%D9%86%20%D8%A7%D9%84%D8%A7%D8%B3%D8%A7%D8%B3%D9%8A%20%D9%84%D8%AC%D9%85%D8%B9%D9%8A%D8%A9%20(%D9%85%D9%88%D9%82%D8%B9)2026%20%20%20%20AMARE%20%20%20.pdf" target="_blank" class="doc-preview-btn doc-preview-btn-secondary">
+            <i class="fas fa-file-pdf"></i>
+            معاينة PDF
+          </a>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============================== -->
-<!-- 5. NOTICE CARD                -->
-<!-- ============================== -->
-<section class="bylaw-section bylaw-section-light" id="bylaw-notice">
+<!-- ===== 3. INFORMATION SECTION ===== -->
+<section class="doc-section doc-section-gradient" id="doc-info">
   <div class="container">
-    <div class="bylaw-notice">
-      <div class="bylaw-notice-header">
-        <span class="bylaw-notice-icon"><i class="fas fa-info-circle"></i></span>
-        <h2 class="bylaw-notice-title">ملاحظة</h2>
-      </div>
-      <p class="bylaw-notice-text">
-        يعتبر هذا القانون المرجع الأساسي لجميع أعضاء الجمعية، ويلتزم كل عضو باحترام جميع مواده.
-      </p>
+    <div class="section-head" data-aos="fade-up" data-aos-duration="700">
+      <span class="eyebrow">معلومات عن القانون</span>
+      <h2 class="section-title">ماذا يحتوي القانون الأساسي؟</h2>
+      <p class="section-desc" style="margin-inline:auto;">المحاور الأساسية التي يغطيها القانون الأساسي للجمعية</p>
     </div>
-  </div>
-</section>
 
-<!-- ============================== -->
-<!-- 6. DOWNLOAD & PRINT           -->
-<!-- ============================== -->
-<section class="bylaw-section bylaw-section-gradient" id="bylaw-download">
-  <div class="bylaw-blobs" aria-hidden="true">
-    <div class="bylaw-blob bylaw-blob-1"></div>
-    <div class="bylaw-blob bylaw-blob-2"></div>
-  </div>
-
-  <div class="container">
-    <div class="bylaw-action-grid">
-      <div class="bylaw-action-card">
-        <div class="bylaw-action-icon bylaw-action-icon-download"><i class="fas fa-file-pdf"></i></div>
-        <h3 class="bylaw-action-title">تحميل القانون الأساسي</h3>
-        <p class="bylaw-action-desc">يمكنك تحميل النسخة الرسمية بصيغة PDF للاحتفاظ بها أو طباعتها.</p>
-        <button class="bylaw-action-btn bylaw-action-btn-download" id="bylawDownloadBtn">
-          <i class="fas fa-download"></i>
-          تحميل PDF
-        </button>
+    <div class="doc-importance-grid">
+      <div class="doc-importance-card" data-aos="fade-up" data-aos-duration="500">
+        <div class="doc-importance-icon doc-importance-icon-blue" style="font-size:28px;">📖</div>
+        <p class="doc-importance-label">يوضح أهداف الجمعية ورسالتها.</p>
       </div>
-
-      <div class="bylaw-action-card">
-        <div class="bylaw-action-icon bylaw-action-icon-print"><i class="fas fa-print"></i></div>
-        <h3 class="bylaw-action-title">طباعة القانون الأساسي</h3>
-        <p class="bylaw-action-desc">يمكنك طباعة القانون الأساسي مباشرة من المتصفح.</p>
-        <button class="bylaw-action-btn bylaw-action-btn-print" id="bylawPrintBtn">
-          <i class="fas fa-print"></i>
-          طباعة القانون الأساسي
-        </button>
+      <div class="doc-importance-card" data-aos="fade-up" data-aos-duration="500" data-aos-delay="80">
+        <div class="doc-importance-icon doc-importance-icon-green" style="font-size:28px;">⚖️</div>
+        <p class="doc-importance-label">يحدد القوانين والأنظمة الرسمية.</p>
+      </div>
+      <div class="doc-importance-card" data-aos="fade-up" data-aos-duration="500" data-aos-delay="160">
+        <div class="doc-importance-icon doc-importance-icon-gold" style="font-size:28px;">👥</div>
+        <p class="doc-importance-label">ينظم حقوق وواجبات الأعضاء.</p>
+      </div>
+      <div class="doc-importance-card" data-aos="fade-up" data-aos-duration="500" data-aos-delay="240">
+        <div class="doc-importance-icon doc-importance-icon-purple" style="font-size:28px;">🛡️</div>
+        <p class="doc-importance-label">يعزز الشفافية والالتزام داخل الجمعية.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============================== -->
-<!-- 7. FAQ                        -->
-<!-- ============================== -->
-<section class="bylaw-section bylaw-section-light" id="bylaw-faq">
+<!-- ===== 4. IMPORTANT NOTICE ===== -->
+<section class="doc-section doc-section-light" id="doc-notice">
   <div class="container">
-    <div class="section-head">
-      <span class="eyebrow">الأسئلة الشائعة</span>
-      <h2 class="section-title">استفسارات حول القانون الأساسي</h2>
-      <p class="section-desc" style="margin-inline:auto;">أجوبة على أكثر الأسئلة شيوعاً حول القانون الأساسي للجمعية</p>
-    </div>
-
-    <div class="bylaw-faq-list">
-      <div class="bylaw-faq-item">
-        <button class="bylaw-faq-question" aria-expanded="false">
-          <span>ما هو القانون الأساسي؟</span>
-          <span class="bylaw-faq-icon"><i class="fas fa-chevron-down"></i></span>
-        </button>
-        <div class="bylaw-faq-answer">
-          <p>القانون الأساسي هو الوثيقة التأسيسية للجمعية التي تحدد اسمها، أهدافها، مقرها، وكيفية تنظيمها. يعتبر المرجع الرئيسي الذي يحدد حقوق وواجبات الأعضاء وأجهزة الجمعية وطرق تسييرها.</p>
-        </div>
+    <div class="doc-notice-card" data-aos="fade-up" data-aos-duration="700">
+      <div class="doc-notice-icon">
+        <i class="fas fa-info-circle"></i>
       </div>
-
-      <div class="bylaw-faq-item">
-        <button class="bylaw-faq-question" aria-expanded="false">
-          <span>هل يمكن تحميله؟</span>
-          <span class="bylaw-faq-icon"><i class="fas fa-chevron-down"></i></span>
-        </button>
-        <div class="bylaw-faq-answer">
-          <p>نعم، يمكنك تحميل القانون الأساسي بصيغة PDF من خلال زر "تحميل PDF" الموجود في هذه الصفحة. الملف متاح للتحميل لجميع الزوار والأعضاء.</p>
-        </div>
-      </div>
-
-      <div class="bylaw-faq-item">
-        <button class="bylaw-faq-question" aria-expanded="false">
-          <span>هل يمكن تعديله؟</span>
-          <span class="bylaw-faq-icon"><i class="fas fa-chevron-down"></i></span>
-        </button>
-        <div class="bylaw-faq-answer">
-          <p>نعم، يمكن تعديل القانون الأساسي وفق الإجراءات المنصوص عليها فيه، وذلك باقتراح من المكتب التنفيذي أو نصف الأعضاء المنخرطين، وبموافقة ثلثي أعضاء الجمع العام الاستثنائي.</p>
-        </div>
-      </div>
-
-      <div class="bylaw-faq-item">
-        <button class="bylaw-faq-question" aria-expanded="false">
-          <span>أين أجد النظام الداخلي؟</span>
-          <span class="bylaw-faq-icon"><i class="fas fa-chevron-down"></i></span>
-        </button>
-        <div class="bylaw-faq-answer">
-          <p>النظام الداخلي متاح للتحميل في صفحة وثائق الانخراط. يمكنك الوصول إليه من خلال قسم "وثائق الانخراط" أو عبر رابط التحميل المباشر من صفحة الوثائق.</p>
-        </div>
+      <div class="doc-notice-content">
+        <h3 class="doc-notice-title">ملاحظة مهمة</h3>
+        <p class="doc-notice-text">يُنصح بقراءة القانون الأساسي كاملاً قبل الانضمام إلى الجمعية، لأنه المرجع الرسمي لجميع الحقوق والواجبات والإجراءات التنظيمية.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============================== -->
-<!-- 8. FINAL CTA                  -->
-<!-- ============================== -->
-<section class="bylaw-cta" id="bylaw-cta">
-  <div class="bylaw-cta-pattern"></div>
-  <div class="bylaw-cta-blobs" aria-hidden="true">
-    <div class="bylaw-cta-blob bylaw-cta-blob-1"></div>
-    <div class="bylaw-cta-blob bylaw-cta-blob-2"></div>
-  </div>
-
+<!-- ===== 5. FINAL CTA ===== -->
+<section class="doc-section doc-section-gradient" id="doc-cta">
   <div class="container">
-    <div class="bylaw-cta-content">
-      <h2 class="bylaw-cta-title">
-        هل قرأت القانون <span class="bylaw-cta-title-em">الأساسي؟</span>
-      </h2>
-
-      <p class="bylaw-cta-desc">
-        بعد الاطلاع على جميع البنود يمكنك متابعة إجراءات الانخراط في الجمعية.
-      </p>
-
-      <div class="bylaw-cta-actions">
-        <a href="index.html" class="bylaw-cta-btn bylaw-cta-btn-secondary">
-          <i class="fas fa-home"></i>
-          صفحة الانخراط
-        </a>
-        <a href="documents.html" class="bylaw-cta-btn bylaw-cta-btn-secondary">
-          <i class="fas fa-file-alt"></i>
-          وثائق الانخراط
-        </a>
-        <a href="commitment.html" class="bylaw-cta-btn bylaw-cta-btn-secondary">
-          <i class="fas fa-file-signature"></i>
-          التزام العضو
-        </a>
-        <a href="internal-regulations.html" class="bylaw-cta-btn bylaw-cta-btn-secondary">
-          <i class="fas fa-book"></i>
-          النظام الداخلي
-        </a>
-        <a href="application.html" class="bylaw-cta-btn bylaw-cta-btn-primary">
-          <i class="fas fa-arrow-left"></i>
-          استمارة الانخراط
-        </a>
-      </div>
+    <div class="doc-download-card" data-aos="fade-up" data-aos-duration="700">
+      <h2 class="doc-download-title">تحميل القانون الأساسي</h2>
+      <p class="doc-download-desc">قم بتحميل النسخة الرسمية من القانون الأساسي والاحتفاظ بها للرجوع إليها عند الحاجة.</p>
+      <a href="../Amare%20files%20/%D8%A7%D9%84%D9%82%D8%A7%D9%86%D9%88%D9%86%20%D8%A7%D9%84%D8%A7%D8%B3%D8%A7%D8%B3%D9%8A%20%D9%84%D8%AC%D9%85%D8%B9%D9%8A%D8%A9%20(%D9%85%D9%88%D9%82%D8%B9)2026%20%20%20%20AMARE%20%20%20.pdf" download class="doc-download-btn">
+        <i class="fas fa-download"></i>
+        تحميل القانون الأساسي PDF
+      </a>
     </div>
   </div>
 </section>
 
 </main>
 
-<footer class="footer" id="contact">
-  <div class="container">
-    <div class="footer-grid">
-      <div class="footer-about">
-        <div class="footer-brand">
-          <span class="brand-mark">
-            <img src="../Amare%20files%20/logo.png" alt="AMARE Logo" class="topbar-brand-logo">
-          </span>
-          <span>
-            <span class="brand-name">الجمعية المغربية لهواة البحث والاستكشاف</span><br>
-          </span>
-        </div>
-        <p>الجمعية المغربية لهواة البحث والاستكشاف هي إطار قانوني وطني يجمع الهواة تحت راية واحدة لصون التراث الوطني المغربي.</p>
-        <div class="footer-social">
-          <a href="#" aria-label="فيسبوك"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg></a>
-          <a href="#" aria-label="إنستغرام"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
-          <a href="#" aria-label="لينكدإن"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 5 3.79 6.2 2.3 6.2 1 6.2 0 5 0 3.5 0 2 1.1.8 2.5.8s2.48 1.2 2.48 2.7zM.2 8.5h4.6V23H.2V8.5zM8 8.5h4.4v2h.06c.6-1.2 2.1-2.4 4.4-2.4 4.7 0 5.6 3.1 5.6 7.1V23h-4.6v-6.7c0-1.6 0-3.7-2.3-3.7s-2.6 1.8-2.6 3.6V23H8V8.5z"/></svg></a>
-        </div>
-      </div>
-
-      <nav aria-label="روابط سريعة">
-        <h4>روابط سريعة</h4>
-        <ul class="footer-links">
-          <li><a href="../index.html">الرئيسية</a></li>
-          <li><a href="../index.html#about">اتصل بنا</a></li>
-          <li><a href="../index.html#services">خدماتنا</a></li>
-          <li><a href="../index.html#news">الاخبار</a></li>
-          <li><a href="index.html">الانخراط online</a></li>
-          <li><a href="documents.html">وثائق الانخراط</a></li>
-          <li><a href="commitment.html">التزام العضو</a></li>
-          <li><a href="bylaws.html">القانون الأساسي</a></li>
-          <li><a href="application.html">استمارة الانخراط</a></li>
-          <li><a href="internal-regulations.html">النظام الداخلي</a></li>
-        </ul>
-      </nav>
-
-      <nav aria-label="برامجنا">
-        <h4>برامجنا</h4>
-        <ul class="footer-links">
-          <li><a href="../index.html#services">SOS Amare</a></li>
-          <li><a href="../index.html#services">متجر Amare</a></li>
-          <li><a href="../index.html#services">بيت المستكشف Amare</a></li>
-          <li><a href="../index.html#services">مجلة Amare</a></li>
-        </ul>
-      </nav>
-
-      <div>
-        <h4>تواصل معنا</h4>
-        <ul class="footer-contact">
-          <li>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            <span>ص.ب 749 أيت ملول 86150</span>
-          </li>
-          <li>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .3 2 .7 2.9a2 2 0 0 1-.4 2.1L8 10a16 16 0 0 0 6 6l1.3-1.4a2 2 0 0 1 2.1-.4c.9.4 1.9.6 2.9.7a2 2 0 0 1 1.7 2.1z"/></svg>
-            <span dir="ltr">+212 684869996</span>
-          </li>
-          <li>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z" opacity="0"/><path d="M22 6 12 13 2 6"/><path d="M2 6h20v12H2z"/></svg>
-            <span dir="ltr">association.amare.agadir@gmail.com</span>
-          </li>
-        </ul>
-      </div>
-
-      <div class="footer-location">
-        <h4>موقعنا</h4>
-        <div class="footer-map-card">
-          <span class="footer-map-badge">📍 Ait Melloul, Agadir</span>
-          <iframe
-            src="https://www.google.com/maps?q=30.385528,-9.448611&z=16&output=embed"
-            loading="lazy"
-            allowfullscreen
-            referrerpolicy="no-referrer-when-downgrade"
-            title="موقع الجمعية على الخريطة"
-            class="footer-map-frame"></iframe>
-          <div class="footer-map-footer">
-            <a href="https://www.google.com/maps?q=30.385528,-9.448611" target="_blank" rel="noopener" class="footer-map-btn">Open in Google Maps</a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="footer-bottom">
-      <p>© 2026 جمعية الأمل للتنمية. جميع الحقوق محفوظة.</p>
-      <div class="footer-bottom-links">
-        <a href="#">سياسة الخصوصية</a>
-        <a href="#">الشروط والأحكام</a>
-      </div>
-    </div>
-  </div>
-</footer>
+<div id="footer" data-base=".."></div>
 
 <button class="back-to-top" id="backToTop" aria-label="العودة إلى الأعلى">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M18 15l-6-6-6 6"/></svg>
 </button>
 
+<script src="../js/component-loader.js"></script>
+<script>
+  loadComponent('#navbar', '../components/navbar.html');
+  loadComponent('#footer', '../components/footer.html');
+</script>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script src="../script.js"></script>
 <script>
 (function() {
   'use strict';
 
-  /* ---------- AOS (hero only) ---------- */
   if (typeof AOS !== 'undefined') {
     AOS.init({
       once: true,
       offset: 80,
       duration: 800,
       easing: 'cubic-bezier(0.22, 0.8, 0.32, 1)',
-    });
-  }
-
-  /* ---------- Scroll Progress ---------- */
-  var progressBar = document.getElementById('bylawProgressBar');
-  if (progressBar) {
-    function updateProgress() {
-      var scrollTop = window.scrollY;
-      var docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      if (docHeight > 0) {
-        var pct = Math.min((scrollTop / docHeight) * 100, 100);
-        progressBar.style.width = pct + '%';
-      }
-    }
-    window.addEventListener('scroll', updateProgress);
-    window.addEventListener('resize', updateProgress);
-    updateProgress();
-  }
-
-  /* ---------- TOC Active Section Highlight ---------- */
-  var tocLinks = document.querySelectorAll('.bylaw-toc-link');
-  var chapters = document.querySelectorAll('.bylaw-chapter');
-
-  function updateActiveChapter() {
-    var scrollPos = window.scrollY + 200;
-    var activeIdx = -1;
-
-    chapters.forEach(function(ch, idx) {
-      var top = ch.offsetTop;
-      var bottom = top + ch.offsetHeight;
-      if (scrollPos >= top && scrollPos < bottom) {
-        activeIdx = idx;
-      }
-    });
-
-    /* if none found, keep last visible */
-    if (activeIdx === -1 && chapters.length > 0) {
-      var lastVisible = 0;
-      chapters.forEach(function(ch, idx) {
-        if (ch.offsetTop < window.scrollY + 400) lastVisible = idx;
-      });
-      activeIdx = lastVisible;
-    }
-
-    tocLinks.forEach(function(link, idx) {
-      link.classList.toggle('active', idx === activeIdx);
-    });
-  }
-
-  window.addEventListener('scroll', updateActiveChapter);
-  updateActiveChapter();
-
-  /* ---------- TOC Click Scroll ---------- */
-  tocLinks.forEach(function(link) {
-    link.addEventListener('click', function() {
-      var targetId = this.dataset.target;
-      var target = document.getElementById(targetId);
-      if (target) {
-        var offset = 140;
-        var top = target.getBoundingClientRect().top + window.scrollY - offset;
-        window.scrollTo({ top: top, behavior: 'smooth' });
-      }
-    });
-  });
-
-  /* ---------- FAQ Accordion ---------- */
-  var faqBtns = document.querySelectorAll('.bylaw-faq-question');
-  faqBtns.forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      var item = this.closest('.bylaw-faq-item');
-      var isActive = item.classList.contains('active');
-      document.querySelectorAll('.bylaw-faq-item').forEach(function(el) {
-        el.classList.remove('active');
-        el.querySelector('.bylaw-faq-question').setAttribute('aria-expanded', 'false');
-      });
-      if (!isActive) {
-        item.classList.add('active');
-        item.querySelector('.bylaw-faq-question').setAttribute('aria-expanded', 'true');
-      }
-    });
-  });
-
-  /* ---------- Print ---------- */
-  var printBtn = document.getElementById('bylawPrintBtn');
-  if (printBtn) {
-    printBtn.addEventListener('click', function() {
-      window.print();
-    });
-  }
-
-  /* ---------- Download PDF ---------- */
-  var downloadBtn = document.getElementById('bylawDownloadBtn');
-  if (downloadBtn) {
-    downloadBtn.addEventListener('click', function() {
-      var btn = this;
-      btn.disabled = true;
-      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري التحميل...';
-
-      setTimeout(function() {
-        var content = document.getElementById('bylaw-toc').cloneNode(true);
-        var tocWrap = content.querySelector('.bylaw-toc-wrap');
-        if (tocWrap) {
-          tocWrap.style.position = 'static';
-          tocWrap.style.marginTop = '0';
-          tocWrap.style.marginBottom = '24px';
-        }
-
-        var title = '<div style="text-align:center;margin-bottom:32px;border-bottom:2px solid #19b8f2;padding-bottom:20px;">' +
-          '<h1 style="font-size:26px;font-weight:900;color:#123B78;margin:0;">القانون الأساسي</h1>' +
-          '<p style="font-size:14px;color:#666;margin-top:6px;">الجمعية المغربية لهواة البحث والاستكشاف</p></div>';
-
-        var printContent = '<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8">' +
-          '<title>القانون الأساسي</title>' +
-          '<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">' +
-          '<style>body{font-family:Cairo,sans-serif;padding:30px;color:#1a2a4a;direction:rtl;}' +
-          '.bylaw-chapter{page-break-inside:avoid;margin-bottom:24px;padding:20px;border:1px solid #eef3fc;border-radius:12px;}' +
-          '.bylaw-chapter-badge{display:none;}' +
-          '.bylaw-chapter-label{font-size:12px;font-weight:700;color:#19b8f2;}' +
-          '.bylaw-chapter-title{font-size:20px;font-weight:800;color:#123B78;margin:4px 0 12px;}' +
-          '.bylaw-article{margin-bottom:12px;}' +
-          '.bylaw-article-title{font-size:15px;font-weight:700;color:#123B78;margin-bottom:4px;}' +
-          '.bylaw-article-text{font-size:14px;color:#555;line-height:1.7;margin:0;}' +
-          '.bylaw-article-text-placeholder{font-style:italic;opacity:0.5;}' +
-          '.bylaw-notice{background:#fef8e8;padding:16px;border-radius:10px;margin-top:24px;}' +
-          '.bylaw-notice-title{font-size:18px;font-weight:800;color:#c0392b;}' +
-          '.bylaw-notice-text{font-size:14px;color:#555;}' +
-          '@media print{body{padding:0;}}.bylaw-blobs,.bylaw-progress,.bylaw-toc-card .bylaw-toc-header-icon,.bylaw-toc-link .bylaw-toc-icon{display:none;}' +
-          '.bylaw-toc-card{border:1px solid #eee;border-radius:12px;padding:20px;margin-bottom:24px;}' +
-          '.bylaw-toc-link{display:block;padding:6px 0;color:#123B78;text-decoration:none;font-size:14px;}' +
-          '.bylaw-toc-num{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:6px;background:#e8f0fe;color:#19b8f2;font-weight:900;font-size:11px;margin-inline-end:8px;}' +
-          '.bylaw-action-grid{display:none;}' +
-          '</style></head><body>' + title + content.innerHTML + '</body></html>';
-
-        var win = window.open('', '_blank');
-        win.document.write(printContent);
-        win.document.close();
-
-        setTimeout(function() {
-          win.print();
-          btn.disabled = false;
-          btn.innerHTML = '<i class="fas fa-download"></i> تحميل PDF';
-        }, 800);
-      }, 400);
     });
   }
 

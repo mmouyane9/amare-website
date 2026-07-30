@@ -17,15 +17,18 @@ async function saveMembership(data) {
           photo_base64: data.photoBase64,
           signature_member: data.sigMemberDataUrl,
           signature_president: data.sigPresidentDataUrl,
+          application_status: 'pending',
           created_at: new Date().toISOString(),
         })
-        .select();
 
       if (error) throw error;
 
-      return { data: Array.isArray(result) ? result[0] : result, error: null };
+      return { data: result || { id: null }, error: null };
     } catch (err) {
-      if (err.message && (err.message.includes('Failed to fetch') || err.message.includes('fetch'))) {
+      var msg = (err && err.message) || '';
+      var code = (err && err.code) || '';
+      if (msg.includes('Failed to fetch') || msg.includes('fetch') ||
+          code.startsWith('PGRST')) {
         return fallbackSave(data);
       }
       return { data: null, error: err };

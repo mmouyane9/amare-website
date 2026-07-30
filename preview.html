@@ -12,9 +12,97 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<style>
+:root {
+  --m-primary: #123B78;
+  --m-accent: #F6B300;
+  --m-bg: #F7F9FC;
+  --m-white: #FFFFFF;
+  --m-text: #24324B;
+  --m-border: rgba(18,59,120,.12);
+  --m-shadow: 0 15px 40px rgba(18,59,120,.08);
+  --m-radius: 24px;
+  --m-btn-radius: 18px;
+  --m-container: 1320px;
+}
+
+.preview-section {
+  background: var(--m-bg) !important;
+  padding: 80px 0 100px !important;
+}
+
+.preview-blobs { display: none !important; }
+
+.preview-card {
+  background: var(--m-white) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: 1px solid var(--m-border) !important;
+  border-radius: var(--m-radius) !important;
+  padding: 40px 36px !important;
+  box-shadow: var(--m-shadow) !important;
+}
+
+.preview-success-icon {
+  background: var(--m-accent) !important;
+  box-shadow: 0 12px 36px rgba(246,179,0,.25) !important;
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0a1628;
+  font-size: 34px;
+  animation: mPreviewBounce 0.6s cubic-bezier(.22,.8,.32,1);
+}
+
+@keyframes mPreviewBounce {
+  0% { transform: scale(0); }
+  50% { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+
+.preview-pdf-container {
+  border-radius: var(--m-radius) !important;
+  border: 1px solid var(--m-border) !important;
+  overflow: hidden;
+  box-shadow: var(--m-shadow) !important;
+}
+
+.preview-btn {
+  border-radius: var(--m-btn-radius) !important;
+  font-family: 'Cairo', sans-serif !important;
+  font-weight: 700 !important;
+  gap: 10px !important;
+  transition: transform .3s cubic-bezier(.22,.8,.32,1), box-shadow .3s ease !important;
+}
+.preview-btn:hover { transform: scale(1.02) !important; }
+.preview-btn:active { transform: scale(.98) !important; }
+.preview-btn-primary { background: var(--m-accent) !important; color: #0a1628 !important; box-shadow: 0 8px 24px rgba(246,179,0,.3) !important; }
+.preview-btn-primary:hover { box-shadow: 0 12px 36px rgba(246,179,0,.45) !important; }
+.preview-btn-accent { background: var(--m-primary) !important; color: #fff !important; box-shadow: 0 8px 24px rgba(18,59,120,.2) !important; }
+.preview-btn-accent:hover { box-shadow: 0 12px 36px rgba(18,59,120,.3) !important; }
+.preview-btn-navy { background: var(--m-primary) !important; color: #fff !important; box-shadow: 0 8px 24px rgba(18,59,120,.2) !important; }
+.preview-btn-navy:hover { box-shadow: 0 12px 36px rgba(18,59,120,.3) !important; }
+.preview-btn-ghost { border: 1.5px solid var(--m-border) !important; color: var(--m-text) !important; background: transparent !important; }
+.preview-btn-ghost:hover { border-color: var(--m-primary) !important; background: rgba(18,59,120,.04) !important; }
+
+@media (max-width: 768px) {
+  .preview-section { padding: 60px 0 80px !important; }
+  .preview-card { padding: 30px 24px !important; }
+  .preview-btn { width: 100%; justify-content: center; }
+}
+@media (max-width: 480px) {
+  .preview-card { padding: 24px 16px !important; }
+  .preview-success-icon { width: 56px; height: 56px; font-size: 26px; }
+}
+</style>
 </head>
 <body>
 
@@ -76,11 +164,11 @@
         <li data-dropdown="news"><a href="index.html#news">الأخبار</a></li>
         <li data-dropdown="archive"><a href="#">الأرشيف</a></li>
         <li data-dropdown="branches"><a href="#">الفروع الجهوية</a></li>
-        <li data-dropdown="join"><a href="join.html" class="active">انخرط معنا</a></li>
+        <li data-dropdown="join"><a href="Join us/index.html" class="active">انخرط معنا</a></li>
         <li><a href="index.html#contact">اتصل بنا</a></li>
       </ul>
       <div class="nav-actions">
-        <a href="join.html" class="nav-join-btn">
+        <a href="Join us/index.html" class="nav-join-btn">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
             <circle cx="8.5" cy="7" r="4"/>
@@ -142,7 +230,7 @@
           <i class="fas fa-print"></i>
           <span>طباعة الاستمارة</span>
         </button>
-        <a href="membership-doc.html" class="preview-btn preview-btn-ghost">
+        <a href="Join us/index.html" class="preview-btn preview-btn-ghost">
           <i class="fas fa-arrow-right"></i>
           <span>العودة إلى صفحة الانخراط</span>
         </a>
@@ -178,7 +266,7 @@
           <li><a href="index.html#about">اتصل بنا</a></li>
           <li><a href="index.html#services">خدماتنا</a></li>
           <li><a href="index.html#news">الاخبار</a></li>
-          <li><a href="join.html">انخرط معنا</a></li>
+          <li><a href="Join us/index.html">انخرط معنا</a></li>
         </ul>
       </nav>
       <nav aria-label="برامجنا">
@@ -261,7 +349,7 @@
   const pdfViewer = document.getElementById('pdfViewer');
 
   if (!pdfBytesData) {
-    pdfContainer.innerHTML = '<div class="preview-empty"><i class="fas fa-exclamation-triangle"></i><p>لم يتم العثور على الاستمارة. يرجى العودة إلى صفحة الانخراط.</p><a href="membership-doc.html" class="preview-btn preview-btn-primary" style="margin-top:16px"><i class="fas fa-arrow-right"></i><span>العودة إلى صفحة الانخراط</span></a></div>';
+    pdfContainer.innerHTML = '<div class="preview-empty"><i class="fas fa-exclamation-triangle"></i><p>لم يتم العثور على الاستمارة. يرجى العودة إلى صفحة الانخراط.</p><a href="Join us/index.html" class="preview-btn preview-btn-primary" style="margin-top:16px"><i class="fas fa-arrow-right"></i><span>العودة إلى صفحة الانخراط</span></a></div>';
     document.getElementById('viewBtn').style.display = 'none';
     document.getElementById('downloadBtn').style.display = 'none';
     document.getElementById('printBtn').style.display = 'none';
@@ -281,7 +369,7 @@
     const url = URL.createObjectURL(pdfBlob);
     pdfViewer.src = url;
   } catch(e) {
-    pdfContainer.innerHTML = '<div class="preview-empty"><i class="fas fa-exclamation-triangle"></i><p>حدث خطأ أثناء تحميل الاستمارة.</p><a href="membership-doc.html" class="preview-btn preview-btn-primary" style="margin-top:16px"><i class="fas fa-arrow-right"></i><span>العودة إلى صفحة الانخراط</span></a></div>';
+    pdfContainer.innerHTML = '<div class="preview-empty"><i class="fas fa-exclamation-triangle"></i><p>حدث خطأ أثناء تحميل الاستمارة.</p><a href="Join us/index.html" class="preview-btn preview-btn-primary" style="margin-top:16px"><i class="fas fa-arrow-right"></i><span>العودة إلى صفحة الانخراط</span></a></div>';
     document.getElementById('viewBtn').style.display = 'none';
     document.getElementById('downloadBtn').style.display = 'none';
     document.getElementById('printBtn').style.display = 'none';

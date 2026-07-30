@@ -282,18 +282,13 @@
         ]
       },
       join: {
-        title: 'انخرط معنا', href: '#',
+        title: 'انخرط معنا', href: '/Join%20us/index.html',
         items: [
-          { icon: 'userPlus', title: 'الانخراط online  ', desc: 'كن عضواً في الجمعية' },
-          { icon: 'heart', title: 'وثائق الانخراط  ', desc: 'تطوع مع فريقنا' },
-          { icon: 'clipboard', title: 'استمارة الانخراط ', desc: 'تعرف على شروط الانخراط' },
-          { icon: 'download', title: 'التزام الانخراط  ', desc: 'حمّل استمارة التسجيل' },
-          { icon: 'helpCircle', title: 'ميثاق الاستكشاف الامسؤول  ', desc: 'إجابات عن أسئلتكم' },
-          { icon: 'heart', title: 'القانون الاساسي    ', desc: 'تطوع مع فريقنا' },
-          { icon: 'clipboard', title: 'القانون الداخلي  ', desc: 'تعرف على شروط الانخراط' },
-          { icon: 'download', title: 'وصل الايداع الداخيلي   ', desc: 'حمّل استمارة التسجيل' },
-          { icon: 'helpCircle', title: 'وصل الاديداع النهائي     ', desc: 'إجابات عن أسئلتكم' },
-          { icon: 'helpCircle', title: 'الاشعار بلخرجات', desc: 'إجابات عن أسئلتكم' },
+          { icon: 'userPlus', title: 'الانخراط online', desc: 'كن عضواً في الجمعية', href: '/Join%20us/index.html' },
+          { icon: 'file', title: 'وثائق الانخراط', desc: 'حمّل وثائق الانخراط', href: '/Join%20us/documents.html' },
+          { icon: 'clipboard', title: 'استمارة الانخراط', desc: 'قدّم طلب الانخراط', href: '/Join%20us/application.html' },
+          { icon: 'heart', title: 'التزام الانخراط', desc: 'وثيقة التزام العضو', href: '/Join%20us/commitment.html' },
+          { icon: 'book', title: 'القانون الأساسي', desc: 'النظام الأساسي للجمعية', href: '/Join%20us/bylaws.html' },
         ]
       }
     };
@@ -320,7 +315,7 @@
         html += '<div class="mega-grid">';
         for (var i = 0; i < group.items.length; i++) {
           var item = group.items[i];
-          html += '<a href="#" class="mega-item">';
+          html += '<a href="' + (item.href || '#') + '" class="mega-item">';
           html += '<span class="mega-icon">' + svg(icons[item.icon]) + '</span>';
           html += '<span class="mega-text">';
           html += '<span class="mega-title">' + item.title + '</span>';
@@ -412,7 +407,7 @@
         for (var j = 0; j < group.items.length; j++) {
           var item = group.items[j];
           var subLi = document.createElement('li');
-          subLi.innerHTML = '<a href="#">' + svg(icons[item.icon]) + item.title + '</a>';
+          subLi.innerHTML = '<a href="' + (item.href || '#') + '">' + svg(icons[item.icon]) + item.title + '</a>';
           submenu.appendChild(subLi);
         }
         li.appendChild(submenu);

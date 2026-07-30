@@ -33,32 +33,44 @@ function reverseArabic(str) {
 }
 
 async function generateMembershipPDF(formData) {
+  console.log('[PDF] Starting PDF generation...');
   const {
     PDFDocument,
     rgb,
   } = PDFLib;
 
   const doc = await PDFDocument.create();
+  console.log('[PDF] Document created');
 
-  const templateUrl = 'Amare%20files%20/%D8%A7%D8%B3%D8%AA%D9%85%D8%A7%D8%B1%D8%A9%20%20%D8%A7%D9%84%D8%A7%D9%86%D8%AE%D8%B1%D8%A7%D8%B7%202026%20%20.pdf';
+  const templateUrl = '../Amare%20files%20/%D8%A7%D8%B3%D8%AA%D9%85%D8%A7%D8%B1%D8%A9%20%20%D8%A7%D9%84%D8%A7%D9%86%D8%AE%D8%B1%D8%A7%D8%B7%202026%20%20.pdf';
+  console.log('[PDF] Fetching template:', templateUrl);
   const templateResponse = await fetch(templateUrl);
+  if (!templateResponse.ok) throw new Error('Failed to load PDF template (HTTP ' + templateResponse.status + ')');
   const templateBytes = await templateResponse.arrayBuffer();
+  console.log('[PDF] Template loaded (' + templateBytes.byteLength + ' bytes)');
   const templateDoc = await PDFDocument.load(templateBytes);
   const [templatePage] = await doc.copyPages(templateDoc, [0]);
   doc.addPage(templatePage);
+  console.log('[PDF] Template page added');
 
   const pages = doc.getPages();
   const page = pages[0];
   const { width, height } = page.getSize();
 
-  const fontUrl = 'Amare%20files%20/Cairo-Regular.ttf';
+  const fontUrl = '../Amare%20files%20/Cairo-Regular.ttf';
+  console.log('[PDF] Fetching font:', fontUrl);
   const fontResponse = await fetch(fontUrl);
+  if (!fontResponse.ok) throw new Error('Failed to load regular font (HTTP ' + fontResponse.status + ')');
   const fontBytes = await fontResponse.arrayBuffer();
+  console.log('[PDF] Regular font loaded (' + fontBytes.byteLength + ' bytes)');
   const cairoFont = await doc.embedFont(fontBytes);
 
-  const boldFontUrl = 'Amare%20files%20/Cairo-Bold.ttf';
+  const boldFontUrl = '../Amare%20files%20/Cairo-Bold.ttf';
+  console.log('[PDF] Fetching bold font:', boldFontUrl);
   const boldFontResponse = await fetch(boldFontUrl);
+  if (!boldFontResponse.ok) throw new Error('Failed to load bold font (HTTP ' + boldFontResponse.status + ')');
   const boldFontBytes = await boldFontResponse.arrayBuffer();
+  console.log('[PDF] Bold font loaded (' + boldFontBytes.byteLength + ' bytes)');
   const cairoBold = await doc.embedFont(boldFontBytes);
 
   function drawField(label, value, yPos) {
@@ -95,6 +107,7 @@ async function generateMembershipPDF(formData) {
     }
   }
 
+  console.log('[PDF] Drawing form fields...');
   drawField('الاسم الشخصي', formData.firstName, PDF_FIELD_POSITIONS.firstName.y);
   drawField('الاسم العائلي', formData.lastName, PDF_FIELD_POSITIONS.lastName.y);
   drawField('تاريخ الازدياد', formData.birthDate, PDF_FIELD_POSITIONS.birthDate.y);
@@ -160,5 +173,7 @@ async function generateMembershipPDF(formData) {
   }
 
   const pdfBytes = await doc.save();
+  var isPdf = pdfBytes[0] === 0x25 && pdfBytes[1] === 0x50 && pdfBytes[2] === 0x44 && pdfBytes[3] === 0x46;
+  console.log('[PDF] Document saved (' + pdfBytes.length + ' bytes, valid PDF header: ' + isPdf + ')');
   return pdfBytes;
 }

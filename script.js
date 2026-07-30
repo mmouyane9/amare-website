@@ -507,15 +507,133 @@
       }
     }
 
+    function buildMobileDrawer() {
+      var items = document.querySelectorAll('.mobile-drawer-dropdown');
+      for (var i = 0; i < items.length; i++) {
+        var dd = items[i];
+        var key = dd.getAttribute('data-dd');
+        var group = dropdownData[key];
+        if (!group) continue;
+        var sub = dd.querySelector('.mobile-drawer-sub');
+        if (!sub) continue;
+        for (var j = 0; j < group.items.length; j++) {
+          var item = group.items[j];
+          var li = document.createElement('li');
+          li.innerHTML = '<a href="' + (item.href || '#') + '">' + svg(icons[item.icon]) + item.title + '</a>';
+          sub.appendChild(li);
+        }
+      }
+    }
+
     function init() {
       addChevrons();
       buildPanels();
       setupDesktop();
       buildMobileSubmenus();
+      buildMobileDrawer();
       document.addEventListener('keydown', handleKeydown);
     }
 
     init();
+  })();
+
+  /* ---------- 10. Mobile Drawer Toggle ---------- */
+  (function() {
+    var hamburger = document.getElementById('mobileHamburger');
+    var drawer = document.getElementById('mobileDrawer');
+    var closeBtn = document.getElementById('mobileDrawerClose');
+    var links = document.getElementById('mobileDrawerLinks');
+    var overlay = null;
+    if (!hamburger || !drawer) return;
+
+    function createOverlay() {
+      if (overlay && overlay.parentNode) return;
+      overlay = document.createElement('div');
+      overlay.className = 'mobile-drawer-backdrop';
+      document.body.appendChild(overlay);
+      requestAnimationFrame(function() { overlay.classList.add('open'); });
+      overlay.addEventListener('click', closeDrawer);
+    }
+
+    function removeOverlay() {
+      if (!overlay) return;
+      overlay.classList.remove('open');
+      setTimeout(function() {
+        if (overlay && overlay.parentNode) overlay.parentNode.removeChild(overlay);
+        overlay = null;
+      }, 350);
+    }
+
+    function openDrawer() {
+      hamburger.classList.add('open');
+      drawer.classList.add('open');
+      hamburger.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+      createOverlay();
+    }
+
+    function closeDrawer() {
+      hamburger.classList.remove('open');
+      drawer.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+      removeOverlay();
+      var subs = drawer.querySelectorAll('.mobile-drawer-sub.open');
+      for (var i = 0; i < subs.length; i++) subs[i].classList.remove('open');
+      var toggles = drawer.querySelectorAll('.mobile-drawer-toggle.open');
+      for (var i = 0; i < toggles.length; i++) {
+        toggles[i].classList.remove('open');
+        toggles[i].setAttribute('aria-expanded', 'false');
+      }
+    }
+
+    hamburger.addEventListener('click', function() {
+      var isOpen = drawer.classList.contains('open');
+      isOpen ? closeDrawer() : openDrawer();
+    });
+
+    if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
+
+    // Accordion toggles
+    var toggles = drawer.querySelectorAll('.mobile-drawer-toggle');
+    for (var i = 0; i < toggles.length; i++) {
+      toggles[i].addEventListener('click', function(e) {
+        e.stopPropagation();
+        var btn = this;
+        var isOpen = btn.classList.contains('open');
+        var parent = btn.closest('.mobile-drawer-dropdown');
+        if (!parent) return;
+        var sub = parent.querySelector('.mobile-drawer-sub');
+        if (!sub) return;
+        if (isOpen) {
+          sub.classList.remove('open');
+          btn.classList.remove('open');
+          btn.setAttribute('aria-expanded', 'false');
+        } else {
+          sub.classList.add('open');
+          btn.classList.add('open');
+          btn.setAttribute('aria-expanded', 'true');
+        }
+      });
+    }
+
+    // Close drawer on any link tap
+    if (links) {
+      var allLinks = links.querySelectorAll('a');
+      for (var i = 0; i < allLinks.length; i++) {
+        (function(l) {
+          l.addEventListener('click', closeDrawer);
+        })(allLinks[i]);
+      }
+    }
+
+    // Close drawer on bottom CTA buttons
+    var bottomLinks = drawer.querySelectorAll('.mobile-drawer-btn');
+    for (var i = 0; i < bottomLinks.length; i++) {
+      (function(l) {
+        l.addEventListener('click', closeDrawer);
+      })(bottomLinks[i]);
+    }
   })();
 
   /* ---------- 10. Newsletter form (front-end only demo) ---------- */

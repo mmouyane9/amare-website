@@ -1,5 +1,5 @@
 /* ==========================================================================
-   جمعية الأمل — Premium Association Website
+   الجمعية المغربية لهواة البحث والاستكشاف — Premium Association Website
    Modular CSS — variables, base, layout, components, sections, responsive
    ========================================================================== */
 
@@ -124,6 +124,16 @@ input:focus-visible {
   width: 7px; height: 7px;
   border-radius: 50%;
   background: var(--color-accent);
+}
+@media (max-width: 480px) {
+  .eyebrow {
+    font-size: 12.5px;
+    padding: 8px 16px;
+    max-width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+  }
 }
 
 .section-title {

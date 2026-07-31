@@ -200,11 +200,11 @@
       about: {
         title: 'من نحن', href: '#about',
         items: [
-          { icon: 'org', title: 'الرئية الوطنية', desc: 'تعرف على تاريخ ومسيرة الجمعية' },
-          { icon: 'eye', title: 'الرسالة', desc: 'رؤيتنا نحو مستقبل أفضل' },
-          { icon: 'target', title: 'القيم', desc: 'الأهداف الاستراتيجية للجمعية' },
-          { icon: 'users', title: 'المكتب المركزي', desc: 'الهيكل الإداري للجمعية' },
-          { icon: 'file', title: 'خارطة التوسع', desc: 'القانون الأساسي للجمعية' },
+          { icon: 'org', title: 'الرئية الوطنية', desc: 'تعرف على تاريخ ومسيرة الجمعية', href:"/Who%20are%20we/national-vision.html" },
+          { icon: 'eye', title: 'الرسالة', desc: 'رؤيتنا نحو مستقبل أفضل' ,href:"/Who%20are%20we/our-mission.html"},
+          { icon: 'target', title: 'القيم', desc: 'الأهداف الاستراتيجية للجمعية' ,href:"/Who%20are%20we/our-values.html"},
+          { icon: 'users', title: 'المكتب المركزي', desc: 'الهيكل الإداري للجمعية' ,href:"/Who%20are%20we/central-office.html" },
+          { icon: 'file', title: 'خارطة التوسع', desc: 'القانون الأساسي للجمعية' ,href:"/Who%20are%20we/expansion-map.html"},
    
         ]
       },

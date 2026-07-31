@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>الرؤية الوطنية | الجمعية المغربية لهواة البحث والاستكشاف</title>
-<meta name="description" content="الرؤية الوطنية للجمعية المغربية لهواة البحث والاستكشاف — تعزيز الاستكشاف والبحث العلمي والتوعية البيئية وحماية التراث والتنمية المستدامة في جميع جهات المملكة.">
-<meta name="keywords" content="جمعية, الرؤية الوطنية, استكشاف, بحث علمي, تراث, بيئة, المغرب, تنمية مستدامة">
+<title>رسالتنا | الجمعية المغربية لهواة البحث والاستكشاف</title>
+<meta name="description" content="رسالة الجمعية المغربية لهواة البحث والاستكشاف — نشر ثقافة البحث والاستكشاف، وتشجيع الشباب على المبادرات العلمية والبيئية، وحماية التراث الطبيعي والثقافي.">
+<meta name="keywords" content="جمعية, رسالة, استكشاف, بحث علمي, تطوع, تراث, بيئة, المغرب">
 <meta name="author" content="الجمعية المغربية لهواة البحث والاستكشاف">
 <link rel="shortcut icon" href="../Amare%20files%20/logo.png" type="image/x-icon">
 
 <!-- Open Graph -->
-<meta property="og:title" content="الرؤية الوطنية | الجمعية المغربية لهواة البحث والاستكشاف">
-<meta property="og:description" content="نحو مجتمع يقدّر المعرفة والاستكشاف ويحافظ على التراث الطبيعي والثقافي للأجيال القادمة.">
+<meta property="og:title" content="رسالتنا | الجمعية المغربية لهواة البحث والاستكشاف">
+<meta property="og:description" content="نحو تحويل حب الاستكشاف إلى عمل يخدم الإنسان والوطن ويحافظ على تراثه للأجيال القادمة.">
 <meta property="og:type" content="website">
 
 <!-- Fonts -->
@@ -20,17 +20,17 @@
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="../style.css">
-<link rel="stylesheet" href="national-vision.css">
+<link rel="stylesheet" href="our-mission.css">
 <style>
   /* ==========================================================================
-   National Vision Page — Premium styles (uses design tokens from ../style.css)
+   Our Mission Page — Premium styles (uses design tokens from ../style.css)
    ========================================================================== */
 
 /* Keep the current-page nav item highlighted */
 .nav-links a[aria-current="page"] { color: #123B78; }
 .nav-links a[aria-current="page"]::after { transform: scaleX(1); }
 
-/* ---------- 1. Hero ---------- */
+/* ---------- 1. Hero (identical to الرؤية الوطنية hero) ---------- */
 .nv-hero {
   position: relative;
   padding: 150px 0 150px;
@@ -219,65 +219,87 @@
 .nv-art-dot-2 { width: 9px; height: 9px; background: var(--color-accent); bottom: 38%; inset-inline-end: 14%; animation-delay: 1.4s; }
 .nv-art-dot-3 { width: 11px; height: 11px; background: var(--color-navy); bottom: 10%; inset-inline-end: 32%; opacity: .45; animation-delay: .8s; }
 
-/* ---------- 2. Vision Statement ---------- */
-.nv-vision {
+/* ---------- 2. Our Mission (intro statement) ---------- */
+.om-mission {
   position: relative;
   padding: 115px 0;
   background: var(--color-white);
   overflow: hidden;
 }
 
-.nv-vision-blobs {
+.om-mission-blobs {
   position: absolute;
   inset: 0;
   overflow: hidden;
   pointer-events: none;
 }
-.nv-vision-blob {
+.om-mission-blob {
   position: absolute;
   border-radius: 50%;
-  filter: blur(2px);
 }
-.nv-vision-blob-1 {
-  width: 300px; height: 300px;
+.om-mission-blob-1 {
+  width: 320px; height: 320px;
   background: rgba(25,184,242,.07);
-  top: -120px; inset-inline-end: -80px;
+  top: -120px; inset-inline-start: -80px;
 }
-.nv-vision-blob-2 {
-  width: 240px; height: 240px;
+.om-mission-blob-2 {
+  width: 260px; height: 260px;
   background: rgba(246,179,0,.09);
-  bottom: -100px; inset-inline-start: -60px;
+  bottom: -110px; inset-inline-end: -70px;
 }
 
-.nv-vision-head {
+.om-mission-inner {
+  position: relative;
+  max-width: 860px;
+  margin: 0 auto;
   text-align: center;
-  max-width: 820px;
-  margin: 0 auto 64px;
 }
-.nv-vision-title {
+
+.om-mission-icon {
+  width: 84px; height: 84px;
+  margin: 0 auto 26px;
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(25,184,242,.12);
+  color: var(--color-primary-dark);
+  box-shadow: 0 14px 34px rgba(25,184,242,.22);
+}
+.om-mission-icon svg { width: 38px; height: 38px; }
+
+.om-mission-title {
   font-size: clamp(30px, 4vw, 44px);
   font-weight: 900;
   color: var(--color-navy);
-  margin-bottom: 20px;
+  margin-bottom: 22px;
 }
-.nv-vision-lead {
+
+.om-mission-lead {
   font-size: clamp(16.5px, 1.5vw, 18.5px);
   color: var(--color-text-soft);
   line-height: 2.05;
 }
 
-.nv-vision-grid {
+/* ---------- 3. We Work For (pillars) ---------- */
+.om-pillars {
+  position: relative;
+  padding: 115px 0;
+  background: linear-gradient(180deg, var(--color-light) 0%, #F2F9FE 100%);
+}
+
+.om-pillars-grid {
   position: relative;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 28px;
 }
 
-.nv-vision-card {
+.om-pillar-card {
   position: relative;
   background: var(--color-white);
   border-radius: 20px;
-  padding: 44px 32px 40px;
+  padding: 42px 34px 38px;
   text-align: center;
   box-shadow: var(--shadow-sm);
   border: 1px solid rgba(18,59,120,.06);
@@ -285,22 +307,22 @@
   overflow: hidden;
   transition: transform var(--t-fast), box-shadow var(--t-fast), border-color var(--t-fast);
 }
-.nv-vision-card::after {
+.om-pillar-card::after {
   content: "";
   position: absolute;
   width: 130px; height: 130px;
   border-radius: 50%;
   background: radial-gradient(circle, rgba(25,184,242,.1), transparent 70%);
-  top: -50px; inset-inline-start: -50px;
+  top: -50px; inset-inline-end: -50px;
   pointer-events: none;
 }
-.nv-vision-card:hover {
+.om-pillar-card:hover {
   transform: translateY(-10px);
   box-shadow: var(--shadow-md);
   border-top-color: var(--color-primary-dark);
 }
 
-.nv-vision-icon {
+.om-pillar-icon {
   width: 72px; height: 72px;
   margin: 0 auto 22px;
   border-radius: 20px;
@@ -311,402 +333,288 @@
   color: var(--color-primary-dark);
   transition: background var(--t-fast), color var(--t-fast), transform var(--t-fast), box-shadow var(--t-fast);
 }
-.nv-vision-icon svg { width: 31px; height: 31px; }
-.nv-vision-icon-accent { background: rgba(246,179,0,.18); color: #C98A00; }
-.nv-vision-icon-navy { background: rgba(18,59,120,.1); color: var(--color-navy); }
-.nv-vision-card:hover .nv-vision-icon {
+.om-pillar-icon svg { width: 31px; height: 31px; }
+.om-pillar-icon-accent { background: rgba(246,179,0,.18); color: #C98A00; }
+.om-pillar-icon-navy { background: rgba(18,59,120,.1); color: var(--color-navy); }
+.om-pillar-icon-green { background: rgba(25,211,102,.13); color: #17A44E; }
+.om-pillar-card:hover .om-pillar-icon {
   background: var(--gradient-primary);
   color: #fff;
   transform: translateY(-5px) rotate(-4deg);
   box-shadow: var(--shadow-primary);
 }
 
-.nv-vision-card h3 {
+.om-pillar-card h3 {
   font-size: 21px;
   font-weight: 900;
   color: var(--color-navy);
   margin-bottom: 12px;
 }
-.nv-vision-card p {
+.om-pillar-card p {
   font-size: 15px;
   color: var(--color-text-soft);
   line-height: 1.9;
 }
 
-/* ---------- 3. Strategic Objectives ---------- */
-.nv-objectives {
+/* ---------- 4. How We Achieve Our Mission (approach) ---------- */
+.om-approach {
   position: relative;
   padding: 115px 0;
-  background: linear-gradient(180deg, var(--color-light) 0%, #F2F9FE 100%);
-}
-
-.nv-objectives-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 26px;
-}
-
-.nv-obj-card {
-  position: relative;
   background: var(--color-white);
-  border-radius: 18px;
-  padding: 38px 30px;
-  box-shadow: var(--shadow-sm);
-  border: 1px solid rgba(18,59,120,.06);
-  transition: transform var(--t-fast), box-shadow var(--t-fast);
   overflow: hidden;
 }
-.nv-obj-card::before {
-  content: "";
-  position: absolute;
-  bottom: 0; inset-inline-start: 0; inset-inline-end: 0;
-  height: 4px;
-  background: var(--gradient-primary);
-  transform: scaleX(0);
-  transform-origin: center;
-  transition: transform var(--t-med);
-}
-.nv-obj-card:hover {
-  transform: translateY(-8px);
-  box-shadow: var(--shadow-md);
-}
-.nv-obj-card:hover::before { transform: scaleX(1); }
 
-.nv-obj-icon {
-  width: 62px; height: 62px;
+.om-approach-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: center;
+}
+
+/* -- Approach visual -- */
+.om-approach-visual {
+  position: relative;
+}
+
+.om-approach-frame {
+  position: relative;
+  border-radius: 26px;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  border: 1px solid rgba(18,59,120,.08);
+}
+.om-approach-frame img {
+  width: 100%;
+  height: 480px;
+  object-fit: cover;
+  display: block;
+}
+
+.om-approach-float {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--color-white);
   border-radius: 16px;
+  padding: 13px 18px;
+  box-shadow: 0 18px 40px rgba(18,59,120,.18);
+  border: 1px solid rgba(18,59,120,.06);
+  z-index: 2;
+}
+.om-approach-float-icon {
+  width: 44px; height: 44px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(25,184,242,.14);
+  color: var(--color-primary-dark);
+}
+.om-approach-float-icon svg { width: 21px; height: 21px; }
+.om-approach-float-icon-accent { background: rgba(246,179,0,.2); color: #C98A00; }
+.om-approach-float-icon-navy { background: rgba(18,59,120,.1); color: var(--color-navy); }
+.om-approach-float strong {
+  font-size: 14.5px;
+  font-weight: 800;
+  color: var(--color-navy);
+  white-space: nowrap;
+}
+
+.om-approach-float-1 {
+  top: 22px; inset-inline-start: 20px;
+  animation: float 7s ease-in-out infinite;
+}
+.om-approach-float-2 {
+  bottom: 70px; inset-inline-start: -22px;
+  animation: float 8s ease-in-out infinite;
+  animation-delay: 1s;
+}
+.om-approach-float-3 {
+  bottom: 20px; inset-inline-end: 20px;
+  animation: float 7.5s ease-in-out infinite;
+  animation-delay: .5s;
+}
+
+/* -- Approach checklist -- */
+.om-approach-list {
+  display: grid;
+  gap: 16px;
+}
+
+.om-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  background: var(--color-white);
+  border-radius: 16px;
+  padding: 22px 24px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(18,59,120,.06);
+  border-inline-start: 4px solid var(--color-primary);
+  transition: transform var(--t-fast), box-shadow var(--t-fast), border-color var(--t-fast);
+}
+.om-check:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+  border-inline-start-color: var(--color-primary-dark);
+}
+
+.om-check-icon {
+  width: 40px; height: 40px;
+  flex-shrink: 0;
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: rgba(25,184,242,.13);
   color: var(--color-primary-dark);
-  margin-bottom: 20px;
-  transition: background var(--t-fast), color var(--t-fast), transform var(--t-fast), box-shadow var(--t-fast);
 }
-.nv-obj-icon svg { width: 27px; height: 27px; }
-.nv-obj-icon-accent { background: rgba(246,179,0,.18); color: #C98A00; }
-.nv-obj-icon-green { background: rgba(25,211,102,.13); color: #17A44E; }
-.nv-obj-icon-navy { background: rgba(18,59,120,.1); color: var(--color-navy); }
-.nv-obj-icon-pink { background: rgba(236,72,153,.12); color: #DB2777; }
-.nv-obj-icon-blue { background: rgba(59,130,246,.13); color: #2563EB; }
-.nv-obj-card:hover .nv-obj-icon {
-  background: var(--gradient-primary);
-  color: #fff;
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-primary);
-}
+.om-check-icon svg { width: 20px; height: 20px; }
 
-.nv-obj-card h3 {
-  font-size: 18.5px;
+.om-check-text h3 {
+  font-size: 16.5px;
   font-weight: 800;
   color: var(--color-navy);
-  margin-bottom: 10px;
+  margin-bottom: 6px;
 }
-.nv-obj-card p {
-  font-size: 14.5px;
+.om-check-text p {
+  font-size: 14px;
   color: var(--color-text-soft);
-  line-height: 1.9;
+  line-height: 1.8;
 }
 
-/* ---------- 4. National Priorities (Timeline) ---------- */
-.nv-priorities {
+/* ---------- 5. Quote Section (deep navy) ---------- */
+.om-quote {
   position: relative;
-  padding: 115px 0;
-  background: var(--color-white);
+  padding: 120px 0;
+  background: linear-gradient(160deg, #173E78 0%, #0C2A5E 60%, #08203F 100%);
   overflow: hidden;
 }
 
-.nv-priorities-blobs {
+.om-quote-blobs {
   position: absolute;
   inset: 0;
   overflow: hidden;
   pointer-events: none;
 }
-.nv-priorities-blob {
+.om-quote-blob {
   position: absolute;
   border-radius: 50%;
 }
-.nv-priorities-blob-1 {
-  width: 260px; height: 260px;
-  background: rgba(25,184,242,.06);
-  top: 8%; inset-inline-start: -90px;
-}
-.nv-priorities-blob-2 {
-  width: 220px; height: 220px;
-  background: rgba(246,179,0,.08);
-  bottom: 6%; inset-inline-end: -80px;
-}
-
-.nv-timeline {
-  position: relative;
-  max-width: 780px;
-  margin: 0 auto;
-}
-
-.nv-tl-line {
-  position: absolute;
-  top: 8px;
-  bottom: 8px;
-  inset-inline-start: 44px;
-  width: 3px;
-  border-radius: 999px;
-  background: linear-gradient(180deg, var(--color-primary) 0%, var(--color-navy) 100%);
-  opacity: .85;
-}
-
-.nv-tl-item {
-  position: relative;
-  padding-inline-start: 130px;
-  padding-bottom: 46px;
-}
-.nv-tl-item:last-child { padding-bottom: 0; }
-
-.nv-tl-icon {
-  position: absolute;
-  inset-inline-start: 13px;
-  top: 0;
-  width: 64px; height: 64px;
-  border-radius: 50%;
-  background: var(--color-white);
-  border: 3px solid var(--color-primary);
-  color: var(--color-primary-dark);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 10px 26px rgba(25,184,242,.25);
-  z-index: 2;
-}
-.nv-tl-icon svg { width: 27px; height: 27px; }
-.nv-tl-icon-primary { border-color: var(--color-primary); color: var(--color-primary-dark); }
-.nv-tl-icon-accent { border-color: var(--color-accent); color: #C98A00; box-shadow: 0 10px 26px rgba(246,179,0,.3); }
-.nv-tl-icon-navy { border-color: var(--color-navy); color: var(--color-navy); box-shadow: 0 10px 26px rgba(18,59,120,.22); }
-.nv-tl-icon-green { border-color: #22C55E; color: #16A34A; box-shadow: 0 10px 26px rgba(34,197,94,.25); }
-
-.nv-tl-card {
-  position: relative;
-  background: var(--color-white);
-  border-radius: 18px;
-  padding: 30px 34px 28px;
-  box-shadow: var(--shadow-sm);
-  border: 1px solid rgba(18,59,120,.06);
-  transition: transform var(--t-fast), box-shadow var(--t-fast);
-}
-.nv-tl-card:hover {
-  transform: translateY(-6px);
-  box-shadow: var(--shadow-md);
-}
-
-.nv-tl-num {
-  position: absolute;
-  top: 18px;
-  inset-inline-end: 22px;
-  font-size: 42px;
-  font-weight: 900;
-  line-height: 1;
-  color: var(--color-light);
-  -webkit-text-stroke: 1.5px rgba(18,59,120,.22);
-  transition: color var(--t-fast);
-}
-.nv-tl-card:hover .nv-tl-num {
-  color: rgba(25,184,242,.12);
-}
-
-.nv-tl-card h3 {
-  font-size: 21px;
-  font-weight: 900;
-  color: var(--color-navy);
-  margin-bottom: 10px;
-  padding-inline-end: 60px;
-}
-.nv-tl-card p {
-  font-size: 15px;
-  color: var(--color-text-soft);
-  line-height: 1.95;
-}
-
-/* ---------- 5. Statistics ---------- */
-.nv-stats {
-  position: relative;
-  padding: 110px 0;
-  background: linear-gradient(135deg, #1E74C9 0%, var(--color-navy) 55%, #0C2A5E 100%);
-  overflow: hidden;
-}
-
-.nv-stats-blobs {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-}
-.nv-stats-blob {
-  position: absolute;
-  border-radius: 50%;
-}
-.nv-stats-blob-1 {
+.om-quote-blob-1 {
   width: 320px; height: 320px;
   border: 1.5px solid rgba(255,255,255,.08);
   top: -120px; inset-inline-end: -80px;
 }
-.nv-stats-blob-2 {
+.om-quote-blob-2 {
   width: 240px; height: 240px;
   background: rgba(246,179,0,.08);
   bottom: -100px; inset-inline-start: -60px;
 }
-
-.nv-stats-eyebrow {
-  background: rgba(255,255,255,.12);
-  color: #fff;
+.om-quote-blob-3 {
+  width: 100px; height: 100px;
+  border: 2px solid rgba(255,255,255,.1);
+  top: 30%; inset-inline-end: 10%;
 }
-.nv-stats-eyebrow::before { background: var(--color-accent); }
 
-.nv-stats-title { color: #fff; }
-
-.nv-stats-grid {
+.om-quote-inner {
   position: relative;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 26px;
-}
-
-.nv-stat {
-  background: rgba(255,255,255,.08);
-  border: 1px solid rgba(255,255,255,.14);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border-radius: 18px;
-  padding: 40px 20px 34px;
-  text-align: center;
-  transition: transform var(--t-fast), background var(--t-fast), border-color var(--t-fast);
-}
-.nv-stat:hover {
-  transform: translateY(-8px);
-  background: rgba(255,255,255,.14);
-  border-color: rgba(255,255,255,.3);
-}
-
-.nv-stat-num {
-  display: block;
-  font-size: clamp(40px, 5vw, 58px);
-  font-weight: 900;
-  line-height: 1.1;
-  color: var(--color-accent);
-  margin-bottom: 10px;
-}
-.nv-stat-label {
-  display: block;
-  font-size: 15.5px;
-  font-weight: 700;
-  color: rgba(255,255,255,.85);
-}
-
-/* ---------- 6. Quote Block ---------- */
-.nv-quote {
-  position: relative;
-  padding: 120px 0;
-  background: linear-gradient(180deg, var(--color-light) 0%, #EAF5FC 100%);
-}
-
-.nv-quote-box {
-  position: relative;
-  max-width: 880px;
+  z-index: 2;
+  max-width: 840px;
   margin: 0 auto;
   text-align: center;
-  background: var(--color-white);
-  border-radius: 24px;
-  padding: 64px 56px 54px;
-  box-shadow: var(--shadow-md);
-  border: 1px solid rgba(18,59,120,.06);
-  border-top: 5px solid var(--color-accent);
 }
 
-.nv-quote-mark {
-  width: 52px; height: 52px;
+.om-quote-mark {
+  width: 54px; height: 54px;
   color: var(--color-accent);
-  margin: 0 auto 22px;
+  margin: 0 auto 24px;
   display: block;
-  filter: drop-shadow(0 8px 18px rgba(246,179,0,.35));
+  filter: drop-shadow(0 8px 18px rgba(246,179,0,.4));
 }
 
-.nv-quote-box blockquote {
+.om-quote-inner blockquote {
   font-size: clamp(20px, 2.6vw, 28px);
   font-weight: 800;
-  color: var(--color-navy);
-  line-height: 1.85;
+  color: #fff;
+  line-height: 1.9;
   margin-bottom: 26px;
 }
 
-.nv-quote-box figcaption {
+.om-quote-inner figcaption {
   display: inline-flex;
   align-items: center;
   gap: 12px;
   font-size: 14.5px;
   font-weight: 700;
-  color: var(--color-text-soft);
+  color: rgba(255,255,255,.8);
 }
 
-.nv-quote-rule {
+.om-quote-rule {
   width: 36px; height: 3px;
   border-radius: 999px;
-  background: var(--color-primary);
+  background: var(--color-accent);
   display: inline-block;
 }
 
-/* ---------- 7. Call To Action ---------- */
-.nv-cta {
+/* ---------- 6. Call To Action ---------- */
+.om-cta {
   position: relative;
   padding: 120px 0;
   background: linear-gradient(150deg, #1E74C9 0%, var(--color-navy) 55%, #0C2A5E 100%);
   overflow: hidden;
 }
 
-.nv-cta-blobs {
+.om-cta-blobs {
   position: absolute;
   inset: 0;
   overflow: hidden;
   pointer-events: none;
 }
-.nv-cta-blob {
+.om-cta-blob {
   position: absolute;
   border-radius: 50%;
 }
-.nv-cta-blob-1 {
+.om-cta-blob-1 {
   width: 360px; height: 360px;
   background: rgba(25,184,242,.16);
   top: -140px; inset-inline-end: -90px;
 }
-.nv-cta-blob-2 {
+.om-cta-blob-2 {
   width: 260px; height: 260px;
   background: rgba(246,179,0,.1);
   bottom: -110px; inset-inline-start: -70px;
 }
-.nv-cta-blob-3 {
+.om-cta-blob-3 {
   width: 90px; height: 90px;
   border: 2px solid rgba(255,255,255,.14);
   top: 24%; inset-inline-start: 12%;
 }
 
-.nv-cta-inner {
+.om-cta-inner {
   position: relative;
   z-index: 2;
   text-align: center;
   max-width: 760px;
   margin: 0 auto;
 }
-.nv-cta-inner h2 {
+.om-cta-inner h2 {
   font-size: clamp(28px, 4vw, 46px);
   font-weight: 900;
   color: #fff;
   margin-bottom: 18px;
   line-height: 1.4;
 }
-.nv-cta-inner p {
+.om-cta-inner p {
   font-size: clamp(15.5px, 1.4vw, 17.5px);
   color: rgba(255,255,255,.82);
   line-height: 1.95;
   margin-bottom: 38px;
 }
 
-.nv-cta-actions {
+.om-cta-actions {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -720,7 +628,9 @@
   .nv-art-card { min-width: 178px; padding: 13px 16px; }
   .nv-art-card-compass { top: 40px; }
   .nv-art-card-mountain { top: 190px; }
-  .nv-objectives-grid { grid-template-columns: repeat(2, 1fr); }
+
+  .om-approach-grid { gap: 40px; }
+  .om-approach-float-2 { inset-inline-start: 0; }
 }
 
 @media (max-width: 900px) {
@@ -730,43 +640,42 @@
   .nv-hero-actions { justify-content: center; }
   .nv-hero-art { display: none; }
 
-  .nv-vision-grid { grid-template-columns: 1fr; max-width: 540px; margin-inline: auto; }
-
-  .nv-stats-grid { grid-template-columns: repeat(2, 1fr); }
-
-  .nv-timeline { max-width: 560px; }
-  .nv-tl-item { padding-inline-start: 112px; }
+  .om-approach-grid { grid-template-columns: 1fr; max-width: 640px; margin-inline: auto; }
+  .om-approach-visual { order: -1; }
+  .om-approach-float-2 { inset-inline-start: 18px; }
 }
 
 @media (max-width: 620px) {
   .nv-hero { padding: 110px 0 80px; }
 
-  .nv-vision, .nv-objectives, .nv-priorities, .nv-quote { padding: 85px 0; }
-  .nv-stats, .nv-cta { padding: 85px 0; }
+  .om-mission, .om-pillars, .om-approach { padding: 85px 0; }
+  .om-quote, .om-cta { padding: 85px 0; }
 
-  .nv-objectives-grid { grid-template-columns: 1fr; }
+  .om-pillars-grid { grid-template-columns: 1fr; }
 
-  .nv-tl-line { inset-inline-start: 26px; }
-  .nv-tl-item { padding-inline-start: 76px; padding-bottom: 36px; }
-  .nv-tl-icon { inset-inline-start: 0; width: 54px; height: 54px; }
-  .nv-tl-icon svg { width: 23px; height: 23px; }
-  .nv-tl-card { padding: 24px 22px 22px; }
-  .nv-tl-num { font-size: 34px; }
-  .nv-tl-card h3 { padding-inline-end: 46px; }
+  .om-approach-frame img { height: 340px; }
+  .om-approach-float { padding: 10px 14px; gap: 10px; }
+  .om-approach-float-icon { width: 38px; height: 38px; }
+  .om-approach-float-icon svg { width: 18px; height: 18px; }
+  .om-approach-float strong { font-size: 13px; }
+  .om-approach-float-1 { top: 14px; inset-inline-start: 12px; }
+  .om-approach-float-2 { bottom: 88px; inset-inline-start: 8px; }
+  .om-approach-float-3 { bottom: 12px; inset-inline-end: 12px; }
 
-  .nv-quote-box { padding: 46px 26px 40px; border-radius: 20px; }
-  .nv-quote-mark { width: 42px; height: 42px; }
+  .om-quote-inner blockquote { font-size: 21px; }
+  .om-quote-mark { width: 44px; height: 44px; }
 }
 
 @media (max-width: 420px) {
-  .nv-stats-grid { grid-template-columns: 1fr; gap: 18px; }
-  .nv-vision-card, .nv-obj-card { padding-inline: 24px; }
+  .om-pillar-card { padding-inline: 24px; }
+  .om-check { padding: 18px 16px; gap: 13px; }
+  .om-check-text h3 { font-size: 15.5px; }
+  .om-approach-float-2 { bottom: 96px; }
 }
 
 </style>
 </head>
 <body>
-
 
 
 <!-- ===== Skip Link ===== -->
@@ -1003,7 +912,7 @@
 
 <main id="main">
 
-  <!-- ===== 1. Hero Section ===== -->
+  <!-- ===== 1. Hero Section (same design as الرؤية الوطنية) ===== -->
   <section class="nv-hero" id="home">
 
 
@@ -1011,253 +920,218 @@
       <div class="nv-hero-inner">
         <div class="nv-hero-content">
           <span class="nv-hero-badge hero-fade d1">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="m12 6 3.5 7 7 3.5-7 3.5L12 6z"/></svg>
-            الرؤية الوطنية
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+            رسالتنا
           </span>
-          <h1 class="hero-fade d2">الرؤية الوطنية <span>للجمعية</span></h1>
-          <p class="hero-fade d3">تسعى الجمعية المغربية لهواة البحث والاستكشاف إلى النهوض بمجال الاستكشاف والبحث العلمي، ونشر الثقافة البيئية، والحفاظ على التراث الطبيعي والثقافي، وتعزيز التنمية المستدامة في مختلف جهات المملكة المغربية.</p>
+          <h1 class="hero-fade d2">رسالة <span>الجمعية</span></h1>
+          <p class="hero-fade d3">تتمثل رسالة الجمعية المغربية لهواة البحث والاستكشاف في نشر ثقافة البحث والاستكشاف، وتشجيع الشباب على المشاركة في المبادرات العلمية والبيئية، والمساهمة في حماية التراث الطبيعي والثقافي، وبناء مجتمع واعٍ يعتمد على المعرفة والعمل التطوعي.</p>
           <div class="nv-hero-actions hero-fade d4">
-            <a href="#nvVision" class="btn btn-accent">
-              اكتشف رؤيتنا
+            <a href="#omMission" class="btn btn-accent">
+              اكتشف رسالتنا
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
             </a>
-            <a href="#nvStats" class="btn btn-navy">
-              أثرنا على الميدان
+            <a href="../index.html#services" class="btn btn-navy">
+              أنشطتنا
             </a>
           </div>
         </div>
+
+
       </div>
     </div>
   </section>
 
-  <!-- ===== 2. Vision Statement ===== -->
-  <section class="nv-vision" id="nvVision">
-    <div class="nv-vision-blobs" aria-hidden="true">
-      <div class="nv-vision-blob nv-vision-blob-1"></div>
-      <div class="nv-vision-blob nv-vision-blob-2"></div>
+  <!-- ===== 2. Our Mission ===== -->
+  <section class="om-mission" id="omMission">
+    <div class="om-mission-blobs" aria-hidden="true">
+      <div class="om-mission-blob om-mission-blob-1"></div>
+      <div class="om-mission-blob om-mission-blob-2"></div>
     </div>
 
     <div class="container">
-      <div class="nv-vision-head reveal">
-        <span class="eyebrow">ماذا نطمح إليه</span>
-        <h2 class="nv-vision-title">رؤيتنا</h2>
-        <p class="nv-vision-lead">نطمح إلى أن نكون الجمعية الوطنية الرائدة في توحيد هواة البحث والاستكشاف تحت رؤية مشتركة ترتكز على العلم والمعرفة والوعي البيئي والانتماء الوطني. نؤمن بأن الإنسان المغربي الواعي، حين يُمنح الفرصة والمعرفة، قادر على حماية ثروات بلاده الطبيعية والثقافية وضمان استدامتها للأجيال القادمة، عبر استكشاف مسؤول يزاوج بين شغف المغامرة والالتزام بالأخلاقيات والممارسات المثلى.</p>
-      </div>
-
-      <div class="nv-vision-grid stagger">
-        <article class="nv-vision-card reveal" style="--i:0">
-          <span class="nv-vision-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg>
-          </span>
-          <h3>أجيال واعية</h3>
-          <p>نعمل على تكوين أجيال شابة واعية بأهمية العلم والبحث، قادرة على فهم تراثها الوطني والمساهمة في تطويره وحمايته بمسؤولية.</p>
-        </article>
-
-        <article class="nv-vision-card reveal" style="--i:1">
-          <span class="nv-vision-icon nv-vision-icon-accent">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" x2="21" y1="22" y2="22"/><line x1="6" x2="6" y1="18" y2="11"/><line x1="10" x2="10" y1="18" y2="11"/><line x1="14" x2="14" y1="18" y2="11"/><line x1="18" x2="18" y1="18" y2="11"/><polygon points="12 2 20 7 4 7"/></svg>
-          </span>
-          <h3>تراث مستدام</h3>
-          <p>نحافظ على التراث الطبيعي والثقافي المغربي ونثمّنه، لضمان انتقاله بكامل قيمته إلى الأجيال القادمة.</p>
-        </article>
-
-        <article class="nv-vision-card reveal" style="--i:2">
-          <span class="nv-vision-icon nv-vision-icon-navy">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
-          </span>
-          <h3>استكشاف مسؤول</h3>
-          <p>نلتزم بمدونة أخلاقية صارمة تجعل من كل خرج ميداني فرصة للاستكشاف العلمي الآمن والمحترم للبيئة والمجتمعات المحلية.</p>
-        </article>
+      <div class="om-mission-inner reveal">
+        <span class="om-mission-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+        </span>
+        <span class="eyebrow">غايتنا</span>
+        <h2 class="om-mission-title">رسالتنا</h2>
+        <p class="om-mission-lead">تتمثل رسالتنا في نشر ثقافة البحث والاستكشاف وتشجيع الشباب على المشاركة في المبادرات العلمية والبيئية، والمساهمة في حماية التراث الطبيعي والثقافي المغربي، وبناء مجتمع واعٍ يعتمد على المعرفة والعمل التطوعي. نعمل على تجسيد هذه الرسالة عبر برامج ميدانية وأنشطة توثيقية وتكوينية ترافق الهواة من مختلف الفئات والأعمار، وتكرّس القيم العلمية والأخلاقية في كل خطوة نقوم بها.</p>
       </div>
     </div>
   </section>
 
-  <!-- ===== 3. Strategic Objectives ===== -->
-  <section class="nv-objectives" id="nvObjectives">
+  <!-- ===== 3. We Work For ===== -->
+  <section class="om-pillars" id="omPillars">
     <div class="container">
       <div class="section-head reveal">
-        <span class="eyebrow">أولويات العمل</span>
-        <h2 class="section-title">الأهداف الاستراتيجية</h2>
-        <p class="section-desc">حددت الجمعية ستة أهداف استراتيجية كبرى توجّه جميع برامجها وأنشطتها على المستوى الوطني.</p>
+        <span class="eyebrow">محاور عملنا</span>
+        <h2 class="section-title">نعمل من أجل</h2>
+        <p class="section-desc">أربعة محاور أساسية تترجم رسالتنا إلى مبادرات وبرامج ملموسة على أرض الواقع.</p>
       </div>
 
-      <div class="nv-objectives-grid stagger">
-        <article class="nv-obj-card reveal" style="--i:0">
-          <span class="nv-obj-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2v6a2 2 0 0 0 .245.96l5.51 10.08A2 2 0 0 1 18 22H6a2 2 0 0 1-1.755-2.96l5.51-10.08A2 2 0 0 0 10 8V2"/><path d="M6.453 15h11.094"/><path d="M8.5 2h7"/></svg>
+      <div class="om-pillars-grid stagger">
+        <article class="om-pillar-card reveal" style="--i:0">
+          <span class="om-pillar-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
           </span>
-          <h3>تعزيز البحث العلمي</h3>
-          <p>دعم الدراسات الميدانية والتوثيق العلمي للاكتشافات الجيولوجية والأثرية والطبيعية في مختلف جهات المملكة.</p>
+          <h3>نشر المعرفة</h3>
+          <p>نوظف العلم والمعرفة لتثقيف المجتمع حول ثراء التراث الطبيعي والثقافي المغربي وأهمية الحفاظ عليه.</p>
         </article>
 
-        <article class="nv-obj-card reveal" style="--i:1">
-          <span class="nv-obj-icon nv-obj-icon-accent">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
-          </span>
-          <h3>حماية التراث الطبيعي</h3>
-          <p>المساهمة في الحفاظ على المواقع الطبيعية والمحميات، والتصدي لأي استغلال يهدد التوازن البيئي الوطني.</p>
-        </article>
-
-        <article class="nv-obj-card reveal" style="--i:2">
-          <span class="nv-obj-icon nv-obj-icon-green">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 20h10"/><path d="M10 20c5.5-2.5.8-6.4 3-10"/><path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"/></svg>
-          </span>
-          <h3>نشر الثقافة البيئية</h3>
-          <p>تنظيم حملات تحسيسية وبرامج تربوية لتعزيز الوعي البيئي وترسيخ سلوكات مستدامة لدى المواطنين.</p>
-        </article>
-
-        <article class="nv-obj-card reveal" style="--i:3">
-          <span class="nv-obj-icon nv-obj-icon-navy">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-          </span>
-          <h3>دعم الشباب</h3>
-          <p>مواكبة الشباب المهتم بالاستكشاف والعلوم عبر تكوينات وورشات وإشراكهم في مشاريع ميدانية هادفة.</p>
-        </article>
-
-        <article class="nv-obj-card reveal" style="--i:4">
-          <span class="nv-obj-icon nv-obj-icon-pink">
+        <article class="om-pillar-card reveal" style="--i:1">
+          <span class="om-pillar-icon om-pillar-icon-accent">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/><path d="M12 5 9.04 7.96a2.17 2.17 0 0 0 0 3.08c.82.82 2.13.85 3 .07l2.07-1.9a2.82 2.82 0 0 1 3.79 0l2.96 2.66"/><path d="m18 15-2-2"/><path d="m15 18-2-2"/></svg>
           </span>
-          <h3>تعزيز العمل التطوعي</h3>
-          <p>تحفيز المتطوعين وتأطيرهم ليكونوا فاعلين أساسيين في إنجاح البرامج الوطنية للجمعية.</p>
+          <h3>العمل التطوعي</h3>
+          <p>نؤطر المتطوعين ونحفزهم على الانخراط في مبادرات ميدانية تساهم في خدمة المجتمع وحماية البيئة.</p>
         </article>
 
-        <article class="nv-obj-card reveal" style="--i:5">
-          <span class="nv-obj-icon nv-obj-icon-blue">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m11 17 2 2a1 1 0 1 0 3-3"/><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4"/><path d="m21 3 1 11h-2"/><path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3"/><path d="M3 4h8"/></svg>
+        <article class="om-pillar-card reveal" style="--i:2">
+          <span class="om-pillar-icon om-pillar-icon-navy">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" x2="21" y1="22" y2="22"/><line x1="6" x2="6" y1="18" y2="11"/><line x1="10" x2="10" y1="18" y2="11"/><line x1="14" x2="14" y1="18" y2="11"/><line x1="18" x2="18" y1="18" y2="11"/><polygon points="12 2 20 7 4 7"/></svg>
           </span>
-          <h3>بناء شراكات وطنية</h3>
-          <p>تطوير شراكات مع الجامعات والمؤسسات والجمعيات لتبادل الخبرات وتوسيع نطاق الأثر على المستوى الوطني.</p>
+          <h3>حماية التراث</h3>
+          <p>نساهم في الحفاظ على المواقع التاريخية والطبيعية وتوثيقها، لتبقى شاهدًا حيًا على هويتنا الوطنية.</p>
+        </article>
+
+        <article class="om-pillar-card reveal" style="--i:3">
+          <span class="om-pillar-icon om-pillar-icon-green">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 20h10"/><path d="M10 20c5.5-2.5.8-6.4 3-10"/><path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"/></svg>
+          </span>
+          <h3>تنمية المجتمع</h3>
+          <p>نعمل على تحقيق التنمية المحلية المستدامة عبر إشراك السكان في مشاريع ذات أثر اجتماعي وبيئي حقيقي.</p>
         </article>
       </div>
     </div>
   </section>
 
-  <!-- ===== 4. National Priorities (Timeline) ===== -->
-  <section class="nv-priorities" id="nvPriorities">
-    <div class="nv-priorities-blobs" aria-hidden="true">
-      <div class="nv-priorities-blob nv-priorities-blob-1"></div>
-      <div class="nv-priorities-blob nv-priorities-blob-2"></div>
-    </div>
-
+  <!-- ===== 4. How We Achieve Our Mission ===== -->
+  <section class="om-approach" id="omApproach">
     <div class="container">
       <div class="section-head reveal">
-        <span class="eyebrow">خريطة الطريق</span>
-        <h2 class="section-title">أولوياتنا الوطنية</h2>
-        <p class="section-desc">خطة عمل وطنية واضحة تقوم على أربع أولويات كبرى تعكس التزام الجمعية بأداء رسالتها.</p>
+        <span class="eyebrow">منهجية العمل</span>
+        <h2 class="section-title">كيف نحقق رسالتنا؟</h2>
+        <p class="section-desc">نعتمد على مقاربة عملية واضحة تجمع بين العلم الميداني والتكوين والشراكة المجتمعية.</p>
       </div>
 
-      <div class="nv-timeline">
-        <span class="nv-tl-line" aria-hidden="true"></span>
+      <div class="om-approach-grid">
+        <!-- Right side: illustration (first in RTL) -->
+        <div class="om-approach-visual reveal">
+          <div class="om-approach-frame">
+            <img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?q=80&w=1000&auto=format&fit=crop" alt="طبيعة وجبال الأطلس" loading="lazy" width="560" height="480">
 
-        <article class="nv-tl-item reveal">
-          <span class="nv-tl-icon nv-tl-icon-primary">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
-          </span>
-          <div class="nv-tl-card">
-            <span class="nv-tl-num">01</span>
-            <h3>الاستكشاف</h3>
-            <p>تنظيم خرجات وبعثات ميدانية آمنة ومسؤولة تتيح للهواة اكتشاف الثروات الطبيعية والمواقع التاريخية، مع الالتزام بميثاق الاستكشاف المسؤول.</p>
-          </div>
-        </article>
+            <div class="om-approach-float om-approach-float-1">
+              <span class="om-approach-float-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+              </span>
+              <strong>تكوين الشباب</strong>
+            </div>
 
-        <article class="nv-tl-item reveal">
-          <span class="nv-tl-icon nv-tl-icon-accent">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
-          </span>
-          <div class="nv-tl-card">
-            <span class="nv-tl-num">02</span>
-            <h3>التكوين</h3>
-            <p>تأهيل الأعضاء عبر برامج تكوينية متدرجة في مجالات الإسعافات الأولية وتقنيات البحث الميداني والسلامة والتوثيق العلمي.</p>
-          </div>
-        </article>
+            <div class="om-approach-float om-approach-float-2">
+              <span class="om-approach-float-icon om-approach-float-icon-accent">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+              </span>
+              <strong>حماية البيئة</strong>
+            </div>
 
-        <article class="nv-tl-item reveal">
-          <span class="nv-tl-icon nv-tl-icon-navy">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2v6a2 2 0 0 0 .245.96l5.51 10.08A2 2 0 0 1 18 22H6a2 2 0 0 1-1.755-2.96l5.51-10.08A2 2 0 0 0 10 8V2"/><path d="M6.453 15h11.094"/><path d="M8.5 2h7"/></svg>
-          </span>
-          <div class="nv-tl-card">
-            <span class="nv-tl-num">03</span>
-            <h3>البحث العلمي</h3>
-            <p>إنجاز دراسات ومسوحات ميدانية بالتعاون مع الخبراء والجامعات، ونشر النتائج في مجلة AMARE والمجلات العلمية المتخصصة.</p>
+            <div class="om-approach-float om-approach-float-3">
+              <span class="om-approach-float-icon om-approach-float-icon-navy">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              </span>
+              <strong>عمل تطوعي</strong>
+            </div>
           </div>
-        </article>
+        </div>
 
-        <article class="nv-tl-item reveal">
-          <span class="nv-tl-icon nv-tl-icon-green">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m11 17 2 2a1 1 0 1 0 3-3"/><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4"/><path d="m21 3 1 11h-2"/><path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3"/><path d="M3 4h8"/></svg>
-          </span>
-          <div class="nv-tl-card">
-            <span class="nv-tl-num">04</span>
-            <h3>الشراكات</h3>
-            <p>نسج شبكة واسعة من الشراكات مع المؤسسات الوطنية والدولية لتعزيز الموارد وتبادل المعرفة وتوسيع الأثر على الصعيدين الجهوي والوطني.</p>
-          </div>
-        </article>
+        <!-- Left side: checklist -->
+        <div class="om-approach-list">
+          <article class="om-check reveal" style="--i:0">
+            <span class="om-check-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>
+            </span>
+            <div class="om-check-text">
+              <h3>تنظيم الأنشطة العلمية</h3>
+              <p>ورشات ومحاضرات وملتقيات علمية تفتح المجال للهواة والباحثين لتبادل المعرفة.</p>
+            </div>
+          </article>
+
+          <article class="om-check reveal" style="--i:1">
+            <span class="om-check-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>
+            </span>
+            <div class="om-check-text">
+              <h3>تكوين الشباب</h3>
+              <p>برامج تكوينية متدرجة في تقنيات البحث الميداني والسلامة والإسعافات الأولية.</p>
+            </div>
+          </article>
+
+          <article class="om-check reveal" style="--i:2">
+            <span class="om-check-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>
+            </span>
+            <div class="om-check-text">
+              <h3>حملات التوعية</h3>
+              <p>حملات تحسيسية حول الثقافة البيئية وأهمية الحفاظ على التراث الطبيعي والثقافي.</p>
+            </div>
+          </article>
+
+          <article class="om-check reveal" style="--i:3">
+            <span class="om-check-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>
+            </span>
+            <div class="om-check-text">
+              <h3>البحث الميداني</h3>
+              <p>مسوحات ودراسات ميدانية موثقة بالتعاون مع الخبراء والجامعات والمؤسسات المتخصصة.</p>
+            </div>
+          </article>
+
+          <article class="om-check reveal" style="--i:4">
+            <span class="om-check-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>
+            </span>
+            <div class="om-check-text">
+              <h3>بناء الشراكات</h3>
+              <p>شبكة من الشراكات مع المؤسسات والجمعيات لتعزيز الموارد وتبادل الخبرات.</p>
+            </div>
+          </article>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ===== 5. Statistics ===== -->
-  <section class="nv-stats" id="nvStats">
-    <div class="nv-stats-blobs" aria-hidden="true">
-      <div class="nv-stats-blob nv-stats-blob-1"></div>
-      <div class="nv-stats-blob nv-stats-blob-2"></div>
+  <!-- ===== 5. Quote Section ===== -->
+  <section class="om-quote" id="omQuote">
+    <div class="om-quote-blobs" aria-hidden="true">
+      <div class="om-quote-blob om-quote-blob-1"></div>
+      <div class="om-quote-blob om-quote-blob-2"></div>
+      <div class="om-quote-blob om-quote-blob-3"></div>
     </div>
 
-    <div class="container">
-      <div class="section-head reveal">
-        <span class="eyebrow nv-stats-eyebrow">أثرنا في الأرقام</span>
-        <h2 class="section-title nv-stats-title">مسيرة وطنية بأرقام معبرة</h2>
-      </div>
-
-      <div class="nv-stats-grid">
-        <div class="nv-stat reveal" style="--i:0">
-          <span class="nv-stat-num" data-count="20" data-suffix="+">0</span>
-          <span class="nv-stat-label">شراكة</span>
-        </div>
-        <div class="nv-stat reveal" style="--i:1">
-          <span class="nv-stat-num" data-count="100" data-suffix="+">0</span>
-          <span class="nv-stat-label">نشاط</span>
-        </div>
-        <div class="nv-stat reveal" style="--i:2">
-          <span class="nv-stat-num" data-count="1000" data-suffix="+">0</span>
-          <span class="nv-stat-label">مستفيد</span>
-        </div>
-        <div class="nv-stat reveal" style="--i:3">
-          <span class="nv-stat-num" data-count="12" data-suffix="+">0</span>
-          <span class="nv-stat-label">جهة مستهدفة</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== 6. Quote Block ===== -->
-  <section class="nv-quote" id="nvQuote">
     <div class="container reveal">
-      <figure class="nv-quote-box">
-        <svg class="nv-quote-mark" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
-        <blockquote>«رؤيتنا هي بناء مجتمع يقدّر المعرفة والاستكشاف ويحافظ على التراث الطبيعي والثقافي للأجيال القادمة.»</blockquote>
+      <figure class="om-quote-inner">
+        <svg class="om-quote-mark" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+        <blockquote>«رسالتنا هي تحويل حب الاستكشاف إلى عمل يخدم الإنسان والوطن ويحافظ على تراثه للأجيال القادمة.»</blockquote>
         <figcaption>
-          <span class="nv-quote-rule" aria-hidden="true"></span>
+          <span class="om-quote-rule" aria-hidden="true"></span>
           الجمعية المغربية لهواة البحث والاستكشاف
         </figcaption>
       </figure>
     </div>
   </section>
 
-  <!-- ===== 7. Call To Action ===== -->
-  <section class="nv-cta" id="nvCta">
-    <div class="nv-cta-blobs" aria-hidden="true">
-      <div class="nv-cta-blob nv-cta-blob-1"></div>
-      <div class="nv-cta-blob nv-cta-blob-2"></div>
-      <div class="nv-cta-blob nv-cta-blob-3"></div>
+  <!-- ===== 6. Call To Action ===== -->
+  <section class="om-cta" id="omCta">
+    <div class="om-cta-blobs" aria-hidden="true">
+      <div class="om-cta-blob om-cta-blob-1"></div>
+      <div class="om-cta-blob om-cta-blob-2"></div>
+      <div class="om-cta-blob om-cta-blob-3"></div>
     </div>
 
     <div class="container reveal">
-      <div class="nv-cta-inner">
-        <h2>كن جزءاً من رؤيتنا الوطنية</h2>
-        <p>انضم إلى آلاف الهواة والباحثين والمتطوعين الذين يشاركوننا الشغف بالاستكشاف والالتزام بحماية تراث المغرب، وساهم معنا في بناء غدٍ أكثر استدامة.</p>
-        <div class="nv-cta-actions">
+      <div class="om-cta-inner">
+        <h2>ساهم معنا في تحقيق رسالتنا</h2>
+        <p>انضم إلى شبكة الهواة والباحثين والمتطوعين، وساهم بوقتك أو معرفتك أو مبادرتك في نشر ثقافة الاستكشاف وحماية تراث بلادنا.</p>
+        <div class="om-cta-actions">
           <a href="../Join us/join-us-online.html" class="btn btn-accent">
             انخرط معنا
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
@@ -1378,47 +1252,5 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="../js/supabase.js"></script>
 <script src="../script.js"></script>
-<script src="national-vision.js"></script>
-<script>
-  /* ==========================================================================
-   National Vision Page — animated statistics counters
-   ========================================================================== */
-
-(function () {
-  'use strict';
-
-  var counters = Array.prototype.slice.call(document.querySelectorAll('.nv-stat-num'));
-  if (!counters.length) return;
-
-  function animateCounter(el) {
-    var target = parseInt(el.getAttribute('data-count'), 10) || 0;
-    var suffix = el.getAttribute('data-suffix') || '';
-    var duration = 1600;
-    var start = null;
-
-    function tick(ts) {
-      if (start === null) start = ts;
-      var progress = Math.min((ts - start) / duration, 1);
-      var eased = 1 - Math.pow(1 - progress, 3);
-      el.textContent = Math.round(eased * target) + suffix;
-      if (progress < 1) requestAnimationFrame(tick);
-    }
-
-    requestAnimationFrame(tick);
-  }
-
-  var observer = new IntersectionObserver(function (entries, obs) {
-    entries.forEach(function (entry) {
-      if (entry.isIntersecting) {
-        animateCounter(entry.target);
-        obs.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.4 });
-
-  counters.forEach(function (counter) { observer.observe(counter); });
-})();
-
-</script>
 </body>
 </html>

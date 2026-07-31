@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>الرؤية الوطنية | الجمعية المغربية لهواة البحث والاستكشاف</title>
-<meta name="description" content="الرؤية الوطنية للجمعية المغربية لهواة البحث والاستكشاف — تعزيز الاستكشاف والبحث العلمي والتوعية البيئية وحماية التراث والتنمية المستدامة في جميع جهات المملكة.">
-<meta name="keywords" content="جمعية, الرؤية الوطنية, استكشاف, بحث علمي, تراث, بيئة, المغرب, تنمية مستدامة">
+<title>المكتب المركزي | الجمعية المغربية لهواة البحث والاستكشاف</title>
+<meta name="description" content="المكتب المركزي للجمعية المغربية لهواة البحث والاستكشاف — الهيئة التنفيذية العليا التي تشرف على إدارة الجمعية، وتنسيق الأنشطة الوطنية، وتعزيز الشراكات في مختلف جهات المملكة.">
+<meta name="keywords" content="جمعية, المكتب المركزي, رئيس الجمعية, أمين المال, استكشاف, تنظيم, المغرب">
 <meta name="author" content="الجمعية المغربية لهواة البحث والاستكشاف">
 <link rel="shortcut icon" href="../Amare%20files%20/logo.png" type="image/x-icon">
 
 <!-- Open Graph -->
-<meta property="og:title" content="الرؤية الوطنية | الجمعية المغربية لهواة البحث والاستكشاف">
-<meta property="og:description" content="نحو مجتمع يقدّر المعرفة والاستكشاف ويحافظ على التراث الطبيعي والثقافي للأجيال القادمة.">
+<meta property="og:title" content="المكتب المركزي | الجمعية المغربية لهواة البحث والاستكشاف">
+<meta property="og:description" content="القيادة الناجحة هي التي تحول الرؤية إلى إنجاز يخدم المجتمع والوطن.">
 <meta property="og:type" content="website">
 
 <!-- Fonts -->
@@ -20,58 +20,22 @@
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="../style.css">
-<link rel="stylesheet" href="national-vision.css">
+<link rel="stylesheet" href="central-office.css">
 <style>
   /* ==========================================================================
-   National Vision Page — Premium styles (uses design tokens from ../style.css)
+   Central Office Page — Premium styles (uses design tokens from ../style.css)
    ========================================================================== */
 
 /* Keep the current-page nav item highlighted */
 .nav-links a[aria-current="page"] { color: #123B78; }
 .nav-links a[aria-current="page"]::after { transform: scaleX(1); }
 
-/* ---------- 1. Hero ---------- */
+/* ---------- 1. Hero (identical to الرؤية الوطنية hero) ---------- */
 .nv-hero {
   position: relative;
   padding: 150px 0 150px;
   overflow: hidden;
   background: linear-gradient(180deg, #E8F6FF 0%, #F4FBFE 52%, #E6F4FD 100%);
-}
-
-.nv-hero-bg {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-}
-
-.nv-hero-shape {
-  position: absolute;
-  border-radius: 50%;
-  animation: float 8s ease-in-out infinite;
-}
-.nv-hero-shape-1 {
-  width: 130px; height: 130px;
-  background: rgba(25,184,242,.16);
-  top: 14%; inset-inline-start: 6%;
-}
-.nv-hero-shape-2 {
-  width: 62px; height: 62px;
-  background: rgba(246,179,0,.24);
-  bottom: 12%; inset-inline-start: 15%;
-  animation-delay: 1.2s;
-}
-.nv-hero-shape-3 {
-  width: 190px; height: 190px;
-  background: rgba(18,59,120,.07);
-  top: 8%; inset-inline-end: 3%;
-  animation-delay: .6s;
-}
-.nv-hero-shape-4 {
-  width: 42px; height: 42px;
-  background: rgba(25,184,242,.32);
-  bottom: 16%; inset-inline-end: 18%;
-  animation-delay: 1.8s;
 }
 
 .nv-hero-inner {
@@ -127,226 +91,198 @@
   gap: 16px;
 }
 
-/* -- Hero illustration -- */
-.nv-hero-art {
-  position: relative;
-  height: 470px;
-}
-
-.nv-art-orb {
-  position: absolute;
-  border-radius: 50%;
-}
-.nv-art-orb-1 {
-  width: 330px; height: 330px;
-  inset: 0;
-  margin: auto;
-  background: radial-gradient(circle at 32% 30%, rgba(25,184,242,.3), rgba(25,184,242,.05) 72%);
-  border: 1px dashed rgba(18,59,120,.18);
-  animation: float 9s ease-in-out infinite;
-}
-.nv-art-orb-2 {
-  width: 210px; height: 210px;
-  top: 6%; inset-inline-end: 4%;
-  background: radial-gradient(circle at 30% 30%, rgba(246,179,0,.26), rgba(246,179,0,.04) 72%);
-  animation: float 10s ease-in-out infinite reverse;
-}
-
-.nv-art-card {
-  position: absolute;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  background: var(--color-white);
-  border-radius: 18px;
-  padding: 16px 20px;
-  box-shadow: 0 22px 50px rgba(18,59,120,.14);
-  border: 1px solid rgba(18,59,120,.06);
-  min-width: 200px;
-}
-.nv-art-icon {
-  width: 48px; height: 48px;
-  flex-shrink: 0;
-  border-radius: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.nv-art-icon svg { width: 23px; height: 23px; }
-.nv-art-icon-primary { background: rgba(25,184,242,.14); color: var(--color-primary-dark); }
-.nv-art-icon-accent { background: rgba(246,179,0,.2); color: #C98A00; }
-.nv-art-icon-navy { background: rgba(18,59,120,.1); color: var(--color-navy); }
-
-.nv-art-copy strong {
-  display: block;
-  font-size: 15px;
-  font-weight: 800;
-  color: var(--color-navy);
-  line-height: 1.3;
-}
-.nv-art-copy span {
-  display: block;
-  font-size: 12.5px;
-  font-weight: 600;
-  color: var(--color-text-soft);
-  margin-top: 2px;
-}
-
-.nv-art-card-compass {
-  top: 54px; inset-inline-start: 4%;
-  animation: float 7s ease-in-out infinite;
-  z-index: 2;
-}
-.nv-art-card-mountain {
-  top: 220px; inset-inline-end: 0;
-  animation: float 8s ease-in-out infinite;
-  animation-delay: 1s;
-  z-index: 2;
-}
-.nv-art-card-research {
-  bottom: 22px; inset-inline-start: 10%;
-  animation: float 7.5s ease-in-out infinite;
-  animation-delay: .5s;
-  z-index: 2;
-}
-
-.nv-art-dot {
-  position: absolute;
-  border-radius: 50%;
-  animation: float 6s ease-in-out infinite;
-}
-.nv-art-dot-1 { width: 14px; height: 14px; background: var(--color-primary); top: 20%; inset-inline-start: 12%; opacity: .8; }
-.nv-art-dot-2 { width: 9px; height: 9px; background: var(--color-accent); bottom: 38%; inset-inline-end: 14%; animation-delay: 1.4s; }
-.nv-art-dot-3 { width: 11px; height: 11px; background: var(--color-navy); bottom: 10%; inset-inline-end: 32%; opacity: .45; animation-delay: .8s; }
-
-/* ---------- 2. Vision Statement ---------- */
-.nv-vision {
+/* ---------- 2. About the Central Office ---------- */
+.co-about {
   position: relative;
   padding: 115px 0;
   background: var(--color-white);
   overflow: hidden;
 }
 
-.nv-vision-blobs {
+.co-about-blobs {
   position: absolute;
   inset: 0;
   overflow: hidden;
   pointer-events: none;
 }
-.nv-vision-blob {
+.co-about-blob {
   position: absolute;
   border-radius: 50%;
-  filter: blur(2px);
 }
-.nv-vision-blob-1 {
-  width: 300px; height: 300px;
+.co-about-blob-1 {
+  width: 320px; height: 320px;
   background: rgba(25,184,242,.07);
   top: -120px; inset-inline-end: -80px;
 }
-.nv-vision-blob-2 {
+.co-about-blob-2 {
   width: 240px; height: 240px;
   background: rgba(246,179,0,.09);
   bottom: -100px; inset-inline-start: -60px;
 }
 
-.nv-vision-head {
+.co-about-inner {
+  position: relative;
+  max-width: 860px;
+  margin: 0 auto;
   text-align: center;
-  max-width: 820px;
-  margin: 0 auto 64px;
 }
-.nv-vision-title {
+
+.co-about-icon {
+  width: 84px; height: 84px;
+  margin: 0 auto 26px;
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(25,184,242,.12);
+  color: var(--color-primary-dark);
+  box-shadow: 0 14px 34px rgba(25,184,242,.22);
+}
+.co-about-icon svg { width: 38px; height: 38px; }
+
+.co-about-title {
   font-size: clamp(30px, 4vw, 44px);
   font-weight: 900;
   color: var(--color-navy);
-  margin-bottom: 20px;
+  margin-bottom: 22px;
 }
-.nv-vision-lead {
+
+.co-about-lead {
   font-size: clamp(16.5px, 1.5vw, 18.5px);
   color: var(--color-text-soft);
   line-height: 2.05;
 }
 
-.nv-vision-grid {
-  position: relative;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 28px;
-}
-
-.nv-vision-card {
-  position: relative;
-  background: var(--color-white);
-  border-radius: 20px;
-  padding: 44px 32px 40px;
-  text-align: center;
-  box-shadow: var(--shadow-sm);
-  border: 1px solid rgba(18,59,120,.06);
-  border-top: 4px solid var(--color-primary);
-  overflow: hidden;
-  transition: transform var(--t-fast), box-shadow var(--t-fast), border-color var(--t-fast);
-}
-.nv-vision-card::after {
-  content: "";
-  position: absolute;
-  width: 130px; height: 130px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(25,184,242,.1), transparent 70%);
-  top: -50px; inset-inline-start: -50px;
-  pointer-events: none;
-}
-.nv-vision-card:hover {
-  transform: translateY(-10px);
-  box-shadow: var(--shadow-md);
-  border-top-color: var(--color-primary-dark);
-}
-
-.nv-vision-icon {
-  width: 72px; height: 72px;
-  margin: 0 auto 22px;
-  border-radius: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(25,184,242,.13);
-  color: var(--color-primary-dark);
-  transition: background var(--t-fast), color var(--t-fast), transform var(--t-fast), box-shadow var(--t-fast);
-}
-.nv-vision-icon svg { width: 31px; height: 31px; }
-.nv-vision-icon-accent { background: rgba(246,179,0,.18); color: #C98A00; }
-.nv-vision-icon-navy { background: rgba(18,59,120,.1); color: var(--color-navy); }
-.nv-vision-card:hover .nv-vision-icon {
-  background: var(--gradient-primary);
-  color: #fff;
-  transform: translateY(-5px) rotate(-4deg);
-  box-shadow: var(--shadow-primary);
-}
-
-.nv-vision-card h3 {
-  font-size: 21px;
-  font-weight: 900;
-  color: var(--color-navy);
-  margin-bottom: 12px;
-}
-.nv-vision-card p {
-  font-size: 15px;
-  color: var(--color-text-soft);
-  line-height: 1.9;
-}
-
-/* ---------- 3. Strategic Objectives ---------- */
-.nv-objectives {
+/* ---------- 3. Members (cards built by central-office.js) ---------- */
+.co-team {
   position: relative;
   padding: 115px 0;
   background: linear-gradient(180deg, var(--color-light) 0%, #F2F9FE 100%);
 }
 
-.nv-objectives-grid {
+.co-team-grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 36px 26px;
+  padding-top: 36px;
+}
+
+.co-member-card {
+  position: relative;
+  background: var(--color-white);
+  border-radius: 20px;
+  padding: 0 22px 24px;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(18,59,120,.06);
+  transition: transform var(--t-fast), box-shadow var(--t-fast);
+  opacity: 0;
+  animation: fadeUp .8s var(--ease) forwards;
+  animation-delay: calc(var(--i, 0) * 90ms);
+}
+.co-member-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-md);
+}
+
+.co-member-photo {
+  width: 112px; height: 112px;
+  margin: -32px auto 0;
+  border-radius: 50%;
+  border: 4px solid var(--color-white);
+  box-shadow: 0 10px 26px rgba(18,59,120,.18);
+  overflow: hidden;
+  background: var(--color-light);
+}
+.co-member-photo img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.co-member-body {
+  padding: 16px 4px 0;
+}
+.co-member-body h3 {
+  font-size: 17px;
+  font-weight: 900;
+  color: var(--color-navy);
+  margin-bottom: 6px;
+}
+.co-member-role {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--color-primary-dark);
+  background: rgba(25,184,242,.1);
+  padding: 5px 14px;
+  border-radius: var(--radius-pill);
+  margin-bottom: 12px;
+}
+.co-member-body p {
+  font-size: 13.5px;
+  color: var(--color-text-soft);
+  line-height: 1.85;
+}
+
+.co-member-social {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 14px;
+}
+.co-member-social a {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-light);
+  color: var(--color-navy);
+  transition: background var(--t-fast), color var(--t-fast), transform var(--t-fast);
+}
+.co-member-social a svg { width: 15px; height: 15px; }
+.co-member-social a:hover {
+  background: var(--color-primary);
+  color: #fff;
+  transform: translateY(-3px);
+}
+
+.co-member-btn {
+  display: block;
+  margin-top: 16px;
+  padding: 11px 18px;
+  border-radius: var(--radius-pill);
+  background: rgba(25,184,242,.1);
+  color: var(--color-primary-dark);
+  font-weight: 800;
+  font-size: 13.5px;
+  border: 1px solid rgba(25,184,242,.25);
+  transition: background var(--t-fast), color var(--t-fast), box-shadow var(--t-fast), transform var(--t-fast);
+}
+.co-member-btn:hover {
+  background: var(--gradient-primary);
+  color: #fff;
+  box-shadow: var(--shadow-primary);
+  transform: translateY(-2px);
+}
+
+/* ---------- 4. Tasks of the Central Office ---------- */
+.co-tasks {
+  position: relative;
+  padding: 115px 0;
+  background: var(--color-white);
+  overflow: hidden;
+}
+
+.co-tasks-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 26px;
 }
 
-.nv-obj-card {
+.co-task-card {
   position: relative;
   background: var(--color-white);
   border-radius: 18px;
@@ -356,7 +292,7 @@
   transition: transform var(--t-fast), box-shadow var(--t-fast);
   overflow: hidden;
 }
-.nv-obj-card::before {
+.co-task-card::before {
   content: "";
   position: absolute;
   bottom: 0; inset-inline-start: 0; inset-inline-end: 0;
@@ -366,13 +302,13 @@
   transform-origin: center;
   transition: transform var(--t-med);
 }
-.nv-obj-card:hover {
+.co-task-card:hover {
   transform: translateY(-8px);
   box-shadow: var(--shadow-md);
 }
-.nv-obj-card:hover::before { transform: scaleX(1); }
+.co-task-card:hover::before { transform: scaleX(1); }
 
-.nv-obj-icon {
+.co-task-icon {
   width: 62px; height: 62px;
   border-radius: 16px;
   display: flex;
@@ -383,89 +319,77 @@
   margin-bottom: 20px;
   transition: background var(--t-fast), color var(--t-fast), transform var(--t-fast), box-shadow var(--t-fast);
 }
-.nv-obj-icon svg { width: 27px; height: 27px; }
-.nv-obj-icon-accent { background: rgba(246,179,0,.18); color: #C98A00; }
-.nv-obj-icon-green { background: rgba(25,211,102,.13); color: #17A44E; }
-.nv-obj-icon-navy { background: rgba(18,59,120,.1); color: var(--color-navy); }
-.nv-obj-icon-pink { background: rgba(236,72,153,.12); color: #DB2777; }
-.nv-obj-icon-blue { background: rgba(59,130,246,.13); color: #2563EB; }
-.nv-obj-card:hover .nv-obj-icon {
+.co-task-icon svg { width: 27px; height: 27px; }
+.co-task-icon-accent { background: rgba(246,179,0,.18); color: #C98A00; }
+.co-task-icon-navy { background: rgba(18,59,120,.1); color: var(--color-navy); }
+.co-task-icon-green { background: rgba(25,211,102,.13); color: #17A44E; }
+.co-task-icon-pink { background: rgba(236,72,153,.12); color: #DB2777; }
+.co-task-icon-blue { background: rgba(59,130,246,.13); color: #2563EB; }
+.co-task-card:hover .co-task-icon {
   background: var(--gradient-primary);
   color: #fff;
   transform: translateY(-4px);
   box-shadow: var(--shadow-primary);
 }
 
-.nv-obj-card h3 {
+.co-task-card h3 {
   font-size: 18.5px;
   font-weight: 800;
   color: var(--color-navy);
   margin-bottom: 10px;
 }
-.nv-obj-card p {
+.co-task-card p {
   font-size: 14.5px;
   color: var(--color-text-soft);
   line-height: 1.9;
 }
 
-/* ---------- 4. National Priorities (Timeline) ---------- */
-.nv-priorities {
+/* ---------- 5. Working Process (horizontal timeline) ---------- */
+.co-process-sec {
   position: relative;
   padding: 115px 0;
-  background: var(--color-white);
-  overflow: hidden;
+  background: linear-gradient(180deg, var(--color-light) 0%, #F2F9FE 100%);
 }
 
-.nv-priorities-blobs {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-}
-.nv-priorities-blob {
-  position: absolute;
-  border-radius: 50%;
-}
-.nv-priorities-blob-1 {
-  width: 260px; height: 260px;
-  background: rgba(25,184,242,.06);
-  top: 8%; inset-inline-start: -90px;
-}
-.nv-priorities-blob-2 {
-  width: 220px; height: 220px;
-  background: rgba(246,179,0,.08);
-  bottom: 6%; inset-inline-end: -80px;
-}
-
-.nv-timeline {
+.co-process {
   position: relative;
-  max-width: 780px;
-  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
 }
 
-.nv-tl-line {
+.co-process-line {
   position: absolute;
-  top: 8px;
-  bottom: 8px;
-  inset-inline-start: 44px;
-  width: 3px;
-  border-radius: 999px;
-  background: linear-gradient(180deg, var(--color-primary) 0%, var(--color-navy) 100%);
-  opacity: .85;
-}
-
-.nv-tl-item {
-  position: relative;
-  padding-inline-start: 130px;
-  padding-bottom: 46px;
-}
-.nv-tl-item:last-child { padding-bottom: 0; }
-
-.nv-tl-icon {
-  position: absolute;
-  inset-inline-start: 13px;
   top: 0;
+  inset-inline-start: 4%;
+  inset-inline-end: 4%;
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-navy) 100%);
+  opacity: .85;
+  z-index: 0;
+}
+
+.co-process-step {
+  position: relative;
+  z-index: 1;
+  background: var(--color-white);
+  border-radius: 18px;
+  padding: 0 20px 26px;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(18,59,120,.06);
+  transition: transform var(--t-fast), box-shadow var(--t-fast);
+}
+.co-process-step:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-md);
+}
+
+.co-process-icon {
+  position: relative;
   width: 64px; height: 64px;
+  margin: -32px auto 16px;
   border-radius: 50%;
   background: var(--color-white);
   border: 3px solid var(--color-primary);
@@ -474,101 +398,90 @@
   align-items: center;
   justify-content: center;
   box-shadow: 0 10px 26px rgba(25,184,242,.25);
-  z-index: 2;
 }
-.nv-tl-icon svg { width: 27px; height: 27px; }
-.nv-tl-icon-primary { border-color: var(--color-primary); color: var(--color-primary-dark); }
-.nv-tl-icon-accent { border-color: var(--color-accent); color: #C98A00; box-shadow: 0 10px 26px rgba(246,179,0,.3); }
-.nv-tl-icon-navy { border-color: var(--color-navy); color: var(--color-navy); box-shadow: 0 10px 26px rgba(18,59,120,.22); }
-.nv-tl-icon-green { border-color: #22C55E; color: #16A34A; box-shadow: 0 10px 26px rgba(34,197,94,.25); }
+.co-process-icon svg { width: 26px; height: 26px; }
+.co-process-icon-accent { border-color: var(--color-accent); color: #C98A00; box-shadow: 0 10px 26px rgba(246,179,0,.3); }
+.co-process-icon-navy { border-color: var(--color-navy); color: var(--color-navy); box-shadow: 0 10px 26px rgba(18,59,120,.22); }
+.co-process-icon-green { border-color: #22C55E; color: #16A34A; box-shadow: 0 10px 26px rgba(34,197,94,.25); }
 
-.nv-tl-card {
-  position: relative;
-  background: var(--color-white);
-  border-radius: 18px;
-  padding: 30px 34px 28px;
-  box-shadow: var(--shadow-sm);
-  border: 1px solid rgba(18,59,120,.06);
-  transition: transform var(--t-fast), box-shadow var(--t-fast);
-}
-.nv-tl-card:hover {
-  transform: translateY(-6px);
-  box-shadow: var(--shadow-md);
-}
-
-.nv-tl-num {
+.co-process-num {
   position: absolute;
-  top: 18px;
-  inset-inline-end: 22px;
-  font-size: 42px;
+  top: 16px;
+  inset-inline-end: 18px;
+  font-size: 34px;
   font-weight: 900;
   line-height: 1;
   color: var(--color-light);
-  -webkit-text-stroke: 1.5px rgba(18,59,120,.22);
-  transition: color var(--t-fast);
-}
-.nv-tl-card:hover .nv-tl-num {
-  color: rgba(25,184,242,.12);
+  -webkit-text-stroke: 1.5px rgba(18,59,120,.2);
 }
 
-.nv-tl-card h3 {
-  font-size: 21px;
+.co-process-step h3 {
+  font-size: 18px;
   font-weight: 900;
   color: var(--color-navy);
-  margin-bottom: 10px;
-  padding-inline-end: 60px;
+  margin-bottom: 8px;
 }
-.nv-tl-card p {
-  font-size: 15px;
+.co-process-step p {
+  font-size: 14px;
   color: var(--color-text-soft);
-  line-height: 1.95;
+  line-height: 1.85;
 }
 
-/* ---------- 5. Statistics ---------- */
-.nv-stats {
+.co-process-arrow {
+  position: absolute;
+  top: 0;
+  inset-inline-end: 0;
+  width: 24px; height: 24px;
+  color: var(--color-accent);
+  transform: translate(50%, -50%);
+  z-index: 2;
+}
+
+/* ---------- 6. Statistics ---------- */
+.co-stats {
   position: relative;
   padding: 110px 0;
   background: linear-gradient(135deg, #1E74C9 0%, var(--color-navy) 55%, #0C2A5E 100%);
   overflow: hidden;
 }
 
-.nv-stats-blobs {
+.co-stats-blobs {
   position: absolute;
   inset: 0;
   overflow: hidden;
   pointer-events: none;
 }
-.nv-stats-blob {
+.co-stats-blob {
   position: absolute;
   border-radius: 50%;
 }
-.nv-stats-blob-1 {
+.co-stats-blob-1 {
   width: 320px; height: 320px;
   border: 1.5px solid rgba(255,255,255,.08);
   top: -120px; inset-inline-end: -80px;
 }
-.nv-stats-blob-2 {
+.co-stats-blob-2 {
   width: 240px; height: 240px;
   background: rgba(246,179,0,.08);
   bottom: -100px; inset-inline-start: -60px;
 }
 
-.nv-stats-eyebrow {
+.co-stats-eyebrow {
   background: rgba(255,255,255,.12);
   color: #fff;
 }
-.nv-stats-eyebrow::before { background: var(--color-accent); }
+.co-stats-eyebrow::before { background: var(--color-accent); }
 
-.nv-stats-title { color: #fff; }
+.co-stats-title { color: #fff; }
 
-.nv-stats-grid {
+.co-stats-grid {
   position: relative;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 26px;
 }
 
-.nv-stat {
+.co-stat {
   background: rgba(255,255,255,.08);
   border: 1px solid rgba(255,255,255,.14);
   backdrop-filter: blur(8px);
@@ -578,13 +491,13 @@
   text-align: center;
   transition: transform var(--t-fast), background var(--t-fast), border-color var(--t-fast);
 }
-.nv-stat:hover {
+.co-stat:hover {
   transform: translateY(-8px);
   background: rgba(255,255,255,.14);
   border-color: rgba(255,255,255,.3);
 }
 
-.nv-stat-num {
+.co-stat-num {
   display: block;
   font-size: clamp(40px, 5vw, 58px);
   font-weight: 900;
@@ -592,121 +505,143 @@
   color: var(--color-accent);
   margin-bottom: 10px;
 }
-.nv-stat-label {
+.co-stat-label {
   display: block;
   font-size: 15.5px;
   font-weight: 700;
   color: rgba(255,255,255,.85);
 }
 
-/* ---------- 6. Quote Block ---------- */
-.nv-quote {
+/* ---------- 7. Quote Section (deep navy) ---------- */
+.co-quote {
   position: relative;
   padding: 120px 0;
-  background: linear-gradient(180deg, var(--color-light) 0%, #EAF5FC 100%);
+  background: linear-gradient(160deg, #173E78 0%, #0C2A5E 60%, #08203F 100%);
+  overflow: hidden;
 }
 
-.nv-quote-box {
+.co-quote-blobs {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.co-quote-blob {
+  position: absolute;
+  border-radius: 50%;
+}
+.co-quote-blob-1 {
+  width: 320px; height: 320px;
+  border: 1.5px solid rgba(255,255,255,.08);
+  top: -120px; inset-inline-end: -80px;
+}
+.co-quote-blob-2 {
+  width: 240px; height: 240px;
+  background: rgba(246,179,0,.08);
+  bottom: -100px; inset-inline-start: -60px;
+}
+.co-quote-blob-3 {
+  width: 100px; height: 100px;
+  border: 2px solid rgba(255,255,255,.1);
+  top: 30%; inset-inline-end: 10%;
+}
+
+.co-quote-inner {
   position: relative;
-  max-width: 880px;
+  z-index: 2;
+  max-width: 840px;
   margin: 0 auto;
   text-align: center;
-  background: var(--color-white);
-  border-radius: 24px;
-  padding: 64px 56px 54px;
-  box-shadow: var(--shadow-md);
-  border: 1px solid rgba(18,59,120,.06);
-  border-top: 5px solid var(--color-accent);
 }
 
-.nv-quote-mark {
-  width: 52px; height: 52px;
+.co-quote-mark {
+  width: 54px; height: 54px;
   color: var(--color-accent);
-  margin: 0 auto 22px;
+  margin: 0 auto 24px;
   display: block;
-  filter: drop-shadow(0 8px 18px rgba(246,179,0,.35));
+  filter: drop-shadow(0 8px 18px rgba(246,179,0,.4));
 }
 
-.nv-quote-box blockquote {
+.co-quote-inner blockquote {
   font-size: clamp(20px, 2.6vw, 28px);
   font-weight: 800;
-  color: var(--color-navy);
-  line-height: 1.85;
+  color: #fff;
+  line-height: 1.9;
   margin-bottom: 26px;
 }
 
-.nv-quote-box figcaption {
+.co-quote-inner figcaption {
   display: inline-flex;
   align-items: center;
   gap: 12px;
   font-size: 14.5px;
   font-weight: 700;
-  color: var(--color-text-soft);
+  color: rgba(255,255,255,.8);
 }
 
-.nv-quote-rule {
+.co-quote-rule {
   width: 36px; height: 3px;
   border-radius: 999px;
-  background: var(--color-primary);
+  background: var(--color-accent);
   display: inline-block;
 }
 
-/* ---------- 7. Call To Action ---------- */
-.nv-cta {
+/* ---------- 8. Call To Action ---------- */
+.co-cta {
   position: relative;
   padding: 120px 0;
   background: linear-gradient(150deg, #1E74C9 0%, var(--color-navy) 55%, #0C2A5E 100%);
   overflow: hidden;
 }
 
-.nv-cta-blobs {
+.co-cta-blobs {
   position: absolute;
   inset: 0;
   overflow: hidden;
   pointer-events: none;
 }
-.nv-cta-blob {
+.co-cta-blob {
   position: absolute;
   border-radius: 50%;
 }
-.nv-cta-blob-1 {
+.co-cta-blob-1 {
   width: 360px; height: 360px;
   background: rgba(25,184,242,.16);
   top: -140px; inset-inline-end: -90px;
 }
-.nv-cta-blob-2 {
+.co-cta-blob-2 {
   width: 260px; height: 260px;
   background: rgba(246,179,0,.1);
   bottom: -110px; inset-inline-start: -70px;
 }
-.nv-cta-blob-3 {
+.co-cta-blob-3 {
   width: 90px; height: 90px;
   border: 2px solid rgba(255,255,255,.14);
   top: 24%; inset-inline-start: 12%;
 }
 
-.nv-cta-inner {
+.co-cta-inner {
   position: relative;
   z-index: 2;
   text-align: center;
   max-width: 760px;
   margin: 0 auto;
 }
-.nv-cta-inner h2 {
+.co-cta-inner h2 {
   font-size: clamp(28px, 4vw, 46px);
   font-weight: 900;
   color: #fff;
   margin-bottom: 18px;
   line-height: 1.4;
 }
-.nv-cta-inner p {
+.co-cta-inner p {
   font-size: clamp(15.5px, 1.4vw, 17.5px);
   color: rgba(255,255,255,.82);
   line-height: 1.95;
   margin-bottom: 38px;
 }
 
-.nv-cta-actions {
+.co-cta-actions {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -716,11 +651,11 @@
 /* ---------- Responsive ---------- */
 @media (max-width: 1024px) {
   .nv-hero-inner { gap: 36px; }
-  .nv-hero-art { height: 400px; }
-  .nv-art-card { min-width: 178px; padding: 13px 16px; }
-  .nv-art-card-compass { top: 40px; }
-  .nv-art-card-mountain { top: 190px; }
-  .nv-objectives-grid { grid-template-columns: repeat(2, 1fr); }
+
+  .co-team-grid { grid-template-columns: repeat(2, 1fr); }
+
+  .co-process { grid-template-columns: repeat(2, 1fr); gap: 40px 28px; }
+  .co-process-line, .co-process-arrow { display: none; }
 }
 
 @media (max-width: 900px) {
@@ -728,46 +663,66 @@
   .nv-hero-inner { grid-template-columns: 1fr; text-align: center; }
   .nv-hero p { margin-inline: auto; }
   .nv-hero-actions { justify-content: center; }
-  .nv-hero-art { display: none; }
 
-  .nv-vision-grid { grid-template-columns: 1fr; max-width: 540px; margin-inline: auto; }
+  .co-tasks-grid { grid-template-columns: repeat(2, 1fr); }
 
-  .nv-stats-grid { grid-template-columns: repeat(2, 1fr); }
-
-  .nv-timeline { max-width: 560px; }
-  .nv-tl-item { padding-inline-start: 112px; }
+  .co-stats-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 620px) {
   .nv-hero { padding: 110px 0 80px; }
 
-  .nv-vision, .nv-objectives, .nv-priorities, .nv-quote { padding: 85px 0; }
-  .nv-stats, .nv-cta { padding: 85px 0; }
+  .co-about, .co-team, .co-tasks, .co-process-sec { padding: 85px 0; }
+  .co-stats, .co-quote, .co-cta { padding: 85px 0; }
 
-  .nv-objectives-grid { grid-template-columns: 1fr; }
+  .co-team-grid, .co-tasks-grid { grid-template-columns: 1fr; }
 
-  .nv-tl-line { inset-inline-start: 26px; }
-  .nv-tl-item { padding-inline-start: 76px; padding-bottom: 36px; }
-  .nv-tl-icon { inset-inline-start: 0; width: 54px; height: 54px; }
-  .nv-tl-icon svg { width: 23px; height: 23px; }
-  .nv-tl-card { padding: 24px 22px 22px; }
-  .nv-tl-num { font-size: 34px; }
-  .nv-tl-card h3 { padding-inline-end: 46px; }
+  .co-process { grid-template-columns: 1fr; gap: 0; }
+  .co-process-line {
+    display: block;
+    top: 24px;
+    bottom: 24px;
+    inset-inline-start: 28px;
+    inset-inline-end: auto;
+    width: 3px;
+    height: auto;
+    background: linear-gradient(180deg, var(--color-primary) 0%, var(--color-navy) 100%);
+  }
+  .co-process-step {
+    margin-bottom: 20px;
+    padding: 24px 18px 24px 76px;
+    text-align: start;
+  }
+  .co-process-step:last-child { margin-bottom: 0; }
+  .co-process-icon {
+    position: absolute;
+    top: 24px;
+    inset-inline-start: 0;
+    margin: 0;
+    width: 56px; height: 56px;
+  }
+  .co-process-icon svg { width: 23px; height: 23px; }
+  .co-process-num { top: 18px; inset-inline-end: 14px; font-size: 30px; }
 
-  .nv-quote-box { padding: 46px 26px 40px; border-radius: 20px; }
-  .nv-quote-mark { width: 42px; height: 42px; }
+  .co-quote-mark { width: 44px; height: 44px; }
+  .co-quote-inner blockquote { font-size: 21px; }
 }
 
 @media (max-width: 420px) {
-  .nv-stats-grid { grid-template-columns: 1fr; gap: 18px; }
-  .nv-vision-card, .nv-obj-card { padding-inline: 24px; }
+  .co-stats-grid { grid-template-columns: 1fr; gap: 18px; }
+  .co-task-card { padding-inline: 24px; }
+  .co-member-card { padding-inline: 18px; }
 }
 
 </style>
 </head>
 <body>
 
-
+<!-- ===== Loading Screen ===== -->
+<div id="loader" aria-hidden="true">
+  <div class="loader-mark"></div>
+  <div class="loader-text">الجمعية المغربية لهواة البحث والاستكشاف</div>
+</div>
 
 <!-- ===== Skip Link ===== -->
 <a href="#main" class="visually-hidden">تخطَّ إلى المحتوى الرئيسي</a>
@@ -1003,26 +958,24 @@
 
 <main id="main">
 
-  <!-- ===== 1. Hero Section ===== -->
+  <!-- ===== 1. Hero Section (same design as الرؤية الوطنية) ===== -->
   <section class="nv-hero" id="home">
-
-
     <div class="container">
       <div class="nv-hero-inner">
         <div class="nv-hero-content">
           <span class="nv-hero-badge hero-fade d1">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="m12 6 3.5 7 7 3.5-7 3.5L12 6z"/></svg>
-            الرؤية الوطنية
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg>
+            المكتب المركزي
           </span>
-          <h1 class="hero-fade d2">الرؤية الوطنية <span>للجمعية</span></h1>
-          <p class="hero-fade d3">تسعى الجمعية المغربية لهواة البحث والاستكشاف إلى النهوض بمجال الاستكشاف والبحث العلمي، ونشر الثقافة البيئية، والحفاظ على التراث الطبيعي والثقافي، وتعزيز التنمية المستدامة في مختلف جهات المملكة المغربية.</p>
+          <h1 class="hero-fade d2">المكتب المركزي <span>للجمعية</span></h1>
+          <p class="hero-fade d3">يشرف المكتب المركزي على إدارة الجمعية، ووضع الخطط الاستراتيجية، وتنسيق الأنشطة الوطنية، وتعزيز الشراكات، وضمان تحقيق أهداف الجمعية ورسالتها في مختلف جهات المملكة.</p>
           <div class="nv-hero-actions hero-fade d4">
-            <a href="#nvVision" class="btn btn-accent">
-              اكتشف رؤيتنا
+            <a href="#coAbout" class="btn btn-accent">
+              تعرف على المكتب
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
             </a>
-            <a href="#nvStats" class="btn btn-navy">
-              أثرنا على الميدان
+            <a href="../contact.html" class="btn btn-navy">
+              تواصل معنا
             </a>
           </div>
         </div>
@@ -1030,234 +983,170 @@
     </div>
   </section>
 
-  <!-- ===== 2. Vision Statement ===== -->
-  <section class="nv-vision" id="nvVision">
-    <div class="nv-vision-blobs" aria-hidden="true">
-      <div class="nv-vision-blob nv-vision-blob-1"></div>
-      <div class="nv-vision-blob nv-vision-blob-2"></div>
+  <!-- ===== 2. About the Central Office ===== -->
+  <section class="co-about" id="coAbout">
+    <div class="co-about-blobs" aria-hidden="true">
+      <div class="co-about-blob co-about-blob-1"></div>
+      <div class="co-about-blob co-about-blob-2"></div>
     </div>
 
     <div class="container">
-      <div class="nv-vision-head reveal">
-        <span class="eyebrow">ماذا نطمح إليه</span>
-        <h2 class="nv-vision-title">رؤيتنا</h2>
-        <p class="nv-vision-lead">نطمح إلى أن نكون الجمعية الوطنية الرائدة في توحيد هواة البحث والاستكشاف تحت رؤية مشتركة ترتكز على العلم والمعرفة والوعي البيئي والانتماء الوطني. نؤمن بأن الإنسان المغربي الواعي، حين يُمنح الفرصة والمعرفة، قادر على حماية ثروات بلاده الطبيعية والثقافية وضمان استدامتها للأجيال القادمة، عبر استكشاف مسؤول يزاوج بين شغف المغامرة والالتزام بالأخلاقيات والممارسات المثلى.</p>
-      </div>
-
-      <div class="nv-vision-grid stagger">
-        <article class="nv-vision-card reveal" style="--i:0">
-          <span class="nv-vision-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg>
-          </span>
-          <h3>أجيال واعية</h3>
-          <p>نعمل على تكوين أجيال شابة واعية بأهمية العلم والبحث، قادرة على فهم تراثها الوطني والمساهمة في تطويره وحمايته بمسؤولية.</p>
-        </article>
-
-        <article class="nv-vision-card reveal" style="--i:1">
-          <span class="nv-vision-icon nv-vision-icon-accent">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" x2="21" y1="22" y2="22"/><line x1="6" x2="6" y1="18" y2="11"/><line x1="10" x2="10" y1="18" y2="11"/><line x1="14" x2="14" y1="18" y2="11"/><line x1="18" x2="18" y1="18" y2="11"/><polygon points="12 2 20 7 4 7"/></svg>
-          </span>
-          <h3>تراث مستدام</h3>
-          <p>نحافظ على التراث الطبيعي والثقافي المغربي ونثمّنه، لضمان انتقاله بكامل قيمته إلى الأجيال القادمة.</p>
-        </article>
-
-        <article class="nv-vision-card reveal" style="--i:2">
-          <span class="nv-vision-icon nv-vision-icon-navy">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
-          </span>
-          <h3>استكشاف مسؤول</h3>
-          <p>نلتزم بمدونة أخلاقية صارمة تجعل من كل خرج ميداني فرصة للاستكشاف العلمي الآمن والمحترم للبيئة والمجتمعات المحلية.</p>
-        </article>
+      <div class="co-about-inner reveal">
+        <span class="co-about-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="14" x="2" y="5" rx="2"/><path d="M2 10h20"/><path d="M12 5v14"/><path d="M8 15h4"/><path d="M16 15h2"/></svg>
+        </span>
+        <span class="eyebrow">عن المكتب المركزي</span>
+        <h2 class="co-about-title">نبذة عن المكتب المركزي</h2>
+        <p class="co-about-lead">يُعد المكتب المركزي الهيئة التنفيذية العليا للجمعية المغربية لهواة البحث والاستكشاف؛ فهو المسؤول عن إدارة شؤون الجمعية، ووضع الخطط الاستراتيجية، وتنسيق الأنشطة الوطنية بين الفروع، وتعزيز الشراكات مع المؤسسات، وضمان تحقيق أهداف الجمعية ورسالتها في مختلف جهات المملكة، مع الحرص على الالتزام بالقيم والمبادئ التي تقوم عليها الجمعية.</p>
       </div>
     </div>
   </section>
 
-  <!-- ===== 3. Strategic Objectives ===== -->
-  <section class="nv-objectives" id="nvObjectives">
+
+  <!-- ===== 4. Tasks of the Central Office ===== -->
+  <section class="co-tasks" id="coTasks">
     <div class="container">
       <div class="section-head reveal">
-        <span class="eyebrow">أولويات العمل</span>
-        <h2 class="section-title">الأهداف الاستراتيجية</h2>
-        <p class="section-desc">حددت الجمعية ستة أهداف استراتيجية كبرى توجّه جميع برامجها وأنشطتها على المستوى الوطني.</p>
+        <span class="eyebrow">مسؤوليات المكتب</span>
+        <h2 class="section-title">مهام المكتب المركزي</h2>
+        <p class="section-desc">مهام متكاملة تضعها الجمعية بين يدي المكتب المركزي لضمان سير العمل وتنفيذ الأهداف الوطنية.</p>
       </div>
 
-      <div class="nv-objectives-grid stagger">
-        <article class="nv-obj-card reveal" style="--i:0">
-          <span class="nv-obj-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2v6a2 2 0 0 0 .245.96l5.51 10.08A2 2 0 0 1 18 22H6a2 2 0 0 1-1.755-2.96l5.51-10.08A2 2 0 0 0 10 8V2"/><path d="M6.453 15h11.094"/><path d="M8.5 2h7"/></svg>
+      <div class="co-tasks-grid stagger">
+        <article class="co-task-card reveal" style="--i:0">
+          <span class="co-task-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
           </span>
-          <h3>تعزيز البحث العلمي</h3>
-          <p>دعم الدراسات الميدانية والتوثيق العلمي للاكتشافات الجيولوجية والأثرية والطبيعية في مختلف جهات المملكة.</p>
+          <h3>إعداد الاستراتيجية</h3>
+          <p>رسم الخطط الاستراتيجية للجمعية وتحديد الأولويات الوطنية لكل موسم عمل.</p>
         </article>
 
-        <article class="nv-obj-card reveal" style="--i:1">
-          <span class="nv-obj-icon nv-obj-icon-accent">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+        <article class="co-task-card reveal" style="--i:1">
+          <span class="co-task-icon co-task-icon-accent">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="16" y="16" width="6" height="6" rx="1"/><rect x="2" y="16" width="6" height="6" rx="1"/><rect x="9" y="2" width="6" height="6" rx="1"/><path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3"/><path d="M12 12V8"/></svg>
           </span>
-          <h3>حماية التراث الطبيعي</h3>
-          <p>المساهمة في الحفاظ على المواقع الطبيعية والمحميات، والتصدي لأي استغلال يهدد التوازن البيئي الوطني.</p>
+          <h3>تنسيق الفروع</h3>
+          <p>التنسيق المستمر بين الفروع الجهوية واللجان لضمان تناسق الجهود على المستوى الوطني.</p>
         </article>
 
-        <article class="nv-obj-card reveal" style="--i:2">
-          <span class="nv-obj-icon nv-obj-icon-green">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 20h10"/><path d="M10 20c5.5-2.5.8-6.4 3-10"/><path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"/></svg>
+        <article class="co-task-card reveal" style="--i:2">
+          <span class="co-task-icon co-task-icon-navy">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/></svg>
           </span>
-          <h3>نشر الثقافة البيئية</h3>
-          <p>تنظيم حملات تحسيسية وبرامج تربوية لتعزيز الوعي البيئي وترسيخ سلوكات مستدامة لدى المواطنين.</p>
+          <h3>إدارة المشاريع</h3>
+          <p>الإشراف على إنجاز المشاريع والبرامج من التخطيط إلى التنفيذ والمتابعة.</p>
         </article>
 
-        <article class="nv-obj-card reveal" style="--i:3">
-          <span class="nv-obj-icon nv-obj-icon-navy">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-          </span>
-          <h3>دعم الشباب</h3>
-          <p>مواكبة الشباب المهتم بالاستكشاف والعلوم عبر تكوينات وورشات وإشراكهم في مشاريع ميدانية هادفة.</p>
-        </article>
-
-        <article class="nv-obj-card reveal" style="--i:4">
-          <span class="nv-obj-icon nv-obj-icon-pink">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/><path d="M12 5 9.04 7.96a2.17 2.17 0 0 0 0 3.08c.82.82 2.13.85 3 .07l2.07-1.9a2.82 2.82 0 0 1 3.79 0l2.96 2.66"/><path d="m18 15-2-2"/><path d="m15 18-2-2"/></svg>
-          </span>
-          <h3>تعزيز العمل التطوعي</h3>
-          <p>تحفيز المتطوعين وتأطيرهم ليكونوا فاعلين أساسيين في إنجاح البرامج الوطنية للجمعية.</p>
-        </article>
-
-        <article class="nv-obj-card reveal" style="--i:5">
-          <span class="nv-obj-icon nv-obj-icon-blue">
+        <article class="co-task-card reveal" style="--i:3">
+          <span class="co-task-icon co-task-icon-green">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m11 17 2 2a1 1 0 1 0 3-3"/><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4"/><path d="m21 3 1 11h-2"/><path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3"/><path d="M3 4h8"/></svg>
           </span>
-          <h3>بناء شراكات وطنية</h3>
-          <p>تطوير شراكات مع الجامعات والمؤسسات والجمعيات لتبادل الخبرات وتوسيع نطاق الأثر على المستوى الوطني.</p>
+          <h3>بناء الشراكات</h3>
+          <p>تطوير شبكة من الشراكات مع المؤسسات والجامعات والجمعيات لتعزيز الموارد وتبادل الخبرات.</p>
+        </article>
+
+        <article class="co-task-card reveal" style="--i:4">
+          <span class="co-task-icon co-task-icon-pink">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          </span>
+          <h3>متابعة الأنشطة</h3>
+          <p>مواكبة الأنشطة والبرامج الميدانية وتقييم مردوديتها وضمان جودة التنفيذ.</p>
+        </article>
+
+        <article class="co-task-card reveal" style="--i:5">
+          <span class="co-task-icon co-task-icon-blue">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+          </span>
+          <h3>تطوير الجمعية</h3>
+          <p>العمل المستمر على تطوير هياكل الجمعية وبرامجها وخدماتها بما يواكب تطلعات الأعضاء.</p>
         </article>
       </div>
     </div>
   </section>
 
-  <!-- ===== 4. National Priorities (Timeline) ===== -->
-  <section class="nv-priorities" id="nvPriorities">
-    <div class="nv-priorities-blobs" aria-hidden="true">
-      <div class="nv-priorities-blob nv-priorities-blob-1"></div>
-      <div class="nv-priorities-blob nv-priorities-blob-2"></div>
-    </div>
-
+  <!-- ===== 5. Working Process (horizontal timeline) ===== -->
+  <section class="co-process-sec" id="coProcess">
     <div class="container">
       <div class="section-head reveal">
-        <span class="eyebrow">خريطة الطريق</span>
-        <h2 class="section-title">أولوياتنا الوطنية</h2>
-        <p class="section-desc">خطة عمل وطنية واضحة تقوم على أربع أولويات كبرى تعكس التزام الجمعية بأداء رسالتها.</p>
+        <span class="eyebrow">دورة العمل</span>
+        <h2 class="section-title">آلية العمل</h2>
+        <p class="section-desc">منهجية عملية واضحة يعتمدها المكتب المركزي لتحويل الخطط إلى إنجازات ملموسة.</p>
       </div>
 
-      <div class="nv-timeline">
-        <span class="nv-tl-line" aria-hidden="true"></span>
+      <div class="co-process">
 
-        <article class="nv-tl-item reveal">
-          <span class="nv-tl-icon nv-tl-icon-primary">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+
+        <article class="co-process-step reveal" style="--i:0">
+          <span class="co-process-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/></svg>
           </span>
-          <div class="nv-tl-card">
-            <span class="nv-tl-num">01</span>
-            <h3>الاستكشاف</h3>
-            <p>تنظيم خرجات وبعثات ميدانية آمنة ومسؤولة تتيح للهواة اكتشاف الثروات الطبيعية والمواقع التاريخية، مع الالتزام بميثاق الاستكشاف المسؤول.</p>
-          </div>
+          <span class="co-process-num">01</span>
+          <h3>التخطيط</h3>
+          <p>نحدد الأهداف والأولويات الوطنية ونرسم خارطة الطريق لكل موسم عمل.</p>
+
         </article>
 
-        <article class="nv-tl-item reveal">
-          <span class="nv-tl-icon nv-tl-icon-accent">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+        <article class="co-process-step reveal" style="--i:1">
+          <span class="co-process-icon co-process-icon-accent">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></svg>
           </span>
-          <div class="nv-tl-card">
-            <span class="nv-tl-num">02</span>
-            <h3>التكوين</h3>
-            <p>تأهيل الأعضاء عبر برامج تكوينية متدرجة في مجالات الإسعافات الأولية وتقنيات البحث الميداني والسلامة والتوثيق العلمي.</p>
-          </div>
+          <span class="co-process-num">02</span>
+          <h3>التنسيق</h3>
+          <p>ننسق بين الفروع الجهوية واللجان والمتطوعين لضمان تناسق الجهود.</p>
+
         </article>
 
-        <article class="nv-tl-item reveal">
-          <span class="nv-tl-icon nv-tl-icon-navy">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2v6a2 2 0 0 0 .245.96l5.51 10.08A2 2 0 0 1 18 22H6a2 2 0 0 1-1.755-2.96l5.51-10.08A2 2 0 0 0 10 8V2"/><path d="M6.453 15h11.094"/><path d="M8.5 2h7"/></svg>
+        <article class="co-process-step reveal" style="--i:2">
+          <span class="co-process-icon co-process-icon-navy">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>
           </span>
-          <div class="nv-tl-card">
-            <span class="nv-tl-num">03</span>
-            <h3>البحث العلمي</h3>
-            <p>إنجاز دراسات ومسوحات ميدانية بالتعاون مع الخبراء والجامعات، ونشر النتائج في مجلة AMARE والمجلات العلمية المتخصصة.</p>
-          </div>
+          <span class="co-process-num">03</span>
+          <h3>التنفيذ</h3>
+          <p>ننفذ الخطط عبر برامج ميدانية وتكوينية بإشراف مباشر من المكتب.</p>
+
         </article>
 
-        <article class="nv-tl-item reveal">
-          <span class="nv-tl-icon nv-tl-icon-green">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m11 17 2 2a1 1 0 1 0 3-3"/><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4"/><path d="m21 3 1 11h-2"/><path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3"/><path d="M3 4h8"/></svg>
+        <article class="co-process-step reveal" style="--i:3">
+          <span class="co-process-icon co-process-icon-green">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
           </span>
-          <div class="nv-tl-card">
-            <span class="nv-tl-num">04</span>
-            <h3>الشراكات</h3>
-            <p>نسج شبكة واسعة من الشراكات مع المؤسسات الوطنية والدولية لتعزيز الموارد وتبادل المعرفة وتوسيع الأثر على الصعيدين الجهوي والوطني.</p>
-          </div>
+          <span class="co-process-num">04</span>
+          <h3>التقييم</h3>
+          <p>نقيس الأثر ونستخلص الدروس لتحسين أدائنا ورفع جودة المبادرات باستمرار.</p>
         </article>
       </div>
     </div>
   </section>
 
-  <!-- ===== 5. Statistics ===== -->
-  <section class="nv-stats" id="nvStats">
-    <div class="nv-stats-blobs" aria-hidden="true">
-      <div class="nv-stats-blob nv-stats-blob-1"></div>
-      <div class="nv-stats-blob nv-stats-blob-2"></div>
+
+
+  <!-- ===== 7. Quote Section ===== -->
+  <section class="co-quote" id="coQuote">
+
     </div>
 
-    <div class="container">
-      <div class="section-head reveal">
-        <span class="eyebrow nv-stats-eyebrow">أثرنا في الأرقام</span>
-        <h2 class="section-title nv-stats-title">مسيرة وطنية بأرقام معبرة</h2>
-      </div>
-
-      <div class="nv-stats-grid">
-        <div class="nv-stat reveal" style="--i:0">
-          <span class="nv-stat-num" data-count="20" data-suffix="+">0</span>
-          <span class="nv-stat-label">شراكة</span>
-        </div>
-        <div class="nv-stat reveal" style="--i:1">
-          <span class="nv-stat-num" data-count="100" data-suffix="+">0</span>
-          <span class="nv-stat-label">نشاط</span>
-        </div>
-        <div class="nv-stat reveal" style="--i:2">
-          <span class="nv-stat-num" data-count="1000" data-suffix="+">0</span>
-          <span class="nv-stat-label">مستفيد</span>
-        </div>
-        <div class="nv-stat reveal" style="--i:3">
-          <span class="nv-stat-num" data-count="12" data-suffix="+">0</span>
-          <span class="nv-stat-label">جهة مستهدفة</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== 6. Quote Block ===== -->
-  <section class="nv-quote" id="nvQuote">
     <div class="container reveal">
-      <figure class="nv-quote-box">
-        <svg class="nv-quote-mark" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
-        <blockquote>«رؤيتنا هي بناء مجتمع يقدّر المعرفة والاستكشاف ويحافظ على التراث الطبيعي والثقافي للأجيال القادمة.»</blockquote>
+      <figure class="co-quote-inner">
+        <svg class="co-quote-mark" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+        <blockquote>«القيادة الناجحة هي التي تحول الرؤية إلى إنجاز يخدم المجتمع والوطن.»</blockquote>
         <figcaption>
-          <span class="nv-quote-rule" aria-hidden="true"></span>
-          الجمعية المغربية لهواة البحث والاستكشاف
+          <span class="co-quote-rule" aria-hidden="true"></span>
+          المكتب المركزي للجمعية المغربية لهواة البحث والاستكشاف
         </figcaption>
       </figure>
     </div>
   </section>
 
-  <!-- ===== 7. Call To Action ===== -->
-  <section class="nv-cta" id="nvCta">
-    <div class="nv-cta-blobs" aria-hidden="true">
-      <div class="nv-cta-blob nv-cta-blob-1"></div>
-      <div class="nv-cta-blob nv-cta-blob-2"></div>
-      <div class="nv-cta-blob nv-cta-blob-3"></div>
+  <!-- ===== 8. Call To Action ===== -->
+  <section class="co-cta" id="coCta">
+
     </div>
 
     <div class="container reveal">
-      <div class="nv-cta-inner">
-        <h2>كن جزءاً من رؤيتنا الوطنية</h2>
-        <p>انضم إلى آلاف الهواة والباحثين والمتطوعين الذين يشاركوننا الشغف بالاستكشاف والالتزام بحماية تراث المغرب، وساهم معنا في بناء غدٍ أكثر استدامة.</p>
-        <div class="nv-cta-actions">
+      <div class="co-cta-inner">
+        <h2>ساهم معنا في بناء مستقبل أفضل</h2>
+        <p>كن جزءاً من مسيرة الجمعية وساهم في تحقيق أهدافها الوطنية، وشاركنا العمل على خدمة المجتمع وحماية تراث بلادنا.</p>
+        <div class="co-cta-actions">
           <a href="../Join us/join-us-online.html" class="btn btn-accent">
             انخرط معنا
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
@@ -1378,16 +1267,178 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="../js/supabase.js"></script>
 <script src="../script.js"></script>
-<script src="national-vision.js"></script>
+<script src="central-office.js"></script>
 <script>
   /* ==========================================================================
-   National Vision Page — animated statistics counters
+   Central Office Page — dynamic team grid + animated statistics counters
    ========================================================================== */
 
 (function () {
   'use strict';
 
-  var counters = Array.prototype.slice.call(document.querySelectorAll('.nv-stat-num'));
+  /* ---------- 1. Members data (Supabase/JSON-ready) ---------- */
+  var members = [
+    {
+      name: 'عبد الرحيم العسري',
+      role: 'رئيس المكتب المركزي',
+      bio: 'خبرة واسعة في تدبير الشأن الجمعوي وقيادة الفرق، يشرف على تنفيذ الرؤية الاستراتيجية للجمعية ومتابعة برامجها الوطنية.',
+      color: '#123B78',
+      facebook: '#',
+      instagram: '#',
+      linkedin: '#',
+      profileUrl: '#'
+    },
+    {
+      name: 'فاطمة الزهراء بنعلي',
+      role: 'نائبة رئيس المكتب',
+      bio: 'تشرف على تنسيق العمل بين اللجان والمكتب المركزي، وتدبير ملفات التكوين والتأطير لفائدة المنخرطين والمنخرطات.',
+      color: '#0F9CD1',
+      facebook: '#',
+      instagram: '#',
+      linkedin: '#',
+      profileUrl: '#'
+    },
+    {
+      name: 'يوسف أيت لحسن',
+      role: 'أمين المال',
+      bio: 'يتكلف بتدبير الميزانية والمحاسبة، ويحرص على الشفافية في تدبير الموارد المالية وفق مقتضيات القانون الأساسي للجمعية.',
+      color: '#17A44E',
+      facebook: '#',
+      instagram: '#',
+      linkedin: '#',
+      profileUrl: '#'
+    },
+    {
+      name: 'خديجة إدريسي',
+      role: 'الكاتبة العامة',
+      bio: 'تتولى تدبير الجانب الإداري والتوثيقي، وتتبع أشغال المكتب والجمع العام، وتنسيق المراسلات مع الشركاء والمؤسسات.',
+      color: '#DB2777',
+      facebook: '#',
+      instagram: '#',
+      linkedin: '#',
+      profileUrl: '#'
+    },
+    {
+      name: 'محمد الصقلي',
+      role: 'نائب الكاتب العام',
+      bio: 'يساهم في إعداد التقارير ومحاضر الاجتماعات، ومواكبة الملفات الإدارية والقانونية المرتبطة بتسيير الجمعية.',
+      color: '#2563EB',
+      facebook: '#',
+      instagram: '#',
+      linkedin: '#',
+      profileUrl: '#'
+    },
+    {
+      name: 'حنان المرابط',
+      role: 'مستشارة قانونية',
+      bio: 'تؤطر الجانب القانوني للجمعية من نصوص واتفاقيات، وتقدم الاستشارات الضرورية لضمان مطابقة الأنشطة للقوانين الجاري بها العمل.',
+      color: '#C98A00',
+      facebook: '#',
+      instagram: '#',
+      linkedin: '#',
+      profileUrl: '#'
+    },
+    {
+      name: 'رشيد بوطالب',
+      role: 'منسق الأنشطة الميدانية',
+      bio: 'يشرف على تنظيم الخرجات الاستكشافية والأنشطة الميدانية، ويتكلف بالتنسيق مع الفروع الجهوية لضمان جودة التنفيذ.',
+      color: '#19B8F2',
+      facebook: '#',
+      instagram: '#',
+      linkedin: '#',
+      profileUrl: '#'
+    },
+    {
+      name: 'سعاد لمغاري',
+      role: 'مسؤولة الشراكات والاتصال',
+      bio: 'تدبر ملف الشراكات مع المؤسسات والجامعات، وتتولى التواصل الإعلامي والتعريف بأنشطة الجمعية لدى الجمهور.',
+      color: '#7C3AED',
+      facebook: '#',
+      instagram: '#',
+      linkedin: '#',
+      profileUrl: '#'
+    }
+  ];
+
+  /* ---------- 2. Small helpers ---------- */
+  function escapeHtml(str) {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  function initials(name) {
+    var parts = String(name).trim().split(/\s+/);
+    return parts.slice(0, 2).map(function (p) { return p.charAt(0); }).join(' ');
+  }
+
+  function readableOn(hex) {
+    var c = String(hex).replace('#', '');
+    var r = parseInt(c.substr(0, 2), 16);
+    var g = parseInt(c.substr(2, 2), 16);
+    var b = parseInt(c.substr(4, 2), 16);
+    var lum = 0.299 * r + 0.587 * g + 0.114 * b;
+    return lum > 150 ? '#123B78' : '#ffffff';
+  }
+
+  function avatarDataUri(name, bg) {
+    var text = initials(name);
+    var svg =
+      '<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160">' +
+      '<rect width="160" height="160" fill="' + bg + '"/>' +
+      '<text x="50%" y="50%" dy="0.35em" text-anchor="middle" ' +
+      'font-family="Cairo, Arial, sans-serif" font-size="48" font-weight="800" ' +
+      'fill="' + readableOn(bg) + '">' + text + '</text></svg>';
+    return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+  }
+
+  var SOCIALS = {
+    facebook: {
+      label: 'فيسبوك',
+      svg: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg>'
+    },
+    instagram: {
+      label: 'إنستغرام',
+      svg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>'
+    },
+    linkedin: {
+      label: 'لينكدإن',
+      svg: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 5 3.79 6.2 2.3 6.2 1 6.2 0 5 0 3.5 0 2 1.1.8 2.5.8s2.48 1.2 2.48 2.7zM.2 8.5h4.6V23H.2V8.5zM8 8.5h4.4v2h.06c.6-1.2 2.1-2.4 4.4-2.4 4.7 0 5.6 3.1 5.6 7.1V23h-4.6v-6.7c0-1.6 0-3.7-2.3-3.7s-2.6 1.8-2.6 3.6V23H8V8.5z"/></svg>'
+    }
+  };
+
+  function memberCard(member, index) {
+    var socials = ['facebook', 'instagram', 'linkedin'].map(function (key) {
+      var item = SOCIALS[key];
+      var href = member[key] || '#';
+      return '<a href="' + escapeHtml(href) + '" aria-label="' + item.label + '" rel="noopener">' + item.svg + '</a>';
+    }).join('');
+
+    return '' +
+      '<article class="co-member-card" style="--i:' + index + '">' +
+        '<div class="co-member-photo">' +
+          '<img src="' + avatarDataUri(member.name, member.color) + '" alt="صورة ' + escapeHtml(member.name) + '" loading="lazy" width="112" height="112">' +
+        '</div>' +
+        '<div class="co-member-body">' +
+          '<h3>' + escapeHtml(member.name) + '</h3>' +
+          '<span class="co-member-role">' + escapeHtml(member.role) + '</span>' +
+          '<p>' + escapeHtml(member.bio) + '</p>' +
+          '<div class="co-member-social">' + socials + '</div>' +
+          '<a href="' + escapeHtml(member.profileUrl || '#') + '" class="co-member-btn">عرض الملف الشخصي</a>' +
+        '</div>' +
+      '</article>';
+  }
+
+  var grid = document.getElementById('coMembersGrid');
+  if (grid && members.length) {
+    grid.innerHTML = members.map(memberCard).join('');
+  }
+
+  /* ---------- 3. Animated statistics counters ---------- */
+  var counters = Array.prototype.slice.call(document.querySelectorAll('.co-stat-num'));
   if (!counters.length) return;
 
   function animateCounter(el) {

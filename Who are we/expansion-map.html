@@ -1,0 +1,1557 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>خارطة التوسع | الجمعية المغربية لهواة البحث والاستكشاف</title>
+<meta name="description" content="خارطة التوسع الوطني للجمعية المغربية لهواة البحث والاستكشاف — استكشف الفروع النشطة والمرتقبة والمستقبلية في مختلف جهات المملكة المغربية.">
+<meta name="keywords" content="جمعية, خارطة التوسع, الفروع الجهوية, المغرب, جهات المغرب, استكشاف, توسع">
+<meta name="author" content="الجمعية المغربية لهواة البحث والاستكشاف">
+<link rel="shortcut icon" href="../Amare%20files%20/logo.png" type="image/x-icon">
+
+<!-- Open Graph -->
+<meta property="og:title" content="خارطة التوسع | الجمعية المغربية لهواة البحث والاستكشاف">
+<meta property="og:description" content="توسيع حضور الجمعية في مختلف جهات المملكة، من خلال إنشاء فروع جديدة وتعزيز الشراكات.">
+<meta property="og:type" content="website">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="expansion-map.css">
+<style>
+  /* ==========================================================================
+   Expansion Map Page — Premium styles (uses design tokens from ../style.css)
+   ========================================================================== */
+
+/* Keep the current-page nav item highlighted */
+.nav-links a[aria-current="page"] { color: #123B78; }
+.nav-links a[aria-current="page"]::after { transform: scaleX(1); }
+
+/* ---------- 1. Hero (identical to الرؤية الوطنية hero) ---------- */
+.nv-hero {
+  position: relative;
+  padding: 150px 0 150px;
+  overflow: hidden;
+  background: linear-gradient(180deg, #E8F6FF 0%, #F4FBFE 52%, #E6F4FD 100%);
+}
+
+.nv-hero-inner {
+  position: relative;
+  z-index: 2;
+  justify-content: center;
+  display: grid;
+  grid-template-columns: 1.08fr 0.92fr;
+  align-items: center;
+  gap: 60px;
+}
+
+.nv-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  background: var(--color-white);
+  border: 1px solid rgba(25,184,242,.28);
+  color: var(--color-primary-dark);
+  font-weight: 800;
+  font-size: 13.5px;
+  padding: 9px 20px;
+  border-radius: var(--radius-pill);
+  box-shadow: 0 6px 18px rgba(25,184,242,.14);
+  margin-bottom: 26px;
+}
+.nv-hero-badge svg { color: var(--color-accent); }
+
+.nv-hero h1 {
+  font-size: clamp(32px, 4.8vw, 54px);
+  font-weight: 900;
+  color: var(--color-navy);
+  line-height: 1.3;
+  margin-bottom: 20px;
+}
+.nv-hero h1 span { color: var(--color-primary); }
+
+.nv-hero p {
+  font-size: clamp(16px, 1.5vw, 18px);
+  color: var(--color-text-soft);
+  line-height: 1.95;
+  max-width: 560px;
+  margin-bottom: 36px;
+}
+
+.nv-hero-content {
+  position: relative;
+}
+
+.nv-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+/* ---------- 2. Vision (centered introduction) ---------- */
+.em-vision {
+  position: relative;
+  padding: 115px 0;
+  background: var(--color-white);
+  overflow: hidden;
+}
+
+.em-vision-inner {
+  position: relative;
+  max-width: 860px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.em-vision-icon {
+  width: 84px; height: 84px;
+  margin: 0 auto 26px;
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(25,184,242,.12);
+  color: var(--color-primary-dark);
+  box-shadow: 0 14px 34px rgba(25,184,242,.22);
+}
+.em-vision-icon svg { width: 38px; height: 38px; }
+
+.em-vision-title {
+  font-size: clamp(30px, 4vw, 44px);
+  font-weight: 900;
+  color: var(--color-navy);
+  margin-bottom: 22px;
+}
+
+.em-vision-lead {
+  font-size: clamp(16.5px, 1.5vw, 18.5px);
+  color: var(--color-text-soft);
+  line-height: 2.05;
+}
+
+/* ---------- 3. Interactive Morocco Map ---------- */
+.em-map {
+  position: relative;
+  padding: 115px 0;
+  background: linear-gradient(180deg, var(--color-light) 0%, #F2F9FE 100%);
+  overflow: hidden;
+}
+
+.em-map-grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.55fr 1fr;
+  gap: 34px;
+  align-items: stretch;
+}
+
+.em-map-frame {
+  position: relative;
+  background: var(--color-white);
+  border-radius: 22px;
+  border: 1px solid rgba(18,59,120,.06);
+  box-shadow: var(--shadow-md);
+  padding: 26px;
+  overflow: visible;
+}
+.em-map-frame svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.em-region {
+  cursor: pointer;
+  fill: #E2E8F0;
+  stroke: var(--color-white);
+  stroke-width: 1.6;
+  transition: fill .25s var(--t-fast), filter .25s var(--t-fast), stroke .25s var(--t-fast);
+}
+.em-region.is-active { fill: #19B8F2; }
+.em-region.is-upcoming { fill: #F6B300; }
+.em-region.is-future { fill: #E2E8F0; }
+
+.em-region:hover,
+.em-region.is-selected {
+  filter: drop-shadow(0 6px 14px rgba(18,59,120,.25));
+  stroke: var(--color-navy);
+  stroke-width: 2.4;
+}
+.em-region.is-active:hover,
+.em-region.is-active.is-selected { fill: #0F9CD1; }
+.em-region.is-upcoming:hover,
+.em-region.is-upcoming.is-selected { fill: #E0A300; }
+.em-region.is-future:hover,
+.em-region.is-future.is-selected { fill: #CBD5E1; }
+
+/* Tooltip */
+.em-map-tooltip {
+  position: absolute;
+  top: 0; inset-inline-start: 0;
+  z-index: 5;
+  min-width: 190px;
+  background: var(--color-white);
+  border-radius: 14px;
+  border: 1px solid rgba(18,59,120,.08);
+  box-shadow: 0 16px 40px rgba(18,59,120,.2);
+  padding: 14px 16px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(8px);
+  transition: opacity .2s var(--t-fast), transform .2s var(--t-fast);
+}
+.em-map-tooltip.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.em-tooltip-title {
+  font-size: 14px;
+  font-weight: 900;
+  color: var(--color-navy);
+  margin-bottom: 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px dashed rgba(18,59,120,.12);
+}
+.em-tooltip-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  font-size: 12.5px;
+  padding: 4px 0;
+}
+.em-tooltip-row span { color: var(--color-text-soft); font-weight: 600; }
+.em-tooltip-row strong { color: var(--color-navy); font-weight: 800; }
+.em-tooltip-status {
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  font-size: 11px;
+  font-weight: 800;
+}
+.em-tooltip-status.is-active { background: rgba(25,184,242,.12); color: var(--color-primary-dark); }
+.em-tooltip-status.is-upcoming { background: rgba(246,179,0,.16); color: #C98A00; }
+.em-tooltip-status.is-future { background: rgba(100,116,139,.14); color: #64748B; }
+
+/* Legend card */
+.em-map-legend {
+  position: relative;
+  background: var(--color-white);
+  border-radius: 22px;
+  border: 1px solid rgba(18,59,120,.06);
+  box-shadow: var(--shadow-md);
+  padding: 32px 30px;
+  display: flex;
+  flex-direction: column;
+}
+.em-legend-title {
+  font-size: 19px;
+  font-weight: 900;
+  color: var(--color-navy);
+  margin-bottom: 6px;
+}
+.em-legend-sub {
+  font-size: 13.5px;
+  color: var(--color-text-soft);
+  margin-bottom: 22px;
+}
+.em-legend-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.em-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-text);
+}
+.em-legend-dot {
+  width: 18px; height: 18px;
+  border-radius: 6px;
+  flex-shrink: 0;
+  box-shadow: 0 4px 10px rgba(18,59,120,.12);
+}
+.em-legend-dot.is-active { background: #19B8F2; }
+.em-legend-dot.is-upcoming { background: #F6B300; }
+.em-legend-dot.is-future { background: #E2E8F0; border: 1px solid #CBD5E1; }
+
+/* Selected region detail */
+.em-map-detail {
+  margin-top: 24px;
+  padding-top: 22px;
+  border-top: 1px dashed rgba(18,59,120,.14);
+}
+.em-map-detail.is-empty {
+  border: 1.5px dashed rgba(18,59,120,.18);
+  border-radius: 16px;
+  padding: 18px;
+  text-align: center;
+  color: var(--color-text-soft);
+  font-size: 13.5px;
+  font-weight: 600;
+  line-height: 1.9;
+}
+.em-detail-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.em-detail-head h4 {
+  font-size: 16px;
+  font-weight: 900;
+  color: var(--color-navy);
+}
+.em-detail-status {
+  padding: 5px 12px;
+  border-radius: var(--radius-pill);
+  font-size: 11.5px;
+  font-weight: 800;
+}
+.em-detail-status.is-active { background: rgba(25,184,242,.12); color: var(--color-primary-dark); }
+.em-detail-status.is-upcoming { background: rgba(246,179,0,.16); color: #C98A00; }
+.em-detail-status.is-future { background: rgba(100,116,139,.14); color: #64748B; }
+.em-detail-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.em-detail-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13.5px;
+  color: var(--color-text-soft);
+}
+.em-detail-row svg { width: 16px; height: 16px; color: var(--color-primary-dark); flex-shrink: 0; }
+.em-detail-row strong {
+  color: var(--color-navy);
+  font-weight: 800;
+  margin-inline-start: auto;
+}
+
+/* ---------- 4. Expansion phases timeline ---------- */
+.em-phases {
+  position: relative;
+  padding: 115px 0;
+  background: var(--color-white);
+  overflow: hidden;
+}
+
+.em-phases-grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.em-phases-line,
+.em-phases-progress {
+  position: absolute;
+  top: 30px;
+  inset-inline-start: 4%;
+  inset-inline-end: 4%;
+  height: 3px;
+  border-radius: 999px;
+  z-index: 0;
+}
+.em-phases-line {
+  background: rgba(18,59,120,.1);
+}
+.em-phases-progress {
+  background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-accent) 100%);
+  transform: scaleX(0);
+  transform-origin: right center;
+  transition: transform 1.6s cubic-bezier(.4, 0, .2, 1) .3s;
+}
+.em-phases.is-anim .em-phases-progress { transform: scaleX(1); }
+
+.em-phase {
+  position: relative;
+  z-index: 1;
+  background: var(--color-white);
+  border-radius: 18px;
+  padding: 0 20px 26px;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(18,59,120,.06);
+  transition: transform var(--t-fast), box-shadow var(--t-fast);
+}
+.em-phase:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-md);
+}
+
+.em-phase-icon {
+  position: relative;
+  width: 64px; height: 64px;
+  margin: -32px auto 16px;
+  border-radius: 50%;
+  background: var(--color-white);
+  border: 3px solid var(--color-primary);
+  color: var(--color-primary-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 26px rgba(25,184,242,.25);
+}
+.em-phase-icon svg { width: 26px; height: 26px; }
+.em-phase-icon.is-accent { border-color: var(--color-accent); color: #C98A00; box-shadow: 0 10px 26px rgba(246,179,0,.3); }
+.em-phase-icon.is-navy { border-color: var(--color-navy); color: var(--color-navy); box-shadow: 0 10px 26px rgba(18,59,120,.22); }
+.em-phase-icon.is-green { border-color: #22C55E; color: #16A34A; box-shadow: 0 10px 26px rgba(34,197,94,.25); }
+
+.em-phase-num {
+  position: absolute;
+  top: 16px;
+  inset-inline-end: 18px;
+  font-size: 34px;
+  font-weight: 900;
+  line-height: 1;
+  color: var(--color-light);
+  -webkit-text-stroke: 1.5px rgba(18,59,120,.2);
+}
+
+.em-phase h3 {
+  font-size: 18px;
+  font-weight: 900;
+  color: var(--color-navy);
+  margin-bottom: 8px;
+}
+.em-phase p {
+  font-size: 14px;
+  color: var(--color-text-soft);
+  line-height: 1.85;
+}
+
+/* ---------- 5. Current branches ---------- */
+.em-branches {
+  position: relative;
+  padding: 115px 0;
+  background: linear-gradient(180deg, var(--color-light) 0%, #F2F9FE 100%);
+}
+
+.em-branch-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 26px;
+}
+
+.em-branch-card {
+  position: relative;
+  background: var(--color-white);
+  border-radius: 18px;
+  padding: 26px 24px 22px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(18,59,120,.06);
+  transition: transform var(--t-fast), box-shadow var(--t-fast);
+}
+.em-branch-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-md);
+}
+
+.em-branch-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.em-branch-city {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+.em-branch-city svg { width: 20px; height: 20px; color: var(--color-primary-dark); flex-shrink: 0; }
+.em-branch-city h3 {
+  font-size: 18px;
+  font-weight: 900;
+  color: var(--color-navy);
+}
+.em-branch-status {
+  padding: 5px 12px;
+  border-radius: var(--radius-pill);
+  font-size: 11.5px;
+  font-weight: 800;
+  background: rgba(25,211,102,.13);
+  color: #17A44E;
+}
+
+.em-branch-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.em-branch-meta div {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 13.5px;
+  color: var(--color-text-soft);
+}
+.em-branch-meta svg { width: 16px; height: 16px; color: var(--color-primary-dark); flex-shrink: 0; }
+.em-branch-meta strong { color: var(--color-navy); font-weight: 800; }
+
+.em-branch-btn {
+  display: block;
+  width: 100%;
+  padding: 11px 18px;
+  border-radius: var(--radius-pill);
+  background: rgba(25,184,242,.1);
+  color: var(--color-primary-dark);
+  font-weight: 800;
+  font-size: 13.5px;
+  border: 1px solid rgba(25,184,242,.25);
+  text-align: center;
+  transition: background var(--t-fast), color var(--t-fast), box-shadow var(--t-fast), transform var(--t-fast);
+}
+.em-branch-btn:hover {
+  background: var(--gradient-primary);
+  color: #fff;
+  box-shadow: var(--shadow-primary);
+  transform: translateY(-2px);
+}
+
+/* ---------- 6. Future branches ---------- */
+.em-future {
+  position: relative;
+  padding: 115px 0;
+  background: var(--color-white);
+}
+
+.em-future-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+}
+
+.em-future-card {
+  position: relative;
+  background: var(--color-white);
+  border-radius: 18px;
+  padding: 24px 22px 20px;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(18,59,120,.06);
+  transition: transform var(--t-fast), box-shadow var(--t-fast);
+}
+.em-future-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-md);
+}
+
+.em-future-icon {
+  width: 52px; height: 52px;
+  margin: 0 auto 14px;
+  border-radius: 50%;
+  background: rgba(25,184,242,.1);
+  color: var(--color-primary-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.em-future-icon svg { width: 23px; height: 23px; }
+
+.em-future-card h3 {
+  font-size: 16.5px;
+  font-weight: 900;
+  color: var(--color-navy);
+  margin-bottom: 4px;
+}
+.em-future-region {
+  font-size: 13px;
+  color: var(--color-text-soft);
+  margin-bottom: 14px;
+}
+.em-future-status {
+  display: inline-block;
+  padding: 5px 14px;
+  border-radius: var(--radius-pill);
+  font-size: 12px;
+  font-weight: 800;
+}
+.em-future-status.is-soon { background: rgba(246,179,0,.16); color: #C98A00; }
+.em-future-status.is-study { background: rgba(25,184,242,.12); color: var(--color-primary-dark); }
+.em-future-status.is-planned { background: rgba(100,116,139,.14); color: #64748B; }
+
+/* ---------- 7. Statistics ---------- */
+.em-stats {
+  position: relative;
+  padding: 110px 0;
+  background: linear-gradient(135deg, #1E74C9 0%, var(--color-navy) 55%, #0C2A5E 100%);
+  overflow: hidden;
+}
+
+.em-stats-eyebrow {
+  background: rgba(255,255,255,.12);
+  color: #fff;
+}
+.em-stats-eyebrow::before { background: var(--color-accent); }
+
+.em-stats-title { color: #fff; }
+
+.em-stats-grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 26px;
+}
+
+.em-stat {
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.14);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 18px;
+  padding: 40px 20px 34px;
+  text-align: center;
+  transition: transform var(--t-fast), background var(--t-fast), border-color var(--t-fast);
+}
+.em-stat:hover {
+  transform: translateY(-8px);
+  background: rgba(255,255,255,.14);
+  border-color: rgba(255,255,255,.3);
+}
+
+.em-stat-num {
+  display: block;
+  font-size: clamp(40px, 5vw, 58px);
+  font-weight: 900;
+  line-height: 1.1;
+  color: var(--color-accent);
+  margin-bottom: 10px;
+}
+.em-stat-label {
+  display: block;
+  font-size: 15.5px;
+  font-weight: 700;
+  color: rgba(255,255,255,.85);
+}
+
+/* ---------- 8. Call To Action ---------- */
+.em-cta {
+  position: relative;
+  padding: 120px 0;
+  background: linear-gradient(150deg, #1E74C9 0%, var(--color-navy) 55%, #0C2A5E 100%);
+  overflow: hidden;
+}
+
+.em-cta-blobs {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.em-cta-blob {
+  position: absolute;
+  border-radius: 50%;
+}
+.em-cta-blob-1 {
+  width: 360px; height: 360px;
+  background: rgba(25,184,242,.16);
+  top: -140px; inset-inline-end: -90px;
+}
+.em-cta-blob-2 {
+  width: 260px; height: 260px;
+  background: rgba(246,179,0,.1);
+  bottom: -110px; inset-inline-start: -70px;
+}
+.em-cta-blob-3 {
+  width: 90px; height: 90px;
+  border: 2px solid rgba(255,255,255,.14);
+  top: 24%; inset-inline-start: 12%;
+}
+
+.em-cta-inner {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 760px;
+  margin: 0 auto;
+}
+.em-cta-inner h2 {
+  font-size: clamp(28px, 4vw, 46px);
+  font-weight: 900;
+  color: #fff;
+  margin-bottom: 18px;
+  line-height: 1.4;
+}
+.em-cta-inner p {
+  font-size: clamp(15.5px, 1.4vw, 17.5px);
+  color: rgba(255,255,255,.82);
+  line-height: 1.95;
+  margin-bottom: 38px;
+}
+
+.em-cta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1024px) {
+  .nv-hero-inner { gap: 36px; }
+
+  .em-map-grid { grid-template-columns: 1fr; }
+
+  .em-phases-grid { grid-template-columns: repeat(2, 1fr); gap: 40px 28px; }
+  .em-phases-line, .em-phases-progress { display: none; }
+
+  .em-future-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 900px) {
+  .nv-hero { padding: 120px 0 90px; }
+  .nv-hero-inner { grid-template-columns: 1fr; text-align: center; }
+  .nv-hero p { margin-inline: auto; }
+  .nv-hero-actions { justify-content: center; }
+
+  .em-branch-grid { grid-template-columns: repeat(2, 1fr); }
+
+  .em-stats-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 620px) {
+  .nv-hero { padding: 110px 0 80px; }
+
+  .em-vision, .em-map, .em-phases, .em-branches, .em-future { padding: 85px 0; }
+  .em-stats, .em-cta { padding: 85px 0; }
+
+  .em-branch-grid, .em-future-grid { grid-template-columns: 1fr; }
+  .em-map-frame { padding: 16px; }
+
+  .em-phases-grid { grid-template-columns: 1fr; gap: 0; }
+  .em-phase { margin-bottom: 20px; }
+  .em-phase:last-child { margin-bottom: 0; }
+}
+
+@media (max-width: 420px) {
+  .em-stats-grid { grid-template-columns: 1fr; gap: 18px; }
+  .em-branch-card { padding-inline: 20px; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- ===== Loading Screen ===== -->
+<div id="loader" aria-hidden="true">
+  <div class="loader-mark"></div>
+  <div class="loader-text">الجمعية المغربية لهواة البحث والاستكشاف</div>
+</div>
+
+<!-- ===== Skip Link ===== -->
+<a href="#main" class="visually-hidden">تخطَّ إلى المحتوى الرئيسي</a>
+
+<!-- ===== 1. Top Bar ===== -->
+<div class="topbar">
+  <div class="container">
+    <!-- RIGHT SIDE -- Brand (Logo + Name) -->
+    <div class="topbar-right">
+      <a href="../index.html" class="topbar-brand" aria-label="الرئيسية">
+        <span class="topbar-brand-mark">
+          <img src="../Amare%20files%20/logo.png" alt="AMARE Logo" class="topbar-brand-logo">
+        </span>
+        <span class="topbar-brand-name">الجمعية المغربية لهواة البحث والاستكشاف</span>
+      </a>
+    </div>
+
+    <!-- LEFT SIDE -- Actions -->
+    <div class="topbar-left">
+      <div class="topbar-social">
+        <a href="#" aria-label="فيسبوك"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg></a>
+        <a href="#" aria-label="إنستغرام"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+        <a href="#" aria-label="لينكدإن"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 5 3.79 6.2 2.3 6.2 1 6.2 0 5 0 3.5 0 2 1.1.8 2.5.8s2.48 1.2 2.48 2.7zM.2 8.5h4.6V23H.2V8.5zM8 8.5h4.4v2h.06c.6-1.2 2.1-2.4 4.4-2.4 4.7 0 5.6 3.1 5.6 7.1V23h-4.6v-6.7c0-1.6 0-3.7-2.3-3.7s-2.6 1.8-2.6 3.6V23H8V8.5z"/></svg></a>
+      </div>
+
+      <div class="topbar-lang">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg>
+        <select aria-label="اختيار اللغة">
+          <option value="ar" selected>العربية</option>
+          <option value="fr">Français</option>
+          <option value="en">English</option>
+          <option value="es">Español</option>
+          <option value="ber">ⵜⴰⵎⴰⵣⵉⵖⵜ</option>
+        </select>
+
+      </div>
+
+      <a href="http://wa.me/+212684869996" target="_blank" rel="noopener" class="topbar-whatsapp ripple" aria-label="تواصل عبر واتساب">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.6.1-.2.3-.7 1-.9 1.2-.1.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.2-.4.1-.2 0-.4 0-.5s-.6-1.5-.8-2c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s1 2.6 1.1 2.7c.1.2 2 3 4.7 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 2-1.4.2-.6.2-1.2.1-1.3-.1-.1-.3-.2-.6-.3z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.6 1.4 5.1L2 22l5.1-1.3C8.5 21.5 10.2 22 12 22c5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18c-1.6 0-3.1-.4-4.5-1.2l-.3-.2-3.3.9.9-3.2-.2-.3C3.7 14.6 3.2 13.3 3.2 12c0-4.9 3.9-8.8 8.8-8.8s8.8 3.9 8.8 8.8-3.9 8.8-8.8 8.8z"/></svg>
+        <span>واتساب</span>
+      </a>
+
+      <a href="#" class="topbar-login ripple" aria-label="تسجيل الدخول">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M15 3h6v18h-6M10 17l5-5-5-5M15 12H3"/>
+        </svg>
+        <span>تسجيل الدخول</span>
+      </a>
+
+      <a href="#" class="nav-store-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+          <path d="M3 6h18"/>
+          <path d="M16 10a4 4 0 0 1-8 0"/>
+        </svg>
+        <span>متجر AMARE</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 2. Navbar ===== -->
+<header>
+  <nav class="navbar" id="navbar" aria-label="التنقل الرئيسي">
+    <div class="container">
+      <!-- Center -- Nav links -->
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html">الرئيسية</a></li>
+        <li data-dropdown="about"><a href="../index.html#about" class="active" aria-current="page">من نحن</a></li>
+        <li data-dropdown="activities"><a href="../index.html#services">أنشطتنا</a></li>
+        <li data-dropdown="partners"><a href="../index.html#services">شركاؤنا</a></li>
+        <li data-dropdown="services"><a href="../index.html#services">خدماتنا</a></li>
+        <li data-dropdown="news"><a href="../index.html#news">الأخبار</a></li>
+        <li data-dropdown="archive"><a href="#">الأرشيف</a></li>
+        <li data-dropdown="branches"><a href="#">الفروع الجهوية</a></li>
+        <li data-dropdown="join"><a href="../Join us/join-us-online.html">انخرط معنا</a></li>
+        <li><a href="../contact.html">اتصل بنا</a></li>
+      </ul>
+
+      <!-- Right side -- Hamburger (mobile only) -->
+      <div class="nav-actions">
+        <button class="hamburger" id="hamburger" aria-label="فتح القائمة" aria-expanded="false" aria-controls="navLinks">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <div class="mega-dropdown" id="megaDropdown"></div>
+  </nav>
+</header>
+
+<!-- ===== Mobile Header (mobile only) ===== -->
+<div class="mobile-header" id="mobileHeader">
+  <div class="mobile-header-group">
+    <a class="mobile-header-logo" href="../index.html" aria-label="الرئيسية">
+      <img src="../Amare%20files%20/logo.png" alt="AMARE Logo">
+    </a>
+    <a class="mobile-header-brand" href="../index.html" aria-label="الرئيسية">
+      الجمعية المغربية لهواة<br>البحث والاستكشاف
+    </a>
+  </div>
+  <button class="mobile-hamburger" id="mobileHamburger" aria-label="فتح القائمة" aria-expanded="false" aria-controls="mobileDrawer">
+    <span></span><span></span><span></span>
+  </button>
+</div>
+
+<!-- ===== Mobile Drawer (off-canvas) ===== -->
+<div class="mobile-drawer" id="mobileDrawer" role="dialog" aria-modal="true" aria-label="القائمة الرئيسية">
+  <div class="mobile-drawer-inner">
+    <div class="mobile-drawer-header">
+      <button class="mobile-drawer-close" id="mobileDrawerClose" aria-label="إغلاق القائمة">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+      <a class="mobile-drawer-brand" href="../index.html">
+        <img src="../Amare%20files%20/logo.png" alt="AMARE Logo" class="mobile-drawer-brand-logo">
+        <span class="mobile-drawer-brand-name">الجمعية المغربية لهواة البحث والاستكشاف</span>
+      </a>
+    </div>
+    <nav class="mobile-drawer-nav" aria-label="التنقل الرئيسي">
+      <ul class="mobile-drawer-links" id="mobileDrawerLinks">
+        <li><a href="../index.html">الرئيسية</a></li>
+        <li class="mobile-drawer-dropdown" data-dd="about">
+          <div class="mobile-drawer-row">
+            <a href="../index.html#about" class="active" aria-current="page">من نحن</a>
+            <button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </div>
+          <ul class="mobile-drawer-sub"></ul>
+        </li>
+        <li class="mobile-drawer-dropdown" data-dd="activities">
+          <div class="mobile-drawer-row">
+            <a href="../index.html#services">أنشطتنا</a>
+            <button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </div>
+          <ul class="mobile-drawer-sub"></ul>
+        </li>
+        <li class="mobile-drawer-dropdown" data-dd="partners">
+          <div class="mobile-drawer-row">
+            <a href="../index.html#services">شركاؤنا</a>
+            <button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </div>
+          <ul class="mobile-drawer-sub"></ul>
+        </li>
+        <li class="mobile-drawer-dropdown" data-dd="services">
+          <div class="mobile-drawer-row">
+            <a href="../index.html#services">خدماتنا</a>
+            <button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </div>
+          <ul class="mobile-drawer-sub"></ul>
+        </li>
+        <li class="mobile-drawer-dropdown" data-dd="news">
+          <div class="mobile-drawer-row">
+            <a href="../index.html#news">الأخبار</a>
+            <button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </div>
+          <ul class="mobile-drawer-sub"></ul>
+        </li>
+        <li class="mobile-drawer-dropdown" data-dd="archive">
+          <div class="mobile-drawer-row">
+            <a href="#">الأرشيف</a>
+            <button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </div>
+          <ul class="mobile-drawer-sub"></ul>
+        </li>
+        <li class="mobile-drawer-dropdown" data-dd="branches">
+          <div class="mobile-drawer-row">
+            <a href="#">الفروع الجهوية</a>
+            <button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </div>
+          <ul class="mobile-drawer-sub"></ul>
+        </li>
+        <li class="mobile-drawer-dropdown" data-dd="join">
+          <div class="mobile-drawer-row">
+            <a href="../Join%20us/index.html">انخرط معنا</a>
+            <button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </div>
+          <ul class="mobile-drawer-sub"></ul>
+        </li>
+        <li><a href="../contact.html">اتصل بنا</a></li>
+      </ul>
+    </nav>
+    <div class="mobile-drawer-bottom">
+      <div class="mobile-drawer-actions">
+        <a href="#" class="mobile-drawer-action mobile-drawer-action-login">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v18h-6M10 17l5-5-5-5M15 12H3"/></svg>
+          <span>تسجيل الدخول</span>
+        </a>
+        <a href="#" class="mobile-drawer-action mobile-drawer-action-store">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span>متجر AMARE</span>
+        </a>
+        <a href="../Join%20us/index.html" class="mobile-drawer-action mobile-drawer-action-join">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+          <span>انخرط في الجمعية</span>
+        </a>
+        <a href="https://wa.me/212600000000" target="_blank" rel="noopener" class="mobile-drawer-action mobile-drawer-action-whatsapp">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.6.1-.2.3-.7 1-.9 1.2-.1.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.2-.4.1-.2 0-.4 0-.5s-.6-1.5-.8-2c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s1 2.6 1.1 2.7c.1.2 2 3 4.7 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 2-1.4.2-.6.2-1.2.1-1.3-.1-.1-.3-.2-.6-.3z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.6 1.4 5.1L2 22l5.1-1.3C8.5 21.5 10.2 22 12 22c5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18c-1.6 0-3.1-.4-4.5-1.2l-.3-.2-3.3.9.9-3.2-.2-.3C3.7 14.6 3.2 13.3 3.2 12c0-4.9 3.9-8.8 8.8-8.8s8.8 3.9 8.8 8.8-3.9 8.8-8.8 8.8z"/></svg>
+          <span>واتساب</span>
+        </a>
+      </div>
+      <div class="mobile-drawer-lang">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg>
+        <select aria-label="اختيار اللغة">
+          <option value="ar" selected>العربية</option>
+          <option value="fr">Français</option>
+          <option value="en">English</option>
+          <option value="es">Español</option>
+          <option value="ber">ⵜⴰⵎⴰⵣⵉⵖⵜ</option>
+        </select>
+      </div>
+      <div class="mobile-drawer-social">
+        <a href="#" aria-label="فيسبوك"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg></a>
+        <a href="#" aria-label="إنستغرام"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+        <a href="#" aria-label="لينكدإن"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 5 3.79 6.2 2.3 6.2 1 6.2 0 5 0 3.5 0 2 1.1.8 2.5.8s2.48 1.2 2.48 2.7zM.2 8.5h4.6V23H.2V8.5zM8 8.5h4.4v2h.06c.6-1.2 2.1-2.4 4.4-2.4 4.7 0 5.6 3.1 5.6 7.1V23h-4.6v-6.7c0-1.6 0-3.7-2.3-3.7s-2.6 1.8-2.6 3.6V23H8V8.5z"/></svg></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main id="main">
+
+  <!-- ===== 1. Hero Section (same design as الرؤية الوطنية) ===== -->
+  <section class="nv-hero" id="home">
+    <div class="container">
+      <div class="nv-hero-inner">
+        <div class="nv-hero-content">
+          <span class="nv-hero-badge hero-fade d1">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2z"/><path d="M9 4v14"/><path d="M15 6v14"/></svg>
+            خارطة التوسع
+          </span>
+          <h1 class="hero-fade d2">خارطة التوسع الوطني <span>للجمعية</span></h1>
+          <p class="hero-fade d3">تسعى الجمعية المغربية لهواة البحث والاستكشاف إلى توسيع حضورها في مختلف جهات المملكة، من خلال إنشاء فروع جديدة، وتعزيز الشراكات، وتقريب أنشطتها من جميع المهتمين بالبحث والاستكشاف.</p>
+          <div class="nv-hero-actions hero-fade d4">
+            <a href="#emMap" class="btn btn-accent">
+              استكشف الخارطة
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2z"/><path d="M9 4v14"/><path d="M15 6v14"/></svg>
+            </a>
+            <a href="../Join us/join-us-online.html" class="btn btn-navy">
+              انضم إلينا
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 2. Expansion Vision ===== -->
+  <section class="em-vision" id="emVision">
+    <div class="container">
+      <div class="em-vision-inner reveal">
+        <span class="em-vision-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+        </span>
+        <span class="eyebrow">رؤيتنا</span>
+        <h2 class="em-vision-title">رؤيتنا للتوسع</h2>
+        <p class="em-vision-lead">تنبني استراتيجية التوسع لدى الجمعية على مبدأ التقريب: تقريب الهيكل التنظيمي من الهواة أينما كانوا، وتمكينهم من الانخراط في العمل الجمعوي دون عناء التنقل، مع الحرص على توحيد معايير العمل وجودة البرامج عبر جميع الفروع، وتعزيز الشراكات المحلية والجهوية، والاستثمار في قيادات محلية مؤهلة قادرة على ترجمة رسالة الجمعية داخل جهاتها، بما يضمن توسعاً متوازناً ومستداماً يخدم أهداف الجمعية الوطنية.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 3. Interactive Morocco Map ===== -->
+  <section class="em-map" id="emMap">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">الخريطة التفاعلية</span>
+        <h2 class="section-title">خريطة المملكة المغربية</h2>
+        <p class="section-desc">انقر على أي جهة لاستكشاف حالة التوسع، وعدد الفروع النشطة أو المرتقبة في كل جهة من جهات المملكة.</p>
+      </div>
+
+      <div class="em-map-grid reveal">
+        <div class="em-map-frame">
+          <svg viewBox="0 0 1000 1000" role="img" aria-label="خريطة جهات المملكة المغربية">
+            <path class="em-region is-future" data-region="MA11" d="M515.5 587.5 L519.4 588.0 L519.1 654.9 L344.2 655.2 L344.2 748.5 L331.2 745.6 L312.9 748.8 L286.2 740.5 L277.0 741.3 L256.3 748.4 L235.9 743.0 L223.9 743.6 L213.3 746.9 L205.0 740.6 L198.7 738.9 L193.3 733.8 L192.4 731.4 L196.4 718.4 L196.4 695.9 L203.3 681.5 L206.4 668.4 L213.7 655.7 L215.0 644.3 L218.6 639.6 L227.0 635.3 L230.2 630.1 L241.4 627.2 L262.6 611.7 L283.8 555.2 L289.8 551.8 L296.9 539.6 L340.7 531.8 L356.5 524.4 L366.8 544.9 L372.1 548.4 L387.6 552.5 L437.1 548.3 L450.9 558.4 L457.4 557.0 L462.6 564.5 L474.1 572.4 L487.5 568.3 L504.2 579.8 L509.3 585.4 L515.5 587.5 Z"/>
+            <path class="em-region is-future" data-region="MA01" d="M774.8 92.2 L774.5 113.4 L763.7 116.1 L758.0 121.4 L752.5 117.4 L748.5 123.1 L743.6 123.5 L742.7 126.2 L738.9 124.1 L735.4 125.3 L733.3 122.8 L727.3 122.9 L724.6 121.0 L724.0 115.1 L711.8 117.7 L703.4 121.7 L703.3 131.6 L698.2 136.0 L690.5 134.6 L690.8 130.0 L685.2 128.1 L681.9 122.8 L679.1 121.6 L675.4 123.9 L672.1 122.0 L671.6 109.4 L664.6 108.8 L655.1 104.0 L647.6 104.9 L659.1 73.9 L664.0 54.2 L668.4 53.3 L671.9 54.9 L675.1 51.4 L682.0 51.3 L687.6 46.3 L691.7 45.5 L694.9 48.8 L695.2 58.7 L696.2 61.0 L698.6 60.7 L700.3 69.6 L703.8 70.7 L709.6 78.7 L712.1 79.0 L724.4 89.7 L745.9 95.5 L769.2 88.1 L770.4 91.3 L774.8 92.2 Z"/>
+            <path class="em-region is-future" data-region="MA02" d="M804.8 311.8 L812.1 304.0 L807.9 305.7 L803.9 295.9 L804.3 288.4 L807.9 283.1 L800.5 287.5 L791.2 285.0 L785.7 287.3 L784.1 285.6 L787.4 281.8 L778.4 281.6 L778.4 277.9 L775.3 278.2 L774.8 272.3 L769.0 264.3 L769.7 260.9 L764.5 256.3 L772.4 242.8 L786.3 225.9 L800.1 228.0 L816.6 224.6 L822.9 220.7 L819.1 212.9 L804.5 199.3 L816.4 185.7 L815.7 183.6 L802.2 182.8 L790.9 174.5 L783.9 185.2 L773.0 194.5 L776.3 196.7 L773.7 199.8 L772.1 195.9 L768.3 199.4 L762.4 198.7 L759.7 196.5 L761.0 191.6 L759.0 190.0 L767.6 185.6 L766.8 182.5 L770.1 177.7 L771.1 170.7 L774.7 168.3 L773.2 166.9 L775.2 155.4 L771.0 154.5 L769.9 149.6 L774.2 147.3 L773.3 140.4 L778.9 134.0 L777.4 129.3 L784.4 128.5 L787.0 124.1 L785.5 121.6 L786.3 115.0 L778.5 115.0 L777.6 112.2 L775.0 112.2 L774.8 92.2 L781.0 86.4 L787.4 90.6 L800.4 93.1 L808.1 90.3 L811.0 86.7 L813.6 87.0 L818.3 77.0 L820.0 76.7 L819.9 86.4 L822.4 86.7 L825.5 91.4 L821.7 88.9 L824.2 96.5 L827.9 98.4 L831.5 97.7 L825.7 91.4 L830.5 96.4 L836.5 99.2 L842.6 99.5 L848.2 95.5 L855.1 97.4 L859.5 99.5 L859.1 101.9 L868.2 109.7 L872.0 109.1 L872.1 112.5 L876.2 115.1 L876.5 117.4 L884.3 121.4 L878.7 129.2 L883.1 135.6 L887.1 137.6 L882.1 143.7 L886.1 149.3 L886.0 154.1 L889.3 162.0 L886.5 177.0 L888.1 183.1 L884.4 187.7 L888.9 189.0 L891.9 193.7 L892.3 198.5 L888.4 208.1 L888.0 214.1 L893.1 222.6 L898.3 227.1 L898.0 232.5 L894.7 234.4 L903.1 247.9 L923.3 262.2 L916.8 268.3 L913.2 268.9 L910.2 273.6 L910.5 281.4 L907.4 283.8 L913.3 283.7 L915.2 287.2 L912.5 288.9 L892.7 288.4 L869.8 282.8 L862.7 285.2 L847.1 284.2 L839.1 287.1 L824.7 287.2 L821.8 292.3 L827.5 306.9 L804.8 311.8 Z"/>
+            <path class="em-region is-future" data-region="MA08" d="M636.8 443.0 L639.9 432.2 L637.7 418.4 L641.8 414.9 L635.2 415.2 L633.7 412.2 L634.7 408.9 L629.4 402.8 L633.5 397.5 L625.8 388.7 L617.8 391.0 L615.1 388.9 L614.0 396.6 L599.4 393.8 L592.3 403.8 L592.0 410.5 L588.4 405.2 L579.6 403.0 L574.9 403.8 L577.4 399.6 L574.8 392.1 L572.1 393.7 L571.8 389.4 L580.7 383.7 L577.8 372.3 L570.5 371.6 L574.7 364.2 L569.3 364.3 L570.3 353.4 L568.7 347.9 L577.1 340.7 L591.8 336.2 L598.1 329.4 L601.2 333.2 L605.8 331.8 L607.4 334.9 L621.9 334.3 L623.5 326.9 L627.1 327.4 L635.1 321.6 L661.4 310.2 L664.3 305.4 L670.0 302.9 L670.8 297.9 L666.3 295.1 L668.6 285.9 L673.7 285.1 L677.3 280.8 L683.3 279.2 L689.5 280.6 L686.2 275.3 L688.0 272.6 L684.9 271.6 L684.8 265.9 L691.4 265.2 L692.0 261.5 L694.3 262.1 L696.8 243.5 L702.9 237.1 L705.5 237.5 L710.0 233.0 L709.2 230.3 L713.1 226.6 L721.1 227.0 L722.0 225.6 L725.2 231.8 L725.0 237.3 L731.0 239.3 L740.4 239.1 L754.1 255.9 L764.5 256.3 L769.7 260.9 L769.0 264.3 L774.8 272.3 L775.3 278.2 L778.4 277.9 L778.4 281.6 L787.4 281.8 L784.1 285.6 L785.7 287.3 L791.2 285.0 L800.5 287.5 L807.9 283.1 L804.3 288.4 L803.9 295.9 L807.9 305.7 L812.1 304.0 L804.8 311.8 L783.1 316.8 L784.1 331.5 L779.9 334.8 L778.7 333.6 L776.8 337.8 L778.5 338.4 L776.8 341.2 L777.6 348.2 L779.7 348.6 L781.2 344.9 L782.9 346.3 L782.6 350.0 L784.3 350.0 L784.5 345.3 L784.6 348.6 L787.7 352.7 L789.2 351.7 L790.0 354.9 L789.2 359.8 L783.9 365.3 L785.0 371.4 L783.0 376.5 L781.8 375.3 L748.5 384.6 L733.9 399.3 L716.3 408.2 L698.5 422.4 L695.7 426.5 L695.4 430.8 L683.1 447.8 L676.9 444.6 L673.9 446.1 L675.0 441.7 L671.4 440.1 L657.1 443.2 L650.0 441.9 L636.8 443.0 Z"/>
+            <path class="em-region is-future" data-region="MA09" d="M520.1 518.4 L502.7 494.3 L495.6 493.5 L491.9 489.4 L493.2 485.9 L490.8 483.4 L489.8 472.9 L493.5 471.7 L491.7 474.0 L493.7 474.0 L495.4 472.2 L494.3 470.4 L498.2 466.0 L494.8 459.3 L494.4 453.9 L491.3 449.8 L485.4 446.5 L480.4 451.1 L476.9 449.4 L476.4 451.7 L473.2 447.8 L471.0 450.9 L468.4 448.9 L469.5 451.5 L468.0 453.0 L468.2 451.1 L465.3 449.0 L461.0 451.5 L456.4 450.8 L454.7 448.1 L456.0 443.5 L450.5 446.6 L449.7 438.7 L462.8 421.9 L468.3 409.5 L471.2 393.0 L461.3 379.5 L455.9 378.4 L460.4 367.0 L459.7 359.5 L462.2 360.2 L466.5 368.9 L469.1 368.0 L470.9 364.5 L472.8 365.5 L474.2 362.8 L479.4 365.6 L484.5 364.6 L485.1 362.6 L489.8 367.8 L501.6 366.8 L503.4 362.5 L511.8 357.3 L514.2 359.6 L516.3 367.3 L520.5 361.8 L536.1 364.1 L548.1 359.5 L556.4 360.5 L561.2 349.2 L565.3 346.8 L564.5 345.5 L566.7 345.8 L569.4 347.5 L568.3 349.6 L570.3 353.4 L569.3 364.3 L574.7 364.2 L570.5 371.6 L577.8 372.3 L580.7 383.7 L571.8 389.4 L572.1 393.7 L574.8 392.1 L577.4 399.6 L574.9 403.8 L579.6 403.0 L588.4 405.2 L592.0 410.5 L592.3 403.8 L599.4 393.8 L614.0 396.6 L615.1 388.9 L617.8 391.0 L625.8 388.7 L633.5 397.5 L629.4 402.8 L634.7 408.9 L633.7 412.2 L635.2 415.2 L641.8 414.9 L637.7 418.4 L639.9 432.2 L638.1 435.0 L639.1 438.1 L636.8 443.0 L632.9 445.8 L624.2 446.1 L619.2 449.3 L601.5 445.5 L587.8 454.2 L575.5 455.0 L573.7 458.8 L543.5 477.7 L532.5 488.3 L520.1 494.3 L520.1 518.4 Z"/>
+            <path class="em-region is-future" data-region="MA10" d="M515.5 587.5 L509.3 585.4 L504.2 579.8 L487.5 568.3 L474.1 572.4 L462.6 564.5 L457.4 557.0 L450.9 558.4 L437.1 548.3 L387.6 552.5 L372.1 548.4 L366.8 544.9 L356.5 524.4 L371.0 518.5 L393.7 492.6 L423.1 475.6 L432.9 462.9 L438.8 458.3 L449.6 439.1 L450.5 446.6 L456.0 443.5 L454.7 448.1 L458.2 451.8 L464.5 448.9 L469.2 452.9 L468.4 448.9 L471.0 450.9 L473.2 447.8 L476.4 451.7 L476.9 449.4 L480.4 451.1 L483.4 446.9 L488.1 447.1 L494.4 453.9 L494.8 459.3 L498.2 466.0 L494.3 470.4 L495.4 472.2 L493.7 474.0 L491.7 474.0 L493.5 471.7 L489.8 472.9 L490.8 483.4 L493.2 485.9 L491.9 489.4 L495.6 493.5 L502.7 494.3 L520.1 518.4 L520.2 579.8 L519.4 557.1 L512.3 557.1 L515.5 587.5 Z"/>
+            <path class="em-region is-future" data-region="MA06" d="M499.6 249.2 L516.7 232.5 L515.5 233.0 L527.6 215.5 L531.8 216.0 L539.5 208.7 L565.7 198.5 L573.5 193.2 L579.6 192.8 L587.5 185.6 L586.8 187.0 L589.3 186.8 L595.8 181.2 L601.2 179.4 L602.6 181.7 L604.7 181.6 L610.0 197.6 L612.2 195.1 L620.6 197.7 L616.9 201.7 L618.5 204.9 L618.3 216.7 L614.7 219.1 L610.8 232.3 L607.4 235.1 L607.8 241.6 L604.9 250.6 L608.5 254.6 L607.8 264.8 L605.7 270.9 L600.8 274.3 L590.2 269.0 L588.0 265.2 L582.9 266.7 L582.1 265.1 L579.1 266.4 L574.9 265.0 L569.9 259.4 L570.1 257.1 L560.0 251.1 L555.5 243.4 L553.3 244.9 L551.4 252.0 L552.4 258.5 L549.1 262.9 L538.7 268.1 L536.0 271.6 L526.0 275.6 L521.7 263.5 L519.1 261.4 L510.5 263.4 L506.3 261.6 L501.7 256.3 L503.8 252.2 L499.6 249.2 Z"/>
+            <path class="em-region is-future" data-region="MA07" d="M598.1 329.4 L591.8 336.2 L577.1 340.7 L570.4 347.7 L564.5 345.5 L565.3 346.8 L561.2 349.2 L557.4 359.4 L554.5 361.3 L548.1 359.5 L536.1 364.1 L520.5 361.8 L516.2 367.3 L514.2 359.6 L511.8 357.3 L503.4 362.5 L501.6 366.8 L489.8 367.8 L485.1 362.6 L484.5 364.6 L479.4 365.6 L474.2 362.8 L472.8 365.5 L470.9 364.5 L469.1 368.0 L466.5 368.9 L462.2 360.2 L459.3 358.0 L458.6 346.9 L460.9 335.5 L458.8 330.5 L466.6 318.6 L467.2 312.7 L484.5 292.2 L489.0 283.3 L489.9 275.3 L487.4 271.6 L490.5 264.3 L487.7 260.4 L499.6 249.2 L503.8 252.2 L501.7 256.3 L506.3 261.6 L510.5 263.4 L519.1 261.4 L521.7 263.5 L526.0 275.6 L536.0 271.6 L538.7 268.1 L549.1 262.9 L552.4 258.5 L551.4 252.0 L553.3 244.9 L555.5 243.4 L560.0 251.1 L570.1 257.1 L569.9 259.4 L575.2 265.2 L579.1 266.4 L582.1 265.1 L582.9 266.7 L588.0 265.2 L590.2 269.0 L593.2 269.2 L597.8 273.6 L601.6 273.8 L601.7 291.5 L604.8 295.2 L604.3 299.8 L607.7 305.2 L605.9 304.9 L605.3 308.9 L598.9 310.0 L594.3 308.7 L591.0 313.1 L593.7 314.3 L594.0 317.5 L597.7 321.3 L600.8 321.4 L598.1 329.4 Z"/>
+            <path class="em-region is-future" data-region="MA12" d="M192.4 731.5 L198.7 738.9 L205.0 740.6 L213.3 746.9 L223.9 743.6 L235.9 743.0 L256.3 748.4 L277.0 741.3 L286.2 740.5 L312.9 748.8 L331.2 745.6 L344.2 748.5 L344.0 801.9 L326.0 809.9 L312.5 812.7 L291.7 827.2 L284.5 838.5 L284.3 846.0 L287.6 857.0 L291.7 922.6 L85.0 922.8 L78.9 945.2 L79.6 954.5 L76.7 950.4 L84.4 894.9 L94.6 872.5 L99.0 868.3 L102.2 869.9 L108.9 866.6 L111.7 856.6 L115.9 852.3 L119.6 833.7 L123.8 832.8 L127.0 828.7 L127.0 824.7 L124.1 822.7 L135.7 804.7 L137.4 801.0 L136.1 799.1 L150.1 781.1 L148.0 781.3 L147.9 775.8 L141.3 780.9 L138.0 790.3 L135.7 792.3 L134.5 791.1 L143.0 777.5 L156.0 768.6 L175.6 745.7 L186.5 739.2 L188.1 734.5 L192.4 731.5 Z"/>
+            <path class="em-region is-future" data-region="MA04" d="M647.6 104.9 L655.1 104.0 L664.6 108.8 L671.6 109.4 L672.1 122.0 L675.4 123.9 L679.1 121.6 L681.9 122.8 L685.2 128.1 L690.8 130.0 L690.5 134.6 L696.4 135.9 L692.2 142.5 L685.1 144.9 L690.8 152.7 L688.0 155.3 L689.7 157.0 L688.3 159.4 L685.0 158.6 L682.0 162.0 L675.9 161.1 L676.1 157.7 L672.6 158.4 L671.2 155.4 L666.7 161.1 L673.4 172.2 L670.6 177.0 L675.4 182.3 L670.7 193.7 L672.0 199.4 L669.6 201.0 L671.7 201.9 L670.0 209.1 L672.3 210.8 L669.5 212.6 L663.9 210.9 L656.7 212.6 L655.0 210.6 L649.4 210.1 L650.0 204.2 L641.8 201.5 L638.7 211.5 L640.2 215.7 L631.9 222.4 L628.7 219.6 L618.5 217.7 L618.5 204.9 L616.9 201.7 L620.6 197.7 L612.2 195.1 L610.0 197.6 L605.8 183.8 L601.2 179.4 L617.1 167.1 L633.0 138.5 L644.4 113.4 L644.7 116.2 L646.7 115.2 L645.7 117.1 L647.3 115.4 L644.5 113.2 L647.6 104.9 Z"/>
+            <path class="em-region is-future" data-region="MA03" d="M696.4 135.9 L702.6 133.2 L703.4 121.7 L704.9 120.3 L719.0 115.7 L724.0 115.1 L724.6 121.0 L727.5 123.0 L733.3 122.8 L735.4 125.3 L738.9 124.1 L742.7 126.2 L743.6 123.5 L748.5 123.1 L752.5 117.4 L758.0 121.4 L763.7 116.1 L775.0 112.2 L777.6 112.2 L778.5 115.0 L786.3 115.0 L785.5 121.6 L787.0 124.1 L784.4 128.5 L777.4 129.3 L778.9 134.0 L773.3 140.4 L774.2 147.3 L769.9 149.6 L771.0 154.5 L775.2 155.4 L773.2 166.9 L774.7 168.3 L771.1 170.7 L770.1 177.7 L766.8 182.5 L767.6 185.6 L759.0 190.0 L761.0 191.6 L759.7 196.5 L767.5 199.5 L772.1 195.9 L774.0 199.6 L776.3 196.7 L773.0 194.5 L783.9 185.2 L790.9 174.5 L802.2 182.8 L815.7 183.6 L816.4 185.7 L804.5 199.3 L819.1 212.9 L822.9 220.7 L816.6 224.6 L800.1 228.0 L795.2 228.2 L787.8 225.0 L774.4 240.1 L764.5 256.3 L762.5 256.8 L754.1 255.9 L740.4 239.1 L731.0 239.3 L725.0 237.3 L725.2 231.8 L722.0 225.6 L721.1 227.0 L712.0 227.2 L709.2 230.3 L710.0 233.0 L705.5 237.5 L702.9 237.1 L698.5 240.5 L700.3 236.5 L696.9 232.7 L697.7 229.9 L695.6 226.6 L698.1 221.2 L689.4 221.5 L686.0 215.7 L686.3 211.4 L682.5 207.5 L673.6 205.6 L669.6 201.0 L672.0 199.4 L670.7 193.7 L675.4 182.3 L670.5 176.7 L673.4 172.2 L666.5 162.2 L671.2 155.4 L672.6 158.4 L676.1 157.7 L675.9 161.1 L682.0 162.0 L685.0 158.6 L688.3 159.4 L689.7 157.0 L688.0 155.3 L690.8 152.7 L685.1 144.9 L692.2 142.5 L696.4 135.9 Z"/>
+            <path class="em-region is-future" data-region="MA05" d="M699.6 240.0 L696.6 243.9 L694.3 262.1 L692.0 261.5 L691.4 265.2 L684.8 265.9 L684.9 271.6 L688.0 272.6 L686.2 275.3 L689.5 280.6 L683.3 279.2 L677.3 280.8 L673.7 285.1 L667.5 287.4 L666.3 295.1 L670.8 297.9 L670.0 302.9 L664.3 305.4 L659.5 311.4 L639.5 319.4 L627.1 327.4 L623.5 326.9 L621.9 334.3 L607.4 334.9 L605.8 331.8 L601.2 333.2 L598.1 329.4 L600.8 321.4 L597.7 321.3 L594.0 317.5 L593.7 314.3 L591.2 314.5 L591.1 311.9 L595.8 308.1 L598.9 310.0 L605.3 308.9 L605.9 304.9 L607.7 305.2 L604.3 299.8 L604.8 295.2 L601.7 291.5 L602.5 275.1 L600.8 274.3 L605.7 270.9 L607.8 264.8 L608.5 254.6 L604.9 250.6 L607.8 241.6 L607.4 235.1 L610.8 232.3 L615.7 218.0 L625.5 218.5 L632.4 222.4 L640.2 215.7 L638.7 211.5 L641.8 201.5 L650.0 204.2 L649.7 210.3 L655.0 210.6 L656.7 212.6 L662.3 210.9 L670.3 212.4 L672.3 210.8 L670.0 209.1 L671.6 202.2 L673.6 205.6 L682.5 207.5 L686.3 211.4 L686.0 215.7 L689.4 221.5 L698.1 221.2 L695.6 226.6 L697.7 229.9 L696.9 232.7 L700.3 236.5 L698.5 240.5 L699.6 240.0 Z"/>
+          </svg>
+          <div class="em-map-tooltip" id="emMapTooltip" aria-hidden="true"></div>
+        </div>
+
+        <aside class="em-map-legend">
+          <h3 class="em-legend-title">دليل الألوان</h3>
+          <p class="em-legend-sub">حالة التوسع في جهات المملكة</p>
+          <ul class="em-legend-list">
+            <li class="em-legend-item"><span class="em-legend-dot is-active"></span> فروع نشطة</li>
+            <li class="em-legend-item"><span class="em-legend-dot is-upcoming"></span> فروع مرتقبة</li>
+            <li class="em-legend-item"><span class="em-legend-dot is-future"></span> توسع مستقبلي</li>
+          </ul>
+          <div class="em-map-detail is-empty" id="emMapDetail">
+            <span>انقر على أي جهة في الخريطة لعرض تفاصيل التوسع بها.</span>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 4. Expansion Phases Timeline ===== -->
+  <section class="em-phases" id="emPhases">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">المراحل</span>
+        <h2 class="section-title">مراحل التوسع</h2>
+        <p class="section-desc">خطة عمل مرحلية واضحة تقود الجمعية من التأسيس إلى التغطية الوطنية الشاملة.</p>
+      </div>
+
+      <div class="em-phases-grid stagger">
+        <span class="em-phases-line" aria-hidden="true"></span>
+        <span class="em-phases-progress" aria-hidden="true"></span>
+
+        <article class="em-phase reveal" style="--i:0">
+          <span class="em-phase-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>
+          </span>
+          <span class="em-phase-num">01</span>
+          <h3>إطلاق الجمعية</h3>
+          <p>تأسست الجمعية ووضعت أسس عملها وقيمها، وانطلقت رحلتها الوطنية من أيت ملول وأكادير.</p>
+        </article>
+
+        <article class="em-phase reveal" style="--i:1">
+          <span class="em-phase-icon is-accent">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/></svg>
+          </span>
+          <span class="em-phase-num">02</span>
+          <h3>تأسيس الفروع</h3>
+          <p>أُنشئت الفروع الأولى في المدن الكبرى مع توطين الهياكل التسييرية المحلية.</p>
+        </article>
+
+        <article class="em-phase reveal" style="--i:2">
+          <span class="em-phase-icon is-navy">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+          </span>
+          <span class="em-phase-num">03</span>
+          <h3>التوسع الجهوي</h3>
+          <p>امتد الحضور إلى باقي جهات المملكة عبر شراكات جهوية وأنشطة ميدانية منتظمة.</p>
+        </article>
+
+        <article class="em-phase reveal" style="--i:3">
+          <span class="em-phase-icon is-green">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          </span>
+          <span class="em-phase-num">04</span>
+          <h3>التغطية الوطنية</h3>
+          <p>اكتملت التغطية لتشمل جميع جهات المغرب بفروع نشطة وخدمات موحدة الجودة.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== 7. Statistics ===== -->
+  <section class="em-stats" id="emStats">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow em-stats-eyebrow">التوسع في أرقام</span>
+        <h2 class="section-title em-stats-title">مؤشرات النمو الوطني</h2>
+      </div>
+
+      <div class="em-stats-grid">
+        <div class="em-stat reveal" style="--i:0">
+          <span class="em-stat-num" data-count="12" data-suffix="">0</span>
+          <span class="em-stat-label">جهة مستهدفة</span>
+        </div>
+        <div class="em-stat reveal" style="--i:1">
+          <span class="em-stat-num" data-count="25" data-suffix="">0</span>
+          <span class="em-stat-label">فرع مستقبلي</span>
+        </div>
+        <div class="em-stat reveal" style="--i:2">
+          <span class="em-stat-num" data-count="10" data-suffix="">0</span>
+          <span class="em-stat-label">شراكات</span>
+        </div>
+        <div class="em-stat reveal" style="--i:3">
+          <span class="em-stat-num" data-count="5000" data-suffix="+">0</span>
+          <span class="em-stat-label">مستفيد</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 8. Become a Local Representative ===== -->
+  <section class="em-cta" id="emCta">
+    <div class="em-cta-blobs" aria-hidden="true">
+      <div class="em-cta-blob em-cta-blob-1"></div>
+      <div class="em-cta-blob em-cta-blob-2"></div>
+      <div class="em-cta-blob em-cta-blob-3"></div>
+    </div>
+
+    <div class="container reveal">
+      <div class="em-cta-inner">
+        <h2>كن ممثل الجمعية في مدينتك</h2>
+        <p>إذا كنت ترغب في المساهمة في نشر رسالة الجمعية داخل مدينتك، يمكنك التقدم بطلب إنشاء فرع محلي.</p>
+        <div class="em-cta-actions">
+          <a href="../Join us/join-us-online.html" class="btn btn-accent">
+            قدم طلب إنشاء فرع
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+          </a>
+          <a href="../contact.html" class="btn btn-navy">
+            تواصل معنا
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .3 2 .7 2.9a2 2 0 0 1-.4 2.1L8 10a16 16 0 0 0 6 6l1.3-1.4a2 2 0 0 1 2.1-.4c.9.4 1.9.6 2.9.7a2 2 0 0 1 1.7 2.1z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ===== Footer ===== -->
+<footer class="footer" id="contact">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-about">
+        <div class="footer-brand">
+          <span class="brand-mark">
+            <img src="../Amare%20files%20/logo.png" alt="AMARE Logo" class="topbar-brand-logo">
+          </span>
+          <span>
+            <span class="brand-name">الجمعية المغربية لهواة البحث والاستكشاف</span><br>
+          </span>
+        </div>
+        <p>الجمعية المغربية لهواة البحث والاستكشاف هي إطار قانوني وطني يجمع الهواة تحت راية واحدة لصون التراث الوطني المغربي.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="فيسبوك"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg></a>
+          <a href="#" aria-label="إنستغرام"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+          <a href="#" aria-label="لينكدإن"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 5 3.79 6.2 2.3 6.2 1 6.2 0 5 0 3.5 0 2 1.1.8 2.5.8s2.48 1.2 2.48 2.7zM.2 8.5h4.6V23H.2V8.5zM8 8.5h4.4v2h.06c.6-1.2 2.1-2.4 4.4-2.4 4.7 0 5.6 3.1 5.6 7.1V23h-4.6v-6.7c0-1.6 0-3.7-2.3-3.7s-2.6 1.8-2.6 3.6V23H8V8.5z"/></svg></a>
+        </div>
+      </div>
+
+      <nav aria-label="روابط سريعة">
+        <h4>روابط سريعة</h4>
+        <ul class="footer-links">
+          <li><a href="../index.html">الرئيسية</a></li>
+          <li><a href="../contact.html">اتصل بنا</a></li>
+          <li><a href="../index.html#services">خدماتنا</a></li>
+          <li><a href="../index.html#news">الاخبار</a></li>
+          <li><a href="../index.html#newsletter">الارشيف</a></li>
+          <li><a href="../index.html#home">الفروع الجهوية</a></li>
+          <li><a href="../Join us/join-us-online.html">انخرط معنا</a></li>
+          <li><a href="../index.html#services">شركاؤنا</a></li>
+          <li><a href="../index.html#services">انشطتنا</a></li>
+          <li><a href="../index.html#about">من نحن</a></li>
+        </ul>
+      </nav>
+
+      <nav aria-label="برامجنا">
+        <h4>برامجنا</h4>
+        <ul class="footer-links">
+          <li><a href="../index.html#services">SOS Amare</a></li>
+          <li><a href="../index.html#services">متجر Amare</a></li>
+          <li><a href="../index.html#services">بيت المستكشف Amare</a></li>
+          <li><a href="../index.html#services">مجلة Amare</a></li>
+          <li><a href="../index.html#services">أكاديمية Amare</a></li>
+          <li><a href="../index.html#services">النوادي</a></li>
+          <li><a href="../index.html#services">المستشار القانوني</a></li>
+          <li><a href="../index.html#services">عقد التأمين</a></li>
+        </ul>
+      </nav>
+
+      <div>
+        <h4>تواصل معنا</h4>
+        <ul class="footer-contact">
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>ص.ب 749 أيت ملول 86150</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .3 2 .7 2.9a2 2 0 0 1-.4 2.1L8 10a16 16 0 0 0 6 6l1.3-1.4a2 2 0 0 1 2.1-.4c.9.4 1.9.6 2.9.7a2 2 0 0 1 1.7 2.1z"/></svg>
+            <span dir="ltr">+212 684869996</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z" opacity="0"/><path d="M22 6 12 13 2 6"/><path d="M2 6h20v12H2z"/></svg>
+            <span dir="ltr">association.amare.agadir@gmail.com</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="footer-location">
+        <h4>موقعنا</h4>
+        <div class="footer-map-card">
+          <span class="footer-map-badge">📍 Ait Melloul, Agadir</span>
+          <iframe
+            src="https://www.google.com/maps?q=30.385528,-9.448611&z=16&output=embed"
+            loading="lazy"
+            allowfullscreen
+            referrerpolicy="no-referrer-when-downgrade"
+            title="موقع الجمعية على الخريطة"
+            class="footer-map-frame"></iframe>
+          <div class="footer-map-footer">
+            <a href="https://www.google.com/maps?q=30.385528,-9.448611" target="_blank" rel="noopener" class="footer-map-btn">Open in Google Maps</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2026 جمعية الأمل للتنمية. جميع الحقوق محفوظة.</p>
+      <div class="footer-bottom-links">
+        <a href="#">سياسة الخصوصية</a>
+        <a href="#">الشروط والأحكام</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== Back to Top ===== -->
+<button class="back-to-top" id="backToTop" aria-label="العودة إلى الأعلى">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M18 15l-6-6-6 6"/></svg>
+</button>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../js/supabase.js"></script>
+<script src="../script.js"></script>
+<script src="expansion-map.js"></script>
+<script>
+  /* ==========================================================================
+   Expansion Map Page — interactive Morocco map + dynamic grids + counters
+   ========================================================================== */
+
+(function () {
+  'use strict';
+
+  /* ---------- 1. Regions data (Supabase/JSON-ready) ---------- */
+  var STATUS_LABELS = {
+    active: 'نشطة',
+    upcoming: 'مرتقبة',
+    future: 'مستقبلية'
+  };
+
+  var regions = [
+    { id: 'MA01', name: 'طنجة - تطوان - الحسيمة', status: 'active', branches: 1 },
+    { id: 'MA02', name: 'الشرق', status: 'upcoming', branches: 0 },
+    { id: 'MA03', name: 'فاس - مكناس', status: 'active', branches: 2 },
+    { id: 'MA04', name: 'الرباط - سلا - القنيطرة', status: 'active', branches: 2 },
+    { id: 'MA05', name: 'بني ملال - خنيفرة', status: 'upcoming', branches: 1 },
+    { id: 'MA06', name: 'الدار البيضاء - سطات', status: 'active', branches: 3 },
+    { id: 'MA07', name: 'مراكش - آسفي', status: 'upcoming', branches: 1 },
+    { id: 'MA08', name: 'درعة - تافيلالت', status: 'upcoming', branches: 0 },
+    { id: 'MA09', name: 'سوس - ماسة', status: 'active', branches: 4 },
+    { id: 'MA10', name: 'كلميم - واد نون', status: 'future', branches: 0 },
+    { id: 'MA11', name: 'العيون - الساقية الحمراء', status: 'future', branches: 0 },
+    { id: 'MA12', name: 'الداخلة - وادي الذهب', status: 'future', branches: 0 }
+  ];
+
+  function regionById(id) {
+    for (var i = 0; i < regions.length; i++) {
+      if (regions[i].id === id) return regions[i];
+    }
+    return null;
+  }
+
+  /* ---------- 2. Small helpers ---------- */
+  function escapeHtml(str) {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  function statusClass(status) {
+    return 'is-' + status;
+  }
+
+  /* ---------- 3. Map initialization ---------- */
+  var mapSvg = document.querySelector('.em-map-frame svg');
+  var tooltip = document.getElementById('emMapTooltip');
+  var detail = document.getElementById('emMapDetail');
+
+  function applyRegionData() {
+    if (!mapSvg) return;
+    var paths = Array.prototype.slice.call(mapSvg.querySelectorAll('.em-region'));
+    paths.forEach(function (path) {
+      var data = regionById(path.getAttribute('data-region'));
+      if (!data) return;
+      path.setAttribute('class', 'em-region ' + statusClass(data.status));
+    });
+  }
+
+  function tooltipHtml(data) {
+    return '' +
+      '<div class="em-tooltip-title">' + escapeHtml(data.name) + '</div>' +
+      '<div class="em-tooltip-row"><span>عدد الفروع</span><strong>' + data.branches + '</strong></div>' +
+      '<div class="em-tooltip-row"><span>حالة التوسع</span><span class="em-tooltip-status ' + statusClass(data.status) + '">' + STATUS_LABELS[data.status] + '</span></div>';
+  }
+
+  function detailHtml(data) {
+    return '' +
+      '<div class="em-detail-head">' +
+        '<h4>' + escapeHtml(data.name) + '</h4>' +
+        '<span class="em-detail-status ' + statusClass(data.status) + '">' + STATUS_LABELS[data.status] + '</span>' +
+      '</div>' +
+      '<div class="em-detail-rows">' +
+        '<div class="em-detail-row">' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>' +
+          '<span>عدد الفروع</span><strong>' + data.branches + '</strong>' +
+        '</div>' +
+        '<div class="em-detail-row">' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>' +
+          '<span>حالة التوسع</span><strong>' + STATUS_LABELS[data.status] + '</strong>' +
+        '</div>' +
+      '</div>';
+  }
+
+  function selectRegion(data) {
+    if (!detail) return;
+    var paths = Array.prototype.slice.call(mapSvg.querySelectorAll('.em-region'));
+    paths.forEach(function (path) {
+      path.classList.toggle('is-selected', path.getAttribute('data-region') === data.id);
+    });
+    detail.classList.remove('is-empty');
+    detail.innerHTML = detailHtml(data);
+  }
+
+  function positionTooltip(evt, frame) {
+    var rect = frame.getBoundingClientRect();
+    var x = evt.clientX - rect.left;
+    var y = evt.clientY - rect.top;
+    var tooltipRect = tooltip.getBoundingClientRect();
+    var offset = 16;
+    var left = x + offset;
+    var top = y + offset;
+    if (left + tooltipRect.width > rect.width - 8) left = x - tooltipRect.width - offset;
+    if (top + tooltipRect.height > rect.height - 8) top = y - tooltipRect.height - offset;
+    tooltip.style.left = Math.max(8, left) + 'px';
+    tooltip.style.top = Math.max(8, top) + 'px';
+  }
+
+  function initMap() {
+    applyRegionData();
+    if (!mapSvg || !tooltip || !detail) return;
+    var frame = mapSvg.closest('.em-map-frame');
+
+    mapSvg.addEventListener('mousemove', function (evt) {
+      var path = evt.target.closest ? evt.target.closest('.em-region') : null;
+      if (!path) { tooltip.classList.remove('is-visible'); return; }
+      var data = regionById(path.getAttribute('data-region'));
+      if (!data) return;
+      tooltip.innerHTML = tooltipHtml(data);
+      tooltip.classList.add('is-visible');
+      positionTooltip(evt, frame);
+    });
+
+    mapSvg.addEventListener('mouseleave', function () {
+      tooltip.classList.remove('is-visible');
+    });
+
+    mapSvg.addEventListener('click', function (evt) {
+      var path = evt.target.closest ? evt.target.closest('.em-region') : null;
+      if (!path) return;
+      var data = regionById(path.getAttribute('data-region'));
+      if (data) selectRegion(data);
+    });
+  }
+
+  /* ---------- 4. Current branches data ---------- */
+  var branches = [
+    { city: 'أيت ملول', region: 'سوس - ماسة', date: '2021', status: 'نشط' },
+    { city: 'أكادير', region: 'سوس - ماسة', date: '2022', status: 'نشط' },
+    { city: 'الدار البيضاء', region: 'الدار البيضاء - سطات', date: '2023', status: 'نشط' },
+    { city: 'الرباط', region: 'الرباط - سلا - القنيطرة', date: '2023', status: 'نشط' },
+    { city: 'طنجة', region: 'طنجة - تطوان - الحسيمة', date: '2024', status: 'نشط' },
+    { city: 'فاس', region: 'فاس - مكناس', date: '2024', status: 'نشط' }
+  ];
+
+  function branchCard(branch, index) {
+    return '' +
+      '<article class="em-branch-card reveal" style="--i:' + index + '">' +
+        '<div class="em-branch-top">' +
+          '<div class="em-branch-city">' +
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>' +
+            '<h3>' + escapeHtml(branch.city) + '</h3>' +
+          '</div>' +
+          '<span class="em-branch-status">' + escapeHtml(branch.status) + '</span>' +
+        '</div>' +
+        '<div class="em-branch-meta">' +
+          '<div>' +
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2z"/><path d="M9 4v14"/><path d="M15 6v14"/></svg>' +
+            '<span>الجهة:</span><strong>' + escapeHtml(branch.region) + '</strong>' +
+          '</div>' +
+          '<div>' +
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>' +
+            '<span>تاريخ الافتتاح:</span><strong>' + escapeHtml(branch.date) + '</strong>' +
+          '</div>' +
+        '</div>' +
+        '<a href="#" class="em-branch-btn">عرض التفاصيل</a>' +
+      '</article>';
+  }
+
+  /* ---------- 5. Future branches data ---------- */
+  var futureLabels = { soon: 'قريباً', study: 'قيد الدراسة', planned: 'مخطط لها' };
+
+  var future = [
+    { city: 'مراكش', region: 'مراكش - آسفي', status: 'soon' },
+    { city: 'بني ملال', region: 'بني ملال - خنيفرة', status: 'soon' },
+    { city: 'كلميم', region: 'كلميم - واد نون', status: 'soon' },
+    { city: 'وجدة', region: 'الشرق', status: 'study' },
+    { city: 'ورزازات', region: 'درعة - تافيلالت', status: 'study' },
+    { city: 'آسفي', region: 'مراكش - آسفي', status: 'planned' },
+    { city: 'العيون', region: 'العيون - الساقية الحمراء', status: 'planned' },
+    { city: 'الداخلة', region: 'الداخلة - وادي الذهب', status: 'planned' }
+  ];
+
+  function futureCard(item, index) {
+    return '' +
+      '<article class="em-future-card reveal" style="--i:' + index + '">' +
+        '<span class="em-future-icon">' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>' +
+        '</span>' +
+        '<h3>' + escapeHtml(item.city) + '</h3>' +
+        '<p class="em-future-region">' + escapeHtml(item.region) + '</p>' +
+        '<span class="em-future-status ' + statusClass(item.status) + '">' + futureLabels[item.status] + '</span>' +
+      '</article>';
+  }
+
+  function renderGrids() {
+    var branchGrid = document.getElementById('emBranchGrid');
+    if (branchGrid && branches.length) {
+      branchGrid.innerHTML = branches.map(branchCard).join('');
+    }
+    var futureGrid = document.getElementById('emFutureGrid');
+    if (futureGrid && future.length) {
+      futureGrid.innerHTML = future.map(futureCard).join('');
+    }
+  }
+
+  /* ---------- 6. Phases line animation ---------- */
+  function initPhases() {
+    var section = document.querySelector('.em-phases');
+    if (!section || !('IntersectionObserver' in window)) return;
+    var observer = new IntersectionObserver(function (entries, obs) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          section.classList.add('is-anim');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.25 });
+    observer.observe(section);
+  }
+
+  /* ---------- 7. Animated statistics counters ---------- */
+  function initCounters() {
+    var counters = Array.prototype.slice.call(document.querySelectorAll('.em-stat-num'));
+    if (!counters.length) return;
+
+    function animateCounter(el) {
+      var target = parseInt(el.getAttribute('data-count'), 10) || 0;
+      var suffix = el.getAttribute('data-suffix') || '';
+      var duration = 1600;
+      var start = null;
+
+      function tick(ts) {
+        if (start === null) start = ts;
+        var progress = Math.min((ts - start) / duration, 1);
+        var eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = Math.round(eased * target) + suffix;
+        if (progress < 1) requestAnimationFrame(tick);
+      }
+
+      requestAnimationFrame(tick);
+    }
+
+    var observer = new IntersectionObserver(function (entries, obs) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          animateCounter(entry.target);
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.4 });
+
+    counters.forEach(function (counter) { observer.observe(counter); });
+  }
+
+  /* ---------- 8. Boot ---------- */
+  initMap();
+  renderGrids();
+  initPhases();
+  initCounters();
+})();
+
+</script>
+</body>
+</html>

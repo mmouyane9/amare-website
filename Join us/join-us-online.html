@@ -17,1104 +17,59 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 <link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../assets/css/membership.css">
 <style>
-:root {
-  --m-primary: #123B78;
-  --m-accent: #F6B300;
-  --m-bg: #F7F9FC;
-  --m-white: #FFFFFF;
-  --m-text: #24324B;
-  --m-border: rgba(18,59,120,.12);
-  --m-shadow: 0 15px 40px rgba(18,59,120,.08);
-  --m-radius: 24px;
-  --m-btn-radius: 18px;
-  --m-input-radius: 16px;
-  --m-container: 1320px;
-}
-
-/* ===== GLOBAL ===== */
-.m-section {
-  padding: 80px 0;
-  position: relative;
-  overflow: hidden;
-}
-
-.m-section .container {
-  max-width: var(--m-container);
-  width: 100%;
-  margin: 0 auto;
-  padding: 0 24px;
-  position: relative;
-  z-index: 2;
-}
-
-.section-head {
-  text-align: center;
-  margin-bottom: 48px;
-}
-
-.section-head .eyebrow {
-  display: inline-block;
-  background: rgba(18,59,120,.06);
-  color: var(--m-primary);
-  padding: 8px 24px;
-  border-radius: 999px;
-  font-size: 14px;
-  font-weight: 700;
-  margin-bottom: 14px;
-}
-
-.section-head .section-title {
-  font-size: clamp(28px, 3.5vw, 42px);
-  font-weight: 900;
-  color: var(--m-text);
-  margin-bottom: 12px;
-  line-height: 1.15;
-}
-
-.section-head .section-desc {
-  font-size: 16px;
-  color: #5B6B7C;
-  max-width: 560px;
-  margin: 0 auto;
-  line-height: 1.7;
-}
-
-/* ===== HERO ===== */
-.m-hero {
-  position: relative;
-  min-height: 60vh;
-  max-height: 70vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  background: linear-gradient(160deg, #0a1628 0%, #0f2a5a 35%, #1a3a7a 60%, #0d1f42 100%);
-  overflow: hidden;
-  padding: 120px 24px 60px;
-}
-
-.m-hero-pattern {
-  position: absolute;
-  inset: 0;
-  opacity: .045;
-  pointer-events: none;
-  background-image: repeating-conic-gradient(from 0deg at 50% 50%, transparent 0deg, transparent 88deg, rgba(255,255,255,.15) 88deg, rgba(255,255,255,.15) 90deg), repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(255,255,255,.04) 40px, rgba(255,255,255,.04) 41px);
-  background-size: 180px 180px, 80px 80px;
-}
-
-.m-hero-circle {
-  position: absolute;
-  border-radius: 50%;
-  pointer-events: none;
-}
-
-.m-hero-circle-1 {
-  width: 300px; height: 300px;
-  border: 1.5px solid rgba(246,179,0,.08);
-  top: -80px; left: -80px;
-  animation: mFloat1 14s ease-in-out infinite;
-}
-
-.m-hero-circle-2 {
-  width: 180px; height: 180px;
-  border: 1.5px solid rgba(246,179,0,.06);
-  bottom: 10%; right: 5%;
-  animation: mFloat2 12s ease-in-out infinite reverse;
-}
-
-.m-hero-circle-3 {
-  width: 400px; height: 400px;
-  background: radial-gradient(circle, rgba(246,179,0,.04) 0%, transparent 70%);
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  animation: mPulse 8s ease-in-out infinite;
-}
-
-@keyframes mFloat1 {
-  0%, 100% { transform: translate(0,0) rotate(0deg); }
-  33% { transform: translate(30px,-20px) rotate(3deg); }
-  66% { transform: translate(-15px,15px) rotate(-2deg); }
-}
-
-@keyframes mFloat2 {
-  0%, 100% { transform: translate(0,0); }
-  50% { transform: translate(-20px,-30px); }
-}
-
-@keyframes mPulse {
-  0%, 100% { opacity: .3; transform: translate(-50%,-50%) scale(1); }
-  50% { opacity: .5; transform: translate(-50%,-50%) scale(1.1); }
-}
-
-.m-hero-inner {
-  position: relative;
-  z-index: 2;
-  max-width: 720px;
-}
-
-.m-hero-logo {
-  width: 76px;
-  height: 76px;
-  object-fit: contain;
-  margin: 0 auto 24px;
-  filter: brightness(0) invert(1);
-  opacity: .9;
-}
-
-.m-hero-title {
-  font-size: clamp(36px, 5vw, 60px);
-  font-weight: 900;
-  color: #fff;
-  line-height: 1.1;
-  margin-bottom: 16px;
-}
-
-.m-hero-title-em {
-  background: linear-gradient(135deg, var(--m-accent), #FFD34D);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.m-hero-desc {
-  font-size: clamp(15px, 1.2vw, 18px);
-  color: rgba(255,255,255,.7);
-  line-height: 1.7;
-  margin-bottom: 32px;
-  max-width: 580px;
-  margin-inline: auto;
-}
-
-.m-hero-actions {
-  display: flex;
-  gap: 14px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.m-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 16px 36px;
-  border-radius: var(--m-btn-radius);
-  font-weight: 700;
-  font-size: 16px;
-  font-family: 'Cairo', sans-serif;
-  text-decoration: none;
-  transition: transform .3s cubic-bezier(.22,.8,.32,1), box-shadow .3s cubic-bezier(.22,.8,.32,1);
-  cursor: pointer;
-  border: none;
-  outline: none;
-}
-
-.m-btn:hover { transform: scale(1.02); }
-.m-btn:active { transform: scale(.98); }
-
-.m-btn-primary {
-  background: var(--m-accent);
-  color: #0a1628;
-  box-shadow: 0 8px 24px rgba(246,179,0,.3);
-}
-
-.m-btn-primary:hover { box-shadow: 0 12px 36px rgba(246,179,0,.45); }
-
-.m-btn-outline {
-  background: rgba(255,255,255,.08);
-  color: #fff;
-  border: 1.5px solid rgba(255,255,255,.15);
-}
-
-.m-btn-outline:hover { background: rgba(255,255,255,.14); border-color: rgba(255,255,255,.25); }
-
-.m-btn i, .m-btn .bi { font-size: 18px; }
-
-.m-scroll-indicator {
-  position: absolute;
-  bottom: 24px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  color: rgba(255,255,255,.35);
-  font-size: 11px;
-  font-weight: 600;
-  animation: mScrollBounce 2s ease-in-out infinite;
-}
-
-.m-scroll-indicator .bi { font-size: 16px; }
-
-@keyframes mScrollBounce {
-  0%, 100% { transform: translateX(-50%) translateY(0); }
-  50% { transform: translateX(-50%) translateY(6px); }
-}
-
-/* ===== TIMELINE CARDS ===== */
-.m-timeline {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 20px;
-}
-
-.m-timeline-item {
-  background: var(--m-white);
-  border-radius: var(--m-radius);
-  box-shadow: var(--m-shadow);
-  padding: 32px 24px;
-  text-align: center;
-  position: relative;
-  transition: transform .4s cubic-bezier(.22,.8,.32,1), box-shadow .4s ease;
-  border: 1px solid var(--m-border);
-}
-
-.m-timeline-item:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 20px 50px rgba(18,59,120,.12);
-  border-color: var(--m-primary);
-}
-
-.m-timeline-icon-wrap {
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 16px;
-  background: rgba(18,59,120,.06);
-  position: relative;
-  transition: background .4s ease, transform .4s ease;
-}
-
-.m-timeline-item:hover .m-timeline-icon-wrap {
-  background: rgba(18,59,120,.1);
-  transform: scale(1.05);
-}
-
-.m-timeline-num {
-  position: absolute;
-  top: -4px;
-  right: -4px;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  background: var(--m-primary);
-  color: #fff;
-  font-size: 12px;
-  font-weight: 800;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 3px 8px rgba(18,59,120,.2);
-}
-
-.m-timeline-icon-wrap .bi {
-  font-size: 24px;
-  color: var(--m-primary);
-}
-
-.m-timeline-title {
-  font-size: 15px;
-  font-weight: 800;
-  color: var(--m-text);
-  margin-bottom: 4px;
-}
-
-.m-timeline-desc {
-  font-size: 12px;
-  color: #5B6B7C;
-  line-height: 1.6;
-  margin: 0;
-}
-
-/* ===== FORM SECTION ===== */
-.m-form-section {
-  padding: 80px 0;
-  background: var(--m-bg);
-}
-
-.m-form-layout {
-  display: grid;
-  grid-template-columns: 320px 1fr;
-  gap: 40px;
-  align-items: start;
-}
-
-/* Form cards */
-.m-form-card {
-  background: var(--m-white);
-  border-radius: var(--m-radius);
-  box-shadow: var(--m-shadow);
-  padding: 36px 32px;
-  margin-bottom: 24px;
-  transition: box-shadow .3s ease, transform .3s ease;
-}
-
-.m-form-card:hover { box-shadow: 0 18px 48px rgba(18,59,120,.1); }
-
-.m-form-card:last-child { margin-bottom: 0; }
-
-.m-form-card-header {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  margin-bottom: 28px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid var(--m-border);
-}
-
-.m-form-card-icon {
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
-  background: rgba(18,59,120,.06);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.m-form-card-icon .bi { font-size: 20px; color: var(--m-primary); }
-
-.m-form-card-title {
-  font-size: 18px;
-  font-weight: 800;
-  color: var(--m-text);
-  margin-bottom: 2px;
-}
-
-.m-form-card-sub { font-size: 13px; color: #5B6B7C; }
-
-/* Progress inside card */
-.m-progress-card {
-  margin-bottom: 24px;
-}
-
-.m-progress-label {
-  display: flex;
-  justify-content: space-between;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--m-text);
-  margin-bottom: 10px;
-}
-
-.m-progress-bar {
-  width: 100%;
-  height: 8px;
-  background: rgba(18,59,120,.08);
-  border-radius: 999px;
-  overflow: hidden;
-}
-
-.m-progress-fill {
-  height: 100%;
-  border-radius: 999px;
-  background: linear-gradient(90deg, var(--m-primary), #2a6fd4);
-  transition: width .6s cubic-bezier(.22,.8,.32,1);
-  width: 0%;
-  position: relative;
-}
-
-.m-progress-fill::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,.3), transparent);
-  animation: mShimmer 2s ease-in-out infinite;
-}
-
-@keyframes mShimmer {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
-}
-
-/* Wizard step indicator */
-.m-wizard-step {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 4px 16px 4px 12px;
-  border-radius: 999px;
-  background: rgba(18,59,120,.06);
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--m-primary);
-  margin-bottom: 20px;
-}
-
-.m-wizard-step .bi { font-size: 14px; }
-
-/* Form fields */
-.m-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-}
-
-@media (max-width: 640px) {
-  .m-row { grid-template-columns: 1fr; }
-}
-
-/* Override global join- styles */
-.m-form-card .join-field { margin-bottom: 20px; }
-
-.m-form-card .join-label {
-  display: block;
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--m-text);
-  margin-bottom: 8px;
-  background: none;
-  padding: 0;
-  border-radius: 0;
-}
-
-.m-form-card .join-label .required { color: #E74C3C; }
-
-.m-form-card .join-input-wrap {
-  position: relative;
-  border: none;
-  background: none;
-  border-radius: 0;
-}
-
-.m-form-card .join-input {
-  width: 100%;
-  height: 58px;
-  padding: 0 52px 0 18px;
-  border: 1.5px solid var(--m-border);
-  border-radius: var(--m-input-radius);
-  font-size: 15px;
-  font-family: 'Cairo', sans-serif;
-  color: var(--m-text);
-  background: var(--m-white);
-  transition: border-color .3s ease, box-shadow .3s ease;
-  outline: none;
-  -webkit-appearance: none;
-  appearance: none;
-}
-
-.m-form-card .join-input:focus {
-  border-color: var(--m-accent);
-  box-shadow: 0 0 0 4px rgba(246,179,0,.1);
-}
-
-.m-form-card .join-input::placeholder { color: #B0BEC5; }
-
-.m-form-card .join-input.error {
-  border-color: #E74C3C;
-  box-shadow: 0 0 0 4px rgba(231,76,60,.08);
-}
-
-.m-form-card .join-input[type="date"] { padding-left: 18px; }
-
-.m-form-card .join-input-icon {
-  position: absolute;
-  top: 50%;
-  right: 18px;
-  transform: translateY(-50%);
-  font-size: 18px;
-  color: #8A9BB5;
-  pointer-events: none;
-  background: none;
-  width: auto;
-  height: auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: color .3s ease;
-}
-
-.m-form-card .join-input:focus ~ .join-input-icon,
-.m-form-card .join-input:focus + .join-input-icon { color: var(--m-primary); }
-
-.m-form-card .join-error {
-  font-size: 13px;
-  color: #E74C3C;
-  margin-top: 6px;
-  background: none;
-  padding: 0;
-  border-radius: 0;
-  display: block;
-}
-
-/* Upload */
-.m-form-card .join-upload-area {
-  position: relative;
-  border: 2px dashed var(--m-border);
-  border-radius: var(--m-input-radius);
-  padding: 40px 20px;
-  text-align: center;
-  cursor: pointer;
-  transition: border-color .3s ease, background .3s ease;
-  background: rgba(18,59,120,.02);
-  min-height: 180px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.m-form-card .join-upload-area:hover { border-color: var(--m-primary); background: rgba(18,59,120,.04); }
-
-.m-form-card .join-upload-area.dragover { border-color: var(--m-accent); background: rgba(246,179,0,.05); }
-
-.m-form-card .join-upload-content { text-align: center; }
-
-.m-form-card .join-upload-area.has-image .join-upload-content { display: none; }
-
-.m-form-card .join-upload-icon {
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  background: rgba(18,59,120,.06);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 14px;
-  font-size: 24px;
-  color: var(--m-primary);
-}
-
-.m-form-card .join-upload-title { font-size: 15px; font-weight: 700; color: var(--m-text); margin-bottom: 4px; }
-
-.m-form-card .join-upload-desc { font-size: 13px; color: #5B6B7C; margin-bottom: 4px; }
-
-.m-form-card .join-upload-hint { font-size: 12px; color: #8A9BB5; }
-
-.m-form-card .join-upload-preview { display: none; position: relative; }
-
-.m-form-card .join-upload-area.has-image .join-upload-preview {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-}
-
-.m-form-card .join-upload-preview img {
-  width: 140px;
-  height: 140px;
-  object-fit: cover;
-  border-radius: 14px;
-  border: 3px solid var(--m-white);
-  box-shadow: 0 8px 24px rgba(18,59,120,.1);
-}
-
-.m-form-card .join-upload-remove {
-  position: absolute;
-  top: -6px;
-  right: calc(50% - 70px - 10px);
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: #E74C3C;
-  color: #fff;
-  border: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  font-size: 13px;
-  box-shadow: 0 4px 12px rgba(231,76,60,.3);
-  transition: transform .3s ease;
-}
-
-.m-form-card .join-upload-remove:hover { transform: scale(1.1); }
-
-/* Signature */
-.m-sig-wrap {
-  margin-top: 20px;
-  padding-top: 20px;
-  border-top: 1px solid var(--m-border);
-}
-
-.m-sig-label {
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--m-text);
-  margin-bottom: 10px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.m-sig-canvas-wrap {
-  position: relative;
-  border: 1.5px solid var(--m-border);
-  border-radius: var(--m-input-radius);
-  overflow: hidden;
-  background: #FAFBFD;
-  transition: border-color .3s ease;
-}
-
-.m-sig-canvas-wrap:focus-within { border-color: var(--m-accent); box-shadow: 0 0 0 4px rgba(246,179,0,.1); }
-
-.m-sig-canvas-wrap canvas {
-  display: block;
-  width: 100%;
-  height: 130px;
-  cursor: crosshair;
-}
-
-.join-signature-placeholder {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  color: #B0BEC5;
-  pointer-events: none;
-  font-size: 13px;
-}
-
-.join-signature-placeholder.hidden { display: none; }
-
-.join-signature-placeholder .bi,
-.join-signature-placeholder i { font-size: 24px; }
-
-.join-sig-clear {
-  position: absolute;
-  bottom: 6px;
-  left: 10px;
-  font-size: 11px;
-  color: #8A9BB5;
-  background: rgba(255,255,255,.8);
-  border: 1px solid var(--m-border);
-  border-radius: 6px;
-  padding: 3px 10px;
-  cursor: pointer;
-  font-family: 'Cairo', sans-serif;
-  font-weight: 600;
-  transition: color .3s ease, border-color .3s ease;
-}
-
-.join-sig-clear:hover { color: #E74C3C; border-color: #E74C3C; }
-
-/* Checkbox */
-.m-form-card .join-checkbox {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  cursor: pointer;
-  background: none;
-  padding: 12px 16px;
-  border-radius: 12px;
-  margin: 0;
-  border: 1px solid var(--m-border);
-  transition: border-color .3s ease, background .3s ease;
-  position: relative;
-}
-
-.m-form-card .join-checkbox:hover { border-color: var(--m-primary); background: rgba(18,59,120,.02); }
-
-.m-form-card .join-checkbox .join-checkbox-input {
-  position: absolute;
-  opacity: 0;
-  width: 0;
-  height: 0;
-  margin: 0;
-  overflow: hidden;
-}
-
-.m-form-card .join-checkbox-text {
-  font-size: 14px;
-  color: var(--m-text);
-  line-height: 1.6;
-  font-weight: 400;
-}
-
-.m-form-card .join-checkbox-check {
-  width: 22px;
-  height: 22px;
-  border-radius: 6px;
-  border: 2px solid var(--m-border);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  margin-top: 2px;
-  background: none;
-  transition: all .3s ease;
-}
-
-.m-form-card .join-checkbox-check i {
-  font-size: 13px;
-  color: #fff;
-  opacity: 0;
-  transform: scale(0);
-  transition: all .3s ease;
-}
-
-.m-form-card .join-checkbox .join-checkbox-input:checked + .join-checkbox-check {
-  background: var(--m-primary);
-  border-color: var(--m-primary);
-}
-
-.m-form-card .join-checkbox .join-checkbox-input:checked + .join-checkbox-check i {
-  opacity: 1;
-  transform: scale(1);
-}
-
-.m-form-card .join-checkbox .join-checkbox-input:focus + .join-checkbox-check {
-  outline: 2px solid var(--m-accent);
-  outline-offset: 3px;
-}
-
-/* Submit */
-.m-submit-wrap { margin-top: 24px; }
-
-.m-form-card .join-submit-btn {
-  width: 100%;
-  min-height: 58px;
-  background: linear-gradient(135deg, var(--m-primary), #1a4a8a);
-  color: #fff;
-  border: none;
-  border-radius: var(--m-btn-radius);
-  font-size: 16px;
-  font-weight: 800;
-  font-family: 'Cairo', sans-serif;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  transition: transform .3s ease, box-shadow .3s ease;
-  box-shadow: 0 8px 24px rgba(18,59,120,.25);
-  position: relative;
-  overflow: hidden;
-}
-
-.m-form-card .join-submit-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 36px rgba(18,59,120,.35); }
-
-.m-form-card .join-submit-btn:active { transform: translateY(0); }
-
-.m-form-card .join-submit-btn:disabled {
-  opacity: .45;
-  cursor: not-allowed;
-  transform: none !important;
-  box-shadow: none !important;
-}
-
-.m-form-card .join-submit-btn.loading { pointer-events: none; opacity: .85; }
-
-.m-form-card .join-submit-text { display: inline-flex; align-items: center; gap: 10px; }
-
-.m-form-card .join-submit-loading { display: none; align-items: center; gap: 10px; }
-
-.m-form-card .join-submit-btn.loading .join-submit-text { display: none; }
-
-.m-form-card .join-submit-btn.loading .join-submit-loading { display: inline-flex; }
-
-.join-spinner {
-  width: 20px;
-  height: 20px;
-  border: 2.5px solid rgba(255,255,255,.2);
-  border-top-color: #fff;
-  border-radius: 50%;
-  animation: mSpin .6s linear infinite;
-}
-
-@keyframes mSpin { to { transform: rotate(360deg); } }
-
-/* ===== SIDEBAR ===== */
-.m-sidebar { position: sticky; top: 140px; }
-
-.m-sidebar-card {
-  background: var(--m-white);
-  border-radius: var(--m-radius);
-  box-shadow: var(--m-shadow);
-  overflow: hidden;
-  margin-bottom: 20px;
-}
-
-.m-sidebar-card:last-child { margin-bottom: 0; }
-
-.m-sidebar-header {
-  background: var(--m-primary);
-  padding: 20px 24px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.m-sidebar-header .bi { font-size: 20px; color: #fff; }
-
-.m-sidebar-header h4 {
-  font-size: 16px;
-  font-weight: 800;
-  color: #fff;
-  margin: 0;
-}
-
-.m-sidebar-body { padding: 20px 24px; }
-
-.m-sidebar-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.m-sidebar-list li {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  padding: 10px 0;
-  font-size: 13px;
-  color: #5B6B7C;
-  line-height: 1.6;
-  border-bottom: 1px solid var(--m-border);
-}
-
-.m-sidebar-list li:last-child { border-bottom: none; }
-
-.m-sidebar-list li .bi { color: var(--m-accent); font-size: 14px; margin-top: 3px; flex-shrink: 0; }
-
-.m-sidebar-support-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 10px 0;
-  border-bottom: 1px solid var(--m-border);
-  font-size: 13px;
-  color: #5B6B7C;
-}
-
-.m-sidebar-support-item:last-child { border-bottom: none; }
-
-.m-sidebar-support-item .bi {
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
-  background: rgba(18,59,120,.06);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  color: var(--m-primary);
-  flex-shrink: 0;
-}
-
-.m-sidebar-support-item span { direction: ltr; text-align: start; }
-
-.m-sidebar-whatsapp {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  width: 100%;
-  padding: 12px;
-  background: var(--m-primary);
-  color: #fff;
-  border-radius: 12px;
-  font-weight: 700;
-  font-size: 14px;
-  text-decoration: none;
-  transition: transform .3s ease, box-shadow .3s ease;
-  margin-top: 14px;
-}
-
-.m-sidebar-whatsapp:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(18,59,120,.3); }
-
-.m-sidebar-whatsapp .bi { font-size: 18px; color: #fff; }
-
-/* ===== SUCCESS ===== */
-.m-form-section .join-success {
-  display: none;
-  text-align: center;
-  padding: 64px 40px;
-  background: var(--m-white);
-  border-radius: var(--m-radius);
-  box-shadow: var(--m-shadow);
-  max-width: 520px;
-  margin: 0 auto;
-}
-
-.m-form-section .join-success.show { display: block; animation: mFadeIn .6s ease; }
-
-.m-form-section .join-success-icon {
-  width: 72px;
-  height: 72px;
-  border-radius: 50%;
-  background: rgba(18,59,120,.08);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 20px;
-  font-size: 32px;
-  color: var(--m-primary);
-}
-
-.m-form-section .join-success-title {
-  font-size: 24px;
-  font-weight: 900;
-  color: var(--m-text);
-  margin-bottom: 10px;
-}
-
-.m-form-section .join-success-desc {
-  font-size: 15px;
-  color: #5B6B7C;
-  margin-bottom: 28px;
-  line-height: 1.7;
-}
-
-.m-form-section .join-success-id {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  font-size: 14px;
-  color: #5B6B7C;
-  margin-bottom: 24px;
-}
-
-.m-form-section .join-success-id strong { color: var(--m-primary); font-size: 16px; }
-
-.m-form-section .join-success-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 14px 32px;
-  border-radius: var(--m-btn-radius);
-  font-weight: 700;
-  font-size: 15px;
-  font-family: 'Cairo', sans-serif;
-  text-decoration: none;
-  transition: transform .3s ease, box-shadow .3s ease;
-  background: var(--m-accent);
-  color: #0a1628;
-  box-shadow: 0 8px 24px rgba(246,179,0,.3);
-}
-
-.m-form-section .join-success-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 36px rgba(246,179,0,.45); }
-
-.m-success-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
-
-/* ===== PREVIEW ===== */
-.m-preview-section { padding: 80px 0; background: var(--m-bg); display: none; }
-
-.m-preview-section.show { display: block; }
-
-.m-preview-grid {
-  display: grid;
-  grid-template-columns: 1fr 320px;
-  gap: 40px;
-  align-items: start;
-}
-
-.m-preview-summary {
-  background: var(--m-white);
-  border-radius: var(--m-radius);
-  box-shadow: var(--m-shadow);
-  padding: 36px 32px;
-}
-
-.m-preview-summary-header {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  margin-bottom: 24px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid var(--m-border);
-}
-
-.m-preview-summary-header .bi { font-size: 22px; color: var(--m-primary); }
-
-.m-preview-summary-header h3 { font-size: 18px; font-weight: 800; color: var(--m-text); margin: 0; }
-
-.m-preview-row {
-  display: flex;
-  justify-content: space-between;
-  padding: 12px 0;
-  border-bottom: 1px solid var(--m-border);
-  font-size: 14px;
-}
-
-.m-preview-row:last-child { border-bottom: none; }
-
-.m-preview-row-label { color: #5B6B7C; font-weight: 500; }
-
-.m-preview-row-value { color: var(--m-text); font-weight: 700; text-align: left; }
-
-.m-preview-visual-card {
-  background: var(--m-white);
-  border-radius: var(--m-radius);
-  box-shadow: var(--m-shadow);
-  padding: 32px 24px;
-  text-align: center;
-  position: sticky;
-  top: 140px;
-}
-
-.m-preview-visual-placeholder {
-  width: 140px;
-  height: 180px;
-  border: 2px dashed var(--m-border);
-  border-radius: 16px;
-  margin: 0 auto 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #B0BEC5;
-  font-size: 36px;
-  background: rgba(18,59,120,.02);
-}
-
-.m-preview-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 20px; }
-
-/* ===== RESPONSIVE ===== */
-@media (max-width: 1024px) {
-  .m-form-layout { grid-template-columns: 1fr; }
-  .m-sidebar { position: static; }
-  .m-preview-grid { grid-template-columns: 1fr; }
-  .m-timeline { grid-template-columns: repeat(3, 1fr); }
-}
-
-@media (max-width: 768px) {
-  .m-section { padding: 56px 0; }
-  .m-form-section { padding: 56px 0; }
-  .m-hero { min-height: 50vh; max-height: 60vh; padding: 100px 20px 40px; }
-  .m-hero-logo { width: 60px; height: 60px; margin-bottom: 20px; }
-  .m-form-card { padding: 28px 20px; }
-  .m-form-card .join-input { height: 52px; font-size: 14px; padding: 0 44px 0 14px; }
-  .m-form-card .join-input-icon { right: 14px; font-size: 16px; }
-  .m-timeline { grid-template-columns: 1fr 1fr; gap: 16px; }
-  .m-btn { width: 100%; justify-content: center; padding: 14px 28px; }
-  .m-preview-section { padding: 56px 0; }
-  .m-preview-summary { padding: 28px 20px; }
-  .m-preview-visual-card { padding: 24px 20px; }
-  .m-sidebar-header { padding: 16px 20px; }
-  .m-sidebar-body { padding: 16px 20px; }
-  .m-section .section-head { margin-bottom: 36px; }
-}
-
-@media (max-width: 480px) {
-  .m-form-card { padding: 24px 16px; border-radius: 20px; }
-  .m-form-card-header { flex-wrap: wrap; }
-  .m-form-card-icon { width: 36px; height: 36px; }
-  .m-form-card-icon .bi { font-size: 16px; }
-  .m-form-card-title { font-size: 16px; }
-  .m-timeline { grid-template-columns: 1fr; gap: 14px; }
-  .m-timeline-item { padding: 24px 20px; }
-  .m-hero-title { font-size: 28px; }
-  .m-section { padding: 40px 0; }
-  .m-form-section { padding: 40px 0; }
-}
-
-/* ===== ANIMATIONS ===== */
-@keyframes mFadeIn {
-  from { opacity: 0; transform: translateY(16px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-[data-aos] { pointer-events: none; }
-[data-aos].aos-animate { pointer-events: auto; }
+  .ms-otp-input {
+    padding: 0 52px;
+    text-align: center;
+    letter-spacing: 10px;
+    font-size: 18px;
+    font-weight: 800;
+  }
+
+  .ms-input[readonly] {
+    background: rgba(247, 249, 252, 0.7);
+    cursor: default;
+  }
+
+  .ms-input[readonly]:hover { border-color: rgba(18, 59, 120, 0.18); }
+
+  .ms-otp-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: 4px;
+  }
+
+  .ms-otp-hint {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--color-text-soft);
+  }
+
+  .ms-otp-status {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 22px;
+    padding: 16px 20px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, rgba(25, 184, 242, 0.1), rgba(246, 179, 0, 0.08));
+    border: 1px dashed rgba(25, 184, 242, 0.4);
+    color: var(--color-navy);
+    font-size: 14.5px;
+    font-weight: 700;
+  }
+
+  .ms-otp-status[hidden] { display: none; }
+
+  .ms-otp-status i { color: var(--color-primary); font-size: 18px; }
+
+  @media (max-width: 767px) {
+    .ms-otp-actions .ms-btn { flex: 1; min-width: 0; }
+    .ms-otp-hint { width: 100%; }
+  }
 </style>
 </head>
 <body>
@@ -1355,446 +310,382 @@
 <main id="main">
 
 <!-- ====== HERO ====== -->
-<section class="m-hero" id="hero">
-  <div class="m-hero-pattern" aria-hidden="true"></div>
-  <div class="m-hero-circle m-hero-circle-1" aria-hidden="true"></div>
-  <div class="m-hero-circle m-hero-circle-2" aria-hidden="true"></div>
-  <div class="m-hero-circle m-hero-circle-3" aria-hidden="true"></div>
+<section class="ms-hero" id="msHero">
+  <div class="ms-hero-pattern" aria-hidden="true"></div>
+  <div class="ms-hero-orb ms-hero-orb-1" aria-hidden="true"></div>
+  <div class="ms-hero-orb ms-hero-orb-2" aria-hidden="true"></div>
 
-  <div class="m-hero-inner" data-aos="fade-up" data-aos-duration="800">
-    <img src="../Amare%20files%20/logo.png" alt="AMARE" class="m-hero-logo">
-
-    <h1 class="m-hero-title">
-      انخرط <span class="m-hero-title-em">معنا</span>
-    </h1>
-
-    <p class="m-hero-desc">
-      انضم إلى الجمعية المغربية لهواة البحث والاستكشاف وكن جزءًا من مجتمع يجمع شغف الاستكشاف وصون التراث الوطني.
-    </p>
-
-    <div class="m-hero-actions">
-      <a href="#m-form" class="m-btn m-btn-primary">
-        <i class="bi bi-person-plus"></i>
-        ابدأ الانخراط
-      </a>
-      <a href="#m-process" class="m-btn m-btn-outline">
-        <i class="bi bi-info-circle"></i>
-        تعرف على المراحل
-      </a>
+  <div class="ms-hero-inner" data-aos="fade-up" data-aos-duration="700">
+    <div class="ms-hero-logo-wrap">
+      <img src="../Amare%20files%20/logo.png" alt="AMARE" class="ms-hero-logo">
     </div>
+    <h1 class="ms-hero-title">الانخراط <em>الإلكتروني</em></h1>
+    <p class="ms-hero-sub">املأ الاستمارة التالية للانضمام إلى الجمعية المغربية لهواة البحث والاستكشاف</p>
   </div>
 
-  <div class="m-scroll-indicator" aria-hidden="true">
-    <span>مرر للأسفل</span>
-    <i class="bi bi-chevron-down"></i>
-  </div>
-</section>
-
-<!-- ====== MEMBERSHIP PROCESS ====== -->
-<section class="m-section" id="m-process">
-  <div class="container">
-    <div class="section-head" data-aos="fade-up" data-aos-duration="600">
-      <span class="eyebrow">مراحل الانخراط</span>
-      <h2 class="section-title">خمس خطوات بسيطة</h2>
-      <p class="section-desc">عملية سريعة ومبسطة لتصبح عضوًا فاعلاً في الجمعية</p>
-    </div>
-
-    <div class="m-timeline" data-aos="fade-up" data-aos-duration="600">
-      <div class="m-timeline-item">
-        <div class="m-timeline-icon-wrap">
-          <span class="m-timeline-num">1</span>
-          <i class="bi bi-pencil-square"></i>
-        </div>
-        <h3 class="m-timeline-title">تعبئة المعلومات</h3>
-        <p class="m-timeline-desc">قم بتعبئة بياناتك الشخصية ومعلومات الاتصال بدقة</p>
-      </div>
-
-      <div class="m-timeline-item">
-        <div class="m-timeline-icon-wrap">
-          <span class="m-timeline-num">2</span>
-          <i class="bi bi-search"></i>
-        </div>
-        <h3 class="m-timeline-title">مراجعة البيانات</h3>
-        <p class="m-timeline-desc">تأكد من صحة جميع المعلومات قبل الإرسال</p>
-      </div>
-
-      <div class="m-timeline-item">
-        <div class="m-timeline-icon-wrap">
-          <span class="m-timeline-num">3</span>
-          <i class="bi bi-file-earmark-pdf"></i>
-        </div>
-        <h3 class="m-timeline-title">إنشاء PDF</h3>
-        <p class="m-timeline-desc">يتم إنشاء استمارة الانخراط بصيغة PDF رسمية</p>
-      </div>
-
-      <div class="m-timeline-item">
-        <div class="m-timeline-icon-wrap">
-          <span class="m-timeline-num">4</span>
-          <i class="bi bi-download"></i>
-        </div>
-        <h3 class="m-timeline-title">تحميل الاستمارة</h3>
-        <p class="m-timeline-desc">قم بتحميل الاستمارة وطباعتها للتوقيع</p>
-      </div>
-
-      <div class="m-timeline-item">
-        <div class="m-timeline-icon-wrap">
-          <span class="m-timeline-num">5</span>
-          <i class="bi bi-shield-check"></i>
-        </div>
-        <h3 class="m-timeline-title">المصادقة والإيداع</h3>
-        <p class="m-timeline-desc">صادق على الاستمارة وأودعها لدى مقر الجمعية</p>
-      </div>
-    </div>
+  <div class="ms-hero-wave" aria-hidden="true">
+    <svg viewBox="0 0 1440 88" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,44 C180,72 380,84 560,66 C740,48 900,18 1080,12 C1240,6 1360,24 1440,42 L1440,88 L0,88 Z" fill="#F7F9FC"></path>
+    </svg>
   </div>
 </section>
 
 <!-- ====== FORM SECTION ====== -->
-<section class="m-form-section" id="m-form">
-  <div class="container">
-    <div class="section-head" data-aos="fade-up" data-aos-duration="600">
-      <span class="eyebrow">استمارة إلكترونية</span>
-      <h2 class="section-title">طلب الانخراط</h2>
-      <p class="section-desc">يرجى تعبئة جميع المعلومات المطلوبة بدقة</p>
+<section class="ms-section ms-form-section" id="msForm">
+  <div class="ms-container">
+
+    <div class="ms-stepper" id="msStepper" data-current="1">
+      <div class="ms-stepper-track" aria-hidden="true">
+        <div class="ms-stepper-fill"></div>
+      </div>
+      <ol class="ms-stepper-list">
+        <li class="ms-step" data-step="1">
+          <button type="button" class="ms-step-btn" aria-current="step">
+            <span class="ms-step-marker">
+              <span class="ms-step-num">1</span>
+              <svg class="ms-step-check" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+            </span>
+            <span class="ms-step-label">المعلومات الشخصية</span>
+          </button>
+        </li>
+        <li class="ms-step" data-step="2">
+          <button type="button" class="ms-step-btn">
+            <span class="ms-step-marker">
+              <span class="ms-step-num">2</span>
+              <svg class="ms-step-check" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+            </span>
+            <span class="ms-step-label">التحقق من البريد الإلكتروني</span>
+          </button>
+        </li>
+        <li class="ms-step" data-step="3">
+          <button type="button" class="ms-step-btn">
+            <span class="ms-step-marker">
+              <span class="ms-step-num">3</span>
+              <svg class="ms-step-check" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+            </span>
+            <span class="ms-step-label">الوثائق</span>
+          </button>
+        </li>
+        <li class="ms-step" data-step="4">
+          <button type="button" class="ms-step-btn">
+            <span class="ms-step-marker">
+              <span class="ms-step-num">4</span>
+              <svg class="ms-step-check" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+            </span>
+            <span class="ms-step-label">مراجعة المعلومات</span>
+          </button>
+        </li>
+        <li class="ms-step" data-step="5">
+          <button type="button" class="ms-step-btn">
+            <span class="ms-step-marker">
+              <span class="ms-step-num">5</span>
+              <svg class="ms-step-check" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+            </span>
+            <span class="ms-step-label">تم التسجيل</span>
+          </button>
+        </li>
+      </ol>
     </div>
 
-    <div class="m-form-layout">
+    <div class="ms-card" id="msCard">
+      <form id="membershipForm" novalidate>
 
-      <!-- Sidebar (first in RTL = right side visually) -->
-      <aside class="m-sidebar" data-aos="fade-up" data-aos-duration="600">
-        <div class="m-sidebar-card">
-          <div class="m-sidebar-header">
-            <i class="bi bi-question-circle"></i>
-            <h4>ماذا بعد؟</h4>
+        <!-- Panel 1: Personal Info -->
+        <div class="ms-panel" data-panel="1">
+          <div class="ms-panel-head">
+            <div class="ms-panel-icon"><i class="bi bi-person-badge" aria-hidden="true"></i></div>
+            <div class="ms-panel-head-text">
+              <h2 class="ms-panel-title">المعلومات الشخصية</h2>
+              <p class="ms-panel-sub">البيانات الأساسية للعضو</p>
+            </div>
+            <span class="ms-panel-badge">الخطوة 1 من 5</span>
           </div>
-          <div class="m-sidebar-body">
-            <ul class="m-sidebar-list">
-              <li><i class="bi bi-check-circle"></i><span>سيتم إنشاء استمارة الانخراط بصيغة PDF رسمية</span></li>
-              <li><i class="bi bi-check-circle"></i><span>قم بطباعة الاستمارة والتأكد من صحة البيانات</span></li>
-              <li><i class="bi bi-check-circle"></i><span>صادق عليها بتوقيعك الشخصي</span></li>
-              <li><i class="bi bi-check-circle"></i><span>أودع الملف لدى مقر الجمعية أو عبر البريد</span></li>
-            </ul>
+
+          <div class="ms-grid">
+            <div class="ms-field">
+              <div class="ms-input-wrap">
+                <input type="text" id="msFirstName" class="ms-input" placeholder=" " required autocomplete="given-name">
+                <label class="ms-label" for="msFirstName">الاسم الشخصي *</label>
+                <i class="ms-input-icon bi bi-person" aria-hidden="true"></i>
+              </div>
+              <div class="ms-field-error" id="msFirstNameError" role="alert"></div>
+            </div>
+            <div class="ms-field">
+              <div class="ms-input-wrap">
+                <input type="text" id="msLastName" class="ms-input" placeholder=" " required autocomplete="family-name">
+                <label class="ms-label" for="msLastName">الاسم العائلي *</label>
+                <i class="ms-input-icon bi bi-person" aria-hidden="true"></i>
+              </div>
+              <div class="ms-field-error" id="msLastNameError" role="alert"></div>
+            </div>
+            <div class="ms-field">
+              <div class="ms-input-wrap">
+                <input type="date" id="msBirthDate" class="ms-input" placeholder=" " required>
+                <label class="ms-label" for="msBirthDate">تاريخ الازدياد *</label>
+                <i class="ms-input-icon bi bi-calendar3" aria-hidden="true"></i>
+              </div>
+              <div class="ms-field-error" id="msBirthDateError" role="alert"></div>
+            </div>
+            <div class="ms-field">
+              <div class="ms-input-wrap">
+                <input type="text" id="msBirthPlace" class="ms-input" placeholder=" " required>
+                <label class="ms-label" for="msBirthPlace">مكان الازدياد *</label>
+                <i class="ms-input-icon bi bi-geo-alt" aria-hidden="true"></i>
+              </div>
+              <div class="ms-field-error" id="msBirthPlaceError" role="alert"></div>
+            </div>
+            <div class="ms-field">
+              <div class="ms-input-wrap">
+                <input type="text" id="msCin" class="ms-input ms-input-ltr" placeholder=" " required autocomplete="off">
+                <label class="ms-label" for="msCin">رقم البطاقة الوطنية *</label>
+                <i class="ms-input-icon bi bi-credit-card-2-front" aria-hidden="true"></i>
+              </div>
+              <div class="ms-field-error" id="msCinError" role="alert"></div>
+            </div>
+            <div class="ms-field">
+              <div class="ms-input-wrap">
+                <input type="tel" id="msPhone" class="ms-input ms-input-ltr" placeholder=" " required autocomplete="tel">
+                <label class="ms-label" for="msPhone">رقم الهاتف *</label>
+                <i class="ms-input-icon bi bi-telephone" aria-hidden="true"></i>
+              </div>
+              <div class="ms-field-error" id="msPhoneError" role="alert"></div>
+            </div>
+            <div class="ms-field">
+              <div class="ms-input-wrap">
+                <input type="email" id="msEmail" class="ms-input ms-input-ltr" placeholder=" " required autocomplete="email">
+                <label class="ms-label" for="msEmail">البريد الإلكتروني *</label>
+                <i class="ms-input-icon bi bi-envelope" aria-hidden="true"></i>
+              </div>
+              <div class="ms-field-error" id="msEmailError" role="alert"></div>
+            </div>
+            <div class="ms-field">
+              <div class="ms-input-wrap">
+                <input type="text" id="msAddress" class="ms-input" placeholder=" " required autocomplete="street-address">
+                <label class="ms-label" for="msAddress">العنوان *</label>
+                <i class="ms-input-icon bi bi-house-door" aria-hidden="true"></i>
+              </div>
+              <div class="ms-field-error" id="msAddressError" role="alert"></div>
+            </div>
+          </div>
+
+          <div class="ms-declare">
+            <label class="ms-checkbox" for="msDeclaration">
+              <input type="checkbox" id="msDeclaration" class="ms-checkbox-input" required>
+              <span class="ms-checkbox-box" aria-hidden="true"><i class="bi bi-check-lg"></i></span>
+              <span class="ms-checkbox-text">أصرح بصحة جميع المعلومات المدخلة.</span>
+            </label>
+            <div class="ms-field-error" id="msDeclarationError" role="alert"></div>
           </div>
         </div>
 
-        <div class="m-sidebar-card">
-          <div class="m-sidebar-header">
-            <i class="bi bi-headset"></i>
-            <h4>الدعم والمساعدة</h4>
+        <!-- Panel 2: Email Verification -->
+        <div class="ms-panel" data-panel="2" hidden>
+          <div class="ms-panel-head">
+            <div class="ms-panel-icon"><i class="bi bi-envelope-check" aria-hidden="true"></i></div>
+            <div class="ms-panel-head-text">
+              <h2 class="ms-panel-title">التحقق من البريد الإلكتروني</h2>
+              <p class="ms-panel-sub">تم إرسال رمز تحقق إلى بريدك الإلكتروني، يرجى إدخال الرمز للمتابعة.</p>
+            </div>
+            <span class="ms-panel-badge">الخطوة 2 من 5</span>
           </div>
-          <div class="m-sidebar-body">
-            <div class="m-sidebar-support-item">
-              <i class="bi bi-telephone"></i>
-              <span dir="ltr">+212 684869996</span>
+
+          <div class="ms-grid">
+            <div class="ms-field ms-field-full">
+              <div class="ms-input-wrap">
+                <input type="email" id="msOtpEmail" class="ms-input ms-input-ltr" placeholder=" " readonly autocomplete="off">
+                <label class="ms-label" for="msOtpEmail">البريد الإلكتروني</label>
+                <i class="ms-input-icon bi bi-envelope" aria-hidden="true"></i>
+              </div>
             </div>
-            <div class="m-sidebar-support-item">
-              <i class="bi bi-envelope"></i>
-              <span dir="ltr">association.amare.agadir@gmail.com</span>
+            <div class="ms-field ms-field-full">
+              <div class="ms-input-wrap">
+                <input type="text" id="msOtpCode" class="ms-input ms-input-ltr ms-otp-input" placeholder=" " inputmode="numeric" maxlength="6" autocomplete="one-time-code">
+                <label class="ms-label" for="msOtpCode">رمز التحقق</label>
+                <i class="ms-input-icon bi bi-shield-lock" aria-hidden="true"></i>
+              </div>
+              <div class="ms-field-error" id="msOtpError" role="alert"></div>
             </div>
-            <a href="https://wa.me/212600000000" target="_blank" rel="noopener" class="m-sidebar-whatsapp">
-              <i class="bi bi-whatsapp"></i>
-              تواصل عبر واتساب
-            </a>
+          </div>
+
+          <div class="ms-otp-actions">
+            <button type="button" class="ms-btn ms-btn-primary" id="msOtpSend">
+              <i class="bi bi-send" aria-hidden="true"></i>
+              <span id="msOtpSendText">إرسال رمز التحقق</span>
+            </button>
+            <span class="ms-otp-hint" id="msOtpDemo" aria-hidden="true"></span>
+          </div>
+
+          <div class="ms-otp-status" id="msOtpSuccess" role="status" hidden>
+            <i class="bi bi-check-circle-fill" aria-hidden="true"></i>
+            <span>تم التحقق من البريد الإلكتروني بنجاح.</span>
           </div>
         </div>
-      </aside>
 
-      <!-- Form -->
-      <div class="m-form-main">
-
-        <!-- Progress Bar inside first card -->
-        <div class="m-form-card m-progress-card">
-          <div class="m-progress-label">
-            <span>اكتمال النموذج</span>
-            <span id="mProgressPercent">0%</span>
-          </div>
-          <div class="m-progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
-            <div class="m-progress-fill" id="mProgressFill"></div>
-          </div>
-        </div>
-
-        <form id="joinForm" novalidate>
-
-          <!-- Step 1: Personal Info -->
-          <div class="m-form-card">
-            <div class="m-wizard-step">
-              <i class="bi bi-1-circle"></i>
-              الخطوة 1 من 5
+        <!-- Panel 3: Documents -->
+        <div class="ms-panel" data-panel="3" hidden>
+          <div class="ms-panel-head">
+            <div class="ms-panel-icon"><i class="bi bi-folder2-open" aria-hidden="true"></i></div>
+            <div class="ms-panel-head-text">
+              <h2 class="ms-panel-title">الوثائق</h2>
+              <p class="ms-panel-sub">الصورة الشخصية وصورتا البطاقة الوطنية</p>
             </div>
-            <div class="m-form-card-header">
-              <div class="m-form-card-icon"><i class="bi bi-person-badge"></i></div>
-              <div>
-                <h3 class="m-form-card-title">المعلومات الشخصية</h3>
-                <span class="m-form-card-sub">البيانات الأساسية للعضو</span>
-              </div>
-            </div>
-
-            <div class="m-row">
-              <div class="join-field">
-                <label class="join-label" for="firstName">الاسم الشخصي <span class="required">*</span></label>
-                <div class="join-input-wrap">
-                  <input type="text" id="firstName" class="join-input" placeholder="الاسم الشخصي" required autocomplete="given-name">
-                  <span class="join-input-icon"><i class="fas fa-user"></i></span>
-                </div>
-                <div class="join-error" id="firstNameError" role="alert"></div>
-              </div>
-              <div class="join-field">
-                <label class="join-label" for="lastName">الاسم العائلي <span class="required">*</span></label>
-                <div class="join-input-wrap">
-                  <input type="text" id="lastName" class="join-input" placeholder="الاسم العائلي" required autocomplete="family-name">
-                  <span class="join-input-icon"><i class="fas fa-user"></i></span>
-                </div>
-                <div class="join-error" id="lastNameError" role="alert"></div>
-              </div>
-            </div>
-
-            <div class="m-row">
-              <div class="join-field">
-                <label class="join-label" for="birthDate">تاريخ الازدياد <span class="required">*</span></label>
-                <div class="join-input-wrap">
-                  <input type="date" id="birthDate" class="join-input" required>
-                  <span class="join-input-icon"><i class="fas fa-calendar"></i></span>
-                </div>
-                <div class="join-error" id="birthDateError" role="alert"></div>
-              </div>
-              <div class="join-field">
-                <label class="join-label" for="birthPlace">مكان الازدياد <span class="required">*</span></label>
-                <div class="join-input-wrap">
-                  <input type="text" id="birthPlace" class="join-input" placeholder="مدينة الازدياد" required>
-                  <span class="join-input-icon"><i class="fas fa-city"></i></span>
-                </div>
-                <div class="join-error" id="birthPlaceError" role="alert"></div>
-              </div>
-            </div>
-
-            <div class="join-field">
-              <label class="join-label" for="cin">رقم البطاقة الوطنية <span class="required">*</span></label>
-              <div class="join-input-wrap">
-                <input type="text" id="cin" class="join-input" placeholder="رقم البطاقة الوطنية" required>
-                <span class="join-input-icon"><i class="fas fa-id-card"></i></span>
-              </div>
-              <div class="join-error" id="cinError" role="alert"></div>
-            </div>
+            <span class="ms-panel-badge">الخطوة 3 من 5</span>
           </div>
 
-          <!-- Step 2: Contact Info -->
-          <div class="m-form-card">
-            <div class="m-wizard-step">
-              <i class="bi bi-2-circle"></i>
-              الخطوة 2 من 5
-            </div>
-            <div class="m-form-card-header">
-              <div class="m-form-card-icon"><i class="bi bi-envelope-paper"></i></div>
-              <div>
-                <h3 class="m-form-card-title">معلومات التواصل</h3>
-                <span class="m-form-card-sub">بيانات الاتصال للتواصل معك</span>
-              </div>
-            </div>
-
-            <div class="m-row">
-              <div class="join-field">
-                <label class="join-label" for="phone">رقم الهاتف <span class="required">*</span></label>
-                <div class="join-input-wrap">
-                  <input type="tel" id="phone" class="join-input" placeholder="رقم الهاتف المحمول" required autocomplete="tel">
-                  <span class="join-input-icon"><i class="fas fa-phone"></i></span>
+          <div class="ms-uploads">
+            <div>
+              <p class="ms-upload-title"><i class="bi bi-person-square" aria-hidden="true"></i> الصورة الشخصية</p>
+              <div class="ms-upload-zone" id="msPhotoZone" role="button" tabindex="0" aria-label="رفع الصورة الشخصية">
+                <input type="file" id="msPhotoInput" accept="image/png,image/jpeg" hidden>
+                <div class="ms-upload-prompt">
+                  <div class="ms-upload-icon"><i class="bi bi-camera" aria-hidden="true"></i></div>
+                  <span class="ms-upload-main">اسحب الصورة هنا أو انقر للاختيار</span>
+                  <span class="ms-upload-hint">PNG أو JPG — حد أقصى 5MB</span>
                 </div>
-                <div class="join-error" id="phoneError" role="alert"></div>
-              </div>
-              <div class="join-field">
-                <label class="join-label" for="email">البريد الإلكتروني <span class="required">*</span></label>
-                <div class="join-input-wrap">
-                  <input type="email" id="email" class="join-input" placeholder="بريدك الإلكتروني" required autocomplete="email">
-                  <span class="join-input-icon"><i class="fas fa-envelope"></i></span>
-                </div>
-                <div class="join-error" id="emailError" role="alert"></div>
-              </div>
-            </div>
-
-            <div class="join-field">
-              <label class="join-label" for="address">العنوان <span class="required">*</span></label>
-              <div class="join-input-wrap">
-                <input type="text" id="address" class="join-input" placeholder="العنوان الكامل" required autocomplete="street-address">
-                <span class="join-input-icon"><i class="fas fa-home"></i></span>
-              </div>
-              <div class="join-error" id="addressError" role="alert"></div>
-            </div>
-          </div>
-
-          <!-- Step 3: Photo -->
-          <div class="m-form-card">
-            <div class="m-wizard-step">
-              <i class="bi bi-3-circle"></i>
-              الخطوة 3 من 5
-            </div>
-            <div class="m-form-card-header">
-              <div class="m-form-card-icon"><i class="bi bi-camera"></i></div>
-              <div>
-                <h3 class="m-form-card-title">الصورة الشخصية</h3>
-                <span class="m-form-card-sub">صورة واضحة بخلفية فاتحة</span>
-              </div>
-            </div>
-
-            <div class="join-field">
-              <label class="join-label">الصورة الشخصية <span class="required">*</span></label>
-              <div class="join-upload-area" id="uploadArea" role="button" tabindex="0">
-                <input type="file" id="photoInput" accept="image/png,image/jpeg" hidden>
-                <div class="join-upload-content" id="uploadContent">
-                  <div class="join-upload-icon"><i class="fas fa-camera"></i></div>
-                  <div class="join-upload-title">ارفع صورتك</div>
-                  <div class="join-upload-desc">اسحب وأفلت الصورة هنا أو انقر للاختيار</div>
-                  <div class="join-upload-hint">PNG, JPG — حد أقصى 5MB</div>
-                </div>
-                <div class="join-upload-preview">
-                  <img id="previewImage" src="" alt="معاينة الصورة">
-                  <button type="button" class="join-upload-remove" id="removeImage" aria-label="إزالة الصورة">
-                    <i class="fas fa-times"></i>
+                <div class="ms-upload-preview">
+                  <img class="ms-upload-preview-img ms-upload-preview-photo" id="msPhotoPreview" src="" alt="معاينة الصورة الشخصية">
+                  <span class="ms-upload-name" id="msPhotoName"></span>
+                  <button type="button" class="ms-upload-remove" id="msPhotoRemove" aria-label="إزالة الصورة">
+                    <i class="bi bi-x-lg" aria-hidden="true"></i>
                   </button>
                 </div>
               </div>
-              <div class="join-error" id="photoError" role="alert"></div>
+              <div class="ms-field-error" id="msPhotoError" role="alert"></div>
             </div>
 
-            <!-- Signature -->
-            <div class="m-sig-wrap">
-              <div class="m-sig-label">
-                <i class="bi bi-pen"></i>
-                التوقيع <span class="required">*</span>
-              </div>
-              <div class="m-sig-canvas-wrap">
-                <canvas id="sigMember" class="join-signature-canvas" width="400" height="130"></canvas>
-                <div class="join-signature-placeholder" id="sigMemberPlaceholder">
-                  <i class="bi bi-pencil"></i>
-                  <span>وقع هنا</span>
+            <div>
+              <p class="ms-upload-title"><i class="bi bi-credit-card-2-front" aria-hidden="true"></i> الوجه الأمامي للبطاقة الوطنية</p>
+              <div class="ms-upload-zone" id="msCinFrontZone" role="button" tabindex="0" aria-label="رفع الوجه الأمامي للبطاقة الوطنية">
+                <input type="file" id="msCinFrontInput" accept="image/png,image/jpeg" hidden>
+                <div class="ms-upload-prompt">
+                  <div class="ms-upload-icon"><i class="bi bi-credit-card" aria-hidden="true"></i></div>
+                  <span class="ms-upload-main">اسحب الصورة هنا أو انقر للاختيار</span>
+                  <span class="ms-upload-hint">PNG أو JPG — حد أقصى 5MB</span>
                 </div>
-                <button type="button" class="join-sig-clear" data-canvas="sigMember">
-                  <i class="fas fa-eraser"></i>
-                  مسح
+                <div class="ms-upload-preview">
+                  <img class="ms-upload-preview-img ms-upload-preview-card" id="msCinFrontPreview" src="" alt="معاينة الوجه الأمامي للبطاقة">
+                  <span class="ms-upload-name" id="msCinFrontName"></span>
+                  <button type="button" class="ms-upload-remove" id="msCinFrontRemove" aria-label="إزالة الصورة">
+                    <i class="bi bi-x-lg" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="ms-field-error" id="msCinFrontError" role="alert"></div>
+            </div>
+
+            <div>
+              <p class="ms-upload-title"><i class="bi bi-credit-card-2-back" aria-hidden="true"></i> الوجه الخلفي للبطاقة الوطنية</p>
+              <div class="ms-upload-zone" id="msCinBackZone" role="button" tabindex="0" aria-label="رفع الوجه الخلفي للبطاقة الوطنية">
+                <input type="file" id="msCinBackInput" accept="image/png,image/jpeg" hidden>
+                <div class="ms-upload-prompt">
+                  <div class="ms-upload-icon"><i class="bi bi-credit-card-2-back" aria-hidden="true"></i></div>
+                  <span class="ms-upload-main">اسحب الصورة هنا أو انقر للاختيار</span>
+                  <span class="ms-upload-hint">PNG أو JPG — حد أقصى 5MB</span>
+                </div>
+                <div class="ms-upload-preview">
+                  <img class="ms-upload-preview-img ms-upload-preview-card" id="msCinBackPreview" src="" alt="معاينة الوجه الخلفي للبطاقة">
+                  <span class="ms-upload-name" id="msCinBackName"></span>
+                  <button type="button" class="ms-upload-remove" id="msCinBackRemove" aria-label="إزالة الصورة">
+                    <i class="bi bi-x-lg" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="ms-field-error" id="msCinBackError" role="alert"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel 4: Review -->
+        <div class="ms-panel" data-panel="4" hidden>
+          <div class="ms-panel-head">
+            <div class="ms-panel-icon"><i class="bi bi-check2-square" aria-hidden="true"></i></div>
+            <div class="ms-panel-head-text">
+              <h2 class="ms-panel-title">مراجعة المعلومات</h2>
+              <p class="ms-panel-sub">تأكد من صحة جميع البيانات قبل الإرسال</p>
+            </div>
+            <span class="ms-panel-badge">الخطوة 4 من 5</span>
+          </div>
+
+          <div class="ms-review">
+            <div class="ms-review-card">
+              <div class="ms-review-card-head">
+                <span class="ms-review-card-title"><i class="bi bi-person-lines-fill" aria-hidden="true"></i> المعلومات الشخصية</span>
+                <button type="button" class="ms-review-edit" id="msEditStep1">
+                  <i class="bi bi-pencil" aria-hidden="true"></i> تعديل
                 </button>
               </div>
-              <div class="join-error" id="sigMemberError" role="alert"></div>
+              <div class="ms-review-fields" id="msReviewFields"></div>
             </div>
 
-            <div style="display:none">
-              <canvas id="sigPresident" width="400" height="130"></canvas>
-              <div id="sigPresidentPlaceholder"></div>
-              <button type="button" class="join-sig-clear" data-canvas="sigPresident"></button>
-            </div>
-          </div>
-
-          <!-- Step 4: Review & Declaration -->
-          <div class="m-form-card">
-            <div class="m-wizard-step">
-              <i class="bi bi-4-circle"></i>
-              الخطوة 4 من 5
-            </div>
-            <div class="m-form-card-header">
-              <div class="m-form-card-icon"><i class="bi bi-file-earmark-check"></i></div>
-              <div>
-                <h3 class="m-form-card-title">مراجعة البيانات</h3>
-                <span class="m-form-card-sub">تأكد من صحة جميع المعلومات</span>
+            <div class="ms-review-card">
+              <div class="ms-review-card-head">
+                <span class="ms-review-card-title"><i class="bi bi-files" aria-hidden="true"></i> الوثائق المرفقة</span>
+                <button type="button" class="ms-review-edit" id="msEditStep2">
+                  <i class="bi bi-pencil" aria-hidden="true"></i> تعديل
+                </button>
+              </div>
+              <div class="ms-review-images">
+                <figure class="ms-review-image">
+                  <div class="ms-review-image-box" id="msPhotoHolder">
+                    <img id="msPhotoThumb" src="" alt="الصورة الشخصية">
+                  </div>
+                  <figcaption>الصورة الشخصية</figcaption>
+                </figure>
+                <figure class="ms-review-image">
+                  <div class="ms-review-image-box" id="msCinFrontHolder">
+                    <img id="msCinFrontThumb" src="" alt="الوجه الأمامي للبطاقة الوطنية">
+                  </div>
+                  <figcaption>الوجه الأمامي للبطاقة</figcaption>
+                </figure>
+                <figure class="ms-review-image">
+                  <div class="ms-review-image-box" id="msCinBackHolder">
+                    <img id="msCinBackThumb" src="" alt="الوجه الخلفي للبطاقة الوطنية">
+                  </div>
+                  <figcaption>الوجه الخلفي للبطاقة</figcaption>
+                </figure>
               </div>
             </div>
-
-            <label class="join-checkbox" for="agreeCheck">
-              <input type="checkbox" id="agreeCheck" class="join-checkbox-input">
-              <span class="join-checkbox-check"><i class="fas fa-check"></i></span>
-              <span class="join-checkbox-text">أقر بأن جميع المعلومات <strong>صحيحة وكاملة</strong> ويتحمل الموقع كامل المسؤولية القانونية</span>
-            </label>
-            <div class="join-error" id="agreeError" role="alert" style="margin-top:8px;"></div>
-
-            <!-- Step 5: Submit -->
-            <div class="m-submit-wrap">
-              <div class="m-wizard-step" style="margin-bottom:16px;">
-                <i class="bi bi-5-circle"></i>
-                الخطوة 5 من 5
-              </div>
-              <div id="formErrorContainer"></div>
-              <button type="submit" class="join-submit-btn" id="submitBtn" disabled>
-                <span class="join-submit-text" id="submitText">
-                  <i class="fas fa-file-pdf"></i>
-                  إنشاء ملف الانخراط
-                </span>
-                <span class="join-submit-loading" id="submitLoading">
-                  <span class="join-spinner"></span>
-                  جارٍ إنشاء ملف الانخراط...
-                </span>
-              </button>
-            </div>
-          </div>
-
-        </form>
-
-        <!-- Success State -->
-        <div class="join-success" id="joinSuccess">
-          <div class="join-success-icon"><i class="fas fa-check-circle"></i></div>
-          <h3 class="join-success-title">تم إنشاء الاستمارة بنجاح</h3>
-          <p class="join-success-desc">تم إنشاء استمارة الانخراط الخاصة بك. يمكنك الآن تحميلها أو العودة للصفحة الرئيسية.</p>
-          <div class="join-success-id">
-            <span>رقم الطلب:</span>
-            <strong id="requestId">AMARE-0000</strong>
-          </div>
-          <div class="m-success-actions">
-            <a href="#" class="join-success-btn" id="downloadPdfBtn">
-              <i class="bi bi-download"></i>
-              تحميل PDF
-            </a>
-            <a href="../index.html" class="m-btn m-btn-outline" style="color:var(--m-text);border-color:var(--m-border);background:transparent;">
-              <i class="bi bi-house"></i>
-              العودة للرئيسية
-            </a>
           </div>
         </div>
 
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ====== PREVIEW SECTION ====== -->
-<section class="m-preview-section" id="m-preview">
-  <div class="container">
-    <div class="section-head" data-aos="fade-up" data-aos-duration="600">
-      <span class="eyebrow">معاينة</span>
-      <h2 class="section-title">مراجعة الاستمارة</h2>
-      <p class="section-desc">راجع معلوماتك قبل إنشاء PDF</p>
-    </div>
-
-    <div class="m-preview-grid">
-      <div class="m-preview-summary">
-        <div class="m-preview-summary-header">
-          <i class="bi bi-file-text"></i>
-          <h3>ملخص البيانات</h3>
+        <div class="ms-form-nav" id="msFormNav">
+          <button type="button" class="ms-btn ms-btn-secondary" id="msBtnPrev" hidden>
+            <i class="bi bi-arrow-right" aria-hidden="true"></i> السابق
+          </button>
+          <button type="button" class="ms-btn ms-btn-primary" id="msBtnNext">
+            التالي <i class="bi bi-arrow-left" aria-hidden="true"></i>
+          </button>
+          <button type="submit" class="ms-btn ms-btn-primary" id="msBtnSubmit" hidden>
+            <i class="bi bi-check2-circle" aria-hidden="true"></i> تأكيد وإرسال
+          </button>
         </div>
-        <div id="mPreviewContent">
-          <div class="m-preview-row"><span class="m-preview-row-label">الاسم الشخصي</span><span class="m-preview-row-value" id="pv-firstName">—</span></div>
-          <div class="m-preview-row"><span class="m-preview-row-label">الاسم العائلي</span><span class="m-preview-row-value" id="pv-lastName">—</span></div>
-          <div class="m-preview-row"><span class="m-preview-row-label">تاريخ الازدياد</span><span class="m-preview-row-value" id="pv-birthDate">—</span></div>
-          <div class="m-preview-row"><span class="m-preview-row-label">مكان الازدياد</span><span class="m-preview-row-value" id="pv-birthPlace">—</span></div>
-          <div class="m-preview-row"><span class="m-preview-row-label">رقم البطاقة</span><span class="m-preview-row-value" id="pv-cin">—</span></div>
-          <div class="m-preview-row"><span class="m-preview-row-label">رقم الهاتف</span><span class="m-preview-row-value" id="pv-phone">—</span></div>
-          <div class="m-preview-row"><span class="m-preview-row-label">البريد الإلكتروني</span><span class="m-preview-row-value" id="pv-email">—</span></div>
-          <div class="m-preview-row"><span class="m-preview-row-label">العنوان</span><span class="m-preview-row-value" id="pv-address">—</span></div>
+
+      </form>
+
+      <!-- Success State -->
+      <div class="ms-success" id="msSuccess" hidden>
+        <div class="ms-success-check">
+          <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle class="ms-check-circle" cx="60" cy="60" r="54"/>
+            <path class="ms-check-mark" d="M37 62l16 16 31-35"/>
+          </svg>
+        </div>
+        <h2 class="ms-success-title">تم تسجيل طلب الانخراط بنجاح</h2>
+        <p class="ms-success-desc">تم حفظ معلوماتكم بنجاح.</p>
+        <div class="ms-success-id">
+          <span class="ms-success-id-label">رقم العضوية</span>
+          <span class="ms-success-id-value" id="msMemberNumber">AMARE-2026-00000</span>
+        </div>
+        <div class="ms-success-actions">
+          <button type="button" class="ms-btn ms-btn-primary" id="msDownloadPdf">
+            <i class="bi bi-file-earmark-pdf" aria-hidden="true"></i> تحميل وثيقة الانخراط PDF
+          </button>
+          <a href="../index.html" class="ms-btn ms-btn-secondary">
+            <i class="bi bi-house" aria-hidden="true"></i> العودة إلى الرئيسية
+          </a>
         </div>
       </div>
 
-      <div>
-        <div class="m-preview-visual-card">
-          <div class="m-preview-visual-placeholder">
-            <i class="bi bi-file-earmark-text"></i>
-          </div>
-          <p style="font-size:14px;color:#5B6B7C;margin-bottom:20px;">معاينة استمارة العضوية الرسمية</p>
-          <div class="m-preview-actions">
-            <button class="m-btn m-btn-outline" style="color:var(--m-text);border-color:var(--m-border);padding:12px 24px;font-size:14px;background:transparent;">
-              <i class="bi bi-arrow-right"></i>
-              عودة
-            </button>
-            <button class="m-btn m-btn-primary" style="padding:12px 24px;font-size:14px;">
-              <i class="bi bi-file-earmark-pdf"></i>
-              Generate PDF
-            </button>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </section>
@@ -1901,376 +792,24 @@
 <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1/dist/pdf-lib.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@pdf-lib/fontkit@1/dist/fontkit.umd.min.js"></script>
 <script src="https://unpkg.com/bidi-js@1/dist/bidi-js.umd.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="../js/supabase.js"></script>
-<script src="../supabase-config.js"></script>
 <script src="../script.js"></script>
 <script src="../js/arabic.js"></script>
-<script src="../js/pdf-config.js"></script>
-<script src="../js/pdf-utils.js"></script>
-<script src="../js/pdf-generator.js"></script>
-<script src="../js/form-handler.js"></script>
-<script>
-(function() {
-  'use strict';
+<script src="../assets/js/membership/progress-stepper.js"></script>
+<script src="../assets/js/membership/validation.js"></script>
+<script src="../assets/js/membership/upload.js"></script>
+<script src="../assets/js/membership/review.js"></script>
+<script src="../assets/js/membership/success.js"></script>
+<script src="../assets/js/membership/multi-step-form.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-  if (typeof AOS !== 'undefined') {
-    AOS.init({
-      once: true,
-      offset: 60,
-      duration: 600,
-      easing: 'cubic-bezier(0.22, 0.8, 0.32, 1)',
-    });
-  }
+<script src="../assets/js/membership/config.js"></script>
+<script src="../assets/js/membership/form-state.js"></script>
+<script src="../assets/js/membership/database.js"></script>
+<!--
+<script src="../assets/js/membership/email-verification.js"></script>
+<script src="../assets/js/membership/pdf.js"></script>
+-->
 
-  /* ---------- Form Handling ---------- */
-  var oldForm = document.getElementById('joinForm');
-  if (!oldForm) return;
-  var joinForm = oldForm.cloneNode(true);
-  oldForm.parentNode.replaceChild(joinForm, oldForm);
-
-  /* ---------- Elements ---------- */
-  var firstName = document.getElementById('firstName');
-  var lastName = document.getElementById('lastName');
-  var birthDate = document.getElementById('birthDate');
-  var birthPlace = document.getElementById('birthPlace');
-  var cin = document.getElementById('cin');
-  var phone = document.getElementById('phone');
-  var email = document.getElementById('email');
-  var address = document.getElementById('address');
-  var agreeCheck = document.getElementById('agreeCheck');
-  var submitBtn = document.getElementById('submitBtn');
-  var submitText = document.getElementById('submitText');
-  var submitLoading = document.getElementById('submitLoading');
-  var joinSuccess = document.getElementById('joinSuccess');
-  var requestId = document.getElementById('requestId');
-
-  var errorEls = {
-    firstName: document.getElementById('firstNameError'),
-    lastName: document.getElementById('lastNameError'),
-    birthDate: document.getElementById('birthDateError'),
-    birthPlace: document.getElementById('birthPlaceError'),
-    cin: document.getElementById('cinError'),
-    phone: document.getElementById('phoneError'),
-    email: document.getElementById('emailError'),
-    address: document.getElementById('addressError'),
-    photo: document.getElementById('photoError'),
-    sigMember: document.getElementById('sigMemberError'),
-    agree: document.getElementById('agreeError'),
-  };
-
-  /* ---------- Photo Upload ---------- */
-  var uploadArea = document.getElementById('uploadArea');
-  var uploadContent = document.getElementById('uploadContent');
-  var photoInput = document.getElementById('photoInput');
-  var previewImage = document.getElementById('previewImage');
-  var removeImage = document.getElementById('removeImage');
-  var uploadedFile = null;
-
-  uploadArea.addEventListener('click', function() {
-    if (!uploadArea.classList.contains('has-image')) {
-      photoInput.click();
-    }
-  });
-
-  photoInput.addEventListener('change', function(e) {
-    var file = e.target.files[0];
-    if (file) handleFile(file);
-  });
-
-  uploadArea.addEventListener('dragover', function(e) {
-    e.preventDefault();
-    uploadArea.classList.add('dragover');
-  });
-  uploadArea.addEventListener('dragleave', function() {
-    uploadArea.classList.remove('dragover');
-  });
-  uploadArea.addEventListener('drop', function(e) {
-    e.preventDefault();
-    uploadArea.classList.remove('dragover');
-    var file = e.dataTransfer.files[0];
-    if (file) handleFile(file);
-  });
-
-  function handleFile(file) {
-    if (!file.type.match('image/(png|jpeg|jpg)')) {
-      showError('photo', 'يرجى اختيار صورة بصيغة PNG أو JPG');
-      return;
-    }
-    if (file.size > 5 * 1024 * 1024) {
-      showError('photo', 'حجم الصورة يتجاوز 5MB');
-      return;
-    }
-    uploadedFile = file;
-    clearError('photo');
-    var reader = new FileReader();
-    reader.onload = function(e) {
-      previewImage.src = e.target.result;
-      uploadArea.classList.add('has-image');
-    };
-    reader.readAsDataURL(file);
-  }
-
-  removeImage.addEventListener('click', function(e) {
-    e.stopPropagation();
-    uploadedFile = null;
-    previewImage.src = '';
-    uploadArea.classList.remove('has-image');
-    photoInput.value = '';
-  });
-
-  /* ---------- Signature Pads ---------- */
-  function initSignature(canvasId, placeholderId) {
-    var canvas = document.getElementById(canvasId);
-    var placeholder = document.getElementById(placeholderId);
-    if (!canvas || !placeholder) return;
-
-    var ctx = canvas.getContext('2d');
-    var drawing = false;
-    var hasDrawn = false;
-
-    function getPos(e) {
-      var rect = canvas.getBoundingClientRect();
-      var scaleX = canvas.width / rect.width;
-      var scaleY = canvas.height / rect.height;
-      var clientX, clientY;
-      if (e.touches) {
-        clientX = e.touches[0].clientX;
-        clientY = e.touches[0].clientY;
-        e.preventDefault();
-      } else {
-        clientX = e.clientX;
-        clientY = e.clientY;
-      }
-      return {
-        x: (clientX - rect.left) * scaleX,
-        y: (clientY - rect.top) * scaleY,
-      };
-    }
-
-    function startDrawing(e) {
-      drawing = true;
-      var pos = getPos(e);
-      ctx.beginPath();
-      ctx.moveTo(pos.x, pos.y);
-      placeholder.classList.add('hidden');
-    }
-
-    function draw(e) {
-      if (!drawing) return;
-      hasDrawn = true;
-      var pos = getPos(e);
-      ctx.lineWidth = 2.5;
-      ctx.lineCap = 'round';
-      ctx.lineJoin = 'round';
-      ctx.strokeStyle = '#123B78';
-      ctx.lineTo(pos.x, pos.y);
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.moveTo(pos.x, pos.y);
-    }
-
-    function stopDrawing() {
-      drawing = false;
-      if (!hasDrawn) placeholder.classList.remove('hidden');
-    }
-
-    canvas.addEventListener('mousedown', startDrawing);
-    canvas.addEventListener('mousemove', draw);
-    canvas.addEventListener('mouseup', stopDrawing);
-    canvas.addEventListener('mouseleave', stopDrawing);
-    canvas.addEventListener('touchstart', startDrawing, { passive: false });
-    canvas.addEventListener('touchmove', draw, { passive: false });
-    canvas.addEventListener('touchend', stopDrawing);
-
-    return canvas;
-  }
-
-  var sigMember = initSignature('sigMember', 'sigMemberPlaceholder');
-  initSignature('sigPresident', 'sigPresidentPlaceholder');
-
-  function clearSignature(canvasId) {
-    var canvas = document.getElementById(canvasId);
-    var ctx = canvas.getContext('2d');
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    var pid = canvasId === 'sigMember' ? 'sigMemberPlaceholder' : 'sigPresidentPlaceholder';
-    var placeholder = document.getElementById(pid);
-    if (placeholder) placeholder.classList.remove('hidden');
-  }
-
-  document.querySelectorAll('.join-sig-clear').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      clearSignature(this.dataset.canvas);
-    });
-  });
-
-  function isSignatureEmpty(canvasId) {
-    var canvas = document.getElementById(canvasId);
-    if (!canvas) return true;
-    var ctx = canvas.getContext('2d');
-    var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-    var pixels = imageData.data;
-    for (var i = 3; i < pixels.length; i += 4) {
-      if (pixels[i] > 10) return false;
-    }
-    return true;
-  }
-
-  /* ---------- Validation ---------- */
-  function showError(field, message) {
-    if (errorEls[field]) {
-      errorEls[field].textContent = message;
-      var input = document.getElementById(field);
-      if (input && input.classList) input.classList.add('error');
-    }
-  }
-
-  function clearError(field) {
-    if (errorEls[field]) {
-      errorEls[field].textContent = '';
-      var input = document.getElementById(field);
-      if (input && input.classList) input.classList.remove('error');
-    }
-  }
-
-  function clearAllErrors() {
-    for (var key in errorEls) {
-      if (errorEls[key]) errorEls[key].textContent = '';
-    }
-    document.querySelectorAll('.join-input.error').forEach(function(el) {
-      el.classList.remove('error');
-    });
-  }
-
-  joinForm.querySelectorAll('.join-input').forEach(function(input) {
-    input.addEventListener('input', function() {
-      clearError(this.id);
-    });
-    input.addEventListener('blur', function() {
-      if (this.hasAttribute('required') && this.value.trim() === '') {
-        showError(this.id, 'هذا الحقل مطلوب');
-      }
-    });
-  });
-
-  /* ---------- Form Submission ---------- */
-  joinForm.addEventListener('submit', async function(e) {
-    e.preventDefault();
-    clearAllErrors();
-    var isValid = true;
-
-    if (!firstName.value.trim()) { showError('firstName', 'هذا الحقل مطلوب'); isValid = false; }
-    if (!lastName.value.trim()) { showError('lastName', 'هذا الحقل مطلوب'); isValid = false; }
-    if (!birthDate.value) { showError('birthDate', 'هذا الحقل مطلوب'); isValid = false; }
-    if (!birthPlace.value.trim()) { showError('birthPlace', 'هذا الحقل مطلوب'); isValid = false; }
-
-    if (!cin.value.trim()) { showError('cin', 'هذا الحقل مطلوب'); isValid = false; }
-    else if (!/^[A-Za-z0-9]{5,10}$/.test(cin.value.trim())) {
-      showError('cin', 'يرجى إدخال رقم بطاقة وطنية صحيح');
-      isValid = false;
-    }
-    if (!phone.value.trim()) { showError('phone', 'هذا الحقل مطلوب'); isValid = false; }
-    else if (!/^[0-9+\-\s]{8,15}$/.test(phone.value.trim())) {
-      showError('phone', 'يرجى إدخال رقم هاتف صحيح');
-      isValid = false;
-    }
-    if (!email.value.trim()) { showError('email', 'هذا الحقل مطلوب'); isValid = false; }
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())) {
-      showError('email', 'يرجى إدخال بريد إلكتروني صحيح');
-      isValid = false;
-    }
-
-    if (!address.value.trim()) { showError('address', 'هذا الحقل مطلوب'); isValid = false; }
-
-    if (!uploadedFile) { showError('photo', 'يرجى إرفاق صورة شخصية'); isValid = false; }
-
-    if (isSignatureEmpty('sigMember')) { showError('sigMember', 'يرجى التوقيع'); isValid = false; }
-
-    if (!agreeCheck.checked) { showError('agree', 'يرجى الموافقة على الشروط'); isValid = false; }
-
-    if (!isValid) {
-      var firstError = document.querySelector('.join-error:not(:empty)');
-      if (firstError) {
-        firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }
-      return;
-    }
-
-    FormHandler.clearErrorMessage();
-    submitBtn.classList.add('loading');
-
-    try {
-      var data = FormHandler.collectData();
-
-      await FormHandler.generateAndDownload(data);
-
-      joinForm.reset();
-      uploadArea.classList.remove('has-image');
-      previewImage.src = '';
-      uploadedFile = null;
-      clearSignature('sigMember');
-      clearSignature('sigPresident');
-      if (typeof updateProgress === 'function') setTimeout(updateProgress, 200);
-
-    } catch (err) {
-      console.error('[Form] PDF generation error:', err);
-      FormHandler.showErrorMessage(
-        err.message || 'حدث خطأ غير متوقع أثناء إنشاء الاستمارة'
-      );
-    } finally {
-      submitBtn.classList.remove('loading');
-      submitText.innerHTML = '<i class="fas fa-file-pdf"></i> إنشاء ملف الانخراط';
-    }
-  });
-
-  /* ---------- Progress Indicator ---------- */
-  function updateProgress() {
-    var fields = [
-      firstName, lastName, birthDate, birthPlace, cin,
-      phone, email, address, agreeCheck
-    ];
-    var filled = 0;
-    var total = fields.length;
-
-    if (uploadedFile) filled += 1;
-    total += 1;
-
-    if (!isSignatureEmpty('sigMember')) filled += 1;
-    total += 1;
-
-    fields.forEach(function(f) {
-      if (f && f.type === 'checkbox') {
-        if (f.checked) filled++;
-      } else if (f && f.value && f.value.toString().trim() !== '') {
-        filled++;
-      }
-    });
-
-    var pct = Math.min(100, Math.round((filled / total) * 100));
-    var fill = document.getElementById('mProgressFill');
-    var label = document.getElementById('mProgressPercent');
-    if (fill) fill.style.width = pct + '%';
-    if (label) label.textContent = pct + '%';
-  }
-
-  joinForm.querySelectorAll('.join-input').forEach(function(el) {
-    el.addEventListener('input', updateProgress);
-    el.addEventListener('change', updateProgress);
-  });
-  if (agreeCheck) {
-    agreeCheck.addEventListener('change', function() {
-      submitBtn.disabled = !agreeCheck.checked;
-    });
-    agreeCheck.addEventListener('change', updateProgress);
-  }
-  if (photoInput) photoInput.addEventListener('change', function() {
-    setTimeout(updateProgress, 200);
-  });
-
-  setTimeout(updateProgress, 500);
-
-})();
-</script>
 
 </body>
 </html>

@@ -284,11 +284,39 @@
       join: {
         title: 'انخرط معنا', href: '/Join%20us/index.html',
         items: [
-          { icon: 'userPlus', title: 'الانخراط online', desc: 'كن عضواً في الجمعية', href: '/Join%20us/index.html' },
+          { icon: 'userPlus', title: 'الانخراط online', desc: 'كن عضواً في الجمعية', href: '/Join%20us/join-us-online.html' },
           { icon: 'file', title: 'وثائق الانخراط', desc: 'حمّل وثائق الانخراط', href: '/Join%20us/documents.html' },
-          { icon: 'clipboard', title: 'استمارة الانخراط', desc: 'قدّم طلب الانخراط', href: '/Join%20us/application.html' },
-          { icon: 'heart', title: 'التزام الانخراط', desc: 'وثيقة التزام العضو', href: '/Join%20us/commitment.html' },
           { icon: 'book', title: 'القانون الأساسي', desc: 'النظام الأساسي للجمعية', href: '/Join%20us/bylaws.html' },
+          {
+            icon: 'book',
+            title: 'القانون الداخلي',
+            desc: 'القانون الداخلي للجمعية',
+            href: '/Join%20us/internal-regulations.html'
+          },
+          {
+            icon: 'compass',
+            title: 'ميثاق الاستكشاف المسؤول',
+            desc: 'ميثاق المستكشف المسؤول',
+            href: '/Join%20us/charter.html'
+          },
+          {
+            icon: 'folder',
+            title: 'الإيداع الخارجي',
+            desc: 'إيداع الملفات الخارجية',
+            href: '/Join%20us/external-deposit-receipt.html'
+          },
+          {
+            icon: 'folder',
+            title: 'الإيداع الداخلي',
+            desc: 'إيداع الملفات الداخلية',
+            href: '/Join%20us/deposit-receipt.html'
+          },
+          {
+            icon: 'bell',
+            title: 'الإشعار بالخرجات',
+            desc: 'الإشعارات الخاصة بالخرجات',
+            href: '/Join%20us/activity-notifications.html'
+          }
         ]
       }
     };
@@ -461,7 +489,7 @@
     }
 
     function isMobile() {
-      return window.innerWidth <= 1024;
+      return window.innerWidth <= 768;
     }
 
     function setupDesktop() {
@@ -627,8 +655,8 @@
       }
     }
 
-    // Close drawer on bottom CTA buttons
-    var bottomLinks = drawer.querySelectorAll('.mobile-drawer-btn');
+    // Close drawer on bottom action buttons
+    var bottomLinks = drawer.querySelectorAll('.mobile-drawer-action');
     for (var i = 0; i < bottomLinks.length; i++) {
       (function(l) {
         l.addEventListener('click', closeDrawer);

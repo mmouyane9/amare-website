@@ -20,6 +20,17 @@
     'msAddress',
   ];
 
+  var FIELD_MAP = {
+    msFirstName: 'first_name',
+    msLastName: 'last_name',
+    msBirthDate: 'birth_date',
+    msBirthPlace: 'birth_place',
+    msCin: 'national_id',
+    msPhone: 'phone',
+    msEmail: 'email',
+    msAddress: 'address',
+  };
+
   var PANEL_COUNT = 4;
 
   function el(id) {
@@ -43,12 +54,19 @@
   /* ---------- Data collection (Supabase-ready payload) ---------- */
 
   function collectFields() {
+    var dbState = root.membershipData;
     FIELD_IDS.forEach(function (id) {
       var input = el(id);
-      if (input) app.setField(id, input.value.trim());
+      if (!input) return;
+      var value = input.value.trim();
+      app.setField(id, value);
+      if (dbState && FIELD_MAP[id]) dbState[FIELD_MAP[id]] = value;
     });
     var declaration = el('msDeclaration');
-    if (declaration) app.setField('declaration', declaration.checked);
+    if (declaration) {
+      app.setField('declaration', declaration.checked);
+      if (dbState) dbState.declaration_accepted = declaration.checked;
+    }
   }
 
   /* ---------- Panel switching ---------- */
@@ -143,6 +161,11 @@
     }
 
     collectFields();
+
+    if (window.MembershipDatabase && window.MembershipDatabase.submitMember) {
+      window.MembershipDatabase.submitMember();
+    }
+
     app.goTo(4);
   }
 
@@ -210,27 +233,6 @@
     card.classList.add('is-enter');
 
     app.goTo(1);
-    window.MembershipDatabase.saveMember({
-
-    first_name: "Test",
-
-    last_name: "User",
-
-    birth_date: "2000-01-01",
-
-    birth_place: "Agadir",
-
-    national_id: "TEST123456",
-
-    phone: "0612345678",
-
-    email: "test@example.com",
-
-    address: "Agadir",
-
-    declaration_accepted: true
-
-});
   }
 
   if (doc.readyState === 'loading') {

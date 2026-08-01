@@ -24,26 +24,27 @@
 
     function saveMember(payload) {
         var client = window.supabaseClient;
-        if (!client || typeof client.from !== 'function') {
+        if (!client || typeof client.rpc !== 'function') {
             console.error('[Membership][STEP 11] FATAL: window.supabaseClient is not initialised ' +
                 '(did config.js run? is the @supabase/supabase-js CDN script loaded before config.js?).');
             return Promise.reject(new Error('Supabase client is not initialised'));
         }
-        console.log('[Membership][STEP 11] supabase.from("members").insert(payload) with payload:');
+        console.log('[Membership][STEP 11] supabase.rpc("register_member", { payload }) with payload:');
         console.log('[Membership][STEP 11]', payload);
-        return Promise.resolve(client.from('members').insert(payload).select().single()).then(function (res) {
-            console.log('[Membership][STEP 12] insert response received. error =', res.error, ', data =', res.data);
+        return Promise.resolve(client.rpc('register_member', { payload: payload })).then(function (res) {
+            console.log('[Membership][STEP 12] rpc response received. error =', res.error, ', data =', res.data);
             if (res.error) {
                 console.error('[Membership][STEP 12] INSERT FAILED. Supabase error:', res.error);
                 throw res.error;
             }
-            console.log('[Membership][STEP 12] INSERT OK. member id =', res.data ? res.data.id : '?');
+            console.log('[Membership][STEP 12] INSERT OK. member id =', res.data ? res.data.id : '?',
+                ', member_number =', res.data && res.data.member_number ? res.data.member_number : '?');
             return res.data;
         });
     }
 
     function buildPayload(data) {
-        var payload = { member_number: null };
+        var payload = {};
         DB_COLUMNS.forEach(function (column) {
             payload[column] = data[column];
         });

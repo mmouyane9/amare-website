@@ -14,12 +14,9 @@
   }
 
   /* ---------- Membership number ---------- */
-
-  function generateMembershipNumber() {
-    var year = new Date().getFullYear();
-    var rand = String(Math.floor(10000 + Math.random() * 90000));
-    return 'AMARE-' + year + '-' + rand;
-  }
+  /* The membership number is assigned by the database function
+     register_member() and stored in app state as membershipNumber.
+     No random numbers are generated client-side. */
 
   /* ---------- Payload (Supabase-ready) ---------- */
 
@@ -244,8 +241,11 @@
     },
 
     show: function () {
-      var number = app.getState().membershipNumber || generateMembershipNumber();
-      app.setState({ membershipNumber: number });
+      var number = app.getState().membershipNumber;
+      if (!number) {
+        console.warn('[Membership] Success.show(): membershipNumber is missing from state.');
+        number = '—';
+      }
 
       var valueEl = el('msMemberNumber');
       if (valueEl) valueEl.textContent = number;

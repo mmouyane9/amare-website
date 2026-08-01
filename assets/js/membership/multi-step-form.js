@@ -187,9 +187,14 @@
 
     var finish = function (member) {
       console.log(
-        '[Membership][STEP 13] SUCCESS page. registerMember() resolved with member id =',
+        '[Membership][STEP 13] SUCCESS page. registerMember() resolved with member_number =',
+        member && member.member_number ? member.member_number : '?',
+        ', member id =',
         member && member.id ? member.id : '?'
       );
+      if (member && member.member_number) {
+        app.setState({ membershipNumber: member.member_number });
+      }
       resetTemporaryState();
       app.goTo(4);
     };

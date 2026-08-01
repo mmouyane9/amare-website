@@ -1170,13 +1170,14 @@
   .ms-review-image-box { min-height: 150px; }
 
   /* Sticky navigation bar on mobile */
-  .ms-form-section { padding-bottom: 128px; }
+  /* Extra bottom clearance so the fixed nav never overlaps the declaration */
+  .ms-form-section { padding-bottom: 200px; }
 
   .ms-form-nav {
     position: fixed;
     right: 12px;
     left: 12px;
-    bottom: max(12px, env(safe-area-inset-bottom));
+    bottom: -100px;
     z-index: 900;
     margin: 0;
     padding: 12px;

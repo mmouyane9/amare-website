@@ -1176,7 +1176,7 @@
     position: fixed;
     right: 12px;
     left: 12px;
-
+    bottom: max(12px, env(safe-area-inset-bottom));
     z-index: 900;
     margin: 0;
     padding: 12px;

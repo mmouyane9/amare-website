@@ -1,49 +1,42 @@
 import { Resend } from "resend";
+import type { NextApiRequest, NextApiResponse } from "next";
 
-export const config = { runtime: "nodejs" };
-export const maxDuration = 30;
+export const config = { runtime: "nodejs", maxDuration: 30 };
 
 const SEND_TIMEOUT_MS = 20000;
 
-export default async function handler(req: Request): Promise<Response> {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
     console.log("STEP 1: handler invoked, method =", req.method, "url =", req.url);
 
     if (req.method !== "POST") {
       console.log("STEP 1b: non-POST request rejected");
-      return Response.json({ success: false, message: "Method not allowed" }, { status: 405 });
+      res.status(405).json({ success: false, message: "Method not allowed" });
+      return;
     }
 
     console.log("STEP 2: reading request body...");
-    let payload: { email?: string; otp?: string };
-    try {
-      payload = await req.json();
-    } catch (err) {
-      console.log("STEP 2b: invalid JSON body", err instanceof Error ? err.message : err);
-      return Response.json({ success: false, message: "Invalid JSON body" }, { status: 400 });
-    }
-
-    const { email, otp } = payload;
+    const { email, otp } = (req.body ?? {}) as { email?: string; otp?: string };
     console.log("STEP 3: parsed body -> email =", email, ", otp =", otp, ", emailType =", typeof email, ", otpType =", typeof otp);
 
     if (!email || typeof email !== "string" || !/^\S+@\S+\.\S+$/.test(email)) {
       console.log("STEP 4: email validation failed");
-      return Response.json({ success: false, message: "A valid email is required" }, { status: 400 });
+      res.status(400).json({ success: false, message: "A valid email is required" });
+      return;
     }
 
     if (!otp || typeof otp !== "string") {
       console.log("STEP 4b: otp validation failed");
-      return Response.json({ success: false, message: "An otp is required" }, { status: 400 });
+      res.status(400).json({ success: false, message: "An otp is required" });
+      return;
     }
 
     console.log("STEP 5: reading RESEND_API_KEY...");
     const apiKey = process.env.RESEND_API_KEY;
     if (!apiKey) {
       console.log("STEP 5b: RESEND_API_KEY is MISSING from process.env");
-      return Response.json(
-        { success: false, message: "RESEND_API_KEY is not configured" },
-        { status: 500 }
-      );
+      res.status(500).json({ success: false, message: "RESEND_API_KEY is not configured" });
+      return;
     }
     console.log("STEP 5c: RESEND_API_KEY is present, length =", apiKey.length, ", prefix =", apiKey.slice(0, 4), "...");
 
@@ -104,7 +97,8 @@ export default async function handler(req: Request): Promise<Response> {
     } catch (err) {
       const message = err instanceof Error ? err.message : "Failed to send email";
       console.log("STEP 8c: resend.emails.send THREW:", message);
-      return Response.json({ success: false, resendResponse: null, resendError: { message, name: "exception" } }, { status: 500 });
+      res.status(500).json({ success: false, resendResponse: null, resendError: { message, name: "exception" } });
+      return;
     } finally {
       clearTimeout(timeoutId);
     }
@@ -113,29 +107,24 @@ export default async function handler(req: Request): Promise<Response> {
     console.log("STEP 9b: resendError =", result.error ? JSON.stringify(result.error) : "null", ", resendResponse =", result.data ? JSON.stringify(result.data) : "null");
 
     if (result.error) {
-      return Response.json(
-        {
-          success: false,
-          resendResponse: result.data,
-          resendError: result.error,
-        },
-        { status: 400 }
-      );
+      res.status(400).json({
+        success: false,
+        resendResponse: result.data,
+        resendError: result.error,
+      });
+      return;
     }
 
     console.log("STEP 10: success, email id =", result.data ? result.data.id : "unknown");
-    return Response.json({ success: true, resendResponse: result.data, resendError: null });
+    res.status(200).json({ success: true, resendResponse: result.data, resendError: null });
   } catch (error) {
     const err = error instanceof Error ? error : new Error(String(error));
     console.log("STEP CATCH: uncaught exception:", err.message);
     console.log(err.stack);
-    return Response.json(
-      {
-        success: false,
-        error: err.message,
-        stack: err.stack,
-      },
-      { status: 500 }
-    );
+    res.status(500).json({
+      success: false,
+      error: err.message,
+      stack: err.stack,
+    });
   }
 }

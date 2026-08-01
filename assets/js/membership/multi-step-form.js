@@ -213,6 +213,7 @@
     app.Upload.init();
     app.Review.init();
     app.Success.init();
+    app.EmailVerification.init();
 
     el('msBtnPrev').addEventListener('click', tryPrev);
     el('msBtnNext').addEventListener('click', tryNext);

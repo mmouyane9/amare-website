@@ -66,7 +66,7 @@ export default async function handler(req: Request): Promise<Response> {
 </html>`;
 
     const { data, error } = await resend.emails.send({
-      from: process.env.MAIL_FROM || "AMARE <onboarding@resend.dev>",
+      from: process.env.MAIL_FROM || "AMARE <association@amare.ma>",
       to: [email],
       subject: "AMARE - رمز التحقق",
       html,

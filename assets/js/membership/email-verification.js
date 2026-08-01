@@ -1,6 +1,6 @@
 /* ==========================================================================
    email-verification.js — Step 2: Email OTP verification
-   Auto-fills the email from Step 1, sends the OTP via the send-otp.php
+   Auto-fills the email from Step 1, sends the OTP via the /api/send-otp
    endpoint with a 2-minute resend countdown, and verifies the code
    before allowing Step 3.
    Exposes: MembershipForm.EmailVerification
@@ -116,11 +116,10 @@
     var label = el('msOtpSendText');
     if (label) label.textContent = 'جارٍ إرسال رمز التحقق...';
 
-    fetch('https://api.amare.ma/send-otp.php', {
+    fetch('/api/send-otp', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        key: 'MSJ_SOVEREIGN_2026',
         email: email,
         otp: otpCode,
       }),
@@ -131,7 +130,7 @@
         });
       })
       .then(function (data) {
-        if (data && data.status === 'success') {
+        if (data && data.success === true) {
           otpSent = true;
 
           clearCountdown();
@@ -139,7 +138,7 @@
           countdownTimer = root.setInterval(tick, 1000);
 
           var demoHint = el('msOtpDemo');
-          if (demoHint) demoHint.textContent = 'تم إرسال رمز التحقق إلى بريدك الإلكتروني';
+          if (demoHint) demoHint.textContent = 'تم إرسال رمز التحقق إلى بريدك الإلكتروني.';
 
           var verifyBtn = el('msOtpVerify');
           if (verifyBtn) verifyBtn.disabled = false;

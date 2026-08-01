@@ -59,7 +59,7 @@ BEGIN
     new_member_number,
     payload->>'first_name',
     payload->>'last_name',
-    payload->>'birth_date',
+    (payload->>'birth_date')::date,
     payload->>'birth_place',
     payload->>'national_id',
     payload->>'phone',

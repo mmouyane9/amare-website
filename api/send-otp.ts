@@ -1,52 +1,41 @@
 import { Resend } from "resend";
 
-type VercelRequest = {
-  method?: string;
-  body?: string | Buffer;
-};
+export const config = { runtime: "nodejs" };
 
-type VercelResponse = {
-  status: (code: number) => { json: (payload: unknown) => void };
-};
-
-export default async function handler(req: VercelRequest, res: VercelResponse) {
-  if (req.method !== "POST") {
-    res.status(405).json({ success: false, message: "Method not allowed" });
-    return;
-  }
-
-  const rawBody =
-    typeof req.body === "string" ? req.body : req.body ? req.body.toString("utf-8") : "";
-
-  let payload: { email?: string; otp?: string };
+export default async function handler(req: Request): Promise<Response> {
   try {
-    payload = JSON.parse(rawBody);
-  } catch {
-    res.status(400).json({ success: false, message: "Invalid JSON body" });
-    return;
-  }
+    if (req.method !== "POST") {
+      return Response.json({ success: false, message: "Method not allowed" }, { status: 405 });
+    }
 
-  const { email, otp } = payload;
+    let payload: { email?: string; otp?: string };
+    try {
+      payload = await req.json();
+    } catch {
+      return Response.json({ success: false, message: "Invalid JSON body" }, { status: 400 });
+    }
 
-  if (!email || typeof email !== "string" || !/^\S+@\S+\.\S+$/.test(email)) {
-    res.status(400).json({ success: false, message: "A valid email is required" });
-    return;
-  }
+    const { email, otp } = payload;
 
-  if (!otp || typeof otp !== "string") {
-    res.status(400).json({ success: false, message: "An otp is required" });
-    return;
-  }
+    if (!email || typeof email !== "string" || !/^\S+@\S+\.\S+$/.test(email)) {
+      return Response.json({ success: false, message: "A valid email is required" }, { status: 400 });
+    }
 
-  const apiKey = process.env.RESEND_API_KEY;
-  if (!apiKey) {
-    res.status(500).json({ success: false, message: "RESEND_API_KEY is not configured" });
-    return;
-  }
+    if (!otp || typeof otp !== "string") {
+      return Response.json({ success: false, message: "An otp is required" }, { status: 400 });
+    }
 
-  const resend = new Resend(apiKey);
+    const apiKey = process.env.RESEND_API_KEY;
+    if (!apiKey) {
+      return Response.json(
+        { success: false, message: "RESEND_API_KEY is not configured" },
+        { status: 500 }
+      );
+    }
 
-  const html = `<!DOCTYPE html>
+    const resend = new Resend(apiKey);
+
+    const html = `<!DOCTYPE html>
 <html lang="ar" dir="rtl">
   <head>
     <meta charset="utf-8" />
@@ -76,24 +65,27 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   </body>
 </html>`;
 
-  let result: { data: { id: string } | null; error: { message: string } | null };
-  try {
-    result = await resend.emails.send({
+    const { data, error } = await resend.emails.send({
       from: process.env.MAIL_FROM || "AMARE <onboarding@resend.dev>",
       to: [email],
       subject: "AMARE - رمز التحقق",
       html,
     });
-  } catch (err) {
-    const message = err instanceof Error ? err.message : "Failed to send email";
-    res.status(500).json({ success: false, message });
-    return;
-  }
 
-  if (result.error) {
-    res.status(400).json({ success: false, message: result.error.message });
-    return;
-  }
+    if (error) {
+      return Response.json({ success: false, message: error.message }, { status: 400 });
+    }
 
-  res.status(200).json({ success: true });
+    return Response.json({ success: true });
+  } catch (error) {
+    const err = error instanceof Error ? error : new Error(String(error));
+    return Response.json(
+      {
+        success: false,
+        error: err.message,
+        stack: process.env.NODE_ENV === "development" ? err.stack : undefined,
+      },
+      { status: 500 }
+    );
+  }
 }

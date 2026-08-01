@@ -108,22 +108,25 @@
                 data.profile_photo_url = paths.profile_photo_url;
                 data.national_id_front_url = paths.national_id_front_url;
                 data.national_id_back_url = paths.national_id_back_url;
-                return saveMember(buildPayload(data));
+                return saveMember(buildPayload(data)).catch(function (err) {
+                    console.error('[Membership] registerMember() FAILED:', err && err.message ? err.message : err);
+                    if (app && app.Upload && typeof app.Upload.cleanupUploaded === 'function') {
+                        return Promise.resolve(app.Upload.cleanupUploaded()).then(
+                            function () {
+                                console.log('[Membership] Cleaned up uploaded files.');
+                                throw err;
+                            },
+                            function () {
+                                console.error('[Membership] Cleanup of uploaded files failed.');
+                                throw err;
+                            }
+                        );
+                    }
+                    throw err;
+                });
             })
             .catch(function (err) {
                 console.error('[Membership] registerMember() FAILED:', err && err.message ? err.message : err);
-                if (app && app.Upload && typeof app.Upload.cleanupUploaded === 'function') {
-                    return Promise.resolve(app.Upload.cleanupUploaded()).then(
-                        function () {
-                            console.log('[Membership] Cleaned up uploaded files.');
-                            throw err;
-                        },
-                        function () {
-                            console.error('[Membership] Cleanup of uploaded files failed.');
-                            throw err;
-                        }
-                    );
-                }
                 throw err;
             });
     }

@@ -22,23 +22,23 @@ SECURITY INVOKER
 SET search_path = public
 AS $$
 DECLARE
-  current_year TEXT := to_char(now(), 'YYYY');
-  max_seq      BIGINT;
-  next_seq     BIGINT;
-  member_number TEXT;
-  new_row      members%ROWTYPE;
+  current_year     TEXT := to_char(now(), 'YYYY');
+  max_seq          BIGINT;
+  next_seq         BIGINT;
+  new_member_number TEXT;
+  new_row          members%ROWTYPE;
 BEGIN
   -- Serialize concurrent registrations (released at commit)
   PERFORM pg_advisory_xact_lock(hashtext('amare_member_numbering'));
 
   -- Highest existing sequence for the current year
-  SELECT COALESCE(MAX(NULLIF(regexp_replace(member_number, '^AMARE-[0-9]{4}-', ''), '')::BIGINT), 0)
+  SELECT COALESCE(MAX(NULLIF(regexp_replace(m.member_number, '^AMARE-[0-9]{4}-', ''), '')::BIGINT), 0)
   INTO max_seq
-  FROM members
-  WHERE member_number LIKE 'AMARE-' || current_year || '-%';
+  FROM members m
+  WHERE m.member_number LIKE 'AMARE-' || current_year || '-%';
 
-  next_seq      := max_seq + 1;
-  member_number := 'AMARE-' || current_year || '-' || lpad(next_seq::TEXT, 6, '0');
+  next_seq          := max_seq + 1;
+  new_member_number := 'AMARE-' || current_year || '-' || lpad(next_seq::TEXT, 6, '0');
 
   INSERT INTO members (
     member_number,
@@ -56,7 +56,7 @@ BEGIN
     national_id_back_url
   )
   VALUES (
-    member_number,
+    new_member_number,
     payload->>'first_name',
     payload->>'last_name',
     payload->>'birth_date',

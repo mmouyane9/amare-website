@@ -73,6 +73,7 @@
 
   function switchPanels(step) {
     if (step === PANEL_COUNT) {
+      console.log('[Membership][STEP 13] switchPanels: rendering success page (goTo(4) reached via finish).');
       doc.querySelectorAll('.ms-panel').forEach(function (panel) {
         panel.hidden = true;
         panel.classList.remove('is-active');
@@ -148,25 +149,82 @@
     if (app.getState().step > 1) app.goTo(app.getState().step - 1);
   }
 
+  function resetTemporaryState() {
+    var data = root.membershipData;
+    if (data) {
+      for (var key in data) {
+        if (!Object.prototype.hasOwnProperty.call(data, key)) continue;
+        if (key === 'declaration_accepted' || key === 'email_verified') data[key] = false;
+        else data[key] = '';
+      }
+    }
+  }
+
   function finalize(e) {
     if (e) e.preventDefault();
 
+    console.log('[Membership][STEP 1] User clicked Submit');
+
+    console.log('[Membership][STEP 3] validate(): step 1');
     if (!app.Validation.validateStep(1)) {
+      console.log('[Membership][STEP 3] validate(): step 1 INVALID -> going back to step 1. NO uploads, NO insert.');
       app.goTo(1);
       return;
     }
+    console.log('[Membership][STEP 3] validate(): step 2');
     if (!app.Validation.validateStep(2)) {
+      console.log('[Membership][STEP 3] validate(): step 2 INVALID -> going back to step 2. NO uploads, NO insert.');
       app.goTo(2);
       return;
     }
+    console.log('[Membership][STEP 3] validate(): OK');
 
+    console.log('[Membership][STEP 4] finalize(): collecting fields');
     collectFields();
 
-    if (window.MembershipDatabase && window.MembershipDatabase.submitMember) {
-      window.MembershipDatabase.submitMember();
-    }
+    var submitBtn = el('msBtnSubmit');
+    if (submitBtn) submitBtn.disabled = true;
 
-    app.goTo(4);
+    var finish = function (member) {
+      console.log(
+        '[Membership][STEP 13] SUCCESS page. registerMember() resolved with member id =',
+        member && member.id ? member.id : '?'
+      );
+      resetTemporaryState();
+      app.goTo(4);
+    };
+
+    var fail = function (err) {
+      if (submitBtn) submitBtn.disabled = false;
+      console.error('[Membership] FAILED:', err && err.message ? err.message : err);
+      console.error('[Membership] Aborting. Success page NOT shown because the pipeline did not complete.');
+      if (app.Upload && app.Upload.cleanupUploaded) {
+        app.Upload.cleanupUploaded();
+      }
+      if (app.Validation) {
+        app.Validation.setError('msPhoto', 'تعذر حفظ الطلب، يرجى المحاولة مرة أخرى');
+      }
+      app.goTo(3);
+    };
+
+    var run = function () {
+      if (window.MembershipDatabase && window.MembershipDatabase.registerMember) {
+        console.log('[Membership][STEP 5] Calling registerMember() ...');
+        return window.MembershipDatabase.registerMember().then(finish, fail);
+      }
+      console.error('[Membership][STEP 5] FATAL: window.MembershipDatabase.registerMember is NOT a function.');
+      console.error(
+        '[Membership][STEP 5] Register module state:',
+        window.MembershipDatabase
+          ? 'loaded, keys = [' + Object.keys(window.MembershipDatabase).join(', ') + ']'
+          : 'window.MembershipDatabase is UNDEFINED (did assets/js/membership/database.js load?)'
+      );
+      console.error('[Membership][STEP 5] Not calling registerMember(), NOT showing success.');
+      fail(new Error('Registration module unavailable: registerMember() not found. Nothing was uploaded or inserted.'));
+      return undefined;
+    };
+
+    return run();
   }
 
   /* ---------- Input enhancements ---------- */
@@ -220,6 +278,13 @@
 
     var form = el('membershipForm');
     form.addEventListener('submit', finalize);
+
+    console.log(
+      '[Membership] init(): submit listener wired. Registration module =',
+      window.MembershipDatabase && window.MembershipDatabase.registerMember
+        ? 'registerMember() available'
+        : 'MISSING (database.js did not load or registerMember is undefined)'
+    );
 
     setupInputs();
 

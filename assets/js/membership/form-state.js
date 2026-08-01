@@ -8,10 +8,6 @@ window.membershipData = {
     email: "",
     address: "",
 
-    profile_photo: null,
-    national_id_front: null,
-    national_id_back: null,
-
     profile_photo_url: "",
     national_id_front_url: "",
     national_id_back_url: "",

@@ -1,37 +1,55 @@
 import { Resend } from "resend";
 
 export const config = { runtime: "nodejs" };
+export const maxDuration = 30;
+
+const SEND_TIMEOUT_MS = 20000;
 
 export default async function handler(req: Request): Promise<Response> {
   try {
+    console.log("STEP 1: handler invoked, method =", req.method, "url =", req.url);
+
     if (req.method !== "POST") {
+      console.log("STEP 1b: non-POST request rejected");
       return Response.json({ success: false, message: "Method not allowed" }, { status: 405 });
     }
 
+    console.log("STEP 2: reading request body...");
     let payload: { email?: string; otp?: string };
     try {
       payload = await req.json();
-    } catch {
+    } catch (err) {
+      console.log("STEP 2b: invalid JSON body", err instanceof Error ? err.message : err);
       return Response.json({ success: false, message: "Invalid JSON body" }, { status: 400 });
     }
 
     const { email, otp } = payload;
+    console.log("STEP 3: parsed body -> email =", email, ", otp =", otp, ", emailType =", typeof email, ", otpType =", typeof otp);
 
     if (!email || typeof email !== "string" || !/^\S+@\S+\.\S+$/.test(email)) {
+      console.log("STEP 4: email validation failed");
       return Response.json({ success: false, message: "A valid email is required" }, { status: 400 });
     }
 
     if (!otp || typeof otp !== "string") {
+      console.log("STEP 4b: otp validation failed");
       return Response.json({ success: false, message: "An otp is required" }, { status: 400 });
     }
 
+    console.log("STEP 5: reading RESEND_API_KEY...");
     const apiKey = process.env.RESEND_API_KEY;
     if (!apiKey) {
+      console.log("STEP 5b: RESEND_API_KEY is MISSING from process.env");
       return Response.json(
         { success: false, message: "RESEND_API_KEY is not configured" },
         { status: 500 }
       );
     }
+    console.log("STEP 5c: RESEND_API_KEY is present, length =", apiKey.length, ", prefix =", apiKey.slice(0, 4), "...");
+
+    const from = process.env.MAIL_FROM || "AMARE <association@amare.ma>";
+    console.log("STEP 6: sender (from) =", from);
+    console.log("STEP 7: recipient (to) =", email);
 
     const resend = new Resend(apiKey);
 
@@ -65,25 +83,57 @@ export default async function handler(req: Request): Promise<Response> {
   </body>
 </html>`;
 
-    const { data, error } = await resend.emails.send({
-      from: process.env.MAIL_FROM || "AMARE <association@amare.ma>",
-      to: [email],
-      subject: "AMARE - رمز التحقق",
-      html,
-    });
+    console.log("STEP 8: calling resend.emails.send({ from, to, subject: 'AMARE - رمز التحقق', html }) ...");
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => {
+      console.log("STEP 8b: Resend call TIMED OUT after", SEND_TIMEOUT_MS, "ms, aborting...");
+      controller.abort();
+    }, SEND_TIMEOUT_MS);
 
-    if (error) {
-      return Response.json({ success: false, message: error.message }, { status: 400 });
+    let result: { data: { id: string } | null; error: { name?: string; message: string; statusCode?: number | null } | null };
+    try {
+      result = await resend.emails.send(
+        {
+          from,
+          to: [email],
+          subject: "AMARE - رمز التحقق",
+          html,
+        },
+        { signal: controller.signal }
+      );
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "Failed to send email";
+      console.log("STEP 8c: resend.emails.send THREW:", message);
+      return Response.json({ success: false, resendResponse: null, resendError: { message, name: "exception" } }, { status: 500 });
+    } finally {
+      clearTimeout(timeoutId);
     }
 
-    return Response.json({ success: true });
+    console.log("STEP 9: Resend response =", JSON.stringify(result));
+    console.log("STEP 9b: resendError =", result.error ? JSON.stringify(result.error) : "null", ", resendResponse =", result.data ? JSON.stringify(result.data) : "null");
+
+    if (result.error) {
+      return Response.json(
+        {
+          success: false,
+          resendResponse: result.data,
+          resendError: result.error,
+        },
+        { status: 400 }
+      );
+    }
+
+    console.log("STEP 10: success, email id =", result.data ? result.data.id : "unknown");
+    return Response.json({ success: true, resendResponse: result.data, resendError: null });
   } catch (error) {
     const err = error instanceof Error ? error : new Error(String(error));
+    console.log("STEP CATCH: uncaught exception:", err.message);
+    console.log(err.stack);
     return Response.json(
       {
         success: false,
         error: err.message,
-        stack: process.env.NODE_ENV === "development" ? err.stack : undefined,
+        stack: err.stack,
       },
       { status: 500 }
     );

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تسجيل الدخول | الجمعية المغربية لهواة البحث والاستكشاف</title>
+<meta name="description" content="قم بتسجيل الدخول للوصول إلى حسابك في الجمعية المغربية لهواة البحث والاستكشاف.">
+<meta name="author" content="الجمعية المغربية لهواة البحث والاستكشاف">
+<link rel="shortcut icon" href="Amare%20files%20/logo.png" type="image/x-icon">
+
+<!-- Open Graph -->
+<meta property="og:title" content="تسجيل الدخول | الجمعية المغربية لهواة البحث والاستكشاف">
+<meta property="og:description" content="قم بتسجيل الدخول للوصول إلى حسابك.">
+<meta property="og:type" content="website">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="assets/css/login.css">
+</head>
+<body class="login-page">
+
+<!-- ===== Loading Screen ===== -->
+<div id="loader" aria-hidden="true">
+  <div class="loader-mark"></div>
+  <div class="loader-text">الجمعية المغربية لهواة البحث والاستكشاف</div>
+</div>
+
+<!-- ===== Skip Link ===== -->
+<a href="#main" class="visually-hidden">تخطَّ إلى المحتوى الرئيسي</a>
+
+<!-- ===== Decorative Background ===== -->
+<div class="login-bg" aria-hidden="true">
+  <span class="login-grid"></span>
+  <span class="login-orb login-orb-1"></span>
+  <span class="login-orb login-orb-2"></span>
+  <span class="login-orb login-orb-3"></span>
+</div>
+
+<main id="main" class="login-main">
+
+  <!-- ===== Back to Home ===== -->
+  <div class="login-nav">
+    <a href="index.html" class="login-back">
+      <span class="login-back-arrow" aria-hidden="true">←</span>
+      <span>العودة إلى الرئيسية</span>
+    </a>
+  </div>
+
+  <!-- ===== Auth Card ===== -->
+  <section class="login-card" aria-labelledby="login-title">
+
+    <header class="login-head">
+      <span class="login-logo-wrap">
+        <img src="Amare%20files%20/logo.png" alt="شعار الجمعية المغربية لهواة البحث والاستكشاف" class="login-logo" width="52" height="52">
+      </span>
+      <h1 id="login-title" class="login-title">تسجيل الدخول</h1>
+      <p class="login-sub">قم بتسجيل الدخول للوصول إلى حسابك.</p>
+    </header>
+
+    <div class="login-card-body">
+
+      <form id="loginForm" class="login-form" novalidate>
+
+        <div class="login-field" id="loginNameField" hidden>
+          <span class="login-input-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </span>
+          <input type="text" id="loginName" class="login-input" name="name" placeholder="الاسم الكامل" autocomplete="name" aria-label="الاسم الكامل">
+          <small class="login-field-error" id="loginNameError" role="alert"></small>
+        </div>
+
+        <div class="login-field">
+          <span class="login-input-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6l-10 7L2 6"/></svg>
+          </span>
+          <input type="email" id="loginEmail" class="login-input" name="email" placeholder="أدخل بريدك الإلكتروني" autocomplete="email" aria-label="البريد الإلكتروني">
+          <small class="login-field-error" id="loginEmailError" role="alert"></small>
+        </div>
+
+        <div class="login-field login-field-password">
+          <span class="login-input-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          </span>
+          <input type="password" id="loginPassword" class="login-input" name="password" placeholder="أدخل كلمة المرور" autocomplete="current-password" aria-label="كلمة المرور">
+          <button type="button" class="login-input-toggle" id="passwordToggle" aria-label="إظهار كلمة المرور" aria-pressed="false">
+            <svg class="icon-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            <svg class="icon-eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><path d="M14.12 14.12a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+          </button>
+          <small class="login-field-error" id="loginPasswordError" role="alert"></small>
+        </div>
+
+        <div class="login-options">
+          <label class="login-check">
+            <input type="checkbox" name="remember" class="login-check-input">
+            <span class="login-check-box" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+            </span>
+            <span class="login-check-text">تذكرني</span>
+          </label>
+          <a href="#" class="login-forgot">نسيت كلمة المرور؟</a>
+        </div>
+
+        <button type="submit" class="login-btn login-submit" id="loginSubmit">
+          <span class="login-submit-spinner" aria-hidden="true"></span>
+          <span class="login-submit-text" id="loginSubmitText">تسجيل الدخول</span>
+        </button>
+
+      </form>
+
+      <p class="login-status" id="loginStatus" role="status" hidden></p>
+
+      <div class="login-divider" aria-hidden="true">
+        <span class="login-divider-line"></span>
+        <span class="login-divider-text">أو</span>
+        <span class="login-divider-line"></span>
+      </div>
+
+      <button type="button" class="login-btn login-google" id="googleSignIn">
+        <span class="login-google-icon" aria-hidden="true">
+          <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+            <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+            <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+            <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+            <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+          </svg>
+        </span>
+        <span class="login-google-spinner" aria-hidden="true"></span>
+        <span class="login-google-text">المتابعة باستخدام Google</span>
+      </button>
+
+      <p class="login-register">
+        <span id="loginRegisterText">ليس لديك حساب؟</span>
+        <a href="#" id="loginModeToggle" class="login-register-link" role="button">إنشاء حساب</a>
+      </p>
+
+    </div>
+  </section>
+
+  <!-- ===== Footer ===== -->
+  <footer class="login-footer">
+    <p>© 2026 الجمعية المغربية لهواة البحث والاستكشاف</p>
+  </footer>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase/config.js"></script>
+<script src="supabase/client.js"></script>
+<script src="supabase/database.js"></script>
+<script src="supabase/storage.js"></script>
+<script src="supabase/auth.js"></script>
+<script src="supabase/realtime.js"></script>
+<script src="supabase/index.js"></script>
+<script src="supabase/navbar.js"></script>
+<script src="assets/js/login.js"></script>
+</body>
+</html>

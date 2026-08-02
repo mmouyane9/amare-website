@@ -498,29 +498,6 @@ li[data-dropdown]:hover .nav-link-chevron { color: var(--color-primary); }
   transform: translateY(-2px);
 }
 
-/* Join button — white with dark blue border */
-.nav-join-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  height: 42px;
-  padding: 0 20px;
-  border-radius: 999px;
-  font-weight: 700;
-  font-size: 14px;
-  background: #F6B300;
-  color: #123B78;
-  border: 2px solid #123B78;
-  transition: all .3s;
-  white-space: nowrap;
-  text-decoration: none;
-}
-.nav-join-btn svg { width: 16px; height: 16px; }
-.nav-join-btn:hover {
-  background: #123B78;
-  color: #fff;
-}
-
 /* Hamburger */
 .hamburger {
   display: none;
@@ -2160,10 +2137,10 @@ li[data-dropdown]:hover .nav-link-chevron { color: var(--color-primary); }
   background: #F7F9FC;
 }
 
-/* Actions Grid (2x2) */
+/* Actions Grid (3 columns) */
 .mobile-drawer-actions {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: 8px;
 }
 .mobile-drawer-action {
@@ -2199,16 +2176,6 @@ li[data-dropdown]:hover .nav-link-chevron { color: var(--color-primary); }
 }
 .mobile-drawer-action-store:hover {
   background: #0e2d5c;
-  transform: translateY(-1px);
-}
-.mobile-drawer-action-join {
-  background: #F6B300;
-  color: #123B78;
-  border: 2px solid #123B78;
-}
-.mobile-drawer-action-join:hover {
-  background: #123B78;
-  color: #fff;
   transform: translateY(-1px);
 }
 .mobile-drawer-action-whatsapp {

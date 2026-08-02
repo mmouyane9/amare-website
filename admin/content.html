@@ -3,132 +3,55 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>معاينة الاستمارة | الجمعية المغربية لهواة البحث والاستكشاف</title>
-<meta name="description" content="معاينة استمارة الانخراط في الجمعية المغربية لهواة البحث والاستكشاف">
+<title>إدارة المحتوى | الجمعية المغربية لهواة البحث والاستكشاف</title>
+<meta name="description" content="إدارة المحتوى — الجمعية المغربية لهواة البحث والاستكشاف.">
 <meta name="author" content="الجمعية المغربية لهواة البحث والاستكشاف">
-<link rel="shortcut icon" href="Amare%20files%20/logo.png" type="image/x-icon">
+<link rel="shortcut icon" href="../Amare%20files%20/logo.png" type="image/x-icon">
 
+<!-- Open Graph -->
+<meta property="og:title" content="إدارة المحتوى | الجمعية المغربية لهواة البحث والاستكشاف">
+<meta property="og:description" content="إدارة المحتوى — الجمعية المغربية لهواة البحث والاستكشاف.">
+<meta property="og:type" content="website">
+
+<!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
-<style>
-:root {
-  --m-primary: #123B78;
-  --m-accent: #F6B300;
-  --m-bg: #F7F9FC;
-  --m-white: #FFFFFF;
-  --m-text: #24324B;
-  --m-border: rgba(18,59,120,.12);
-  --m-shadow: 0 15px 40px rgba(18,59,120,.08);
-  --m-radius: 24px;
-  --m-btn-radius: 18px;
-  --m-container: 1320px;
-}
-
-.preview-section {
-  background: var(--m-bg) !important;
-  padding: 80px 0 100px !important;
-}
-
-.preview-blobs { display: none !important; }
-
-.preview-card {
-  background: var(--m-white) !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-  border: 1px solid var(--m-border) !important;
-  border-radius: var(--m-radius) !important;
-  padding: 40px 36px !important;
-  box-shadow: var(--m-shadow) !important;
-}
-
-.preview-success-icon {
-  background: var(--m-accent) !important;
-  box-shadow: 0 12px 36px rgba(246,179,0,.25) !important;
-  width: 72px;
-  height: 72px;
-  margin: 0 auto 20px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #0a1628;
-  font-size: 34px;
-  animation: mPreviewBounce 0.6s cubic-bezier(.22,.8,.32,1);
-}
-
-@keyframes mPreviewBounce {
-  0% { transform: scale(0); }
-  50% { transform: scale(1.15); }
-  100% { transform: scale(1); }
-}
-
-.preview-pdf-container {
-  border-radius: var(--m-radius) !important;
-  border: 1px solid var(--m-border) !important;
-  overflow: hidden;
-  box-shadow: var(--m-shadow) !important;
-}
-
-.preview-btn {
-  border-radius: var(--m-btn-radius) !important;
-  font-family: 'Cairo', sans-serif !important;
-  font-weight: 700 !important;
-  gap: 10px !important;
-  transition: transform .3s cubic-bezier(.22,.8,.32,1), box-shadow .3s ease !important;
-}
-.preview-btn:hover { transform: scale(1.02) !important; }
-.preview-btn:active { transform: scale(.98) !important; }
-.preview-btn-primary { background: var(--m-accent) !important; color: #0a1628 !important; box-shadow: 0 8px 24px rgba(246,179,0,.3) !important; }
-.preview-btn-primary:hover { box-shadow: 0 12px 36px rgba(246,179,0,.45) !important; }
-.preview-btn-accent { background: var(--m-primary) !important; color: #fff !important; box-shadow: 0 8px 24px rgba(18,59,120,.2) !important; }
-.preview-btn-accent:hover { box-shadow: 0 12px 36px rgba(18,59,120,.3) !important; }
-.preview-btn-navy { background: var(--m-primary) !important; color: #fff !important; box-shadow: 0 8px 24px rgba(18,59,120,.2) !important; }
-.preview-btn-navy:hover { box-shadow: 0 12px 36px rgba(18,59,120,.3) !important; }
-.preview-btn-ghost { border: 1.5px solid var(--m-border) !important; color: var(--m-text) !important; background: transparent !important; }
-.preview-btn-ghost:hover { border-color: var(--m-primary) !important; background: rgba(18,59,120,.04) !important; }
-
-@media (max-width: 768px) {
-  .preview-section { padding: 60px 0 80px !important; }
-  .preview-card { padding: 30px 24px !important; }
-  .preview-btn { width: 100%; justify-content: center; }
-}
-@media (max-width: 480px) {
-  .preview-card { padding: 24px 16px !important; }
-  .preview-success-icon { width: 56px; height: 56px; font-size: 26px; }
-}
-</style>
+<link rel="stylesheet" href="../style.css">
 </head>
 <body>
 
+<!-- ===== Loading Screen ===== -->
 <div id="loader" aria-hidden="true">
   <div class="loader-mark"></div>
   <div class="loader-text">الجمعية المغربية لهواة البحث والاستكشاف</div>
 </div>
 
-<a href="#preview-main" class="visually-hidden">تخطَّ إلى المحتوى الرئيسي</a>
+<!-- ===== Skip Link ===== -->
+<a href="#main" class="visually-hidden">تخطَّ إلى المحتوى الرئيسي</a>
 
+<!-- ===== 1. Top Bar ===== -->
 <div class="topbar">
   <div class="container">
+    <!-- RIGHT SIDE -- Brand (Logo + Name) -->
     <div class="topbar-right">
-      <a href="index.html" class="topbar-brand" aria-label="الرئيسية">
+      <a href="../index.html" class="topbar-brand" aria-label="الرئيسية">
         <span class="topbar-brand-mark">
-          <img src="Amare%20files%20/logo.png" alt="AMARE Logo" class="topbar-brand-logo">
+          <img src="../Amare%20files%20/logo.png" alt="AMARE Logo" class="topbar-brand-logo">
         </span>
         <span class="topbar-brand-name">الجمعية المغربية لهواة البحث والاستكشاف</span>
       </a>
     </div>
+
+    <!-- LEFT SIDE -- Actions -->
     <div class="topbar-left">
       <div class="topbar-social">
         <a href="#" aria-label="فيسبوك"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg></a>
         <a href="#" aria-label="إنستغرام"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
         <a href="#" aria-label="لينكدإن"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 5 3.79 6.2 2.3 6.2 1 6.2 0 5 0 3.5 0 2 1.1.8 2.5.8s2.48 1.2 2.48 2.7zM.2 8.5h4.6V23H.2V8.5zM8 8.5h4.4v2h.06c.6-1.2 2.1-2.4 4.4-2.4 4.7 0 5.6 3.1 5.6 7.1V23h-4.6v-6.7c0-1.6 0-3.7-2.3-3.7s-2.6 1.8-2.6 3.6V23H8V8.5z"/></svg></a>
       </div>
+
       <div class="topbar-lang">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg>
         <select aria-label="اختيار اللغة">
@@ -138,18 +61,20 @@
           <option value="es">Español</option>
           <option value="ber">ⵜⴰⵎⴰⵣⵉⵖⵜ</option>
         </select>
-        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M6 9l6 6 6-6"/></svg>
       </div>
-      <a href="https://wa.me/212600000000" target="_blank" rel="noopener" class="topbar-whatsapp ripple" aria-label="تواصل عبر واتساب">
+
+      <a href="http://wa.me/+212684869996" target="_blank" rel="noopener" class="topbar-whatsapp ripple" aria-label="تواصل عبر واتساب">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.6.1-.2.3-.7 1-.9 1.2-.1.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.2-.4.1-.2 0-.4 0-.5s-.6-1.5-.8-2c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s1 2.6 1.1 2.7c.1.2 2 3 4.7 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 2-1.4.2-.6.2-1.2.1-1.3-.1-.1-.3-.2-.6-.3z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.6 1.4 5.1L2 22l5.1-1.3C8.5 21.5 10.2 22 12 22c5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18c-1.6 0-3.1-.4-4.5-1.2l-.3-.2-3.3.9.9-3.2-.2-.3C3.7 14.6 3.2 13.3 3.2 12c0-4.9 3.9-8.8 8.8-8.8s8.8 3.9 8.8 8.8-3.9 8.8-8.8 8.8z"/></svg>
         <span>واتساب</span>
       </a>
-      <a href="login.html" class="topbar-login ripple" aria-label="تسجيل الدخول">
+
+      <a href="../login.html" class="topbar-login ripple" aria-label="تسجيل الدخول">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
           <path d="M15 3h6v18h-6M10 17l5-5-5-5M15 12H3"/>
         </svg>
         <span>تسجيل الدخول</span>
       </a>
+
       <a href="#" class="nav-store-btn">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
@@ -162,21 +87,25 @@
   </div>
 </div>
 
+<!-- ===== 2. Navbar ===== -->
 <header>
   <nav class="navbar" id="navbar" aria-label="التنقل الرئيسي">
     <div class="container">
+      <!-- Center -- Nav links -->
       <ul class="nav-links" id="navLinks">
-        <li><a href="index.html">الرئيسية</a></li>
-        <li data-dropdown="about"><a href="index.html#about">من نحن</a></li>
-        <li data-dropdown="activities"><a href="#">أنشطتنا</a></li>
-        <li data-dropdown="partners"><a href="#">شركاؤنا</a></li>
-        <li data-dropdown="services"><a href="index.html#services">خدماتنا</a></li>
-        <li data-dropdown="news"><a href="index.html#news">الأخبار</a></li>
-        <li data-dropdown="archive"><a href="#">الأرشيف</a></li>
-        <li data-dropdown="branches"><a href="#">الفروع الجهوية</a></li>
-        <li data-dropdown="join"><a href="Join us/index.html" class="active">انخرط معنا</a></li>
-        <li><a href="index.html#contact">اتصل بنا</a></li>
+        <li><a href="../index.html">الرئيسية</a></li>
+        <li data-dropdown="about"><a href="../index.html#about">من نحن</a></li>
+        <li data-dropdown="activities"><a href="../index.html#services">أنشطتنا</a></li>
+        <li data-dropdown="partners"><a href="../index.html#services">شركاؤنا</a></li>
+        <li data-dropdown="services"><a href="../index.html#services">خدماتنا</a></li>
+        <li data-dropdown="news"><a href="../index.html#news">الأخبار</a></li>
+        <li data-dropdown="archive"><a href="../index.html#newsletter">الأرشيف</a></li>
+        <li data-dropdown="branches"><a href="../index.html#home">الفروع الجهوية</a></li>
+        <li data-dropdown="join"><a href="../Join us/join-us-online.html">انخرط معنا</a></li>
+        <li><a href="../contact.html">اتصل بنا</a></li>
       </ul>
+
+      <!-- Right side -- Hamburger (mobile only) -->
       <div class="nav-actions">
         <button class="hamburger" id="hamburger" aria-label="فتح القائمة" aria-expanded="false" aria-controls="navLinks">
           <span></span><span></span><span></span>
@@ -190,10 +119,10 @@
 <!-- ===== Mobile Header (mobile only) ===== -->
 <div class="mobile-header" id="mobileHeader">
   <div class="mobile-header-group">
-    <a class="mobile-header-logo" href="#home" aria-label="الرئيسية">
-      <img src="Amare%20files%20/logo.png" alt="AMARE Logo">
+    <a class="mobile-header-logo" href="../index.html" aria-label="الرئيسية">
+      <img src="../Amare%20files%20/logo.png" alt="AMARE Logo">
     </a>
-    <a class="mobile-header-brand" href="#home" aria-label="الرئيسية">
+    <a class="mobile-header-brand" href="../index.html" aria-label="الرئيسية">
       الجمعية المغربية لهواة<br>البحث والاستكشاف
     </a>
   </div>
@@ -209,17 +138,17 @@
       <button class="mobile-drawer-close" id="mobileDrawerClose" aria-label="إغلاق القائمة">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
       </button>
-      <a class="mobile-drawer-brand" href="#home">
-        <img src="Amare%20files%20/logo.png" alt="AMARE Logo" class="mobile-drawer-brand-logo">
+      <a class="mobile-drawer-brand" href="../index.html">
+        <img src="../Amare%20files%20/logo.png" alt="AMARE Logo" class="mobile-drawer-brand-logo">
         <span class="mobile-drawer-brand-name">الجمعية المغربية لهواة البحث والاستكشاف</span>
       </a>
     </div>
     <nav class="mobile-drawer-nav" aria-label="التنقل الرئيسي">
       <ul class="mobile-drawer-links" id="mobileDrawerLinks">
-        <li><a href="index.html">الرئيسية</a></li>
+        <li><a href="../index.html">الرئيسية</a></li>
         <li class="mobile-drawer-dropdown" data-dd="about">
           <div class="mobile-drawer-row">
-            <a href="index.html#about">من نحن</a>
+            <a href="../index.html#about">من نحن</a>
             <button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
             </button>
@@ -228,7 +157,7 @@
         </li>
         <li class="mobile-drawer-dropdown" data-dd="activities">
           <div class="mobile-drawer-row">
-            <a href="#">أنشطتنا</a>
+            <a href="../index.html#services">أنشطتنا</a>
             <button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
             </button>
@@ -237,7 +166,7 @@
         </li>
         <li class="mobile-drawer-dropdown" data-dd="partners">
           <div class="mobile-drawer-row">
-            <a href="#">شركاؤنا</a>
+            <a href="../index.html#services">شركاؤنا</a>
             <button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
             </button>
@@ -246,7 +175,7 @@
         </li>
         <li class="mobile-drawer-dropdown" data-dd="services">
           <div class="mobile-drawer-row">
-            <a href="index.html#services">خدماتنا</a>
+            <a href="../index.html#services">خدماتنا</a>
             <button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
             </button>
@@ -255,7 +184,7 @@
         </li>
         <li class="mobile-drawer-dropdown" data-dd="news">
           <div class="mobile-drawer-row">
-            <a href="index.html#news">الأخبار</a>
+            <a href="../index.html#news">الأخبار</a>
             <button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
             </button>
@@ -264,7 +193,7 @@
         </li>
         <li class="mobile-drawer-dropdown" data-dd="archive">
           <div class="mobile-drawer-row">
-            <a href="#">الأرشيف</a>
+            <a href="../index.html#newsletter">الأرشيف</a>
             <button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
             </button>
@@ -273,7 +202,7 @@
         </li>
         <li class="mobile-drawer-dropdown" data-dd="branches">
           <div class="mobile-drawer-row">
-            <a href="#">الفروع الجهوية</a>
+            <a href="../index.html#home">الفروع الجهوية</a>
             <button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
             </button>
@@ -282,19 +211,19 @@
         </li>
         <li class="mobile-drawer-dropdown" data-dd="join">
           <div class="mobile-drawer-row">
-            <a href="Join%20us/index.html">انخرط معنا</a>
+            <a href="../Join%20us/index.html">انخرط معنا</a>
             <button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
             </button>
           </div>
           <ul class="mobile-drawer-sub"></ul>
         </li>
-        <li><a href="index.html#contact">اتصل بنا</a></li>
+        <li><a href="../contact.html">اتصل بنا</a></li>
       </ul>
     </nav>
     <div class="mobile-drawer-bottom">
       <div class="mobile-drawer-actions">
-        <a href="login.html" class="mobile-drawer-action mobile-drawer-action-login">
+        <a href="../login.html" class="mobile-drawer-action mobile-drawer-action-login">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v18h-6M10 17l5-5-5-5M15 12H3"/></svg>
           <span>تسجيل الدخول</span>
         </a>
@@ -326,59 +255,33 @@
   </div>
 </div>
 
-<main id="preview-main">
+<main id="main">
 
-  <section class="preview-section">
-    <div class="preview-blobs" aria-hidden="true">
-      <div class="preview-blob preview-blob-1"></div>
-      <div class="preview-blob preview-blob-2"></div>
-    </div>
-
+  <!-- ===== Admin — Coming Soon ===== -->
+  <section class="admin-coming-soon">
     <div class="container">
-      <div class="preview-card" data-aos="fade-up" data-aos-duration="800">
-        <div class="preview-success-icon">
-          <i class="fas fa-check-circle"></i>
-        </div>
-        <h2 class="preview-success-title">تم إنشاء استمارة الانخراط بنجاح</h2>
-        <p class="preview-success-desc">يمكنك الآن معاينة الاستمارة وتحميلها أو طباعتها.</p>
-      </div>
+      <div class="admin-coming-soon-card">
 
-      <div class="preview-pdf-wrap" data-aos="fade-up" data-aos-duration="800" data-aos-delay="150">
-        <div class="preview-pdf-container" id="pdfContainer">
-          <iframe id="pdfViewer" class="preview-pdf-iframe" src="" title="معاينة استمارة الانخراط"></iframe>
+        <span class="admin-coming-soon-badge">قريبًا</span>
+        <h1>إدارة المحتوى</h1>
+        <p>هذه الصفحة قيد الإعداد. ستتمكن قريبًا من تحديث المحتوى (الأخبار، الفعاليات، البرامج) بسهولة.</p>
+        <div class="admin-coming-soon-actions">
+          <a href="../index.html" class="btn btn-accent">العودة إلى الرئيسية</a>
         </div>
-      </div>
-
-      <div class="preview-actions" data-aos="fade-up" data-aos-duration="800" data-aos-delay="250">
-        <button class="preview-btn preview-btn-primary" id="viewBtn">
-          <i class="fas fa-eye"></i>
-          <span>معاينة PDF</span>
-        </button>
-        <button class="preview-btn preview-btn-accent" id="downloadBtn">
-          <i class="fas fa-download"></i>
-          <span>تحميل PDF</span>
-        </button>
-        <button class="preview-btn preview-btn-navy" id="printBtn">
-          <i class="fas fa-print"></i>
-          <span>طباعة الاستمارة</span>
-        </button>
-        <a href="Join us/index.html" class="preview-btn preview-btn-ghost">
-          <i class="fas fa-arrow-right"></i>
-          <span>العودة إلى صفحة الانخراط</span>
-        </a>
       </div>
     </div>
   </section>
 
 </main>
 
+<!-- ===== 10. Footer ===== -->
 <footer class="footer" id="contact">
   <div class="container">
     <div class="footer-grid">
       <div class="footer-about">
         <div class="footer-brand">
           <span class="brand-mark">
-            <img src="Amare%20files%20/logo.png" alt="AMARE Logo" class="topbar-brand-logo">
+            <img src="../Amare%20files%20/logo.png" alt="AMARE Logo" class="topbar-brand-logo">
           </span>
           <span>
             <span class="brand-name">الجمعية المغربية لهواة البحث والاستكشاف</span><br>
@@ -391,25 +294,37 @@
           <a href="#" aria-label="لينكدإن"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 5 3.79 6.2 2.3 6.2 1 6.2 0 5 0 3.5 0 2 1.1.8 2.5.8s2.48 1.2 2.48 2.7zM.2 8.5h4.6V23H.2V8.5zM8 8.5h4.4v2h.06c.6-1.2 2.1-2.4 4.4-2.4 4.7 0 5.6 3.1 5.6 7.1V23h-4.6v-6.7c0-1.6 0-3.7-2.3-3.7s-2.6 1.8-2.6 3.6V23H8V8.5z"/></svg></a>
         </div>
       </div>
+
       <nav aria-label="روابط سريعة">
         <h4>روابط سريعة</h4>
         <ul class="footer-links">
-          <li><a href="index.html">الرئيسية</a></li>
-          <li><a href="index.html#about">اتصل بنا</a></li>
-          <li><a href="index.html#services">خدماتنا</a></li>
-          <li><a href="index.html#news">الاخبار</a></li>
-          <li><a href="Join us/index.html">انخرط معنا</a></li>
+          <li><a href="../index.html">الرئيسية</a></li>
+          <li><a href="../contact.html">اتصل بنا</a></li>
+          <li><a href="../index.html#services">خدماتنا</a></li>
+          <li><a href="../index.html#news">الاخبار</a></li>
+          <li><a href="../index.html#newsletter">الارشيف</a></li>
+          <li><a href="../index.html#home">الفروع الجهوية</a></li>
+          <li><a href="../Join us/join-us-online.html">انخرط معنا</a></li>
+          <li><a href="../index.html#services">شركاؤنا</a></li>
+          <li><a href="../index.html#services">انشطتنا</a></li>
+          <li><a href="../index.html#about">من نحن</a></li>
         </ul>
       </nav>
+
       <nav aria-label="برامجنا">
         <h4>برامجنا</h4>
         <ul class="footer-links">
-          <li><a href="index.html#services">SOS Amare</a></li>
-          <li><a href="index.html#services">متجر Amare</a></li>
-          <li><a href="index.html#services">بيت المستكشف Amare</a></li>
-          <li><a href="index.html#services">مجلة Amare</a></li>
+          <li><a href="../index.html#services">SOS Amare</a></li>
+          <li><a href="../index.html#services">متجر Amare</a></li>
+          <li><a href="../index.html#services">بيت المستكشف Amare</a></li>
+          <li><a href="../index.html#services">مجلة Amare</a></li>
+          <li><a href="../index.html#services">أكاديمية Amare</a></li>
+          <li><a href="../index.html#services">النوادي</a></li>
+          <li><a href="../index.html#services">المستشار القانوني</a></li>
+          <li><a href="../index.html#services">عقد التأمين</a></li>
         </ul>
       </nav>
+
       <div>
         <h4>تواصل معنا</h4>
         <ul class="footer-contact">
@@ -427,6 +342,7 @@
           </li>
         </ul>
       </div>
+
       <div class="footer-location">
         <h4>موقعنا</h4>
         <div class="footer-map-card">
@@ -444,6 +360,7 @@
         </div>
       </div>
     </div>
+
     <div class="footer-bottom">
       <p>© 2026 الجمعية المغربية لهواة البحث والاستكشاف. جميع الحقوق محفوظة.</p>
       <div class="footer-bottom-links">
@@ -454,95 +371,20 @@
   </div>
 </footer>
 
+<!-- ===== Back to Top ===== -->
 <button class="back-to-top" id="backToTop" aria-label="العودة إلى الأعلى">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M18 15l-6-6-6 6"/></svg>
 </button>
 
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/pdf-lib@1/dist/pdf-lib.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="supabase/config.js"></script>
-<script src="supabase/client.js"></script>
-<script src="supabase/database.js"></script>
-<script src="supabase/storage.js"></script>
-<script src="supabase/auth.js"></script>
-<script src="supabase/realtime.js"></script>
-<script src="supabase/index.js"></script>
-<script src="supabase/navbar.js"></script>
-<script src="script.js"></script>
-<script>
-(function() {
-  'use strict';
-
-  if (typeof AOS !== 'undefined') {
-    AOS.init({
-      once: true,
-      offset: 80,
-      duration: 800,
-      easing: 'cubic-bezier(0.22, 0.8, 0.32, 1)',
-    });
-  }
-
-  const pdfBytesData = sessionStorage.getItem('amare_pdf_bytes');
-  const pdfContainer = document.getElementById('pdfContainer');
-  const pdfViewer = document.getElementById('pdfViewer');
-
-  if (!pdfBytesData) {
-    pdfContainer.innerHTML = '<div class="preview-empty"><i class="fas fa-exclamation-triangle"></i><p>لم يتم العثور على الاستمارة. يرجى العودة إلى صفحة الانخراط.</p><a href="Join us/index.html" class="preview-btn preview-btn-primary" style="margin-top:16px"><i class="fas fa-arrow-right"></i><span>العودة إلى صفحة الانخراط</span></a></div>';
-    document.getElementById('viewBtn').style.display = 'none';
-    document.getElementById('downloadBtn').style.display = 'none';
-    document.getElementById('printBtn').style.display = 'none';
-    return;
-  }
-
-  let pdfBlob = null;
-
-  try {
-    const byteCharacters = atob(pdfBytesData);
-    const byteNumbers = new Array(byteCharacters.length);
-    for (let i = 0; i < byteCharacters.length; i++) {
-      byteNumbers[i] = byteCharacters.charCodeAt(i);
-    }
-    const byteArray = new Uint8Array(byteNumbers);
-    pdfBlob = new Blob([byteArray], { type: 'application/pdf' });
-    const url = URL.createObjectURL(pdfBlob);
-    pdfViewer.src = url;
-  } catch(e) {
-    pdfContainer.innerHTML = '<div class="preview-empty"><i class="fas fa-exclamation-triangle"></i><p>حدث خطأ أثناء تحميل الاستمارة.</p><a href="Join us/index.html" class="preview-btn preview-btn-primary" style="margin-top:16px"><i class="fas fa-arrow-right"></i><span>العودة إلى صفحة الانخراط</span></a></div>';
-    document.getElementById('viewBtn').style.display = 'none';
-    document.getElementById('downloadBtn').style.display = 'none';
-    document.getElementById('printBtn').style.display = 'none';
-  }
-
-  document.getElementById('viewBtn').addEventListener('click', function() {
-    if (!pdfBlob) return;
-    const url = URL.createObjectURL(pdfBlob);
-    window.open(url, '_blank');
-  });
-
-  document.getElementById('downloadBtn').addEventListener('click', function() {
-    if (!pdfBlob) return;
-    const url = URL.createObjectURL(pdfBlob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'استمارة_الانخراط_AMARE.pdf';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-  });
-
-  document.getElementById('printBtn').addEventListener('click', function() {
-    if (!pdfBlob) return;
-    const url = URL.createObjectURL(pdfBlob);
-    const printWindow = window.open(url, '_blank');
-    if (printWindow) {
-      printWindow.onload = function() {
-        printWindow.print();
-      };
-    }
-  });
-})();
-</script>
+<script src="../supabase/config.js"></script>
+<script src="../supabase/client.js"></script>
+<script src="../supabase/database.js"></script>
+<script src="../supabase/storage.js"></script>
+<script src="../supabase/auth.js"></script>
+<script src="../supabase/realtime.js"></script>
+<script src="../supabase/index.js"></script>
+<script src="../supabase/navbar.js"></script>
+<script src="../script.js"></script>
 </body>
 </html>

@@ -35,6 +35,13 @@
   var ICON_CHEVRON =
     '<svg class="amare-auth-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>';
 
+  // Admin-only links rendered inside the user dropdown, above "تسجيل الخروج".
+  var ADMIN_LINKS = [
+    { icon: '🗄️', label: 'قاعدة البيانات', href: '/admin/database.html' },
+    { icon: '📝', label: 'إدارة المحتوى', href: '/admin/content.html' },
+    { icon: '⚙️', label: 'لوحة التحكم', href: '/admin/dashboard.html' },
+  ];
+
   var state = { user: null, profile: null };
   var menu = null;
   var openTrigger = null;
@@ -90,6 +97,13 @@
     );
   }
 
+  // Compact label for the mobile drawer button: first name only.
+  function resolveFirstName(user, profile) {
+    var name = resolveName(user, profile);
+    var parts = String(name || '').trim().split(/\s+/);
+    return (parts[0] || '') || 'مستخدم';
+  }
+
   function avatarHtml(url, name) {
     if (url) {
       return (
@@ -106,8 +120,8 @@
     );
   }
 
-  function buildChip(user, profile, compact) {
-    var name = resolveName(user, profile);
+  function buildChip(user, profile, firstNameOnly) {
+    var name = firstNameOnly ? resolveFirstName(user, profile) : resolveName(user, profile);
     var isAdmin = !!(profile && profile.role === 'admin');
     var html = '<div class="amare-auth-chip">';
     html += avatarHtml(resolveAvatar(user, profile), name);
@@ -153,7 +167,8 @@
         el.setAttribute('href', '#');
         el.setAttribute('aria-haspopup', 'true');
         el.setAttribute('aria-expanded', 'false');
-        el.innerHTML = buildChip(user, profile, isTopbar);
+        // Desktop keeps the full name; the mobile drawer button uses first name only.
+        el.innerHTML = buildChip(user, profile, !isTopbar);
       } else {
         restore(el);
       }
@@ -211,6 +226,24 @@
 
     menu.innerHTML = '';
     menu.appendChild(head);
+
+    if (isAdmin) {
+      for (var i = 0; i < ADMIN_LINKS.length; i++) {
+        var adminLink = document.createElement('a');
+        adminLink.className = 'amare-user-menu-link';
+        adminLink.href = ADMIN_LINKS[i].href;
+        adminLink.setAttribute('role', 'menuitem');
+        adminLink.innerHTML =
+          '<span class="amare-user-menu-link-icon" aria-hidden="true">' +
+          ADMIN_LINKS[i].icon +
+          '</span><span>' + ADMIN_LINKS[i].label + '</span>';
+        menu.appendChild(adminLink);
+      }
+      var divider = document.createElement('div');
+      divider.className = 'amare-user-menu-divider';
+      menu.appendChild(divider);
+    }
+
     menu.appendChild(signout);
   }
 
@@ -343,6 +376,12 @@
       'overflow:hidden;text-overflow:ellipsis;}' +
       '.amare-user-menu-email{font-size:11px;color:#5B6B7C;white-space:nowrap;overflow:hidden;' +
       'text-overflow:ellipsis;}' +
+      '.amare-user-menu-link{display:flex;align-items:center;gap:9px;width:100%;padding:10px;' +
+      'color:#123B78;font-family:\'Cairo\',sans-serif;font-size:13px;font-weight:700;' +
+      'border-radius:10px;cursor:pointer;text-decoration:none;transition:background .2s ease,color .2s ease;}' +
+      '.amare-user-menu-link:hover{background:rgba(25,184,242,.1);color:#0F9CD1;}' +
+      '.amare-user-menu-link-icon{width:16px;text-align:center;flex-shrink:0;font-size:14px;line-height:1;}' +
+      '.amare-user-menu-divider{height:1px;background:rgba(18,59,120,.1);margin:6px 0;}' +
       '.amare-user-menu-signout{display:flex;align-items:center;gap:9px;width:100%;padding:10px;' +
       'border:none;background:transparent;color:#E74C3C;font-family:\'Cairo\',sans-serif;' +
       'font-size:13px;font-weight:700;border-radius:10px;cursor:pointer;transition:background .2s ease;}' +

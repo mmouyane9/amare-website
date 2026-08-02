@@ -179,18 +179,19 @@
   }
 
   /* ---------- 9. Redirect after auth ---------- */
-  function redirectAfterAuth() {
-    var dest = 'index.html';
-    try {
-      var ref = document.referrer || '';
-      if (ref && ref.indexOf(window.location.origin) === 0) {
-        var path = ref.slice(window.location.origin.length).split(/[?#]/)[0];
-        if (path && path !== '/' && path.indexOf('login') === -1) {
-          dest = path.replace(/^\//, '');
-        }
-      }
-    } catch (e) { /* ignore */ }
-    window.location.assign(dest);
+  var _redirected = false;
+
+  function redirectToHome() {
+    if (_redirected) return;
+    _redirected = true;
+    // Warm the profile cache so the navbar renders the user immediately.
+    if (AUTH && AUTH.getCurrentProfile) {
+      AUTH.getCurrentProfile().catch(function () {
+        // Profile may not exist yet — the trigger will create it. Never let a
+        // missing profile block the redirect.
+      });
+    }
+    window.location.assign('index.html');
   }
 
   /* ---------- 10. Form submit ---------- */
@@ -218,7 +219,7 @@
             setMode('signin');
             return;
           }
-          redirectAfterAuth();
+          redirectToHome();
         })
         .catch(function (err) {
           setLoading(false);
@@ -258,6 +259,28 @@
     googleBtn.disabled = on;
   }
 
-  /* ---------- 12. Session restore (keeps auth in sync) ---------- */
+  /* ---------- 12. Session restore + authenticated-user redirect ---------- */
+  function redirectAuthenticatedUser() {
+    if (!AUTH) return;
+
+    var session = AUTH.getSession ? AUTH.getSession() : null;
+    if (session && session.user) {
+      redirectToHome();
+      return;
+    }
+
+    if (AUTH.onAuthStateChange) {
+      AUTH.onAuthStateChange(function (event, session) {
+        if (event !== 'INITIAL_SESSION' && event !== 'SIGNED_IN' && event !== 'TOKEN_REFRESHED') {
+          return;
+        }
+        if (session && session.user) {
+          redirectToHome();
+        }
+      });
+    }
+  }
+
   if (AUTH && AUTH.init) AUTH.init();
+  redirectAuthenticatedUser();
 })();

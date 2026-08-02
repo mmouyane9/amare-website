@@ -55,6 +55,23 @@
     return escapeHtml(value).replace(/`/g, '&#96;');
   }
 
+  // Resolve the path to login.html relative to the current page (works from
+  // root and from sub-folders such as "Who are we/" and "Join us/").
+  function loginPageUrl() {
+    var parts = (window.location.pathname || '/').split('/');
+    parts.pop();
+    var depth = 0;
+    for (var i = 0; i < parts.length; i++) {
+      if (parts[i]) depth++;
+    }
+    var prefix = '';
+    while (depth > 0) {
+      prefix += '../';
+      depth--;
+    }
+    return prefix + 'login.html';
+  }
+
   function resolveName(user, profile) {
     var meta = (user && user.user_metadata) || {};
     var name = (profile && profile.full_name) || meta.full_name || meta.name || '';
@@ -254,9 +271,15 @@
     if (signout) {
       e.preventDefault();
       closeMenu();
-      AUTH.signOut().catch(function () {
-        console.error('[Supabase][Navbar] Sign out failed:', arguments[0]);
-      });
+      AUTH.signOut()
+        .then(function () {
+          // Explicit sign-out only — the login page is the only place a
+          // signed-out user should land.
+          window.location.assign(loginPageUrl());
+        })
+        .catch(function (err) {
+          console.error('[Supabase][Navbar] Sign out failed:', err);
+        });
       return;
     }
 

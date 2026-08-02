@@ -557,7 +557,7 @@ li[data-dropdown]:hover .nav-link-chevron { color: var(--color-primary); }
 /* ---------- 8. Hero ---------- */
 .hero {
   position: relative;
-  min-height: 90vh;
+  min-height: 110vh;
   display: flex;
   align-items: center;
   overflow: hidden;
@@ -565,7 +565,7 @@ li[data-dropdown]:hover .nav-link-chevron { color: var(--color-primary); }
 }
 .hero-bg {
   position: absolute; inset: 0;
-  background-image: url('https://i.ibb.co/20P2NBgR/2b1bd15c-f3b3-4a89-86b8-511eab58874d.jpg');
+  background-image: url('https://i.ibb.co/BV97dXb5/Whats-App-Image-2026-08-02-at-17-44-23.jpg');
   background-size: cover;
   background-position: center;
   transform: scale(1.06);

@@ -119,10 +119,12 @@
   var PDF_DEFAULT_FONT_SIZE = 13;
   var PDF_FIELD_SIZES = { address: 12 };
 
-  /* Image boxes in PDF points, bottom-left origin. These match the
-     pushbutton rects on the fillable template. */
+  /* Image boxes in PDF points, bottom-left origin. The photo box is the
+     printed frame (white box with light-blue border, x 68.25-251.0,
+     y 84.32-252.17) inset ~4% on each side so the photo fills ~92% of the
+     frame with equal margins. The signature boxes match their widget rects. */
   var PDF_IMAGE_BOXES = {
-    photo:              { x: 76.5, y: 96.0,  w: 166.3, h: 144.3 },
+    photo:              { x: 74.95, y: 91.02,  w: 169.35, h: 154.45 },
     memberSignature:    { x: 322.9, y: 95.9,  w: 214.8, h: 141.7 },
     presidentSignature: { x: 112.0, y: 190.0, w: 122.0, h: 32.0 },
   };

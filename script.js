@@ -285,6 +285,12 @@
         title: 'انخرط معنا', href: '/Join%20us/index.html',
         items: [
           { icon: 'userPlus', title: 'الانخراط online', desc: 'كن عضواً في الجمعية', href: '/Join%20us/join-us-online.html' },
+          {
+            icon: 'calendar',
+            title: 'تجديد الانخراط',
+            desc: 'تعبئة طلب تجديد الانخراط',
+            href: '/Join%20us/membership-renewal.html'
+          },
           { icon: 'file', title: 'وثائق الانخراط', desc: 'حمّل وثائق الانخراط', href: '/Join%20us/documents.html' },
           { icon: 'book', title: 'القانون الأساسي', desc: 'النظام الأساسي للجمعية', href: '/Join%20us/bylaws.html' },
           {
@@ -292,6 +298,12 @@
             title: 'القانون الداخلي',
             desc: 'القانون الداخلي للجمعية',
             href: '/Join%20us/internal-regulations.html'
+          },
+                    {
+            icon: 'calendar',
+            title: 'تجديد الانخراط',
+            desc: 'تعبئة طلب تجديد الانخراط',
+            href: '/Join%20us/membership-renewal.html'
           },
           {
             icon: 'compass',
@@ -316,7 +328,8 @@
             title: 'الإشعار بالخرجات',
             desc: 'الإشعارات الخاصة بالخرجات',
             href: '/Join%20us/activity-notifications.html'
-          }
+          },
+
         ]
       }
     };

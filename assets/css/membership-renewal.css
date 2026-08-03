@@ -1,0 +1,64 @@
+/* ==========================================================================
+   الجمعية المغربية لهواة البحث والاستكشاف — Membership Renewal
+   Self-contained additions for the renewal page.
+   Reuses the membership.css design system (ms-* prefix, same variables,
+   same spacing, same buttons, cards and animations). Only the small pieces
+   that have no equivalent in the design system live here.
+   Prefix: ms- (membership), scoped to the renewal page.
+   ========================================================================== */
+
+/* ---------- Narrower, centered card ---------- */
+
+.ms-card--renewal {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+/* ---------- Single submit action row ---------- */
+/* Mirrors .ms-form-nav spacing without its fixed mobile nav behaviour. */
+
+.ms-form-actions {
+  margin-top: 30px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(18, 59, 120, 0.1);
+}
+
+.ms-btn-block {
+  width: 100%;
+}
+
+/* ---------- Inline error banner ---------- */
+/* Follows the red used by .ms-field-error / .is-invalid across the form. */
+
+.ms-alert {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 22px;
+  padding: 14px 18px;
+  border-radius: 14px;
+  background: rgba(231, 76, 60, 0.08);
+  border: 1px solid rgba(231, 76, 60, 0.32);
+  color: #C0392B;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.6;
+}
+
+.ms-alert i {
+  flex-shrink: 0;
+  font-size: 17px;
+}
+
+.ms-alert[hidden] {
+  display: none !important;
+}
+
+/* ---------- Reduced motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .ms-alert,
+  .ms-card--renewal {
+    transition: none !important;
+  }
+}

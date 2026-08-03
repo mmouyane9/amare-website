@@ -40,8 +40,7 @@
 
   /* ---------- PDF generation ---------- */
 
-  var FONT_REGULAR_URL = '../fonts/Cairo-Regular.ttf';
-  var FONT_BOLD_URL = '../fonts/Cairo-Bold.ttf';
+  var FONT_REGULAR_URL = '../fonts/Membership-ArialUnicode.ttf';
 
   function prepareArabic(text) {
     if (typeof root.ArabicUtils !== 'undefined' && root.ArabicUtils.isArabic(text)) {
@@ -58,37 +57,12 @@
     return bytes.buffer;
   }
 
-  function drawRtl(page, font, text, rightX, y, size, color) {
-    var prepared = prepareArabic(String(text || ''));
-    var width = font.widthOfTextAtSize(prepared, size);
-    page.drawText(prepared, {
-      x: rightX - width,
-      y: y,
-      size: size,
-      font: font,
-      color: color,
-    });
-  }
-
   async function loadFonts(pdfDoc) {
-    var regularBytes = await fetch(FONT_REGULAR_URL).then(function (res) {
+    var fontBytes = await fetch(FONT_REGULAR_URL).then(function (res) {
       if (!res.ok) throw new Error('Font load failed');
       return res.arrayBuffer();
     });
-    var regular = await pdfDoc.embedFont(regularBytes);
-
-    var bold = regular;
-    try {
-      var boldBytes = await fetch(FONT_BOLD_URL).then(function (res) {
-        if (!res.ok) throw new Error('Bold font load failed');
-        return res.arrayBuffer();
-      });
-      bold = await pdfDoc.embedFont(boldBytes);
-    } catch (e) {
-      bold = regular;
-    }
-
-    return { regular: regular, bold: bold };
+    return { regular: await pdfDoc.embedFont(fontBytes) };
   }
 
   function embedImage(pdfDoc, dataUrl) {
@@ -96,6 +70,11 @@
     var bytes = base64ToArrayBuffer(base64);
     if (/^data:image\/png/i.test(dataUrl)) return pdfDoc.embedPng(bytes);
     return pdfDoc.embedJpg(bytes);
+  }
+
+  function imageDataUrl(slot) {
+    var entry = app.getState().files[slot];
+    return entry && entry.dataUrl ? entry.dataUrl : null;
   }
 
   function drawImageInBox(page, image, box) {
@@ -119,10 +98,112 @@
     }
   }
 
+  /* ---------- PDF form configuration ---------- */
+
+  /* The fillable template (assets/pdf/membership-form-fillable.pdf) has
+     AcroForm text fields with these names. Keys are the payload keys from
+     buildPayload(); values are the AcroForm field names. */
+  var PDF_FIELD_MAP = {
+    first_name:  'firstName',
+    last_name:   'lastName',
+    birth_date:  'birthDate',
+    birth_place: 'birthPlace',
+    national_id: 'cin',
+    phone:       'phone',
+    email:       'email',
+    address:     'address',
+  };
+
+  /* Optional per-field font-size override (the template's DA already sets
+     sizes; only multiline fields differ from the default). */
+  var PDF_FIELD_SIZES = { address: 11 };
+
+  /* Image boxes in PDF points, bottom-left origin. These match the
+     pushbutton rects on the fillable template. */
+  var PDF_IMAGE_BOXES = {
+    photo:              { x: 76.5,  y: 96.0,  w: 166.3, h: 144.3 },
+    memberSignature:    { x: 322.9, y: 95.9,  w: 214.8, h: 141.7 },
+    presidentSignature: { x: 112.0, y: 190.0, w: 122.0, h: 32.0 },
+  };
+
+  /* Upload slots that provide each image (see upload.js). */
+  var PDF_IMAGE_SLOTS = {
+    photo:              'msPhoto',
+    memberSignature:    'msMemberSignature',
+    presidentSignature: 'msPresidentSignature',
+  };
+
+  /* Values are read from window.membershipData. Registration resets that
+     object before the success screen is shown, so Success.show() keeps a
+     snapshot (buildPayload) used as a fallback when a field is empty. */
+  var pdfValuesCache = null;
+
+  function readPdfValues() {
+    var data = root.membershipData || {};
+    var values = {};
+    Object.keys(PDF_FIELD_MAP).forEach(function (key) {
+      var raw = data[key];
+      if (raw === undefined || raw === null || String(raw).trim() === '') {
+        raw = pdfValuesCache ? pdfValuesCache[key] : '';
+      }
+      values[key] = raw === undefined || raw === null ? '' : String(raw).trim();
+    });
+    return values;
+  }
+
   async function generateMembershipPdf() {
-    var response = await fetch('../assets/pdf/membership-form-template.pdf');
+    if (!root.PDFLib) throw new Error('مكتبة إنشاء PDF غير محملة');
+
+    var response = await fetch('../assets/pdf/membership-form-fillable.pdf');
     if (!response.ok) throw new Error('Template load failed');
-    return response.arrayBuffer();
+
+    var templateBytes = await response.arrayBuffer();
+    var pdfDoc = await root.PDFLib.PDFDocument.load(templateBytes, { updateMetadata: false });
+
+    if (root.fontkit && pdfDoc.registerFontkit) {
+      pdfDoc.registerFontkit(root.fontkit);
+    }
+
+    var fonts = await loadFonts(pdfDoc);
+    var form = pdfDoc.getForm();
+    var values = readPdfValues();
+
+    Object.keys(PDF_FIELD_MAP).forEach(function (key) {
+      var value = values[key];
+      if (!value) return;
+      var field = form.getTextField(PDF_FIELD_MAP[key]);
+      if (!field) return;
+      field.setText(prepareArabic(value));
+      if (PDF_FIELD_SIZES[key]) field.setFontSize(PDF_FIELD_SIZES[key]);
+      field.updateAppearances(fonts.regular);
+    });
+
+    var page = pdfDoc.getPage(0);
+    for (var i = 0; i < Object.keys(PDF_IMAGE_BOXES).length; i++) {
+      var boxKey = Object.keys(PDF_IMAGE_BOXES)[i];
+      var dataUrl = imageDataUrl(PDF_IMAGE_SLOTS[boxKey]);
+      if (!dataUrl) continue;
+      var image = await embedImage(pdfDoc, dataUrl);
+      drawImageInBox(page, image, PDF_IMAGE_BOXES[boxKey]);
+    }
+
+    /* Appearances are already generated with the embedded font; register it
+       in the form's DR so viewers that regenerate appearances (e.g. PDF.js,
+       Acrobat) use the same font, and stop regeneration so the embedded
+       Arabic-correct appearance streams are used. */
+    var acroForm = form.acroForm.dict;
+    var dr = acroForm.lookup(root.PDFLib.PDFName.of('DR'));
+    if (!dr) {
+      dr = pdfDoc.context.obj({ Font: {} });
+      acroForm.set(root.PDFLib.PDFName.of('DR'), dr);
+    }
+    dr.lookup(root.PDFLib.PDFName.of('Font')).set(
+      root.PDFLib.PDFName.of(fonts.regular.name),
+      fonts.regular.ref
+    );
+    acroForm.set(root.PDFLib.PDFName.of('NeedAppearances'), pdfDoc.context.obj(false));
+
+    return pdfDoc.save();
   }
 
   function triggerDownload(bytes, filename) {
@@ -156,6 +237,7 @@
       var valueEl = el('msMemberNumber');
       if (valueEl) valueEl.textContent = number;
 
+      pdfValuesCache = buildPayload();
       app.emit('success:show', buildPayload());
       return app;
     },

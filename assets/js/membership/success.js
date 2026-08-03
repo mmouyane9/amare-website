@@ -114,9 +114,10 @@
     address:     'address',
   };
 
-  /* Optional per-field font-size override (the template's DA already sets
-     sizes; only multiline fields differ from the default). */
-  var PDF_FIELD_SIZES = { address: 11 };
+  /* Text sizes (pt). The template's DA starts at 12pt (single-line) and
+     11pt (address); we raise both slightly for readability. */
+  var PDF_DEFAULT_FONT_SIZE = 13;
+  var PDF_FIELD_SIZES = { address: 12 };
 
   /* Image boxes in PDF points, bottom-left origin. These match the
      pushbutton rects on the fillable template. */
@@ -174,9 +175,41 @@
       var field = form.getTextField(PDF_FIELD_MAP[key]);
       if (!field) return;
       field.setText(prepareArabic(value));
-      if (PDF_FIELD_SIZES[key]) field.setFontSize(PDF_FIELD_SIZES[key]);
+      field.setFontSize(PDF_FIELD_SIZES[key] || PDF_DEFAULT_FONT_SIZE);
       field.updateAppearances(fonts.regular);
     });
+
+    /* The template ships the three pushbutton slots (photo + the two
+       signature boxes) with a gray placeholder fill in their appearance
+       streams. Clear them so the final form shows only the real photo and
+       empty outlined signature boxes — no gray rectangles anywhere. */
+    function clearPlaceholderAppearance(name) {
+      var button;
+      try {
+        button = form.getButton(name);
+      } catch (e) {
+        return;
+      }
+      if (!button) return;
+      button.acroField.getWidgets().forEach(function (widget) {
+        widget.dict.delete(root.PDFLib.PDFName.of('MK'));
+        widget.setNormalAppearance(
+          pdfDoc.context.formXObject([], {
+            BBox: pdfDoc.context.obj([
+              0,
+              0,
+              widget.getRectangle().width,
+              widget.getRectangle().height,
+            ]),
+            Matrix: pdfDoc.context.obj([1, 0, 0, 1, 0, 0]),
+          })
+        );
+        widget.removeRolloverAppearance();
+        widget.removeDownAppearance();
+      });
+    }
+
+    ['photo', 'memberSignature', 'presidentSignature'].forEach(clearPlaceholderAppearance);
 
     var page = pdfDoc.getPage(0);
     for (var i = 0; i < Object.keys(PDF_IMAGE_BOXES).length; i++) {

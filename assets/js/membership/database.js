@@ -35,6 +35,23 @@
             console.log('[Membership][STEP 12] rpc response received. error =', res.error, ', data =', res.data);
             if (res.error) {
                 console.error('[Membership][STEP 12] INSERT FAILED. Supabase error:', res.error);
+                if (res.error.code === '23505' && payload.national_id) {
+                    console.warn('[Membership][STEP 12] Duplicate national_id. Returning existing member.');
+                    return Promise.resolve(
+                        client.from('members').select('*').eq('national_id', payload.national_id).maybeSingle()
+                    ).then(function (lookup) {
+                        if (lookup.error) {
+                            console.error('[Membership][STEP 12] Lookup of existing member failed:', lookup.error);
+                            throw lookup.error;
+                        }
+                        if (lookup.data) {
+                            console.log('[Membership][STEP 12] Existing member returned. member id =', lookup.data.id,
+                                ', member_number =', lookup.data.member_number);
+                            return lookup.data;
+                        }
+                        throw res.error;
+                    });
+                }
                 throw res.error;
             }
             console.log('[Membership][STEP 12] INSERT OK. member id =', res.data ? res.data.id : '?',

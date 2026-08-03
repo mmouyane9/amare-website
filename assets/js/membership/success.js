@@ -122,7 +122,7 @@
   /* Image boxes in PDF points, bottom-left origin. These match the
      pushbutton rects on the fillable template. */
   var PDF_IMAGE_BOXES = {
-    photo:              { x: 76.5,  y: 96.0,  w: 166.3, h: 144.3 },
+    photo:              { x: 95,  y: 108,  w: 145, h: 135 },
     memberSignature:    { x: 322.9, y: 95.9,  w: 214.8, h: 141.7 },
     presidentSignature: { x: 112.0, y: 190.0, w: 122.0, h: 32.0 },
   };

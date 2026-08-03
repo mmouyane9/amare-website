@@ -120,11 +120,11 @@
   var PDF_FIELD_SIZES = { address: 12 };
 
   /* Image boxes in PDF points, bottom-left origin. The photo box is the
-     printed frame (white box with light-blue border, x 68.25-251.0,
-     y 84.32-252.17) inset ~4% on each side so the photo fills ~92% of the
-     frame with equal margins. The signature boxes match their widget rects. */
+     official photo frame at the TOP-RIGHT of the form (the empty bordered
+     box, x 463.2-562.5, y 688.3-815.8) inset ~4% on each side. The
+     signature boxes match their widget rects at the bottom of the form. */
   var PDF_IMAGE_BOXES = {
-    photo:              { x: 74.95, y: 91.02,  w: 169.35, h: 154.45 },
+    photo:              { x: 467.2, y: 692.3,  w: 91.2, h: 119.5 },
     memberSignature:    { x: 322.9, y: 95.9,  w: 214.8, h: 141.7 },
     presidentSignature: { x: 112.0, y: 190.0, w: 122.0, h: 32.0 },
   };

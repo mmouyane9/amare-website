@@ -1,0 +1,25 @@
+import { Outlet, useLocation } from 'react-router-dom'
+
+import { Header } from '@/components/layout/Header'
+import { NAV_ITEMS } from '@/components/layout/nav-items'
+import { Sidebar } from '@/components/layout/Sidebar'
+
+export function DashboardLayout() {
+  const { pathname } = useLocation()
+  const currentItem = NAV_ITEMS.find((item) => item.path === pathname)
+  const title = currentItem?.label ?? 'Admin'
+
+  return (
+    <div className="flex h-svh overflow-hidden bg-muted/40">
+      <Sidebar />
+
+      <div className="flex min-w-0 flex-1 flex-col">
+        <Header title={title} />
+
+        <main className="flex-1 overflow-y-auto p-6 lg:p-8">
+          <Outlet />
+        </main>
+      </div>
+    </div>
+  )
+}

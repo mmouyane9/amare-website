@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react'
-import { Eye, Loader2, PanelLeft, PanelRight, SearchX } from 'lucide-react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
+import { Eye, Loader2, PanelLeft, PanelRight } from 'lucide-react'
+import { toast } from 'sonner'
 
 import { EditorCanvas } from '@/pages/ContentEditor/components/EditorCanvas'
-import { PagesPanel } from '@/pages/ContentEditor/components/PagesPanel'
+import { PagesPanel, type SidebarPage } from '@/pages/ContentEditor/components/PagesPanel'
 import { PreviewDialog } from '@/pages/ContentEditor/components/PreviewDialog'
 import { PropertiesPanel } from '@/pages/ContentEditor/components/PropertiesPanel'
-import { createBlock } from '@/pages/ContentEditor/block-meta'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -13,225 +13,274 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog'
-import { getCmsService } from '@/services/cms'
 import { cn } from '@/lib/utils'
-import type { ContentBlock, ContentPage, CtaButton, SeoFields } from '@/types/cms'
+import { getWebsitePages } from '@/services/pageDiscovery'
+import {
+  getPages,
+  getPage,
+  initializePage,
+  saveDraft,
+  publishPage,
+  seedHomePage,
+  createSection,
+  reorderSections,
+  generateSectionId,
+} from '@/services/content.service'
+import type { ContentPageRow, PageContent, PageSection, SectionType } from '@/types/content'
 
-type BusyAction = 'save' | 'publish' | 'reset' | null
+type BusyAction = 'save' | 'publish' | 'init' | null
 
 export default function ContentEditorPage() {
-  const cms = getCmsService()
+  const initialId = useMemo(() => getWebsitePages()[0]?.id ?? 'home', [])
 
-  const [pages, setPages] = useState<ContentPage[]>([])
-  const [selectedId, setSelectedId] = useState('home')
-  const [dirtyIds, setDirtyIds] = useState<Set<string>>(() => new Set())
+  const [sidebarPages, setSidebarPages] = useState<SidebarPage[]>([])
+  const [selectedKey, setSelectedKey] = useState(initialId)
+  const [pageLoading, setPageLoading] = useState(false)
+  const [selectedPage, setSelectedPage] = useState<ContentPageRow | null>(null)
+  const [sections, setSections] = useState<PageSection[]>([])
+  const [seoTitle, setSeoTitle] = useState('')
+  const [seoDescription, setSeoDescription] = useState('')
+  const [seoKeywords, setSeoKeywords] = useState('')
+  const [ogImage, setOgImage] = useState('')
+  const [title, setTitle] = useState('')
+  const [slug, setSlug] = useState('')
+  const [dirty, setDirty] = useState(false)
   const [busy, setBusy] = useState<BusyAction>(null)
-  const [feedback, setFeedback] = useState<string | null>(null)
   const [query, setQuery] = useState('')
-  const [focusedBlockId, setFocusedBlockId] = useState<string | null>(null)
   const [showPagesMobile, setShowPagesMobile] = useState(false)
   const [showPropsMobile, setShowPropsMobile] = useState(false)
   const [previewOpen, setPreviewOpen] = useState(false)
 
-  const selectedPage = pages.find((page) => page.id === selectedId)
-  const isDirty = selectedPage ? dirtyIds.has(selectedId) : false
+  const discovered = useMemo(() => getWebsitePages(), [])
 
-  useEffect(() => {
-    let alive = true
-    cms.listPages().then((items) => {
-      if (!alive) return
-      setPages(items)
-    })
-    return () => {
-      alive = false
+  const loadSidebar = useCallback(async () => {
+    try {
+      const dbPages = await getPages()
+      const dbMap: Record<string, ContentPageRow> = {}
+      for (const p of dbPages) {
+        dbMap[p.page_key] = p
+      }
+
+      const merged: SidebarPage[] = discovered.map((page) => {
+        const db = dbMap[page.id]
+        return {
+          pageKey: page.id,
+          name: db?.title || page.name,
+          status: db ? db.status : 'uninitialized',
+          icon: page.icon,
+          section: page.section,
+          path: page.path,
+        }
+      })
+
+      setSidebarPages(merged)
+    } catch {
+      toast.error('Failed to load pages')
     }
-  }, [cms])
+  }, [discovered])
+
+  const loadPageContent = useCallback(async (pageKey: string) => {
+    try {
+      setPageLoading(true)
+      const page = await getPage(pageKey)
+      if (page) {
+        setSelectedPage(page)
+        setSections(page.content.sections ?? [])
+        setSeoTitle(page.seo_title)
+        setSeoDescription(page.seo_description)
+        setSeoKeywords(page.seo_keywords)
+        setOgImage(page.og_image)
+        setTitle(page.title)
+        setSlug(page.slug)
+      } else {
+        setSelectedPage(null)
+        setSections([])
+        setSeoTitle('')
+        setSeoDescription('')
+        setSeoKeywords('')
+        setOgImage('')
+        const meta = discovered.find((p) => p.id === pageKey)
+        setTitle(meta?.name ?? pageKey)
+        setSlug(meta?.path ?? '/')
+      }
+      setDirty(false)
+    } catch {
+      toast.error('Failed to load page')
+    } finally {
+      setPageLoading(false)
+    }
+  }, [discovered])
 
   useEffect(() => {
-    if (!feedback) return
-    const timer = window.setTimeout(() => setFeedback(null), 2600)
-    return () => window.clearTimeout(timer)
-  }, [feedback])
+    loadSidebar()
+  }, [loadSidebar])
 
-  const showFeedback = (message: string) => setFeedback(message)
+  useEffect(() => {
+    if (selectedKey) loadPageContent(selectedKey)
+  }, [selectedKey, loadPageContent])
 
-  const markDirty = (pageId: string) => {
-    setDirtyIds((prev) => {
-      if (prev.has(pageId)) return prev
-      const next = new Set(prev)
-      next.add(pageId)
-      return next
+  const pageNeedsInit = selectedKey ? !sidebarPages.find((p) => p.pageKey === selectedKey)?.status ||
+    sidebarPages.find((p) => p.pageKey === selectedKey)?.status === 'uninitialized' : false
+
+  const markDirty = () => setDirty(true)
+
+  const handleSelectPage = (pageKey: string) => {
+    setSelectedKey(pageKey)
+    setShowPagesMobile(false)
+  }
+
+  const handleInitialize = async () => {
+    const meta = discovered.find((p) => p.id === selectedKey)
+    if (!meta) return
+    setBusy('init')
+    try {
+      const page =
+        selectedKey === 'home'
+          ? await seedHomePage()
+          : await initializePage(selectedKey, meta.name, meta.path)
+      setSelectedPage(page)
+      setSections(page.content.sections ?? [])
+      setSeoTitle(page.seo_title)
+      setSeoDescription(page.seo_description)
+      setSeoKeywords(page.seo_keywords)
+      setOgImage(page.og_image)
+      setTitle(page.title)
+      setSlug(page.slug)
+      setDirty(false)
+
+      setSidebarPages((prev) =>
+        prev.map((p) =>
+          p.pageKey === selectedKey
+            ? { ...p, status: page.status, name: page.title || p.name }
+            : p,
+        ),
+      )
+      toast.success('Page initialized')
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : 'Failed to initialize page')
+    } finally {
+      setBusy(null)
+    }
+  }
+
+  const updateSection = (sectionId: string, data: Record<string, unknown>) => {
+    setSections((prev) =>
+      prev.map((s) => (s.id === sectionId ? { ...s, data: data as never } : s)),
+    )
+    markDirty()
+  }
+
+  const toggleSection = (sectionId: string, enabled: boolean) => {
+    setSections((prev) => prev.map((s) => (s.id === sectionId ? { ...s, enabled } : s)))
+    markDirty()
+  }
+
+  const deleteSection = (sectionId: string) => {
+    setSections((prev) => reorderSections(prev.filter((s) => s.id !== sectionId)))
+    markDirty()
+  }
+
+  const duplicateSection = (sectionId: string) => {
+    setSections((prev) => {
+      const idx = prev.findIndex((s) => s.id === sectionId)
+      if (idx === -1) return prev
+      const source = prev[idx]
+      const clone: PageSection = {
+        ...source,
+        id: generateSectionId(),
+        data: JSON.parse(JSON.stringify(source.data)),
+      }
+      const updated = [...prev]
+      updated.splice(idx + 1, 0, clone)
+      return reorderSections(updated)
     })
+    markDirty()
   }
 
-  const updatePage = (
-    pageId: string,
-    updater: (page: ContentPage) => ContentPage,
-    dirty = true,
-  ) => {
-    setPages((prev) => prev.map((page) => (page.id === pageId ? updater(page) : page)))
-    if (dirty) markDirty(pageId)
-  }
-
-  const updateBlock = (pageId: string, blockId: string, patch: Partial<ContentBlock>) => {
-    updatePage(pageId, (page) => ({
-      ...page,
-      blocks: page.blocks.map((block) => {
-        if (block.id !== blockId) return block
-        const next = { ...block, ...patch }
-        if (next.kind === 'heading' && patch.heading !== undefined) {
-          next.label = patch.heading.trim() || next.label
-        }
-        return next
-      }),
-    }))
-  }
-
-  const moveBlock = (pageId: string, blockId: string, direction: -1 | 1) => {
-    updatePage(pageId, (page) => {
-      const index = page.blocks.findIndex((block) => block.id === blockId)
-      const target = index + direction
-      if (index === -1 || target < 0 || target >= page.blocks.length) return page
-      const blocks = [...page.blocks]
-      ;[blocks[index], blocks[target]] = [blocks[target], blocks[index]]
-      return { ...page, blocks }
+  const moveSection = (sectionId: string, direction: -1 | 1) => {
+    setSections((prev) => {
+      const idx = prev.findIndex((s) => s.id === sectionId)
+      if (idx === -1) return prev
+      const target = idx + direction
+      if (target < 0 || target >= prev.length) return prev
+      const updated = [...prev]
+      ;[updated[idx], updated[target]] = [updated[target], updated[idx]]
+      return reorderSections(updated)
     })
+    markDirty()
   }
 
-  const toggleBlock = (pageId: string, blockId: string, enabled: boolean) => {
-    updateBlock(pageId, blockId, { enabled })
-  }
-
-  const removeBlock = (pageId: string, blockId: string) => {
-    updatePage(pageId, (page) => ({
-      ...page,
-      blocks: page.blocks.filter((block) => block.id !== blockId),
-    }))
-  }
-
-  const addBlock = (pageId: string, kind: ContentBlock['kind']) => {
-    updatePage(pageId, (page) => ({
-      ...page,
-      blocks: [...page.blocks, createBlock(kind, page.blocks.length)],
-    }))
-  }
-
-  const updateSeo = (pageId: string, patch: Partial<SeoFields>) => {
-    updatePage(pageId, (page) => ({ ...page, seo: { ...page.seo, ...patch } }))
-  }
-
-  const updateCtaButton = (
-    pageId: string,
-    blockId: string,
-    buttonId: string,
-    patch: Partial<CtaButton>,
-  ) => {
-    updatePage(pageId, (page) => ({
-      ...page,
-      blocks: page.blocks.map((block) => {
-        if (block.id !== blockId) return block
-        return {
-          ...block,
-          buttons: block.buttons?.map((button) =>
-            button.id === buttonId ? { ...button, ...patch } : button,
-          ),
-        }
-      }),
-    }))
-  }
-
-  const addCtaButton = (pageId: string, blockId: string) => {
-    updatePage(pageId, (page) => ({
-      ...page,
-      blocks: page.blocks.map((block) => {
-        if (block.id !== blockId) return block
-        return {
-          ...block,
-          buttons: [
-            ...(block.buttons ?? []),
-            { id: `cta-${Date.now().toString(36)}`, label: 'Button', href: '/' },
-          ],
-        }
-      }),
-    }))
-  }
-
-  const removeCtaButton = (pageId: string, blockId: string, buttonId: string) => {
-    updatePage(pageId, (page) => ({
-      ...page,
-      blocks: page.blocks.map((block) => {
-        if (block.id !== blockId) return block
-        return {
-          ...block,
-          buttons: block.buttons?.filter((button) => button.id !== buttonId),
-        }
-      }),
-    }))
+  const addSection = (type: SectionType) => {
+    setSections((prev) => [...prev, createSection(type, prev.length + 1)])
+    markDirty()
   }
 
   const handleSaveDraft = async () => {
-    if (!selectedPage || !isDirty) return
+    if (!dirty) return
     setBusy('save')
-    await cms.saveDraft(selectedPage)
-    updatePage(
-      selectedId,
-      (page) => ({ ...page, status: 'draft', updatedAt: new Date().toISOString() }),
-      false,
-    )
-    setDirtyIds((prev) => {
-      const next = new Set(prev)
-      next.delete(selectedId)
-      return next
-    })
-    setBusy(null)
-    showFeedback('Draft saved')
+    try {
+      const content: PageContent = { sections }
+      await saveDraft(selectedKey, {
+        content,
+        seo_title: seoTitle,
+        seo_description: seoDescription,
+        seo_keywords: seoKeywords,
+        og_image: ogImage,
+        title,
+        slug,
+      })
+      setDirty(false)
+      setSidebarPages((prev) =>
+        prev.map((p) => (p.pageKey === selectedKey ? { ...p, status: 'draft' } : p)),
+      )
+      toast.success('Draft saved')
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : 'Failed to save draft')
+    } finally {
+      setBusy(null)
+    }
   }
 
   const handlePublish = async () => {
-    if (!selectedPage || !isDirty) return
     setBusy('publish')
-    await cms.publish(selectedPage)
-    updatePage(
-      selectedId,
-      (page) => ({ ...page, status: 'published', updatedAt: new Date().toISOString() }),
-      false,
-    )
-    setDirtyIds((prev) => {
-      const next = new Set(prev)
-      next.delete(selectedId)
-      return next
-    })
-    setBusy(null)
-    showFeedback('Page published')
+    try {
+      if (dirty) {
+        const content: PageContent = { sections }
+        await saveDraft(selectedKey, {
+          content,
+          seo_title: seoTitle,
+          seo_description: seoDescription,
+          seo_keywords: seoKeywords,
+          og_image: ogImage,
+          title,
+          slug,
+        })
+      }
+      const published = await publishPage(selectedKey)
+      setSelectedPage(published)
+      setSidebarPages((prev) =>
+        prev.map((p) => (p.pageKey === selectedKey ? { ...p, status: 'published' } : p)),
+      )
+      setDirty(false)
+      toast.success('Page published')
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : 'Failed to publish')
+    } finally {
+      setBusy(null)
+    }
   }
 
   const handleReset = async () => {
-    if (!selectedPage) return
-    setBusy('reset')
-    const original = await cms.resetPage(selectedId)
-    updatePage(selectedId, () => original, false)
-    setDirtyIds((prev) => {
-      const next = new Set(prev)
-      next.delete(selectedId)
-      return next
-    })
-    setBusy(null)
-    showFeedback('Changes reset')
-  }
-
-  const handleSelectPage = (pageId: string, blockId?: string) => {
-    setSelectedId(pageId)
-    setShowPagesMobile(false)
-    if (blockId) {
-      setFocusedBlockId(blockId)
-      window.setTimeout(() => {
-        document
-          .getElementById(`block-${blockId}`)
-          ?.scrollIntoView({ behavior: 'smooth', block: 'center' })
-      }, 80)
-      window.setTimeout(() => setFocusedBlockId(null), 2400)
+    try {
+      await loadPageContent(selectedKey)
+      toast.success('Changes reset')
+    } catch {
+      toast.error('Failed to reset')
     }
   }
+
+  const pageTitle = selectedPage?.title || title || selectedKey
+  const pageStatus = selectedPage?.status ?? 'draft'
 
   return (
     <div className="relative flex h-full min-h-0 flex-col bg-background">
@@ -247,35 +296,35 @@ export default function ContentEditorPage() {
           >
             <PanelLeft className="size-4" />
           </Button>
-          {selectedPage ? (
-            <div className="min-w-0">
-              <p className="truncate text-sm font-semibold tracking-tight text-foreground">
-                {selectedPage.name}
-              </p>
-              <p className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                <span
-                  className={cn(
-                    'size-1.5 rounded-full',
-                    selectedPage.status === 'published'
-                      ? 'bg-emerald-500'
-                      : 'bg-amber-500',
-                  )}
-                />
-                <span className="capitalize">{selectedPage.status}</span>
-                {isDirty && (
-                  <>
-                    <span aria-hidden>·</span>
-                    <span className="font-medium text-amber-600 dark:text-amber-400">
-                      Unsaved
-                    </span>
-                  </>
-                )}
-              </p>
-            </div>
-          ) : (
+          {pageLoading ? (
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <Loader2 className="size-4 animate-spin" />
-              Loading pages…
+              Loading…
+            </div>
+          ) : (
+            <div className="min-w-0">
+              <p className="truncate text-sm font-semibold tracking-tight text-foreground">
+                {pageTitle}
+              </p>
+              {!pageNeedsInit && (
+                <p className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                  <span
+                    className={cn(
+                      'size-1.5 rounded-full',
+                      pageStatus === 'published' ? 'bg-emerald-500' : 'bg-amber-500',
+                    )}
+                  />
+                  <span className="capitalize">{pageStatus}</span>
+                  {dirty && (
+                    <>
+                      <span aria-hidden>·</span>
+                      <span className="font-medium text-amber-600 dark:text-amber-400">
+                        Unsaved
+                      </span>
+                    </>
+                  )}
+                </p>
+              )}
             </div>
           )}
         </div>
@@ -307,8 +356,8 @@ export default function ContentEditorPage() {
       <div className="grid min-h-0 flex-1 grid-cols-1 lg:grid-cols-[260px_minmax(0,1fr)] xl:grid-cols-[260px_minmax(0,1fr)_320px]">
         <aside className="hidden h-full border-r border-border/60 bg-background lg:block">
           <PagesPanel
-            pages={pages}
-            selectedId={selectedId}
+            pages={sidebarPages}
+            selectedId={selectedKey}
             query={query}
             onQueryChange={setQuery}
             onSelect={handleSelectPage}
@@ -318,32 +367,39 @@ export default function ContentEditorPage() {
         <section className="min-w-0 border-r border-border/60 xl:border-r">
           <EditorCanvas
             page={selectedPage}
-            focusedBlockId={focusedBlockId}
-            onChange={(blockId, patch) => updateBlock(selectedId, blockId, patch)}
-            onMove={(blockId, direction) => moveBlock(selectedId, blockId, direction)}
-            onToggle={(blockId, enabled) => toggleBlock(selectedId, blockId, enabled)}
-            onRemove={(blockId) => removeBlock(selectedId, blockId)}
-            onCtaChange={(blockId, buttonId, patch) =>
-              updateCtaButton(selectedId, blockId, buttonId, patch)
-            }
-            onCtaAdd={(blockId) => addCtaButton(selectedId, blockId)}
-            onCtaRemove={(blockId, buttonId) =>
-              removeCtaButton(selectedId, blockId, buttonId)
-            }
-            onAddBlock={(kind) => addBlock(selectedId, kind)}
+            sections={sections}
+            loading={pageLoading}
+            needsInit={pageNeedsInit}
+            pageKey={selectedKey}
+            onInitialize={handleInitialize}
+            onUpdateSection={updateSection}
+            onToggleSection={toggleSection}
+            onDeleteSection={deleteSection}
+            onDuplicateSection={duplicateSection}
+            onMoveSection={moveSection}
+            onAddSection={addSection}
           />
         </section>
 
         <aside className="hidden h-full border-l border-border/60 bg-background xl:block">
           <PropertiesPanel
-            page={selectedPage}
-            dirty={isDirty}
-            busy={busy}
-            onSeoChange={(patch) => updateSeo(selectedId, patch)}
+            title={title}
+            seoTitle={seoTitle}
+            seoDescription={seoDescription}
+            seoKeywords={seoKeywords}
+            ogImage={ogImage}
+            slug={slug}
+            dirty={dirty}
+            busy={busy === 'save' || busy === 'publish' ? busy : null}
+            onTitleChange={setTitle}
+            onSeoTitleChange={setSeoTitle}
+            onSeoDescriptionChange={setSeoDescription}
+            onSeoKeywordsChange={setSeoKeywords}
+            onOgImageChange={setOgImage}
+            onSlugChange={setSlug}
             onSaveDraft={handleSaveDraft}
             onPublish={handlePublish}
             onReset={handleReset}
-            onPreview={() => setPreviewOpen(true)}
           />
         </aside>
       </div>
@@ -355,8 +411,8 @@ export default function ContentEditorPage() {
           </DialogHeader>
           <div className="-mx-4 -mb-4 h-[58svh] border-t border-border/60">
             <PagesPanel
-              pages={pages}
-              selectedId={selectedId}
+              pages={sidebarPages}
+              selectedId={selectedKey}
               query={query}
               onQueryChange={setQuery}
               onSelect={handleSelectPage}
@@ -372,14 +428,23 @@ export default function ContentEditorPage() {
           </DialogHeader>
           <div className="-mx-4 -mb-4 h-[65svh] border-t border-border/60">
             <PropertiesPanel
-              page={selectedPage}
-              dirty={isDirty}
-              busy={busy}
-              onSeoChange={(patch) => updateSeo(selectedId, patch)}
+              title={title}
+              seoTitle={seoTitle}
+              seoDescription={seoDescription}
+              seoKeywords={seoKeywords}
+              ogImage={ogImage}
+              slug={slug}
+              dirty={dirty}
+              busy={busy === 'save' || busy === 'publish' ? busy : null}
+              onTitleChange={setTitle}
+              onSeoTitleChange={setSeoTitle}
+              onSeoDescriptionChange={setSeoDescription}
+              onSeoKeywordsChange={setSeoKeywords}
+              onOgImageChange={setOgImage}
+              onSlugChange={setSlug}
               onSaveDraft={handleSaveDraft}
               onPublish={handlePublish}
               onReset={handleReset}
-              onPreview={() => setPreviewOpen(true)}
             />
           </div>
         </DialogContent>
@@ -387,41 +452,10 @@ export default function ContentEditorPage() {
 
       <PreviewDialog
         page={selectedPage}
+        sections={sections}
         open={previewOpen}
         onOpenChange={setPreviewOpen}
       />
-
-      {feedback && (
-        <div className="pointer-events-none absolute bottom-4 left-1/2 z-30 flex -translate-x-1/2 items-center gap-2 rounded-full border border-border bg-background px-3.5 py-1.5 text-xs font-medium text-foreground shadow-sm">
-          <CheckBadge />
-          {feedback}
-        </div>
-      )}
-
-      {pages.length === 0 && (
-        <div className="pointer-events-none absolute inset-0 z-20 hidden items-center justify-center bg-background/60 lg:flex">
-          <div className="flex flex-col items-center gap-2 text-center">
-            <SearchX className="size-8 text-muted-foreground/50" />
-            <p className="text-sm font-medium text-foreground">No pages found</p>
-          </div>
-        </div>
-      )}
     </div>
-  )
-}
-
-function CheckBadge() {
-  return (
-    <span className="flex size-4 items-center justify-center rounded-full bg-emerald-500/15 text-emerald-600 dark:text-emerald-400">
-      <svg viewBox="0 0 20 20" fill="none" className="size-2.5">
-        <path
-          d="M4 10.5 8 14.5 16 6"
-          stroke="currentColor"
-          strokeWidth="2.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    </span>
   )
 }

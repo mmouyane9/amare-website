@@ -41,7 +41,7 @@ export async function getDashboardStats(): Promise<DashboardStats> {
       .select('*', { count: 'exact', head: true })
       .eq('status', 'published'),
     supabaseAnon
-      .from('store_products')
+      .from('products')
       .select('*', { count: 'exact', head: true })
       .eq('status', 'published'),
   ])

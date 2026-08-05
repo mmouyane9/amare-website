@@ -234,7 +234,7 @@
         title: 'خدماتنا', href: '#services',
         items: [
           { icon: 'book', title: 'SOS AMARE', desc: 'دورات وورشات تكوينية' },
-          { icon: 'bag', title: 'متجر AMARE', desc: 'منتجات تدعم أنشطة الجمعية' },
+          { icon: 'bag', title: 'متجر AMARE', desc: 'منتجات تدعم أنشطة الجمعية', href: 'amare store/index.html' },
           { icon: 'userPlus', title: ' بيت المستكشف Amare', desc: 'انضم إلى مجتمع AMARE' },
           { icon: 'clipboard', title: 'مجلة Amare ', desc: 'برامج تدريبية متخصصة' },
           { icon: 'leaf', title: ' اكاديمية Amare', desc: 'استشارات في المجال البيئي' },

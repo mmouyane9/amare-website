@@ -351,7 +351,7 @@ export const HOME_PAGE_CONTENT: PageContent = {
         programsHeading: 'برامجنا',
         programs: [
           { label: 'SOS Amare', url: '#services' },
-          { label: 'متجر Amare', url: '#services' },
+          { label: 'متجر Amare', url: 'amare store/index.html' },
           { label: 'بيت المستكشف Amare', url: '#services' },
           { label: 'مجلة Amare', url: '#services' },
           { label: 'أكاديمية Amare', url: '#services' },

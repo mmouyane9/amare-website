@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>سلة التسوق | متجر AMARE الرسمي</title>
+<meta name="description" content="سلة التسوق في متجر AMARE الرسمي.">
+<meta name="keywords" content="سلة, تسوق, متجر, AMARE">
+<meta name="author" content="الجمعية المغربية لهواة البحث والاستكشاف">
+<link rel="shortcut icon" href="../Amare files /logo.png" type="image/x-icon">
+<meta property="og:title" content="سلة التسوق | متجر AMARE">
+<meta property="og:description" content="سلة التسوق في متجر AMARE الرسمي.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="assets/store.css">
+<style>
+/* Cart Page */
+.cart-page { padding: 40px 0 80px; background: var(--color-light); min-height: 60vh; }
+.cart-grid { display: grid; grid-template-columns: 1fr 380px; gap: 32px; align-items:start; }
+.cart-main { background: var(--color-white); border-radius: var(--radius-lg); padding: 32px 28px; border: 1px solid rgba(18,59,120,.05); box-shadow: var(--shadow-sm); overflow: hidden; }
+.cart-table { width: 100%; border-collapse: collapse; }
+.cart-table th { text-align: right; padding: 12px 8px; font-size: 13px; font-weight:700; color: var(--color-text-soft); border-bottom: 2px solid rgba(18,59,120,.08); }
+.cart-table th:first-child { padding-right:0; }
+.cart-table td { padding: 16px 8px; border-bottom: 1px solid rgba(18,59,120,.04); font-size:14px; vertical-align: middle; }
+.cart-table td:first-child { padding-right:0; }
+.cart-item-img { width: 64px; height: 64px; border-radius: var(--radius-sm); overflow: hidden; background: linear-gradient(135deg,#E3F4FD,#F3FAFF); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.cart-item-img img { width:100%; height:100%; object-fit:cover; }
+.cart-item-img svg { width:26px; height:26px; color: var(--color-primary); opacity:.4; }
+.cart-item-name { font-weight:700; color: var(--color-navy); margin-bottom:2px; }
+.cart-item-cat { font-size:12px; color: var(--color-text-soft); }
+.cart-item-price { font-weight:800; color: var(--color-accent); white-space:nowrap; direction:ltr; }
+.cart-item-subtotal { font-weight:800; color: var(--color-navy); white-space:nowrap; direction:ltr; }
+
+.cart-qty { display:inline-flex; align-items:center; border:1.5px solid rgba(18,59,120,.12); border-radius:var(--radius-pill); overflow:hidden; }
+.cart-qty button { width:32px; height:32px; display:flex; align-items:center; justify-content:center; background:none; border:none; cursor:pointer; font-size:16px; color:var(--color-navy); font-family:var(--font-main); transition:background var(--t-fast); }
+.cart-qty button:hover { background:rgba(25,184,242,.08); }
+.cart-qty input { width:38px; height:32px; text-align:center; border:none; border-inline:1.5px solid rgba(18,59,120,.12); font-size:13px; font-weight:700; font-family:var(--font-main); color:var(--color-navy); }
+.cart-qty input:focus { outline:none; }
+.cart-remove { width:32px; height:32px; display:inline-flex; align-items:center; justify-content:center; border:none; background:none; cursor:pointer; color:#e74c3c; border-radius:50%; transition:background var(--t-fast); }
+.cart-remove:hover { background:rgba(231,76,60,.08); }
+.cart-remove svg { width:16px; height:16px; }
+
+/* Summary */
+.cart-sidebar { position:sticky; top:calc(var(--topbar-h) + var(--nav-h) + 24px); }
+.cart-summary { background:var(--color-white); border-radius:var(--radius-lg); padding:28px 24px; border:1px solid rgba(18,59,120,.05); box-shadow:var(--shadow-sm); }
+.cart-summary h3 { font-size:18px; font-weight:800; color:var(--color-navy); margin-bottom:20px; }
+.cart-summary-row { display:flex; justify-content:space-between; padding:8px 0; font-size:14px; color:var(--color-text-soft); }
+.cart-summary-row.grand { margin-top:14px; padding-top:14px; border-top:2px solid rgba(18,59,120,.1); font-size:18px; font-weight:900; color:var(--color-navy); }
+.cart-summary-row.grand span:last-child { color:var(--color-accent); direction:ltr; }
+.cart-summary-actions { margin-top:24px; display:flex; flex-direction:column; gap:10px; }
+.cart-summary-actions .btn { width:100%; justify-content:center; }
+
+/* Empty */
+.cart-empty { display:none; text-align:center; padding:60px 20px; }
+.cart-empty svg { width:100px; height:100px; color:var(--color-primary); opacity:.25; margin-bottom:24px; }
+.cart-empty h2 { font-size:26px; font-weight:900; color:var(--color-navy); margin-bottom:8px; }
+.cart-empty p { font-size:15px; color:var(--color-text-soft); margin-bottom:24px; }
+
+/* Remove Confirmation */
+.cart-confirm-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.45); z-index:99990; backdrop-filter:blur(3px); }
+.cart-confirm-overlay.show { display:block; }
+.cart-confirm-dialog { position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:#fff; border-radius:var(--radius-lg); padding:32px; text-align:center; z-index:99991; box-shadow:var(--shadow-lg); max-width:380px; width:90%; }
+.cart-confirm-dialog h4 { font-size:17px; font-weight:800; color:var(--color-navy); margin-bottom:8px; }
+.cart-confirm-dialog p { font-size:14px; color:var(--color-text-soft); margin-bottom:20px; }
+.cart-confirm-actions { display:flex; gap:10px; justify-content:center; }
+
+/* Toast */
+#amareCartToast { display:none; }
+
+@media (max-width:1023px) { .cart-grid { grid-template-columns:1fr; } .cart-sidebar { position:static; order:-1; } }
+@media (max-width:767px) {
+  .cart-main { padding:16px 12px; }
+  .cart-table th, .cart-table td { padding:10px 4px; font-size:12px; }
+  .cart-item-img { width:44px; height:44px; }
+}
+</style>
+</head>
+<body>
+
+<div id="loader" aria-hidden="true"><div class="loader-mark"></div><div class="loader-text">الجمعية المغربية لهواة البحث والاستكشاف</div></div>
+<a href="#main" class="visually-hidden">تخطَّ إلى المحتوى الرئيسي</a>
+
+<div class="topbar">
+  <div class="container">
+    <div class="topbar-right">
+      <a href="../index.html" class="topbar-brand" aria-label="الرئيسية"><span class="topbar-brand-mark"><img src="../Amare files /logo.png" alt="AMARE Logo" class="topbar-brand-logo"></span><span class="topbar-brand-name">الجمعية المغربية لهواة البحث والاستكشاف</span></a>
+    </div>
+    <div class="topbar-left">
+      <div class="topbar-social">
+        <a href="#" aria-label="فيسبوك"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg></a>
+        <a href="#" aria-label="إنستغرام"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+        <a href="#" aria-label="لينكدإن"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 5 3.79 6.2 2.3 6.2 1 6.2 0 5 0 3.5 0 2 1.1.8 2.5.8s2.48 1.2 2.48 2.7zM.2 8.5h4.6V23H.2V8.5zM8 8.5h4.4v2h.06c.6-1.2 2.1-2.4 4.4-2.4 4.7 0 5.6 3.1 5.6 7.1V23h-4.6v-6.7c0-1.6 0-3.7-2.3-3.7s-2.6 1.8-2.6 3.6V23H8V8.5z"/></svg></a>
+      </div>
+      <div class="topbar-lang"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg><select aria-label="اختيار اللغة"><option value="ar" selected>العربية</option><option value="fr">Français</option><option value="en">English</option><option value="es">Español</option><option value="ber">ⵜⴰⵎⴰⵣⵉⵖⵜ</option></select></div>
+      <a href="http://wa.me/+212684869996" target="_blank" rel="noopener" class="topbar-whatsapp ripple" aria-label="تواصل عبر واتساب"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.6.1-.2.3-.7 1-.9 1.2-.1.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.2-.4.1-.2 0-.4 0-.5s-.6-1.5-.8-2c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s1 2.6 1.1 2.7c.1.2 2 3 4.7 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 2-1.4.2-.6.2-1.2.1-1.3-.1-.1-.3-.2-.6-.3z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.6 1.4 5.1L2 22l5.1-1.3C8.5 21.5 10.2 22 12 22c5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18c-1.6 0-3.1-.4-4.5-1.2l-.3-.2-3.3.9.9-3.2-.2-.3C3.7 14.6 3.2 13.3 3.2 12c0-4.9 3.9-8.8 8.8-8.8s8.8 3.9 8.8 8.8-3.9 8.8-8.8 8.8z"/></svg><span>واتساب</span></a>
+      <a href="../login.html" class="topbar-login ripple" aria-label="تسجيل الدخول"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v18h-6M10 17l5-5-5-5M15 12H3"/></svg><span>تسجيل الدخول</span></a>
+      <div class="minicart-wrapper" id="headerMinicart">
+        <a href="cart.html" class="minicart-trigger">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span>السلة</span>
+          <span class="amare-cart-count" style="display:none;">0</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<header><nav class="navbar" id="navbar" aria-label="التنقل الرئيسي"><div class="container"><ul class="nav-links" id="navLinks"><li><a href="../index.html">الرئيسية</a></li><li data-dropdown="about"><a href="#">من نحن</a></li><li data-dropdown="activities"><a href="#">أنشطتنا</a></li><li data-dropdown="partners"><a href="#">شركاؤنا</a></li><li data-dropdown="services"><a href="#">خدماتنا</a></li><li data-dropdown="news"><a href="#">الأخبار</a></li><li data-dropdown="archive"><a href="#">الأرشيف</a></li><li data-dropdown="branches"><a href="#">الفروع الجهوية</a></li><li data-dropdown="join"><a href="../Join us/join-us-online.html">انخرط معنا</a></li><li><a href="../contact.html">اتصل بنا</a></li></ul><div class="nav-actions"><button class="hamburger" id="hamburger" aria-label="فتح القائمة" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button></div></div><div class="mega-dropdown" id="megaDropdown"></div></nav></header>
+
+<div class="mobile-header" id="mobileHeader"><div class="mobile-header-group"><a class="mobile-header-logo" href="../index.html" aria-label="الرئيسية"><img src="../Amare files /logo.png" alt="AMARE Logo"></a><a class="mobile-header-brand" href="../index.html" aria-label="الرئيسية">الجمعية المغربية لهواة<br>البحث والاستكشاف</a></div><button class="mobile-hamburger" id="mobileHamburger" aria-label="فتح القائمة" aria-expanded="false" aria-controls="mobileDrawer"><span></span><span></span><span></span></button></div>
+
+<div class="mobile-drawer" id="mobileDrawer" role="dialog" aria-modal="true" aria-label="القائمة الرئيسية"><div class="mobile-drawer-inner"><div class="mobile-drawer-header"><button class="mobile-drawer-close" id="mobileDrawerClose" aria-label="إغلاق القائمة"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg></button><a class="mobile-drawer-brand" href="../index.html"><img src="../Amare files /logo.png" alt="AMARE Logo" class="mobile-drawer-brand-logo"><span class="mobile-drawer-brand-name">الجمعية المغربية لهواة البحث والاستكشاف</span></a></div><nav class="mobile-drawer-nav" aria-label="التنقل الرئيسي"><ul class="mobile-drawer-links" id="mobileDrawerLinks"><li><a href="../index.html">الرئيسية</a></li><li class="mobile-drawer-dropdown" data-dd="about"><div class="mobile-drawer-row"><a href="#">من نحن</a><button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button></div><ul class="mobile-drawer-sub"></ul></li><li class="mobile-drawer-dropdown" data-dd="activities"><div class="mobile-drawer-row"><a href="#">أنشطتنا</a><button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button></div><ul class="mobile-drawer-sub"></ul></li><li class="mobile-drawer-dropdown" data-dd="partners"><div class="mobile-drawer-row"><a href="#">شركاؤنا</a><button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button></div><ul class="mobile-drawer-sub"></ul></li><li class="mobile-drawer-dropdown" data-dd="services"><div class="mobile-drawer-row"><a href="#">خدماتنا</a><button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button></div><ul class="mobile-drawer-sub"></ul></li><li class="mobile-drawer-dropdown" data-dd="news"><div class="mobile-drawer-row"><a href="#">الأخبار</a><button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button></div><ul class="mobile-drawer-sub"></ul></li><li class="mobile-drawer-dropdown" data-dd="archive"><div class="mobile-drawer-row"><a href="#">الأرشيف</a><button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button></div><ul class="mobile-drawer-sub"></ul></li><li class="mobile-drawer-dropdown" data-dd="branches"><div class="mobile-drawer-row"><a href="#">الفروع الجهوية</a><button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button></div><ul class="mobile-drawer-sub"></ul></li><li class="mobile-drawer-dropdown" data-dd="join"><div class="mobile-drawer-row"><a href="../Join us/join-us-online.html">انخرط معنا</a><button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button></div><ul class="mobile-drawer-sub"></ul></li><li><a href="../contact.html">اتصل بنا</a></li></ul></nav><div class="mobile-drawer-bottom"><div class="mobile-drawer-actions"><a href="../login.html" class="mobile-drawer-action mobile-drawer-action-login"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v18h-6M10 17l5-5-5-5M15 12H3"/></svg><span>تسجيل الدخول</span></a><a href="index.html" class="mobile-drawer-action mobile-drawer-action-store"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><span>متجر</span></a><a href="https://wa.me/212684869996" target="_blank" rel="noopener" class="mobile-drawer-action mobile-drawer-action-whatsapp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.6.1-.2.3-.7 1-.9 1.2-.1.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.2-.4.1-.2 0-.4 0-.5s-.6-1.5-.8-2c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s1 2.6 1.1 2.7c.1.2 2 3 4.7 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 2-1.4.2-.6.2-1.2.1-1.3-.1-.1-.3-.2-.6-.3z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.6 1.4 5.1L2 22l5.1-1.3C8.5 21.5 10.2 22 12 22c5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18c-1.6 0-3.1-.4-4.5-1.2l-.3-.2-3.3.9.9-3.2-.2-.3C3.7 14.6 3.2 13.3 3.2 12c0-4.9 3.9-8.8 8.8-8.8s8.8 3.9 8.8 8.8-3.9 8.8-8.8 8.8z"/></svg><span>واتساب</span></a></div><div class="mobile-drawer-lang"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg><select aria-label="اختيار اللغة"><option value="ar" selected>العربية</option><option value="fr">Français</option><option value="en">English</option><option value="es">Español</option><option value="ber">ⵜⴰⵎⴰⵣⵉⵖⵜ</option></select></div><div class="mobile-drawer-social"><a href="#" aria-label="فيسبوك"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg></a><a href="#" aria-label="إنستغرام"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a><a href="#" aria-label="لينكدإن"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 5 3.79 6.2 2.3 6.2 1 6.2 0 5 0 3.5 0 2 1.1.8 2.5.8s2.48 1.2 2.48 2.7zM.2 8.5h4.6V23H.2V8.5zM8 8.5h4.4v2h.06c.6-1.2 2.1-2.4 4.4-2.4 4.7 0 5.6 3.1 5.6 7.1V23h-4.6v-6.7c0-1.6 0-3.7-2.3-3.7s-2.6 1.8-2.6 3.6V23H8V8.5z"/></svg></a></div></div></div></div>
+<div class="mobile-drawer-backdrop" id="mobileDrawerBackdrop"></div>
+
+<!-- Mini Cart Dropdown -->
+<div class="minicart-dropdown" id="miniCart">
+  <div class="minicart-header">
+    <span>سلة التسوق</span>
+    <button onclick="document.getElementById('miniCart').classList.remove('show')" aria-label="إغلاق">&times;</button>
+  </div>
+  <div class="minicart-body" id="miniCartItems"></div>
+  <div class="minicart-empty" id="miniCartEmpty">السلة فارغة</div>
+  <div class="minicart-footer" id="miniCartFooter" style="display:none;">
+    <div class="minicart-total"><span>الإجمالي</span><span id="miniCartTotal">0.00 د.م</span></div>
+    <a href="cart.html" class="btn btn-navy btn-sm">عرض السلة</a>
+    <a href="checkout.html" class="btn btn-accent btn-sm" style="margin-top:6px;">إتمام الطلب</a>
+  </div>
+</div>
+
+<main id="main">
+  <section class="cart-page">
+    <div class="container">
+      <div class="store-breadcrumb" style="margin-bottom:24px;">
+        <a href="index.html">المتجر</a><span class="store-breadcrumb-sep">/</span><span>سلة التسوق</span>
+      </div>
+
+      <!-- Empty State -->
+      <div class="cart-empty" id="cartEmpty">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        <h2>سلة المشتريات فارغة</h2>
+        <p>لم تقم بإضافة أي منتج بعد.</p>
+        <a href="index.html" class="btn btn-primary"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg><span>العودة إلى المتجر</span></a>
+      </div>
+
+      <div class="cart-grid" id="cartGrid">
+        <div class="cart-main">
+          <table class="cart-table">
+            <thead><tr><th>المنتج</th><th>السعر</th><th>الكمية</th><th>المجموع</th><th></th></tr></thead>
+            <tbody id="cartTableBody"></tbody>
+          </table>
+        </div>
+        <div class="cart-sidebar">
+          <div class="cart-summary">
+            <h3>ملخص الطلب</h3>
+            <div class="cart-summary-row"><span>المجموع الفرعي</span><span id="summarySubtotal" dir="ltr">0.00 د.م</span></div>
+            <div class="cart-summary-row"><span>الشحن</span><span id="summaryShipping" dir="ltr">0.00 د.م</span></div>
+            <div class="cart-summary-row"><span>الخصم</span><span id="summaryDiscount" dir="ltr">0.00 د.م</span></div>
+            <div class="cart-summary-row grand"><span>الإجمالي</span><span id="summaryTotal" dir="ltr">0.00 د.م</span></div>
+            <div class="cart-summary-actions">
+              <a href="checkout.html" class="btn btn-accent"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg><span>إتمام الطلب</span></a>
+              <a href="index.html" class="btn btn-outline">مواصلة التسوق</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- Remove Confirmation -->
+<div class="cart-confirm-overlay" id="cartConfirmOverlay"></div>
+<div class="cart-confirm-dialog" id="cartConfirmDialog">
+  <h4>حذف المنتج</h4>
+  <p>هل أنت متأكد من حذف هذا المنتج من السلة؟</p>
+  <div class="cart-confirm-actions">
+    <button class="btn btn-sm btn-outline" id="cartConfirmCancel">إلغاء</button>
+    <button class="btn btn-sm" style="background:#e74c3c;color:#fff;box-shadow:0 6px 18px rgba(231,76,60,.25);" id="cartConfirmDelete">حذف</button>
+  </div>
+</div>
+
+<footer class="footer" id="contact"><div class="container"><div class="footer-grid"><div class="footer-about"><div class="footer-brand"><span class="brand-mark"><img src="../Amare files /logo.png" alt="AMARE Logo" class="topbar-brand-logo"></span><span><span class="brand-name">الجمعية المغربية لهواة البحث والاستكشاف</span><br></span></div><p>الجمعية المغربية لهواة البحث والاستكشاف هي إطار قانوني وطني يجمع الهواة تحت راية واحدة لصون التراث الوطني المغربي.</p><div class="footer-social"><a href="#" aria-label="فيسبوك"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg></a><a href="#" aria-label="إنستغرام"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a><a href="#" aria-label="لينكدإن"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 5 3.79 6.2 2.3 6.2 1 6.2 0 5 0 3.5 0 2 1.1.8 2.5.8s2.48 1.2 2.48 2.7zM.2 8.5h4.6V23H.2V8.5zM8 8.5h4.4v2h.06c.6-1.2 2.1-2.4 4.4-2.4 4.7 0 5.6 3.1 5.6 7.1V23h-4.6v-6.7c0-1.6 0-3.7-2.3-3.7s-2.6 1.8-2.6 3.6V23H8V8.5z"/></svg></a></div></div><nav aria-label="روابط سريعة"><h4>روابط سريعة</h4><ul class="footer-links"><li><a href="../index.html">الرئيسية</a></li><li><a href="../contact.html">اتصل بنا</a></li><li><a href="#">خدماتنا</a></li><li><a href="#">الاخبار</a></li><li><a href="#">الارشيف</a></li><li><a href="#">الفروع الجهوية</a></li><li><a href="../Join us/join-us-online.html">انخرط معنا</a></li><li><a href="#">شركاؤنا</a></li><li><a href="#">انشطتنا</a></li><li><a href="#">من نحن</a></li></ul></nav><nav aria-label="برامجنا"><h4>برامجنا</h4><ul class="footer-links"><li><a href="#">SOS Amare</a></li><li><a href="index.html">متجر Amare</a></li><li><a href="#">بيت المستكشف Amare</a></li><li><a href="#">مجلة Amare</a></li><li><a href="#">أكاديمية Amare</a></li><li><a href="#">النوادي</a></li><li><a href="#">المستشار القانوني</a></li><li><a href="#">عقد التأمين</a></li></ul></nav><div><h4>تواصل معنا</h4><ul class="footer-contact"><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>ص.ب 749 أيت ملول 86150</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .3 2 .7 2.9a2 2 0 0 1-.4 2.1L8 10a16 16 0 0 0 6 6l1.3-1.4a2 2 0 0 1 2.1-.4c.9.4 1.9.6 2.9.7a2 2 0 0 1 1.7 2.1z"/></svg><span dir="ltr">+212 684869996</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z" opacity="0"/><path d="M22 6 12 13 2 6"/><path d="M2 6h20v12H2z"/></svg><span dir="ltr">association.amare.agadir@gmail.com</span></li></ul></div><div class="footer-location"><h4>موقعنا</h4><div class="footer-map-card"><span class="footer-map-badge">📍 Ait Melloul, Agadir</span><iframe src="https://www.google.com/maps?q=30.385528,-9.448611&z=16&output=embed" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade" title="موقع الجمعية على الخريطة" class="footer-map-frame"></iframe><div class="footer-map-footer"><a href="https://www.google.com/maps?q=30.385528,-9.448611" target="_blank" rel="noopener" class="footer-map-btn">Open in Google Maps</a></div></div></div></div><div class="footer-bottom"><p>© 2026 الجمعية المغربية لهواة البحث والاستكشاف. جميع الحقوق محفوظة.</p><div class="footer-bottom-links"><a href="#">سياسة الخصوصية</a><a href="#">الشروط والأحكام</a></div></div></div></footer>
+
+<button class="back-to-top" id="backToTop" aria-label="العودة إلى الأعلى"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M18 15l-6-6-6 6"/></svg></button>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../supabase/config.js"></script>
+<script src="../supabase/client.js"></script>
+<script src="../supabase/database.js"></script>
+<script src="../supabase/storage.js"></script>
+<script src="../supabase/auth.js"></script>
+<script src="../supabase/realtime.js"></script>
+<script src="../supabase/index.js"></script>
+<script src="../supabase/home-content.js"></script>
+<script src="../supabase/navbar.js"></script>
+<script src="../script.js"></script>
+<script src="assets/cart.js"></script>
+
+<script>
+(function() {
+  'use strict';
+  var confirmProductId = null;
+
+  function render() {
+    var items = AmareCart.getItems();
+    var totals = AmareCart.getTotals();
+    var grid = document.getElementById('cartGrid');
+    var empty = document.getElementById('cartEmpty');
+    var tbody = document.getElementById('cartTableBody');
+
+    if (!items.length) {
+      if (grid) grid.style.display = 'none';
+      if (empty) empty.style.display = '';
+      return;
+    }
+
+    if (grid) grid.style.display = '';
+    if (empty) empty.style.display = 'none';
+
+    var html = '';
+    for (var i = 0; i < items.length; i++) {
+      var item = items[i];
+      var sub = Math.round(item.price * item.quantity * 100) / 100;
+      var imgHtml = item.image_url
+        ? '<img src="' + item.image_url + '" alt="">'
+        : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>';
+
+      html += '<tr>' +
+        '<td><div style="display:flex;align-items:center;gap:12px;"><div class="cart-item-img">' + imgHtml + '</div><div><div class="cart-item-name">' + item.name + '</div><div class="cart-item-cat">' + item.category + '</div></div></div></td>' +
+        '<td><span class="cart-item-price">' + item.price.toLocaleString('fr-FR') + ' د.م</span></td>' +
+        '<td><div class="cart-qty"><button onclick="updateQty(\'' + item.id + '\',' + (item.quantity - 1) + ')">−</button><input type="text" value="' + item.quantity + '" onchange="updateQty(\'' + item.id + '\',parseInt(this.value)||1)" onfocus="this.select()"><button onclick="updateQty(\'' + item.id + '\',' + (item.quantity + 1) + ')">+</button></div></td>' +
+        '<td><span class="cart-item-subtotal">' + sub.toLocaleString('fr-FR', {minimumFractionDigits:2}) + ' د.م</span></td>' +
+        '<td><button class="cart-remove" onclick="confirmRemove(\'' + item.id + '\')" title="حذف"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6h14"/></svg></button></td>' +
+        '</tr>';
+    }
+    if (tbody) tbody.innerHTML = html;
+
+    document.getElementById('summarySubtotal').textContent = totals.subtotal.toLocaleString('fr-FR', {minimumFractionDigits:2}) + ' د.م';
+    document.getElementById('summaryShipping').textContent = totals.shipping.toLocaleString('fr-FR', {minimumFractionDigits:2}) + ' د.م';
+    document.getElementById('summaryDiscount').textContent = totals.discount.toLocaleString('fr-FR', {minimumFractionDigits:2}) + ' د.م';
+    document.getElementById('summaryTotal').textContent = totals.grandTotal.toLocaleString('fr-FR', {minimumFractionDigits:2}) + ' د.م';
+  }
+
+  window.updateQty = function(id, qty) {
+    AmareCart.updateQuantity(id, qty);
+    render();
+  };
+
+  window.confirmRemove = function(id) {
+    confirmProductId = id;
+    document.getElementById('cartConfirmOverlay').classList.add('show');
+  };
+
+  document.getElementById('cartConfirmCancel').onclick = function() {
+    document.getElementById('cartConfirmOverlay').classList.remove('show');
+    confirmProductId = null;
+  };
+
+  document.getElementById('cartConfirmDelete').onclick = function() {
+    if (confirmProductId) { AmareCart.remove(confirmProductId); render(); }
+    document.getElementById('cartConfirmOverlay').classList.remove('show');
+    confirmProductId = null;
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', render);
+  } else {
+    render();
+  }
+})();
+</script>
+</body>
+</html>

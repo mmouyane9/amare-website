@@ -122,7 +122,7 @@
       ],
       programsHeading: 'برامجنا',
       programs: [
-        { label: 'SOS Amare', url: '#services' }, { label: 'متجر Amare', url: '#services' },
+        { label: 'SOS Amare', url: '#services' }, { label: 'متجر Amare', url: 'amare store/index.html' },
         { label: 'بيت المستكشف Amare', url: '#services' }, { label: 'مجلة Amare', url: '#services' },
         { label: 'أكاديمية Amare', url: '#services' }, { label: 'النوادي', url: '#services' },
         { label: 'المستشار القانوني', url: '#services' }, { label: 'عقد التأمين', url: '#services' },

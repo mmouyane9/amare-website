@@ -9,7 +9,6 @@ import {
   Mail,
   Newspaper,
   ShieldCheck,
-  Sparkles,
   Users,
   type LucideIcon,
 } from 'lucide-react'
@@ -99,9 +98,7 @@ export default function LoginPage() {
 
         <div className="relative z-10 flex h-full w-full flex-col justify-between p-10 xl:p-14">
           <div className="flex items-center gap-3">
-            <div className="flex size-10 items-center justify-center rounded-xl bg-background/10 ring-1 ring-background/20 backdrop-blur">
-              <Sparkles className="size-5 text-background" />
-            </div>
+            <img src="/logo.png" alt="AMARE" className="size-10 rounded-lg object-contain ring-1 ring-background/20" />
             <span className="text-lg font-semibold tracking-tight text-background">
               AMARE
             </span>
@@ -134,9 +131,7 @@ export default function LoginPage() {
         <div className="w-full max-w-md">
           <Card>
             <CardHeader className="text-center">
-              <div className="mx-auto mb-3 flex size-11 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-primary/70 text-primary-foreground shadow-sm lg:hidden">
-                <Sparkles className="size-5" />
-              </div>
+              <img src="/logo.png" alt="AMARE" className="mx-auto mb-3 size-11 rounded-lg object-contain lg:hidden" />
               <CardTitle className="text-2xl font-semibold tracking-tight">
                 Sign in
               </CardTitle>

@@ -1,5 +1,5 @@
 import { NavLink, useNavigate } from 'react-router-dom'
-import { LogOut, Sparkles } from 'lucide-react'
+import { LogOut } from 'lucide-react'
 
 import { NAV_ITEMS } from '@/components/layout/nav-items'
 import { useAuth } from '@/contexts/AuthContext'
@@ -17,9 +17,7 @@ export function Sidebar() {
   return (
     <aside className="hidden h-full w-64 shrink-0 flex-col border-r border-border/60 bg-sidebar lg:flex">
       <div className="flex h-16 shrink-0 items-center gap-3 px-5">
-        <div className="flex size-9 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-primary/70 text-primary-foreground shadow-sm">
-          <Sparkles className="size-4" />
-        </div>
+        <img src="/logo.png" alt="AMARE" className="size-10 rounded-lg object-contain" />
         <div className="flex flex-col leading-tight">
           <span className="text-sm font-semibold tracking-tight text-sidebar-foreground">
             AMARE

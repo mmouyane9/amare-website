@@ -171,6 +171,11 @@
       h1.innerHTML = html;
     }
 
+    var eyebrow = el('.hero-inner .hero-eyebrow');
+    if (eyebrow && d.eyebrow) {
+      eyebrow.textContent = d.eyebrow;
+    }
+
     var desc = el('.hero-inner p.hero-fade');
     if (desc && d.description) desc.textContent = d.description;
 
@@ -179,6 +184,8 @@
       var anchors = actions.querySelectorAll('a');
       for (var j = 0; j < Math.min(anchors.length, d.buttons.length); j++) {
         var a = anchors[j], b = d.buttons[j];
+        if (!b.label) { a.style.display = 'none'; continue; }
+        a.style.display = '';
         var svgs = a.querySelectorAll('svg'), svgHtml = '';
         for (var k = 0; k < svgs.length; k++) svgHtml += svgs[k].outerHTML;
         a.href = b.url || '#';
@@ -541,27 +548,40 @@
   /* ------------------------------------------------------------------
      Bootstrap
      ------------------------------------------------------------------ */
-  function injectAll(sections) {
-    if (sections && sections.length > 0) {
-      for (var i = 0; i < sections.length; i++) {
-        injectSection(sections[i]);
-      }
-    } else {
-      /* Supabase unavailable — inject all fallbacks */
-      injectHero(FALLBACK.hero);
-      injectAbout(FALLBACK.about);
-      injectFeaturesGrid(FALLBACK.featuresGrid);
-      injectActivitiesGrid(FALLBACK.activitiesGrid);
-      injectNewsGrid(FALLBACK.newsGrid);
-      injectCta(FALLBACK.storeCta, 'store');
-      injectCta(FALLBACK.newsletterCta, 'newsletter');
-      injectFooter(FALLBACK.footer);
-    }
+  function injectNonHeroFallbacks() {
+    injectAbout(FALLBACK.about);
+    injectFeaturesGrid(FALLBACK.featuresGrid);
+    injectActivitiesGrid(FALLBACK.activitiesGrid);
+    injectNewsGrid(FALLBACK.newsGrid);
+    injectCta(FALLBACK.storeCta, 'store');
+    injectCta(FALLBACK.newsletterCta, 'newsletter');
+    injectFooter(FALLBACK.footer);
   }
 
   function init() {
+    /* 1. Inject default Hero immediately — zero flicker, zero layout shift */
+    injectHero(FALLBACK.hero);
+
+    /* 2. Fetch live Hero from hero_updates → replace if available */
+    var heroService = window.__AMARE_HERO_SERVICE;
+    if (heroService && heroService.loadHeroFromSupabase) {
+      heroService.loadHeroFromSupabase(function (cmsHero) {
+        if (cmsHero) injectHero(cmsHero);
+      });
+    }
+
+    /* 3. Fetch remaining sections from content_pages */
     loadHomeFromSupabase(function (sections) {
-      injectAll(sections);
+      if (sections && sections.length > 0) {
+        for (var i = 0; i < sections.length; i++) {
+          var section = sections[i];
+          if (section.type !== 'hero') {
+            injectSection(section);
+          }
+        }
+      } else {
+        injectNonHeroFallbacks();
+      }
     });
   }
 

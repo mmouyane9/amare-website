@@ -24,7 +24,7 @@
         'شارك في المسابقة الوطنية، وانخرط إلكترونياً في الجمعية، أو جدد عضويتك بسهولة، واطلع على آخر الأنشطة والفعاليات والأخبار عبر المنصة الرسمية.',
       backgroundImage: '',
       buttons: [
-        { label: 'شارك في المسابقة', url: '#competition', variant: 'primary' },
+        { label: 'شارك في المسابقة', url: 'competition.html', variant: 'primary' },
         { label: 'الانخراط Online', url: 'Join us/join-us-online.html', variant: 'primary' },
         { label: 'تجديد الانخراط', url: 'Join us/membership-renewal.html', variant: 'outline' },
       ],

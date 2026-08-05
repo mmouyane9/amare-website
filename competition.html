@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>المسابقة الوطنية | الجمعية المغربية لهواة البحث والاستكشاف</title>
+<meta name="description" content="شارك في المسابقة الوطنية للجمعية المغربية لهواة البحث والاستكشاف وسجل بياناتك الآن.">
+<meta name="author" content="الجمعية المغربية لهواة البحث والاستكشاف">
+<link rel="shortcut icon" href="Amare files /logo.png" type="image/x-icon">
+<meta property="og:title" content="المسابقة الوطنية | الجمعية المغربية لهواة البحث والاستكشاف">
+<meta property="og:description" content="شارك في المسابقة الوطنية للجمعية المغربية لهواة البحث والاستكشاف وسجل بياناتك الآن.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="assets/css/membership.css">
+<style>
+  .ms-hero-sub--wide {
+    max-width: 640px;
+  }
+
+  .ms-upload-preview-receipt {
+    width: 280px;
+    height: auto;
+    max-height: 340px;
+  }
+
+  .ms-pdf-icon {
+    width: 120px;
+    height: 150px;
+    border-radius: 14px;
+    border: 3px solid var(--color-white);
+    box-shadow: 0 10px 26px rgba(18, 59, 120, 0.16);
+    background: linear-gradient(135deg, #E74C3C, #C0392B);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    color: var(--color-white);
+  }
+  .ms-pdf-icon i { font-size: 42px; }
+  .ms-pdf-icon span { font-size: 12px; font-weight: 800; }
+
+  .ms-file-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--color-text-soft);
+    margin-top: 4px;
+  }
+  .ms-file-size {
+    padding: 3px 10px;
+    border-radius: 999px;
+    background: rgba(25, 184, 242, 0.1);
+    color: var(--color-primary-dark);
+    font-weight: 700;
+    font-size: 12px;
+  }
+
+  .ms-upload-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 8px;
+  }
+  .ms-upload-replace-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 16px;
+    border-radius: 999px;
+    border: 1.5px solid rgba(25, 184, 242, 0.45);
+    background: var(--color-white);
+    color: var(--color-primary-dark);
+    font-family: var(--font-main);
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.25s ease;
+  }
+  .ms-upload-replace-btn:hover {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-white);
+    transform: translateY(-1px);
+  }
+
+  .ripple {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .comp-toast-container {
+    position: fixed;
+    top: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    pointer-events: none;
+  }
+  .comp-toast {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 24px;
+    border-radius: 14px;
+    font-family: var(--font-main);
+    font-size: 14px;
+    font-weight: 700;
+    box-shadow: 0 12px 36px rgba(18, 59, 120, 0.2);
+    pointer-events: auto;
+    animation: compToastIn 0.4s var(--ease) both;
+    max-width: 460px;
+  }
+  .comp-toast--error {
+    background: #E74C3C;
+    color: #fff;
+  }
+  .comp-toast--success {
+    background: #27AE60;
+    color: #fff;
+  }
+  .comp-toast--info {
+    background: var(--color-navy);
+    color: #fff;
+  }
+  .comp-toast i { font-size: 20px; flex-shrink: 0; }
+  .comp-toast-msg { flex: 1; line-height: 1.5; }
+  .comp-toast.out {
+    animation: compToastOut 0.35s var(--ease) forwards;
+  }
+  @keyframes compToastIn {
+    from { opacity: 0; transform: translateY(-18px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  @keyframes compToastOut {
+    from { opacity: 1; transform: translateY(0) scale(1); }
+    to { opacity: 0; transform: translateY(-18px) scale(0.95); }
+  }
+
+  @media (max-width: 767px) {
+    .ms-upload-preview-receipt {
+      width: 200px;
+      max-height: 240px;
+    }
+    .ms-pdf-icon {
+      width: 100px;
+      height: 130px;
+    }
+    .ms-pdf-icon i { font-size: 34px; }
+  }
+</style>
+</head>
+<body>
+
+<div id="loader" aria-hidden="true">
+  <div class="loader-mark"></div>
+  <div class="loader-text">الجمعية المغربية لهواة البحث والاستكشاف</div>
+</div>
+
+<a href="#main" class="visually-hidden">تخطَّ إلى المحتوى الرئيسي</a>
+
+<div class="topbar">
+  <div class="container">
+    <div class="topbar-right">
+      <a href="index.html" class="topbar-brand" aria-label="الرئيسية">
+        <span class="topbar-brand-mark">
+          <img src="Amare files /logo.png" alt="AMARE Logo" class="topbar-brand-logo">
+        </span>
+        <span class="topbar-brand-name">الجمعية المغربية لهواة البحث والاستكشاف</span>
+      </a>
+    </div>
+    <div class="topbar-left">
+      <div class="topbar-social">
+        <a href="#" aria-label="فيسبوك"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg></a>
+        <a href="#" aria-label="إنستغرام"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+        <a href="#" aria-label="لينكدإن"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 5 3.79 6.2 2.3 6.2 1 6.2 0 5 0 3.5 0 2 1.1.8 2.5.8s2.48 1.2 2.48 2.7zM.2 8.5h4.6V23H.2V8.5zM8 8.5h4.4v2h.06c.6-1.2 2.1-2.4 4.4-2.4 4.7 0 5.6 3.1 5.6 7.1V23h-4.6v-6.7c0-1.6 0-3.7-2.3-3.7s-2.6 1.8-2.6 3.6V23H8V8.5z"/></svg></a>
+      </div>
+      <div class="topbar-lang">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg>
+        <select aria-label="اختيار اللغة">
+          <option value="ar" selected>العربية</option>
+          <option value="fr">Français</option>
+          <option value="en">English</option>
+          <option value="es">Español</option>
+          <option value="ber">ⵜⴰⵎⴰⵣⵉⵖⵜ</option>
+        </select>
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <a href="https://wa.me/212600000000" target="_blank" rel="noopener" class="topbar-whatsapp ripple" aria-label="تواصل عبر واتساب">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.6.1-.2.3-.7 1-.9 1.2-.1.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.2-.4.1-.2 0-.4 0-.5s-.6-1.5-.8-2c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s1 2.6 1.1 2.7c.1.2 2 3 4.7 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 2-1.4.2-.6.2-1.2.1-1.3-.1-.1-.3-.2-.6-.3z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.6 1.4 5.1L2 22l5.1-1.3C8.5 21.5 10.2 22 12 22c5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18c-1.6 0-3.1-.4-4.5-1.2l-.3-.2-3.3.9.9-3.2-.2-.3C3.7 14.6 3.2 13.3 3.2 12c0-4.9 3.9-8.8 8.8-8.8s8.8 3.9 8.8 8.8-3.9 8.8-8.8 8.8z"/></svg>
+        <span>واتساب</span>
+      </a>
+      <a href="login.html" class="topbar-login ripple" aria-label="تسجيل الدخول">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M15 3h6v18h-6M10 17l5-5-5-5M15 12H3"/>
+        </svg>
+        <span>تسجيل الدخول</span>
+      </a>
+      <a href="#" class="nav-store-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+          <path d="M3 6h18"/>
+          <path d="M16 10a4 4 0 0 1-8 0"/>
+        </svg>
+        <span>متجر AMARE</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<header>
+  <nav class="navbar" id="navbar" aria-label="التنقل الرئيسي">
+    <div class="container">
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">الرئيسية</a></li>
+        <li data-dropdown="about"><a href="index.html#about">من نحن</a></li>
+        <li data-dropdown="activities"><a href="#">أنشطتنا</a></li>
+        <li data-dropdown="partners"><a href="#">شركاؤنا</a></li>
+        <li data-dropdown="services"><a href="index.html#services">خدماتنا</a></li>
+        <li data-dropdown="news"><a href="index.html#news">الأخبار</a></li>
+        <li data-dropdown="archive"><a href="#">الأرشيف</a></li>
+        <li data-dropdown="branches"><a href="#">الفروع الجهوية</a></li>
+        <li data-dropdown="join"><a href="Join us/index.html">انخرط معنا</a></li>
+        <li><a href="index.html#contact">اتصل بنا</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="hamburger" id="hamburger" aria-label="فتح القائمة" aria-expanded="false" aria-controls="navLinks">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <div class="mega-dropdown" id="megaDropdown"></div>
+  </nav>
+</header>
+
+<!-- ===== Mobile Header (mobile only) ===== -->
+<div class="mobile-header" id="mobileHeader">
+  <div class="mobile-header-group">
+    <a class="mobile-header-logo" href="index.html" aria-label="الرئيسية">
+      <img src="Amare files /logo.png" alt="AMARE Logo">
+    </a>
+    <a class="mobile-header-brand" href="index.html" aria-label="الرئيسية">
+      الجمعية المغربية لهواة<br>البحث والاستكشاف
+    </a>
+  </div>
+  <button class="mobile-hamburger" id="mobileHamburger" aria-label="فتح القائمة" aria-expanded="false" aria-controls="mobileDrawer">
+    <span></span><span></span><span></span>
+  </button>
+</div>
+
+<!-- ===== Mobile Drawer (off-canvas) ===== -->
+<div class="mobile-drawer" id="mobileDrawer" role="dialog" aria-modal="true" aria-label="القائمة الرئيسية">
+  <div class="mobile-drawer-inner">
+    <div class="mobile-drawer-header">
+      <button class="mobile-drawer-close" id="mobileDrawerClose" aria-label="إغلاق القائمة">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+      <a class="mobile-drawer-brand" href="index.html">
+        <img src="Amare files /logo.png" alt="AMARE Logo" class="mobile-drawer-brand-logo">
+        <span class="mobile-drawer-brand-name">الجمعية المغربية لهواة البحث والاستكشاف</span>
+      </a>
+    </div>
+    <nav class="mobile-drawer-nav" aria-label="التنقل الرئيسي">
+      <ul class="mobile-drawer-links" id="mobileDrawerLinks">
+        <li><a href="index.html">الرئيسية</a></li>
+        <li class="mobile-drawer-dropdown" data-dd="about">
+          <div class="mobile-drawer-row">
+            <a href="index.html#about">من نحن</a>
+            <button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </div>
+          <ul class="mobile-drawer-sub"></ul>
+        </li>
+        <li class="mobile-drawer-dropdown" data-dd="activities">
+          <div class="mobile-drawer-row">
+            <a href="#">أنشطتنا</a>
+            <button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </div>
+          <ul class="mobile-drawer-sub"></ul>
+        </li>
+        <li class="mobile-drawer-dropdown" data-dd="partners">
+          <div class="mobile-drawer-row">
+            <a href="#">شركاؤنا</a>
+            <button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </div>
+          <ul class="mobile-drawer-sub"></ul>
+        </li>
+        <li class="mobile-drawer-dropdown" data-dd="services">
+          <div class="mobile-drawer-row">
+            <a href="index.html#services">خدماتنا</a>
+            <button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </div>
+          <ul class="mobile-drawer-sub"></ul>
+        </li>
+        <li class="mobile-drawer-dropdown" data-dd="news">
+          <div class="mobile-drawer-row">
+            <a href="index.html#news">الأخبار</a>
+            <button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </div>
+          <ul class="mobile-drawer-sub"></ul>
+        </li>
+        <li class="mobile-drawer-dropdown" data-dd="archive">
+          <div class="mobile-drawer-row">
+            <a href="#">الأرشيف</a>
+            <button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </div>
+          <ul class="mobile-drawer-sub"></ul>
+        </li>
+        <li class="mobile-drawer-dropdown" data-dd="branches">
+          <div class="mobile-drawer-row">
+            <a href="#">الفروع الجهوية</a>
+            <button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </div>
+          <ul class="mobile-drawer-sub"></ul>
+        </li>
+        <li class="mobile-drawer-dropdown" data-dd="join">
+          <div class="mobile-drawer-row">
+            <a href="Join us/index.html">انخرط معنا</a>
+            <button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </div>
+          <ul class="mobile-drawer-sub"></ul>
+        </li>
+        <li><a href="index.html#contact">اتصل بنا</a></li>
+      </ul>
+    </nav>
+    <div class="mobile-drawer-bottom">
+      <div class="mobile-drawer-actions">
+        <a href="login.html" class="mobile-drawer-action mobile-drawer-action-login">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v18h-6M10 17l5-5-5-5M15 12H3"/></svg>
+          <span>تسجيل الدخول</span>
+        </a>
+        <a href="#" class="mobile-drawer-action mobile-drawer-action-store">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span>متجر</span>
+        </a>
+        <a href="https://wa.me/212600000000" target="_blank" rel="noopener" class="mobile-drawer-action mobile-drawer-action-whatsapp">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.6.1-.2.3-.7 1-.9 1.2-.1.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.2-.4.1-.2 0-.4 0-.5s-.6-1.5-.8-2c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s1 2.6 1.1 2.7c.1.2 2 3 4.7 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 2-1.4.2-.6.2-1.2.1-1.3-.1-.1-.3-.2-.6-.3z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.6 1.4 5.1L2 22l5.1-1.3C8.5 21.5 10.2 22 12 22c5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18c-1.6 0-3.1-.4-4.5-1.2l-.3-.2-3.3.9.9-3.2-.2-.3C3.7 14.6 3.2 13.3 3.2 12c0-4.9 3.9-8.8 8.8-8.8s8.8 3.9 8.8 8.8-3.9 8.8-8.8 8.8z"/></svg>
+          <span>واتساب</span>
+        </a>
+      </div>
+      <div class="mobile-drawer-lang">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg>
+        <select aria-label="اختيار اللغة">
+          <option value="ar" selected>العربية</option>
+          <option value="fr">Français</option>
+          <option value="en">English</option>
+          <option value="es">Español</option>
+          <option value="ber">ⵜⴰⵎⴰⵣⵉⵖⵜ</option>
+        </select>
+      </div>
+      <div class="mobile-drawer-social">
+        <a href="#" aria-label="فيسبوك"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg></a>
+        <a href="#" aria-label="إنستغرام"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+        <a href="#" aria-label="لينكدإن"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 5 3.79 6.2 2.3 6.2 1 6.2 0 5 0 3.5 0 2 1.1.8 2.5.8s2.48 1.2 2.48 2.7zM.2 8.5h4.6V23H.2V8.5zM8 8.5h4.4v2h.06c.6-1.2 2.1-2.4 4.4-2.4 4.7 0 5.6 3.1 5.6 7.1V23h-4.6v-6.7c0-1.6 0-3.7-2.3-3.7s-2.6 1.8-2.6 3.6V23H8V8.5z"/></svg></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main id="main">
+
+<!-- ====== HERO ====== -->
+<section class="ms-hero" id="msHero">
+  <div class="ms-hero-pattern" aria-hidden="true"></div>
+  <div class="ms-hero-orb ms-hero-orb-1" aria-hidden="true"></div>
+  <div class="ms-hero-orb ms-hero-orb-2" aria-hidden="true"></div>
+
+  <div class="ms-hero-inner" data-aos="fade-up" data-aos-duration="700">
+    <h1 class="ms-hero-title">المسابقة<br><em>الوطنية</em></h1>
+    <p class="ms-hero-sub">املأ الاستمارة التالية للمشاركة في المسابقة الوطنية للجمعية المغربية لهواة البحث والاستكشاف.</p>
+  </div>
+
+  <div class="ms-hero-wave" aria-hidden="true">
+    <svg viewBox="0 0 1440 88" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,44 C180,72 380,84 560,66 C740,48 900,18 1080,12 C1240,6 1360,24 1440,42 L1440,88 L0,88 Z" fill="#F7F9FC"></path>
+    </svg>
+  </div>
+</section>
+
+<!-- ====== FORM SECTION ====== -->
+<section class="ms-section ms-form-section" id="msForm">
+  <div class="ms-container">
+
+    <div class="ms-stepper" id="msStepper" data-current="1">
+      <div class="ms-stepper-track" aria-hidden="true">
+        <div class="ms-stepper-fill"></div>
+      </div>
+      <ol class="ms-stepper-list">
+        <li class="ms-step" data-step="1">
+          <button type="button" class="ms-step-btn" aria-current="step">
+            <span class="ms-step-marker">
+              <span class="ms-step-num">1</span>
+              <svg class="ms-step-check" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+            </span>
+            <span class="ms-step-label">المعلومات الشخصية</span>
+          </button>
+        </li>
+        <li class="ms-step" data-step="2">
+          <button type="button" class="ms-step-btn">
+            <span class="ms-step-marker">
+              <span class="ms-step-num">2</span>
+              <svg class="ms-step-check" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+            </span>
+            <span class="ms-step-label">رفع وصل الدفع</span>
+          </button>
+        </li>
+      </ol>
+    </div>
+
+    <div class="ms-card" id="msCard">
+      <form id="competitionForm" novalidate>
+
+        <!-- Panel 1: Personal Info -->
+        <div class="ms-panel is-active" data-panel="1">
+          <div class="ms-panel-head">
+            <div class="ms-panel-icon"><i class="bi bi-person-badge" aria-hidden="true"></i></div>
+            <div class="ms-panel-head-text">
+              <h2 class="ms-panel-title">المعلومات الشخصية</h2>
+              <p class="ms-panel-sub">أدخل بياناتك الشخصية للمشاركة في المسابقة الوطنية</p>
+            </div>
+            <span class="ms-panel-badge">الخطوة 1 من 2</span>
+          </div>
+
+          <div class="ms-grid">
+            <div class="ms-field">
+              <div class="ms-input-wrap">
+                <input type="text" id="compFirstName" class="ms-input" placeholder=" " required autocomplete="given-name">
+                <label class="ms-label" for="compFirstName">الاسم *</label>
+                <i class="ms-input-icon bi bi-person" aria-hidden="true"></i>
+              </div>
+              <div class="ms-field-error" id="compFirstNameError" role="alert"></div>
+            </div>
+            <div class="ms-field">
+              <div class="ms-input-wrap">
+                <input type="text" id="compLastName" class="ms-input" placeholder=" " required autocomplete="family-name">
+                <label class="ms-label" for="compLastName">الاسم العائلي *</label>
+                <i class="ms-input-icon bi bi-person" aria-hidden="true"></i>
+              </div>
+              <div class="ms-field-error" id="compLastNameError" role="alert"></div>
+            </div>
+            <div class="ms-field">
+              <div class="ms-input-wrap">
+                <input type="tel" id="compPhone" class="ms-input ms-input-ltr" placeholder=" " required autocomplete="tel" inputmode="numeric">
+                <label class="ms-label" for="compPhone">رقم الهاتف *</label>
+                <i class="ms-input-icon bi bi-telephone" aria-hidden="true"></i>
+              </div>
+              <div class="ms-field-error" id="compPhoneError" role="alert"></div>
+            </div>
+            <div class="ms-field">
+              <div class="ms-input-wrap">
+                <input type="text" id="compCity" class="ms-input" placeholder=" " required autocomplete="address-level2">
+                <label class="ms-label" for="compCity">المدينة *</label>
+                <i class="ms-input-icon bi bi-geo-alt" aria-hidden="true"></i>
+              </div>
+              <div class="ms-field-error" id="compCityError" role="alert"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel 2: Upload Payment Receipt -->
+        <div class="ms-panel" data-panel="2" hidden>
+          <div class="ms-panel-head">
+            <div class="ms-panel-icon"><i class="bi bi-receipt" aria-hidden="true"></i></div>
+            <div class="ms-panel-head-text">
+              <h2 class="ms-panel-title">رفع وصل الدفع البنكي</h2>
+              <p class="ms-panel-sub">قم برفع صورة واضحة أو ملف PDF لوصل التحويل البنكي لإكمال عملية التسجيل.</p>
+            </div>
+            <span class="ms-panel-badge">الخطوة 2 من 2</span>
+          </div>
+
+          <div class="ms-uploads">
+            <div>
+              <p class="ms-upload-title"><i class="bi bi-bank" aria-hidden="true"></i> وصل الدفع البنكي</p>
+              <div class="ms-upload-zone" id="compReceiptZone" role="button" tabindex="0" aria-label="رفع وصل الدفع البنكي">
+                <input type="file" id="compReceiptInput" accept="image/png,image/jpeg,image/jpg,application/pdf" hidden>
+                <div class="ms-upload-prompt">
+                  <div class="ms-upload-icon"><i class="bi bi-cloud-upload" aria-hidden="true"></i></div>
+                  <span class="ms-upload-main">اسحب الملف هنا أو انقر للاختيار</span>
+                  <span class="ms-upload-hint">JPG - JPEG - PNG - PDF — حد أقصى 5MB</span>
+                </div>
+                <div class="ms-upload-preview">
+                  <img class="ms-upload-preview-img ms-upload-preview-receipt" id="compReceiptPreview" src="" alt="معاينة وصل الدفع البنكي" style="display:none;">
+                  <div class="ms-pdf-icon" id="compPdfIcon" style="display:none;">
+                    <i class="bi bi-file-earmark-pdf"></i>
+                    <span>PDF</span>
+                  </div>
+                  <span class="ms-upload-name" id="compReceiptName"></span>
+                  <div class="ms-file-meta">
+                    <span class="ms-file-size" id="compReceiptSize"></span>
+                  </div>
+                  <div class="ms-upload-actions">
+                    <button type="button" class="ms-upload-replace-btn" id="compReceiptReplace">
+                      <i class="bi bi-arrow-repeat" aria-hidden="true"></i> استبدال الملف
+                    </button>
+                  </div>
+                  <button type="button" class="ms-upload-remove" id="compReceiptRemove" aria-label="إزالة الملف">
+                    <i class="bi bi-x-lg" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="ms-field-error" id="compReceiptError" role="alert"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ms-form-nav" id="msFormNav">
+          <button type="button" class="ms-btn ms-btn-secondary" id="compBtnPrev" hidden>
+            <i class="bi bi-arrow-right" aria-hidden="true"></i> السابق
+          </button>
+          <button type="button" class="ms-btn ms-btn-primary" id="compBtnNext">
+            التالي <i class="bi bi-arrow-left" aria-hidden="true"></i>
+          </button>
+          <button type="submit" class="ms-btn ms-btn-primary" id="compBtnSubmit" hidden>
+            <i class="bi bi-check2-circle" aria-hidden="true"></i> تسجيل
+          </button>
+        </div>
+
+      </form>
+
+      <!-- Success State -->
+      <div class="ms-success" id="msSuccess" hidden>
+        <div class="ms-success-check">
+          <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle class="ms-check-circle" cx="60" cy="60" r="54"/>
+            <path class="ms-check-mark" d="M37 62l16 16 31-35"/>
+          </svg>
+        </div>
+        <h2 class="ms-success-title">تم تسجيل طلبك بنجاح</h2>
+        <p class="ms-success-desc">شكراً لك على التسجيل في المسابقة الوطنية.<br>سيتم مراجعة بياناتك والتواصل معك في أقرب وقت.</p>
+        <div class="ms-success-actions">
+          <a href="index.html" class="ms-btn ms-btn-primary">
+            <i class="bi bi-house" aria-hidden="true"></i> العودة للرئيسية
+          </a>
+          <button type="button" class="ms-btn ms-btn-secondary" id="compNewRegistration">
+            <i class="bi bi-plus-circle" aria-hidden="true"></i> تسجيل مشارك جديد
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer" id="contact">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-about">
+        <div class="footer-brand">
+          <span class="brand-mark">
+            <img src="Amare files /logo.png" alt="AMARE Logo" class="topbar-brand-logo">
+          </span>
+          <span>
+            <span class="brand-name">الجمعية المغربية لهواة البحث والاستكشاف</span><br>
+          </span>
+        </div>
+        <p>الجمعية المغربية لهواة البحث والاستكشاف هي إطار قانوني وطني يجمع الهواة تحت راية واحدة لصون التراث الوطني المغربي.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="فيسبوك"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg></a>
+          <a href="#" aria-label="إنستغرام"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+          <a href="#" aria-label="لينكدإن"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 5 3.79 6.2 2.3 6.2 1 6.2 0 5 0 3.5 0 2 1.1.8 2.5.8s2.48 1.2 2.48 2.7zM.2 8.5h4.6V23H.2V8.5zM8 8.5h4.4v2h.06c.6-1.2 2.1-2.4 4.4-2.4 4.7 0 5.6 3.1 5.6 7.1V23h-4.6v-6.7c0-1.6 0-3.7-2.3-3.7s-2.6 1.8-2.6 3.6V23H8V8.5z"/></svg></a>
+        </div>
+      </div>
+
+      <nav aria-label="روابط سريعة">
+        <h4>روابط سريعة</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">الرئيسية</a></li>
+          <li><a href="index.html#about">اتصل بنا</a></li>
+          <li><a href="index.html#services">خدماتنا</a></li>
+          <li><a href="index.html#news">الاخبار</a></li>
+          <li><a href="Join us/index.html">الانخراط online</a></li>
+          <li><a href="Join us/documents.html">وثائق الانخراط</a></li>
+          <li><a href="Join us/commitment.html">التزام العضو</a></li>
+          <li><a href="Join us/bylaws.html">القانون الأساسي</a></li>
+          <li><a href="Join us/application.html">استمارة الانخراط</a></li>
+          <li><a href="Join us/internal-regulations.html">النظام الداخلي</a></li>
+        </ul>
+      </nav>
+
+      <nav aria-label="برامجنا">
+        <h4>برامجنا</h4>
+        <ul class="footer-links">
+          <li><a href="index.html#services">SOS Amare</a></li>
+          <li><a href="index.html#services">متجر Amare</a></li>
+          <li><a href="index.html#services">بيت المستكشف Amare</a></li>
+          <li><a href="index.html#services">مجلة Amare</a></li>
+        </ul>
+      </nav>
+
+      <div>
+        <h4>تواصل معنا</h4>
+        <ul class="footer-contact">
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>ص.ب 749 أيت ملول 86150</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .3 2 .7 2.9a2 2 0 0 1-.4 2.1L8 10a16 16 0 0 0 6 6l1.3-1.4a2 2 0 0 1 2.1-.4c.9.4 1.9.6 2.9.7a2 2 0 0 1 1.7 2.1z"/></svg>
+            <span dir="ltr">+212 684869996</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z" opacity="0"/><path d="M22 6 12 13 2 6"/><path d="M2 6h20v12H2z"/></svg>
+            <span dir="ltr">association.amare.agadir@gmail.com</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="footer-location">
+        <h4>موقعنا</h4>
+        <div class="footer-map-card">
+          <span class="footer-map-badge">📍 Ait Melloul, Agadir</span>
+          <iframe
+            src="https://www.google.com/maps?q=30.385528,-9.448611&z=16&output=embed"
+            loading="lazy"
+            allowfullscreen
+            referrerpolicy="no-referrer-when-downgrade"
+            title="موقع الجمعية على الخريطة"
+            class="footer-map-frame"></iframe>
+          <div class="footer-map-footer">
+            <a href="https://www.google.com/maps?q=30.385528,-9.448611" target="_blank" rel="noopener" class="footer-map-btn">Open in Google Maps</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2026 الجمعية المغربية لهواة البحث والاستكشاف. جميع الحقوق محفوظة.</p>
+      <div class="footer-bottom-links">
+        <a href="#">سياسة الخصوصية</a>
+        <a href="#">الشروط والأحكام</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<button class="back-to-top" id="backToTop" aria-label="العودة إلى الأعلى">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M18 15l-6-6-6 6"/></svg>
+</button>
+
+<div class="comp-toast-container" id="compToastContainer" aria-live="polite" aria-atomic="true"></div>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase/config.js"></script>
+<script src="supabase/client.js"></script>
+<script src="supabase/database.js"></script>
+<script src="supabase/storage.js"></script>
+<script src="supabase/auth.js"></script>
+<script src="supabase/realtime.js"></script>
+<script src="supabase/index.js"></script>
+<script src="script.js"></script>
+<script src="js/arabic.js"></script>
+
+<script>
+(function(){
+  'use strict';
+
+  const STEP_COUNT = 2;
+  let currentStep = 1;
+  let receiptFile = null;
+
+  const stepper = document.getElementById('msStepper');
+  const stepperFill = stepper.querySelector('.ms-stepper-fill');
+  const stepEls = stepper.querySelectorAll('.ms-step');
+  const panels = document.querySelectorAll('.ms-panel');
+  const card = document.getElementById('msCard');
+  const success = document.getElementById('msSuccess');
+  const formNav = document.getElementById('msFormNav');
+
+  const btnNext = document.getElementById('compBtnNext');
+  const btnPrev = document.getElementById('compBtnPrev');
+  const btnSubmit = document.getElementById('compBtnSubmit');
+  const form = document.getElementById('competitionForm');
+
+  const fields = {
+    firstName: document.getElementById('compFirstName'),
+    lastName: document.getElementById('compLastName'),
+    phone: document.getElementById('compPhone'),
+    city: document.getElementById('compCity'),
+  };
+
+  const errors = {
+    firstName: document.getElementById('compFirstNameError'),
+    lastName: document.getElementById('compLastNameError'),
+    phone: document.getElementById('compPhoneError'),
+    city: document.getElementById('compCityError'),
+  };
+
+  const receiptZone = document.getElementById('compReceiptZone');
+  const receiptInput = document.getElementById('compReceiptInput');
+  const receiptPreview = document.getElementById('compReceiptPreview');
+  const pdfIcon = document.getElementById('compPdfIcon');
+  const receiptName = document.getElementById('compReceiptName');
+  const receiptSize = document.getElementById('compReceiptSize');
+  const receiptRemove = document.getElementById('compReceiptRemove');
+  const receiptReplace = document.getElementById('compReceiptReplace');
+  const receiptError = document.getElementById('compReceiptError');
+
+  function updateStepper(step) {
+    const percent = ((step - 1) / (STEP_COUNT - 1)) * 100;
+    stepperFill.style.setProperty('--ms-fill', percent + '%');
+    stepper.setAttribute('data-current', step);
+
+    stepEls.forEach(function(el) {
+      const s = parseInt(el.getAttribute('data-step'), 10);
+      el.classList.remove('is-active', 'is-complete');
+      if (s < step) el.classList.add('is-complete');
+      if (s === step) el.classList.add('is-active');
+      const btn = el.querySelector('.ms-step-btn');
+      if (btn) {
+        btn.removeAttribute('aria-current');
+        if (s === step) btn.setAttribute('aria-current', 'step');
+      }
+    });
+  }
+
+  function showPanel(step) {
+    panels.forEach(function(p) {
+      const pStep = parseInt(p.getAttribute('data-panel'), 10);
+      if (pStep === step) {
+        p.hidden = false;
+        p.classList.add('is-active');
+      } else {
+        p.hidden = true;
+        p.classList.remove('is-active');
+      }
+    });
+
+    btnPrev.hidden = step === 1;
+    btnNext.hidden = step === STEP_COUNT;
+    btnSubmit.hidden = step !== STEP_COUNT;
+
+    updateStepper(step);
+    currentStep = step;
+  }
+
+  function clearError(fieldKey) {
+    if (errors[fieldKey]) errors[fieldKey].textContent = '';
+    if (fields[fieldKey]) fields[fieldKey].classList.remove('is-invalid');
+  }
+
+  function showError(fieldKey, message) {
+    if (errors[fieldKey]) errors[fieldKey].textContent = message;
+    if (fields[fieldKey]) fields[fieldKey].classList.add('is-invalid');
+  }
+
+  function validateField(fieldKey, value) {
+    var v = value.trim();
+    if (!v) {
+      var labels = {
+        firstName: 'يرجى إدخال الاسم',
+        lastName: 'يرجى إدخال الاسم العائلي',
+        phone: 'يرجى إدخال رقم الهاتف',
+        city: 'يرجى إدخال المدينة',
+      };
+      return labels[fieldKey] || 'هذا الحقل مطلوب';
+    }
+    if (fieldKey === 'phone') {
+      var cleaned = v.replace(/[\s\-\(\)]/g, '');
+      if (!/^(\+212|0)?[5-7]\d{8}$/.test(cleaned)) {
+        return 'يرجى إدخال رقم هاتف مغربي صحيح';
+      }
+    }
+    return null;
+  }
+
+  function validateStep1() {
+    var valid = true;
+    Object.keys(fields).forEach(function(key) {
+      clearError(key);
+      var err = validateField(key, fields[key].value);
+      if (err) { showError(key, err); valid = false; }
+    });
+    return valid;
+  }
+
+  function goToStep(step) {
+    var target = Math.max(1, Math.min(STEP_COUNT, step));
+    if (target > 1 && !validateStep1()) {
+      goToStep(1);
+      return;
+    }
+    showPanel(target);
+    card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    setTimeout(function() {
+      window.scrollBy(0, -120);
+    }, 400);
+  }
+
+  btnNext.addEventListener('click', function() {
+    if (currentStep < STEP_COUNT) {
+      if (currentStep === 1 && !validateStep1()) return;
+      goToStep(currentStep + 1);
+    }
+  });
+
+  btnPrev.addEventListener('click', function() {
+    goToStep(currentStep - 1);
+  });
+
+  Object.keys(fields).forEach(function(key) {
+    var input = fields[key];
+    input.addEventListener('input', function() { clearError(key); });
+    input.addEventListener('blur', function() {
+      var err = validateField(key, input.value);
+      if (err) showError(key, err); else clearError(key);
+    });
+    input.addEventListener('change', function() {
+      var wrap = input.closest('.ms-input-wrap');
+      if (input.value) { wrap.classList.add('is-filled'); } else { wrap.classList.remove('is-filled'); }
+    });
+  });
+
+  function formatFileSize(bytes) {
+    if (bytes < 1024) return bytes + ' B';
+    if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
+    return (bytes / 1048576).toFixed(1) + ' MB';
+  }
+
+  function clearReceipt() {
+    receiptFile = null;
+    receiptInput.value = '';
+    receiptPreview.src = '';
+    receiptPreview.style.display = 'none';
+    pdfIcon.style.display = 'none';
+    receiptName.textContent = '';
+    receiptSize.textContent = '';
+    receiptZone.classList.remove('has-file');
+    receiptError.textContent = '';
+  }
+
+  function handleReceiptFile(file) {
+    var allowed = ['image/png', 'image/jpeg', 'image/jpg', 'application/pdf'];
+    if (!allowed.includes(file.type)) {
+      receiptError.textContent = 'يرجى اختيار ملف بصيغة JPG أو JPEG أو PNG أو PDF.';
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      receiptError.textContent = 'حجم الملف يجب ألا يتجاوز 5 ميغابايت.';
+      return;
+    }
+    receiptError.textContent = '';
+    receiptFile = file;
+    receiptName.textContent = file.name;
+    receiptSize.textContent = formatFileSize(file.size);
+
+    if (file.type === 'application/pdf') {
+      receiptPreview.style.display = 'none';
+      pdfIcon.style.display = 'flex';
+    } else {
+      pdfIcon.style.display = 'none';
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        receiptPreview.src = e.target.result;
+        receiptPreview.style.display = 'block';
+      };
+      reader.readAsDataURL(file);
+    }
+    receiptZone.classList.add('has-file');
+  }
+
+  receiptZone.addEventListener('click', function(e) {
+    if (e.target.closest('.ms-upload-remove') || e.target.closest('.ms-upload-replace-btn')) return;
+    receiptInput.click();
+  });
+
+  receiptZone.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); receiptInput.click(); }
+  });
+
+  receiptInput.addEventListener('change', function() {
+    if (this.files && this.files[0]) handleReceiptFile(this.files[0]);
+  });
+
+  receiptRemove.addEventListener('click', function(e) {
+    e.stopPropagation();
+    clearReceipt();
+  });
+
+  receiptReplace.addEventListener('click', function(e) {
+    e.stopPropagation();
+    receiptInput.click();
+  });
+
+  receiptZone.addEventListener('dragover', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    this.classList.add('is-dragover');
+  });
+
+  receiptZone.addEventListener('dragleave', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    this.classList.remove('is-dragover');
+  });
+
+  receiptZone.addEventListener('drop', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    this.classList.remove('is-dragover');
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) handleReceiptFile(e.dataTransfer.files[0]);
+  });
+
+  // ── Toast notifications ────────────────────────────
+  var toastContainer = document.getElementById('compToastContainer');
+  function showToast(message, type) {
+    type = type || 'error';
+    var icon = type === 'success' ? 'bi-check-circle-fill' : type === 'info' ? 'bi-info-circle-fill' : 'bi-exclamation-triangle-fill';
+    var toast = document.createElement('div');
+    toast.className = 'comp-toast comp-toast--' + type;
+    toast.innerHTML = '<i class="bi ' + icon + '" aria-hidden="true"></i><span class="comp-toast-msg">' + message + '</span>';
+    toastContainer.appendChild(toast);
+    var timer = setTimeout(function() {
+      toast.classList.add('out');
+      setTimeout(function() {
+        if (toast.parentNode) toast.parentNode.removeChild(toast);
+      }, 350);
+    }, 4500);
+    toast.addEventListener('click', function() {
+      clearTimeout(timer);
+      toast.classList.add('out');
+      setTimeout(function() {
+        if (toast.parentNode) toast.parentNode.removeChild(toast);
+      }, 350);
+    });
+  }
+
+  // ── Supabase helper: generate unique file path ─────
+  function generateFilePath(ext) {
+    var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      var r = Math.random() * 16 | 0;
+      var v = c === 'x' ? r : (r & 0x3 | 0x8);
+      return v.toString(16);
+    });
+    return uuid + '.' + ext;
+  }
+
+  // ── Submit: upload file → insert record ───────────
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    if (currentStep !== STEP_COUNT) return;
+
+    if (!receiptFile) {
+      receiptError.textContent = 'يرجى رفع وصل الدفع البنكي قبل التسجيل.';
+      card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      return;
+    }
+
+    btnSubmit.disabled = true;
+    var originalHTML = btnSubmit.innerHTML;
+    btnSubmit.innerHTML = '<i class="bi bi-arrow-repeat" aria-hidden="true" style="animation:spin 0.9s linear infinite;"></i> جارٍ الرفع...';
+
+    var ext = receiptFile.name.split('.').pop().toLowerCase();
+    var filePath = generateFilePath(ext);
+    var config = window.Supabase ? window.Supabase.config : {};
+    var apiUrl = (config.url || 'https://zqfvtgmdpbhhiqluehuh.supabase.co') + '/storage/v1/object/competition-receipts/' + filePath;
+    var anonKey = config.anonKey || '';
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', apiUrl, true);
+    xhr.setRequestHeader('Authorization', 'Bearer ' + anonKey);
+    xhr.setRequestHeader('apikey', anonKey);
+    xhr.setRequestHeader('x-upsert', 'true');
+
+    xhr.upload.onprogress = function(ev) {
+      if (ev.lengthComputable) {
+        var pct = Math.round((ev.loaded / ev.total) * 100);
+        btnSubmit.innerHTML = '<i class="bi bi-arrow-repeat" aria-hidden="true" style="animation:spin 0.9s linear infinite;"></i> جارٍ الرفع... ' + pct + '%';
+      }
+    };
+
+    xhr.onload = function() {
+      if (xhr.status < 200 || xhr.status >= 300) {
+        btnSubmit.disabled = false;
+        btnSubmit.innerHTML = originalHTML;
+        showToast('حدث خطأ أثناء رفع الملف. يرجى المحاولة مرة أخرى.', 'error');
+        return;
+      }
+
+      var publicUrl = apiUrl;
+
+      btnSubmit.innerHTML = '<i class="bi bi-arrow-repeat" aria-hidden="true" style="animation:spin 0.9s linear infinite;"></i> جارٍ التسجيل...';
+
+      var client = window.supabaseClient || (window.Supabase && window.Supabase.client);
+      if (!client) {
+        btnSubmit.disabled = false;
+        btnSubmit.innerHTML = originalHTML;
+        showToast('تعذر الاتصال بقاعدة البيانات. يرجى المحاولة لاحقاً.', 'error');
+        return;
+      }
+
+      client
+        .from('competition_registrations')
+        .insert({
+          first_name: fields.firstName.value.trim(),
+          last_name: fields.lastName.value.trim(),
+          phone: fields.phone.value.trim(),
+          city: fields.city.value.trim(),
+          payment_receipt_url: publicUrl,
+          status: 'pending'
+        })
+        .then(function(result) {
+          btnSubmit.disabled = false;
+          btnSubmit.innerHTML = originalHTML;
+
+          if (result.error) {
+            console.error('Supabase insert error:', result.error);
+            showToast('حدث خطأ أثناء حفظ التسجيل. يرجى المحاولة مرة أخرى.', 'error');
+            return;
+          }
+
+          showToast('تم تسجيل طلبك بنجاح!', 'success');
+          form.style.display = 'none';
+          formNav.style.display = 'none';
+          stepper.style.display = 'none';
+          success.hidden = false;
+          success.classList.add('is-active');
+          card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          setTimeout(function() {
+            window.scrollBy(0, -120);
+          }, 400);
+        })
+        .catch(function(err) {
+          btnSubmit.disabled = false;
+          btnSubmit.innerHTML = originalHTML;
+          console.error('Supabase error:', err);
+          showToast('تعذر الاتصال بالخادم. تحقق من اتصالك بالإنترنت.', 'error');
+        });
+    };
+
+    xhr.onerror = function() {
+      btnSubmit.disabled = false;
+      btnSubmit.innerHTML = originalHTML;
+      showToast('تعذر الاتصال بالخادم. تحقق من اتصالك بالإنترنت.', 'error');
+    };
+
+    xhr.send(receiptFile);
+  });
+
+  document.getElementById('compNewRegistration').addEventListener('click', function() {
+    Object.keys(fields).forEach(function(key) {
+      fields[key].value = '';
+      var wrap = fields[key].closest('.ms-input-wrap');
+      if (wrap) wrap.classList.remove('is-filled');
+    });
+    Object.keys(errors).forEach(function(key) { errors[key].textContent = ''; });
+    Object.keys(fields).forEach(function(key) { fields[key].classList.remove('is-invalid'); });
+    clearReceipt();
+    success.hidden = true;
+    success.classList.remove('is-active');
+    form.style.display = '';
+    formNav.style.display = '';
+    stepper.style.display = '';
+    goToStep(1);
+  });
+
+  updateStepper(1);
+})();
+</script>
+
+</body>
+</html>

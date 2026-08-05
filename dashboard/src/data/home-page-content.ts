@@ -57,7 +57,7 @@ export const HOME_PAGE_CONTENT: PageContent = {
           {
             id: 'btn-hero-competition',
             label: 'شارك في المسابقة',
-            url: '#competition',
+            url: 'competition.html',
             variant: 'primary',
           },
           {

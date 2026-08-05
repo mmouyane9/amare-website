@@ -22,7 +22,7 @@ INSERT INTO public.content_pages (
         "description": "شارك في المسابقة الوطنية، وانخرط إلكترونياً في الجمعية، أو جدد عضويتك بسهولة، واطلع على آخر الأنشطة والفعاليات والأخبار عبر المنصة الرسمية.",
         "backgroundImage": "",
         "buttons": [
-          {"id": "btn-hero-competition", "label": "شارك في المسابقة", "url": "#competition", "variant": "primary"},
+          {"id": "btn-hero-competition", "label": "شارك في المسابقة", "url": "competition.html", "variant": "primary"},
           {"id": "btn-hero-join", "label": "الانخراط Online", "url": "Join us/join-us-online.html", "variant": "primary"},
           {"id": "btn-hero-renew", "label": "تجديد الانخراط", "url": "Join us/membership-renewal.html", "variant": "outline"}
         ]

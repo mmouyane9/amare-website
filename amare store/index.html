@@ -72,14 +72,6 @@
         </svg>
         <span>تسجيل الدخول</span>
       </a>
-
-      <div class="minicart-wrapper" id="headerMinicart">
-        <a href="cart.html" class="minicart-trigger">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-          <span>السلة</span>
-          <span class="amare-cart-count" style="display:none;">0</span>
-        </a>
-      </div>
     </div>
   </div>
 </div>
@@ -253,20 +245,6 @@
 <!-- ===== Mobile Drawer Backdrop ===== -->
 <div class="mobile-drawer-backdrop" id="mobileDrawerBackdrop"></div>
 
-<div class="minicart-dropdown" id="miniCart">
-  <div class="minicart-header">
-    <span>سلة التسوق</span>
-    <button onclick="document.getElementById('miniCart').classList.remove('show')" aria-label="إغلاق">&times;</button>
-  </div>
-  <div class="minicart-body" id="miniCartItems"></div>
-  <div class="minicart-empty" id="miniCartEmpty">السلة فارغة</div>
-  <div class="minicart-footer" id="miniCartFooter" style="display:none;">
-    <div class="minicart-total"><span>الإجمالي</span><span id="miniCartTotal">0.00 د.م</span></div>
-    <a href="cart.html" class="btn btn-navy btn-sm">عرض السلة</a>
-    <a href="checkout.html" class="btn btn-accent btn-sm" style="margin-top:6px;">إتمام الطلب</a>
-  </div>
-</div>
-
 <!-- ===== MAIN CONTENT ===== -->
 <main id="main">
 
@@ -325,7 +303,7 @@
         <div class="store-hero-visual hero-fade d2">
           <div class="store-hero-visual-card">
             <div class="store-hero-prod-photo">
-              <img 
+              <img
                 src="https://images.pexels.com/photos/2398220/pexels-photo-2398220.jpeg?auto=compress&cs=tinysrgb&w=800"
                 srcset="https://images.pexels.com/photos/2398220/pexels-photo-2398220.jpeg?auto=compress&cs=tinysrgb&w=400 400w,
                         https://images.pexels.com/photos/2398220/pexels-photo-2398220.jpeg?auto=compress&cs=tinysrgb&w=600 600w,
@@ -352,109 +330,50 @@
     </div>
   </section>
 
-  <!-- ===== 2. Categories ===== -->
-  <section class="store-categories" id="categories">
-    <div class="container">
-      <div class="store-section-header reveal">
-        <span class="eyebrow">الأقسام</span>
-        <h2 class="store-section-title">تصفح حسب الفئة</h2>
-        <p class="store-section-desc">اختر الفئة المناسبة لاحتياجاتك من معدات وملابس وإكسسوارات مخصصة للبحث والاستكشاف</p>
-      </div>
-
-      <div class="store-cat-grid stagger">
-        <a href="products.html?category=devices" class="store-cat-card reveal" style="--i:0">
-          <div class="store-cat-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-          </div>
-          <div class="store-cat-name">الأجهزة</div>
-          <div class="store-cat-count">أجهزة كشف ومعاينة</div>
-        </a>
-
-        <a href="products.html?category=clothing" class="store-cat-card reveal" style="--i:1">
-          <div class="store-cat-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 7h-3V4c0-1.1-.9-2-2-2H9C7.9 2 7 2.9 7 4v3H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2zM9 4h6v3H9V4zm11 15H4V9h16v10z"/></svg>
-          </div>
-          <div class="store-cat-name">الملابس</div>
-          <div class="store-cat-count">قمصان وقبعات رسمية</div>
-        </a>
-
-        <a href="products.html?category=uniforms" class="store-cat-card reveal" style="--i:2">
-          <div class="store-cat-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-          </div>
-          <div class="store-cat-name">البذلات</div>
-          <div class="store-cat-count">بذلات ميدانية</div>
-        </a>
-
-        <a href="products.html?category=accessories" class="store-cat-card reveal" style="--i:3">
-          <div class="store-cat-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-          </div>
-          <div class="store-cat-name">الإكسسوارات</div>
-          <div class="store-cat-count">شارات وملصقات</div>
-        </a>
-
-        <a href="products.html?category=backpacks" class="store-cat-card reveal" style="--i:4">
-          <div class="store-cat-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 12V8H4v4"/><path d="M3 12h2v6c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2v-6h2"/><path d="M9 21v-9"/></svg>
-          </div>
-          <div class="store-cat-name">الحقائب</div>
-          <div class="store-cat-count">حقائب ظهر وحمل</div>
-        </a>
-
-        <a href="products.html?category=camping" class="store-cat-card reveal" style="--i:5">
-          <div class="store-cat-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-          </div>
-          <div class="store-cat-name">معدات التخييم</div>
-          <div class="store-cat-count">خيام ومصابيح</div>
-        </a>
-
-        <a href="products.html?category=books" class="store-cat-card reveal" style="--i:6">
-          <div class="store-cat-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><path d="M12 6v7m-4-3h8"/></svg>
-          </div>
-          <div class="store-cat-name">الكتب</div>
-          <div class="store-cat-count">كتب وأدلة تعليمية</div>
-        </a>
-
-        <a href="products.html?category=gifts" class="store-cat-card reveal" style="--i:7">
-          <div class="store-cat-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><path d="M12 19v4"/><path d="M8 23h8"/></svg>
-          </div>
-          <div class="store-cat-name">الهدايا</div>
-          <div class="store-cat-count">تذكارات وهدايا</div>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== 3. Featured Products ===== -->
+  <!-- ===== 2. Products Grid ===== -->
   <section class="store-products" id="products">
     <div class="container">
       <div class="store-section-header reveal">
         <span class="eyebrow">المنتجات</span>
-        <h2 class="store-section-title">منتجات مميزة</h2>
-        <p class="store-section-desc">مجموعة مختارة من أفضل المنتجات الرسمية للجمعية، مصممة خصيصًا لهواة البحث والاستكشاف</p>
+        <h2 class="store-section-title">جميع المنتجات</h2>
+        <p class="store-section-desc">اكتشف مجموعتنا الكاملة من المنتجات الرسمية المصممة خصيصًا لهواة البحث والاستكشاف</p>
       </div>
 
-      <div class="store-products-grid stagger" id="featuredProductsGrid">
-        <div class="store-product-card reveal" style="--i:0">
-          <div class="store-product-image" style="display:flex;align-items:center;justify-content:center;">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:48px;height:48px;color:var(--color-primary);opacity:.3;animation:storeCardFloat 3s ease-in-out infinite;">
-              <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
-            </svg>
-          </div>
-          <div class="store-product-body" style="text-align:center;">
-            <h3 class="store-product-name">جاري التحميل...</h3>
-            <p class="store-product-desc">يتم تحميل المنتجات المميزة من المتجر...</p>
-          </div>
+      <!-- Toolbar -->
+      <div class="store-toolbar">
+        <div class="store-search">
+          <input type="text" id="searchInput" placeholder="ابحث عن منتج..." aria-label="البحث عن منتج">
+          <span class="store-search-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+          </span>
         </div>
+        <select id="categoryFilter" class="store-filter-select" aria-label="تصفية حسب الفئة">
+          <option value="">جميع الفئات</option>
+          <option value="clothing">✓ الملابس</option>
+          <option disabled class="store-filter-sep">──────────</option>
+          <option value="devices" disabled>الأجهزة (قريباً)</option>
+          <option value="uniforms" disabled>البذلات (قريباً)</option>
+          <option value="accessories" disabled>الإكسسوارات (قريباً)</option>
+          <option value="backpacks" disabled>الحقائب (قريباً)</option>
+          <option value="camping" disabled>معدات التخييم (قريباً)</option>
+          <option value="books" disabled>الكتب (قريباً)</option>
+          <option value="gifts" disabled>الهدايا (قريباً)</option>
+        </select>
+      </div>
+
+      <div class="store-products-count" id="productsCount">جميع المنتجات (0)</div>
+
+      <div class="store-products-grid stagger" id="productsGrid">
+      </div>
+
+      <div id="productsEmpty" style="display:none;text-align:center;padding:60px 20px;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:80px;height:80px;color:var(--color-primary);opacity:.25;margin:0 auto 24px;display:block;"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        <p style="font-size:15px;color:var(--color-text-soft);">لا توجد منتجات مطابقة لبحثك</p>
       </div>
     </div>
   </section>
 
-  <!-- ===== 4. Why Buy From Us ===== -->
+  <!-- ===== 3. Why Buy From Us ===== -->
   <section class="store-why">
     <div class="container">
       <div class="store-section-header reveal">
@@ -499,7 +418,7 @@
     </div>
   </section>
 
-  <!-- ===== 5. CTA ===== -->
+  <!-- ===== 4. CTA ===== -->
   <section class="store-cta">
     <div class="container">
       <div class="store-cta-content reveal">
@@ -628,14 +547,22 @@
 <script src="../supabase/home-content.js"></script>
 <script src="../supabase/navbar.js"></script>
 <script src="../script.js"></script>
-<script src="assets/cart.js"></script>
 
 <script>
-/* Fetch featured products from Supabase */
+/* Fetch all published products from Supabase */
 (function() {
   'use strict';
-  var grid = document.getElementById('featuredProductsGrid');
-  if (!grid) return;
+
+  var categoryMap = {
+    devices:     { name: 'الأجهزة' },
+    clothing:    { name: 'الملابس' },
+    uniforms:    { name: 'البذلات' },
+    accessories: { name: 'الإكسسوارات' },
+    backpacks:   { name: 'الحقائب' },
+    camping:     { name: 'معدات التخييم' },
+    books:       { name: 'الكتب' },
+    gifts:       { name: 'الهدايا' }
+  };
 
   var ICONS = {
     devices: '<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>',
@@ -648,19 +575,26 @@
     gifts: '<path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><path d="M12 19v4"/><path d="M8 23h8"/>'
   };
 
-  function fallbackIcon(cat) { return ICONS[cat] || ICONS['devices']; }
+  function iconFor(cat) { return ICONS[cat] || ICONS.devices; }
+
+  var allProducts = [];
 
   function buildCard(p, i) {
     var badgeClass = p.stock > 0 ? 'store-product-badge' : 'store-product-badge unavailable';
     var badgeText = p.stock > 0 ? 'متوفر' : 'قريباً';
-    var iconSvg = fallbackIcon(p.category);
     var imgHtml = p.image_url
       ? '<img src="' + p.image_url + '" alt="' + p.name + '" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;">'
-      : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">' + iconSvg + '</svg>';
+      : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">' + iconFor(p.category) + '</svg>';
+
+    var featureBadge = '';
+    if (p.featured) {
+      featureBadge = '<span class="store-product-badge featured-badge" style="left:14px;right:auto;background:rgba(246,179,0,.12);color:#F6B300;border-color:rgba(246,179,0,.2);">مميز</span>';
+    }
 
     return '<div class="store-product-card reveal in-view" style="--i:' + i + '">' +
       '<div class="store-product-image">' +
         '<span class="' + badgeClass + '">' + badgeText + '</span>' +
+        featureBadge +
         imgHtml +
       '</div>' +
       '<div class="store-product-body">' +
@@ -672,43 +606,78 @@
             '<span>عرض التفاصيل</span>' +
             '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>' +
           '</a>' +
-          '<button class="store-product-cart-btn" onclick="AmareCart.add({id:\''+p.id+'\',name:\''+p.name+'\',price:'+p.price+',image_url:'+(p.image_url?'\''+p.image_url+'\'':'null')+',category:\''+p.category+'\'},1)">إضافة للسلة</button>' +
         '</div>' +
       '</div>' +
     '</div>';
   }
 
-  function fetchFeatured() {
+  function renderProducts(products) {
+    var grid = document.getElementById('productsGrid');
+    var countEl = document.getElementById('productsCount');
+    var emptyEl = document.getElementById('productsEmpty');
+
+    countEl.textContent = 'جميع المنتجات (' + products.length + ')';
+
+    if (!products.length) {
+      grid.innerHTML = '';
+      emptyEl.style.display = '';
+      return;
+    }
+
+    emptyEl.style.display = 'none';
+    var html = '';
+    for (var i = 0; i < products.length; i++) {
+      html += buildCard(products[i], i);
+    }
+    grid.innerHTML = html;
+  }
+
+  function filterProducts() {
+    var searchText = document.getElementById('searchInput').value.trim().toLowerCase();
+    var category = document.getElementById('categoryFilter').value;
+
+    var filtered = allProducts.filter(function(p) {
+      var matchCat = !category || p.category === category;
+      var matchSearch = !searchText ||
+        (p.name && p.name.toLowerCase().indexOf(searchText) !== -1) ||
+        (p.short_description && p.short_description.toLowerCase().indexOf(searchText) !== -1) ||
+        (p.description && p.description.toLowerCase().indexOf(searchText) !== -1);
+      return matchCat && matchSearch;
+    });
+
+    renderProducts(filtered);
+  }
+
+  function fetchProducts() {
     var client = window.supabaseClient || (window.Supabase && window.Supabase.getClient ? window.Supabase.getClient() : null);
     if (!client) { console.warn('[Store] Supabase client not ready'); return; }
 
-    client
-      .from('products')
+    client.from('products')
       .select('*')
       .eq('status', 'published')
-      .eq('featured', true)
       .order('sort_order', { ascending: true })
-      .limit(6)
+      .order('created_at', { ascending: false })
       .then(function(res) {
         if (res.error) { console.error('[Store]', res.error.message); return; }
-        var products = res.data || [];
-        if (!products.length) {
-          grid.innerHTML = '<div style="text-align:center;padding:40px;color:var(--color-text-soft);">لا توجد منتجات مميزة حالياً</div>';
-          return;
-        }
-        var html = '';
-        for (var i = 0; i < products.length; i++) {
-          html += buildCard(products[i], i);
-        }
-        grid.innerHTML = html;
+        allProducts = res.data || [];
+        renderProducts(allProducts);
       })
       .catch(function(err) { console.error('[Store]', err); });
   }
 
+  // Event listeners
+  document.getElementById('searchInput').addEventListener('input', function() {
+    filterProducts();
+  });
+
+  document.getElementById('categoryFilter').addEventListener('change', function() {
+    filterProducts();
+  });
+
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function() { setTimeout(fetchFeatured, 200); });
+    document.addEventListener('DOMContentLoaded', function() { setTimeout(fetchProducts, 200); });
   } else {
-    setTimeout(fetchFeatured, 200);
+    setTimeout(fetchProducts, 200);
   }
 })();
 </script>

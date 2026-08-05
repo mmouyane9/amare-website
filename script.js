@@ -25,6 +25,12 @@
   handleScrollEffects();
   window.addEventListener('scroll', handleScrollEffects, { passive: true });
 
+  /* ---------- 2.1 Prevent stuck :hover on touch devices ---------- */
+  var navLinksAll = document.querySelectorAll('.nav-links a, li[data-dropdown] > a');
+  for (var i = 0; i < navLinksAll.length; i++) {
+    navLinksAll[i].addEventListener('touchstart', function() {}, { passive: true });
+  }
+
   /* ---------- 3. Mobile Hamburger Menu with slide panel + scroll lock ---------- */
   const hamburger = document.getElementById('hamburger');
   const navLinks = document.getElementById('navLinks');
@@ -81,15 +87,20 @@
   const sections = document.querySelectorAll('main section[id], footer[id]');
   const navAnchors = document.querySelectorAll('.nav-links a');
 
+  var activeLinkRaf = null;
   function setActiveLink() {
-    let currentId = '';
-    const offset = 140;
-    sections.forEach((section) => {
-      const top = section.offsetTop - offset;
-      if (window.scrollY >= top) currentId = section.id;
-    });
-    navAnchors.forEach((a) => {
-      a.classList.toggle('active', a.getAttribute('href') === `#${currentId}`);
+    if (activeLinkRaf) return;
+    activeLinkRaf = requestAnimationFrame(function() {
+      activeLinkRaf = null;
+      var currentId = '';
+      var offset = 140;
+      sections.forEach(function(section) {
+        var top = section.offsetTop - offset;
+        if (window.scrollY >= top) currentId = section.id;
+      });
+      navAnchors.forEach(function(a) {
+        a.classList.toggle('active', a.getAttribute('href') === '#' + currentId);
+      });
     });
   }
   window.addEventListener('scroll', setActiveLink, { passive: true });
@@ -547,6 +558,17 @@
         }
       }
     }
+
+    var scrollHideTimer = null;
+    window.addEventListener('scroll', function() {
+      clearTimeout(scrollHideTimer);
+      scrollHideTimer = setTimeout(function() {
+        if (dropdownContainer && dropdownContainer.classList.contains('visible')) {
+          clearTimeout(closeTimer);
+          hideDropdown();
+        }
+      }, 50);
+    }, { passive: true });
 
     function buildMobileDrawer() {
       var items = document.querySelectorAll('.mobile-drawer-dropdown');

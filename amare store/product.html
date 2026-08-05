@@ -70,14 +70,6 @@
         </svg>
         <span>تسجيل الدخول</span>
       </a>
-
-      <div class="minicart-wrapper" id="headerMinicart">
-        <a href="cart.html" class="minicart-trigger">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-          <span>السلة</span>
-          <span class="amare-cart-count" style="display:none;">0</span>
-        </a>
-      </div>
     </div>
   </div>
 </div>
@@ -204,20 +196,6 @@
 
 <div class="mobile-drawer-backdrop" id="mobileDrawerBackdrop"></div>
 
-<div class="minicart-dropdown" id="miniCart">
-  <div class="minicart-header">
-    <span>سلة التسوق</span>
-    <button onclick="document.getElementById('miniCart').classList.remove('show')" aria-label="إغلاق">&times;</button>
-  </div>
-  <div class="minicart-body" id="miniCartItems"></div>
-  <div class="minicart-empty" id="miniCartEmpty">السلة فارغة</div>
-  <div class="minicart-footer" id="miniCartFooter" style="display:none;">
-    <div class="minicart-total"><span>الإجمالي</span><span id="miniCartTotal">0.00 د.م</span></div>
-    <a href="cart.html" class="btn btn-navy btn-sm">عرض السلة</a>
-    <a href="checkout.html" class="btn btn-accent btn-sm" style="margin-top:6px;">إتمام الطلب</a>
-  </div>
-</div>
-
 <!-- ===== MAIN CONTENT ===== -->
 <main id="main">
 
@@ -228,8 +206,6 @@
       <!-- Breadcrumb -->
       <div class="store-breadcrumb" style="margin-bottom:28px;">
         <a href="index.html">المتجر</a>
-        <span class="store-breadcrumb-sep">/</span>
-        <a href="products.html" id="breadcrumbCatLink">جميع المنتجات</a>
         <span class="store-breadcrumb-sep">/</span>
         <span id="breadcrumbName">تفاصيل المنتج</span>
       </div>
@@ -264,28 +240,18 @@
 
           <h3 class="store-product-specs-title">المواصفات</h3>
           <div class="store-product-specs-list" id="infoSpecs">
-            <!-- injected by JS -->
           </div>
 
           <div class="store-product-info-divider"></div>
 
-          <div class="store-qty-group">
-            <span class="store-qty-label">الكمية:</span>
-            <div class="store-qty-controls">
-              <button class="store-qty-btn" id="qtyMinus" aria-label="تقليل الكمية">−</button>
-              <input type="text" class="store-qty-input" id="qtyInput" value="1" readonly>
-              <button class="store-qty-btn" id="qtyPlus" aria-label="زيادة الكمية">+</button>
-            </div>
-          </div>
-
           <div style="display:flex;gap:12px;flex-wrap:wrap;">
-            <a href="javascript:void(0)" onclick="addCurrentToCart()" class="store-product-contact">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-              <span>إضافة إلى السلة</span>
+            <a id="whatsappBtn" href="https://wa.me/212671114371" target="_blank" rel="noopener" class="store-product-contact">
+              <svg viewBox="0 0 24 24" fill="currentColor" style="width:20px;height:20px;"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.6.1-.2.3-.7 1-.9 1.2-.1.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.2-.4.1-.2 0-.4 0-.5s-.6-1.5-.8-2c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s1 2.6 1.1 2.7c.1.2 2 3 4.7 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 2-1.4.2-.6.2-1.2.1-1.3-.1-.1-.3-.2-.6-.3z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.6 1.4 5.1L2 22l5.1-1.3C8.5 21.5 10.2 22 12 22c5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18c-1.6 0-3.1-.4-4.5-1.2l-.3-.2-3.3.9.9-3.2-.2-.3C3.7 14.6 3.2 13.3 3.2 12c0-4.9 3.9-8.8 8.8-8.8s8.8 3.9 8.8 8.8-3.9 8.8-8.8 8.8z"/></svg>
+              <span>اطلب عبر واتساب</span>
             </a>
-            <a href="javascript:void(0)" onclick="goToCheckout()" class="btn btn-navy btn-sm" style="border-radius:var(--radius-pill);padding:14px 24px;">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              <span>إتمام الطلب</span>
+            <a href="index.html" class="btn btn-navy btn-sm" style="border-radius:var(--radius-pill);padding:14px 24px;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 19l-7-7 7-7"/></svg>
+              <span>العودة إلى المتجر</span>
             </a>
           </div>
         </div>
@@ -364,7 +330,6 @@
 <script src="../supabase/home-content.js"></script>
 <script src="../supabase/navbar.js"></script>
 <script src="../script.js"></script>
-<script src="assets/cart.js"></script>
 
 <script>
 /* Fetch single product from Supabase */
@@ -411,7 +376,6 @@
       galleryMain.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">' + getIcon(p.category) + '</svg>';
     }
 
-    // Gallery thumbs
     var galleryThumbs = document.getElementById('galleryThumbs');
     var thumbHtml = '';
     if (p.image_url) {
@@ -429,11 +393,6 @@
     galleryThumbs.innerHTML = thumbHtml;
 
     document.getElementById('breadcrumbName').textContent = p.name;
-    var catInfo = categoryMap[p.category];
-    if (catInfo) {
-      document.getElementById('breadcrumbCatLink').textContent = catInfo.name;
-      document.getElementById('breadcrumbCatLink').href = 'products.html?category=' + p.category;
-    }
 
     var badge = document.getElementById('infoBadge');
     badge.textContent = p.stock > 0 ? 'متوفر' : 'قريباً';
@@ -443,7 +402,9 @@
     document.getElementById('infoPrice').textContent = Number(p.price).toLocaleString('fr-FR') + ' د.م';
     document.getElementById('infoDesc').textContent = p.description || p.short_description || '';
 
-    // Build specs from description fields
+    var waMessage = encodeURIComponent('السلام عليكم،\n\nأرغب في شراء المنتج التالي:\n\n📦 اسم المنتج: ' + p.name + '\n\nشكراً لكم.');
+    document.getElementById('whatsappBtn').href = 'https://wa.me/212671114371?text=' + waMessage;
+
     var specsHtml = '';
     if (p.brand) specsHtml += '<div class="store-product-spec"><span class="store-product-spec-dot"></span>العلامة: ' + p.brand + '</div>';
     if (p.condition) specsHtml += '<div class="store-product-spec"><span class="store-product-spec-dot"></span>الحالة: ' + (p.condition === 'new' ? 'جديد' : p.condition === 'used' ? 'مستعمل' : 'مجدد') + '</div>';
@@ -486,37 +447,6 @@
       .catch(function() { renderError(); });
   }
 
-  var qty = 1;
-  var qtyPlus = document.getElementById('qtyPlus');
-  var qtyMinus = document.getElementById('qtyMinus');
-  var qtyInput = document.getElementById('qtyInput');
-  if (qtyPlus) qtyPlus.addEventListener('click', function() { qty = Math.min(qty + 1, 99); qtyInput.value = qty; });
-
-  window.goToCheckout = function() {
-    var id = getQueryParam('id');
-    window.location.href = 'checkout.html?id=' + id + '&qty=' + qty;
-  };
-
-  window.addCurrentToCart = function() {
-    var id = getQueryParam('id');
-    var nameEl = document.getElementById('infoName');
-    var priceEl = document.getElementById('infoPrice');
-    if (AmareCart && nameEl) {
-      var priceText = priceEl ? priceEl.textContent : '0';
-      var priceNum = parseFloat(priceText.replace(/[^\d.]/g, ''));
-      var imgEl = document.getElementById('galleryMain') ? document.getElementById('galleryMain').querySelector('img') : null;
-      AmareCart.add({
-        id: id,
-        name: nameEl.textContent,
-        price: priceNum,
-        image_url: imgEl ? imgEl.src : null,
-        category: ''
-      }, qty);
-    }
-  };
-  if (qtyMinus) qtyMinus.addEventListener('click', function() { qty = Math.max(qty - 1, 1); qtyInput.value = qty; });
-
-  // Gallery thumb click: switch main image
   var galleryThumbs = document.getElementById('galleryThumbs');
   if (galleryThumbs) {
     galleryThumbs.addEventListener('click', function(e) {

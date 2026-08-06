@@ -1,0 +1,1488 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>جهة طنجة - تطوان - الحسيمة | الفروع الجهوية | الجمعية المغربية لهواة البحث والاستكشاف</title>
+<meta name="description" content="الفرع الجهوي لجهة طنجة - تطوان - الحسيمة — تعرف على أنشطة ومدن هذه الجهة وانضم إلى فريقها.">
+<meta name="keywords" content="جمعية, تنمية, تطوع, المغرب, جهة, طنجة, تطوان, الحسيمة, فروع">
+<meta name="author" content="الجمعية المغربية لهواة البحث والاستكشاف">
+<link rel="shortcut icon" href="Amare%20files%20/logo.png" type="image/x-icon">
+
+<!-- Open Graph -->
+<meta property="og:title" content="جهة طنجة - تطوان - الحسيمة | الفروع الجهوية">
+<meta property="og:description" content="تعرف على أنشطة ومدن جهة طنجة - تطوان - الحسيمة وانضم إلى فريقها.">
+<meta property="og:type" content="website">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+<style>
+  /* ==========================================================================
+     Branch Page — Reusable Region Template (uses design tokens from style.css)
+     ========================================================================== */
+
+  /* Keep the current-page nav item highlighted */
+  .nav-links a[aria-current="page"] { color: #123B78; }
+  .nav-links a[aria-current="page"]::after { transform: scaleX(1); }
+
+  /* ---------- 1. Hero ---------- */
+  .branch-hero {
+    position: relative;
+    min-height: 85vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    color: #fff;
+  }
+  .branch-hero-bg {
+    position: absolute; inset: 0;
+    background-image: url('https://images.unsplash.com/photo-1577979780245-5516627e28a4?w=1600&q=80');
+    background-size: cover;
+    background-position: center;
+    transform: scale(1.06);
+  }
+  .branch-hero-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(18,59,120,.75) 0%, rgba(18,59,120,.55) 45%, rgba(10,20,35,.88) 100%);
+  }
+
+  .branch-hero-shape {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(2px);
+    opacity: .45;
+    animation: float 7s ease-in-out infinite;
+  }
+  .branch-hero-shape.s1 { width: 90px; height: 90px; background: rgba(246,179,0,.5); top: 18%; left: 8%; }
+  .branch-hero-shape.s2 { width: 50px; height: 50px; background: rgba(25,184,242,.5); top: 65%; left: 14%; animation-delay: 1.2s; }
+  .branch-hero-shape.s3 { width: 130px; height: 130px; border: 2px solid rgba(255,255,255,.3); background: transparent; top: 12%; right: 10%; animation-delay: .6s; }
+
+  .branch-hero .container { position: relative; z-index: 2; }
+  .branch-hero-inner { max-width: 720px; }
+
+  .branch-hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,.12);
+    border: 1px solid rgba(255,255,255,.3);
+    backdrop-filter: blur(10px);
+    padding: 8px 18px;
+    border-radius: var(--radius-pill);
+    font-size: 13.5px;
+    font-weight: 700;
+    margin-bottom: 26px;
+  }
+  .branch-hero-eyebrow::before { content: "●"; color: var(--color-accent); font-size: 10px; }
+
+  .branch-hero h1 {
+    font-size: clamp(28px, 4.3vw, 52px);
+    font-weight: 800;
+    line-height: 1.28;
+    margin-bottom: 22px;
+    text-shadow: 0 4px 24px rgba(0,0,0,.2);
+  }
+
+  .branch-hero p {
+    font-size: clamp(16px, 1.6vw, 18.5px);
+    color: rgba(255,255,255,.88);
+    max-width: 560px;
+    margin-bottom: 38px;
+  }
+
+  .branch-hero-actions { display: flex; flex-wrap: wrap; gap: 16px; }
+
+  .branch-hero-fade { opacity: 0; transform: translateY(36px); animation: fadeUp .9s var(--ease) forwards; }
+  .branch-hero-fade.d1 { animation-delay: .1s; }
+  .branch-hero-fade.d2 { animation-delay: .25s; }
+  .branch-hero-fade.d3 { animation-delay: .4s; }
+
+  @media (max-width: 768px) {
+    .branch-hero { min-height: 75vh; }
+    .branch-hero-actions { flex-direction: column; align-items: stretch; }
+    .branch-hero-actions .btn { width: 100%; justify-content: center; }
+  }
+
+  /* ---------- 2. About Region ---------- */
+  .branch-about {
+    position: relative;
+    padding: 110px 0;
+    background: linear-gradient(180deg, #ffffff 0%, #f0f7ff 100%);
+    overflow: hidden;
+  }
+  .branch-about-blobs { position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
+  .branch-about-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: .4;
+  }
+  .branch-about-blob-1 {
+    width: 500px; height: 500px;
+    background: rgba(25,184,242,.1);
+    top: -200px; inset-inline-end: -100px;
+    animation: float 8s ease-in-out infinite;
+  }
+  .branch-about-blob-2 {
+    width: 400px; height: 400px;
+    background: rgba(246,179,0,.07);
+    bottom: -150px; inset-inline-start: -80px;
+    animation: float 10s ease-in-out infinite reverse;
+  }
+
+  .branch-about .container { position: relative; z-index: 1; }
+
+  .branch-about-card {
+    position: relative;
+    max-width: 860px;
+    margin: 0 auto;
+    background: var(--color-white);
+    border-radius: var(--radius-lg);
+    padding: 48px 44px;
+    box-shadow: var(--shadow-md);
+    border: 1px solid rgba(18,59,120,.06);
+  }
+  .branch-about-card::before {
+    content: "";
+    position: absolute;
+    top: 0; inset-inline-start: 0; inset-inline-end: 0;
+    height: 5px;
+    background: var(--gradient-primary);
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  }
+
+  .branch-about-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--color-primary-dark);
+    background: rgba(25,184,242,.1);
+    padding: 8px 18px;
+    border-radius: var(--radius-pill);
+    margin-bottom: 20px;
+  }
+  .branch-about-label::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--color-accent); }
+
+  .branch-about-card h2 {
+    font-size: clamp(24px, 3vw, 34px);
+    font-weight: 900;
+    color: var(--color-navy);
+    line-height: 1.35;
+    margin-bottom: 14px;
+  }
+  .branch-about-card .branch-about-title-small {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--color-text-soft);
+    margin-bottom: 22px;
+  }
+  .branch-about-card p {
+    color: var(--color-text-soft);
+    font-size: 16px;
+    line-height: 1.9;
+  }
+
+  @media (max-width: 768px) {
+    .branch-about { padding: 70px 0; }
+    .branch-about-card { padding: 34px 24px; }
+  }
+
+  /* ---------- 3. Cities ---------- */
+  .branch-cities {
+    padding: 100px 0;
+    background: var(--color-white);
+  }
+
+  .branch-cities-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 26px;
+  }
+
+  .branch-city-card {
+    background: var(--color-white);
+    border-radius: var(--radius-lg);
+    padding: 34px 24px;
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid rgba(18,59,120,.06);
+    transition: transform var(--t-fast), box-shadow var(--t-fast), border-color var(--t-fast);
+  }
+  .branch-city-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
+    border-color: rgba(25,184,242,.25);
+  }
+  .branch-city-icon {
+    width: 56px; height: 56px;
+    margin: 0 auto 18px;
+    border-radius: 16px;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(25,184,242,.12);
+    color: var(--color-primary-dark);
+    font-size: 16px;
+    font-weight: 900;
+    transition: background var(--t-fast), color var(--t-fast), transform var(--t-fast);
+  }
+  .branch-city-card:hover .branch-city-icon {
+    background: var(--color-primary);
+    color: #fff;
+    transform: rotate(-6deg) scale(1.1);
+  }
+  .branch-city-card h3 {
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--color-navy);
+    margin-bottom: 8px;
+  }
+  .branch-city-card p {
+    color: var(--color-text-soft);
+    font-size: 13.5px;
+    line-height: 1.6;
+    margin-bottom: 18px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .branch-city-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 700;
+    font-size: 13.5px;
+    color: var(--color-primary-dark);
+    transition: color var(--t-fast), gap var(--t-fast);
+  }
+  .branch-city-link svg { width: 14px; height: 14px; transition: transform var(--t-fast); }
+  .branch-city-link:hover { color: var(--color-navy); }
+  .branch-city-link:hover svg { transform: translateX(-4px); }
+
+  @media (max-width: 1024px) { .branch-cities-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 560px) { .branch-cities-grid { grid-template-columns: 1fr; } }
+
+  /* ---------- 4. Activities ---------- */
+  .branch-activities {
+    position: relative;
+    padding: 100px 0;
+    background: var(--color-light);
+  }
+
+  .branch-activities-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+
+  .branch-activity-card {
+    background: var(--color-white);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid rgba(18,59,120,.06);
+    transition: transform var(--t-fast), box-shadow var(--t-fast);
+  }
+  .branch-activity-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
+  }
+  .branch-activity-img {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+  }
+  .branch-activity-img img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform .6s var(--ease);
+  }
+  .branch-activity-card:hover .branch-activity-img img { transform: scale(1.08); }
+  .branch-activity-body { padding: 22px 20px 26px; }
+  .branch-activity-body h3 {
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--color-navy);
+    line-height: 1.4;
+    margin-bottom: 8px;
+  }
+  .branch-activity-body p {
+    color: var(--color-text-soft);
+    font-size: 14px;
+    line-height: 1.6;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 14px;
+  }
+  .branch-activity-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--color-primary-dark);
+    transition: color var(--t-fast);
+    text-decoration: none;
+  }
+  .branch-activity-more svg { width: 15px; height: 15px; transition: transform var(--t-fast); }
+  .branch-activity-more:hover { color: var(--color-navy); }
+  .branch-activity-more:hover svg { transform: translateX(-4px); }
+
+  @media (max-width: 1024px) { .branch-activities-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 640px) { .branch-activities-grid { grid-template-columns: 1fr; } }
+
+  /* ---------- 5. Gallery ---------- */
+  .branch-gallery {
+    padding: 100px 0;
+    background: var(--color-white);
+  }
+
+  .branch-gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  .branch-gallery-item {
+    position: relative;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    aspect-ratio: 1;
+    cursor: pointer;
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--t-fast), box-shadow var(--t-fast);
+  }
+  .branch-gallery-item:hover {
+    transform: scale(1.03);
+    box-shadow: var(--shadow-md);
+  }
+  .branch-gallery-item img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform .5s var(--ease);
+  }
+  .branch-gallery-item:hover img { transform: scale(1.1); }
+  .branch-gallery-item-large {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+
+  @media (max-width: 960px) { .branch-gallery-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .branch-gallery-grid { grid-template-columns: 1fr 1fr; } }
+
+  /* ---------- 6. CTA ---------- */
+  .branch-cta {
+    position: relative;
+    padding: 110px 0;
+    background: linear-gradient(135deg, #12A5E0 0%, var(--color-navy) 55%, #0C2A5E 100%);
+    color: #fff;
+    overflow: hidden;
+    text-align: center;
+  }
+  .branch-cta-blobs { position: absolute; inset: 0; pointer-events: none; }
+  .branch-cta-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(2px);
+    animation: float 9s ease-in-out infinite;
+  }
+  .branch-cta-blob-1 {
+    width: 170px; height: 170px;
+    background: rgba(246,179,0,.18);
+    top: -40px; inset-inline-end: 8%;
+  }
+  .branch-cta-blob-2 {
+    width: 110px; height: 110px;
+    background: rgba(255,255,255,.08);
+    bottom: 10%; inset-inline-start: 6%;
+    animation-delay: 1.4s;
+  }
+
+  .branch-cta-inner { position: relative; z-index: 2; max-width: 660px; margin: 0 auto; }
+  .branch-cta h2 {
+    font-size: clamp(26px, 3.4vw, 42px);
+    font-weight: 900;
+    line-height: 1.4;
+    margin-bottom: 16px;
+  }
+  .branch-cta p {
+    color: rgba(255,255,255,.82);
+    font-size: 17px;
+    line-height: 1.85;
+    margin-bottom: 38px;
+  }
+  .branch-cta-actions { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; }
+
+  .branch-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 17px 40px;
+    border-radius: var(--radius-pill);
+    background: var(--color-accent);
+    color: var(--color-navy);
+    font-family: inherit;
+    font-weight: 800;
+    font-size: 16px;
+    box-shadow: var(--shadow-accent);
+    transition: transform var(--t-fast), box-shadow var(--t-fast), background var(--t-fast);
+    text-decoration: none;
+  }
+  .branch-cta-btn svg { width: 20px; height: 20px; transition: transform var(--t-fast); }
+  .branch-cta-btn:hover {
+    background: var(--color-white);
+    color: var(--color-navy);
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 22px 46px rgba(246,179,0,.5);
+  }
+  .branch-cta-btn:hover svg { transform: translateX(-4px); }
+
+  .branch-cta-btn-outline {
+    background: transparent;
+    border: 2px solid rgba(255,255,255,.75);
+    color: #fff;
+    box-shadow: none;
+  }
+  .branch-cta-btn-outline:hover {
+    background: rgba(255,255,255,.15);
+    color: #fff;
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 14px 34px rgba(0,0,0,.2);
+  }
+
+  @media (max-width: 560px) {
+    .branch-cta-actions { flex-direction: column; align-items: stretch; }
+    .branch-cta-btn { width: 100%; justify-content: center; }
+  }
+
+  /* ---------- 7. 404 ---------- */
+  .branch-404 {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 100px 24px;
+    background: linear-gradient(180deg, #ffffff 0%, #f0f7ff 100%);
+  }
+  .branch-404-inner { max-width: 520px; }
+  .branch-404-icon {
+    width: 80px; height: 80px;
+    margin: 0 auto 24px;
+    border-radius: 50%;
+    background: rgba(25,184,242,.1);
+    color: var(--color-primary-dark);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .branch-404-icon svg { width: 36px; height: 36px; }
+  .branch-404 h1 {
+    font-size: clamp(26px, 3.4vw, 42px);
+    font-weight: 900;
+    color: var(--color-navy);
+    margin-bottom: 12px;
+  }
+  .branch-404 p {
+    color: var(--color-text-soft);
+    font-size: 16px;
+    margin-bottom: 32px;
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== Loading Screen ===== -->
+<div id="loader" aria-hidden="true">
+  <div class="loader-mark"></div>
+  <div class="loader-text">الجمعية المغربية لهواة البحث والاستكشاف</div>
+</div>
+
+<!-- ===== Skip Link ===== -->
+<a href="#main" class="visually-hidden">تخطَّ إلى المحتوى الرئيسي</a>
+
+<!-- ===== 1. Top Bar ===== -->
+<div class="topbar">
+  <div class="container">
+    <div class="topbar-right">
+      <a href="index.html" class="topbar-brand" aria-label="الرئيسية">
+        <span class="topbar-brand-mark">
+          <img src="Amare%20files%20/logo.png" alt="AMARE Logo" class="topbar-brand-logo">
+        </span>
+        <span class="topbar-brand-name">الجمعية المغربية لهواة البحث والاستكشاف</span>
+      </a>
+    </div>
+
+    <div class="topbar-left">
+      <div class="topbar-social">
+        <a href="#" aria-label="فيسبوك"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg></a>
+        <a href="#" aria-label="إنستغرام"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+        <a href="#" aria-label="لينكدإن"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 5 3.79 6.2 2.3 6.2 1 6.2 0 5 0 3.5 0 2 1.1.8 2.5.8s2.48 1.2 2.48 2.7zM.2 8.5h4.6V23H.2V8.5zM8 8.5h4.4v2h.06c.6-1.2 2.1-2.4 4.4-2.4 4.7 0 5.6 3.1 5.6 7.1V23h-4.6v-6.7c0-1.6 0-3.7-2.3-3.7s-2.6 1.8-2.6 3.6V23H8V8.5z"/></svg></a>
+      </div>
+
+      <div class="topbar-lang">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg>
+        <select aria-label="اختيار اللغة">
+          <option value="ar" selected>العربية</option>
+          <option value="fr">Français</option>
+          <option value="en">English</option>
+          <option value="es">Español</option>
+          <option value="ber">ⵜⴰⵎⴰⵣⵉⵖⵜ</option>
+        </select>
+      </div>
+
+      <a href="http://wa.me/+212684869996" target="_blank" rel="noopener" class="topbar-whatsapp ripple" aria-label="تواصل عبر واتساب">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.6.1-.2.3-.7 1-.9 1.2-.1.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.2-.4.1-.2 0-.4 0-.5s-.6-1.5-.8-2c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s1 2.6 1.1 2.7c.1.2 2 3 4.7 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 2-1.4.2-.6.2-1.2.1-1.3-.1-.1-.3-.2-.6-.3z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.6 1.4 5.1L2 22l5.1-1.3C8.5 21.5 10.2 22 12 22c5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18c-1.6 0-3.1-.4-4.5-1.2l-.3-.2-3.3.9.9-3.2-.2-.3C3.7 14.6 3.2 13.3 3.2 12c0-4.9 3.9-8.8 8.8-8.8s8.8 3.9 8.8 8.8-3.9 8.8-8.8 8.8z"/></svg>
+        <span>واتساب</span>
+      </a>
+
+      <a href="login.html" class="topbar-login ripple" aria-label="تسجيل الدخول">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M15 3h6v18h-6M10 17l5-5-5-5M15 12H3"/>
+        </svg>
+        <span>تسجيل الدخول</span>
+      </a>
+
+      <a href="amare store/index.html" class="nav-store-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+          <path d="M3 6h18"/>
+          <path d="M16 10a4 4 0 0 1-8 0"/>
+        </svg>
+        <span>متجر AMARE</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 2. Navbar ===== -->
+<header>
+  <nav class="navbar" id="navbar" aria-label="التنقل الرئيسي">
+    <div class="container">
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">الرئيسية</a></li>
+        <li data-dropdown="about"><a href="index.html#about">من نحن</a></li>
+        <li data-dropdown="activities"><a href="index.html#services">أنشطتنا</a></li>
+        <li data-dropdown="partners"><a href="index.html#services">شركاؤنا</a></li>
+        <li data-dropdown="services"><a href="index.html#services">خدماتنا</a></li>
+        <li data-dropdown="news"><a href="index.html#news">الأخبار</a></li>
+        <li data-dropdown="archive"><a href="#">الأرشيف</a></li>
+        <li data-dropdown="branches"><a href="#" class="active" aria-current="page">الفروع الجهوية</a></li>
+        <li data-dropdown="join"><a href="Join us/join-us-online.html">انخرط معنا</a></li>
+        <li><a href="contact.html">اتصل بنا</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button class="hamburger" id="hamburger" aria-label="فتح القائمة" aria-expanded="false" aria-controls="navLinks">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <div class="mega-dropdown" id="megaDropdown"></div>
+  </nav>
+</header>
+
+<!-- ===== Mobile Header ===== -->
+<div class="mobile-header" id="mobileHeader">
+  <div class="mobile-header-group">
+    <a class="mobile-header-logo" href="index.html" aria-label="الرئيسية">
+      <img src="Amare%20files%20/logo.png" alt="AMARE Logo">
+    </a>
+    <a class="mobile-header-brand" href="index.html" aria-label="الرئيسية">
+      الجمعية المغربية لهواة<br>البحث والاستكشاف
+    </a>
+  </div>
+  <button class="mobile-hamburger" id="mobileHamburger" aria-label="فتح القائمة" aria-expanded="false" aria-controls="mobileDrawer">
+    <span></span><span></span><span></span>
+  </button>
+</div>
+
+<!-- ===== Mobile Drawer ===== -->
+<div class="mobile-drawer" id="mobileDrawer" role="dialog" aria-modal="true" aria-label="القائمة الرئيسية">
+  <div class="mobile-drawer-inner">
+    <div class="mobile-drawer-header">
+      <button class="mobile-drawer-close" id="mobileDrawerClose" aria-label="إغلاق القائمة">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+      <a class="mobile-drawer-brand" href="index.html">
+        <img src="Amare%20files%20/logo.png" alt="AMARE Logo" class="mobile-drawer-brand-logo">
+        <span class="mobile-drawer-brand-name">الجمعية المغربية لهواة البحث والاستكشاف</span>
+      </a>
+    </div>
+    <nav class="mobile-drawer-nav" aria-label="التنقل الرئيسي">
+      <ul class="mobile-drawer-links" id="mobileDrawerLinks">
+        <li><a href="index.html">الرئيسية</a></li>
+        <li class="mobile-drawer-dropdown" data-dd="about">
+          <div class="mobile-drawer-row">
+            <a href="index.html#about">من نحن</a>
+            <button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </div>
+          <ul class="mobile-drawer-sub"></ul>
+        </li>
+        <li class="mobile-drawer-dropdown" data-dd="activities">
+          <div class="mobile-drawer-row">
+            <a href="index.html#services">أنشطتنا</a>
+            <button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </div>
+          <ul class="mobile-drawer-sub"></ul>
+        </li>
+        <li class="mobile-drawer-dropdown" data-dd="partners">
+          <div class="mobile-drawer-row">
+            <a href="index.html#services">شركاؤنا</a>
+            <button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </div>
+          <ul class="mobile-drawer-sub"></ul>
+        </li>
+        <li class="mobile-drawer-dropdown" data-dd="services">
+          <div class="mobile-drawer-row">
+            <a href="index.html#services">خدماتنا</a>
+            <button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </div>
+          <ul class="mobile-drawer-sub"></ul>
+        </li>
+        <li class="mobile-drawer-dropdown" data-dd="news">
+          <div class="mobile-drawer-row">
+            <a href="index.html#news">الأخبار</a>
+            <button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </div>
+          <ul class="mobile-drawer-sub"></ul>
+        </li>
+        <li class="mobile-drawer-dropdown" data-dd="archive">
+          <div class="mobile-drawer-row">
+            <a href="#">الأرشيف</a>
+            <button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </div>
+          <ul class="mobile-drawer-sub"></ul>
+        </li>
+        <li class="mobile-drawer-dropdown" data-dd="branches">
+          <div class="mobile-drawer-row">
+            <a href="#">الفروع الجهوية</a>
+            <button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </div>
+          <ul class="mobile-drawer-sub"></ul>
+        </li>
+        <li class="mobile-drawer-dropdown" data-dd="join">
+          <div class="mobile-drawer-row">
+            <a href="Join%20us/index.html">انخرط معنا</a>
+            <button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </div>
+          <ul class="mobile-drawer-sub"></ul>
+        </li>
+        <li><a href="contact.html">اتصل بنا</a></li>
+      </ul>
+    </nav>
+    <div class="mobile-drawer-bottom">
+      <div class="mobile-drawer-actions">
+        <a href="login.html" class="mobile-drawer-action mobile-drawer-action-login">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v18h-6M10 17l5-5-5-5M15 12H3"/></svg>
+          <span>تسجيل الدخول</span>
+        </a>
+        <a href="amare store/index.html" class="mobile-drawer-action mobile-drawer-action-store">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span>متجر</span>
+        </a>
+        <a href="https://wa.me/212600000000" target="_blank" rel="noopener" class="mobile-drawer-action mobile-drawer-action-whatsapp">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.6.1-.2.3-.7 1-.9 1.2-.1.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.2-.4.1-.2 0-.4 0-.5s-.6-1.5-.8-2c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s1 2.6 1.1 2.7c.1.2 2 3 4.7 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 2-1.4.2-.6.2-1.2.1-1.3-.1-.1-.3-.2-.6-.3z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.6 1.4 5.1L2 22l5.1-1.3C8.5 21.5 10.2 22 12 22c5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18c-1.6 0-3.1-.4-4.5-1.2l-.3-.2-3.3.9.9-3.2-.2-.3C3.7 14.6 3.2 13.3 3.2 12c0-4.9 3.9-8.8 8.8-8.8s8.8 3.9 8.8 8.8-3.9 8.8-8.8 8.8z"/></svg>
+          <span>واتساب</span>
+        </a>
+      </div>
+      <div class="mobile-drawer-lang">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg>
+        <select aria-label="اختيار اللغة">
+          <option value="ar" selected>العربية</option>
+          <option value="fr">Français</option>
+          <option value="en">English</option>
+          <option value="es">Español</option>
+          <option value="ber">ⵜⴰⵎⴰⵣⵉⵖⵜ</option>
+        </select>
+      </div>
+      <div class="mobile-drawer-social">
+        <a href="#" aria-label="فيسبوك"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg></a>
+        <a href="#" aria-label="إنستغرام"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+        <a href="#" aria-label="لينكدإن"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 5 3.79 6.2 2.3 6.2 1 6.2 0 5 0 3.5 0 2 1.1.8 2.5.8s2.48 1.2 2.48 2.7zM.2 8.5h4.6V23H.2V8.5zM8 8.5h4.4v2h.06c.6-1.2 2.1-2.4 4.4-2.4 4.7 0 5.6 3.1 5.6 7.1V23h-4.6v-6.7c0-1.6 0-3.7-2.3-3.7s-2.6 1.8-2.6 3.6V23H8V8.5z"/></svg></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main id="main">
+
+  <!-- ===== 1. Hero ===== -->
+  <section class="branch-hero" id="home">
+    <div class="branch-hero-bg" aria-hidden="true"></div>
+    <div class="branch-hero-overlay" aria-hidden="true"></div>
+
+    <div class="branch-hero-shape s1" aria-hidden="true"></div>
+    <div class="branch-hero-shape s2" aria-hidden="true"></div>
+    <div class="branch-hero-shape s3" aria-hidden="true"></div>
+
+    <div class="container">
+      <div class="branch-hero-inner">
+        <span class="branch-hero-eyebrow branch-hero-fade d1">فرع جهوي</span>
+        <h1 class="branch-hero-fade d2">جهة طنجة - تطوان - الحسيمة</h1>
+        <p class="branch-hero-fade d3">
+          الجهة الشمالية للمملكة المغربية، تطل على البحر الأبيض المتوسط والمحيط الأطلسي.
+          تضم مدناً تاريخية وثقافية غنية، وهي بوابة المغرب نحو أوروبا.
+        </p>
+        <div class="branch-hero-actions branch-hero-fade d3">
+          <a href="#" class="btn btn-accent">
+            انضم إلينا
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+          </a>
+          <a href="contact.html" class="btn btn-outline">
+            تواصل معنا
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 2. About Region ===== -->
+  <section class="branch-about" id="about">
+    <div class="branch-about-blobs" aria-hidden="true">
+      <div class="branch-about-blob branch-about-blob-1"></div>
+      <div class="branch-about-blob branch-about-blob-2"></div>
+    </div>
+
+    <div class="container">
+      <div class="branch-about-card reveal">
+        <span class="branch-about-label">نبذة عن الجهة</span>
+        <h2>جهة طنجة - تطوان - الحسيمة</h2>
+        <p class="branch-about-title-small">إحدى الجهات الإثنتي عشرة للمملكة المغربية</p>
+        <p>
+          تقع جهة طنجة - تطوان - الحسيمة في أقصى شمال المملكة المغربية، وتعتبر بوابة المغرب نحو أوروبا
+          عبر مضيق جبل طارق. تتميز الجهة بتنوعها الجغرافي والثقافي الفريد، حيث تجمع بين السواحل المتوسطية
+          والأطلسية والجبال الريفية الشاهقة. تضم الجهة مدناً تاريخية عريقة مثل طنجة وتطوان وشفشاون،
+          وتعد مركزاً اقتصادياً وصناعياً مهماً بفضل ميناء طنجة المتوسط. كما تشتهر بتراثها الأندلسي
+          وحرفها التقليدية ومطبخها المتنوع.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 3. Cities ===== -->
+  <section class="branch-cities" id="cities">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">مدن الجهة</span>
+        <h2 class="section-title">المدن التابعة</h2>
+        <p class="section-desc">تعرف على المدن المنتمية إلى جهة طنجة - تطوان - الحسيمة.</p>
+      </div>
+
+      <div class="branch-cities-grid stagger">
+        <article class="branch-city-card reveal" style="--i:0">
+          <span class="branch-city-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          </span>
+          <h3>طنجة</h3>
+          <p>مدينة ساحلية استراتيجية تطل على مضيق جبل طارق، ملتقى الحضارات المتوسطية.</p>
+          <a href="city.html?slug=tangier" class="branch-city-link">
+            استكشف
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+          </a>
+        </article>
+
+        <article class="branch-city-card reveal" style="--i:1">
+          <span class="branch-city-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          </span>
+          <h3>تطوان</h3>
+          <p>عاصمة الشمال وملتقى الحضارات الأندلسية والمغربية، مدينة التراث العالمي.</p>
+          <a href="city.html?slug=tetouan" class="branch-city-link">
+            استكشف
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+          </a>
+        </article>
+
+        <article class="branch-city-card reveal" style="--i:2">
+          <span class="branch-city-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          </span>
+          <h3>الحسيمة</h3>
+          <p>لؤلؤة البحر الأبيض المتوسط بشواطئها الخلابة ومنتزهها الوطني.</p>
+          <a href="city.html?slug=al-hoceima" class="branch-city-link">
+            استكشف
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+          </a>
+        </article>
+
+        <article class="branch-city-card reveal" style="--i:3">
+          <span class="branch-city-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          </span>
+          <h3>شفشاون</h3>
+          <p>المدينة الزرقاء الساحرة في جبال الريف، جوهرة السياحة المغربية.</p>
+          <a href="city.html?slug=chefchaouen" class="branch-city-link">
+            استكشف
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+          </a>
+        </article>
+
+        <article class="branch-city-card reveal" style="--i:4">
+          <span class="branch-city-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          </span>
+          <h3>العرائش</h3>
+          <p>مدينة ساحلية تاريخية على المحيط الأطلسي بموقعها عند مصب نهر اللوكوس.</p>
+          <a href="city.html?slug=larache" class="branch-city-link">
+            استكشف
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+          </a>
+        </article>
+
+        <article class="branch-city-card reveal" style="--i:5">
+          <span class="branch-city-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          </span>
+          <h3>وزان</h3>
+          <p>مدينة تاريخية وروحية في شمال المغرب، مهد الزاوية الوزانية.</p>
+          <a href="city.html?slug=ouezzane" class="branch-city-link">
+            استكشف
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+          </a>
+        </article>
+
+        <article class="branch-city-card reveal" style="--i:6">
+          <span class="branch-city-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          </span>
+          <h3>الفحص أنجرة</h3>
+          <p>منطقة ساحلية قريبة من طنجة، تتميز بطبيعتها الخضراء وشواطئها.</p>
+          <a href="city.html?slug=fahs-anjra" class="branch-city-link">
+            استكشف
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+          </a>
+        </article>
+
+        <article class="branch-city-card reveal" style="--i:7">
+          <span class="branch-city-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          </span>
+          <h3>المضيق الفنيدق</h3>
+          <p>منطقة سياحية ساحلية على البحر المتوسط، وجهة راقية للاستجمام.</p>
+          <a href="city.html?slug=mdiq-fnideq" class="branch-city-link">
+            استكشف
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+          </span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 4. Latest Activities ===== -->
+  <section class="branch-activities" id="activities">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">أنشطتنا</span>
+        <h2 class="section-title">آخر الأنشطة</h2>
+        <p class="section-desc">تعرف على آخر الأنشطة والفعاليات التي نظمها فرع الجهة.</p>
+      </div>
+
+      <div class="branch-activities-grid stagger">
+        <article class="branch-activity-card reveal" style="--i:0">
+          <div class="branch-activity-img">
+            <img src="https://images.unsplash.com/photo-1551632811-561732d1e306?w=600&q=80" alt="رحلة استكشافية" loading="lazy">
+          </div>
+          <div class="branch-activity-body">
+            <h3>رحلة استكشاف جبال الريف</h3>
+            <p>رحلة ميدانية لاستكشاف المسالك الجبلية في منطقة الريف بمشاركة 30 عضواً.</p>
+            <a href="#" class="branch-activity-more">
+              قراءة المزيد
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+            </a>
+          </div>
+        </article>
+
+        <article class="branch-activity-card reveal" style="--i:1">
+          <div class="branch-activity-img">
+            <img src="https://images.unsplash.com/photo-1531058020387-3be344556be6?w=600&q=80" alt="حملة بيئية" loading="lazy">
+          </div>
+          <div class="branch-activity-body">
+            <h3>حملة تنظيف شاطئ المضيق</h3>
+            <p>مبادرة بيئية لتنظيف شاطئ المضيق بمشاركة متطوعين من الجمعية والسكان المحليين.</p>
+            <a href="#" class="branch-activity-more">
+              قراءة المزيد
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+            </a>
+          </div>
+        </article>
+
+        <article class="branch-activity-card reveal" style="--i:2">
+          <div class="branch-activity-img">
+            <img src="https://images.unsplash.com/photo-1515187029135-7eefa3b2c9a1?w=600&q=80" alt="ورشة تدريبية" loading="lazy">
+          </div>
+          <div class="branch-activity-body">
+            <h3>ورشة التصوير الفوتوغرافي</h3>
+            <p>ورشة تدريبية حول أساسيات التصوير في الطبيعة، نظمها فرع الجهة للأعضاء الجدد.</p>
+            <a href="#" class="branch-activity-more">
+              قراءة المزيد
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+            </a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 5. Gallery ===== -->
+  <section class="branch-gallery" id="gallery">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">صور الجهة</span>
+        <h2 class="section-title">معرض الصور</h2>
+        <p class="section-desc">مجموعة من الصور المميزة من مختلف مناطق الجهة.</p>
+      </div>
+
+      <div class="branch-gallery-grid">
+        <div class="branch-gallery-item branch-gallery-item-large reveal">
+          <img src="https://images.unsplash.com/photo-1590073242678-6a7fa60b0a7c?w=800&q=80" alt="طنجة" loading="lazy">
+        </div>
+        <div class="branch-gallery-item reveal">
+          <img src="https://images.unsplash.com/photo-1577979780245-5516627e28a4?w=600&q=80" alt="شفشاون" loading="lazy">
+        </div>
+        <div class="branch-gallery-item reveal">
+          <img src="https://images.unsplash.com/photo-1509027572446-af8401acfdc9?w=600&q=80" alt="تطوان" loading="lazy">
+        </div>
+        <div class="branch-gallery-item reveal">
+          <img src="https://images.unsplash.com/photo-1544001254-1a14112e5e00?w=600&q=80" alt="الحسيمة" loading="lazy">
+        </div>
+        <div class="branch-gallery-item reveal">
+          <img src="https://images.unsplash.com/photo-1539020140153-f79d8e9b8e3a?w=600&q=80" alt="الريف" loading="lazy">
+        </div>
+        <div class="branch-gallery-item reveal">
+          <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&q=80" alt="الساحل" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 6. CTA ===== -->
+  <section class="branch-cta" id="cta">
+    <div class="branch-cta-blobs" aria-hidden="true">
+      <div class="branch-cta-blob branch-cta-blob-1"></div>
+      <div class="branch-cta-blob branch-cta-blob-2"></div>
+    </div>
+
+    <div class="container">
+      <div class="branch-cta-inner reveal">
+        <h2>هل ترغب في الانضمام إلى هذا الفرع؟</h2>
+        <p>انضم إلى فرع جهة طنجة - تطوان - الحسيمة وشارك في الأنشطة والفعاليات، وساهم في تنمية منطقتك مع فريق من المتطوعين المتحمسين.</p>
+        <div class="branch-cta-actions">
+          <a href="#" class="branch-cta-btn">
+            انضم الآن
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+          </a>
+          <a href="contact.html" class="branch-cta-btn branch-cta-btn-outline">
+            تواصل معنا
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ===== Footer ===== -->
+<footer class="footer" id="contact">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-about">
+        <div class="footer-brand">
+          <span class="brand-mark"><img src="Amare%20files%20/logo.png" alt="AMARE Logo" class="topbar-brand-logo"></span>
+          <span>
+            <span class="brand-name" data-amare-setting="association_name">الجمعية المغربية لهواة البحث والاستكشاف</span><br>
+          </span>
+        </div>
+        <p>الجمعية المغربية لهواة البحث والاستكشاف هي إطار قانوني وطني يهدف إلى تنمية قدرات الشباب في مجالات البحث والاستكشاف والتطوع.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="فيسبوك"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg></a>
+          <a href="#" aria-label="إنستغرام"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+          <a href="#" aria-label="لينكدإن"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 5 3.79 6.2 2.3 6.2 1 6.2 0 5 0 3.5 0 2 1.1.8 2.5.8s2.48 1.2 2.48 2.7zM.2 8.5h4.6V23H.2V8.5zM8 8.5h4.4v2h.06c.6-1.2 2.1-2.4 4.4-2.4 4.7 0 5.6 3.1 5.6 7.1V23h-4.6v-6.7c0-1.6 0-3.7-2.3-3.7s-2.6 1.8-2.6 3.6V23H8V8.5z"/></svg></a>
+        </div>
+      </div>
+
+      <nav aria-label="روابط سريعة">
+        <h4>روابط سريعة</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">الرئيسية</a></li>
+          <li><a href="index.html#about">من نحن</a></li>
+          <li><a href="index.html#services">أنشطتنا</a></li>
+          <li><a href="index.html#news">الأخبار</a></li>
+          <li><a href="#">الفروع الجهوية</a></li>
+          <li><a href="contact.html">اتصل بنا</a></li>
+        </ul>
+      </nav>
+
+      <nav aria-label="برامجنا">
+        <h4>برامجنا</h4>
+        <ul class="footer-links">
+          <li><a href="#">SOS Amare</a></li>
+          <li><a href="amare store/index.html">متجر Amare</a></li>
+          <li><a href="#">الاستكشاف</a></li>
+          <li><a href="#">التطوع</a></li>
+          <li><a href="#">التدريب</a></li>
+          <li><a href="#">البيئة</a></li>
+        </ul>
+      </nav>
+
+      <div>
+        <h4>تواصل معنا</h4>
+        <ul class="footer-contact">
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span data-amare-setting="address">ص.ب 749 أيت ملول 86150</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <span dir="ltr" data-amare-setting="phone">+212 684869996</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            <span dir="ltr" data-amare-setting="contact_email">association.amare.agadir@gmail.com</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="footer-location">
+        <h4>موقعنا</h4>
+        <div class="footer-map-card">
+          <span class="footer-map-badge">📍 Ait Melloul, Agadir</span>
+          <iframe src="https://www.google.com/maps?q=30.385528,-9.448611&z=16&output=embed" class="footer-map-frame" title="موقع الجمعية" loading="lazy"></iframe>
+          <div class="footer-map-footer">
+            <a href="https://www.google.com/maps?q=30.385528,-9.448611" target="_blank" rel="noopener" class="footer-map-btn">Open in Google Maps</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2026 <span data-amare-setting="association_name">الجمعية المغربية لهواة البحث والاستكشاف</span>. جميع الحقوق محفوظة.</p>
+      <div class="footer-bottom-links">
+        <a href="#">سياسة الخصوصية</a>
+        <a href="#">الشروط والأحكام</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== Back to Top ===== -->
+<button class="back-to-top" id="backToTop" aria-label="العودة إلى الأعلى">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
+
+<!-- ===== Scripts ===== -->
+<script src="script.js" defer></script>
+
+<!-- ===== Dynamic Region Data ===== -->
+<script>
+(function() {
+  var params = new URLSearchParams(window.location.search);
+  var slug = params.get('slug');
+  if (!slug) return;
+
+  var regions = {
+    'tanger-tetouan-al-hoceima': {
+      name: 'جهة طنجة - تطوان - الحسيمة',
+      heroDesc: 'الجهة الشمالية للمملكة المغربية، تطل على البحر الأبيض المتوسط والمحيط الأطلسي. تضم مدناً تاريخية وثقافية غنية، وهي بوابة المغرب نحو أوروبا.',
+      heroBg: 'https://images.unsplash.com/photo-1577979780245-5516627e28a4?w=1600&q=80',
+      aboutTitle: 'إحدى الجهات الإثنتي عشرة للمملكة المغربية',
+      aboutText: 'تقع جهة طنجة - تطوان - الحسيمة في أقصى شمال المملكة المغربية، وتعتبر بوابة المغرب نحو أوروبا عبر مضيق جبل طارق. تتميز الجهة بتنوعها الجغرافي والثقافي الفريد، حيث تجمع بين السواحل المتوسطية والأطلسية والجبال الريفية الشاهقة. تضم الجهة مدناً تاريخية عريقة مثل طنجة وتطوان وشفشاون، وتعد مركزاً اقتصادياً وصناعياً مهماً بفضل ميناء طنجة المتوسط. كما تشتهر بتراثها الأندلسي وحرفها التقليدية ومطبخها المتنوع.',
+      cities: [
+        { name: 'طنجة', slug: 'tangier', desc: 'مدينة ساحلية استراتيجية تطل على مضيق جبل طارق، ملتقى الحضارات المتوسطية.' },
+        { name: 'تطوان', slug: 'tetouan', desc: 'عاصمة الشمال وملتقى الحضارات الأندلسية والمغربية، مدينة التراث العالمي.' },
+        { name: 'الحسيمة', slug: 'al-hoceima', desc: 'لؤلؤة البحر الأبيض المتوسط بشواطئها الخلابة ومنتزهها الوطني.' },
+        { name: 'شفشاون', slug: 'chefchaouen', desc: 'المدينة الزرقاء الساحرة في جبال الريف، جوهرة السياحة المغربية.' },
+        { name: 'العرائش', slug: 'larache', desc: 'مدينة ساحلية تاريخية على المحيط الأطلسي بموقعها عند مصب نهر اللوكوس.' },
+        { name: 'وزان', slug: 'ouezzane', desc: 'مدينة تاريخية وروحية في شمال المغرب، مهد الزاوية الوزانية.' },
+        { name: 'الفحص أنجرة', slug: 'fahs-anjra', desc: 'منطقة ساحلية قريبة من طنجة، تتميز بطبيعتها الخضراء وشواطئها.' },
+        { name: 'المضيق الفنيدق', slug: 'mdiq-fnideq', desc: 'منطقة سياحية ساحلية على البحر المتوسط، وجهة راقية للاستجمام.' }
+      ],
+      activities: [
+        { title: 'رحلة استكشاف جبال الريف', desc: 'رحلة ميدانية لاستكشاف المسالك الجبلية في منطقة الريف بمشاركة 30 عضواً.', img: 'https://images.unsplash.com/photo-1551632811-561732d1e306?w=600&q=80' },
+        { title: 'حملة تنظيف شاطئ المضيق', desc: 'مبادرة بيئية لتنظيف شاطئ المضيق بمشاركة متطوعين من الجمعية والسكان المحليين.', img: 'https://images.unsplash.com/photo-1531058020387-3be344556be6?w=600&q=80' },
+        { title: 'ورشة التصوير الفوتوغرافي', desc: 'ورشة تدريبية حول أساسيات التصوير في الطبيعة، نظمها فرع الجهة للأعضاء الجدد.', img: 'https://images.unsplash.com/photo-1515187029135-7eefa3b2c9a1?w=600&q=80' }
+      ],
+      gallery: [
+        'https://images.unsplash.com/photo-1590073242678-6a7fa60b0a7c?w=600&q=80',
+        'https://images.unsplash.com/photo-1577979780245-5516627e28a4?w=600&q=80',
+        'https://images.unsplash.com/photo-1509027572446-af8401acfdc9?w=600&q=80',
+        'https://images.unsplash.com/photo-1544001254-1a14112e5e00?w=600&q=80',
+        'https://images.unsplash.com/photo-1539020140153-f79d8e9b8e3a?w=600&q=80',
+        'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&q=80'
+      ],
+      ctaText: 'انضم إلى فرع جهة طنجة - تطوان - الحسيمة وشارك في الأنشطة والفعاليات، وساهم في تنمية منطقتك مع فريق من المتطوعين المتحمسين.'
+    },
+    'oriental': {
+      name: 'جهة الشرق',
+      heroDesc: 'الجهة الشرقية للمغرب، تمتد من البحر المتوسط شمالاً إلى الصحراء جنوباً. منطقة غنية بالتاريخ والثقافة والتنوع الطبيعي.',
+      heroBg: 'https://images.unsplash.com/photo-1570045729474-86e17c8a51eb?w=1600&q=80',
+      aboutTitle: 'إحدى الجهات الإثنتي عشرة للمملكة المغربية',
+      aboutText: 'تمتد جهة الشرق على مساحة شاسعة من الساحل المتوسطي شمالاً حتى واحات الصحراء جنوباً. تضم الجهة مدناً تاريخية عريقة مثل وجدة والناظور وبركان، وتتميز بتنوعها الثقافي واللغوي الذي يجمع بين الأمازيغية والعربية. تشتهر الجهة بمناطقها الفلاحية الخصبة ومناجمها الغنية وشواطئها المتوسطية الجميلة.',
+      cities: [
+        { name: 'وجدة', slug: 'oujda', desc: 'عاصمة الجهة الشرقية ومدينة الألف عام بتاريخها العريق.' },
+        { name: 'الناظور', slug: 'nador', desc: 'مدينة ساحلية مهمة على البحر المتوسط وميناء بني نصار.' },
+        { name: 'بركان', slug: 'berkane', desc: 'مدينة فلاحية معروفة بإنتاج الحمضيات عالية الجودة.' },
+        { name: 'الدريوش', slug: 'driouch', desc: 'منطقة جبلية وساحلية في الريف الشرقي بطبيعة خلابة.' },
+        { name: 'جرادة', slug: 'jerada', desc: 'مدينة منجمية تاريخية في شرق المغرب.' },
+        { name: 'فكيك', slug: 'figuig', desc: 'واحة صحراوية بتاريخ عريق في أقصى الشرق المغربي.' },
+        { name: 'تاوريرت', slug: 'taourirt', desc: 'مدينة تاريخية بقصبتها الشهيرة وموقعها الاستراتيجي.' },
+        { name: 'جرسيف', slug: 'guercif', desc: 'ملتقى الطرق بين الشرق وفاس ومركز تجاري مهم.' }
+      ],
+      activities: [
+        { title: 'استكشاف واحة فكيك', desc: 'رحلة استكشافية إلى واحة فكيك التاريخية للتعرف على تراثها المعماري.', img: 'https://images.unsplash.com/photo-1509027572446-af8401acfdc9?w=600&q=80' },
+        { title: 'مهرجان الليمون ببركان', desc: 'المشاركة في مهرجان الليمون السنوي بمدينة بركان للتعريف بالمنتوج المحلي.', img: 'https://images.unsplash.com/photo-1551632811-561732d1e306?w=600&q=80' },
+        { title: 'حملة تشجير جبال بني يزناسن', desc: 'مبادرة بيئية لتشجير المناطق الجبلية ببني يزناسن بمشاركة المجتمع المدني.', img: 'https://images.unsplash.com/photo-1531058020387-3be344556be6?w=600&q=80' }
+      ],
+      gallery: [
+        'https://images.unsplash.com/photo-1570045729474-86e17c8a51eb?w=600&q=80',
+        'https://images.unsplash.com/photo-1509027572446-af8401acfdc9?w=600&q=80',
+        'https://images.unsplash.com/photo-1544001254-1a14112e5e00?w=600&q=80',
+        'https://images.unsplash.com/photo-1531058020387-3be344556be6?w=600&q=80'
+      ],
+      ctaText: 'انضم إلى فرع جهة الشرق وشارك في الأنشطة والفعاليات، وساهم في تنمية منطقتك مع فريق من المتطوعين المتحمسين.'
+    },
+    'fes-meknes': {
+      name: 'جهة فاس - مكناس',
+      heroDesc: 'الجهة الروحية والعلمية للمغرب، تضم أقدم الجامعات والمدن الإمبراطورية. مهد الحضارة والعلم والتاريخ العريق.',
+      heroBg: 'https://images.unsplash.com/photo-1539020140153-f79d8e9b8e3a?w=1600&q=80',
+      aboutTitle: 'إحدى الجهات الإثنتي عشرة للمملكة المغربية',
+      aboutText: 'تعتبر جهة فاس - مكناس القلب التاريخي والروحي للمغرب، حيث تضم مدينة فاس العريقة التي تأسست في القرن الثامن الميلادي وتحتضن أقدم جامعة في العالم. تجمع الجهة بين التاريخ العريق والحداثة، وتشتهر بصناعاتها التقليدية ومدارسها العتيقة وأسواقها التاريخية. كما تضم مدينة مكناس الإمبراطورية وإفران السويسرية وصفرو مدينة الشلالات.',
+      cities: [
+        { name: 'فاس', slug: 'fes', desc: 'العاصمة العلمية والروحية للمملكة المغربية بأزقتها التاريخية.' },
+        { name: 'مكناس', slug: 'meknes', desc: 'المدينة الإمبراطورية بأسوارها ومعالمها التاريخية العريقة.' },
+        { name: 'تازة', slug: 'taza', desc: 'الممر الاستراتيجي بين الشرق والغرب بمغاراته الشهيرة.' },
+        { name: 'صفرو', slug: 'sefrou', desc: 'مدينة الشلالات والطبيعة الخلابة وكرزها المشهور.' },
+        { name: 'إفران', slug: 'ifrane', desc: 'سويسرا المغرب بمناظرها الجبلية وثلوجها وغابات الأرز.' },
+        { name: 'الحاجب', slug: 'el-hajeb', desc: 'مدينة فلاحية في سفح الأطلس المتوسط.' },
+        { name: 'بولمان', slug: 'boulemane', desc: 'منطقة جبلية وسياحية في الأطلس المتوسط.' },
+        { name: 'مولاي يعقوب', slug: 'moulay-yacoub', desc: 'منتجع صحي طبيعي بمياهه الكبريتية المعدنية.' },
+        { name: 'تاونات', slug: 'taounate', desc: 'منطقة فلاحية خصبة في مقدمة جبال الريف.' }
+      ],
+      activities: [
+        { title: 'جولة في المدينة القديمة بفاس', desc: 'رحلة ثقافية لاستكشاف أسرار المدينة القديمة بفاس ومعالمها التاريخية.', img: 'https://images.unsplash.com/photo-1539020140153-f79d8e9b8e3a?w=600&q=80' },
+        { title: 'مخيم شتوي بإفران', desc: 'مخيم شتوي لأعضاء الجمعية في غابات الأرز بإفران مع أنشطة ثلجية.', img: 'https://images.unsplash.com/photo-1551632811-561732d1e306?w=600&q=80' },
+        { title: 'معرض الصناعة التقليدية', desc: 'تنظيم معرض للصناعة التقليدية المحلية بمشاركة حرفيي الجهة.', img: 'https://images.unsplash.com/photo-1515187029135-7eefa3b2c9a1?w=600&q=80' }
+      ],
+      gallery: [
+        'https://images.unsplash.com/photo-1539020140153-f79d8e9b8e3a?w=600&q=80',
+        'https://images.unsplash.com/photo-1577979780245-5516627e28a4?w=600&q=80',
+        'https://images.unsplash.com/photo-1590073242678-6a7fa60b0a7c?w=600&q=80'
+      ],
+      ctaText: 'انضم إلى فرع جهة فاس - مكناس وشارك في الأنشطة والفعاليات، وساهم في تنمية منطقتك مع فريق من المتطوعين المتحمسين.'
+    },
+    'rabat-sale-kenitra': {
+      name: 'جهة الرباط - سلا - القنيطرة',
+      heroDesc: 'الجهة الإدارية والحكومية للمملكة، تضم العاصمة الرباط ومراكز القرار. تجمع بين التاريخ العريق والحاضر المزدهر.',
+      heroBg: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1600&q=80',
+      aboutTitle: 'إحدى الجهات الإثنتي عشرة للمملكة المغربية',
+      aboutText: 'تضم جهة الرباط - سلا - القنيطرة العاصمة الإدارية للمملكة المغربية، وتجمع بين المؤسسات الحكومية والمراكز الثقافية والمعالم التاريخية المصنفة ضمن التراث العالمي لليونسكو. تمتد الجهة على الساحل الأطلسي وتضم مدناً عريقة مثل الرباط وسلا والقنيطرة، وتعد مركزاً للتعليم العالي والبحث العلمي والدبلوماسية.',
+      cities: [
+        { name: 'الرباط', slug: 'rabat', desc: 'عاصمة المملكة المغربية ومدينة الأنوار بمعالمها التاريخية.' },
+        { name: 'سلا', slug: 'sale', desc: 'المدينة العريقة على الضفة اليمنى لنهر أبي رقراق.' },
+        { name: 'القنيطرة', slug: 'kenitra', desc: 'مدينة صناعية وميناء نهري مهم على نهر سبو.' },
+        { name: 'الخميسات', slug: 'khemisset', desc: 'مدينة أمازيغية بالأطلس المتوسط بتراثها الثقافي.' },
+        { name: 'سيدي قاسم', slug: 'sidi-kacem', desc: 'مركز فلاحي مهم في سهل الغرب.' },
+        { name: 'سيدي سليمان', slug: 'sidi-slimane', desc: 'مدينة فلاحية في منطقة الغرب الخصبة.' },
+        { name: 'الصخيرات تمارة', slug: 'skhirate-temara', desc: 'منطقة ساحلية وسياحية قرب العاصمة بشواطئها الجميلة.' }
+      ],
+      activities: [
+        { title: 'زيارة صومعة حسان', desc: 'جولة ثقافية في الموقع التاريخي لصومعة حسان وضريح محمد الخامس.', img: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&q=80' },
+        { title: 'ورشة البيئة بسلا', desc: 'ورشة توعوية حول حماية البيئة بنهر أبي رقراق بمشاركة تلاميذ المدارس.', img: 'https://images.unsplash.com/photo-1531058020387-3be344556be6?w=600&q=80' },
+        { title: 'ملتقى الجمعيات المدنية', desc: 'تنظيم ملتقى للجمعيات المدنية بجهة الرباط لتبادل الخبرات والتجارب.', img: 'https://images.unsplash.com/photo-1515187029135-7eefa3b2c9a1?w=600&q=80' }
+      ],
+      gallery: [
+        'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&q=80',
+        'https://images.unsplash.com/photo-1590073242678-6a7fa60b0a7c?w=600&q=80',
+        'https://images.unsplash.com/photo-1577979780245-5516627e28a4?w=600&q=80'
+      ],
+      ctaText: 'انضم إلى فرع جهة الرباط - سلا - القنيطرة وشارك في الأنشطة والفعاليات، وساهم في تنمية منطقتك مع فريق من المتطوعين المتحمسين.'
+    },
+    'beni-mellal-khenifra': {
+      name: 'جهة بني ملال - خنيفرة',
+      heroDesc: 'الجهة الوسطى للمغرب، تجمع بين السهول الفلاحية الخصبة وجبال الأطلس المتوسط الشامخة. منطقة الطبيعة والفلاحة.',
+      heroBg: 'https://images.unsplash.com/photo-1551632811-561732d1e306?w=1600&q=80',
+      aboutTitle: 'إحدى الجهات الإثنتي عشرة للمملكة المغربية',
+      aboutText: 'تقع جهة بني ملال - خنيفرة في قلب المغرب، وتتميز بتنوعها الجغرافي الذي يجمع بين سهول تادلة الفلاحية الخصبة وجبال الأطلس المتوسط الشاهقة. تشتهر الجهة بإنتاجها الزراعي الغني ومناظرها الطبيعية الخلابة، وتضم مواقع سياحية فريدة مثل شلالات أوزود وبحيرة بين الويدان. كما تحتضن مناجم الفوسفاط بخريبكة التي تعد من أكبر احتياطيات الفوسفاط في العالم.',
+      cities: [
+        { name: 'بني ملال', slug: 'beni-mellal', desc: 'عاصمة الجهة وبوابة الأطلس المتوسط بموقعها الاستراتيجي.' },
+        { name: 'أزيلال', slug: 'azilal', desc: 'منطقة جبلية سياحية بشلالات أوزود الخلابة.' },
+        { name: 'خنيفرة', slug: 'khenifra', desc: 'المدينة الحمراء في قلب الأطلس المتوسط بطبيعتها البكر.' },
+        { name: 'الفقيه بن صالح', slug: 'fquih-ben-salah', desc: 'مركز فلاحي وتجاري مهم في سهول تادلة.' },
+        { name: 'خريبكة', slug: 'khouribga', desc: 'عاصمة الفوسفاط المغربي ومركز تعديني مهم.' }
+      ],
+      activities: [
+        { title: 'رحلة إلى شلالات أوزود', desc: 'رحلة استكشافية إلى شلالات أوزود الخلابة في قلب جبال الأطلس.', img: 'https://images.unsplash.com/photo-1551632811-561732d1e306?w=600&q=80' },
+        { title: 'مهرجان الفلاحة بتادلة', desc: 'المشاركة في مهرجان الفلاحة بسهول تادلة لعرض المنتوجات المحلية.', img: 'https://images.unsplash.com/photo-1531058020387-3be344556be6?w=600&q=80' },
+        { title: 'استكشاف بحيرة بين الويدان', desc: 'رحلة استكشافية لبحيرة بين الويدان والتعريف بمؤهلاتها السياحية.', img: 'https://images.unsplash.com/photo-1515187029135-7eefa3b2c9a1?w=600&q=80' }
+      ],
+      gallery: [
+        'https://images.unsplash.com/photo-1551632811-561732d1e306?w=600&q=80',
+        'https://images.unsplash.com/photo-1531058020387-3be344556be6?w=600&q=80',
+        'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&q=80'
+      ],
+      ctaText: 'انضم إلى فرع جهة بني ملال - خنيفرة وشارك في الأنشطة والفعاليات، وساهم في تنمية منطقتك مع فريق من المتطوعين المتحمسين.'
+    },
+    'casablanca-settat': {
+      name: 'جهة الدار البيضاء - سطات',
+      heroDesc: 'القطب الاقتصادي والتجاري الأول للمغرب، تضم العاصمة الاقتصادية الدار البيضاء. قلب المغرب النابض بالحياة والأعمال.',
+      heroBg: 'https://images.unsplash.com/photo-1515187029135-7eefa3b2c9a1?w=1600&q=80',
+      aboutTitle: 'إحدى الجهات الإثنتي عشرة للمملكة المغربية',
+      aboutText: 'تعد جهة الدار البيضاء - سطات القلب الاقتصادي النابض للمغرب، حيث تضم العاصمة الاقتصادية الدار البيضاء التي تعتبر أكبر مدينة في المغرب والمركز المالي والتجاري الأول. تمتد الجهة على الساحل الأطلسي وتضم ميناء الدار البيضاء الذي يعد من أكبر الموانئ في إفريقيا. كما تشتهر بمدنها الصناعية والتجارية الهامة مثل المحمدية والجديدة وسطات.',
+      cities: [
+        { name: 'الدار البيضاء', slug: 'casablanca', desc: 'العاصمة الاقتصادية وأكبر مدينة في المغرب بمعمارها الفريد.' },
+        { name: 'المحمدية', slug: 'mohammedia', desc: 'مدينة ساحلية صناعية وترفيهية بشواطئها الجميلة.' },
+        { name: 'الجديدة', slug: 'el-jadida', desc: 'مدينة ساحلية تاريخية بمازاغان البرتغالية المسجلة في اليونسكو.' },
+        { name: 'سطات', slug: 'settat', desc: 'مركز فلاحي وتجاري في السهول الداخلية.' },
+        { name: 'برشيد', slug: 'berrechid', desc: 'مدينة فلاحية وصناعية سريعة النمو.' },
+        { name: 'بنسليمان', slug: 'benslimane', desc: 'منطقة غابوية وفلاحية قرب العاصمة الاقتصادية.' },
+        { name: 'سيدي بنور', slug: 'sidi-bennour', desc: 'مدينة فلاحية معروفة بإنتاجها الزراعي المتنوع.' },
+        { name: 'النواصر', slug: 'nouaceur', desc: 'منطقة المطار الدولي محمد الخامس.' },
+        { name: 'مديونة', slug: 'mediouna', desc: 'منطقة صناعية ولوجستية قرب الدار البيضاء.' }
+      ],
+      activities: [
+        { title: 'ملتقى ريادة الأعمال', desc: 'تنظيم ملتقى لريادة الأعمال لفائدة شباب الجهة بمشاركة خبراء ومقاولين.', img: 'https://images.unsplash.com/photo-1515187029135-7eefa3b2c9a1?w=600&q=80' },
+        { title: 'حملة تشجير بالدار البيضاء', desc: 'مبادرة بيئية لتشجير الفضاءات الخضراء بمدينة الدار البيضاء.', img: 'https://images.unsplash.com/photo-1531058020387-3be344556be6?w=600&q=80' },
+        { title: 'زيارة المدينة القديمة', desc: 'جولة استكشافية في المدينة القديمة للدار البيضاء للتعريف بتراثها.', img: 'https://images.unsplash.com/photo-1551632811-561732d1e306?w=600&q=80' }
+      ],
+      gallery: [
+        'https://images.unsplash.com/photo-1515187029135-7eefa3b2c9a1?w=600&q=80',
+        'https://images.unsplash.com/photo-1590073242678-6a7fa60b0a7c?w=600&q=80',
+        'https://images.unsplash.com/photo-1577979780245-5516627e28a4?w=600&q=80'
+      ],
+      ctaText: 'انضم إلى فرع جهة الدار البيضاء - سطات وشارك في الأنشطة والفعاليات، وساهم في تنمية منطقتك مع فريق من المتطوعين المتحمسين.'
+    },
+    'marrakech-safi': {
+      name: 'جهة مراكش - آسفي',
+      heroDesc: 'الجهة السياحية الأولى للمغرب، تضم المدينة الحمراء مراكش وساحل المحيط الأطلسي. حيث يلتقي التاريخ بالجمال.',
+      heroBg: 'https://images.unsplash.com/photo-1590073242678-6a7fa60b0a7c?w=1600&q=80',
+      aboutTitle: 'إحدى الجهات الإثنتي عشرة للمملكة المغربية',
+      aboutText: 'تعد جهة مراكش - آسفي الوجهة السياحية الأولى في المغرب، حيث تضم المدينة الحمراء مراكش التي تجذب ملايين السياح سنوياً بفضل أسواقها التقليدية ومعالمها التاريخية وساحة جامع الفنا. تمتد الجهة على الساحل الأطلسي وتضم مدناً ساحلية جميلة مثل آسفي والصويرة، وتشتهر بصناعاتها التقليدية وفنونها العريقة.',
+      cities: [
+        { name: 'مراكش', slug: 'marrakech', desc: 'المدينة الحمراء وعاصمة السياحة المغربية بأسواقها ومعالمها.' },
+        { name: 'آسفي', slug: 'safi', desc: 'مدينة ساحلية تاريخية وعاصمة الفخار المغربي.' },
+        { name: 'الصويرة', slug: 'essaouira', desc: 'جوهرة المحيط الأطلسي ومدينة الرياح بمينائها التاريخي.' },
+        { name: 'قلعة السراغنة', slug: 'kelaa-sraghna', desc: 'مركز فلاحي مهم في سهول الحوز.' },
+        { name: 'الرحامنة', slug: 'rehamna', desc: 'منطقة سهبية وفلاحية شمال مراكش.' },
+        { name: 'شيشاوة', slug: 'chichaoua', desc: 'منطقة فلاحية تقع جنوب مدينة مراكش.' },
+        { name: 'اليوسفية', slug: 'youssoufia', desc: 'مدينة منجمية وفلاحية في السهول الغربية.' },
+        { name: 'الحوز', slug: 'al-haouz', desc: 'منطقة جبلية تضم جزءاً من الأطلس الكبير.' }
+      ],
+      activities: [
+        { title: 'جولة في ساحة جامع الفنا', desc: 'جولة استكشافية في ساحة جامع الفنا الشهيرة للتعرف على تراثها الحي.', img: 'https://images.unsplash.com/photo-1590073242678-6a7fa60b0a7c?w=600&q=80' },
+        { title: 'مهرجان كناوة بالصويرة', desc: 'المشاركة في مهرجان كناوة للموسيقى العالمية بمدينة الصويرة.', img: 'https://images.unsplash.com/photo-1577979780245-5516627e28a4?w=600&q=80' },
+        { title: 'ورشة الفخار بآسفي', desc: 'ورشة تدريبية حول فن صناعة الفخار في مدينة آسفي.', img: 'https://images.unsplash.com/photo-1551632811-561732d1e306?w=600&q=80' }
+      ],
+      gallery: [
+        'https://images.unsplash.com/photo-1590073242678-6a7fa60b0a7c?w=600&q=80',
+        'https://images.unsplash.com/photo-1577979780245-5516627e28a4?w=600&q=80',
+        'https://images.unsplash.com/photo-1544001254-1a14112e5e00?w=600&q=80'
+      ],
+      ctaText: 'انضم إلى فرع جهة مراكش - آسفي وشارك في الأنشطة والفعاليات، وساهم في تنمية منطقتك مع فريق من المتطوعين المتحمسين.'
+    },
+    'draa-tafilalet': {
+      name: 'جهة درعة - تافيلالت',
+      heroDesc: 'الجهة الصحراوية الشرقية، مهد الدولة العلوية ومنبع التمور المغربية. حيث تلتقي الواحات بالصحراء.',
+      heroBg: 'https://images.unsplash.com/photo-1544001254-1a14112e5e00?w=1600&q=80',
+      aboutTitle: 'إحدى الجهات الإثنتي عشرة للمملكة المغربية',
+      aboutText: 'تعتبر جهة درعة - تافيلالت مهد الدولة العلوية الشريفة ومنبع التمور المغربية الفاخرة. تمتد الجهة على مساحة شاسعة من الأطلس الكبير شرقاً حتى عمق الصحراء، وتضم واحات النخيل الخلابة وقصور الطين التاريخية. تشتهر الجهة بورزازات هوليود إفريقيا ومضيق تودغا السياحي وزاكورة بوابة الصحراء الكبرى.',
+      cities: [
+        { name: 'الرشيدية', slug: 'errachidia', desc: 'عاصمة الجهة وبوابة الصحراء الشرقية.' },
+        { name: 'ورزازات', slug: 'ouarzazate', desc: 'هوليود إفريقيا ومدينة القصور والقصبات التاريخية.' },
+        { name: 'زاكورة', slug: 'zagora', desc: 'واحة النخيل وبوابة الصحراء الكبرى.' },
+        { name: 'تنغير', slug: 'tinghir', desc: 'مدينة الواحات ومضيق تودغا الشهير.' },
+        { name: 'ميدلت', slug: 'midelt', desc: 'مدينة التفاح والجبال في الأطلس الكبير.' }
+      ],
+      activities: [
+        { title: 'استكشاف قصور ورزازات', desc: 'رحلة لاستكشاف القصور والقصبات التاريخية في منطقة ورزازات.', img: 'https://images.unsplash.com/photo-1544001254-1a14112e5e00?w=600&q=80' },
+        { title: 'مهرجان التمور بتافيلالت', desc: 'المشاركة في مهرجان التمور السنوي بمنطقة تافيلالت.', img: 'https://images.unsplash.com/photo-1551632811-561732d1e306?w=600&q=80' },
+        { title: 'رحلة إلى واحات زاكورة', desc: 'رحلة استكشافية إلى واحات النخيل بمنطقة زاكورة.', img: 'https://images.unsplash.com/photo-1577979780245-5516627e28a4?w=600&q=80' }
+      ],
+      gallery: [
+        'https://images.unsplash.com/photo-1544001254-1a14112e5e00?w=600&q=80',
+        'https://images.unsplash.com/photo-1551632811-561732d1e306?w=600&q=80',
+        'https://images.unsplash.com/photo-1577979780245-5516627e28a4?w=600&q=80'
+      ],
+      ctaText: 'انضم إلى فرع جهة درعة - تافيلالت وشارك في الأنشطة والفعاليات، وساهم في تنمية منطقتك مع فريق من المتطوعين المتحمسين.'
+    },
+    'souss-massa': {
+      name: 'جهة سوس - ماسة',
+      heroDesc: 'الجهة الجنوبية الغربية، قطب فلاحي وسياحي يطل على المحيط الأطلسي. أرض الأركان والثقافة الأمازيغية.',
+      heroBg: 'https://images.unsplash.com/photo-1509027572446-af8401acfdc9?w=1600&q=80',
+      aboutTitle: 'إحدى الجهات الإثنتي عشرة للمملكة المغربية',
+      aboutText: 'تعد جهة سوس - ماسة من أهم الأقطاب الفلاحية والسياحية في المغرب، حيث تشتهر بأشجار الأركان الفريدة وشواطئ أكادير الذهبية. تجمع الجهة بين السهل الخصب وجبال الأطلس الصغير، وتعتبر مركزاً للثقافة الأمازيغية الأصيلة. تضم مدناً هامة مثل أكادير عاصمة السياحة الشاطئية وتارودانت المدينة العتيقة وتيزنيت مدينة الفضة.',
+      cities: [
+        { name: 'أكادير', slug: 'agadir', desc: 'عاصمة السياحة الشاطئية في المغرب بشواطئها الذهبية.' },
+        { name: 'إنزكان', slug: 'inezgane', desc: 'قطب تجاري واقتصادي مهم في منطقة سوس.' },
+        { name: 'تارودانت', slug: 'taroudant', desc: 'المدينة العتيقة بسورها التاريخي وتراثها العريق.' },
+        { name: 'تيزنيت', slug: 'tiznit', desc: 'مدينة الفضة والحرف التقليدية الأصيلة.' },
+        { name: 'اشتوكة آيت باها', slug: 'chtouka-ait-baha', desc: 'منطقة فلاحية وساحلية خصبة بإنتاجها المتنوع.' },
+        { name: 'طاطا', slug: 'tata', desc: 'واحة صحراوية في جنوب شرق المغرب.' }
+      ],
+      activities: [
+        { title: 'مهرجان تيميتار بأكادير', desc: 'المشاركة في مهرجان تيميتار للموسيقى الأمازيغية والعالمية.', img: 'https://images.unsplash.com/photo-1509027572446-af8401acfdc9?w=600&q=80' },
+        { title: 'استكشاف غابات الأركان', desc: 'رحلة إلى غابات الأركان للتعرف على الشجرة الفريدة ومنتوجاتها.', img: 'https://images.unsplash.com/photo-1515187029135-7eefa3b2c9a1?w=600&q=80' },
+        { title: 'حملة تنظيف شاطئ أكادير', desc: 'مبادرة بيئية لتنظيف شاطئ أكادير بمشاركة متطوعين وسياح.', img: 'https://images.unsplash.com/photo-1531058020387-3be344556be6?w=600&q=80' }
+      ],
+      gallery: [
+        'https://images.unsplash.com/photo-1509027572446-af8401acfdc9?w=600&q=80',
+        'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&q=80',
+        'https://images.unsplash.com/photo-1515187029135-7eefa3b2c9a1?w=600&q=80'
+      ],
+      ctaText: 'انضم إلى فرع جهة سوس - ماسة وشارك في الأنشطة والفعاليات، وساهم في تنمية منطقتك مع فريق من المتطوعين المتحمسين.'
+    },
+    'guelmim-oued-noun': {
+      name: 'جهة كلميم - واد نون',
+      heroDesc: 'بوابة الصحراء المغربية، ملتقى الثقافات الصحراوية والأمازيغية. حيث تبدأ رمال الصحراء.',
+      heroBg: 'https://images.unsplash.com/photo-1544001254-1a14112e5e00?w=1600&q=80',
+      aboutTitle: 'إحدى الجهات الإثنتي عشرة للمملكة المغربية',
+      aboutText: 'تعتبر جهة كلميم - واد نون بوابة الصحراء المغربية وملتقى الثقافات الصحراوية والأمازيغية. تشتهر الجهة بأسواقها التقليدية ومواسمها الثقافية التي تعكس التراث الحساني الأصيل. تضم مدناً تاريخية مثل كلميم مدينة القوافل وطانطان مدينة المواسم وسيدي إفني المدينة الساحلية الجميلة.',
+      cities: [
+        { name: 'كلميم', slug: 'guelmim', desc: 'بوابة الصحراء ومدينة القوافل بأسواقها التقليدية.' },
+        { name: 'طانطان', slug: 'tan-tan', desc: 'مدينة المواسم الصحراوية والتراث الحساني الأصيل.' },
+        { name: 'سيدي إفني', slug: 'sidi-ifni', desc: 'مدينة ساحلية بشواطئها البكر ومبانيها التاريخية.' },
+        { name: 'آسا الزاك', slug: 'assa-zag', desc: 'واحة صحراوية في عمق الجنوب المغربي.' }
+      ],
+      activities: [
+        { title: 'موسم طانطان الثقافي', desc: 'المشاركة في موسم طانطان الثقافي المصنف ضمن التراث العالمي.', img: 'https://images.unsplash.com/photo-1544001254-1a14112e5e00?w=600&q=80' },
+        { title: 'سوق الإبل بكلميم', desc: 'زيارة سوق الإبل التقليدي بمدينة كلميم والتعريف بأهميته.', img: 'https://images.unsplash.com/photo-1551632811-561732d1e306?w=600&q=80' },
+        { title: 'استكشاف ساحل سيدي إفني', desc: 'رحلة استكشافية لسواحل سيدي إفني البكر والتعريف بمؤهلاتها.', img: 'https://images.unsplash.com/photo-1531058020387-3be344556be6?w=600&q=80' }
+      ],
+      gallery: [
+        'https://images.unsplash.com/photo-1544001254-1a14112e5e00?w=600&q=80',
+        'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&q=80',
+        'https://images.unsplash.com/photo-1551632811-561732d1e306?w=600&q=80'
+      ],
+      ctaText: 'انضم إلى فرع جهة كلميم - واد نون وشارك في الأنشطة والفعاليات، وساهم في تنمية منطقتك مع فريق من المتطوعين المتحمسين.'
+    },
+    'laayoune-sakia-el-hamra': {
+      name: 'جهة العيون - الساقية الحمراء',
+      heroDesc: 'كبرى جهات الجنوب المغربي، عاصمة الصحراء المغربية. أرض الفرص والتنمية في الصحراء.',
+      heroBg: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1600&q=80',
+      aboutTitle: 'إحدى الجهات الإثنتي عشرة للمملكة المغربية',
+      aboutText: 'تعد جهة العيون - الساقية الحمراء كبرى جهات الجنوب المغربي وعاصمة الصحراء المغربية. تشهد الجهة نهضة تنموية كبيرة في مختلف المجالات بفضل المشاريع الكبرى التي أطلقتها الدولة. تتميز بثقافتها الحسانية الأصيلة وموقعها الاستراتيجي على المحيط الأطلسي، وتضم مدناً هامة مثل العيون والسمارة وبوجدور.',
+      cities: [
+        { name: 'العيون', slug: 'laayoune', desc: 'عاصمة الصحراء المغربية وأكبر مدن الجنوب.' },
+        { name: 'السمارة', slug: 'smara', desc: 'مدينة تاريخية وروحية في عمق الصحراء.' },
+        { name: 'بوجدور', slug: 'boujdour', desc: 'مدينة ساحلية صحراوية على المحيط الأطلسي.' },
+        { name: 'طرفاية', slug: 'tarfaya', desc: 'مدينة ساحلية جنوبية بتاريخ بحري عريق.' }
+      ],
+      activities: [
+        { title: 'مهرجان العيون الثقافي', desc: 'المشاركة في مهرجان العيون الثقافي للتعريف بالتراث الحساني.', img: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&q=80' },
+        { title: 'حملة تشجير بالعيون', desc: 'مبادرة بيئية لتشجير الفضاءات الخضراء بمدينة العيون.', img: 'https://images.unsplash.com/photo-1551632811-561732d1e306?w=600&q=80' },
+        { title: 'زيارة ميناء العيون', desc: 'زيارة تعليمية لميناء العيون للتعريف بأهميته الاقتصادية.', img: 'https://images.unsplash.com/photo-1515187029135-7eefa3b2c9a1?w=600&q=80' }
+      ],
+      gallery: [
+        'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&q=80',
+        'https://images.unsplash.com/photo-1544001254-1a14112e5e00?w=600&q=80',
+        'https://images.unsplash.com/photo-1515187029135-7eefa3b2c9a1?w=600&q=80'
+      ],
+      ctaText: 'انضم إلى فرع جهة العيون - الساقية الحمراء وشارك في الأنشطة والفعاليات، وساهم في تنمية منطقتك مع فريق من المتطوعين المتحمسين.'
+    },
+    'dakhla-oued-eddahab': {
+      name: 'جهة الداخلة - وادي الذهب',
+      heroDesc: 'أقصى جنوب المغرب، جنة الرياضات المائية والصيد البحري. حيث يلتقي الصحراء بالمحيط.',
+      heroBg: 'https://images.unsplash.com/photo-1551632811-561732d1e306?w=1600&q=80',
+      aboutTitle: 'إحدى الجهات الإثنتي عشرة للمملكة المغربية',
+      aboutText: 'تقع جهة الداخلة - وادي الذهب في أقصى جنوب المملكة المغربية، وتعتبر جنة حقيقية لعشاق الرياضات المائية بفضل شبه جزيرتها الفريدة ورياحها المثالية لممارسة الرياضات الشراعية. تشتهر الجهة بثرواتها البحرية الغنية وشواطئها البكر، وتعد وجهة سياحية عالمية متنامية تستقطب عشاق الطبيعة والمغامرة من مختلف أنحاء العالم.',
+      cities: [
+        { name: 'الداخلة', slug: 'dakhla', desc: 'جوهرة الجنوب وشبه جزيرة ساحرة لعشاق الرياضات المائية.' },
+        { name: 'أوسرد', slug: 'aousserd', desc: 'منطقة صحراوية شاسعة في الجنوب الشرقي.' }
+      ],
+      activities: [
+        { title: 'مهرجان الداخلة للرياضات المائية', desc: 'المشاركة في مهرجان الداخلة الدولي للرياضات المائية والشراعية.', img: 'https://images.unsplash.com/photo-1551632811-561732d1e306?w=600&q=80' },
+        { title: 'حملة تنظيف شاطئ الداخلة', desc: 'مبادرة بيئية لتنظيف شواطئ الداخلة والمحافظة على بيئتها.', img: 'https://images.unsplash.com/photo-1531058020387-3be344556be6?w=600&q=80' },
+        { title: 'استكشاف خليج الداخلة', desc: 'رحلة استكشافية في خليج الداخلة للتعريف بتنوعه البيئي.', img: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&q=80' }
+      ],
+      gallery: [
+        'https://images.unsplash.com/photo-1551632811-561732d1e306?w=600&q=80',
+        'https://images.unsplash.com/photo-1531058020387-3be344556be6?w=600&q=80',
+        'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&q=80'
+      ],
+      ctaText: 'انضم إلى فرع جهة الداخلة - وادي الذهب وشارك في الأنشطة والفعاليات، وساهم في تنمية منطقتك مع فريق من المتطوعين المتحمسين.'
+    }
+  };
+
+  var region = regions[slug];
+  var main = document.getElementById('main');
+  if (!main) return;
+
+  if (!region) {
+    var heroSection = document.querySelector('.branch-hero');
+    if (heroSection) heroSection.remove();
+    main.innerHTML = '<section class="branch-404"><div class="container"><div class="branch-404-inner"><div class="branch-404-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg></div><h1>الجهة غير موجودة</h1><p>عذراً، الجهة التي تبحث عنها غير متوفرة. يرجى التحقق من الرابط أو العودة إلى قائمة الفروع الجهوية.</p><a href="branch.html" class="btn btn-primary">العودة إلى الفروع الجهوية</a></div></div></section>';
+    return;
+  }
+
+  document.title = region.name + ' | الفروع الجهوية | الجمعية المغربية لهواة البحث والاستكشاف';
+  var ogTitle = document.querySelector('meta[property="og:title"]');
+  if (ogTitle) ogTitle.setAttribute('content', region.name + ' | الفروع الجهوية');
+
+  var heroBgEl = document.querySelector('.branch-hero-bg');
+  if (heroBgEl) heroBgEl.style.backgroundImage = 'url(\'' + region.heroBg + '\')';
+
+  var heroTitle = document.querySelector('.branch-hero h1');
+  if (heroTitle) heroTitle.textContent = region.name;
+  var heroDesc = document.querySelector('.branch-hero p');
+  if (heroDesc) heroDesc.textContent = region.heroDesc;
+
+  var aboutHeading = document.querySelector('.branch-about-card h2');
+  if (aboutHeading) aboutHeading.textContent = region.name;
+  var aboutTitleSmall = document.querySelector('.branch-about-title-small');
+  if (aboutTitleSmall) aboutTitleSmall.textContent = region.aboutTitle;
+  var aboutText = document.querySelector('.branch-about-card p:last-of-type');
+  if (aboutText) aboutText.textContent = region.aboutText;
+
+  var cityPinSvg = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>';
+  var citiesHtml = '';
+  for (var ci = 0; ci < region.cities.length; ci++) {
+    var city = region.cities[ci];
+    citiesHtml += '<article class="branch-city-card reveal"><span class="branch-city-icon">' + cityPinSvg + '</span><h3>' + city.name + '</h3><p>' + city.desc + '</p><a href="city.html?slug=' + (city.slug || '') + '" class="branch-city-link">استكشف <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></a></article>';
+  }
+  var citiesGrid = document.querySelector('.branch-cities-grid');
+  if (citiesGrid) citiesGrid.innerHTML = citiesHtml;
+
+  var actsHtml = '';
+  for (var ai = 0; ai < region.activities.length; ai++) {
+    var act = region.activities[ai];
+    actsHtml += '<article class="branch-activity-card reveal"><div class="branch-activity-img"><img src="' + act.img + '" alt="' + act.title + '" loading="lazy"></div><div class="branch-activity-body"><h3>' + act.title + '</h3><p>' + act.desc + '</p><a href="#" class="branch-activity-more">قراءة المزيد <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></a></div></article>';
+  }
+  var actsGrid = document.querySelector('.branch-activities-grid');
+  if (actsGrid) actsGrid.innerHTML = actsHtml;
+
+  var galleryHtml = '';
+  for (var gi = 0; gi < region.gallery.length; gi++) {
+    var cls = 'branch-gallery-item reveal';
+    if (gi === 0) cls += ' branch-gallery-item-large';
+    galleryHtml += '<div class="' + cls + '"><img src="' + region.gallery[gi] + '" alt="' + region.name + '" loading="lazy"></div>';
+  }
+  var galleryGrid = document.querySelector('.branch-gallery-grid');
+  if (galleryGrid) galleryGrid.innerHTML = galleryHtml;
+
+  var ctaTextEl = document.querySelector('.branch-cta p');
+  if (ctaTextEl) ctaTextEl.textContent = region.ctaText;
+})();
+</script>
+
+</body>
+</html>

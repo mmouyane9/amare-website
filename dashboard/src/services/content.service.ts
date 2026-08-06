@@ -274,27 +274,15 @@ export async function saveSections(pageId: string, sections: PageSection[]): Pro
 // ---------------------------------------------------------------------------
 
 export async function createDefaultSectionsForPage(pageId: string): Promise<void> {
-  const defaults: Array<{ type: SectionType; renderer?: string }> = [
-    { type: 'hero' },
-    { type: 'custom', renderer: 'about' },
-    { type: 'custom', renderer: 'featuresGrid' },
-    { type: 'statistics' },
-    { type: 'custom', renderer: 'activitiesGrid' },
-    { type: 'custom', renderer: 'newsGrid' },
-    { type: 'cta' },
-    { type: 'faq' },
-    { type: 'custom', renderer: 'footer' },
+  const sections: PageSection[] = [
+    {
+      id: generateSectionId(),
+      type: 'hero',
+      enabled: true,
+      order: 1,
+      data: defaultSectionData('hero') as never,
+    },
   ]
-
-  const sections: PageSection[] = defaults.map((d, i) => ({
-    id: generateSectionId(),
-    type: d.type,
-    enabled: true,
-    order: i + 1,
-    data: (d.renderer
-      ? { ...defaultSectionData(d.type), _renderer: d.renderer }
-      : defaultSectionData(d.type)) as never,
-  }))
 
   await saveSections(pageId, sections)
 }

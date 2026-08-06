@@ -11,6 +11,9 @@ import NewsPage from '@/pages/News'
 import UpdatesPage from '@/pages/Updates'
 import StorePage from '@/pages/Store'
 import ContentEditorPage from '@/pages/ContentEditor'
+import BranchesPage from '@/pages/Branches'
+import RegionDetailsPage from '@/pages/Branches/RegionDetails'
+import CityDetailsPage from '@/pages/Branches/CityDetails'
 import ControlPanelPage from '@/pages/ControlPanel'
 import NotFoundPage from '@/pages/NotFound'
 import UnauthorizedPage from '@/pages/Unauthorized'
@@ -20,6 +23,7 @@ const appRoutes = [
   { path: '/members', element: <MembersPage /> },
   { path: '/news', element: <NewsPage /> },
   { path: '/updates', element: <UpdatesPage /> },
+  { path: '/branches', element: <BranchesPage /> },
   { path: '/store', element: <StorePage /> },
   { path: '/content-editor', element: <ContentEditorPage /> },
   { path: '/control-panel', element: <ControlPanelPage /> },
@@ -49,6 +53,8 @@ export default function AppRouter() {
 
           <Route element={<ProtectedRoute roles={['super_admin']} />}>
             <Route element={<DashboardLayout />}>
+              <Route path="/branches/:regionId" element={<RegionDetailsPage />} />
+              <Route path="/branches/:regionId/cities/:cityId" element={<CityDetailsPage />} />
               {appRoutes.map((route) => (
                 <Route key={route.path} path={route.path} element={route.element} />
               ))}

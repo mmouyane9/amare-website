@@ -1,5 +1,6 @@
 import {
   Bell,
+  Building2,
   FilePen,
   LayoutDashboard,
   Newspaper,
@@ -20,6 +21,7 @@ export const NAV_ITEMS: NavItem[] = [
   { label: 'Members', path: '/members', icon: Users },
   { label: 'News', path: '/news', icon: Newspaper },
   { label: 'Updates', path: '/updates', icon: Bell },
+  { label: 'Branches', path: '/branches', icon: Building2 },
   { label: 'AMARE Store', path: '/store', icon: Store },
   { label: 'Content Editor', path: '/content-editor', icon: FilePen },
   { label: 'Control Panel', path: '/control-panel', icon: Settings2 },

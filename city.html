@@ -1,0 +1,1275 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مدينة طنجة | الفروع الجهوية | الجمعية المغربية لهواة البحث والاستكشاف</title>
+<meta name="description" content="فرع مدينة طنجة — تعرف على أنشطة الفرع وانضم إلى فريق المتطوعين.">
+<meta name="keywords" content="جمعية, تنمية, تطوع, المغرب, مدينة, طنجة, فرع">
+<meta name="author" content="الجمعية المغربية لهواة البحث والاستكشاف">
+<link rel="shortcut icon" href="Amare%20files%20/logo.png" type="image/x-icon">
+
+<meta property="og:title" content="مدينة طنجة | الفروع الجهوية">
+<meta property="og:description" content="تعرف على أنشطة فرع مدينة طنجة وانضم إلى فريق المتطوعين.">
+<meta property="og:type" content="website">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+<style>
+  .nav-links a[aria-current="page"] { color: #123B78; }
+  .nav-links a[aria-current="page"]::after { transform: scaleX(1); }
+
+  /* ---------- 1. Hero ---------- */
+  .city-hero {
+    position: relative;
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    color: #fff;
+  }
+  .city-hero-bg {
+    position: absolute; inset: 0;
+    background-size: cover;
+    background-position: center;
+    transform: scale(1.06);
+  }
+  .city-hero-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(18,59,120,.75) 0%, rgba(18,59,120,.55) 45%, rgba(10,20,35,.88) 100%);
+  }
+  .city-hero .container { position: relative; z-index: 2; }
+  .city-hero-inner { max-width: 720px; }
+
+  .city-hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,.12);
+    border: 1px solid rgba(255,255,255,.3);
+    backdrop-filter: blur(10px);
+    padding: 8px 18px;
+    border-radius: var(--radius-pill);
+    font-size: 13.5px; font-weight: 700;
+    margin-bottom: 26px;
+  }
+  .city-hero-eyebrow::before { content: "●"; color: var(--color-accent); font-size: 10px; }
+
+  .city-hero h1 {
+    font-size: clamp(28px, 4.3vw, 52px);
+    font-weight: 800;
+    line-height: 1.28;
+    margin-bottom: 10px;
+    text-shadow: 0 4px 24px rgba(0,0,0,.2);
+  }
+  .city-hero-region {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--color-accent);
+    margin-bottom: 22px;
+  }
+  .city-hero-region svg { width: 16px; height: 16px; }
+
+  .city-hero p {
+    font-size: clamp(16px, 1.6vw, 18.5px);
+    color: rgba(255,255,255,.88);
+    max-width: 560px;
+    margin-bottom: 38px;
+  }
+  .city-hero-actions { display: flex; flex-wrap: wrap; gap: 16px; }
+
+  .city-hero-fade { opacity: 0; transform: translateY(36px); animation: fadeUp .9s var(--ease) forwards; }
+  .city-hero-fade.d1 { animation-delay: .1s; }
+  .city-hero-fade.d2 { animation-delay: .25s; }
+  .city-hero-fade.d3 { animation-delay: .4s; }
+
+  @media (max-width: 768px) {
+    .city-hero { min-height: 70vh; }
+    .city-hero-actions { flex-direction: column; align-items: stretch; }
+    .city-hero-actions .btn { width: 100%; justify-content: center; }
+  }
+
+  /* ---------- 2. About ---------- */
+  .city-about {
+    position: relative;
+    padding: 110px 0;
+    background: linear-gradient(180deg, #ffffff 0%, #f0f7ff 100%);
+    overflow: hidden;
+  }
+  .city-about-blobs { position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
+  .city-about-blob {
+    position: absolute; border-radius: 50%; filter: blur(80px); opacity: .4;
+  }
+  .city-about-blob-1 {
+    width: 500px; height: 500px;
+    background: rgba(25,184,242,.1);
+    top: -200px; inset-inline-end: -100px;
+    animation: float 8s ease-in-out infinite;
+  }
+  .city-about-blob-2 {
+    width: 400px; height: 400px;
+    background: rgba(246,179,0,.07);
+    bottom: -150px; inset-inline-start: -80px;
+    animation: float 10s ease-in-out infinite reverse;
+  }
+
+  .city-about .container { position: relative; z-index: 1; }
+  .city-about-card {
+    position: relative;
+    max-width: 860px;
+    margin: 0 auto;
+    background: var(--color-white);
+    border-radius: var(--radius-lg);
+    padding: 48px 44px;
+    box-shadow: var(--shadow-md);
+    border: 1px solid rgba(18,59,120,.06);
+  }
+  .city-about-card::before {
+    content: "";
+    position: absolute;
+    top: 0; inset-inline-start: 0; inset-inline-end: 0;
+    height: 5px;
+    background: var(--gradient-primary);
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  }
+  .city-about-label {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 13px; font-weight: 800;
+    color: var(--color-primary-dark);
+    background: rgba(25,184,242,.1);
+    padding: 8px 18px;
+    border-radius: var(--radius-pill);
+    margin-bottom: 20px;
+  }
+  .city-about-label::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--color-accent); }
+  .city-about-card h2 {
+    font-size: clamp(24px, 3vw, 34px);
+    font-weight: 900;
+    color: var(--color-navy);
+    line-height: 1.35;
+    margin-bottom: 18px;
+  }
+  .city-about-card p {
+    color: var(--color-text-soft);
+    font-size: 16px;
+    line-height: 1.9;
+  }
+
+  @media (max-width: 768px) {
+    .city-about { padding: 70px 0; }
+    .city-about-card { padding: 34px 24px; }
+  }
+
+  /* ---------- 3. Posts ---------- */
+  .city-posts {
+    padding: 100px 0;
+    background: var(--color-white);
+  }
+  .city-posts-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+  .city-post-card {
+    background: var(--color-white);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid rgba(18,59,120,.06);
+    transition: transform var(--t-fast), box-shadow var(--t-fast);
+  }
+  .city-post-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); }
+  .city-post-img {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+  }
+  .city-post-img img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform .6s var(--ease);
+  }
+  .city-post-card:hover .city-post-img img { transform: scale(1.08); }
+  .city-post-body { padding: 22px 20px 26px; }
+  .city-post-date {
+    display: flex; align-items: center; gap: 6px;
+    color: var(--color-text-soft); font-size: 12.5px; margin-bottom: 10px;
+  }
+  .city-post-date svg { width: 14px; height: 14px; }
+  .city-post-body h3 {
+    font-size: 17px; font-weight: 800;
+    color: var(--color-navy); line-height: 1.4;
+    margin-bottom: 8px;
+  }
+  .city-post-body p {
+    color: var(--color-text-soft); font-size: 14px; line-height: 1.6;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 14px;
+  }
+  .city-post-more {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-weight: 700; font-size: 14px;
+    color: var(--color-primary-dark);
+    transition: color var(--t-fast);
+    text-decoration: none;
+  }
+  .city-post-more svg { width: 15px; height: 15px; transition: transform var(--t-fast); }
+  .city-post-more:hover { color: var(--color-navy); }
+  .city-post-more:hover svg { transform: translateX(-4px); }
+
+  @media (max-width: 1024px) { .city-posts-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 640px) { .city-posts-grid { grid-template-columns: 1fr; } }
+
+  /* ---------- 4. Gallery ---------- */
+  .city-gallery {
+    padding: 100px 0;
+    background: var(--color-light);
+  }
+  .city-gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  .city-gallery-item {
+    position: relative;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    aspect-ratio: 1;
+    cursor: pointer;
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--t-fast), box-shadow var(--t-fast);
+  }
+  .city-gallery-item:hover { transform: scale(1.03); box-shadow: var(--shadow-md); }
+  .city-gallery-item img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform .5s var(--ease);
+  }
+  .city-gallery-item:hover img { transform: scale(1.1); }
+  .city-gallery-item-large {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+
+  @media (max-width: 960px) { .city-gallery-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .city-gallery-grid { grid-template-columns: 1fr 1fr; } }
+
+  /* ---------- Lightbox ---------- */
+  .city-lightbox {
+    position: fixed; inset: 0;
+    z-index: 10000;
+    background: rgba(0,0,0,.92);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; visibility: hidden;
+    transition: opacity var(--t-fast), visibility var(--t-fast);
+    cursor: pointer;
+  }
+  .city-lightbox.open { opacity: 1; visibility: visible; }
+  .city-lightbox img {
+    max-width: 90vw;
+    max-height: 85vh;
+    border-radius: var(--radius-md);
+    box-shadow: 0 24px 80px rgba(0,0,0,.5);
+    cursor: default;
+  }
+  .city-lightbox-close {
+    position: absolute;
+    top: 20px; inset-inline-end: 20px;
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.15);
+    border: none;
+    color: #fff;
+    font-size: 24px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background var(--t-fast);
+    z-index: 2;
+  }
+  .city-lightbox-close:hover { background: rgba(255,255,255,.25); }
+
+  /* ---------- 5. Contact Info ---------- */
+  .city-contact {
+    padding: 100px 0;
+    background: var(--color-white);
+  }
+  .city-contact-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 26px;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+  .city-contact-card {
+    background: var(--color-white);
+    border-radius: var(--radius-lg);
+    padding: 34px 24px;
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid rgba(18,59,120,.06);
+    transition: transform var(--t-fast), box-shadow var(--t-fast), border-color var(--t-fast);
+  }
+  .city-contact-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-md);
+    border-color: rgba(25,184,242,.25);
+  }
+  .city-contact-icon {
+    width: 52px; height: 52px;
+    margin: 0 auto 16px;
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    transition: background var(--t-fast), color var(--t-fast), transform var(--t-fast);
+  }
+  .city-contact-icon svg { width: 22px; height: 22px; }
+  .city-contact-card:hover .city-contact-icon {
+    transform: rotate(-6deg) scale(1.1);
+  }
+  .city-contact-icon-blue { background: rgba(25,184,242,.12); color: var(--color-primary-dark); }
+  .city-contact-icon-green { background: rgba(37,211,102,.12); color: #17A44E; }
+  .city-contact-icon-navy { background: rgba(18,59,120,.1); color: var(--color-navy); }
+  .city-contact-icon-amber { background: rgba(246,179,0,.15); color: #C98A00; }
+  .city-contact-card h3 {
+    font-size: 16px; font-weight: 800;
+    color: var(--color-navy);
+    margin-bottom: 6px;
+  }
+  .city-contact-card p, .city-contact-card a {
+    color: var(--color-text-soft);
+    font-size: 14px;
+    font-weight: 600;
+    overflow-wrap: break-word;
+    transition: color var(--t-fast);
+  }
+  .city-contact-card a:hover { color: var(--color-primary-dark); }
+
+  @media (max-width: 768px) { .city-contact-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 480px) { .city-contact-grid { grid-template-columns: 1fr; } }
+
+  /* ---------- 6. CTA ---------- */
+  .city-cta {
+    position: relative;
+    padding: 110px 0;
+    background: linear-gradient(135deg, #12A5E0 0%, var(--color-navy) 55%, #0C2A5E 100%);
+    color: #fff;
+    overflow: hidden;
+    text-align: center;
+  }
+  .city-cta-blobs { position: absolute; inset: 0; pointer-events: none; }
+  .city-cta-blob {
+    position: absolute; border-radius: 50%; filter: blur(2px);
+    animation: float 9s ease-in-out infinite;
+  }
+  .city-cta-blob-1 {
+    width: 170px; height: 170px;
+    background: rgba(246,179,0,.18);
+    top: -40px; inset-inline-end: 8%;
+  }
+  .city-cta-blob-2 {
+    width: 110px; height: 110px;
+    background: rgba(255,255,255,.08);
+    bottom: 10%; inset-inline-start: 6%;
+    animation-delay: 1.4s;
+  }
+  .city-cta-inner { position: relative; z-index: 2; max-width: 660px; margin: 0 auto; }
+  .city-cta h2 {
+    font-size: clamp(26px, 3.4vw, 42px);
+    font-weight: 900; line-height: 1.4;
+    margin-bottom: 16px;
+  }
+  .city-cta p {
+    color: rgba(255,255,255,.82);
+    font-size: 17px; line-height: 1.85;
+    margin-bottom: 38px;
+  }
+  .city-cta-actions { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; }
+  .city-cta-btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    padding: 17px 40px;
+    border-radius: var(--radius-pill);
+    background: var(--color-accent);
+    color: var(--color-navy);
+    font-family: inherit; font-weight: 800; font-size: 16px;
+    box-shadow: var(--shadow-accent);
+    transition: transform var(--t-fast), box-shadow var(--t-fast), background var(--t-fast);
+    text-decoration: none;
+  }
+  .city-cta-btn svg { width: 20px; height: 20px; transition: transform var(--t-fast); }
+  .city-cta-btn:hover {
+    background: var(--color-white);
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 22px 46px rgba(246,179,0,.5);
+  }
+  .city-cta-btn:hover svg { transform: translateX(-4px); }
+  .city-cta-btn-outline {
+    background: transparent;
+    border: 2px solid rgba(255,255,255,.75);
+    color: #fff;
+    box-shadow: none;
+  }
+  .city-cta-btn-outline:hover {
+    background: rgba(255,255,255,.15);
+    color: #fff;
+    box-shadow: 0 14px 34px rgba(0,0,0,.2);
+  }
+
+  @media (max-width: 560px) {
+    .city-cta-actions { flex-direction: column; align-items: stretch; }
+    .city-cta-btn { width: 100%; justify-content: center; }
+  }
+
+  /* ---------- 7. 404 ---------- */
+  .city-404 {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 100px 24px;
+    background: linear-gradient(180deg, #ffffff 0%, #f0f7ff 100%);
+  }
+  .city-404-inner { max-width: 520px; }
+  .city-404-icon {
+    width: 80px; height: 80px;
+    margin: 0 auto 24px;
+    border-radius: 50%;
+    background: rgba(25,184,242,.1);
+    color: var(--color-primary-dark);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .city-404-icon svg { width: 36px; height: 36px; }
+  .city-404 h1 {
+    font-size: clamp(26px, 3.4vw, 42px);
+    font-weight: 900;
+    color: var(--color-navy);
+    margin-bottom: 12px;
+  }
+  .city-404 p {
+    color: var(--color-text-soft);
+    font-size: 16px;
+    margin-bottom: 32px;
+  }
+</style>
+</head>
+<body>
+
+<div id="loader" aria-hidden="true">
+  <div class="loader-mark"></div>
+  <div class="loader-text">الجمعية المغربية لهواة البحث والاستكشاف</div>
+</div>
+
+<a href="#main" class="visually-hidden">تخطَّ إلى المحتوى الرئيسي</a>
+
+<!-- ===== Top Bar ===== -->
+<div class="topbar">
+  <div class="container">
+    <div class="topbar-right">
+      <a href="index.html" class="topbar-brand" aria-label="الرئيسية">
+        <span class="topbar-brand-mark">
+          <img src="Amare%20files%20/logo.png" alt="AMARE Logo" class="topbar-brand-logo">
+        </span>
+        <span class="topbar-brand-name">الجمعية المغربية لهواة البحث والاستكشاف</span>
+      </a>
+    </div>
+
+    <div class="topbar-left">
+      <div class="topbar-social">
+        <a href="#" aria-label="فيسبوك"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg></a>
+        <a href="#" aria-label="إنستغرام"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+        <a href="#" aria-label="لينكدإن"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 5 3.79 6.2 2.3 6.2 1 6.2 0 5 0 3.5 0 2 1.1.8 2.5.8s2.48 1.2 2.48 2.7zM.2 8.5h4.6V23H.2V8.5zM8 8.5h4.4v2h.06c.6-1.2 2.1-2.4 4.4-2.4 4.7 0 5.6 3.1 5.6 7.1V23h-4.6v-6.7c0-1.6 0-3.7-2.3-3.7s-2.6 1.8-2.6 3.6V23H8V8.5z"/></svg></a>
+      </div>
+
+      <div class="topbar-lang">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg>
+        <select aria-label="اختيار اللغة">
+          <option value="ar" selected>العربية</option>
+          <option value="fr">Français</option>
+          <option value="en">English</option>
+          <option value="es">Español</option>
+          <option value="ber">ⵜⴰⵎⴰⵣⵉⵖⵜ</option>
+        </select>
+      </div>
+
+      <a href="http://wa.me/+212684869996" target="_blank" rel="noopener" class="topbar-whatsapp ripple" aria-label="تواصل عبر واتساب">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.6.1-.2.3-.7 1-.9 1.2-.1.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.2-.4.1-.2 0-.4 0-.5s-.6-1.5-.8-2c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s1 2.6 1.1 2.7c.1.2 2 3 4.7 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 2-1.4.2-.6.2-1.2.1-1.3-.1-.1-.3-.2-.6-.3z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.6 1.4 5.1L2 22l5.1-1.3C8.5 21.5 10.2 22 12 22c5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18c-1.6 0-3.1-.4-4.5-1.2l-.3-.2-3.3.9.9-3.2-.2-.3C3.7 14.6 3.2 13.3 3.2 12c0-4.9 3.9-8.8 8.8-8.8s8.8 3.9 8.8 8.8-3.9 8.8-8.8 8.8z"/></svg>
+        <span>واتساب</span>
+      </a>
+
+      <a href="login.html" class="topbar-login ripple" aria-label="تسجيل الدخول">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v18h-6M10 17l5-5-5-5M15 12H3"/></svg>
+        <span>تسجيل الدخول</span>
+      </a>
+
+      <a href="amare store/index.html" class="nav-store-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        <span>متجر AMARE</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ===== Navbar ===== -->
+<header>
+  <nav class="navbar" id="navbar" aria-label="التنقل الرئيسي">
+    <div class="container">
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">الرئيسية</a></li>
+        <li data-dropdown="about"><a href="index.html#about">من نحن</a></li>
+        <li data-dropdown="activities"><a href="index.html#services">أنشطتنا</a></li>
+        <li data-dropdown="partners"><a href="index.html#services">شركاؤنا</a></li>
+        <li data-dropdown="services"><a href="index.html#services">خدماتنا</a></li>
+        <li data-dropdown="news"><a href="index.html#news">الأخبار</a></li>
+        <li data-dropdown="archive"><a href="#">الأرشيف</a></li>
+        <li data-dropdown="branches"><a href="#">الفروع الجهوية</a></li>
+        <li data-dropdown="join"><a href="Join us/join-us-online.html">انخرط معنا</a></li>
+        <li><a href="contact.html">اتصل بنا</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="hamburger" id="hamburger" aria-label="فتح القائمة" aria-expanded="false" aria-controls="navLinks">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <div class="mega-dropdown" id="megaDropdown"></div>
+  </nav>
+</header>
+
+<!-- ===== Mobile Header ===== -->
+<div class="mobile-header" id="mobileHeader">
+  <div class="mobile-header-group">
+    <a class="mobile-header-logo" href="index.html" aria-label="الرئيسية">
+      <img src="Amare%20files%20/logo.png" alt="AMARE Logo">
+    </a>
+    <a class="mobile-header-brand" href="index.html" aria-label="الرئيسية">
+      الجمعية المغربية لهواة<br>البحث والاستكشاف
+    </a>
+  </div>
+  <button class="mobile-hamburger" id="mobileHamburger" aria-label="فتح القائمة" aria-expanded="false" aria-controls="mobileDrawer">
+    <span></span><span></span><span></span>
+  </button>
+</div>
+
+<!-- ===== Mobile Drawer ===== -->
+<div class="mobile-drawer" id="mobileDrawer" role="dialog" aria-modal="true" aria-label="القائمة الرئيسية">
+  <div class="mobile-drawer-inner">
+    <div class="mobile-drawer-header">
+      <button class="mobile-drawer-close" id="mobileDrawerClose" aria-label="إغلاق القائمة">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+      <a class="mobile-drawer-brand" href="index.html">
+        <img src="Amare%20files%20/logo.png" alt="AMARE Logo" class="mobile-drawer-brand-logo">
+        <span class="mobile-drawer-brand-name">الجمعية المغربية لهواة البحث والاستكشاف</span>
+      </a>
+    </div>
+    <nav class="mobile-drawer-nav" aria-label="التنقل الرئيسي">
+      <ul class="mobile-drawer-links" id="mobileDrawerLinks">
+        <li><a href="index.html">الرئيسية</a></li>
+        <li class="mobile-drawer-dropdown" data-dd="about">
+          <div class="mobile-drawer-row">
+            <a href="index.html#about">من نحن</a>
+            <button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </div>
+          <ul class="mobile-drawer-sub"></ul>
+        </li>
+        <li class="mobile-drawer-dropdown" data-dd="activities">
+          <div class="mobile-drawer-row">
+            <a href="index.html#services">أنشطتنا</a>
+            <button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </div>
+          <ul class="mobile-drawer-sub"></ul>
+        </li>
+        <li class="mobile-drawer-dropdown" data-dd="partners">
+          <div class="mobile-drawer-row">
+            <a href="index.html#services">شركاؤنا</a>
+            <button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </div>
+          <ul class="mobile-drawer-sub"></ul>
+        </li>
+        <li class="mobile-drawer-dropdown" data-dd="services">
+          <div class="mobile-drawer-row">
+            <a href="index.html#services">خدماتنا</a>
+            <button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </div>
+          <ul class="mobile-drawer-sub"></ul>
+        </li>
+        <li class="mobile-drawer-dropdown" data-dd="news">
+          <div class="mobile-drawer-row">
+            <a href="index.html#news">الأخبار</a>
+            <button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </div>
+          <ul class="mobile-drawer-sub"></ul>
+        </li>
+        <li class="mobile-drawer-dropdown" data-dd="archive">
+          <div class="mobile-drawer-row">
+            <a href="#">الأرشيف</a>
+            <button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </div>
+          <ul class="mobile-drawer-sub"></ul>
+        </li>
+        <li class="mobile-drawer-dropdown" data-dd="branches">
+          <div class="mobile-drawer-row">
+            <a href="#">الفروع الجهوية</a>
+            <button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </div>
+          <ul class="mobile-drawer-sub"></ul>
+        </li>
+        <li class="mobile-drawer-dropdown" data-dd="join">
+          <div class="mobile-drawer-row">
+            <a href="Join%20us/index.html">انخرط معنا</a>
+            <button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </div>
+          <ul class="mobile-drawer-sub"></ul>
+        </li>
+        <li><a href="contact.html">اتصل بنا</a></li>
+      </ul>
+    </nav>
+    <div class="mobile-drawer-bottom">
+      <div class="mobile-drawer-actions">
+        <a href="login.html" class="mobile-drawer-action mobile-drawer-action-login">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v18h-6M10 17l5-5-5-5M15 12H3"/></svg>
+          <span>تسجيل الدخول</span>
+        </a>
+        <a href="amare store/index.html" class="mobile-drawer-action mobile-drawer-action-store">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span>متجر</span>
+        </a>
+        <a href="https://wa.me/212600000000" target="_blank" rel="noopener" class="mobile-drawer-action mobile-drawer-action-whatsapp">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.6.1-.2.3-.7 1-.9 1.2-.1.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.2-.4.1-.2 0-.4 0-.5s-.6-1.5-.8-2c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s1 2.6 1.1 2.7c.1.2 2 3 4.7 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 2-1.4.2-.6.2-1.2.1-1.3-.1-.1-.3-.2-.6-.3z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.6 1.4 5.1L2 22l5.1-1.3C8.5 21.5 10.2 22 12 22c5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18c-1.6 0-3.1-.4-4.5-1.2l-.3-.2-3.3.9.9-3.2-.2-.3C3.7 14.6 3.2 13.3 3.2 12c0-4.9 3.9-8.8 8.8-8.8s8.8 3.9 8.8 8.8-3.9 8.8-8.8 8.8z"/></svg>
+          <span>واتساب</span>
+        </a>
+      </div>
+      <div class="mobile-drawer-lang">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg>
+        <select aria-label="اختيار اللغة">
+          <option value="ar" selected>العربية</option>
+          <option value="fr">Français</option>
+          <option value="en">English</option>
+          <option value="es">Español</option>
+          <option value="ber">ⵜⴰⵎⴰⵣⵉⵖⵜ</option>
+        </select>
+      </div>
+      <div class="mobile-drawer-social">
+        <a href="#" aria-label="فيسبوك"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg></a>
+        <a href="#" aria-label="إنستغرام"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+        <a href="#" aria-label="لينكدإن"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 5 3.79 6.2 2.3 6.2 1 6.2 0 5 0 3.5 0 2 1.1.8 2.5.8s2.48 1.2 2.48 2.7zM.2 8.5h4.6V23H.2V8.5zM8 8.5h4.4v2h.06c.6-1.2 2.1-2.4 4.4-2.4 4.7 0 5.6 3.1 5.6 7.1V23h-4.6v-6.7c0-1.6 0-3.7-2.3-3.7s-2.6 1.8-2.6 3.6V23H8V8.5z"/></svg></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main id="main">
+
+  <!-- ===== 1. Hero ===== -->
+  <section class="city-hero" id="home">
+    <div class="city-hero-bg" aria-hidden="true"></div>
+    <div class="city-hero-overlay" aria-hidden="true"></div>
+
+    <div class="container">
+      <div class="city-hero-inner">
+        <span class="city-hero-eyebrow city-hero-fade d1" id="city-eyebrow">فرع مدينة</span>
+        <h1 class="city-hero-fade d2" id="city-title">طنجة</h1>
+        <div class="city-hero-region city-hero-fade d2" id="city-region">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span id="city-region-name">جهة طنجة - تطوان - الحسيمة</span>
+        </div>
+        <p class="city-hero-fade d3" id="city-desc">
+          مدينة ساحلية استراتيجية تطل على مضيق جبل طارق، ملتقى الحضارات المتوسطية والعالمية.
+        </p>
+        <div class="city-hero-actions city-hero-fade d3">
+          <a href="#" class="btn btn-accent">
+            انضم إلى الفرع
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+          </a>
+          <a href="contact.html" class="btn btn-outline">
+            تواصل معنا
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 2. About ===== -->
+  <section class="city-about" id="about">
+    <div class="city-about-blobs" aria-hidden="true">
+      <div class="city-about-blob city-about-blob-1"></div>
+      <div class="city-about-blob city-about-blob-2"></div>
+    </div>
+    <div class="container">
+      <div class="city-about-card reveal">
+        <span class="city-about-label">نبذة عن الفرع</span>
+        <h2 id="city-about-title">فرع مدينة طنجة</h2>
+        <p id="city-about-text">
+          يعد فرع مدينة طنجة من الفروع النشطة للجمعية المغربية لهواة البحث والاستكشاف.
+          ينظم الفرع أنشطة متنوعة تشمل الرحلات الاستكشافية والحملات البيئية والورشات التكوينية،
+          بمشاركة واسعة من أعضاء الجمعية والمتطوعين. يسعى الفرع إلى ترسيخ قيم المواطنة
+          وحماية البيئة ونشر ثقافة الاستكشاف العلمي بين شباب المدينة.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 3. Posts ===== -->
+  <section class="city-posts" id="posts">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">آخر المستجدات</span>
+        <h2 class="section-title">آخر المنشورات</h2>
+        <p class="section-desc">تعرف على آخر المنشورات والأخبار من فرع المدينة.</p>
+      </div>
+      <div class="city-posts-grid stagger" id="city-posts-grid"></div>
+    </div>
+  </section>
+
+  <!-- ===== 4. Gallery ===== -->
+  <section class="city-gallery" id="gallery">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">صور الفرع</span>
+        <h2 class="section-title">معرض الصور</h2>
+        <p class="section-desc">مجموعة من الصور المميزة من أنشطة وفعاليات الفرع.</p>
+      </div>
+      <div class="city-gallery-grid" id="city-gallery-grid"></div>
+    </div>
+  </section>
+
+  <!-- ===== 5. Contact Info ===== -->
+  <section class="city-contact" id="contact">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">تواصل مع الفرع</span>
+        <h2 class="section-title">معلومات التواصل</h2>
+        <p class="section-desc">تواصل مع فريق فرع المدينة عبر قنوات التواصل المختلفة.</p>
+      </div>
+      <div class="city-contact-grid" id="city-contact-grid"></div>
+    </div>
+  </section>
+
+  <!-- ===== 6. CTA ===== -->
+  <section class="city-cta" id="cta">
+    <div class="city-cta-blobs" aria-hidden="true">
+      <div class="city-cta-blob city-cta-blob-1"></div>
+      <div class="city-cta-blob city-cta-blob-2"></div>
+    </div>
+    <div class="container">
+      <div class="city-cta-inner reveal">
+        <h2>كن جزءاً من فرع المدينة</h2>
+        <p id="city-cta-text">ساهم معنا في نشر المعرفة وخدمة المجتمع من خلال الانضمام إلى فرع المدينة.</p>
+        <div class="city-cta-actions">
+          <a href="#" class="city-cta-btn">
+            انضم الآن
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+          </a>
+          <a href="contact.html" class="city-cta-btn city-cta-btn-outline">
+            تواصل معنا
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ===== Lightbox ===== -->
+<div class="city-lightbox" id="cityLightbox" aria-hidden="true">
+  <button class="city-lightbox-close" id="cityLightboxClose" aria-label="إغلاق">&times;</button>
+  <img src="" alt="" id="cityLightboxImg">
+</div>
+
+<!-- ===== Footer ===== -->
+<footer class="footer" id="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-about">
+        <div class="footer-brand">
+          <span class="brand-mark"><img src="Amare%20files%20/logo.png" alt="AMARE Logo" class="topbar-brand-logo"></span>
+          <span>
+            <span class="brand-name" data-amare-setting="association_name">الجمعية المغربية لهواة البحث والاستكشاف</span><br>
+          </span>
+        </div>
+        <p>الجمعية المغربية لهواة البحث والاستكشاف هي إطار قانوني وطني يهدف إلى تنمية قدرات الشباب في مجالات البحث والاستكشاف والتطوع.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="فيسبوك"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg></a>
+          <a href="#" aria-label="إنستغرام"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+          <a href="#" aria-label="لينكدإن"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 5 3.79 6.2 2.3 6.2 1 6.2 0 5 0 3.5 0 2 1.1.8 2.5.8s2.48 1.2 2.48 2.7zM.2 8.5h4.6V23H.2V8.5zM8 8.5h4.4v2h.06c.6-1.2 2.1-2.4 4.4-2.4 4.7 0 5.6 3.1 5.6 7.1V23h-4.6v-6.7c0-1.6 0-3.7-2.3-3.7s-2.6 1.8-2.6 3.6V23H8V8.5z"/></svg></a>
+        </div>
+      </div>
+      <nav aria-label="روابط سريعة">
+        <h4>روابط سريعة</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">الرئيسية</a></li>
+          <li><a href="index.html#about">من نحن</a></li>
+          <li><a href="index.html#services">أنشطتنا</a></li>
+          <li><a href="index.html#news">الأخبار</a></li>
+          <li><a href="#">الفروع الجهوية</a></li>
+          <li><a href="contact.html">اتصل بنا</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="برامجنا">
+        <h4>برامجنا</h4>
+        <ul class="footer-links">
+          <li><a href="#">SOS Amare</a></li>
+          <li><a href="amare store/index.html">متجر Amare</a></li>
+          <li><a href="#">الاستكشاف</a></li>
+          <li><a href="#">التطوع</a></li>
+          <li><a href="#">التدريب</a></li>
+          <li><a href="#">البيئة</a></li>
+        </ul>
+      </nav>
+      <div>
+        <h4>تواصل معنا</h4>
+        <ul class="footer-contact">
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span data-amare-setting="address">ص.ب 749 أيت ملول 86150</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <span dir="ltr" data-amare-setting="phone">+212 684869996</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            <span dir="ltr" data-amare-setting="contact_email">association.amare.agadir@gmail.com</span>
+          </li>
+        </ul>
+      </div>
+      <div class="footer-location">
+        <h4>موقعنا</h4>
+        <div class="footer-map-card">
+          <span class="footer-map-badge">📍 Ait Melloul, Agadir</span>
+          <iframe src="https://www.google.com/maps?q=30.385528,-9.448611&z=16&output=embed" class="footer-map-frame" title="موقع الجمعية" loading="lazy"></iframe>
+          <div class="footer-map-footer">
+            <a href="https://www.google.com/maps?q=30.385528,-9.448611" target="_blank" rel="noopener" class="footer-map-btn">Open in Google Maps</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 <span data-amare-setting="association_name">الجمعية المغربية لهواة البحث والاستكشاف</span>. جميع الحقوق محفوظة.</p>
+      <div class="footer-bottom-links">
+        <a href="#">سياسة الخصوصية</a>
+        <a href="#">الشروط والأحكام</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<button class="back-to-top" id="backToTop" aria-label="العودة إلى الأعلى">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
+
+<script src="script.js" defer></script>
+
+<script>
+(function() {
+  var params = new URLSearchParams(window.location.search);
+  var slug = params.get('slug');
+
+  var cities = {
+    'tangier': {
+      name: 'طنجة',
+      regionName: 'جهة طنجة - تطوان - الحسيمة',
+      regionSlug: 'tanger-tetouan-al-hoceima',
+      heroDesc: 'مدينة ساحلية استراتيجية تطل على مضيق جبل طارق، ملتقى الحضارات المتوسطية والعالمية. بوابة المغرب نحو أوروبا وأحد أهم المراكز الاقتصادية في المملكة.',
+      heroBg: 'https://images.unsplash.com/photo-1590073242678-6a7fa60b0a7c?w=1600&q=80',
+      aboutText: 'يعد فرع مدينة طنجة من أنشط فروع الجمعية المغربية لهواة البحث والاستكشاف. ينظم الفرع رحلات استكشافية إلى المناطق الجبلية والساحلية، وحملات بيئية لتنظيف الشواطئ والغابات، وورشات تكوينية في مجالات البحث والتصوير والتوثيق. يضم الفرع أكثر من 85 عضواً نشطاً يساهمون في إنجاح مختلف الأنشطة والفعاليات.',
+      posts: [
+        { title: 'رحلة استكشاف مغارة هرقل', desc: 'نظم فرع طنجة رحلة استكشافية إلى مغارة هرقل التاريخية للتعريف بمعالمها الجيولوجية.', date: '2026-07-15', img: 'https://images.unsplash.com/photo-1551632811-561732d1e306?w=600&q=80' },
+        { title: 'حملة تنظيف شاطئ طنجة', desc: 'شارك أكثر من 50 متطوعاً في حملة تنظيف شاطئ طنجة البلدية لجمع النفايات البلاستيكية.', date: '2026-06-28', img: 'https://images.unsplash.com/photo-1531058020387-3be344556be6?w=600&q=80' },
+        { title: 'ورشة تصوير المدينة القديمة', desc: 'ورشة تدريبية حول التصوير الفوتوغرافي في المدينة القديمة لطنجة بمشاركة 20 عضواً.', date: '2026-06-10', img: 'https://images.unsplash.com/photo-1515187029135-7eefa3b2c9a1?w=600&q=80' },
+        { title: 'لقاء الأعضاء الشهري', desc: 'الاجتماع الشهري لأعضاء فرع طنجة لمناقشة خطة الأنشطة القادمة وتبادل الأفكار.', date: '2026-05-22', img: 'https://images.unsplash.com/photo-1577979780245-5516627e28a4?w=600&q=80' },
+        { title: 'ندوة التراث الأندلسي', desc: 'ندوة ثقافية حول التراث الأندلسي في مدينة طنجة بمشاركة أساتذة باحثين.', date: '2026-05-01', img: 'https://images.unsplash.com/photo-1509027572446-af8401acfdc9?w=600&q=80' },
+        { title: 'رحلة إلى رأس سبارطيل', desc: 'رحلة استكشافية إلى رأس سبارطيل للتعريف بأهميته الجغرافية والتاريخية.', date: '2026-04-14', img: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&q=80' }
+      ],
+      gallery: [
+        'https://images.unsplash.com/photo-1590073242678-6a7fa60b0a7c?w=600&q=80',
+        'https://images.unsplash.com/photo-1577979780245-5516627e28a4?w=600&q=80',
+        'https://images.unsplash.com/photo-1509027572446-af8401acfdc9?w=600&q=80',
+        'https://images.unsplash.com/photo-1544001254-1a14112e5e00?w=600&q=80',
+        'https://images.unsplash.com/photo-1539020140153-f79d8e9b8e3a?w=600&q=80',
+        'https://images.unsplash.com/photo-1551632811-561732d1e306?w=600&q=80',
+        'https://images.unsplash.com/photo-1515187029135-7eefa3b2c9a1?w=600&q=80',
+        'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&q=80'
+      ],
+      contact: {
+        address: 'شارع محمد السادس، طنجة، المغرب',
+        phone: '+212 539 123 456',
+        email: 'tangier@amare.ma',
+        facebook: 'https://facebook.com/amare.tangier',
+        whatsapp: 'https://wa.me/212600000001'
+      },
+      ctaText: 'انضم إلى فرع طنجة وشارك في الأنشطة الاستكشافية والبيئية، وساهم في تنمية مدينتك مع فريق من المتطوعين المتحمسين.'
+    },
+    'azilal': {
+      name: 'أزيلال',
+      regionName: 'جهة بني ملال - خنيفرة',
+      regionSlug: 'beni-mellal-khenifra',
+      heroDesc: 'مدينة جبلية سياحية ساحرة تشتهر بشلالات أوزود الخلابة. تقع في قلب الأطلس الكبير وتعد وجهة مثالية لعشاق الطبيعة والاستكشاف.',
+      heroBg: 'https://images.unsplash.com/photo-1551632811-561732d1e306?w=1600&q=80',
+      aboutText: 'يعد فرع مدينة أزيلال من الفروع المتميزة للجمعية بفضل موقعه الجغرافي الفريد في قلب جبال الأطلس الكبير. يركز الفرع على تنظيم رحلات استكشافية إلى شلالات أوزود والمناطق الجبلية المحيطة، وحملات بيئية للحفاظ على التنوع البيولوجي في المنطقة. يضم الفرع 32 عضواً نشطاً يساهمون في إنجاح مختلف الأنشطة.',
+      posts: [
+        { title: 'استكشاف شلالات أوزود', desc: 'رحلة استكشافية إلى شلالات أوزود الشهيرة للتعريف بجمالها الطبيعي وأهميتها البيئية.', date: '2026-07-20', img: 'https://images.unsplash.com/photo-1551632811-561732d1e306?w=600&q=80' },
+        { title: 'حملة تشجير بجبال الأطلس', desc: 'مبادرة لتشجير المناطق الجبلية المحيطة بأزيلال بمشاركة 40 متطوعاً.', date: '2026-06-15', img: 'https://images.unsplash.com/photo-1531058020387-3be344556be6?w=600&q=80' },
+        { title: 'مخيم صيفي للشباب', desc: 'تنظيم مخيم صيفي للشباب في منطقة أزيلال للتعريف بالطبيعة والاستكشاف.', date: '2026-05-30', img: 'https://images.unsplash.com/photo-1515187029135-7eefa3b2c9a1?w=600&q=80' },
+        { title: 'توثيق التراث المحلي', desc: 'ورشة لتوثيق التراث الثقافي والطبيعي لمنطقة أزيلال.', date: '2026-05-10', img: 'https://images.unsplash.com/photo-1577979780245-5516627e28a4?w=600&q=80' },
+        { title: 'رحلة استكشاف المغارات', desc: 'رحلة لاستكشاف المغارات الطبيعية في جبال الأطلس الكبير.', date: '2026-04-22', img: 'https://images.unsplash.com/photo-1544001254-1a14112e5e00?w=600&q=80' },
+        { title: 'لقاء حول السياحة البيئية', desc: 'ندوة حول السياحة البيئية ودورها في تنمية منطقة أزيلال.', date: '2026-03-18', img: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&q=80' }
+      ],
+      gallery: [
+        'https://images.unsplash.com/photo-1551632811-561732d1e306?w=600&q=80',
+        'https://images.unsplash.com/photo-1531058020387-3be344556be6?w=600&q=80',
+        'https://images.unsplash.com/photo-1515187029135-7eefa3b2c9a1?w=600&q=80',
+        'https://images.unsplash.com/photo-1577979780245-5516627e28a4?w=600&q=80',
+        'https://images.unsplash.com/photo-1544001254-1a14112e5e00?w=600&q=80',
+        'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&q=80'
+      ],
+      contact: {
+        address: 'شارع محمد الخامس، أزيلال، المغرب',
+        phone: '+212 523 456 789',
+        email: 'azilal@amare.ma',
+        facebook: 'https://facebook.com/amare.azilal',
+        whatsapp: 'https://wa.me/212600000002'
+      },
+      ctaText: 'انضم إلى فرع أزيلال وشارك في استكشاف جمال الطبيعة في قلب الأطلس الكبير، وساهم في حماية البيئة والتنوع البيولوجي.'
+    },
+    'beni-mellal': {
+      name: 'بني ملال',
+      regionName: 'جهة بني ملال - خنيفرة',
+      regionSlug: 'beni-mellal-khenifra',
+      heroDesc: 'عاصمة جهة بني ملال - خنيفرة وبوابة الأطلس المتوسط. مدينة عصرية تجمع بين التاريخ والطبيعة الخلابة.',
+      heroBg: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1600&q=80',
+      aboutText: 'يعد فرع مدينة بني ملال من الفروع الرائدة للجمعية في الجهة الوسطى. ينظم الفرع أنشطة متنوعة تشمل الرحلات الجبلية إلى عين أسردون والمناطق المحيطة، ومخيمات تكوينية للشباب، وحملات بيئية وتوعوية. يضم الفرع 65 عضواً نشطاً يعملون على تنمية روح الاستكشاف والعمل التطوعي في صفوف الشباب.',
+      posts: [
+        { title: 'رحلة إلى عين أسردون', desc: 'رحلة استكشافية إلى منتزه عين أسردون الطبيعي للتعريف بتنوعه البيئي.', date: '2026-07-10', img: 'https://images.unsplash.com/photo-1551632811-561732d1e306?w=600&q=80' },
+        { title: 'حملة نظافة بحدائق بني ملال', desc: 'مبادرة لتنظيف الحدائق العمومية بمدينة بني ملال بمشاركة 30 متطوعاً.', date: '2026-06-20', img: 'https://images.unsplash.com/photo-1531058020387-3be344556be6?w=600&q=80' },
+        { title: 'ورشة الإسعافات الأولية', desc: 'دورة تكوينية في الإسعافات الأولية لفائدة أعضاء فرع بني ملال.', date: '2026-06-01', img: 'https://images.unsplash.com/photo-1515187029135-7eefa3b2c9a1?w=600&q=80' },
+        { title: 'استكشاف قصبة بني ملال', desc: 'جولة استكشافية في قصبة بني ملال التاريخية للتعريف بتراثها.', date: '2026-05-15', img: 'https://images.unsplash.com/photo-1577979780245-5516627e28a4?w=600&q=80' },
+        { title: 'ملتقى الجمعيات المحلية', desc: 'تنظيم ملتقى للجمعيات المدنية ببني ملال لتبادل التجارب والخبرات.', date: '2026-04-28', img: 'https://images.unsplash.com/photo-1509027572446-af8401acfdc9?w=600&q=80' },
+        { title: 'رحلة استكشاف جبل تاسطيت', desc: 'رحلة استكشافية إلى جبل تاسطيت للتعريف بجمال المنطقة.', date: '2026-04-05', img: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&q=80' }
+      ],
+      gallery: [
+        'https://images.unsplash.com/photo-1551632811-561732d1e306?w=600&q=80',
+        'https://images.unsplash.com/photo-1531058020387-3be344556be6?w=600&q=80',
+        'https://images.unsplash.com/photo-1515187029135-7eefa3b2c9a1?w=600&q=80',
+        'https://images.unsplash.com/photo-1577979780245-5516627e28a4?w=600&q=80'
+      ],
+      contact: {
+        address: 'شارع الحسن الثاني، بني ملال، المغرب',
+        phone: '+212 523 987 654',
+        email: 'benimellal@amare.ma',
+        facebook: 'https://facebook.com/amare.benimellal',
+        whatsapp: 'https://wa.me/212600000003'
+      },
+      ctaText: 'انضم إلى فرع بني ملال وشارك في الأنشطة الاستكشافية في قلب الأطلس المتوسط، وساهم في تنمية مدينتك.'
+    },
+    'fes': {
+      name: 'فاس',
+      regionName: 'جهة فاس - مكناس',
+      regionSlug: 'fes-meknes',
+      heroDesc: 'العاصمة العلمية والروحية للمملكة المغربية. مدينة عريقة بتاريخها الممتد لأكثر من 12 قرناً، تضم أقدم جامعة في العالم.',
+      heroBg: 'https://images.unsplash.com/photo-1539020140153-f79d8e9b8e3a?w=1600&q=80',
+      aboutText: 'يعد فرع مدينة فاس من أعرق فروع الجمعية، ويتميز بتركيزه على الجانب الثقافي والعلمي إلى جانب الأنشطة الاستكشافية. ينظم الفرع جولات ثقافية في المدينة القديمة، وورشات حول التراث المعماري، ورحلات استكشافية إلى المناطق الطبيعية المحيطة. يضم الفرع 95 عضواً من مختلف الأعمار والخلفيات العلمية.',
+      posts: [
+        { title: 'جولة في المدينة القديمة', desc: 'جولة ثقافية في أزقة المدينة القديمة لفاس للتعريف بمعالمها التاريخية.', date: '2026-07-18', img: 'https://images.unsplash.com/photo-1539020140153-f79d8e9b8e3a?w=600&q=80' },
+        { title: 'ندوة التراث المعماري', desc: 'ندوة علمية حول التراث المعماري لمدينة فاس بمشاركة خبراء ومختصين.', date: '2026-06-25', img: 'https://images.unsplash.com/photo-1577979780245-5516627e28a4?w=600&q=80' },
+        { title: 'ورشة الخط العربي', desc: 'ورشة فنية لتعلم الخط العربي التقليدي في مدارس فاس العتيقة.', date: '2026-06-08', img: 'https://images.unsplash.com/photo-1515187029135-7eefa3b2c9a1?w=600&q=80' },
+        { title: 'رحلة إلى جبل زلاغ', desc: 'رحلة استكشافية إلى جبل زلاغ للتعريف بطبيعته ومناظره الخلابة.', date: '2026-05-20', img: 'https://images.unsplash.com/photo-1551632811-561732d1e306?w=600&q=80' },
+        { title: 'معرض الصناعة التقليدية', desc: 'تنظيم معرض للصناعة التقليدية الفاسية بمشاركة حرفيين محليين.', date: '2026-05-02', img: 'https://images.unsplash.com/photo-1509027572446-af8401acfdc9?w=600&q=80' },
+        { title: 'زيارة جامعة القرويين', desc: 'جولة تعريفية بجامعة القرويين أقدم جامعة في العالم.', date: '2026-04-14', img: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&q=80' }
+      ],
+      gallery: [
+        'https://images.unsplash.com/photo-1539020140153-f79d8e9b8e3a?w=600&q=80',
+        'https://images.unsplash.com/photo-1577979780245-5516627e28a4?w=600&q=80',
+        'https://images.unsplash.com/photo-1515187029135-7eefa3b2c9a1?w=600&q=80',
+        'https://images.unsplash.com/photo-1509027572446-af8401acfdc9?w=600&q=80'
+      ],
+      contact: {
+        address: 'شارع علال الفاسي، فاس، المغرب',
+        phone: '+212 535 123 789',
+        email: 'fes@amare.ma',
+        facebook: 'https://facebook.com/amare.fes',
+        whatsapp: 'https://wa.me/212600000004'
+      },
+      ctaText: 'انضم إلى فرع فاس وشارك في الأنشطة الثقافية والعلمية والاستكشافية، وساهم في الحفاظ على تراث المدينة العريقة.'
+    },
+    'rabat': {
+      name: 'الرباط',
+      regionName: 'جهة الرباط - سلا - القنيطرة',
+      regionSlug: 'rabat-sale-kenitra',
+      heroDesc: 'عاصمة المملكة المغربية ومدينة الأنوار. تجمع بين التاريخ العريق والحداثة، وتضم معالم مصنفة ضمن التراث العالمي.',
+      heroBg: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1600&q=80',
+      aboutText: 'يعد فرع مدينة الرباط المقر المركزي لتنسيق أنشطة الجمعية على المستوى الوطني. ينظم الفرع فعاليات كبرى تشمل ملتقيات وطنية وندوات علمية وحملات بيئية على مستوى العاصمة. يضم الفرع 120 عضواً من مختلف التخصصات، ويساهم بشكل فعال في تمثيل الجمعية لدى المؤسسات الوطنية والدولية.',
+      posts: [
+        { title: 'ملتقى الاستكشاف الوطني', desc: 'تنظيم الملتقى الوطني الأول للاستكشاف بمشاركة فروع الجمعية من مختلف الجهات.', date: '2026-07-22', img: 'https://images.unsplash.com/photo-1515187029135-7eefa3b2c9a1?w=600&q=80' },
+        { title: 'زيارة صومعة حسان', desc: 'جولة ثقافية في موقع صومعة حسان التاريخي بالرباط.', date: '2026-06-30', img: 'https://images.unsplash.com/photo-1551632811-561732d1e306?w=600&q=80' },
+        { title: 'حملة تشجير بغابات المعمورة', desc: 'مبادرة لتشجير غابات المعمورة بمشاركة 80 متطوعاً.', date: '2026-06-12', img: 'https://images.unsplash.com/photo-1531058020387-3be344556be6?w=600&q=80' },
+        { title: 'ندوة التغير المناخي', desc: 'ندوة وطنية حول التغير المناخي ودور المجتمع المدني في مواجهته.', date: '2026-05-25', img: 'https://images.unsplash.com/photo-1577979780245-5516627e28a4?w=600&q=80' },
+        { title: 'زيارة حديقة الحيوانات', desc: 'رحلة تعليمية إلى حديقة الحيوانات بالرباط للتعريف بالتنوع البيولوجي.', date: '2026-05-08', img: 'https://images.unsplash.com/photo-1509027572446-af8401acfdc9?w=600&q=80' },
+        { title: 'ورشة القيادة الشبابية', desc: 'دورة تكوينية في القيادة الشبابية والعمل التطوعي.', date: '2026-04-20', img: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&q=80' }
+      ],
+      gallery: [
+        'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&q=80',
+        'https://images.unsplash.com/photo-1590073242678-6a7fa60b0a7c?w=600&q=80',
+        'https://images.unsplash.com/photo-1577979780245-5516627e28a4?w=600&q=80',
+        'https://images.unsplash.com/photo-1515187029135-7eefa3b2c9a1?w=600&q=80'
+      ],
+      contact: {
+        address: 'شارع محمد الخامس، الرباط، المغرب',
+        phone: '+212 537 456 789',
+        email: 'rabat@amare.ma',
+        facebook: 'https://facebook.com/amare.rabat',
+        whatsapp: 'https://wa.me/212600000005'
+      },
+      ctaText: 'انضم إلى فرع الرباط وشارك في الأنشطة والفعاليات الوطنية، وساهم في تنمية المجتمع من خلال العمل التطوعي والاستكشاف.'
+    },
+    'marrakech': {
+      name: 'مراكش',
+      regionName: 'جهة مراكش - آسفي',
+      regionSlug: 'marrakech-safi',
+      heroDesc: 'المدينة الحمراء وعاصمة السياحة المغربية. تلتقي فيها الحضارة العريقة بالطبيعة الخلابة عند سفح جبال الأطلس.',
+      heroBg: 'https://images.unsplash.com/photo-1590073242678-6a7fa60b0a7c?w=1600&q=80',
+      aboutText: 'يعد فرع مدينة مراكش من أكبر فروع الجمعية وأكثرها نشاطاً. يستفيد الفرع من الموقع الاستراتيجي للمدينة لتنظيم رحلات استكشافية إلى جبال الأطلس الكبير والمناطق الصحراوية المجاورة. ينظم الفرع أيضاً أنشطة ثقافية وبيئية متنوعة، ويشارك في المهرجانات الوطنية والدولية التي تحتضنها المدينة الحمراء.',
+      posts: [
+        { title: 'رحلة إلى شلالات أوريكا', desc: 'رحلة استكشافية إلى شلالات أوريكا في الأطلس الكبير.', date: '2026-07-25', img: 'https://images.unsplash.com/photo-1551632811-561732d1e306?w=600&q=80' },
+        { title: 'جولة في أسواق مراكش', desc: 'جولة تعريفية في الأسواق التقليدية لمراكش للتعريف بالصناعة المحلية.', date: '2026-07-01', img: 'https://images.unsplash.com/photo-1590073242678-6a7fa60b0a7c?w=600&q=80' },
+        { title: 'حملة نظافة بحدائق ماجوريل', desc: 'مبادرة بيئية لتنظيف محيط حدائق ماجوريل السياحية.', date: '2026-06-15', img: 'https://images.unsplash.com/photo-1531058020387-3be344556be6?w=600&q=80' },
+        { title: 'مهرجان الفلكلور', desc: 'المشاركة في مهرجان الفلكلور الوطني بمراكش للتعريف بالتراث المغربي.', date: '2026-05-28', img: 'https://images.unsplash.com/photo-1577979780245-5516627e28a4?w=600&q=80' },
+        { title: 'استكشاف جبال توبقال', desc: 'رحلة استكشافية إلى قمة جبل توبقال أعلى قمة في شمال إفريقيا.', date: '2026-05-10', img: 'https://images.unsplash.com/photo-1515187029135-7eefa3b2c9a1?w=600&q=80' },
+        { title: 'ورشة فن الطبخ المغربي', desc: 'ورشة حول فن الطبخ المغربي التقليدي للتعريف بتراث المطبخ المراكشي.', date: '2026-04-22', img: 'https://images.unsplash.com/photo-1509027572446-af8401acfdc9?w=600&q=80' }
+      ],
+      gallery: [
+        'https://images.unsplash.com/photo-1590073242678-6a7fa60b0a7c?w=600&q=80',
+        'https://images.unsplash.com/photo-1577979780245-5516627e28a4?w=600&q=80',
+        'https://images.unsplash.com/photo-1551632811-561732d1e306?w=600&q=80',
+        'https://images.unsplash.com/photo-1544001254-1a14112e5e00?w=600&q=80'
+      ],
+      contact: {
+        address: 'شارع محمد السادس، مراكش، المغرب',
+        phone: '+212 524 123 456',
+        email: 'marrakech@amare.ma',
+        facebook: 'https://facebook.com/amare.marrakech',
+        whatsapp: 'https://wa.me/212600000006'
+      },
+      ctaText: 'انضم إلى فرع مراكش وشارك في الأنشطة الاستكشافية والثقافية، وساهم في تنمية المدينة الحمراء مع فريق من المتطوعين.'
+    },
+    'agadir': {
+      name: 'أكادير',
+      regionName: 'جهة سوس - ماسة',
+      regionSlug: 'souss-massa',
+      heroDesc: 'عاصمة السياحة الشاطئية في المغرب. مدينة عصرية بشواطئها الذهبية ومناخها المعتدل طوال السنة.',
+      heroBg: 'https://images.unsplash.com/photo-1509027572446-af8401acfdc9?w=1600&q=80',
+      aboutText: 'يعد فرع مدينة أكادير من أنشط فروع الجمعية في الجنوب المغربي. يستفيد الفرع من الموقع الساحلي للمدينة لتنظيم أنشطة متنوعة تشمل حملات تنظيف الشواطئ ورحلات بحرية استكشافية ومخيمات بيئية. يضم الفرع 98 عضواً نشطاً ويشارك بفعالية في المهرجانات والفعاليات التي تحتضنها المدينة.',
+      posts: [
+        { title: 'حملة تنظيف شاطئ أكادير', desc: 'مبادرة بيئية كبرى لتنظيف شاطئ أكادير بمشاركة أكثر من 100 متطوع.', date: '2026-07-30', img: 'https://images.unsplash.com/photo-1531058020387-3be344556be6?w=600&q=80' },
+        { title: 'مهرجان تيميتار', desc: 'المشاركة في تنظيم مهرجان تيميتار للموسيقى الأمازيغية والعالمية.', date: '2026-07-05', img: 'https://images.unsplash.com/photo-1509027572446-af8401acfdc9?w=600&q=80' },
+        { title: 'رحلة بحرية استكشافية', desc: 'رحلة بحرية لاستكشاف السواحل المحيطة بأكادير والتعريف بالتنوع البحري.', date: '2026-06-18', img: 'https://images.unsplash.com/photo-1551632811-561732d1e306?w=600&q=80' },
+        { title: 'ورشة التعريف بشجرة الأركان', desc: 'ورشة حول شجرة الأركان وأهميتها البيئية والاقتصادية.', date: '2026-06-01', img: 'https://images.unsplash.com/photo-1515187029135-7eefa3b2c9a1?w=600&q=80' },
+        { title: 'مخيم بيئي للشباب', desc: 'تنظيم مخيم بيئي للشباب بمنطقة أكادير للتعريف بأهمية حماية البيئة.', date: '2026-05-14', img: 'https://images.unsplash.com/photo-1577979780245-5516627e28a4?w=600&q=80' },
+        { title: 'زيارة حديقة التماسيح', desc: 'رحلة تعليمية إلى حديقة التماسيح بأكادير.', date: '2026-04-26', img: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&q=80' }
+      ],
+      gallery: [
+        'https://images.unsplash.com/photo-1509027572446-af8401acfdc9?w=600&q=80',
+        'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&q=80',
+        'https://images.unsplash.com/photo-1531058020387-3be344556be6?w=600&q=80',
+        'https://images.unsplash.com/photo-1515187029135-7eefa3b2c9a1?w=600&q=80'
+      ],
+      contact: {
+        address: 'شارع الحسن الثاني، أكادير، المغرب',
+        phone: '+212 528 987 654',
+        email: 'agadir@amare.ma',
+        facebook: 'https://facebook.com/amare.agadir',
+        whatsapp: 'https://wa.me/212600000007'
+      },
+      ctaText: 'انضم إلى فرع أكادير وشارك في الأنشطة البيئية والاستكشافية، وساهم في الحفاظ على جمال المدينة الساحلية.'
+    },
+    'dakhla': {
+      name: 'الداخلة',
+      regionName: 'جهة الداخلة - وادي الذهب',
+      regionSlug: 'dakhla-oued-eddahab',
+      heroDesc: 'جوهرة الجنوب المغربي وشبه جزيرة ساحرة. جنة الرياضات المائية والصيد البحري في أقصى جنوب المملكة.',
+      heroBg: 'https://images.unsplash.com/photo-1531058020387-3be344556be6?w=1600&q=80',
+      aboutText: 'يعد فرع مدينة الداخلة من الفروع الواعدة للجمعية في الأقاليم الجنوبية. يركز الفرع على تنظيم أنشطة بيئية وبحرية، ويستفيد من الموقع الفريد للمدينة لتنظيم رحلات استكشافية على طول الساحل الأطلسي. يضم الفرع 38 عضواً ويطمح إلى التوسع ليشمل المزيد من المتطوعين المهتمين بالبيئة البحرية.',
+      posts: [
+        { title: 'حملة تنظيف خليج الداخلة', desc: 'مبادرة لتنظيف شواطئ خليج الداخلة بالتعاون مع السلطات المحلية.', date: '2026-07-12', img: 'https://images.unsplash.com/photo-1531058020387-3be344556be6?w=600&q=80' },
+        { title: 'مهرجان الرياضات المائية', desc: 'المشاركة في مهرجان الداخلة الدولي للرياضات المائية.', date: '2026-06-22', img: 'https://images.unsplash.com/photo-1551632811-561732d1e306?w=600&q=80' },
+        { title: 'رحلة استكشاف الصحراء', desc: 'رحلة استكشافية إلى المناطق الصحراوية المحيطة بالداخلة.', date: '2026-06-05', img: 'https://images.unsplash.com/photo-1544001254-1a14112e5e00?w=600&q=80' },
+        { title: 'ورشة البيئة البحرية', desc: 'ورشة توعوية حول حماية البيئة البحرية والتنوع البيولوجي.', date: '2026-05-18', img: 'https://images.unsplash.com/photo-1515187029135-7eefa3b2c9a1?w=600&q=80' },
+        { title: 'لقاء الصيادين التقليديين', desc: 'لقاء مع الصيادين التقليديين بالداخلة للتعريف بمهنتهم وتحدياتهم.', date: '2026-04-30', img: 'https://images.unsplash.com/photo-1577979780245-5516627e28a4?w=600&q=80' },
+        { title: 'زيارة محمية الصيد', desc: 'زيارة المناطق المحمية للتعريف بأهمية الحفاظ على الثروة السمكية.', date: '2026-04-12', img: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&q=80' }
+      ],
+      gallery: [
+        'https://images.unsplash.com/photo-1531058020387-3be344556be6?w=600&q=80',
+        'https://images.unsplash.com/photo-1551632811-561732d1e306?w=600&q=80',
+        'https://images.unsplash.com/photo-1544001254-1a14112e5e00?w=600&q=80',
+        'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&q=80'
+      ],
+      contact: {
+        address: 'شارع الولاء، الداخلة، المغرب',
+        phone: '+212 528 123 987',
+        email: 'dakhla@amare.ma',
+        facebook: 'https://facebook.com/amare.dakhla',
+        whatsapp: 'https://wa.me/212600000008'
+      },
+      ctaText: 'انضم إلى فرع الداخلة وشارك في الأنشطة البيئية والبحرية، وساهم في تنمية جوهرة الجنوب المغربي.'
+    }
+  };
+
+  var main = document.getElementById('main');
+  if (!main) return;
+
+  if (slug && !cities[slug]) {
+    var heroSection = document.querySelector('.city-hero');
+    if (heroSection) heroSection.remove();
+    main.innerHTML = '<section class="city-404"><div class="container"><div class="city-404-inner"><div class="city-404-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg></div><h1>المدينة غير موجودة</h1><p>عذراً، المدينة التي تبحث عنها غير متوفرة. يرجى التحقق من الرابط أو العودة إلى قائمة الفروع الجهوية.</p><a href="branch.html" class="btn btn-primary">العودة إلى الفروع الجهوية</a></div></div></section>';
+    return;
+  }
+
+  if (!slug) return;
+
+  var city = cities[slug];
+
+  document.title = 'مدينة ' + city.name + ' | الفروع الجهوية | الجمعية المغربية لهواة البحث والاستكشاف';
+  var ogTitle = document.querySelector('meta[property="og:title"]');
+  if (ogTitle) ogTitle.setAttribute('content', 'مدينة ' + city.name + ' | الفروع الجهوية');
+
+  var heroBgEl = document.querySelector('.city-hero-bg');
+  if (heroBgEl) heroBgEl.style.backgroundImage = 'url(\'' + city.heroBg + '\')';
+
+  var titleEl = document.getElementById('city-title');
+  if (titleEl) titleEl.textContent = city.name;
+
+  var regionNameEl = document.getElementById('city-region-name');
+  if (regionNameEl) regionNameEl.textContent = city.regionName;
+
+  var descEl = document.getElementById('city-desc');
+  if (descEl) descEl.textContent = city.heroDesc;
+
+  var aboutTitle = document.getElementById('city-about-title');
+  if (aboutTitle) aboutTitle.textContent = 'فرع مدينة ' + city.name;
+
+  var aboutText = document.getElementById('city-about-text');
+  if (aboutText) aboutText.textContent = city.aboutText;
+
+  var postsHtml = '';
+  for (var pi = 0; pi < city.posts.length; pi++) {
+    var post = city.posts[pi];
+    postsHtml += '<article class="city-post-card reveal"><div class="city-post-img"><img src="' + post.img + '" alt="' + post.title + '" loading="lazy"></div><div class="city-post-body"><div class="city-post-date"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>' + post.date + '</div><h3>' + post.title + '</h3><p>' + post.desc + '</p><a href="#" class="city-post-more">قراءة المزيد <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></a></div></article>';
+  }
+  var postsGrid = document.getElementById('city-posts-grid');
+  if (postsGrid) postsGrid.innerHTML = postsHtml;
+
+  var galHtml = '';
+  for (var gi = 0; gi < city.gallery.length; gi++) {
+    var cls = 'city-gallery-item reveal';
+    if (gi === 0) cls += ' city-gallery-item-large';
+    galHtml += '<div class="' + cls + '" data-lightbox="' + city.gallery[gi] + '"><img src="' + city.gallery[gi] + '" alt="' + city.name + '" loading="lazy"></div>';
+  }
+  var galleryGrid = document.getElementById('city-gallery-grid');
+  if (galleryGrid) galleryGrid.innerHTML = galHtml;
+
+  var c = city.contact;
+  var contactHtml =
+    '<div class="city-contact-card reveal">' +
+      '<div class="city-contact-icon city-contact-icon-blue">' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>' +
+      '</div>' +
+      '<h3>📍 العنوان</h3>' +
+      '<p>' + c.address + '</p>' +
+    '</div>' +
+    '<div class="city-contact-card reveal">' +
+      '<div class="city-contact-icon city-contact-icon-navy">' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>' +
+      '</div>' +
+      '<h3>📞 الهاتف</h3>' +
+      '<p dir="ltr">' + c.phone + '</p>' +
+    '</div>' +
+    '<div class="city-contact-card reveal">' +
+      '<div class="city-contact-icon city-contact-icon-green">' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>' +
+      '</div>' +
+      '<h3>✉ البريد الإلكتروني</h3>' +
+      '<a href="mailto:' + c.email + '" dir="ltr">' + c.email + '</a>' +
+    '</div>' +
+    '<div class="city-contact-card reveal">' +
+      '<div class="city-contact-icon city-contact-icon-blue">' +
+        '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>' +
+      '</div>' +
+      '<h3>🌐 فيسبوك</h3>' +
+      '<a href="' + c.facebook + '" target="_blank" rel="noopener">صفحة الفرع</a>' +
+    '</div>' +
+    '<div class="city-contact-card reveal">' +
+      '<div class="city-contact-icon city-contact-icon-green">' +
+        '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.6.1-.2.3-.7 1-.9 1.2-.1.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.2-.4.1-.2 0-.4 0-.5s-.6-1.5-.8-2c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s1 2.6 1.1 2.7c.1.2 2 3 4.7 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 2-1.4.2-.6.2-1.2.1-1.3-.1-.1-.3-.2-.6-.3z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.6 1.4 5.1L2 22l5.1-1.3C8.5 21.5 10.2 22 12 22c5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18c-1.6 0-3.1-.4-4.5-1.2l-.3-.2-3.3.9.9-3.2-.2-.3C3.7 14.6 3.2 13.3 3.2 12c0-4.9 3.9-8.8 8.8-8.8s8.8 3.9 8.8 8.8-3.9 8.8-8.8 8.8z"/></svg>' +
+      '</div>' +
+      '<h3>💬 واتساب</h3>' +
+      '<a href="' + c.whatsapp + '" target="_blank" rel="noopener">تواصل عبر واتساب</a>' +
+    '</div>';
+  var contactGrid = document.getElementById('city-contact-grid');
+  if (contactGrid) contactGrid.innerHTML = contactHtml;
+
+  var ctaTextEl = document.getElementById('city-cta-text');
+  if (ctaTextEl) ctaTextEl.textContent = city.ctaText;
+
+  var lightbox = document.getElementById('cityLightbox');
+  var lightboxImg = document.getElementById('cityLightboxImg');
+  var lightboxClose = document.getElementById('cityLightboxClose');
+
+  if (lightbox && lightboxImg) {
+    document.addEventListener('click', function(e) {
+      var item = e.target.closest('.city-gallery-item');
+      if (!item) return;
+      lightboxImg.src = item.dataset.lightbox;
+      lightbox.classList.add('open');
+      lightbox.setAttribute('aria-hidden', 'false');
+    });
+
+    if (lightboxClose) {
+      lightboxClose.addEventListener('click', function(e) {
+        e.stopPropagation();
+        lightbox.classList.remove('open');
+        lightbox.setAttribute('aria-hidden', 'true');
+      });
+    }
+
+    lightbox.addEventListener('click', function(e) {
+      if (e.target === lightbox) {
+        lightbox.classList.remove('open');
+        lightbox.setAttribute('aria-hidden', 'true');
+      }
+    });
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && lightbox.classList.contains('open')) {
+        lightbox.classList.remove('open');
+        lightbox.setAttribute('aria-hidden', 'true');
+      }
+    });
+  }
+})();
+</script>
+
+</body>
+</html>

@@ -138,10 +138,11 @@ export function SectionCard({
   const label = getPreview(section.type, data)
   const title =
     (data.heading as string) ||
+    (data.title as string) ||
     (data.eyebrow as string) ||
     (data.brandName as string) ||
-    TYPE_LABEL[section.type] ||
-    section.type
+    (data.quote as string) ||
+    displayType
 
   const description = getDescription(section.type, data)
   console.log('[SectionCard] render — id:', section.id, 'type:', section.type, 'enabled:', section.enabled, 'title:', title)

@@ -22,7 +22,7 @@ BEGIN
   -- ==========================================================================
   INSERT INTO page_sections (id, page_id, section_type, section_key, title, description, content, settings, styles, visible, sort_order)
   VALUES (
-    'sec-home-hero',
+    gen_random_uuid(),
     home_id,
     'hero',
     NULL,
@@ -50,7 +50,7 @@ BEGIN
   -- ==========================================================================
   INSERT INTO page_sections (id, page_id, section_type, section_key, title, description, content, settings, styles, visible, sort_order)
   VALUES (
-    'sec-home-about',
+    gen_random_uuid(),
     home_id,
     'custom',
     NULL,
@@ -96,7 +96,7 @@ BEGIN
   -- ==========================================================================
   INSERT INTO page_sections (id, page_id, section_type, section_key, title, description, content, settings, styles, visible, sort_order)
   VALUES (
-    'sec-home-features',
+    gen_random_uuid(),
     home_id,
     'custom',
     NULL,
@@ -125,7 +125,7 @@ BEGIN
   -- ==========================================================================
   INSERT INTO page_sections (id, page_id, section_type, section_key, title, description, content, settings, styles, visible, sort_order)
   VALUES (
-    'sec-home-activities',
+    gen_random_uuid(),
     home_id,
     'custom',
     NULL,
@@ -191,7 +191,7 @@ BEGIN
   -- ==========================================================================
   INSERT INTO page_sections (id, page_id, section_type, section_key, title, description, content, settings, styles, visible, sort_order)
   VALUES (
-    'sec-home-news',
+    gen_random_uuid(),
     home_id,
     'custom',
     NULL,
@@ -239,7 +239,7 @@ BEGIN
   -- ==========================================================================
   INSERT INTO page_sections (id, page_id, section_type, section_key, title, description, content, settings, styles, visible, sort_order)
   VALUES (
-    'sec-home-store-cta',
+    gen_random_uuid(),
     home_id,
     'cta',
     NULL,
@@ -263,7 +263,7 @@ BEGIN
   -- ==========================================================================
   INSERT INTO page_sections (id, page_id, section_type, section_key, title, description, content, settings, styles, visible, sort_order)
   VALUES (
-    'sec-home-newsletter',
+    gen_random_uuid(),
     home_id,
     'cta',
     NULL,
@@ -287,7 +287,7 @@ BEGIN
   -- ==========================================================================
   INSERT INTO page_sections (id, page_id, section_type, section_key, title, description, content, settings, styles, visible, sort_order)
   VALUES (
-    'sec-home-footer',
+    gen_random_uuid(),
     home_id,
     'custom',
     NULL,

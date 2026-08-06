@@ -276,20 +276,20 @@
         ]
       },
       branches: {
-        title: 'الفروع الجهوية', href: '#',
+        title: 'الفروع الجهوية', href: 'branch.html',
         items: [
-          { icon: 'map', title: 'جهة طنجة تطوان الحسيمة', desc: 'فرع جهة الرباط سلا' },
-          { icon: 'map', title: 'جهة الشرق ', desc: 'فرع جهة الدار البيضاء' },
-          { icon: 'map', title: 'جهة فاس مكناس', desc: 'فرع جهة مراكش آسفي' },
-          { icon: 'map', title: 'جهة الرباط سلا القنيطرة', desc: 'فرع جهة طنجة تطوان' },
-          { icon: 'map', title: 'جهة بني ملال خنيفرة', desc: 'فرع جهة فاس مكناس' },
-          { icon: 'map', title: 'جهة الدار البيضاء سطات', desc: 'فرع جهة الرباط سلا' },
-          { icon: 'map', title: 'جهة مراكش آسفي ', desc: 'فرع جهة الدار البيضاء' },
-          { icon: 'map', title: 'جهة درعة تافيلالت ', desc: 'فرع جهة مراكش آسفي' },
-          { icon: 'map', title: 'جهة سوس ماسة', desc: 'فرع جهة طنجة تطوان' },
-          { icon: 'map', title: 'جهة كلميم واد نون', desc: 'فرع جهة فاس مكناس' },
-          { icon: 'map', title: 'جهة العيون الساقية الحمراء ', desc: 'فرع جهة طنجة تطوان' },
-          { icon: 'map', title: 'جهة الداخلة وادي الذهب  ', desc: 'فرع جهة فاس مكناس' },
+          { icon: 'map', title: 'جهة طنجة - تطوان - الحسيمة', desc: 'الجهة الشمالية للمملكة المغربية', href: 'branch.html?slug=tanger-tetouan-al-hoceima' },
+          { icon: 'map', title: 'جهة الشرق', desc: 'الجهة الشرقية من المتوسط إلى الصحراء', href: 'branch.html?slug=oriental' },
+          { icon: 'map', title: 'جهة فاس - مكناس', desc: 'الجهة الروحية والعلمية للمغرب', href: 'branch.html?slug=fes-meknes' },
+          { icon: 'map', title: 'جهة الرباط - سلا - القنيطرة', desc: 'الجهة الإدارية والحكومية', href: 'branch.html?slug=rabat-sale-kenitra' },
+          { icon: 'map', title: 'جهة بني ملال - خنيفرة', desc: 'الجهة الوسطى بين السهول والأطلس', href: 'branch.html?slug=beni-mellal-khenifra' },
+          { icon: 'map', title: 'جهة الدار البيضاء - سطات', desc: 'القطب الاقتصادي والتجاري الأول', href: 'branch.html?slug=casablanca-settat' },
+          { icon: 'map', title: 'جهة مراكش - آسفي', desc: 'الجهة السياحية الأولى للمغرب', href: 'branch.html?slug=marrakech-safi' },
+          { icon: 'map', title: 'جهة درعة - تافيلالت', desc: 'مهد الدولة العلوية ومنبع التمور', href: 'branch.html?slug=draa-tafilalet' },
+          { icon: 'map', title: 'جهة سوس - ماسة', desc: 'قطب فلاحي وسياحي جنوبي غربي', href: 'branch.html?slug=souss-massa' },
+          { icon: 'map', title: 'جهة كلميم - واد نون', desc: 'بوابة الصحراء المغربية', href: 'branch.html?slug=guelmim-oued-noun' },
+          { icon: 'map', title: 'جهة العيون - الساقية الحمراء', desc: 'كبرى جهات الجنوب المغربي', href: 'branch.html?slug=laayoune-sakia-el-hamra' },
+          { icon: 'map', title: 'جهة الداخلة - وادي الذهب', desc: 'جنة الرياضات المائية والصيد البحري', href: 'branch.html?slug=dakhla-oued-eddahab' },
         ]
       },
       join: {

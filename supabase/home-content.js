@@ -1,23 +1,22 @@
 /* ==========================================================================
-   Home Content Service — loads the Home page from Supabase and injects
-   dynamic content into EVERY section of the public website.
+   Home Content Service — loads the Home page sections from Supabase
+   page_sections table and injects dynamic content into every section.
 
-   Architecture (reused from Hero):
-     1. Fetch content_pages WHERE page_key='home' AND status='published'
-     2. Extract all sections from content.sections
-     3. Inject each section's data into the existing DOM
-     4. Hardcoded fallback for every section — website never breaks
+   Architecture:
+     1. Load pages WHERE slug='/' AND status='published'
+     2. Load page_sections WHERE page_id = home.id AND visible = true
+     3. Merge content + settings + styles → flat data object
+     4. Inject each section into the existing DOM
+     5. Hardcoded fallback for every section — website never breaks
    ========================================================================== */
 
 (function () {
   'use strict';
 
   /* ------------------------------------------------------------------
-     Hardcoded fallback data — mirrors the original index.html content.
-     Used when Supabase is unreachable or a section is missing.
+     Hardcoded fallback data — mirrors the CMS content format.
      All general fields (name, phone, email, address, map) are sourced
-     from window.__AMARE_SETTINGS__ (set by website-settings.js) when
-     available, so they automatically reflect Control Panel changes.
+     from window.__AMARE_SETTINGS__ when available.
      ------------------------------------------------------------------ */
   function getSetting(key, defaultValue) {
     var s = window.__AMARE_SETTINGS__;
@@ -26,13 +25,14 @@
 
   var FALLBACK = {
     hero: {
-      heading: 'اكتشف...\nشارك...\nوانضم إلى الجمعية المغربية',
-      subheading: 'لهواة البحث والاستكشاف',
+      heading:
+        'اكتشف...\nشارك...\nوانضم إلى الجمعية المغربية\nلهواة البحث والاستكشاف',
+      subheading: 'التسجيل في المسابقة الوطنية مفتوح الآن',
       description:
         'شارك في المسابقة الوطنية، وانخرط إلكترونياً في الجمعية، أو جدد عضويتك بسهولة، واطلع على آخر الأنشطة والفعاليات والأخبار عبر المنصة الرسمية.',
       backgroundImage: '',
       buttons: [
-        { label: 'شارك في المسابقة', url: 'competition.html', variant: 'primary' },
+        { label: 'شارك في المسابقة', url: 'competition.html', variant: 'secondary' },
         { label: 'الانخراط Online', url: 'Join us/join-us-online.html', variant: 'primary' },
         { label: 'تجديد الانخراط', url: 'Join us/membership-renewal.html', variant: 'outline' },
       ],
@@ -41,7 +41,6 @@
       eyebrow: 'من نحن',
       heading: 'نبني اليوم',
       headingHighlight: 'غدًا',
-      headingSub: 'أكثر إشراقًا للأجيال القادمة',
       description: 'منذ 2014 ونحن نصنع الفرق في حياة آلاف الأسر المغربية',
       paragraphs: [
         'تأسست ' + getSetting('association_name', 'الجمعية المغربية لهواة البحث والاستكشاف') + ' سنة 2014 على يد مجموعة من الفاعلين المدنيين، بهدف الاستجابة للاحتياجات الحقيقية للمجتمعات المحلية عبر برامج ميدانية في التعليم والصحة والتمكين الاقتصادي.',
@@ -102,7 +101,7 @@
       heading: 'ادعم رسالتنا\nبمنتجات حصرية',
       description: 'اكتشف مجموعة منتجات AMARE الحصرية. كل عملية شراء تساهم في دعم أنشطة الجمعية، وتمويل برامج البحث والاستكشاف، وحماية التراث الوطني.',
       buttonLabel: 'تسوق الآن',
-      buttonUrl: '#',
+      buttonUrl: 'amare store/index.html',
       backgroundImage: 'Amare files /amare-shop.png',
     },
     newsletterCta: {
@@ -114,7 +113,7 @@
     footer: {
       brandName: getSetting('association_name', 'الجمعية المغربية لهواة البحث والاستكشاف'),
       brandLogo: getSetting('logo_url', 'Amare%20files%20/logo.png'),
-      description: getSetting('association_name', 'الجمعية المغربية لهواة البحث والاستكشاف') + ' هي إطار قانوني وني يجمع الهواة تحت راية واحدة لصون التراث الوطني المغربي.',
+      description: getSetting('association_name', 'الجمعية المغربية لهواة البحث والاستكشاف') + ' هي إطار قانوني وطني يجمع الهواة تحت راية واحدة لصون التراث الوطني المغربي.',
       socialLinks: [
         { platform: 'facebook', url: '#' },
         { platform: 'instagram', url: '#' },
@@ -161,26 +160,32 @@
   }
 
   /* ------------------------------------------------------------------
-     Section injectors — each updates one section's DOM
+     HERO injector
+     heading lines → <br> separated in h1 (last line wrapped in <span>)
+     subheading or eyebrow → .hero-eyebrow element
      ------------------------------------------------------------------ */
-
-  /* HERO */
   function injectHero(d) {
     var h1 = el('.hero-inner h1');
     if (h1) {
       var lines = (d.heading || '').split('\n');
       var html = '';
       for (var i = 0; i < lines.length; i++) {
-        html += esc(lines[i]);
-        if (i < lines.length - 1) html += '<br>';
+        var line = lines[i].trim();
+        if (!line) continue;
+        if (i === lines.length - 1) {
+          html += '<span>' + esc(line) + '</span>';
+        } else {
+          if (html) html += '<br>';
+          html += esc(line);
+        }
       }
-      if (d.subheading) html += '<br><span>' + esc(d.subheading) + '</span>';
       h1.innerHTML = html;
     }
 
     var eyebrow = el('.hero-inner .hero-eyebrow');
-    if (eyebrow && d.eyebrow) {
-      eyebrow.textContent = d.eyebrow;
+    if (eyebrow) {
+      var eyebrowText = d.eyebrow || d.subheading || '';
+      eyebrow.textContent = eyebrowText;
     }
 
     var desc = el('.hero-inner p.hero-fade');
@@ -196,6 +201,7 @@
         var svgs = a.querySelectorAll('svg'), svgHtml = '';
         for (var k = 0; k < svgs.length; k++) svgHtml += svgs[k].outerHTML;
         a.href = b.url || '#';
+        var variantClass = b.variant ? (' ' + b.variant) : '';
         a.innerHTML = esc(b.label) + ' ' + svgHtml;
       }
     }
@@ -217,8 +223,8 @@
     var title = el('.about-title');
     if (title && d.heading !== undefined) {
       var hl = d.headingHighlight || '';
-      var sub = d.headingSub || '';
-      title.innerHTML = esc(d.heading || '') + ' <span class="about-title-em">' + esc(hl) + '</span> ' + esc(sub);
+      title.innerHTML = esc(d.heading || '') + ' <span class="about-title-em">' + esc(hl) + '</span>';
+      if (d.headingSub) title.innerHTML += ' ' + esc(d.headingSub);
     }
 
     var descHead = el('.about-desc-head');
@@ -363,30 +369,13 @@
     }
   }
 
-  /* CTA — used by Store and Newsletter */
-  function injectCta(d, sectionId) {
-    if (sectionId === 'store') {
-      var heading = el('.store-title');
-      if (heading && d.heading) heading.innerHTML = esc(d.heading).replace(/\n/g, '<br>');
+  /* CTA — dispatched to store banner or newsletter based on heading content */
+  function injectCta(d) {
+    var heading = d.heading || '';
 
-      var desc = el('.store-desc');
-      if (desc && d.description) desc.textContent = d.description;
-
-      var btn = el('.store-btn');
-      if (btn) {
-        btn.href = d.buttonUrl || '#';
-        var span = btn.querySelector('span');
-        var svg = btn.querySelector('svg');
-        btn.innerHTML = (svg ? svg.outerHTML + ' ' : '') + '<span>' + esc(d.buttonLabel || '') + '</span>';
-      }
-
-      if (d.backgroundImage) {
-        var img = el('.store-image');
-        if (img) img.src = d.backgroundImage;
-      }
-    }
-
-    if (sectionId === 'newsletter') {
+    /* Detect which CTA section by heading keywords */
+    if (heading.indexOf('نشرتنا') !== -1 || heading.indexOf('اشترك') !== -1) {
+      /* Newsletter */
       var nh = el('#newsletter h2');
       if (nh && d.heading) nh.textContent = d.heading;
 
@@ -395,6 +384,26 @@
 
       var nbtn = el('#newsletter button[type="submit"]');
       if (nbtn && d.buttonLabel) nbtn.textContent = d.buttonLabel;
+    } else {
+      /* Store banner */
+      var sh = el('.store-title');
+      if (sh && d.heading) sh.innerHTML = esc(d.heading).replace(/\n/g, '<br>');
+
+      var sd = el('.store-desc');
+      if (sd && d.description) sd.textContent = d.description;
+
+      var sbtn = el('.store-btn');
+      if (sbtn) {
+        sbtn.href = d.buttonUrl || '#';
+        var span = sbtn.querySelector('span');
+        var svg = sbtn.querySelector('svg');
+        sbtn.innerHTML = (svg ? svg.outerHTML + ' ' : '') + '<span>' + esc(d.buttonLabel || '') + '</span>';
+      }
+
+      if (d.backgroundImage) {
+        var img = el('.store-image');
+        if (img) img.src = d.backgroundImage;
+      }
     }
   }
 
@@ -498,7 +507,7 @@
   }
 
   /* ------------------------------------------------------------------
-     Dispatch: find section by type and renderer, inject into DOM
+     Dispatch: route section to the correct injector
      ------------------------------------------------------------------ */
   function injectSection(section) {
     if (!section || !section.enabled) return;
@@ -507,7 +516,7 @@
 
     switch (type) {
       case 'hero': return injectHero(data);
-      case 'cta':  return injectCta(data, section.id || '');
+      case 'cta':  return injectCta(data);
       case 'custom': {
         var renderer = data._renderer || '';
         switch (renderer) {
@@ -524,8 +533,7 @@
   }
 
   /* ------------------------------------------------------------------
-     Supabase fetch — get page and its sections from the new schema.
-     Queries pages (slug='/') then page_sections (visible=true).
+     Supabase fetch — load page + sections from page_sections table
      ------------------------------------------------------------------ */
   function loadHomeFromSupabase(callback) {
     var S = window.Supabase;
@@ -534,7 +542,6 @@
     var client = S.getClient();
     if (!client) return callback(null);
 
-    // Step 1: find the Home page by slug
     client
       .from('pages')
       .select('id, title, slug, status')
@@ -545,7 +552,6 @@
         if (pageResult.error || !pageResult.data) return callback(null);
         var pageId = pageResult.data.id;
 
-        // Step 2: load all visible sections for this page
         client
           .from('page_sections')
           .select('id, section_type, section_key, content, settings, styles, visible, sort_order')
@@ -558,25 +564,20 @@
             var rows = sectionsResult.data;
             if (!Array.isArray(rows) || rows.length === 0) return callback(null);
 
-            // Step 3: map page_sections rows into the format injectSection() expects
             var sections = [];
             for (var i = 0; i < rows.length; i++) {
               var row = rows[i];
-              // Merge content + settings → flat data object (mimics old section.data)
               var data = {};
               var content = row.content || {};
               var settings = row.settings || {};
               var styles = row.styles || {};
 
-              // Copy content fields
               for (var ck in content) {
                 if (Object.prototype.hasOwnProperty.call(content, ck)) data[ck] = content[ck];
               }
-              // Copy settings fields (prefixed with _)
               for (var sk in settings) {
                 if (Object.prototype.hasOwnProperty.call(settings, sk)) data[sk] = settings[sk];
               }
-              // Copy _styles if present
               if (Object.keys(styles).length > 0) data._styles = styles;
 
               sections.push({
@@ -584,6 +585,7 @@
                 type: row.section_type,
                 enabled: row.visible,
                 order: row.sort_order,
+                section_key: row.section_key || null,
                 data: data,
               });
             }
@@ -600,41 +602,36 @@
   }
 
   /* ------------------------------------------------------------------
-     Bootstrap
+     Inject all fallbacks
      ------------------------------------------------------------------ */
-  function injectNonHeroFallbacks() {
+  function injectAllFallbacks() {
+    injectHero(FALLBACK.hero);
     injectAbout(FALLBACK.about);
     injectFeaturesGrid(FALLBACK.featuresGrid);
     injectActivitiesGrid(FALLBACK.activitiesGrid);
     injectNewsGrid(FALLBACK.newsGrid);
-    injectCta(FALLBACK.storeCta, 'store');
-    injectCta(FALLBACK.newsletterCta, 'newsletter');
+    injectCta(FALLBACK.storeCta);
+    injectCta(FALLBACK.newsletterCta);
     injectFooter(FALLBACK.footer);
   }
 
+  /* ------------------------------------------------------------------
+     Bootstrap
+     ------------------------------------------------------------------ */
   function init() {
-    /* 1. Inject default Hero immediately — zero flicker, zero layout shift */
+    /* Inject hero fallback immediately — zero flicker */
     injectHero(FALLBACK.hero);
 
-    /* 2. Fetch live Hero from hero_updates → replace if available */
-    var heroService = window.__AMARE_HERO_SERVICE;
-    if (heroService && heroService.loadHeroFromSupabase) {
-      heroService.loadHeroFromSupabase(function (cmsHero) {
-        if (cmsHero) injectHero(cmsHero);
-      });
-    }
-
-    /* 3. Fetch remaining sections from content_pages */
+    /* Load all sections from page_sections (single source of truth) */
     loadHomeFromSupabase(function (sections) {
       if (sections && sections.length > 0) {
+        /* Inject every section from CMS — the complete page */
         for (var i = 0; i < sections.length; i++) {
-          var section = sections[i];
-          if (section.type !== 'hero') {
-            injectSection(section);
-          }
+          injectSection(sections[i]);
         }
       } else {
-        injectNonHeroFallbacks();
+        /* Supabase unreachable or no sections — use full fallback */
+        injectAllFallbacks();
       }
     });
   }

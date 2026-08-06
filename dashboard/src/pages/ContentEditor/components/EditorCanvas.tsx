@@ -29,7 +29,7 @@ export function EditorCanvas({
   loading,
   showAddModal,
   onSelectSection,
-  onUpdateSection,
+  onUpdateSection: _onUpdateSection,
   onToggleSection,
   onDeleteSection,
   onDuplicateSection,

@@ -74,7 +74,7 @@ export default function ContentEditorPage() {
   const [showAddModal, setShowAddModal] = useState(false)
   const [previewMode, setPreviewMode] = useState<PreviewMode>('desktop')
   const [lastSavedAt, setLastSavedAt] = useState<Date | null>(null)
-  const [historyTick, setHistoryTick] = useState(0)
+  const [_historyTick, setHistoryTick] = useState(0)
 
   const undoStack = useRef<PageSection[][]>([])
   const redoStack = useRef<PageSection[][]>([])
@@ -155,14 +155,22 @@ export default function ContentEditorPage() {
         page = await initializePage(lookupSlug, pageTitle)
         console.log('[CMS] Created page:', { id: page.id, title: page.title })
 
+        if (!page) {
+          console.error('[CMS] Failed to initialize page')
+          toast.error('Failed to load page')
+          return
+        }
+
         setSidebarPages((prev) =>
           prev.map((p) =>
             p.pageKey === pageKey
-              ? { ...p, status: 'draft', name: page.title || p.name }
+              ? { ...p, status: 'draft', name: page!.title || p.name }
               : p,
           ),
         )
       }
+
+      if (!page) return
 
       setSelectedPage(page)
       setSeoTitle(page.seo_title)

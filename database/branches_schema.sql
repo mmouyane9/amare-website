@@ -193,8 +193,6 @@ create trigger trg_branch_events_updated_at
 create index idx_branch_events_city      on branch_events (city_id);
 create index idx_branch_events_published  on branch_events (published);
 create index idx_branch_events_dates      on branch_events (start_date, end_date);
-create index idx_branch_events_upcoming   on branch_events (published, start_date)
-  where published = true and start_date > now();
 
 
 -- ============================================================================

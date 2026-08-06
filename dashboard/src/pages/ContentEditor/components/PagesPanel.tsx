@@ -20,7 +20,7 @@ import {
 export interface SidebarPage {
   pageKey: string
   name: string
-  status: 'published' | 'draft' | 'uninitialized'
+  status: 'published' | 'draft' | 'archived' | 'uninitialized'
   icon: string
   section: string
   path: string
@@ -101,7 +101,7 @@ export function PagesPanel({
   const toggleFolder = useCallback(
     (folderId: string) => {
       setFocusNodeId(folderId)
-      persistExpanded((prev) => {
+      persistExpanded((prev: Set<string>) => {
         const next = new Set(prev)
         if (next.has(folderId)) {
           next.delete(folderId)
@@ -118,7 +118,7 @@ export function PagesPanel({
     (nodeId: string) => {
       const path = findParentPath(TREE_DATA, nodeId)
       if (!path) return
-      persistExpanded((prev) => {
+      persistExpanded((prev: Set<string>) => {
         const next = new Set(prev)
         for (const id of path) {
           next.add(id)

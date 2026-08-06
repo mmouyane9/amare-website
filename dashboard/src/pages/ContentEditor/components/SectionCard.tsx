@@ -89,20 +89,6 @@ function getPreview(type: SectionType, data: Record<string, unknown>): string {
   return type
 }
 
-const TYPE_LABEL: Record<string, string> = {
-  hero: 'Hero',
-  heading: 'Heading',
-  text: 'Text',
-  image: 'Image',
-  buttons: 'Buttons',
-  statistics: 'Statistics',
-  gallery: 'Gallery',
-  cta: 'CTA',
-  faq: 'FAQ',
-  video: 'Video',
-  custom: 'Custom',
-}
-
 interface SectionCardProps {
   section: PageSection
   isSelected: boolean

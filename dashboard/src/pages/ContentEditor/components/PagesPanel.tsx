@@ -93,9 +93,12 @@ export function PagesPanel({
     ? visibleNodes.findIndex((n) => n.id === focusNodeId)
     : -1
 
-  const persistExpanded = useCallback((next: Set<string>) => {
-    setExpanded(next)
-    saveExpandedState(next)
+  const persistExpanded = useCallback((action: React.SetStateAction<Set<string>>) => {
+    setExpanded((prev) => {
+      const next = typeof action === 'function' ? action(prev) : action
+      saveExpandedState(next)
+      return next
+    })
   }, [])
 
   const toggleFolder = useCallback(

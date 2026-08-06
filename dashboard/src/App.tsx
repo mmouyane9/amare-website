@@ -1,10 +1,13 @@
 import { AuthProvider } from '@/contexts/AuthContext'
+import { WebsiteSettingsProvider } from '@/contexts/WebsiteSettingsContext'
 import AppRouter from '@/router'
 
 function App() {
   return (
     <AuthProvider>
-      <AppRouter />
+      <WebsiteSettingsProvider>
+        <AppRouter />
+      </WebsiteSettingsProvider>
     </AuthProvider>
   )
 }

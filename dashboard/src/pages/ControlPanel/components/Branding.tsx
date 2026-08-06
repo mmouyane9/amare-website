@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
-import { Check, ImagePlus, Loader2, Upload } from 'lucide-react'
+import { useRef, useState, type DragEvent } from 'react'
+import { Check, ImagePlus, Loader2, Upload, X } from 'lucide-react'
 import { toast } from 'sonner'
 
 import { Button } from '@/components/ui/button'
@@ -14,71 +14,154 @@ import {
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import {
-  getSettings,
-  saveSettings,
-  uploadBrandingImage,
-  type AppSettings,
-} from '@/services/settings.service'
+  uploadLogo,
+  uploadFooterLogo,
+  uploadFavicon,
+  updateWebsiteBranding,
+} from '@/services/settingsService'
+import { useWebsiteSettingsContext } from '@/contexts/WebsiteSettingsContext'
 
-const BRANDING_BUCKET = 'branding'
+type BrandingField = 'logo_url' | 'footer_logo_url' | 'favicon_url'
+
+interface BrandingItem {
+  field: BrandingField
+  label: string
+  description: string
+  folder: string
+  accept: string
+  previewSize: string
+}
+
+const BRANDING_ITEMS: BrandingItem[] = [
+  {
+    field: 'logo_url',
+    label: 'Logo',
+    description: 'Main logo — navbar, sidebar, loading screen',
+    folder: 'logo',
+    accept: 'image/png,image/svg+xml,image/jpeg,image/webp',
+    previewSize: 'size-20',
+  },
+  {
+    field: 'footer_logo_url',
+    label: 'Footer Logo',
+    description: 'Footer variant — smaller, darker background',
+    folder: 'footer',
+    accept: 'image/png,image/svg+xml,image/jpeg,image/webp',
+    previewSize: 'size-20',
+  },
+  {
+    field: 'favicon_url',
+    label: 'Favicon',
+    description: 'Browser tab icon — ICO, PNG or SVG',
+    folder: 'favicon',
+    accept: 'image/png,image/svg+xml,image/x-icon,image/vnd.microsoft.icon,image/webp',
+    previewSize: 'size-14',
+  },
+]
+
+type UploadState = Record<BrandingField, boolean>
 
 export function Branding() {
-  const [settings, setSettings] = useState<AppSettings | null>(null)
-  const [loading, setLoading] = useState(true)
+  const { settings, loading: ctxLoading, refresh } = useWebsiteSettingsContext()
+  const [formUrls, setFormUrls] = useState<Record<BrandingField, string>>({
+    logo_url: '',
+    footer_logo_url: '',
+    favicon_url: '',
+  })
   const [saving, setSaving] = useState(false)
   const [saved, setSaved] = useState(false)
-  const [uploadingLogo, setUploadingLogo] = useState(false)
-  const [uploadingFavicon, setUploadingFavicon] = useState(false)
-  const logoInputRef = useRef<HTMLInputElement>(null)
-  const faviconInputRef = useRef<HTMLInputElement>(null)
+  const [uploading, setUploading] = useState<UploadState>({
+    logo_url: false,
+    footer_logo_url: false,
+    favicon_url: false,
+  })
+  const [dragOver, setDragOver] = useState<Record<BrandingField, boolean>>({
+    logo_url: false,
+    footer_logo_url: false,
+    favicon_url: false,
+  })
+  const fileInputRefs = useRef<Record<BrandingField, HTMLInputElement | null>>({
+    logo_url: null,
+    footer_logo_url: null,
+    favicon_url: null,
+  })
 
-  const loadSettings = useCallback(async () => {
-    try {
-      const data = await getSettings()
-      setSettings(data)
-    } catch {
-      toast.error('Failed to load settings')
-    } finally {
-      setLoading(false)
-    }
-  }, [])
-
-  useEffect(() => {
-    loadSettings()
-  }, [loadSettings])
-
-  const handleUpload = async (
-    file: File | undefined,
-    field: 'logo_url' | 'favicon_url',
-    setUploading: (v: boolean) => void,
-  ) => {
-    if (!file) return
-    setUploading(true)
-    try {
-      const url = await uploadBrandingImage(file, BRANDING_BUCKET, field.replace('_url', ''))
-      setSettings((prev) => (prev ? { ...prev, [field]: url } : prev))
-      setSaved(false)
-      toast.success(`${field === 'logo_url' ? 'Logo' : 'Favicon'} uploaded`)
-    } catch {
-      toast.error('Failed to upload image')
-    } finally {
-      setUploading(false)
-    }
+  const currentUrls = {
+    logo_url: settings?.logo_url ?? '',
+    footer_logo_url: settings?.footer_logo_url ?? '',
+    favicon_url: settings?.favicon_url ?? '',
   }
 
-  const updateUrl = (field: 'logo_url' | 'favicon_url', value: string) => {
-    setSettings((prev) => (prev ? { ...prev, [field]: value } : prev))
+  const displayUrls = {
+    logo_url: formUrls.logo_url || currentUrls.logo_url,
+    footer_logo_url: formUrls.footer_logo_url || currentUrls.footer_logo_url,
+    favicon_url: formUrls.favicon_url || currentUrls.favicon_url,
+  }
+
+  const setFieldUrl = (field: BrandingField, url: string) => {
+    setFormUrls((prev) => ({ ...prev, [field]: url }))
     setSaved(false)
   }
 
+  const handleUpload = async (file: File | undefined, item: BrandingItem) => {
+    if (!file) return
+    setUploading((prev) => ({ ...prev, [item.field]: true }))
+    try {
+      const currentUrl = currentUrls[item.field]
+      let url: string
+      if (item.field === 'favicon_url') {
+        url = await uploadFavicon(file, currentUrl)
+      } else if (item.field === 'footer_logo_url') {
+        url = await uploadFooterLogo(file, currentUrl)
+      } else {
+        url = await uploadLogo(file, currentUrl)
+      }
+      setFieldUrl(item.field, url)
+      toast.success(`${item.label} uploaded`)
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : 'Failed to upload image')
+    } finally {
+      setUploading((prev) => ({ ...prev, [item.field]: false }))
+    }
+  }
+
+  const handleRemove = async (item: BrandingItem) => {
+    setFieldUrl(item.field, '__REMOVE__')
+    toast.success(`${item.label} will be removed on save`)
+  }
+
+  const handleDragOver = (e: DragEvent, field: BrandingField) => {
+    e.preventDefault()
+    setDragOver((prev) => ({ ...prev, [field]: true }))
+  }
+
+  const handleDragLeave = (e: DragEvent, field: BrandingField) => {
+    e.preventDefault()
+    setDragOver((prev) => ({ ...prev, [field]: false }))
+  }
+
+  const handleDrop = (e: DragEvent, item: BrandingItem) => {
+    e.preventDefault()
+    setDragOver((prev) => ({ ...prev, [item.field]: false }))
+    const file = e.dataTransfer.files?.[0]
+    if (file) handleUpload(file, item)
+  }
+
   const handleSave = async () => {
-    if (!settings) return
     setSaving(true)
     try {
-      await saveSettings({
-        logo_url: settings.logo_url,
-        favicon_url: settings.favicon_url,
-      })
+      const patch: Record<string, string | null> = {}
+      for (const item of BRANDING_ITEMS) {
+        const url = formUrls[item.field]
+        if (url === '__REMOVE__') {
+          patch[item.field] = null
+        } else if (url) {
+          patch[item.field] = url
+        }
+      }
+      await updateWebsiteBranding(patch)
+      setFormUrls({ logo_url: '', footer_logo_url: '', favicon_url: '' })
+      refresh()
       setSaved(true)
       toast.success('Branding saved')
       setTimeout(() => setSaved(false), 2500)
@@ -89,7 +172,9 @@ export function Branding() {
     }
   }
 
-  if (loading) {
+  const hasChanges = Object.values(formUrls).some((url) => url !== '')
+
+  if (ctxLoading) {
     return (
       <Card>
         <CardContent className="flex h-40 items-center justify-center">
@@ -104,115 +189,125 @@ export function Branding() {
       <CardHeader>
         <CardTitle>Branding</CardTitle>
         <CardDescription>
-          Upload your logo and favicon. Images are stored in Supabase Storage.
+          Upload logos and favicon. Drag & drop or click to browse. Supported:
+          PNG, SVG, JPG, WEBP, ICO. Max 5 MB each.
         </CardDescription>
       </CardHeader>
-      <CardContent className="space-y-6">
-        <div className="grid gap-5 sm:grid-cols-2">
-          <div className="space-y-1.5">
-            <Label>Logo</Label>
-            <div className="flex items-center gap-3">
-              <div className="flex size-16 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-dashed border-border bg-muted/40 text-muted-foreground">
-                {settings?.logo_url ? (
-                  <img
-                    src={settings.logo_url}
-                    alt="Logo"
-                    className="size-full object-cover"
-                  />
-                ) : (
-                  <ImagePlus className="size-5" />
-                )}
-              </div>
-              <div className="min-w-0 flex-1 space-y-2">
-                <input
-                  ref={logoInputRef}
-                  type="file"
-                  accept="image/*"
-                  className="hidden"
-                  onChange={(e) => {
-                    handleUpload(e.target.files?.[0], 'logo_url', setUploadingLogo)
-                    e.target.value = ''
-                  }}
-                />
-                <Input
-                  value={settings?.logo_url ?? ''}
-                  onChange={(e) => updateUrl('logo_url', e.target.value)}
-                  placeholder="https://..."
-                  className="text-xs"
-                />
-                <Button
-                  type="button"
-                  variant="outline"
-                  size="sm"
-                  onClick={() => logoInputRef.current?.click()}
-                  disabled={uploadingLogo}
-                >
-                  {uploadingLogo ? (
-                    <Loader2 className="size-3.5 animate-spin" />
-                  ) : (
-                    <Upload className="size-3.5" />
-                  )}
-                  Upload
-                </Button>
-              </div>
-            </div>
-          </div>
+      <CardContent className="space-y-8">
+        {BRANDING_ITEMS.map((item) => {
+          const isUploading = uploading[item.field]
+          const isDragOver = dragOver[item.field]
+          const url = displayUrls[item.field]
+          const isMarkedForRemoval = formUrls[item.field] === '__REMOVE__'
 
-          <div className="space-y-1.5">
-            <Label>Favicon</Label>
-            <div className="flex items-center gap-3">
-              <div className="flex size-11 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-dashed border-border bg-muted/40 text-muted-foreground">
-                {settings?.favicon_url ? (
-                  <img
-                    src={settings.favicon_url}
-                    alt="Favicon"
-                    className="size-full object-cover"
-                  />
-                ) : (
-                  <ImagePlus className="size-4" />
-                )}
-              </div>
-              <div className="min-w-0 flex-1 space-y-2">
-                <input
-                  ref={faviconInputRef}
-                  type="file"
-                  accept="image/*"
-                  className="hidden"
-                  onChange={(e) => {
-                    handleUpload(e.target.files?.[0], 'favicon_url', setUploadingFavicon)
-                    e.target.value = ''
-                  }}
-                />
-                <Input
-                  value={settings?.favicon_url ?? ''}
-                  onChange={(e) => updateUrl('favicon_url', e.target.value)}
-                  placeholder="https://..."
-                  className="text-xs"
-                />
-                <Button
-                  type="button"
-                  variant="outline"
-                  size="sm"
-                  onClick={() => faviconInputRef.current?.click()}
-                  disabled={uploadingFavicon}
+          return (
+            <div key={item.field} className="space-y-1.5">
+              <Label>{item.label}</Label>
+              <p className="text-xs text-muted-foreground">{item.description}</p>
+
+              <div
+                className={`flex items-start gap-4 rounded-xl border-2 p-4 transition-colors ${
+                  isDragOver
+                    ? 'border-primary bg-primary/5'
+                    : 'border-dashed border-border bg-muted/30'
+                } ${isMarkedForRemoval ? 'opacity-50' : ''}`}
+                onDragOver={(e) => handleDragOver(e, item.field)}
+                onDragLeave={(e) => handleDragLeave(e, item.field)}
+                onDrop={(e) => handleDrop(e, item)}
+              >
+                <div
+                  className={`flex shrink-0 items-center justify-center overflow-hidden rounded-xl border border-border bg-background ${
+                    item.previewSize
+                  }`}
                 >
-                  {uploadingFavicon ? (
-                    <Loader2 className="size-3.5 animate-spin" />
+                  {url && !isMarkedForRemoval ? (
+                    <img
+                      src={url}
+                      alt={item.label}
+                      className="size-full object-contain p-1"
+                    />
                   ) : (
-                    <Upload className="size-3.5" />
+                    <ImagePlus className="size-5 text-muted-foreground/50" />
                   )}
-                  Upload
-                </Button>
+                </div>
+
+                <div className="min-w-0 flex-1 space-y-2">
+                  <input
+                    ref={(el) => {
+                      fileInputRefs.current[item.field] = el
+                    }}
+                    type="file"
+                    accept={item.accept}
+                    className="hidden"
+                    onChange={(e) => {
+                      handleUpload(e.target.files?.[0], item)
+                      e.target.value = ''
+                    }}
+                  />
+
+                  <Input
+                    value={isMarkedForRemoval ? '' : (formUrls[item.field] || currentUrls[item.field])}
+                    onChange={(e) => setFieldUrl(item.field, e.target.value)}
+                    placeholder="https://... or upload a file"
+                    className="h-9 text-xs"
+                    disabled={isMarkedForRemoval}
+                  />
+
+                  <div className="flex gap-2">
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={() => fileInputRefs.current[item.field]?.click()}
+                      disabled={isUploading || isMarkedForRemoval}
+                    >
+                      {isUploading ? (
+                        <Loader2 className="size-3.5 animate-spin" />
+                      ) : (
+                        <Upload className="size-3.5" />
+                      )}
+                      <span className="ml-1.5">Upload</span>
+                    </Button>
+
+                    {(currentUrls[item.field] || formUrls[item.field]) && !isMarkedForRemoval && (
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => handleRemove(item)}
+                        className="text-destructive hover:text-destructive"
+                      >
+                        <X className="size-3.5" />
+                        <span className="ml-1.5">Remove</span>
+                      </Button>
+                    )}
+
+                    {isMarkedForRemoval && (
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => setFieldUrl(item.field, '')}
+                      >
+                        Undo
+                      </Button>
+                    )}
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
+          )
+        })}
       </CardContent>
       <CardFooter className="justify-between">
         <p className="text-xs text-muted-foreground">
-          {saved ? 'Branding saved' : 'Upload or paste a URL for each image'}
+          {saved
+            ? 'Branding saved'
+            : hasChanges
+              ? 'Unsaved changes'
+              : 'Upload or paste a URL for each image'}
         </p>
-        <Button type="button" onClick={handleSave} disabled={saving}>
+        <Button type="button" onClick={handleSave} disabled={saving || !hasChanges}>
           {saving ? (
             <Loader2 className="size-4 animate-spin" />
           ) : saved ? (

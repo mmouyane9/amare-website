@@ -391,6 +391,16 @@
   pointer-events: none;
 }
 
+/* Date inputs: icon moved to opposite side to avoid RTL label/placeholder overlap */
+.app-input[type="date"] {
+  padding: 13px 14px 13px 46px;
+}
+
+.app-input[type="date"] ~ .app-input-icon {
+  inset-inline-start: auto;
+  inset-inline-end: 15px;
+}
+
 .app-input:focus ~ .app-input-icon {
   color: var(--color-primary);
 }

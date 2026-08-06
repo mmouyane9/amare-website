@@ -456,14 +456,25 @@
 .ms-input.is-invalid ~ .ms-label { color: #E74C3C; }
 
 /* Date inputs: native pickers can't display the placeholder,
-   so the label only floats on focus or once the field is filled. */
+   so the label only floats on focus or once the field is filled.
+   Icon moved to the left (end) side to avoid overlapping the Arabic label. */
+.ms-input[type="date"] {
+  padding: 0 16px 0 46px;
+}
+
 .ms-input[type="date"] ~ .ms-label {
   top: 50%;
+
   transform: translateY(-50%);
   font-size: 15px;
   font-weight: 500;
   color: var(--color-text-soft);
   background: transparent;
+}
+
+.ms-input[type="date"] ~ .ms-input-icon {
+  right: auto;
+  left: 15px;
 }
 
 .ms-input[type="date"]:focus ~ .ms-label,

@@ -3,11 +3,16 @@ import { LogOut } from 'lucide-react'
 
 import { NAV_ITEMS } from '@/components/layout/nav-items'
 import { useAuth } from '@/contexts/AuthContext'
+import { useWebsiteSettingsContext } from '@/contexts/WebsiteSettingsContext'
 import { cn } from '@/lib/utils'
 
 export function Sidebar() {
   const { logout } = useAuth()
+  const { settings } = useWebsiteSettingsContext()
   const navigate = useNavigate()
+
+  const displayName = settings?.short_name || 'AMARE'
+  const logoUrl = settings?.logo_url || '/logo.png'
 
   const handleLogout = async () => {
     await logout()
@@ -17,10 +22,10 @@ export function Sidebar() {
   return (
     <aside className="hidden h-full w-64 shrink-0 flex-col border-r border-border/60 bg-sidebar lg:flex">
       <div className="flex h-16 shrink-0 items-center gap-3 px-5">
-        <img src="/logo.png" alt="AMARE" className="size-10 rounded-lg object-contain" />
+        <img src={logoUrl} alt={displayName} className="size-10 rounded-lg object-contain" />
         <div className="flex flex-col leading-tight">
           <span className="text-sm font-semibold tracking-tight text-sidebar-foreground">
-            AMARE
+            {displayName}
           </span>
           <span className="text-xs text-muted-foreground">Admin Panel</span>
         </div>
@@ -81,7 +86,7 @@ export function Sidebar() {
       </div>
 
       <div className="border-t border-border/60 px-5 py-4">
-        <p className="text-xs text-muted-foreground">AMARE Admin · v1.0.0</p>
+        <p className="text-xs text-muted-foreground">{displayName} Admin · v1.0.0</p>
       </div>
     </aside>
   )

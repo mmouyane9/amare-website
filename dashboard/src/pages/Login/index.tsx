@@ -15,6 +15,7 @@ import {
 
 import { signIn } from '@/services/auth.service'
 import { useAuth } from '@/contexts/AuthContext'
+import { useWebsiteSettingsContext } from '@/contexts/WebsiteSettingsContext'
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -49,6 +50,7 @@ export default function LoginPage() {
   const [authError, setAuthError] = useState<string | null>(null)
 
   const { login } = useAuth()
+  const { settings } = useWebsiteSettingsContext()
   const navigate = useNavigate()
   const location = useLocation()
 
@@ -89,6 +91,9 @@ export default function LoginPage() {
     }
   }
 
+  const logoUrl = settings?.logo_url || '/logo.png'
+  const brandName = settings?.short_name || 'AMARE'
+
   return (
     <div className="flex min-h-svh flex-col bg-background lg:flex-row">
       <section className="relative hidden overflow-hidden bg-gradient-to-br from-foreground via-foreground to-primary lg:flex lg:w-[46%] lg:shrink-0">
@@ -98,15 +103,15 @@ export default function LoginPage() {
 
         <div className="relative z-10 flex h-full w-full flex-col justify-between p-10 xl:p-14">
           <div className="flex items-center gap-3">
-            <img src="/logo.png" alt="AMARE" className="size-10 rounded-lg object-contain ring-1 ring-background/20" />
+            <img src={logoUrl} alt={brandName} className="size-10 rounded-lg object-contain ring-1 ring-background/20" />
             <span className="text-lg font-semibold tracking-tight text-background">
-              AMARE
+              {brandName}
             </span>
           </div>
 
           <div className="max-w-md space-y-5">
             <h1 className="text-3xl font-semibold tracking-tight text-background lg:text-4xl">
-              Welcome back to the AMARE Admin
+              Welcome back to the {brandName} Admin
             </h1>
             <p className="text-base leading-relaxed text-background/70">
               Manage members, branches, news and everything else that keeps the
@@ -131,7 +136,7 @@ export default function LoginPage() {
         <div className="w-full max-w-md">
           <Card>
             <CardHeader className="text-center">
-              <img src="/logo.png" alt="AMARE" className="mx-auto mb-3 size-11 rounded-lg object-contain lg:hidden" />
+              <img src={logoUrl} alt={brandName} className="mx-auto mb-3 size-11 rounded-lg object-contain lg:hidden" />
               <CardTitle className="text-2xl font-semibold tracking-tight">
                 Sign in
               </CardTitle>

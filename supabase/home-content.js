@@ -15,7 +15,15 @@
   /* ------------------------------------------------------------------
      Hardcoded fallback data — mirrors the original index.html content.
      Used when Supabase is unreachable or a section is missing.
+     All general fields (name, phone, email, address, map) are sourced
+     from window.__AMARE_SETTINGS__ (set by website-settings.js) when
+     available, so they automatically reflect Control Panel changes.
      ------------------------------------------------------------------ */
+  function getSetting(key, defaultValue) {
+    var s = window.__AMARE_SETTINGS__;
+    return (s && s[key]) || defaultValue;
+  }
+
   var FALLBACK = {
     hero: {
       heading: 'اكتشف...\nشارك...\nوانضم إلى الجمعية المغربية',
@@ -36,7 +44,7 @@
       headingSub: 'أكثر إشراقًا للأجيال القادمة',
       description: 'منذ 2014 ونحن نصنع الفرق في حياة آلاف الأسر المغربية',
       paragraphs: [
-        'تأسست الجمعية المغربية لهواة البحث والاستكشاف سنة 2014 على يد مجموعة من الفاعلين المدنيين، بهدف الاستجابة للاحتياجات الحقيقية للمجتمعات المحلية عبر برامج ميدانية في التعليم والصحة والتمكين الاقتصادي.',
+        'تأسست ' + getSetting('association_name', 'الجمعية المغربية لهواة البحث والاستكشاف') + ' سنة 2014 على يد مجموعة من الفاعلين المدنيين، بهدف الاستجابة للاحتياجات الحقيقية للمجتمعات المحلية عبر برامج ميدانية في التعليم والصحة والتمكين الاقتصادي.',
         'نؤمن بأن التغيير المستدام يبدأ من الأفراد، لذلك نعمل جنبًا إلى جنب مع السكان المحليين والمتطوعين والشركاء لبناء حلول تدوم أثرها لسنوات قادمة.',
       ],
       features: [
@@ -59,7 +67,7 @@
       ],
     },
     featuresGrid: {
-      eyebrow: 'لماذا الجمعية المغربية لهواة البحث والاستكشاف',
+      eyebrow: 'لماذا ' + getSetting('association_name', 'الجمعية المغربية لهواة البحث والاستكشاف'),
       heading: 'ما يميز عملنا',
       description: 'نجمع بين الخبرة الميدانية والشفافية الكاملة لضمان أثر حقيقي وملموس في كل مشروع ننفذه.',
       cards: [
@@ -104,9 +112,9 @@
       buttonUrl: '#newsletter',
     },
     footer: {
-      brandName: 'الجمعية المغربية لهواة البحث والاستكشاف',
-      brandLogo: 'Amare%20files%20/logo.png',
-      description: 'الجمعية المغربية لهواة البحث والاستكشاف هي إطار قانوني وني يجمع الهواة تحت راية واحدة لصون التراث الوطني المغربي.',
+      brandName: getSetting('association_name', 'الجمعية المغربية لهواة البحث والاستكشاف'),
+      brandLogo: getSetting('logo_url', 'Amare%20files%20/logo.png'),
+      description: getSetting('association_name', 'الجمعية المغربية لهواة البحث والاستكشاف') + ' هي إطار قانوني وني يجمع الهواة تحت راية واحدة لصون التراث الوطني المغربي.',
       socialLinks: [
         { platform: 'facebook', url: '#' },
         { platform: 'instagram', url: '#' },
@@ -128,12 +136,11 @@
         { label: 'المستشار القانوني', url: '#services' }, { label: 'عقد التأمين', url: '#services' },
       ],
       contactHeading: 'تواصل معنا',
-      contact: { address: 'ص.ب 749 أيت ملول 86150', phone: '+212 684869996', email: 'association.amare.agadir@gmail.com' },
+      contact: { address: getSetting('address', 'ص.ب 749 أيت ملول 86150'), phone: getSetting('phone', '+212 684869996'), email: getSetting('contact_email', 'association.amare.agadir@gmail.com') },
       mapHeading: 'موقعنا',
       mapLabel: '📍 Ait Melloul, Agadir',
-      mapLat: '30.385528',
-      mapLon: '-9.448611',
-      copyright: '© 2026 الجمعية المغربية لهواة البحث والاستكشاف. جميع الحقوق محفوظة.',
+      googleMapsUrl: getSetting('google_maps_url', 'https://www.google.com/maps?q=30.385528,-9.448611'),
+      copyright: '© 2026 ' + getSetting('association_name', 'الجمعية المغربية لهواة البحث والاستكشاف') + '. جميع الحقوق محفوظة.',
       bottomLinks: [
         { label: 'سياسة الخصوصية', url: '#' },
         { label: 'الشروط والأحكام', url: '#' },
@@ -456,13 +463,13 @@
     if (mapHeading && d.mapHeading) mapHeading.textContent = d.mapHeading;
 
     var mapIframe = el('.footer-map-frame');
-    if (mapIframe && d.mapLat && d.mapLon) {
-      mapIframe.src = 'https://www.google.com/maps?q=' + d.mapLat + ',' + d.mapLon + '&z=16&output=embed';
+    if (mapIframe && d.googleMapsUrl) {
+      mapIframe.src = d.googleMapsUrl.replace('&output=embed', '') + '&output=embed';
     }
 
     var mapBtn = el('.footer-map-btn');
-    if (mapBtn && d.mapLat && d.mapLon) {
-      mapBtn.href = 'https://www.google.com/maps?q=' + d.mapLat + ',' + d.mapLon;
+    if (mapBtn && d.googleMapsUrl) {
+      mapBtn.href = d.googleMapsUrl.replace('&z=16&output=embed', '');
     }
 
     /* Copyright */

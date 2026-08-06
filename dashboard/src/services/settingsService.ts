@@ -13,6 +13,14 @@ export interface WebsiteSettings {
   logo_url: string | null
   footer_logo_url: string | null
   favicon_url: string | null
+  facebook: string | null
+  instagram: string | null
+  linkedin: string | null
+  youtube: string | null
+  tiktok: string | null
+  twitter: string | null
+  whatsapp_url: string | null
+  telegram: string | null
   created_at: string | null
   updated_at: string | null
 }
@@ -33,6 +41,14 @@ const DEFAULT_SETTINGS: WebsiteSettings = {
   logo_url: null,
   footer_logo_url: null,
   favicon_url: null,
+  facebook: null,
+  instagram: null,
+  linkedin: null,
+  youtube: null,
+  tiktok: null,
+  twitter: null,
+  whatsapp_url: null,
+  telegram: null,
   created_at: null,
   updated_at: null,
 }
@@ -164,6 +180,21 @@ export async function uploadFavicon(
     await deleteOldBrandingAsset(currentUrl)
   }
   return url
+}
+
+export async function updateSocialMedia(
+  patch: Partial<{
+    facebook: string | null
+    instagram: string | null
+    linkedin: string | null
+    youtube: string | null
+    tiktok: string | null
+    twitter: string | null
+    whatsapp_url: string | null
+    telegram: string | null
+  }>,
+): Promise<WebsiteSettings> {
+  return updateWebsiteSettings(patch)
 }
 
 export async function updateWebsiteBranding(

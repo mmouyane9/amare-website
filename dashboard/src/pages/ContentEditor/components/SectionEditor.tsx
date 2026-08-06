@@ -1,18 +1,10 @@
-import { useState } from 'react'
 import {
-  ArrowDown,
-  ArrowUp,
-  ChevronDown,
-  Copy,
-  EyeOff,
   ImageIcon,
   Plus,
   Trash2,
 } from 'lucide-react'
 
 import {
-  SECTION_TYPES,
-  SECTION_TYPE_LABELS,
   type PageSection,
   type SectionButton,
   type SectionFaqItem,
@@ -26,7 +18,6 @@ import {
   generateImageId,
   generateStatId,
 } from '@/services/content.service'
-import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
@@ -36,7 +27,7 @@ import { cn } from '@/lib/utils'
 // SectionEditor props
 // ---------------------------------------------------------------------------
 
-interface SectionEditorProps {
+export interface SectionEditorProps {
   section: PageSection
   index: number
   total: number
@@ -52,7 +43,7 @@ interface SectionEditorProps {
 // Shared field helpers
 // ---------------------------------------------------------------------------
 
-function FieldGroup({ label, children }: { label: string; children: React.ReactNode }) {
+export function FieldGroup({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div className="space-y-1.5">
       <label className="block text-xs font-medium text-muted-foreground">{label}</label>
@@ -61,7 +52,7 @@ function FieldGroup({ label, children }: { label: string; children: React.ReactN
   )
 }
 
-function TextField({
+export function TextField({
   label,
   value,
   onChange,
@@ -84,7 +75,7 @@ function TextField({
   )
 }
 
-function TextareaField({
+export function TextareaField({
   label,
   value,
   onChange,
@@ -107,7 +98,7 @@ function TextareaField({
   )
 }
 
-function ImageField({
+export function ImageField({
   label,
   value,
   onChange,
@@ -118,27 +109,27 @@ function ImageField({
 }) {
   return (
     <FieldGroup label={label}>
-      <div className="relative flex aspect-video w-full items-center justify-center overflow-hidden rounded-lg border border-dashed bg-muted/40">
+      <div className="relative flex aspect-video w-full items-center justify-center overflow-hidden rounded-xl border border-dashed border-[#E5E7EB] bg-gray-50">
         {value ? (
           <img src={value} alt={label} className="size-full object-cover" />
         ) : (
           <div className="flex flex-col items-center gap-1.5 text-muted-foreground">
             <ImageIcon className="size-6" />
-            <span className="text-xs">لا توجد صورة</span>
+            <span className="text-xs">No image</span>
           </div>
         )}
       </div>
       <Input
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        placeholder="رابط الصورة"
+        placeholder="Image URL"
         className="h-9 text-sm"
       />
     </FieldGroup>
   )
 }
 
-function ButtonEditor({
+export function ButtonEditor({
   button,
   onChange,
   onDelete,
@@ -148,18 +139,18 @@ function ButtonEditor({
   onDelete: () => void
 }) {
   return (
-    <div className="flex items-start gap-2 rounded-lg border border-border/60 bg-muted/30 p-2.5">
+    <div className="flex items-start gap-2 rounded-xl border border-[#E5E7EB] bg-gray-50 p-3">
       <div className="min-w-0 flex-1 space-y-2">
         <Input
           value={button.label}
           onChange={(e) => onChange({ ...button, label: e.target.value })}
-          placeholder="نص الزر"
+          placeholder="Button text"
           className="h-8 text-sm"
         />
         <Input
           value={button.url}
           onChange={(e) => onChange({ ...button, url: e.target.value })}
-          placeholder="الرابط"
+          placeholder="URL"
           className="h-8 text-sm"
         />
         <select
@@ -167,7 +158,7 @@ function ButtonEditor({
           onChange={(e) =>
             onChange({ ...button, variant: e.target.value as SectionButton['variant'] })
           }
-          className="h-8 w-full rounded-lg border border-input bg-transparent px-2.5 text-xs"
+          className="h-8 w-full rounded-lg border border-[#E5E7EB] bg-transparent px-2.5 text-xs"
         >
           <option value="primary">Primary</option>
           <option value="secondary">Secondary</option>
@@ -187,7 +178,7 @@ function ButtonEditor({
   )
 }
 
-function StatEditor({
+export function StatEditor({
   stat,
   onChange,
   onDelete,
@@ -197,13 +188,13 @@ function StatEditor({
   onDelete: () => void
 }) {
   return (
-    <div className="flex items-start gap-2 rounded-lg border border-border/60 bg-muted/30 p-2.5">
+    <div className="flex items-start gap-2 rounded-xl border border-[#E5E7EB] bg-gray-50 p-3">
       <div className="min-w-0 flex-1 space-y-2">
         <div className="flex gap-2">
           <Input
             value={stat.value}
             onChange={(e) => onChange({ ...stat, value: e.target.value })}
-            placeholder="الرقم"
+            placeholder="Number"
             className="h-8 w-20 text-sm"
           />
           <Input
@@ -216,7 +207,7 @@ function StatEditor({
         <Input
           value={stat.label}
           onChange={(e) => onChange({ ...stat, label: e.target.value })}
-          placeholder="التسمية"
+          placeholder="Label"
           className="h-8 text-sm"
         />
       </div>
@@ -233,7 +224,7 @@ function StatEditor({
   )
 }
 
-function GalleryImageEditor({
+export function GalleryImageEditor({
   image,
   onChange,
   onDelete,
@@ -243,8 +234,8 @@ function GalleryImageEditor({
   onDelete: () => void
 }) {
   return (
-    <div className="flex items-start gap-2 rounded-lg border border-border/60 bg-muted/30 p-2.5">
-      <div className="relative size-14 shrink-0 overflow-hidden rounded-md bg-muted">
+    <div className="flex items-start gap-2 rounded-xl border border-[#E5E7EB] bg-gray-50 p-3">
+      <div className="relative size-14 shrink-0 overflow-hidden rounded-lg bg-muted">
         {image.url ? (
           <img src={image.url} alt={image.alt} className="size-full object-cover" />
         ) : (
@@ -257,13 +248,13 @@ function GalleryImageEditor({
         <Input
           value={image.url}
           onChange={(e) => onChange({ ...image, url: e.target.value })}
-          placeholder="رابط الصورة"
+          placeholder="Image URL"
           className="h-8 text-sm"
         />
         <Input
           value={image.alt}
           onChange={(e) => onChange({ ...image, alt: e.target.value })}
-          placeholder="النص البديل"
+          placeholder="Alt text"
           className="h-8 text-sm"
         />
       </div>
@@ -280,7 +271,7 @@ function GalleryImageEditor({
   )
 }
 
-function FaqItemEditor({
+export function FaqItemEditor({
   item,
   onChange,
   onDelete,
@@ -290,12 +281,12 @@ function FaqItemEditor({
   onDelete: () => void
 }) {
   return (
-    <div className="space-y-2 rounded-lg border border-border/60 bg-muted/30 p-2.5">
+    <div className="space-y-2 rounded-xl border border-[#E5E7EB] bg-gray-50 p-3">
       <div className="flex items-center gap-2">
         <Input
           value={item.question}
           onChange={(e) => onChange({ ...item, question: e.target.value })}
-          placeholder="السؤال"
+          placeholder="Question"
           className="h-8 flex-1 text-sm font-medium"
         />
         <Button
@@ -311,7 +302,7 @@ function FaqItemEditor({
       <Textarea
         value={item.answer}
         onChange={(e) => onChange({ ...item, answer: e.target.value })}
-        placeholder="الجواب"
+        placeholder="Answer"
         className="min-h-16 resize-y text-sm"
       />
     </div>
@@ -322,34 +313,34 @@ function FaqItemEditor({
 // Section type editors
 // ---------------------------------------------------------------------------
 
-function HeroEditor({ section, onChange }: SectionEditorProps) {
+export function HeroEditor({ section, onChange }: SectionEditorProps) {
   const data = section.data as Record<string, unknown>
   const buttons = (data.buttons ?? []) as SectionButton[]
 
   return (
     <div className="space-y-3">
       <TextField
-        label="العنوان الرئيسي"
+        label="Title"
         value={(data.heading as string) ?? ''}
         onChange={(v) => onChange({ ...data, heading: v })}
       />
       <TextField
-        label="العنوان الفرعي"
+        label="Subtitle"
         value={(data.subheading as string) ?? ''}
         onChange={(v) => onChange({ ...data, subheading: v })}
       />
       <TextareaField
-        label="الوصف"
+        label="Description"
         value={(data.description as string) ?? ''}
         onChange={(v) => onChange({ ...data, description: v })}
       />
       <ImageField
-        label="صورة الخلفية"
+        label="Background Image"
         value={(data.backgroundImage as string) ?? ''}
         onChange={(v) => onChange({ ...data, backgroundImage: v })}
       />
       <div className="space-y-1.5">
-        <label className="block text-xs font-medium text-muted-foreground">الأزرار</label>
+        <label className="block text-xs font-medium text-muted-foreground">Buttons</label>
         <div className="space-y-2">
           {buttons.map((btn) => (
             <ButtonEditor
@@ -373,7 +364,7 @@ function HeroEditor({ section, onChange }: SectionEditorProps) {
                 ...buttons,
                 {
                   id: generateButtonId(),
-                  label: 'زر جديد',
+                  label: 'New Button',
                   url: '#',
                   variant: 'primary',
                 } satisfies SectionButton,
@@ -382,24 +373,24 @@ function HeroEditor({ section, onChange }: SectionEditorProps) {
           }
         >
           <Plus className="size-3.5" />
-          إضافة زر
+          Add Button
         </Button>
       </div>
     </div>
   )
 }
 
-function HeadingEditor({ section, onChange }: SectionEditorProps) {
+export function HeadingEditor({ section, onChange }: SectionEditorProps) {
   const data = section.data as Record<string, unknown>
   return (
     <div className="space-y-3">
       <TextField
-        label="العنوان"
+        label="Heading"
         value={(data.heading as string) ?? ''}
         onChange={(v) => onChange({ ...data, heading: v })}
       />
       <TextField
-        label="العنوان الفرعي"
+        label="Subtitle"
         value={(data.subheading as string) ?? ''}
         onChange={(v) => onChange({ ...data, subheading: v })}
       />
@@ -407,17 +398,17 @@ function HeadingEditor({ section, onChange }: SectionEditorProps) {
   )
 }
 
-function TextEditor({ section, onChange }: SectionEditorProps) {
+export function TextEditor({ section, onChange }: SectionEditorProps) {
   const data = section.data as Record<string, unknown>
   return (
     <div className="space-y-3">
       <TextField
-        label="العنوان"
+        label="Heading"
         value={(data.heading as string) ?? ''}
         onChange={(v) => onChange({ ...data, heading: v })}
       />
       <TextareaField
-        label="النص"
+        label="Body Text"
         value={(data.body as string) ?? ''}
         onChange={(v) => onChange({ ...data, body: v })}
       />
@@ -425,22 +416,22 @@ function TextEditor({ section, onChange }: SectionEditorProps) {
   )
 }
 
-function ImageEditor({ section, onChange }: SectionEditorProps) {
+export function ImageEditor({ section, onChange }: SectionEditorProps) {
   const data = section.data as Record<string, unknown>
   return (
     <div className="space-y-3">
       <ImageField
-        label="الصورة"
+        label="Image"
         value={(data.url as string) ?? ''}
         onChange={(v) => onChange({ ...data, url: v })}
       />
       <TextField
-        label="النص البديل"
+        label="Alt Text"
         value={(data.alt as string) ?? ''}
         onChange={(v) => onChange({ ...data, alt: v })}
       />
       <TextField
-        label="التعليق"
+        label="Caption"
         value={(data.caption as string) ?? ''}
         onChange={(v) => onChange({ ...data, caption: v })}
       />
@@ -448,18 +439,18 @@ function ImageEditor({ section, onChange }: SectionEditorProps) {
   )
 }
 
-function ButtonsEditor({ section, onChange }: SectionEditorProps) {
+export function ButtonsEditor({ section, onChange }: SectionEditorProps) {
   const data = section.data as Record<string, unknown>
   const buttons = (data.buttons ?? []) as SectionButton[]
   return (
     <div className="space-y-3">
       <TextField
-        label="العنوان"
+        label="Heading"
         value={(data.heading as string) ?? ''}
         onChange={(v) => onChange({ ...data, heading: v })}
       />
       <div className="space-y-1.5">
-        <label className="block text-xs font-medium text-muted-foreground">الأزرار</label>
+        <label className="block text-xs font-medium text-muted-foreground">Buttons</label>
         <div className="space-y-2">
           {buttons.map((btn) => (
             <ButtonEditor
@@ -481,36 +472,36 @@ function ButtonsEditor({ section, onChange }: SectionEditorProps) {
               ...data,
               buttons: [
                 ...buttons,
-                { id: generateButtonId(), label: 'زر جديد', url: '#', variant: 'primary' },
+                { id: generateButtonId(), label: 'New Button', url: '#', variant: 'primary' },
               ],
             })
           }
         >
           <Plus className="size-3.5" />
-          إضافة زر
+          Add Button
         </Button>
       </div>
     </div>
   )
 }
 
-function StatisticsEditor({ section, onChange }: SectionEditorProps) {
+export function StatisticsEditor({ section, onChange }: SectionEditorProps) {
   const data = section.data as Record<string, unknown>
   const stats = (data.stats ?? []) as SectionStat[]
   return (
     <div className="space-y-3">
       <TextField
-        label="العنوان"
+        label="Heading"
         value={(data.heading as string) ?? ''}
         onChange={(v) => onChange({ ...data, heading: v })}
       />
       <TextField
-        label="الوصف"
+        label="Description"
         value={(data.description as string) ?? ''}
         onChange={(v) => onChange({ ...data, description: v })}
       />
       <div className="space-y-1.5">
-        <label className="block text-xs font-medium text-muted-foreground">الإحصائيات</label>
+        <label className="block text-xs font-medium text-muted-foreground">Statistics</label>
         <div className="space-y-2">
           {stats.map((stat) => (
             <StatEditor
@@ -534,31 +525,31 @@ function StatisticsEditor({ section, onChange }: SectionEditorProps) {
               ...data,
               stats: [
                 ...stats,
-                { id: generateStatId(), value: '0', suffix: '+', label: 'تسمية' },
+                { id: generateStatId(), value: '0', suffix: '+', label: 'Label' },
               ],
             })
           }
         >
           <Plus className="size-3.5" />
-          إضافة إحصائية
+          Add Stat
         </Button>
       </div>
     </div>
   )
 }
 
-function GalleryEditor({ section, onChange }: SectionEditorProps) {
+export function GalleryEditor({ section, onChange }: SectionEditorProps) {
   const data = section.data as Record<string, unknown>
   const images = (data.images ?? []) as SectionImage[]
   return (
     <div className="space-y-3">
       <TextField
-        label="العنوان"
+        label="Heading"
         value={(data.heading as string) ?? ''}
         onChange={(v) => onChange({ ...data, heading: v })}
       />
       <div className="space-y-1.5">
-        <label className="block text-xs font-medium text-muted-foreground">الصور</label>
+        <label className="block text-xs font-medium text-muted-foreground">Images</label>
         <div className="space-y-2">
           {images.map((img) => (
             <GalleryImageEditor
@@ -588,39 +579,39 @@ function GalleryEditor({ section, onChange }: SectionEditorProps) {
           }
         >
           <Plus className="size-3.5" />
-          إضافة صورة
+          Add Image
         </Button>
       </div>
     </div>
   )
 }
 
-function CtaEditor({ section, onChange }: SectionEditorProps) {
+export function CtaEditor({ section, onChange }: SectionEditorProps) {
   const data = section.data as Record<string, unknown>
   return (
     <div className="space-y-3">
       <TextField
-        label="العنوان"
+        label="Heading"
         value={(data.heading as string) ?? ''}
         onChange={(v) => onChange({ ...data, heading: v })}
       />
       <TextareaField
-        label="الوصف"
+        label="Description"
         value={(data.description as string) ?? ''}
         onChange={(v) => onChange({ ...data, description: v })}
       />
       <TextField
-        label="نص الزر"
+        label="Button Text"
         value={(data.buttonLabel as string) ?? ''}
         onChange={(v) => onChange({ ...data, buttonLabel: v })}
       />
       <TextField
-        label="رابط الزر"
+        label="Button URL"
         value={(data.buttonUrl as string) ?? ''}
         onChange={(v) => onChange({ ...data, buttonUrl: v })}
       />
       <ImageField
-        label="صورة الخلفية"
+        label="Background Image"
         value={(data.backgroundImage as string) ?? ''}
         onChange={(v) => onChange({ ...data, backgroundImage: v })}
       />
@@ -628,20 +619,18 @@ function CtaEditor({ section, onChange }: SectionEditorProps) {
   )
 }
 
-function FaqEditor({ section, onChange }: SectionEditorProps) {
+export function FaqEditor({ section, onChange }: SectionEditorProps) {
   const data = section.data as Record<string, unknown>
   const items = (data.items ?? []) as SectionFaqItem[]
   return (
     <div className="space-y-3">
       <TextField
-        label="العنوان"
+        label="Heading"
         value={(data.heading as string) ?? ''}
         onChange={(v) => onChange({ ...data, heading: v })}
       />
       <div className="space-y-1.5">
-        <label className="block text-xs font-medium text-muted-foreground">
-          الأسئلة الشائعة
-        </label>
+        <label className="block text-xs font-medium text-muted-foreground">Questions</label>
         <div className="space-y-2">
           {items.map((item) => (
             <FaqItemEditor
@@ -671,30 +660,30 @@ function FaqEditor({ section, onChange }: SectionEditorProps) {
           }
         >
           <Plus className="size-3.5" />
-          إضافة سؤال
+          Add Question
         </Button>
       </div>
     </div>
   )
 }
 
-function VideoEditor({ section, onChange }: SectionEditorProps) {
+export function VideoEditor({ section, onChange }: SectionEditorProps) {
   const data = section.data as Record<string, unknown>
   return (
     <div className="space-y-3">
       <TextField
-        label="العنوان"
+        label="Heading"
         value={(data.heading as string) ?? ''}
         onChange={(v) => onChange({ ...data, heading: v })}
       />
       <TextField
-        label="رابط الفيديو"
+        label="Video URL"
         value={(data.url as string) ?? ''}
         onChange={(v) => onChange({ ...data, url: v })}
         placeholder="https://youtube.com/watch?v=..."
       />
       <ImageField
-        label="صورة الغلاف"
+        label="Thumbnail"
         value={(data.thumbnail as string) ?? ''}
         onChange={(v) => onChange({ ...data, thumbnail: v })}
       />
@@ -717,7 +706,7 @@ function CustomEditor({ section, onChange }: SectionEditorProps) {
 
 type SectionEditorComponent = React.ComponentType<SectionEditorProps>
 
-const SECTION_EDITORS: Record<SectionType, SectionEditorComponent> = {
+export const SECTION_EDITORS: Record<SectionType, SectionEditorComponent> = {
   hero: HeroEditor,
   heading: HeadingEditor,
   text: TextEditor,
@@ -731,135 +720,6 @@ const SECTION_EDITORS: Record<SectionType, SectionEditorComponent> = {
   custom: CustomEditor,
 }
 
-// Add a new section type: register the editor here
 export function registerSectionEditor(type: string, component: SectionEditorComponent): void {
   ;(SECTION_EDITORS as Record<string, SectionEditorComponent>)[type] = component
-}
-
-// ---------------------------------------------------------------------------
-// Main SectionEditor component
-// ---------------------------------------------------------------------------
-
-export function SectionEditor({ index, total, ...props }: SectionEditorProps) {
-  const { section, onToggle, onDelete, onDuplicate, onMoveUp, onMoveDown } = props
-  const [expanded, setExpanded] = useState(true)
-
-  const Editor = SECTION_EDITORS[section.type as SectionType] ?? CustomEditor
-
-  return (
-    <div
-      className={cn(
-        'rounded-xl border bg-card transition-shadow',
-        section.enabled ? 'border-border' : 'border-destructive/20 opacity-60',
-      )}
-    >
-      {/* Header */}
-      <div className="flex items-center gap-2 border-b border-border/60 px-3 py-2">
-        <button
-          type="button"
-          onClick={() => setExpanded(!expanded)}
-          className="flex min-w-0 flex-1 items-center gap-2 text-left"
-        >
-          <ChevronDown
-            className={cn(
-              'size-3.5 shrink-0 text-muted-foreground transition-transform',
-              expanded && 'rotate-180',
-            )}
-          />
-          <span className="truncate text-xs font-semibold text-foreground">
-            {SECTION_TYPE_LABELS[section.type as SectionType] ?? section.type}
-          </span>
-          <Badge variant="secondary" className="text-xs">
-            {section.type}
-          </Badge>
-        </button>
-        <button
-          type="button"
-          onClick={() => onToggle(!section.enabled)}
-          className="rounded-md p-1 text-muted-foreground hover:bg-muted hover:text-foreground"
-          title={section.enabled ? 'تعطيل' : 'تفعيل'}
-        >
-          <EyeOff className={cn('size-3.5', !section.enabled && 'text-destructive')} />
-        </button>
-        <button
-          type="button"
-          onClick={onDuplicate}
-          className="rounded-md p-1 text-muted-foreground hover:bg-muted hover:text-foreground"
-          title="نسخ"
-        >
-          <Copy className="size-3.5" />
-        </button>
-        <button
-          type="button"
-          onClick={onMoveUp}
-          disabled={index === 0}
-          className="rounded-md p-1 text-muted-foreground hover:bg-muted hover:text-foreground disabled:opacity-30"
-          title="تحريك للأعلى"
-        >
-          <ArrowUp className="size-3.5" />
-        </button>
-        <button
-          type="button"
-          onClick={onMoveDown}
-          disabled={index === total - 1}
-          className="rounded-md p-1 text-muted-foreground hover:bg-muted hover:text-foreground disabled:opacity-30"
-          title="تحريك للأسفل"
-        >
-          <ArrowDown className="size-3.5" />
-        </button>
-        <button
-          type="button"
-          onClick={onDelete}
-          className="rounded-md p-1 text-muted-foreground hover:bg-destructive/10 hover:text-destructive"
-          title="حذف"
-        >
-          <Trash2 className="size-3.5" />
-        </button>
-      </div>
-
-      {/* Body */}
-      <div
-        className={cn(
-          'grid transition-all duration-200 ease-in-out',
-          expanded ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0',
-        )}
-      >
-        <div className="overflow-hidden">
-          <div className="space-y-3 px-3 py-3">
-            <Editor index={index} total={total} {...props} />
-          </div>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-// ---------------------------------------------------------------------------
-// Add section dropdown
-// ---------------------------------------------------------------------------
-
-interface AddSectionMenuProps {
-  onAdd: (type: SectionType) => void
-}
-
-export function AddSectionMenu({ onAdd }: AddSectionMenuProps) {
-  return (
-    <div className="flex flex-wrap items-center gap-2">
-      <span className="mr-1 flex items-center gap-1.5 text-xs font-medium tracking-wide text-muted-foreground uppercase">
-        <Plus className="size-3.5" />
-        أضف قسماً
-      </span>
-      {SECTION_TYPES.map((type) => (
-        <Button
-          key={type}
-          type="button"
-          variant="outline"
-          size="sm"
-          onClick={() => onAdd(type)}
-        >
-          {SECTION_TYPE_LABELS[type]}
-        </Button>
-      ))}
-    </div>
-  )
 }

@@ -1,11 +1,25 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
-import { Eye, Loader2, PanelLeft, PanelRight } from 'lucide-react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import {
+  Check,
+  Eye,
+  Loader2,
+  Monitor,
+  PanelLeft,
+  RotateCcw,
+  Search,
+  Send,
+  Settings,
+  Smartphone,
+  Tablet,
+  Undo2,
+} from 'lucide-react'
 import { toast } from 'sonner'
 
 import { EditorCanvas } from '@/pages/ContentEditor/components/EditorCanvas'
 import { PagesPanel, type SidebarPage } from '@/pages/ContentEditor/components/PagesPanel'
 import { PreviewDialog } from '@/pages/ContentEditor/components/PreviewDialog'
-import { PropertiesPanel } from '@/pages/ContentEditor/components/PropertiesPanel'
+import { PageSettingsPanel } from '@/pages/ContentEditor/components/PropertiesPanel'
+import { SectionEditorPanel } from '@/pages/ContentEditor/components/SectionEditorPanel'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -18,25 +32,30 @@ import { getWebsitePages } from '@/services/pageDiscovery'
 import {
   getPages,
   getPage,
+  getSections,
   initializePage,
   saveDraft,
   publishPage,
-  seedHomePage,
   createSection,
   reorderSections,
-  generateSectionId,
+  createDefaultSectionsForPage,
 } from '@/services/content.service'
-import type { ContentPageRow, PageContent, PageSection, SectionType } from '@/types/content'
+import type { PageRow, PageSection, SectionType } from '@/types/content'
+import { sectionRowToPageSection } from '@/types/content'
 
-type BusyAction = 'save' | 'publish' | 'init' | null
+type BusyAction = 'save' | 'publish' | null
+type PreviewMode = 'desktop' | 'tablet' | 'mobile'
+
+const HISTORY_LIMIT = 50
 
 export default function ContentEditorPage() {
   const initialId = useMemo(() => getWebsitePages()[0]?.id ?? 'home', [])
 
   const [sidebarPages, setSidebarPages] = useState<SidebarPage[]>([])
+  const [pagesLoading, setPagesLoading] = useState(true)
   const [selectedKey, setSelectedKey] = useState(initialId)
   const [pageLoading, setPageLoading] = useState(false)
-  const [selectedPage, setSelectedPage] = useState<ContentPageRow | null>(null)
+  const [selectedPage, setSelectedPage] = useState<PageRow | null>(null)
   const [sections, setSections] = useState<PageSection[]>([])
   const [seoTitle, setSeoTitle] = useState('')
   const [seoDescription, setSeoDescription] = useState('')
@@ -47,65 +66,140 @@ export default function ContentEditorPage() {
   const [dirty, setDirty] = useState(false)
   const [busy, setBusy] = useState<BusyAction>(null)
   const [query, setQuery] = useState('')
+  const [sectionQuery, setSectionQuery] = useState('')
   const [showPagesMobile, setShowPagesMobile] = useState(false)
-  const [showPropsMobile, setShowPropsMobile] = useState(false)
+  const [showPageSettings, setShowPageSettings] = useState(false)
   const [previewOpen, setPreviewOpen] = useState(false)
+  const [selectedSectionId, setSelectedSectionId] = useState<string | null>(null)
+  const [showAddModal, setShowAddModal] = useState(false)
+  const [previewMode, setPreviewMode] = useState<PreviewMode>('desktop')
+  const [lastSavedAt, setLastSavedAt] = useState<Date | null>(null)
+  const [historyTick, setHistoryTick] = useState(0)
+
+  const undoStack = useRef<PageSection[][]>([])
+  const redoStack = useRef<PageSection[][]>([])
 
   const discovered = useMemo(() => getWebsitePages(), [])
 
+  const pushHistory = useCallback((newSections: PageSection[]) => {
+    undoStack.current.push(newSections)
+    if (undoStack.current.length > HISTORY_LIMIT) {
+      undoStack.current.shift()
+    }
+    redoStack.current = []
+    setHistoryTick((t) => t + 1)
+  }, [])
+
+  const handleUndo = useCallback(() => {
+    if (undoStack.current.length === 0) return
+    const prev = undoStack.current.pop()!
+    redoStack.current.push(sections)
+    setSections(prev)
+    setDirty(true)
+    setHistoryTick((t) => t + 1)
+  }, [sections])
+
+  const handleRedo = useCallback(() => {
+    if (redoStack.current.length === 0) return
+    const next = redoStack.current.pop()!
+    undoStack.current.push(sections)
+    setSections(next)
+    setDirty(true)
+    setHistoryTick((t) => t + 1)
+  }, [sections])
+
+  const canUndo = undoStack.current.length > 0
+  const canRedo = redoStack.current.length > 0
+
   const loadSidebar = useCallback(async () => {
     try {
+      setPagesLoading(true)
       const dbPages = await getPages()
-      const dbMap: Record<string, ContentPageRow> = {}
+      const dbMap: Record<string, PageRow> = {}
       for (const p of dbPages) {
-        dbMap[p.page_key] = p
+        dbMap[p.slug] = p
       }
 
-      const merged: SidebarPage[] = discovered.map((page) => {
-        const db = dbMap[page.id]
-        return {
-          pageKey: page.id,
-          name: db?.title || page.name,
-          status: db ? db.status : 'uninitialized',
-          icon: page.icon,
-          section: page.section,
-          path: page.path,
-        }
-      })
+      const merged: SidebarPage[] = discovered.map((page) => ({
+        pageKey: page.id,
+        name: dbMap[page.path]?.title || page.name,
+        status: dbMap[page.path] ? dbMap[page.path].status : 'uninitialized',
+        icon: page.icon,
+        section: page.section,
+        path: page.path,
+      }))
 
       setSidebarPages(merged)
-    } catch {
+    } catch (err) {
+      console.error('[CMS] loadSidebar error:', err)
       toast.error('Failed to load pages')
+    } finally {
+      setPagesLoading(false)
     }
   }, [discovered])
 
   const loadPageContent = useCallback(async (pageKey: string) => {
     try {
       setPageLoading(true)
-      const page = await getPage(pageKey)
-      if (page) {
-        setSelectedPage(page)
-        setSections(page.content.sections ?? [])
-        setSeoTitle(page.seo_title)
-        setSeoDescription(page.seo_description)
-        setSeoKeywords(page.seo_keywords)
-        setOgImage(page.og_image)
-        setTitle(page.title)
-        setSlug(page.slug)
-      } else {
-        setSelectedPage(null)
-        setSections([])
-        setSeoTitle('')
-        setSeoDescription('')
-        setSeoKeywords('')
-        setOgImage('')
-        const meta = discovered.find((p) => p.id === pageKey)
-        setTitle(meta?.name ?? pageKey)
-        setSlug(meta?.path ?? '/')
+
+      const meta = discovered.find((p) => p.id === pageKey)
+      const lookupSlug = meta?.path ?? pageKey
+      console.log('[CMS] Selected page:', pageKey, '→ slug:', lookupSlug)
+
+      let page = await getPage(lookupSlug)
+      console.log('[CMS] getPage result:', page ? { id: page.id, title: page.title, slug: page.slug, status: page.status } : 'NOT FOUND')
+
+      if (!page) {
+        const pageTitle = meta?.name ?? pageKey
+        console.log('[CMS] Page not in DB — auto-creating:', { slug: lookupSlug, title: pageTitle })
+        page = await initializePage(lookupSlug, pageTitle)
+        console.log('[CMS] Created page:', { id: page.id, title: page.title })
+
+        setSidebarPages((prev) =>
+          prev.map((p) =>
+            p.pageKey === pageKey
+              ? { ...p, status: 'draft', name: page.title || p.name }
+              : p,
+          ),
+        )
       }
+
+      setSelectedPage(page)
+      setSeoTitle(page.seo_title)
+      setSeoDescription(page.seo_description)
+      setSeoKeywords(page.seo_keywords)
+      setOgImage(page.og_image)
+      setTitle(page.title)
+      setSlug(page.slug)
+      console.log('[CMS] Page set — id:', page.id)
+
+      let sectionRows = await getSections(page.id)
+      console.log('[CMS] getSections count:', sectionRows.length, 'page_id:', page.id)
+
+      if (sectionRows.length === 0) {
+        console.log('[CMS] No sections found — creating defaults for page_id:', page.id)
+        await createDefaultSectionsForPage(page.id)
+        sectionRows = await getSections(page.id)
+        console.log('[CMS] After defaults — sections count:', sectionRows.length)
+      }
+
+      const mapped = sectionRows.map((row) => {
+        const ps = sectionRowToPageSection(row)
+        console.log('[CMS] mapped section:', { id: ps.id, type: ps.type, enabled: ps.enabled, dataKeys: Object.keys(ps.data as object) })
+        return ps
+      })
+      console.log('[CMS] setSections with', mapped.length, 'items:', mapped.map(s => s.type))
+      setSections(mapped)
       setDirty(false)
-    } catch {
-      toast.error('Failed to load page')
+      setSelectedSectionId(null)
+      setLastSavedAt(null)
+      undoStack.current = []
+      redoStack.current = []
+      setHistoryTick(0)
+      console.log('[CMS] Page loaded successfully —', sectionRows.length, 'sections')
+    } catch (err) {
+      console.error('[CMS] loadPageContent error:', err)
+      toast.error(err instanceof Error ? err.message : 'Failed to load page')
     } finally {
       setPageLoading(false)
     }
@@ -119,64 +213,44 @@ export default function ContentEditorPage() {
     if (selectedKey) loadPageContent(selectedKey)
   }, [selectedKey, loadPageContent])
 
-  const pageNeedsInit = selectedKey ? !sidebarPages.find((p) => p.pageKey === selectedKey)?.status ||
-    sidebarPages.find((p) => p.pageKey === selectedKey)?.status === 'uninitialized' : false
+  useEffect(() => {
+    console.log('[CMS] sections state changed — length:', sections.length, 'items:', sections.map(s => s.type))
+  }, [sections])
 
-  const markDirty = () => setDirty(true)
+  const markDirty = () => {
+    setDirty(true)
+    setLastSavedAt(null)
+  }
 
   const handleSelectPage = (pageKey: string) => {
     setSelectedKey(pageKey)
     setShowPagesMobile(false)
   }
 
-  const handleInitialize = async () => {
-    const meta = discovered.find((p) => p.id === selectedKey)
-    if (!meta) return
-    setBusy('init')
-    try {
-      const page =
-        selectedKey === 'home'
-          ? await seedHomePage()
-          : await initializePage(selectedKey, meta.name, meta.path)
-      setSelectedPage(page)
-      setSections(page.content.sections ?? [])
-      setSeoTitle(page.seo_title)
-      setSeoDescription(page.seo_description)
-      setSeoKeywords(page.seo_keywords)
-      setOgImage(page.og_image)
-      setTitle(page.title)
-      setSlug(page.slug)
-      setDirty(false)
-
-      setSidebarPages((prev) =>
-        prev.map((p) =>
-          p.pageKey === selectedKey
-            ? { ...p, status: page.status, name: page.title || p.name }
-            : p,
-        ),
-      )
-      toast.success('Page initialized')
-    } catch (err) {
-      toast.error(err instanceof Error ? err.message : 'Failed to initialize page')
-    } finally {
-      setBusy(null)
-    }
-  }
-
   const updateSection = (sectionId: string, data: Record<string, unknown>) => {
-    setSections((prev) =>
-      prev.map((s) => (s.id === sectionId ? { ...s, data: data as never } : s)),
-    )
+    setSections((prev) => {
+      const updated = prev.map((s) => (s.id === sectionId ? { ...s, data: data as never } : s))
+      pushHistory(updated)
+      return updated
+    })
     markDirty()
   }
 
   const toggleSection = (sectionId: string, enabled: boolean) => {
-    setSections((prev) => prev.map((s) => (s.id === sectionId ? { ...s, enabled } : s)))
+    setSections((prev) => {
+      const updated = prev.map((s) => (s.id === sectionId ? { ...s, enabled } : s))
+      pushHistory(updated)
+      return updated
+    })
     markDirty()
   }
 
   const deleteSection = (sectionId: string) => {
-    setSections((prev) => reorderSections(prev.filter((s) => s.id !== sectionId)))
+    setSections((prev) => {
+      const updated = reorderSections(prev.filter((s) => s.id !== sectionId))
+      pushHistory(updated)
+      return updated
+    })
     markDirty()
   }
 
@@ -187,11 +261,12 @@ export default function ContentEditorPage() {
       const source = prev[idx]
       const clone: PageSection = {
         ...source,
-        id: generateSectionId(),
+        id: `sec-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 7)}`,
         data: JSON.parse(JSON.stringify(source.data)),
       }
       const updated = [...prev]
       updated.splice(idx + 1, 0, clone)
+      pushHistory(reorderSections(updated))
       return reorderSections(updated)
     })
     markDirty()
@@ -205,13 +280,22 @@ export default function ContentEditorPage() {
       if (target < 0 || target >= prev.length) return prev
       const updated = [...prev]
       ;[updated[idx], updated[target]] = [updated[target], updated[idx]]
+      pushHistory(reorderSections(updated))
       return reorderSections(updated)
     })
     markDirty()
   }
 
-  const addSection = (type: SectionType) => {
-    setSections((prev) => [...prev, createSection(type, prev.length + 1)])
+  const addSection = (type: SectionType, renderer?: string) => {
+    setSections((prev) => {
+      const section = createSection(type, prev.length + 1)
+      if (renderer) {
+        section.data = { ...section.data, _renderer: renderer } as never
+      }
+      const updated = [...prev, section]
+      pushHistory(updated)
+      return updated
+    })
     markDirty()
   }
 
@@ -219,23 +303,23 @@ export default function ContentEditorPage() {
     if (!dirty) return
     setBusy('save')
     try {
-      const content: PageContent = { sections }
-      await saveDraft(selectedKey, {
-        content,
+      await saveDraft(selectedPage?.slug ?? selectedKey, {
+        title,
+        newSlug: slug,
         seo_title: seoTitle,
         seo_description: seoDescription,
         seo_keywords: seoKeywords,
         og_image: ogImage,
-        title,
-        slug,
+        sections,
       })
       setDirty(false)
+      setLastSavedAt(new Date())
       setSidebarPages((prev) =>
         prev.map((p) => (p.pageKey === selectedKey ? { ...p, status: 'draft' } : p)),
       )
-      toast.success('Draft saved')
+      toast.success('Saved — live website updated')
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : 'Failed to save draft')
+      toast.error(err instanceof Error ? err.message : 'Failed to save')
     } finally {
       setBusy(null)
     }
@@ -245,24 +329,25 @@ export default function ContentEditorPage() {
     setBusy('publish')
     try {
       if (dirty) {
-        const content: PageContent = { sections }
-        await saveDraft(selectedKey, {
-          content,
+        await saveDraft(selectedPage?.slug ?? selectedKey, {
+          title,
+          newSlug: slug,
           seo_title: seoTitle,
           seo_description: seoDescription,
           seo_keywords: seoKeywords,
           og_image: ogImage,
-          title,
-          slug,
+          sections,
         })
       }
-      const published = await publishPage(selectedKey)
+      const pubSlug = selectedPage?.slug ?? selectedKey
+      const published = await publishPage(pubSlug)
       setSelectedPage(published)
       setSidebarPages((prev) =>
         prev.map((p) => (p.pageKey === selectedKey ? { ...p, status: 'published' } : p)),
       )
       setDirty(false)
-      toast.success('Page published')
+      setLastSavedAt(new Date())
+      toast.success('Published — live website updated')
     } catch (err) {
       toast.error(err instanceof Error ? err.message : 'Failed to publish')
     } finally {
@@ -279,137 +364,318 @@ export default function ContentEditorPage() {
     }
   }
 
+  const busyRef = useRef(busy)
+  busyRef.current = busy
+  const dirtyRef = useRef(dirty)
+  dirtyRef.current = dirty
+  const handleSaveDraftRef = useRef(handleSaveDraft)
+  handleSaveDraftRef.current = handleSaveDraft
+  const handleUndoRef = useRef(handleUndo)
+  handleUndoRef.current = handleUndo
+  const handleRedoRef = useRef(handleRedo)
+  handleRedoRef.current = handleRedo
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const mod = e.metaKey || e.ctrlKey
+      if (mod && e.key === 's') {
+        e.preventDefault()
+        if (!busyRef.current && dirtyRef.current) handleSaveDraftRef.current()
+        return
+      }
+      if (mod && e.key === 'z' && !e.shiftKey) {
+        e.preventDefault()
+        handleUndoRef.current()
+        return
+      }
+      if (mod && e.key === 'z' && e.shiftKey) {
+        e.preventDefault()
+        handleRedoRef.current()
+        return
+      }
+    }
+    document.addEventListener('keydown', handleKeyDown)
+    return () => document.removeEventListener('keydown', handleKeyDown)
+  }, [])
+
   const pageTitle = selectedPage?.title || title || selectedKey
   const pageStatus = selectedPage?.status ?? 'draft'
 
-  return (
-    <div className="relative flex h-full min-h-0 flex-col bg-background">
-      <div className="flex h-14 shrink-0 items-center justify-between gap-3 border-b border-border/60 px-3 lg:px-4">
-        <div className="flex min-w-0 items-center gap-2.5">
-          <Button
-            type="button"
-            variant="ghost"
-            size="icon-sm"
-            className="text-muted-foreground lg:hidden"
-            onClick={() => setShowPagesMobile(true)}
-            aria-label="Open pages list"
-          >
-            <PanelLeft className="size-4" />
-          </Button>
-          {pageLoading ? (
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Loader2 className="size-4 animate-spin" />
-              Loading…
-            </div>
-          ) : (
-            <div className="min-w-0">
-              <p className="truncate text-sm font-semibold tracking-tight text-foreground">
-                {pageTitle}
-              </p>
-              {!pageNeedsInit && (
-                <p className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                  <span
-                    className={cn(
-                      'size-1.5 rounded-full',
-                      pageStatus === 'published' ? 'bg-emerald-500' : 'bg-amber-500',
-                    )}
-                  />
-                  <span className="capitalize">{pageStatus}</span>
-                  {dirty && (
-                    <>
-                      <span aria-hidden>·</span>
-                      <span className="font-medium text-amber-600 dark:text-amber-400">
-                        Unsaved
-                      </span>
-                    </>
-                  )}
-                </p>
-              )}
-            </div>
-          )}
-        </div>
+  const selectedSection = useMemo(
+    () => sections.find((s) => s.id === selectedSectionId) ?? null,
+    [sections, selectedSectionId],
+  )
 
-        <div className="flex items-center gap-2">
+  const filteredSections = useMemo(() => {
+    const q = sectionQuery.trim().toLowerCase()
+    if (!q) return sections
+    return sections.filter((s) => {
+      const data = s.data as Record<string, unknown>
+      return (
+        s.type.toLowerCase().includes(q) ||
+        String(data.heading ?? '').toLowerCase().includes(q) ||
+        String(data.eyebrow ?? '').toLowerCase().includes(q) ||
+        String(data.brandName ?? '').toLowerCase().includes(q)
+      )
+    })
+  }, [sections, sectionQuery])
+
+  const saveStatusText = useMemo(() => {
+    if (busy) return null
+    if (!lastSavedAt) return dirty ? 'Unsaved changes' : null
+    const minutes = Math.floor((Date.now() - lastSavedAt.getTime()) / 60000)
+    if (minutes < 1) return 'Saved just now'
+    if (minutes === 1) return 'Saved 1 minute ago'
+    return `Saved ${minutes} minutes ago`
+  }, [lastSavedAt, dirty, busy])
+
+  return (
+    <div className="absolute inset-0 flex min-h-0 flex-col bg-white">
+      <div className="flex shrink-0 items-center gap-3 border-b border-[#E5E7EB] px-4 py-2.5">
+        <Button
+          type="button"
+          variant="ghost"
+          size="icon-sm"
+          className="text-muted-foreground lg:hidden"
+          onClick={() => setShowPagesMobile(true)}
+          aria-label="Open pages list"
+        >
+          <PanelLeft className="size-4" />
+        </Button>
+
+        {pageLoading ? (
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            <Loader2 className="size-4 animate-spin" />
+            Loading…
+          </div>
+        ) : (
+          <div className="flex min-w-0 items-center gap-3">
+            <span className="truncate text-sm font-semibold text-foreground">
+              {pageTitle}
+            </span>
+            {selectedPage && (
+              <span
+                className={cn(
+                  'shrink-0 rounded-full px-2 py-0.5 text-[10px] font-medium capitalize',
+                  pageStatus === 'published'
+                    ? 'bg-emerald-50 text-emerald-600'
+                    : 'bg-amber-50 text-amber-600',
+                )}
+              >
+                {pageStatus}
+                {dirty && ' · Unsaved'}
+              </span>
+            )}
+          </div>
+        )}
+
+        <div className="flex flex-1 items-center justify-end gap-1.5">
+          <div className="hidden items-center rounded-xl border border-[#E5E7EB] bg-gray-50 p-0.5 sm:flex">
+            <button
+              type="button"
+              onClick={() => setPreviewMode('desktop')}
+              className={cn(
+                'rounded-lg px-2 py-1.5 transition-colors',
+                previewMode === 'desktop'
+                  ? 'bg-white text-foreground shadow-sm'
+                  : 'text-muted-foreground hover:text-foreground',
+              )}
+              title="Desktop"
+            >
+              <Monitor className="size-3.5" />
+            </button>
+            <button
+              type="button"
+              onClick={() => setPreviewMode('tablet')}
+              className={cn(
+                'rounded-lg px-2 py-1.5 transition-colors',
+                previewMode === 'tablet'
+                  ? 'bg-white text-foreground shadow-sm'
+                  : 'text-muted-foreground hover:text-foreground',
+              )}
+              title="Tablet"
+            >
+              <Tablet className="size-3.5" />
+            </button>
+            <button
+              type="button"
+              onClick={() => setPreviewMode('mobile')}
+              className={cn(
+                'rounded-lg px-2 py-1.5 transition-colors',
+                previewMode === 'mobile'
+                  ? 'bg-white text-foreground shadow-sm'
+                  : 'text-muted-foreground hover:text-foreground',
+              )}
+              title="Mobile"
+            >
+              <Smartphone className="size-3.5" />
+            </button>
+          </div>
+
+          <div className="hidden sm:block h-5 w-px bg-[#E5E7EB] mx-1" />
+
+          <div className="relative hidden md:block">
+            <Search className="pointer-events-none absolute top-1/2 left-2.5 size-3.5 -translate-y-1/2 text-muted-foreground" />
+            <input
+              type="search"
+              value={sectionQuery}
+              onChange={(e) => setSectionQuery(e.target.value)}
+              placeholder="Search sections…"
+              className="h-8 w-40 rounded-xl border border-[#E5E7EB] bg-gray-50 py-1 pr-3 pl-8 text-xs outline-none transition-all focus:w-52 focus:border-primary/30 focus:bg-white focus:ring-2 focus:ring-primary/10 placeholder:text-muted-foreground/60"
+            />
+          </div>
+
+          <div className="hidden sm:block h-5 w-px bg-[#E5E7EB] mx-1" />
+
           <Button
             type="button"
-            variant="outline"
-            size="sm"
-            className="gap-1.5"
-            onClick={() => setPreviewOpen(true)}
+            variant="ghost"
+            size="icon-sm"
+            onClick={handleUndo}
+            disabled={!canUndo}
+            className="text-muted-foreground hover:text-foreground disabled:opacity-30"
+            title="Undo (Ctrl+Z)"
           >
-            <Eye className="size-3.5" />
-            Preview
+            <Undo2 className="size-4" />
           </Button>
           <Button
             type="button"
             variant="ghost"
             size="icon-sm"
-            className="text-muted-foreground xl:hidden"
-            onClick={() => setShowPropsMobile(true)}
-            aria-label="Open page properties"
+            onClick={handleRedo}
+            disabled={!canRedo}
+            className="text-muted-foreground hover:text-foreground disabled:opacity-30"
+            title="Redo (Ctrl+Shift+Z)"
           >
-            <PanelRight className="size-4" />
+            <RotateCcw className="size-4" />
           </Button>
+
+          <div className="h-5 w-px bg-[#E5E7EB] mx-1" />
+
+          {saveStatusText && (
+            <span className="hidden items-center gap-1.5 text-xs text-muted-foreground sm:flex">
+              <Check className="size-3.5 text-emerald-500" />
+              {saveStatusText}
+            </span>
+          )}
+
+          {selectedPage && (
+            <>
+              <Button
+                type="button"
+                variant="ghost"
+                size="sm"
+                onClick={() => setShowPageSettings(true)}
+                className="gap-1 text-muted-foreground hover:text-foreground"
+              >
+                <Settings className="size-3.5" />
+                <span className="hidden sm:inline">Settings</span>
+              </Button>
+
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                className="gap-1.5 rounded-xl"
+                onClick={() => setPreviewOpen(true)}
+              >
+                <Eye className="size-3.5" />
+                <span className="hidden sm:inline">Preview</span>
+              </Button>
+
+              <Button
+                type="button"
+                size="sm"
+                className="gap-1.5 rounded-xl"
+                onClick={handlePublish}
+                disabled={busy !== null}
+              >
+                {busy === 'publish' ? (
+                  <Loader2 className="size-3.5 animate-spin" />
+                ) : (
+                  <Send className="size-3.5" />
+                )}
+                Publish
+              </Button>
+            </>
+          )}
         </div>
       </div>
 
-      <div className="grid min-h-0 flex-1 grid-cols-1 lg:grid-cols-[260px_minmax(0,1fr)] xl:grid-cols-[260px_minmax(0,1fr)_320px]">
-        <aside className="hidden h-full border-r border-border/60 bg-background lg:block">
-          <PagesPanel
-            pages={sidebarPages}
-            selectedId={selectedKey}
-            query={query}
-            onQueryChange={setQuery}
-            onSelect={handleSelectPage}
-          />
+      <div className="grid min-h-0 flex-1 grid-cols-1 overflow-hidden lg:grid-cols-[260px_minmax(0,1fr)] xl:grid-cols-[260px_minmax(0,1fr)_420px]">
+        <aside className="hidden h-full border-r border-[#E5E7EB] lg:block">
+          {pagesLoading ? (
+            <div className="flex h-full items-center justify-center">
+              <Loader2 className="size-5 animate-spin text-muted-foreground" />
+            </div>
+          ) : (
+            <PagesPanel
+              pages={sidebarPages}
+              selectedId={selectedKey}
+              query={query}
+              onQueryChange={setQuery}
+              onSelect={handleSelectPage}
+            />
+          )}
         </aside>
 
-        <section className="min-w-0 border-r border-border/60 xl:border-r">
+        <section className="min-w-0 h-full">
           <EditorCanvas
             page={selectedPage}
-            sections={sections}
+            sections={sectionQuery ? filteredSections : sections}
+            selectedSectionId={selectedSectionId}
             loading={pageLoading}
-            needsInit={pageNeedsInit}
+            showAddModal={showAddModal}
             pageKey={selectedKey}
-            onInitialize={handleInitialize}
+            onSelectSection={(id) => {
+              setSelectedSectionId(id)
+              if (id) setShowPageSettings(false)
+            }}
             onUpdateSection={updateSection}
             onToggleSection={toggleSection}
             onDeleteSection={deleteSection}
             onDuplicateSection={duplicateSection}
             onMoveSection={moveSection}
             onAddSection={addSection}
+            onShowAddModal={setShowAddModal}
           />
         </section>
 
-        <aside className="hidden h-full border-l border-border/60 bg-background xl:block">
-          <PropertiesPanel
-            title={title}
-            seoTitle={seoTitle}
-            seoDescription={seoDescription}
-            seoKeywords={seoKeywords}
-            ogImage={ogImage}
-            slug={slug}
-            dirty={dirty}
-            busy={busy === 'save' || busy === 'publish' ? busy : null}
-            onTitleChange={setTitle}
-            onSeoTitleChange={setSeoTitle}
-            onSeoDescriptionChange={setSeoDescription}
-            onSeoKeywordsChange={setSeoKeywords}
-            onOgImageChange={setOgImage}
-            onSlugChange={setSlug}
-            onSaveDraft={handleSaveDraft}
-            onPublish={handlePublish}
-            onReset={handleReset}
-          />
+        <aside className="hidden h-full border-l border-[#E5E7EB] overflow-hidden xl:block">
+          {selectedSection ? (
+            <SectionEditorPanel
+              section={selectedSection}
+              onClose={() => setSelectedSectionId(null)}
+              onChange={(data) => updateSection(selectedSection.id, data)}
+              onToggle={(enabled) => toggleSection(selectedSection.id, enabled)}
+              onDelete={() => {
+                setSelectedSectionId(null)
+                deleteSection(selectedSection.id)
+              }}
+              onDuplicate={() => duplicateSection(selectedSection.id)}
+            />
+          ) : (
+            <div className="flex h-full flex-col items-center justify-center gap-3 px-6 text-center">
+              <span className="flex size-16 items-center justify-center rounded-2xl bg-gray-50 text-muted-foreground/40">
+                <Settings className="size-7" />
+              </span>
+              <div>
+                <p className="text-sm font-medium text-foreground">No section selected</p>
+                <p className="mt-1 text-xs text-muted-foreground">
+                  Click a section card to edit its content, design, and SEO settings.
+                </p>
+              </div>
+            </div>
+          )}
         </aside>
       </div>
 
       <Dialog open={showPagesMobile} onOpenChange={setShowPagesMobile}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>Website Pages</DialogTitle>
+            <DialogTitle>Pages</DialogTitle>
           </DialogHeader>
-          <div className="-mx-4 -mb-4 h-[58svh] border-t border-border/60">
+          <div className="-mx-4 -mb-4 h-[58svh] border-t border-[#E5E7EB]">
             <PagesPanel
               pages={sidebarPages}
               selectedId={selectedKey}
@@ -421,27 +687,33 @@ export default function ContentEditorPage() {
         </DialogContent>
       </Dialog>
 
-      <Dialog open={showPropsMobile} onOpenChange={setShowPropsMobile}>
-        <DialogContent className="sm:max-w-lg">
-          <DialogHeader>
-            <DialogTitle>Page Properties</DialogTitle>
+      <Dialog open={showPageSettings} onOpenChange={setShowPageSettings}>
+        <DialogContent className="max-h-[85svh] max-w-lg gap-0 overflow-hidden p-0">
+          <DialogHeader className="border-b border-[#E5E7EB] px-6 py-4">
+            <DialogTitle className="flex items-center gap-2 text-base font-semibold">
+              <Settings className="size-4 text-primary" />
+              Page Settings
+            </DialogTitle>
+            <p className="text-sm text-muted-foreground">
+              Manage title, URL, SEO, and publishing
+            </p>
           </DialogHeader>
-          <div className="-mx-4 -mb-4 h-[65svh] border-t border-border/60">
-            <PropertiesPanel
+          <div className="overflow-y-auto">
+            <PageSettingsPanel
               title={title}
+              slug={slug}
               seoTitle={seoTitle}
               seoDescription={seoDescription}
               seoKeywords={seoKeywords}
               ogImage={ogImage}
-              slug={slug}
               dirty={dirty}
-              busy={busy === 'save' || busy === 'publish' ? busy : null}
+              busy={busy}
               onTitleChange={setTitle}
+              onSlugChange={setSlug}
               onSeoTitleChange={setSeoTitle}
               onSeoDescriptionChange={setSeoDescription}
               onSeoKeywordsChange={setSeoKeywords}
               onOgImageChange={setOgImage}
-              onSlugChange={setSlug}
               onSaveDraft={handleSaveDraft}
               onPublish={handlePublish}
               onReset={handleReset}

@@ -354,8 +354,8 @@
 
 .store-product-badge {
   position: absolute; top: 14px; right: 14px;
-  background: rgba(39,174,96,.12);
-  color: #27ae60;
+  background: #0C2A5E;
+  color: #F6B300;
   border: 1px solid rgba(39,174,96,.2);
   padding: 4px 14px;
   border-radius: var(--radius-pill);

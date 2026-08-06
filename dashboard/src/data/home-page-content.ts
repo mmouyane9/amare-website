@@ -11,34 +11,13 @@
  *   custom — Complex sections with cards, galleries, or mixed layouts
  */
 
-import type { PageContent } from '@/types/content'
-
-// ---------------------------------------------------------------------------
-// Legacy compat (HomePageEditor.tsx — currently unused)
-// ---------------------------------------------------------------------------
-export interface HomePageField {
-  key: string
-  label: string
-  type: 'text' | 'textarea' | 'image' | 'button' | 'stat'
-  value: string
-  secondaryValue?: string
-}
-
-export interface HomePageSectionData {
-  id: string
-  title: string
-  icon: string
-  fields: HomePageField[]
-}
-
-export const HOME_PAGE_SECTIONS: HomePageSectionData[] = []
+import type { PageSection } from '@/types/content'
 
 // ---------------------------------------------------------------------------
 // CMS JSON — exact representation of the live Home page (index.html)
 // ---------------------------------------------------------------------------
 
-export const HOME_PAGE_CONTENT: PageContent = {
-  sections: [
+export const HOME_PAGE_SECTIONS: PageSection[] = [
     // =====================================================================
     // 1. HERO  (index.html lines 263-297, section#home)
     // =====================================================================
@@ -376,5 +355,4 @@ export const HOME_PAGE_CONTENT: PageContent = {
         ],
       },
     },
-  ],
-}
+];

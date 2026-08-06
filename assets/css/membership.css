@@ -464,16 +464,26 @@
 
 .ms-input[type="date"] ~ .ms-label {
   top: 50%;
-
   transform: translateY(-50%);
   font-size: 15px;
   font-weight: 500;
   color: var(--color-text-soft);
   background: transparent;
 }
+/* Chrome, Edge, Safari */
+input[type="date"]::-webkit-calendar-picker-indicator {
+    opacity: 0;
+    pointer-events: none;
+    display: none;
+}
+
+/* إزالة أيقونة إضافية */
+input[type="date"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-clear-button {
+    display: none;
+}
 
 .ms-input[type="date"] ~ .ms-input-icon {
-  right: auto;
   left: 15px;
 }
 

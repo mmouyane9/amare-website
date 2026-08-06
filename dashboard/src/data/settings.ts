@@ -19,10 +19,10 @@ export const seedGeneralSettings: GeneralSettings = {
 }
 
 export const seedSocialLinks: SocialLinks = {
-  facebook: 'https://facebook.com/amare',
-  instagram: 'https://instagram.com/amare',
-  youtube: 'https://youtube.com/@amare',
-  linkedin: 'https://linkedin.com/company/amare',
+  facebook: '',
+  instagram: '',
+  youtube: '',
+  linkedin: '',
 }
 
 export const seedAdmins: AdminUser[] = [

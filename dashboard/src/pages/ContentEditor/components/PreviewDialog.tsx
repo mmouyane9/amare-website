@@ -7,17 +7,17 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog'
-import type { ContentPageRow, PageSection } from '@/types/content'
+import type { PageRow, PageSection } from '@/types/content'
 
 interface PreviewDialogProps {
-  page: ContentPageRow | null
+  page: PageRow | null
   sections?: PageSection[]
   open: boolean
   onOpenChange: (open: boolean) => void
 }
 
 export function PreviewDialog({ page, sections, open, onOpenChange }: PreviewDialogProps) {
-  const displaySections = sections ?? page?.content?.sections ?? []
+  const displaySections = sections ?? []
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -51,7 +51,7 @@ export function PreviewDialog({ page, sections, open, onOpenChange }: PreviewDia
             </div>
 
             <div className="border-t border-border/60 bg-muted/50 px-4 py-2.5 text-center text-xs text-muted-foreground">
-              Preview — this is how visitors see "{page.title || page.page_key}" once published.
+              Preview — this is how visitors see "{page.title || page.slug}" once published.
             </div>
           </>
         ) : (

@@ -23,6 +23,14 @@
     logo_url: 'Amare%20files%20/logo.png',
     footer_logo_url: 'Amare%20files%20/logo.png',
     favicon_url: 'Amare%20files%20/logo.png',
+    facebook: null,
+    instagram: null,
+    linkedin: null,
+    youtube: null,
+    tiktok: null,
+    twitter: null,
+    whatsapp_url: null,
+    telegram: null,
   };
 
   var SETTINGS_ID = '00000000-0000-0000-0000-000000000001';
@@ -52,6 +60,14 @@
       logo_url: row.logo_url || FALLBACK.logo_url,
       footer_logo_url: row.footer_logo_url || FALLBACK.footer_logo_url,
       favicon_url: row.favicon_url || FALLBACK.favicon_url,
+      facebook: row.facebook || FALLBACK.facebook,
+      instagram: row.instagram || FALLBACK.instagram,
+      linkedin: row.linkedin || FALLBACK.linkedin,
+      youtube: row.youtube || FALLBACK.youtube,
+      tiktok: row.tiktok || FALLBACK.tiktok,
+      twitter: row.twitter || FALLBACK.twitter,
+      whatsapp_url: row.whatsapp_url || FALLBACK.whatsapp_url,
+      telegram: row.telegram || FALLBACK.telegram,
     };
   }
 
@@ -127,11 +143,68 @@
       if (settings.footer_logo_url) footerLogos[f].src = settings.footer_logo_url;
     }
 
-    /* --- Special: WhatsApp link (always process, format the URL) --- */
-    var waEls = document.querySelectorAll('.topbar-whatsapp');
+    /* --- Social media icons: update href / hide if empty --- */
+    var socialMap = {
+      'فيسبوك':    'facebook',
+      'Facebook':   'facebook',
+      'إنستغرام':   'instagram',
+      'Instagram':  'instagram',
+      'لينكدإن':    'linkedin',
+      'LinkedIn':   'linkedin',
+      'يوتيوب':     'youtube',
+      'YouTube':    'youtube',
+      'تيك توك':    'tiktok',
+      'TikTok':     'tiktok',
+      'تويتر':      'twitter',
+      'إكس':        'twitter',
+      'X':          'twitter',
+      'Twitter':    'twitter',
+      'تليغرام':     'telegram',
+      'Telegram':   'telegram',
+    };
+
+    var socialIcons = document.querySelectorAll(
+      '[aria-label]'
+    );
+
+    for (var si = 0; si < socialIcons.length; si++) {
+      var icon = socialIcons[si];
+      if (icon.tagName !== 'A') continue;
+      var ariaLabel = icon.getAttribute('aria-label');
+      if (!ariaLabel) continue;
+      var field = socialMap[ariaLabel.trim()];
+      if (!field) continue;
+
+      var url = settings[field];
+      if (url) {
+        icon.href = url;
+        icon.style.display = '';
+        icon.style.visibility = '';
+      } else {
+        icon.href = '#';
+        icon.style.display = 'none';
+        icon.style.visibility = 'hidden';
+      }
+    }
+
+    /* --- Special: WhatsApp link (use whatsapp_url if set, else build from phone) --- */
+    var waValue = settings.whatsapp_url
+      || (settings.whatsapp
+          ? 'https://wa.me/+' + settings.whatsapp.replace(/[^0-9+]/g, '').replace(/^\+/, '')
+          : null);
+
+    var waEls = document.querySelectorAll(
+      '.topbar-whatsapp, .mobile-drawer-action-whatsapp, a[href*="wa.me"]'
+    );
     for (var w = 0; w < waEls.length; w++) {
-      var waNum = (settings.whatsapp || '').replace(/[^0-9+]/g, '').replace(/^\+/, '');
-      waEls[w].setAttribute('href', 'http://wa.me/+' + waNum);
+      if (waValue) {
+        waEls[w].setAttribute('href', waValue);
+        waEls[w].style.display = '';
+        waEls[w].style.visibility = '';
+      } else {
+        waEls[w].style.display = 'none';
+        waEls[w].style.visibility = 'hidden';
+      }
     }
   }
 

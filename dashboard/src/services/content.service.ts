@@ -1,167 +1,302 @@
 import { supabase } from '@/lib/supabase'
 import { getCurrentUser } from '@/services/auth.service'
-import { HOME_PAGE_CONTENT } from '@/data/home-page-content'
+import { HOME_PAGE_SECTIONS } from '@/data/home-page-content'
 import type {
-  ContentPageRow,
-  PageContent,
+  PageRow,
   PageSection,
+  SectionRow,
   SectionType,
 } from '@/types/content'
+import {
+  defaultSectionData,
+} from '@/types/content'
 
-const TABLE = 'content_pages'
+const PAGES_TABLE = 'pages'
+const SECTIONS_TABLE = 'page_sections'
 
 async function getUserId(): Promise<string | undefined> {
   const { data } = await getCurrentUser()
   return data?.user?.id
 }
 
-function parseContent(row: Record<string, unknown>): ContentPageRow {
-  const content = row.content as Record<string, unknown> | null
+function parsePage(row: Record<string, unknown>): PageRow {
   return {
     id: row.id as string,
-    page_key: row.page_key as string,
     title: row.title as string,
     slug: row.slug as string,
-    content: (content ?? { sections: [] }) as unknown as PageContent,
+    template: (row.template ?? 'default') as string,
+    status: (row.status ?? 'draft') as PageRow['status'],
     seo_title: (row.seo_title ?? '') as string,
     seo_description: (row.seo_description ?? '') as string,
     seo_keywords: (row.seo_keywords ?? '') as string,
     og_image: (row.og_image ?? '') as string,
-    status: (row.status ?? 'draft') as 'draft' | 'published',
-    is_homepage: Boolean(row.is_homepage),
     sort_order: (row.sort_order ?? 0) as number,
-    template: (row.template ?? 'default') as string,
-    is_system: Boolean(row.is_system),
+    is_homepage: Boolean(row.is_homepage),
+    created_by: (row.created_by ?? null) as string | null,
+    updated_by: (row.updated_by ?? null) as string | null,
     created_at: row.created_at as string,
     updated_at: row.updated_at as string,
-    updated_by: (row.updated_by ?? null) as string | null,
+  }
+}
+
+function parseSection(row: Record<string, unknown>): SectionRow {
+  return {
+    id: row.id as string,
+    page_id: row.page_id as string,
+    section_type: row.section_type as string,
+    section_key: (row.section_key ?? null) as string | null,
+    title: (row.title ?? null) as string | null,
+    description: (row.description ?? null) as string | null,
+    content: (row.content as Record<string, unknown>) ?? {},
+    settings: (row.settings as Record<string, unknown>) ?? {},
+    styles: (row.styles as Record<string, unknown>) ?? {},
+    visible: Boolean(row.visible),
+    sort_order: (row.sort_order ?? 0) as number,
+    created_at: row.created_at as string,
+    updated_at: row.updated_at as string,
   }
 }
 
 // ---------------------------------------------------------------------------
-// Public API
+// Pages
 // ---------------------------------------------------------------------------
 
-export async function getPages(): Promise<ContentPageRow[]> {
+export async function getPages(): Promise<PageRow[]> {
   const { data, error } = await supabase
-    .from(TABLE)
+    .from(PAGES_TABLE)
     .select('*')
     .order('sort_order', { ascending: true })
 
-  if (error) throw new Error(error.message)
-  return (data ?? []).map(parseContent)
+  if (error) {
+    console.error('[CMS Service] getPages error:', error)
+    throw new Error(error.message)
+  }
+  console.log('[CMS Service] getPages:', (data ?? []).length, 'rows')
+  return (data ?? []).map(parsePage)
 }
 
-export async function getPage(pageKey: string): Promise<ContentPageRow | null> {
+export async function getPage(slug: string): Promise<PageRow | null> {
   const { data, error } = await supabase
-    .from(TABLE)
+    .from(PAGES_TABLE)
     .select('*')
-    .eq('page_key', pageKey)
+    .eq('slug', slug)
     .single()
 
   if (error) {
     if (error.code === 'PGRST116') return null
     throw new Error(error.message)
   }
-  return parseContent(data)
+  return parsePage(data)
 }
 
 export async function initializePage(
-  pageKey: string,
-  title: string,
   slug: string,
-  content?: PageContent,
-): Promise<ContentPageRow> {
+  title: string,
+): Promise<PageRow> {
   const userId = await getUserId()
+  console.log('[CMS Service] initializePage:', { slug, title, userId })
   const { data, error } = await supabase
-    .from(TABLE)
+    .from(PAGES_TABLE)
     .insert({
-      page_key: pageKey,
       title,
       slug,
       status: 'draft',
-      content: content ?? { sections: [] },
+      created_by: userId ?? null,
       updated_by: userId ?? null,
     })
     .select()
     .single()
 
-  if (error) throw new Error(error.message)
-  return parseContent(data)
+  if (error) {
+    console.error('[CMS Service] initializePage error:', error)
+    throw new Error(error.message)
+  }
+  console.log('[CMS Service] initializePage: created page id =', data.id)
+  return parsePage(data)
 }
 
-export async function seedHomePage(): Promise<ContentPageRow> {
+export async function seedHomePage(): Promise<PageRow> {
   const userId = await getUserId()
+  console.log('[CMS Service] seedHomePage')
 
   const { data, error } = await supabase
-    .from(TABLE)
+    .from(PAGES_TABLE)
     .upsert(
       {
-        page_key: 'home',
         title: 'الرئيسية',
         slug: '/',
-        content: HOME_PAGE_CONTENT,
-        seo_title:
-          'الجمعية المغربية لهواة البحث والاستكشاف | معًا نصنع أثرًا حقيقيًا',
-        seo_description:
-          'الجمعية المغربية لهواة البحث والاستكشاف — جمعية مغربية تعمل على التنمية الاجتماعية والتعليم والتمكين الاقتصادي، بأكثر من 500 مستفيد و12 عامًا من العمل الميداني.',
-        seo_keywords: 'جمعية, تنمية, تطوع, المغرب, عمل خيري, تمكين',
-        og_image: 'Amare%20files%20/logo.png',
         status: 'published',
         is_homepage: true,
         sort_order: 1,
+        seo_title: 'الجمعية المغربية لهواة البحث والاستكشاف | معًا نصنع أثرًا حقيقيًا',
+        seo_description: 'الجمعية المغربية لهواة البحث والاستكشاف — جمعية مغربية تعمل على التنمية الاجتماعية والتعليم والتمكين الاقتصادي، بأكثر من 500 مستفيد و12 عامًا من العمل الميداني.',
+        seo_keywords: 'جمعية, تنمية, تطوع, المغرب, عمل خيري, تمكين',
+        og_image: 'Amare%20files%20/logo.png',
+        created_by: userId ?? null,
         updated_by: userId ?? null,
       },
-      { onConflict: 'page_key' },
+      { onConflict: 'slug' },
     )
     .select()
     .single()
 
   if (error) throw new Error(error.message)
-  return parseContent(data)
+  const page = parsePage(data)
+
+  await saveSections(page.id, HOME_PAGE_SECTIONS as unknown as PageSection[])
+
+  return page
 }
 
 export async function saveDraft(
-  pageKey: string,
+  slug: string,
   updates: {
-    content?: PageContent
+    title?: string
+    newSlug?: string
     seo_title?: string
     seo_description?: string
     seo_keywords?: string
     og_image?: string
-    title?: string
-    slug?: string
+    sections?: PageSection[]
   },
-): Promise<ContentPageRow> {
+): Promise<PageRow> {
   const userId = await getUserId()
-  const payload: Record<string, unknown> = {
-    ...updates,
-    status: 'draft',
-    updated_by: userId ?? null,
+  const payload: Record<string, unknown> = { updated_by: userId ?? null }
+
+  if (updates.title !== undefined) payload.title = updates.title
+  if (updates.newSlug !== undefined) payload.slug = updates.newSlug
+  if (updates.seo_title !== undefined) payload.seo_title = updates.seo_title
+  if (updates.seo_description !== undefined) payload.seo_description = updates.seo_description
+  if (updates.seo_keywords !== undefined) payload.seo_keywords = updates.seo_keywords
+  if (updates.og_image !== undefined) payload.og_image = updates.og_image
+
+  const { data, error } = await supabase
+    .from(PAGES_TABLE)
+    .update(payload)
+    .eq('slug', slug)
+    .select()
+    .single()
+
+  if (error) throw new Error(error.message)
+  const page = parsePage(data)
+
+  if (updates.sections !== undefined) {
+    await saveSections(page.id, updates.sections)
   }
 
-  const { data, error } = await supabase
-    .from(TABLE)
-    .update(payload)
-    .eq('page_key', pageKey)
-    .select()
-    .single()
-
-  if (error) throw new Error(error.message)
-  return parseContent(data)
+  return page
 }
 
-export async function publishPage(pageKey: string): Promise<ContentPageRow> {
+export async function publishPage(slug: string): Promise<PageRow> {
   const userId = await getUserId()
   const { data, error } = await supabase
-    .from(TABLE)
+    .from(PAGES_TABLE)
     .update({ status: 'published', updated_by: userId ?? null })
-    .eq('page_key', pageKey)
+    .eq('slug', slug)
     .select()
     .single()
 
   if (error) throw new Error(error.message)
-  return parseContent(data)
+  return parsePage(data)
+}
+
+// ---------------------------------------------------------------------------
+// Sections
+// ---------------------------------------------------------------------------
+
+export async function getSections(pageId: string): Promise<SectionRow[]> {
+  const { data, error } = await supabase
+    .from(SECTIONS_TABLE)
+    .select('*')
+    .eq('page_id', pageId)
+    .order('sort_order', { ascending: true })
+
+  if (error) {
+    console.error('[CMS Service] getSections error:', error, 'page_id:', pageId)
+    throw new Error(error.message)
+  }
+  console.log('[CMS Service] getSections: page_id =', pageId, '→', (data ?? []).length, 'rows')
+  return (data ?? []).map(parseSection)
+}
+
+export async function saveSections(pageId: string, sections: PageSection[]): Promise<void> {
+  console.log('[CMS Service] saveSections: deleting existing for page_id =', pageId)
+  const { error: deleteErr } = await supabase.from(SECTIONS_TABLE).delete().eq('page_id', pageId)
+  if (deleteErr) {
+    console.error('[CMS Service] saveSections delete error:', deleteErr)
+    throw new Error(deleteErr.message)
+  }
+
+  if (sections.length === 0) {
+    console.log('[CMS Service] saveSections: no sections to insert')
+    return
+  }
+
+  const rows = sections.map((section, index) => {
+    const raw = section.data as Record<string, unknown>
+    const settings: Record<string, unknown> = {}
+    const content: Record<string, unknown> = {}
+    const styles: Record<string, unknown> = {}
+
+    for (const [key, value] of Object.entries(raw)) {
+      if (key === '_styles') {
+        Object.assign(styles, (value as Record<string, unknown>) ?? {})
+      } else if (key.startsWith('_') && key !== '_renderer') {
+        settings[key] = value
+      } else {
+        content[key] = value
+      }
+    }
+
+    return {
+      id: section.id,
+      page_id: pageId,
+      section_type: section.type,
+      section_key: null,
+      visible: section.enabled,
+      sort_order: index + 1,
+      content,
+      settings,
+      styles,
+    }
+  })
+
+  const { error } = await supabase.from(SECTIONS_TABLE).insert(rows)
+  if (error) {
+    console.error('[CMS Service] saveSections insert error:', error, 'inserting', rows.length, 'rows')
+    throw new Error(error.message)
+  }
+  console.log('[CMS Service] saveSections: inserted', rows.length, 'rows for page_id =', pageId)
+}
+
+// ---------------------------------------------------------------------------
+// Default sections
+// ---------------------------------------------------------------------------
+
+export async function createDefaultSectionsForPage(pageId: string): Promise<void> {
+  const defaults: Array<{ type: SectionType; renderer?: string }> = [
+    { type: 'hero' },
+    { type: 'custom', renderer: 'about' },
+    { type: 'custom', renderer: 'featuresGrid' },
+    { type: 'statistics' },
+    { type: 'custom', renderer: 'activitiesGrid' },
+    { type: 'custom', renderer: 'newsGrid' },
+    { type: 'cta' },
+    { type: 'faq' },
+    { type: 'custom', renderer: 'footer' },
+  ]
+
+  const sections: PageSection[] = defaults.map((d, i) => ({
+    id: generateSectionId(),
+    type: d.type,
+    enabled: true,
+    order: i + 1,
+    data: (d.renderer
+      ? { ...defaultSectionData(d.type), _renderer: d.renderer }
+      : defaultSectionData(d.type)) as never,
+  }))
+
+  await saveSections(pageId, sections)
 }
 
 // ---------------------------------------------------------------------------
@@ -194,34 +329,7 @@ export function createSection(type: SectionType, order: number): PageSection {
     type,
     enabled: true,
     order,
-    data: getDefaultData(type) as never,
-  }
-}
-
-function getDefaultData(type: SectionType): Record<string, unknown> {
-  switch (type) {
-    case 'hero':
-      return { heading: '', subheading: '', description: '', backgroundImage: '', buttons: [] }
-    case 'heading':
-      return { heading: '', subheading: '' }
-    case 'text':
-      return { heading: '', body: '' }
-    case 'image':
-      return { url: '', alt: '', caption: '' }
-    case 'buttons':
-      return { heading: '', buttons: [] }
-    case 'statistics':
-      return { heading: '', description: '', stats: [] }
-    case 'gallery':
-      return { heading: '', images: [] }
-    case 'cta':
-      return { heading: '', description: '', buttonLabel: '', buttonUrl: '', backgroundImage: '' }
-    case 'faq':
-      return { heading: '', items: [] }
-    case 'video':
-      return { url: '', thumbnail: '', heading: '' }
-    case 'custom':
-      return {}
+    data: defaultSectionData(type) as never,
   }
 }
 

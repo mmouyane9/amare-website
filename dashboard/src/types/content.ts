@@ -28,10 +28,6 @@ export const SECTION_TYPE_LABELS: Record<SectionType, string> = {
   custom: 'مخصص (Custom)',
 }
 
-// ---------------------------------------------------------------------------
-// Section data shapes
-// ---------------------------------------------------------------------------
-
 export interface SectionButton {
   id: string
   label: string
@@ -111,10 +107,6 @@ export type SectionDataMap = {
   custom: Record<string, unknown>
 }
 
-// ---------------------------------------------------------------------------
-// Section model
-// ---------------------------------------------------------------------------
-
 export interface PageSection<T extends SectionType = SectionType> {
   id: string
   type: T
@@ -123,37 +115,39 @@ export interface PageSection<T extends SectionType = SectionType> {
   data: SectionDataMap[T]
 }
 
-export interface PageContent {
-  sections: PageSection[]
-}
-
-// ---------------------------------------------------------------------------
-// Supabase row shape
-// ---------------------------------------------------------------------------
-
-export interface ContentPageRow {
+export interface PageRow {
   id: string
-  page_key: string
   title: string
   slug: string
-  content: PageContent
+  template: string
+  status: 'draft' | 'published' | 'archived'
   seo_title: string
   seo_description: string
   seo_keywords: string
   og_image: string
-  status: 'draft' | 'published'
-  is_homepage: boolean
   sort_order: number
-  template: string
-  is_system: boolean
+  is_homepage: boolean
+  created_by: string | null
+  updated_by: string | null
   created_at: string
   updated_at: string
-  updated_by: string | null
 }
 
-// ---------------------------------------------------------------------------
-// Default data for each section type
-// ---------------------------------------------------------------------------
+export interface SectionRow {
+  id: string
+  page_id: string
+  section_type: string
+  section_key: string | null
+  title: string | null
+  description: string | null
+  content: Record<string, unknown>
+  settings: Record<string, unknown>
+  styles: Record<string, unknown>
+  visible: boolean
+  sort_order: number
+  created_at: string
+  updated_at: string
+}
 
 export function defaultSectionData<T extends SectionType>(type: T): Record<string, unknown> {
   switch (type) {
@@ -179,5 +173,58 @@ export function defaultSectionData<T extends SectionType>(type: T): Record<strin
       return { url: '', thumbnail: '', heading: '' }
     case 'custom':
       return {}
+  }
+}
+
+export function sectionRowToPageSection(row: SectionRow): PageSection {
+  const data: Record<string, unknown> = { ...row.content, ...row.settings }
+  if (Object.keys(row.styles).length > 0) {
+    data._styles = row.styles
+  }
+  return {
+    id: row.id,
+    type: row.section_type as SectionType,
+    enabled: row.visible,
+    order: row.sort_order,
+    data: data as never,
+  }
+}
+
+export function pageSectionToRow(section: PageSection, pageId: string): {
+  id: string
+  page_id: string
+  section_type: string
+  section_key: string | null
+  visible: boolean
+  sort_order: number
+  content: Record<string, unknown>
+  settings: Record<string, unknown>
+  styles: Record<string, unknown>
+} {
+  const raw = section.data as Record<string, unknown>
+  const settings: Record<string, unknown> = {}
+  const content: Record<string, unknown> = {}
+  const styles: Record<string, unknown> = {}
+
+  for (const [key, value] of Object.entries(raw)) {
+    if (key === '_styles') {
+      Object.assign(styles, (value as Record<string, unknown>) ?? {})
+    } else if (key.startsWith('_') && key !== '_renderer') {
+      settings[key] = value
+    } else {
+      content[key] = value
+    }
+  }
+
+  return {
+    id: section.id,
+    page_id: pageId,
+    section_type: section.type,
+    section_key: null,
+    visible: section.enabled,
+    sort_order: section.order,
+    content,
+    settings,
+    styles,
   }
 }

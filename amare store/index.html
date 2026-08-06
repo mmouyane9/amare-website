@@ -580,8 +580,7 @@
   var allProducts = [];
 
   function buildCard(p, i) {
-    var badgeClass = p.stock > 0 ? 'store-product-badge' : 'store-product-badge unavailable';
-    var badgeText = p.stock > 0 ? 'متوفر' : 'قريباً';
+    var badgeHtml = p.stock > 0 ? '<span class="store-product-badge">متوفر</span>' : '';
     var imgHtml = p.image_url
       ? '<img src="' + p.image_url + '" alt="' + p.name + '" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;">'
       : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">' + iconFor(p.category) + '</svg>';
@@ -593,7 +592,7 @@
 
     return '<div class="store-product-card reveal in-view" style="--i:' + i + '">' +
       '<div class="store-product-image">' +
-        '<span class="' + badgeClass + '">' + badgeText + '</span>' +
+        badgeHtml +
         featureBadge +
         imgHtml +
       '</div>' +

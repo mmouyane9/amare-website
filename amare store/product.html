@@ -231,7 +231,6 @@
 
         <!-- Product Info -->
         <div class="store-product-info">
-          <span class="store-product-info-badge available" id="infoBadge">متوفر</span>
           <h1 class="store-product-info-name" id="infoName">تحميل...</h1>
           <div class="store-product-info-price" id="infoPrice">---</div>
           <p class="store-product-info-desc" id="infoDesc">جاري تحميل تفاصيل المنتج...</p>
@@ -394,10 +393,6 @@
 
     document.getElementById('breadcrumbName').textContent = p.name;
 
-    var badge = document.getElementById('infoBadge');
-    badge.textContent = p.stock > 0 ? 'متوفر' : 'قريباً';
-    badge.className = 'store-product-info-badge ' + (p.stock > 0 ? 'available' : 'unavailable');
-
     document.getElementById('infoName').textContent = p.name;
     document.getElementById('infoPrice').textContent = Number(p.price).toLocaleString('fr-FR') + ' د.م';
     document.getElementById('infoDesc').textContent = p.description || p.short_description || '';
@@ -420,8 +415,6 @@
     document.getElementById('infoPrice').textContent = '---';
     document.getElementById('infoDesc').textContent = 'عذراً، لم يتم العثور على المنتج المطلوب.';
     document.getElementById('infoSpecs').innerHTML = '';
-    document.getElementById('infoBadge').textContent = 'غير متوفر';
-    document.getElementById('infoBadge').className = 'store-product-info-badge unavailable';
   }
 
   function fetchProduct() {

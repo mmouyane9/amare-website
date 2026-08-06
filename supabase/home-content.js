@@ -524,7 +524,8 @@
   }
 
   /* ------------------------------------------------------------------
-     Supabase fetch — get the full content.sections array
+     Supabase fetch — get page and its sections from the new schema.
+     Queries pages (slug='/') then page_sections (visible=true).
      ------------------------------------------------------------------ */
   function loadHomeFromSupabase(callback) {
     var S = window.Supabase;
@@ -533,19 +534,65 @@
     var client = S.getClient();
     if (!client) return callback(null);
 
+    // Step 1: find the Home page by slug
     client
-      .from('content_pages')
-      .select('content, status')
-      .eq('page_key', 'home')
+      .from('pages')
+      .select('id, title, slug, status')
+      .eq('slug', '/')
       .eq('status', 'published')
       .single()
-      .then(function (result) {
-        if (result.error) return callback(null);
-        var row = result.data;
-        if (!row || !row.content) return callback(null);
-        var sections = row.content.sections;
-        if (!Array.isArray(sections)) return callback(null);
-        return callback(sections);
+      .then(function (pageResult) {
+        if (pageResult.error || !pageResult.data) return callback(null);
+        var pageId = pageResult.data.id;
+
+        // Step 2: load all visible sections for this page
+        client
+          .from('page_sections')
+          .select('id, section_type, section_key, content, settings, styles, visible, sort_order')
+          .eq('page_id', pageId)
+          .eq('visible', true)
+          .order('sort_order', { ascending: true })
+          .then(function (sectionsResult) {
+            if (sectionsResult.error || !sectionsResult.data) return callback(null);
+
+            var rows = sectionsResult.data;
+            if (!Array.isArray(rows) || rows.length === 0) return callback(null);
+
+            // Step 3: map page_sections rows into the format injectSection() expects
+            var sections = [];
+            for (var i = 0; i < rows.length; i++) {
+              var row = rows[i];
+              // Merge content + settings → flat data object (mimics old section.data)
+              var data = {};
+              var content = row.content || {};
+              var settings = row.settings || {};
+              var styles = row.styles || {};
+
+              // Copy content fields
+              for (var ck in content) {
+                if (Object.prototype.hasOwnProperty.call(content, ck)) data[ck] = content[ck];
+              }
+              // Copy settings fields (prefixed with _)
+              for (var sk in settings) {
+                if (Object.prototype.hasOwnProperty.call(settings, sk)) data[sk] = settings[sk];
+              }
+              // Copy _styles if present
+              if (Object.keys(styles).length > 0) data._styles = styles;
+
+              sections.push({
+                id: row.id,
+                type: row.section_type,
+                enabled: row.visible,
+                order: row.sort_order,
+                data: data,
+              });
+            }
+
+            return callback(sections);
+          })
+          .catch(function () {
+            return callback(null);
+          });
       })
       .catch(function () {
         return callback(null);

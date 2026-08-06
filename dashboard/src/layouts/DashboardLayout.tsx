@@ -16,7 +16,7 @@ export function DashboardLayout() {
       <div className="flex min-w-0 flex-1 flex-col">
         <Header title={title} />
 
-        <main className="flex-1 overflow-y-auto p-6 lg:p-8">
+        <main className="relative flex-1 overflow-y-auto p-6 lg:p-8">
           <Outlet />
         </main>
       </div>

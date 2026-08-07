@@ -9,9 +9,11 @@ export interface Member {
   email: string | null
   phone: string | null
   address: string | null
+  city: string | null
   birth_date: string | null
   birth_place: string | null
   national_id: string | null
+  profession: string | null
   status: string | null
   membership_date: string | null
   profile_photo_url: string | null
@@ -29,9 +31,11 @@ export interface MemberCreateInput {
   email?: string
   phone?: string
   address?: string
+  city?: string
   birth_date?: string
   birth_place?: string
   national_id?: string
+  profession?: string
   status: string
   membership_date?: string
 }
@@ -64,7 +68,7 @@ export async function getMembers(
 
   if (search) {
     query = query.or(
-      `first_name.ilike.%${search}%,last_name.ilike.%${search}%,email.ilike.%${search}%,member_number.ilike.%${search}%`,
+      `first_name.ilike.%${search}%,last_name.ilike.%${search}%,email.ilike.%${search}%,member_number.ilike.%${search}%,phone.ilike.%${search}%`,
     )
   }
 
@@ -76,7 +80,7 @@ export async function getMembers(
 
   const { data, error, count } = await query
 
-  if (error) throw new Error('Failed to load members')
+  if (error) throw error
   const total = count ?? 0
 
   return {
@@ -91,13 +95,31 @@ export async function getMembers(
 export async function createMember(
   input: MemberCreateInput,
 ): Promise<Member> {
+  const cleaned = { ...input } as Record<string, unknown>
+
+  const dateFields = ['birth_date', 'membership_date']
+  for (const field of dateFields) {
+    if (cleaned[field] === '') {
+      cleaned[field] = null
+    }
+  }
+
+  for (const [key, value] of Object.entries(cleaned)) {
+    if (value === '' && key !== 'member_number' && key !== 'first_name' && key !== 'last_name' && key !== 'status') {
+      cleaned[key] = null
+    }
+  }
+
   const { data, error } = await supabase
     .from('members')
-    .insert(input)
+    .insert(cleaned)
     .select()
     .single()
 
-  if (error) throw new Error('Failed to create member')
+  if (error) {
+    console.error('createMember error:', error)
+    throw error
+  }
   return data as Member
 }
 
@@ -105,20 +127,50 @@ export async function updateMember(
   id: string,
   input: MemberUpdateInput,
 ): Promise<Member> {
+  const cleaned = { ...input } as Record<string, unknown>
+
+  const dateFields = ['birth_date', 'membership_date']
+  for (const field of dateFields) {
+    if (cleaned[field] === '') {
+      cleaned[field] = null
+    }
+  }
+
+  for (const [key, value] of Object.entries(cleaned)) {
+    if (value === '' && key !== 'member_number' && key !== 'first_name' && key !== 'last_name' && key !== 'status') {
+      cleaned[key] = null
+    }
+  }
+
   const { data, error } = await supabase
     .from('members')
-    .update(input)
+    .update(cleaned)
     .eq('id', id)
     .select()
     .single()
 
-  if (error) throw new Error('Failed to update member')
+  if (error) throw error
   return data as Member
 }
 
 export async function deleteMember(id: string): Promise<void> {
   const { error } = await supabase.from('members').delete().eq('id', id)
-  if (error) throw new Error('Failed to delete member')
+  if (error) throw error
+}
+
+export async function updateMemberStatus(
+  id: string,
+  status: string,
+): Promise<Member> {
+  const { data, error } = await supabase
+    .from('members')
+    .update({ status })
+    .eq('id', id)
+    .select()
+    .single()
+
+  if (error) throw error
+  return data as Member
 }
 
 export function subscribeToMembers(

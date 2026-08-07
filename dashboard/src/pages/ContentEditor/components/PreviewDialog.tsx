@@ -51,12 +51,12 @@ export function PreviewDialog({ page, sections, open, onOpenChange }: PreviewDia
             </div>
 
             <div className="border-t border-border/60 bg-muted/50 px-4 py-2.5 text-center text-xs text-muted-foreground">
-              Preview — this is how visitors see "{page.title || page.slug}" once published.
+              معاينة — هكذا يرى الزوار "{page.title || page.slug}" بعد النشر.
             </div>
           </>
         ) : (
           <DialogHeader>
-            <DialogTitle>Nothing to preview</DialogTitle>
+            <DialogTitle>لا يوجد شيء للمعاينة</DialogTitle>
           </DialogHeader>
         )}
       </DialogContent>

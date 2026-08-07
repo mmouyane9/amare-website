@@ -132,7 +132,7 @@ export default function ContentEditorPage() {
       setSidebarPages(merged)
     } catch (err) {
       console.error('[CMS] loadSidebar error:', err)
-      toast.error('Failed to load pages')
+      toast.error('فشل تحميل الصفحات')
     } finally {
       setPagesLoading(false)
     }
@@ -157,7 +157,7 @@ export default function ContentEditorPage() {
 
         if (!page) {
           console.error('[CMS] Failed to initialize page')
-          toast.error('Failed to load page')
+          toast.error('فشل تحميل الصفحة')
           return
         }
 
@@ -207,7 +207,7 @@ export default function ContentEditorPage() {
       console.log('[CMS] Page loaded successfully —', sectionRows.length, 'sections')
     } catch (err) {
       console.error('[CMS] loadPageContent error:', err)
-      toast.error(err instanceof Error ? err.message : 'Failed to load page')
+      toast.error(err instanceof Error ? err.message : 'فشل تحميل الصفحة')
     } finally {
       setPageLoading(false)
     }
@@ -325,9 +325,9 @@ export default function ContentEditorPage() {
       setSidebarPages((prev) =>
         prev.map((p) => (p.pageKey === selectedKey ? { ...p, status: 'draft' } : p)),
       )
-      toast.success('Saved — live website updated')
+      toast.success('تم الحفظ — تم تحديث الموقع')
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : 'Failed to save')
+      toast.error(err instanceof Error ? err.message : 'فشل الحفظ')
     } finally {
       setBusy(null)
     }
@@ -355,9 +355,9 @@ export default function ContentEditorPage() {
       )
       setDirty(false)
       setLastSavedAt(new Date())
-      toast.success('Published — live website updated')
+      toast.success('تم النشر — تم تحديث الموقع')
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : 'Failed to publish')
+      toast.error(err instanceof Error ? err.message : 'فشل النشر')
     } finally {
       setBusy(null)
     }
@@ -366,9 +366,9 @@ export default function ContentEditorPage() {
   const handleReset = async () => {
     try {
       await loadPageContent(selectedKey)
-      toast.success('Changes reset')
+      toast.success('تم إعادة تعيين التغييرات')
     } catch {
-      toast.error('Failed to reset')
+      toast.error('فشل إعادة التعيين')
     }
   }
 
@@ -430,11 +430,11 @@ export default function ContentEditorPage() {
 
   const saveStatusText = useMemo(() => {
     if (busy) return null
-    if (!lastSavedAt) return dirty ? 'Unsaved changes' : null
+    if (!lastSavedAt) return dirty ? 'تغييرات غير محفوظة' : null
     const minutes = Math.floor((Date.now() - lastSavedAt.getTime()) / 60000)
-    if (minutes < 1) return 'Saved just now'
-    if (minutes === 1) return 'Saved 1 minute ago'
-    return `Saved ${minutes} minutes ago`
+    if (minutes < 1) return 'حُفظت الآن'
+    if (minutes === 1) return 'حُفظت منذ دقيقة'
+    return `حُفظت منذ ${minutes} دقيقة`
   }, [lastSavedAt, dirty, busy])
 
   return (
@@ -446,7 +446,7 @@ export default function ContentEditorPage() {
           size="icon-sm"
           className="text-muted-foreground lg:hidden"
           onClick={() => setShowPagesMobile(true)}
-          aria-label="Open pages list"
+          aria-label="فتح قائمة الصفحات"
         >
           <PanelLeft className="size-4" />
         </Button>
@@ -454,7 +454,7 @@ export default function ContentEditorPage() {
         {pageLoading ? (
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <Loader2 className="size-4 animate-spin" />
-            Loading…
+            جارٍ التحميل…
           </div>
         ) : (
           <div className="flex min-w-0 items-center gap-3">
@@ -471,7 +471,7 @@ export default function ContentEditorPage() {
                 )}
               >
                 {pageStatus}
-                {dirty && ' · Unsaved'}
+                {dirty && ' · غير محفوظ'}
               </span>
             )}
           </div>
@@ -488,7 +488,7 @@ export default function ContentEditorPage() {
                   ? 'bg-white text-foreground shadow-sm'
                   : 'text-muted-foreground hover:text-foreground',
               )}
-              title="Desktop"
+              title="سطح المكتب"
             >
               <Monitor className="size-3.5" />
             </button>
@@ -501,7 +501,7 @@ export default function ContentEditorPage() {
                   ? 'bg-white text-foreground shadow-sm'
                   : 'text-muted-foreground hover:text-foreground',
               )}
-              title="Tablet"
+              title="جهاز لوحي"
             >
               <Tablet className="size-3.5" />
             </button>
@@ -514,7 +514,7 @@ export default function ContentEditorPage() {
                   ? 'bg-white text-foreground shadow-sm'
                   : 'text-muted-foreground hover:text-foreground',
               )}
-              title="Mobile"
+              title="جوال"
             >
               <Smartphone className="size-3.5" />
             </button>
@@ -523,13 +523,13 @@ export default function ContentEditorPage() {
           <div className="hidden sm:block h-5 w-px bg-[#E5E7EB] mx-1" />
 
           <div className="relative hidden md:block">
-            <Search className="pointer-events-none absolute top-1/2 left-2.5 size-3.5 -translate-y-1/2 text-muted-foreground" />
+            <Search className="pointer-events-none absolute top-1/2 right-2.5 size-3.5 -translate-y-1/2 text-muted-foreground" />
             <input
               type="search"
               value={sectionQuery}
               onChange={(e) => setSectionQuery(e.target.value)}
-              placeholder="Search sections…"
-              className="h-8 w-40 rounded-xl border border-[#E5E7EB] bg-gray-50 py-1 pr-3 pl-8 text-xs outline-none transition-all focus:w-52 focus:border-primary/30 focus:bg-white focus:ring-2 focus:ring-primary/10 placeholder:text-muted-foreground/60"
+              placeholder="ابحث في الأقسام…"
+              className="h-8 w-40 rounded-xl border border-[#E5E7EB] bg-gray-50 py-1 pl-3 pr-8 text-xs outline-none transition-all focus:w-52 focus:border-primary/30 focus:bg-white focus:ring-2 focus:ring-primary/10 placeholder:text-muted-foreground/60"
             />
           </div>
 
@@ -542,7 +542,7 @@ export default function ContentEditorPage() {
             onClick={handleUndo}
             disabled={!canUndo}
             className="text-muted-foreground hover:text-foreground disabled:opacity-30"
-            title="Undo (Ctrl+Z)"
+            title="تراجع (Ctrl+Z)"
           >
             <Undo2 className="size-4" />
           </Button>
@@ -553,7 +553,7 @@ export default function ContentEditorPage() {
             onClick={handleRedo}
             disabled={!canRedo}
             className="text-muted-foreground hover:text-foreground disabled:opacity-30"
-            title="Redo (Ctrl+Shift+Z)"
+            title="إعادة (Ctrl+Shift+Z)"
           >
             <RotateCcw className="size-4" />
           </Button>
@@ -577,7 +577,7 @@ export default function ContentEditorPage() {
                 className="gap-1 text-muted-foreground hover:text-foreground"
               >
                 <Settings className="size-3.5" />
-                <span className="hidden sm:inline">Settings</span>
+                <span className="hidden sm:inline">الإعدادات</span>
               </Button>
 
               <Button
@@ -588,7 +588,7 @@ export default function ContentEditorPage() {
                 onClick={() => setPreviewOpen(true)}
               >
                 <Eye className="size-3.5" />
-                <span className="hidden sm:inline">Preview</span>
+                <span className="hidden sm:inline">معاينة</span>
               </Button>
 
               <Button
@@ -603,7 +603,7 @@ export default function ContentEditorPage() {
                 ) : (
                   <Send className="size-3.5" />
                 )}
-                Publish
+                نشر
               </Button>
             </>
           )}
@@ -668,9 +668,9 @@ export default function ContentEditorPage() {
                 <Settings className="size-7" />
               </span>
               <div>
-                <p className="text-sm font-medium text-foreground">No section selected</p>
+                <p className="text-sm font-medium text-foreground">لم يتم تحديد قسم</p>
                 <p className="mt-1 text-xs text-muted-foreground">
-                  Click a section card to edit its content, design, and SEO settings.
+                  انقر على بطاقة قسم لتعديل محتواه وتصميمه وإعدادات SEO.
                 </p>
               </div>
             </div>
@@ -681,7 +681,7 @@ export default function ContentEditorPage() {
       <Dialog open={showPagesMobile} onOpenChange={setShowPagesMobile}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>Pages</DialogTitle>
+            <DialogTitle>الصفحات</DialogTitle>
           </DialogHeader>
           <div className="-mx-4 -mb-4 h-[58svh] border-t border-[#E5E7EB]">
             <PagesPanel
@@ -700,10 +700,10 @@ export default function ContentEditorPage() {
           <DialogHeader className="border-b border-[#E5E7EB] px-6 py-4">
             <DialogTitle className="flex items-center gap-2 text-base font-semibold">
               <Settings className="size-4 text-primary" />
-              Page Settings
+              إعدادات الصفحة
             </DialogTitle>
             <p className="text-sm text-muted-foreground">
-              Manage title, URL, SEO, and publishing
+              إدارة العنوان والرابط وSEO والنشر
             </p>
           </DialogHeader>
           <div className="overflow-y-auto">

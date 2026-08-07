@@ -2,7 +2,7 @@ export function formatDate(value: string, options?: Intl.DateTimeFormatOptions):
   const date = new Date(value)
   if (Number.isNaN(date.getTime())) return value
   return new Intl.DateTimeFormat(
-    'en-US',
+    'ar-SA',
     options ?? { month: 'short', day: 'numeric', year: 'numeric' },
   ).format(date)
 }
@@ -10,7 +10,7 @@ export function formatDate(value: string, options?: Intl.DateTimeFormatOptions):
 export function formatDateTime(value: string): string {
   const date = new Date(value)
   if (Number.isNaN(date.getTime())) return value
-  return new Intl.DateTimeFormat('en-US', {
+  return new Intl.DateTimeFormat('ar-SA', {
     month: 'short',
     day: 'numeric',
     hour: 'numeric',

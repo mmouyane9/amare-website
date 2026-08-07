@@ -7,7 +7,7 @@ import { Sidebar } from '@/components/layout/Sidebar'
 export function DashboardLayout() {
   const { pathname } = useLocation()
   const currentItem = NAV_ITEMS.find((item) => item.path === pathname)
-  const title = currentItem?.label ?? 'Admin'
+  const title = currentItem?.label ?? 'الإدارة'
 
   return (
     <div className="flex h-svh overflow-hidden bg-muted/40">

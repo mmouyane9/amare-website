@@ -38,29 +38,29 @@ interface BlockItem {
 }
 
 const BLOCKS: BlockItem[] = [
-  { type: 'hero', label: 'Hero', description: 'Main banner with headline and CTA', icon: Sparkles },
-  { type: 'heading', label: 'Heading', description: 'Section title with subtitle', icon: Type },
-  { type: 'text', label: 'Text Block', description: 'Rich text content area', icon: AlignLeft },
-  { type: 'image', label: 'Image', description: 'Single image with caption', icon: Layout },
-  { type: 'buttons', label: 'Buttons', description: 'Call-to-action button group', icon: Link2 },
-  { type: 'statistics', label: 'Statistics', description: 'Animated counters and metrics', icon: TrendingUp },
-  { type: 'gallery', label: 'Gallery', description: 'Image gallery grid', icon: Images },
-  { type: 'cta', label: 'CTA Banner', description: 'Prominent call-to-action banner', icon: Megaphone },
-  { type: 'faq', label: 'FAQ', description: 'Frequently asked questions accordion', icon: HelpCircle },
-  { type: 'video', label: 'Video', description: 'Embedded video player', icon: Play },
-  { type: 'custom', label: 'Features Grid', description: 'Feature highlights in grid layout', icon: LayoutGrid, customRenderer: 'featuresGrid' },
-  { type: 'custom', label: 'Activities Grid', description: 'Activities displayed in cards', icon: BarChart3, customRenderer: 'activitiesGrid' },
-  { type: 'custom', label: 'News Grid', description: 'News articles in card layout', icon: Star, customRenderer: 'newsGrid' },
-  { type: 'custom', label: 'About Section', description: 'Company about with features and stats', icon: Users, customRenderer: 'about' },
-  { type: 'custom', label: 'Team', description: 'Team members grid section', icon: Users },
-  { type: 'custom', label: 'Partners', description: 'Partner logos carousel', icon: LayoutGrid },
-  { type: 'custom', label: 'Map', description: 'Interactive map with location', icon: MapPin },
-  { type: 'custom', label: 'Footer', description: 'Site footer with links and contact', icon: Layout, customRenderer: 'footer' },
-  { type: 'custom', label: 'Custom HTML', description: 'Free-form custom content block', icon: Code2 },
-  { type: 'custom', label: 'Timeline', description: 'Chronological timeline display', icon: BarChart3 },
-  { type: 'custom', label: 'Testimonials', description: 'Customer testimonials carousel', icon: MessageCircle },
-  { type: 'custom', label: 'Cards', description: 'Card-based content grid', icon: Puzzle },
-  { type: 'custom', label: 'Services', description: 'Services listing section', icon: LayoutGrid },
+  { type: 'hero', label: 'الرئيسية', description: 'شريط رئيسي مع عنوان ودعوة للإجراء', icon: Sparkles },
+  { type: 'heading', label: 'عنوان', description: 'عنوان القسم مع عنوان فرعي', icon: Type },
+  { type: 'text', label: 'نص', description: 'منطقة محتوى نصي', icon: AlignLeft },
+  { type: 'image', label: 'صورة', description: 'صورة مفردة مع تعليق', icon: Layout },
+  { type: 'buttons', label: 'أزرار', description: 'مجموعة أزرار دعوة للإجراء', icon: Link2 },
+  { type: 'statistics', label: 'إحصائيات', description: 'عدادات ومؤشرات متحركة', icon: TrendingUp },
+  { type: 'gallery', label: 'معرض صور', description: 'شبكة معرض الصور', icon: Images },
+  { type: 'cta', label: 'شريط دعوة للإجراء', description: 'شريط بارز لدعوة للإجراء', icon: Megaphone },
+  { type: 'faq', label: 'أسئلة شائعة', description: 'قائمة منسدلة للأسئلة الشائعة', icon: HelpCircle },
+  { type: 'video', label: 'فيديو', description: 'مشغل فيديو مضمّن', icon: Play },
+  { type: 'custom', label: 'شبكة الميزات', description: 'أبرز الميزات في تخطيط شبكي', icon: LayoutGrid, customRenderer: 'featuresGrid' },
+  { type: 'custom', label: 'شبكة الأنشطة', description: 'الأنشطة معروضة في بطاقات', icon: BarChart3, customRenderer: 'activitiesGrid' },
+  { type: 'custom', label: 'شبكة الأخبار', description: 'مقالات إخبارية في تخطيط بطاقات', icon: Star, customRenderer: 'newsGrid' },
+  { type: 'custom', label: 'قسم عن الجمعية', description: 'معلومات عن الجمعية مع الميزات والإحصائيات', icon: Users, customRenderer: 'about' },
+  { type: 'custom', label: 'الفريق', description: 'قسم شبكي لأعضاء الفريق', icon: Users },
+  { type: 'custom', label: 'الشركاء', description: 'دوارة شعارات الشركاء', icon: LayoutGrid },
+  { type: 'custom', label: 'خريطة', description: 'خريطة تفاعلية مع الموقع', icon: MapPin },
+  { type: 'custom', label: 'تذييل الصفحة', description: 'تذييل الموقع مع الروابط ومعلومات الاتصال', icon: Layout, customRenderer: 'footer' },
+  { type: 'custom', label: 'HTML مخصص', description: 'كتلة محتوى مخصصة حرة', icon: Code2 },
+  { type: 'custom', label: 'الجدول الزمني', description: 'عرض زمني ترتيبي', icon: BarChart3 },
+  { type: 'custom', label: 'آراء العملاء', description: 'دوارة آراء العملاء', icon: MessageCircle },
+  { type: 'custom', label: 'بطاقات', description: 'شبكة محتوى قائمة على البطاقات', icon: Puzzle },
+  { type: 'custom', label: 'الخدمات', description: 'قسم عرض الخدمات', icon: LayoutGrid },
 ]
 
 interface AddSectionModalProps {
@@ -83,10 +83,10 @@ export function AddSectionModal({ open, onOpenChange, onAddSection }: AddSection
         <DialogHeader className="border-b border-[#E5E7EB] px-6 py-4">
           <DialogTitle className="flex items-center gap-2 text-base font-semibold">
             <Plus className="size-4 text-primary" />
-            Add Section
+            إضافة قسم
           </DialogTitle>
           <p className="text-sm text-muted-foreground">
-            Choose a block to add to your page
+            اختر كتلة لإضافتها إلى صفحتك
           </p>
         </DialogHeader>
 

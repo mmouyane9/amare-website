@@ -25,6 +25,7 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
+import RenewalSection from '@/components/RenewalSection'
 import { useAuth } from '@/contexts/AuthContext'
 import { cn } from '@/lib/utils'
 import {
@@ -43,31 +44,31 @@ interface StatDefinition {
 
 const STAT_DEFINITIONS: StatDefinition[] = [
   {
-    label: 'Total Members',
+    label: 'إجمالي الأعضاء',
     icon: Users,
     accent: 'bg-blue-500/10 text-blue-600 dark:text-blue-400',
     key: 'totalMembers',
   },
   {
-    label: 'Active Branches',
+    label: 'الفروع النشطة',
     icon: Landmark,
     accent: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400',
     key: 'activeBranches',
   },
   {
-    label: 'Published News',
+    label: 'الأخبار المنشورة',
     icon: Newspaper,
     accent: 'bg-violet-500/10 text-violet-600 dark:text-violet-400',
     key: 'publishedNews',
   },
   {
-    label: 'Active Updates',
+    label: 'المستجدات النشطة',
     icon: Bell,
     accent: 'bg-amber-500/10 text-amber-600 dark:text-amber-400',
     key: 'activeUpdates',
   },
   {
-    label: 'Store Products',
+    label: 'منتجات المتجر',
     icon: Package,
     accent: 'bg-rose-500/10 text-rose-600 dark:text-rose-400',
     key: 'storeProducts',
@@ -83,32 +84,32 @@ interface QuickAction {
 
 const QUICK_ACTIONS: QuickAction[] = [
   {
-    label: 'Content Editor',
-    description: 'Manage website pages',
+    label: 'محرر المحتوى',
+    description: 'إدارة صفحات الموقع',
     icon: FileEdit,
     path: '/content-editor',
   },
   {
-    label: 'Members',
-    description: 'View & manage members',
+    label: 'الأعضاء',
+    description: 'عرض وإدارة الأعضاء',
     icon: UserPlus,
     path: '/members',
   },
   {
-    label: 'News',
-    description: 'Manage news articles',
+    label: 'الأخبار',
+    description: 'إدارة المقالات الإخبارية',
     icon: Newspaper,
     path: '/news',
   },
   {
-    label: 'Updates',
-    description: 'Publish updates',
+    label: 'المستجدات',
+    description: 'نشر المستجدات',
     icon: Bell,
     path: '/updates',
   },
   {
-    label: 'AMARE Store',
-    description: 'Manage store products',
+    label: 'متجر الجمعية',
+    description: 'إدارة منتجات المتجر',
     icon: Store,
     path: '/store',
   },
@@ -123,10 +124,10 @@ function formatRelativeTime(dateStr: string): string {
   const diffHr = Math.floor(diffMin / 60)
   const diffDay = Math.floor(diffHr / 24)
 
-  if (diffSec < 60) return 'just now'
-  if (diffMin < 60) return `${diffMin}m ago`
-  if (diffHr < 24) return `${diffHr}h ago`
-  if (diffDay < 7) return `${diffDay}d ago`
+  if (diffSec < 60) return 'الآن'
+  if (diffMin < 60) return `${diffMin}د`
+  if (diffHr < 24) return `${diffHr}س`
+  if (diffDay < 7) return `${diffDay}يوم`
   return new Date(dateStr).toLocaleDateString()
 }
 
@@ -223,7 +224,7 @@ export default function DashboardPage() {
         setActivities(activityData)
       } catch {
         if (cancelled) return
-        toast.error('Unable to load dashboard data. Please try again.')
+        toast.error('تعذر تحميل بيانات لوحة التحكم. يرجى المحاولة مرة أخرى.')
       } finally {
         if (!cancelled) {
           setStatsLoading(false)
@@ -246,10 +247,10 @@ export default function DashboardPage() {
       <section className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <h1 className="text-2xl font-semibold tracking-tight text-foreground">
-            Welcome back, {displayName}
+            مرحباً بعودتك، {displayName}
           </h1>
           <p className="mt-1 text-sm text-muted-foreground">
-            Here&apos;s what&apos;s happening with the association today.
+            آخر المستجدات في الجمعية اليوم.
           </p>
         </div>
       </section>
@@ -281,7 +282,7 @@ export default function DashboardPage() {
                   </CardHeader>
                   <CardContent className="pt-1">
                     <p className="text-xs text-muted-foreground">
-                      {value === 0 && 'No records yet'}
+                      {value === 0 && 'لا توجد سجلات بعد'}
                     </p>
                   </CardContent>
                 </Card>
@@ -293,9 +294,9 @@ export default function DashboardPage() {
         <Card className="lg:col-span-2">
           <CardHeader>
             <div>
-              <CardTitle>Recent Activity</CardTitle>
+              <CardTitle>آخر النشاطات</CardTitle>
               <CardDescription>
-                Latest updates across the association
+                آخر المستجدات في الجمعية
               </CardDescription>
             </div>
           </CardHeader>
@@ -307,10 +308,10 @@ export default function DashboardPage() {
               <div className="flex flex-col items-center justify-center py-12 text-center">
                 <Globe className="size-10 text-muted-foreground/40" />
                 <p className="mt-3 text-sm font-medium text-muted-foreground">
-                  No recent activity.
+                  لا توجد نشاطات حديثة.
                 </p>
                 <p className="mt-1 text-xs text-muted-foreground/70">
-                  Activity will appear here as actions are performed.
+                  ستظهر النشاطات هنا عند تنفيذ الإجراءات.
                 </p>
               </div>
             ) : (
@@ -340,7 +341,7 @@ export default function DashboardPage() {
                           {entry.action ?? 'Activity'}
                         </span>
                         <span className="mt-0.5 text-sm text-muted-foreground">
-                          {entry.description ?? 'No description'}
+                          {entry.description ?? 'بدون وصف'}
                         </span>
                       </div>
                       <time className="shrink-0 text-xs text-muted-foreground">
@@ -356,8 +357,8 @@ export default function DashboardPage() {
 
         <Card>
           <CardHeader>
-            <CardTitle>Quick Actions</CardTitle>
-            <CardDescription>Frequently used tools</CardDescription>
+            <CardTitle>إجراءات سريعة</CardTitle>
+            <CardDescription>الأدوات الأكثر استخداماً</CardDescription>
           </CardHeader>
           <CardContent className="space-y-2">
             {QUICK_ACTIONS.map(({ label, description, icon: Icon, path }) => (
@@ -370,7 +371,7 @@ export default function DashboardPage() {
                 <span className="flex size-8 shrink-0 items-center justify-center rounded-md bg-muted text-foreground">
                   <Icon className="size-4" />
                 </span>
-                <span className="flex min-w-0 flex-col items-start text-left">
+                <span className="flex min-w-0 flex-col items-start text-right">
                   <span className="text-sm font-medium">{label}</span>
                   <span className="text-xs text-muted-foreground">
                     {description}
@@ -382,6 +383,10 @@ export default function DashboardPage() {
           </CardContent>
         </Card>
       </section>
+
+      <Separator />
+
+      <RenewalSection />
     </div>
   )
 }

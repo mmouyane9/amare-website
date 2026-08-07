@@ -30,9 +30,9 @@ import { Label } from '@/components/ui/label'
 import { cn } from '@/lib/utils'
 
 const highlights: { label: string; icon: LucideIcon }[] = [
-  { label: 'Manage members, branches and news', icon: Users },
-  { label: 'Publish content to the association website', icon: Newspaper },
-  { label: 'Control every part of the platform', icon: ShieldCheck },
+  { label: 'إدارة الأعضاء والفروع والأخبار', icon: Users },
+  { label: 'نشر المحتوى على موقع الجمعية', icon: Newspaper },
+  { label: 'التحكم الكامل في المنصة', icon: ShieldCheck },
 ]
 
 interface LoginErrors {
@@ -62,8 +62,8 @@ export default function LoginPage() {
     event.preventDefault()
 
     const nextErrors: LoginErrors = {}
-    if (!email.trim()) nextErrors.email = 'Email is required'
-    if (!password) nextErrors.password = 'Password is required'
+    if (!email.trim()) nextErrors.email = 'البريد الإلكتروني مطلوب'
+    if (!password) nextErrors.password = 'كلمة المرور مطلوبة'
     setErrors(nextErrors)
 
     if (Object.keys(nextErrors).length > 0) return
@@ -111,11 +111,10 @@ export default function LoginPage() {
 
           <div className="max-w-md space-y-5">
             <h1 className="text-3xl font-semibold tracking-tight text-background lg:text-4xl">
-              Welcome back to the {brandName} Admin
+              مرحباً بعودتك إلى لوحة إدارة {brandName}
             </h1>
             <p className="text-base leading-relaxed text-background/70">
-              Manage members, branches, news and everything else that keeps the
-              association running smoothly.
+              إدارة الأعضاء والفروع والأخبار وكل ما يبقي الجمعية تعمل بسلاسة.
             </p>
           </div>
 
@@ -138,29 +137,29 @@ export default function LoginPage() {
             <CardHeader className="text-center">
               <img src={logoUrl} alt={brandName} className="mx-auto mb-3 size-11 rounded-lg object-contain lg:hidden" />
               <CardTitle className="text-2xl font-semibold tracking-tight">
-                Sign in
+                تسجيل الدخول
               </CardTitle>
               <CardDescription>
-                Enter your credentials to access the admin panel.
+                أدخل بيانات الاعتماد للوصول إلى لوحة الإدارة.
               </CardDescription>
             </CardHeader>
 
             <CardContent>
               <form className="space-y-4" onSubmit={handleSubmit} noValidate>
                 <div className="space-y-2">
-                  <Label htmlFor="email">Email</Label>
+                  <Label htmlFor="email">البريد الإلكتروني</Label>
                   <div className="relative">
-                    <Mail className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
+                    <Mail className="pointer-events-none absolute top-1/2 right-3 size-4 -translate-y-1/2 text-muted-foreground" />
                     <Input
                       id="email"
                       type="email"
                       autoComplete="email"
-                      placeholder="you@example.com"
+                      placeholder="example@example.com"
                       value={email}
                       onChange={(event) => setEmail(event.target.value)}
                       disabled={loading}
                       className={cn(
-                        'h-10 pl-9',
+                        'h-10 pr-9',
                         errors.email && 'border-destructive focus-visible:ring-destructive/20',
                       )}
                     />
@@ -171,9 +170,9 @@ export default function LoginPage() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="password">Password</Label>
+                  <Label htmlFor="password">كلمة المرور</Label>
                   <div className="relative">
-                    <Lock className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
+                    <Lock className="pointer-events-none absolute top-1/2 right-3 size-4 -translate-y-1/2 text-muted-foreground" />
                     <Input
                       id="password"
                       type={showPassword ? 'text' : 'password'}
@@ -183,7 +182,7 @@ export default function LoginPage() {
                       onChange={(event) => setPassword(event.target.value)}
                       disabled={loading}
                       className={cn(
-                        'h-10 pr-10 pl-9',
+                        'h-10 pl-10 pr-9',
                         errors.password && 'border-destructive focus-visible:ring-destructive/20',
                       )}
                     />
@@ -191,8 +190,8 @@ export default function LoginPage() {
                       type="button"
                       variant="ghost"
                       size="icon"
-                      className="absolute top-1/2 right-1 h-8 w-8 -translate-y-1/2 text-muted-foreground hover:text-foreground"
-                      aria-label={showPassword ? 'Hide password' : 'Show password'}
+                      className="absolute top-1/2 left-1 h-8 w-8 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                      aria-label={showPassword ? 'إخفاء كلمة المرور' : 'إظهار كلمة المرور'}
                       onClick={() => setShowPassword((value) => !value)}
                     >
                       {showPassword ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
@@ -205,18 +204,18 @@ export default function LoginPage() {
 
                 <div className="flex items-center justify-between gap-2">
                   <label className="flex cursor-pointer items-center gap-2 text-sm text-muted-foreground">
+                    تذكرني
                     <Checkbox
                       checked={remember}
                       onCheckedChange={(checked) => setRemember(checked === true)}
                     />
-                    Remember me
                   </label>
                   <Button
                     type="button"
                     variant="link"
                     className="h-auto p-0 text-sm font-medium text-primary"
                   >
-                    Forgot password?
+                    نسيت كلمة المرور؟
                   </Button>
                 </div>
 
@@ -233,11 +232,11 @@ export default function LoginPage() {
                   {loading ? (
                     <>
                       <Loader2 className="size-4 animate-spin" />
-                      Signing in...
+                      جارٍ تسجيل الدخول...
                     </>
                   ) : (
                     <>
-                      Sign in
+                      تسجيل الدخول
                       <ArrowRight className="size-4" />
                     </>
                   )}
@@ -247,9 +246,9 @@ export default function LoginPage() {
           </Card>
 
           <p className="mt-6 text-center text-sm text-muted-foreground">
-            Visiting the association website?{' '}
+            تزور موقع الجمعية؟{' '}
             <Button variant="link" className="h-auto p-0 text-sm font-medium text-primary">
-              Back to website
+              العودة إلى الموقع
             </Button>
           </p>
         </div>

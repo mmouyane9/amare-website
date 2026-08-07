@@ -80,7 +80,7 @@ export function SectionEditorPanel({
                 : 'bg-muted text-muted-foreground',
             )}
           >
-            {section.enabled ? 'Visible' : 'Hidden'}
+            {section.enabled ? 'ظاهر' : 'مخفي'}
           </span>
         </div>
 
@@ -102,13 +102,13 @@ export function SectionEditorPanel({
               value="content"
               className="rounded-lg px-3 py-1.5 text-xs font-medium data-[state=active]:bg-white data-[state=active]:shadow-sm"
             >
-              Content
+              المحتوى
             </TabsTrigger>
             <TabsTrigger
               value="design"
               className="rounded-lg px-3 py-1.5 text-xs font-medium data-[state=active]:bg-white data-[state=active]:shadow-sm"
             >
-              Design
+              التصميم
             </TabsTrigger>
             <TabsTrigger
               value="seo"
@@ -120,7 +120,7 @@ export function SectionEditorPanel({
               value="advanced"
               className="rounded-lg px-3 py-1.5 text-xs font-medium data-[state=active]:bg-white data-[state=active]:shadow-sm"
             >
-              Advanced
+              متقدم
             </TabsTrigger>
           </TabsList>
 
@@ -130,7 +130,7 @@ export function SectionEditorPanel({
                 <Editor {...editorProps} />
               ) : (
                 <div className="flex flex-col items-center gap-2 py-8 text-center">
-                  <p className="text-sm text-muted-foreground">No editor available for this section type</p>
+                  <p className="text-sm text-muted-foreground">لا يوجد محرر لهذا النوع من الأقسام</p>
                 </div>
               )}
             </TabsContent>
@@ -138,7 +138,7 @@ export function SectionEditorPanel({
             <TabsContent value="design" className="mt-0 space-y-4">
               <div className="space-y-3">
                 <div className="space-y-1.5">
-                  <Label className="text-xs font-medium text-muted-foreground">Background Color</Label>
+                  <Label className="text-xs font-medium text-muted-foreground">لون الخلفية</Label>
                   <div className="flex gap-2">
                     <input
                       type="color"
@@ -156,7 +156,7 @@ export function SectionEditorPanel({
                 </div>
 
                 <div className="space-y-1.5">
-                  <Label className="text-xs font-medium text-muted-foreground">Background Image</Label>
+                  <Label className="text-xs font-medium text-muted-foreground">صورة الخلفية</Label>
                   <Input
                     value={(data._bgImage as string) ?? ''}
                     onChange={(e) => updateDesign('_bgImage', e.target.value)}
@@ -167,7 +167,7 @@ export function SectionEditorPanel({
 
                 <div className="space-y-1.5">
                   <Label className="text-xs font-medium text-muted-foreground">
-                    Overlay Opacity
+                    شفافية الطبقة
                   </Label>
                   <div className="flex items-center gap-3">
                     <input
@@ -190,7 +190,7 @@ export function SectionEditorPanel({
 
                 <div className="grid grid-cols-2 gap-3">
                   <div className="space-y-1.5">
-                    <Label className="text-xs font-medium text-muted-foreground">Padding Top</Label>
+                    <Label className="text-xs font-medium text-muted-foreground">المساحة العلوية</Label>
                     <Input
                       value={(data._paddingTop as string) ?? ''}
                       onChange={(e) => updateDesign('_paddingTop', e.target.value)}
@@ -199,7 +199,7 @@ export function SectionEditorPanel({
                     />
                   </div>
                   <div className="space-y-1.5">
-                    <Label className="text-xs font-medium text-muted-foreground">Padding Bottom</Label>
+                    <Label className="text-xs font-medium text-muted-foreground">المساحة السفلية</Label>
                     <Input
                       value={(data._paddingBottom as string) ?? ''}
                       onChange={(e) => updateDesign('_paddingBottom', e.target.value)}
@@ -210,7 +210,7 @@ export function SectionEditorPanel({
                 </div>
 
                 <div className="space-y-1.5">
-                  <Label className="text-xs font-medium text-muted-foreground">Text Alignment</Label>
+                  <Label className="text-xs font-medium text-muted-foreground">محاذاة النص</Label>
                   <Select
                     value={(data._textAlign as string) ?? 'right'}
                     onValueChange={(v) => updateDesign('_textAlign', v)}
@@ -219,9 +219,9 @@ export function SectionEditorPanel({
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="right">Right</SelectItem>
-                      <SelectItem value="center">Center</SelectItem>
-                      <SelectItem value="left">Left</SelectItem>
+                      <SelectItem value="right">يمين</SelectItem>
+                      <SelectItem value="center">وسط</SelectItem>
+                      <SelectItem value="left">يسار</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -231,7 +231,7 @@ export function SectionEditorPanel({
             <TabsContent value="seo" className="mt-0 space-y-4">
               <div className="space-y-3">
                 <div className="space-y-1.5">
-                  <Label className="text-xs font-medium text-muted-foreground">Meta Title</Label>
+                  <Label className="text-xs font-medium text-muted-foreground">العنوان الوصفي</Label>
                   <Input
                     value={(data._seoTitle as string) ?? ''}
                     onChange={(e) => updateDesign('_seoTitle', e.target.value)}
@@ -244,7 +244,7 @@ export function SectionEditorPanel({
                 </div>
 
                 <div className="space-y-1.5">
-                  <Label className="text-xs font-medium text-muted-foreground">Meta Description</Label>
+                  <Label className="text-xs font-medium text-muted-foreground">الوصف الوصفي</Label>
                   <Textarea
                     value={(data._seoDescription as string) ?? ''}
                     onChange={(e) => updateDesign('_seoDescription', e.target.value)}
@@ -257,11 +257,11 @@ export function SectionEditorPanel({
                 </div>
 
                 <div className="space-y-1.5">
-                  <Label className="text-xs font-medium text-muted-foreground">Keywords</Label>
+                  <Label className="text-xs font-medium text-muted-foreground">الكلمات المفتاحية</Label>
                   <Input
                     value={(data._seoKeywords as string) ?? ''}
                     onChange={(e) => updateDesign('_seoKeywords', e.target.value)}
-                    placeholder="keyword1, keyword2, keyword3"
+                    placeholder="كلمة1, كلمة2, كلمة3"
                     className="h-9 text-sm"
                   />
                 </div>
@@ -271,17 +271,17 @@ export function SectionEditorPanel({
             <TabsContent value="advanced" className="mt-0 space-y-4">
               <div className="space-y-3">
                 <div className="space-y-1.5">
-                  <Label className="text-xs font-medium text-muted-foreground">Custom Anchor ID</Label>
+                  <Label className="text-xs font-medium text-muted-foreground">معرف الارتساء</Label>
                   <Input
                     value={(data._anchorId as string) ?? ''}
                     onChange={(e) => updateDesign('_anchorId', e.target.value)}
-                    placeholder="e.g. about-section"
+                    placeholder="مثال: about-section"
                     className="h-9 text-sm font-mono"
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <Label className="text-xs font-medium text-muted-foreground">CSS Classes</Label>
+                  <Label className="text-xs font-medium text-muted-foreground">فئات CSS</Label>
                   <Input
                     value={(data._cssClasses as string) ?? ''}
                     onChange={(e) => updateDesign('_cssClasses', e.target.value)}
@@ -294,9 +294,9 @@ export function SectionEditorPanel({
 
                 <div className="flex items-center justify-between rounded-xl border border-[#E5E7EB] bg-gray-50 p-3">
                   <div className="space-y-0.5">
-                    <Label className="text-sm font-medium text-foreground">Visibility</Label>
+                    <Label className="text-sm font-medium text-foreground">الظهور</Label>
                     <p className="text-xs text-muted-foreground">
-                      {section.enabled ? 'Section is visible on the page' : 'Section is hidden'}
+                      {section.enabled ? 'القسم ظاهر على الصفحة' : 'القسم مخفي'}
                     </p>
                   </div>
                   <Switch
@@ -308,7 +308,7 @@ export function SectionEditorPanel({
                 <Separator className="bg-[#E5E7EB]" />
 
                 <div className="space-y-2">
-                  <p className="text-xs font-medium text-muted-foreground">Actions</p>
+                  <p className="text-xs font-medium text-muted-foreground">الإجراءات</p>
                   <div className="grid grid-cols-2 gap-2">
                     <Button
                       type="button"
@@ -317,7 +317,7 @@ export function SectionEditorPanel({
                       onClick={onDuplicate}
                       className="w-full justify-center gap-1.5 border-[#E5E7EB]"
                     >
-                      Duplicate
+                      تكرار
                     </Button>
                     <Button
                       type="button"
@@ -326,7 +326,7 @@ export function SectionEditorPanel({
                       onClick={onDelete}
                       className="w-full justify-center gap-1.5 border-destructive/20 text-destructive hover:bg-destructive/5 hover:text-destructive"
                     >
-                      Delete
+                      حذف
                     </Button>
                   </div>
                 </div>

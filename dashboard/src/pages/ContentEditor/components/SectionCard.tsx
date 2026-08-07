@@ -182,7 +182,7 @@ export function SectionCard({
                   : 'bg-muted text-muted-foreground',
               )}
             >
-              {section.enabled ? 'Visible' : 'Hidden'}
+              {section.enabled ? 'ظاهر' : 'مخفي'}
             </span>
           </div>
           <p className="mt-0.5 truncate text-xs text-muted-foreground">
@@ -198,7 +198,7 @@ export function SectionCard({
             type="button"
             onClick={onDuplicate}
             className="flex size-7 items-center justify-center rounded-lg text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
-            title="Duplicate"
+            title="تكرار"
           >
             <Copy className="size-3.5" />
           </button>
@@ -212,7 +212,7 @@ export function SectionCard({
                 ? 'text-muted-foreground hover:bg-muted hover:text-foreground'
                 : 'text-destructive hover:bg-destructive/10',
             )}
-            title={section.enabled ? 'Hide' : 'Show'}
+            title={section.enabled ? 'إخفاء' : 'إظهار'}
           >
             <EyeOff className="size-3.5" />
           </button>
@@ -229,24 +229,24 @@ export function SectionCard({
             <DropdownMenuContent align="end" className="w-40">
               <DropdownMenuItem onClick={onDuplicate}>
                 <Copy className="size-3.5" />
-                Duplicate
+                تكرار
               </DropdownMenuItem>
               <DropdownMenuItem onClick={() => onToggle(!section.enabled)}>
                 <EyeOff className="size-3.5" />
-                {section.enabled ? 'Hide' : 'Show'}
+                {section.enabled ? 'إخفاء' : 'إظهار'}
               </DropdownMenuItem>
               {!isFirst && (
-                <DropdownMenuItem onClick={onMoveUp}>Move Up</DropdownMenuItem>
+                <DropdownMenuItem onClick={onMoveUp}>تحريك للأعلى</DropdownMenuItem>
               )}
               {!isLast && (
-                <DropdownMenuItem onClick={onMoveDown}>Move Down</DropdownMenuItem>
+                <DropdownMenuItem onClick={onMoveDown}>تحريك للأسفل</DropdownMenuItem>
               )}
               <DropdownMenuSeparator />
               <DropdownMenuItem
                 onClick={onDelete}
                 className="text-destructive focus:text-destructive"
               >
-                Delete
+                حذف
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

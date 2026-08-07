@@ -32,8 +32,14 @@
     return resolveClient().from(table);
   }
 
-  function select(table, columns, options) {
-    return from(table).select(columns || '*', options || {});
+  function select(table, columns, options, orderBy) {
+    var query = from(table).select(columns || '*', options || {});
+    if (orderBy && orderBy.column) {
+      query = query.order(orderBy.column, {
+        ascending: orderBy.ascending !== false,
+      });
+    }
+    return query;
   }
 
   function insert(table, rows) {

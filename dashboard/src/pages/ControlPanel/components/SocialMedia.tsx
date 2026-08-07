@@ -195,7 +195,7 @@ export function SocialMedia() {
   }, [settings])
 
   useEffect(() => {
-    if (error) toast.error('Failed to load settings')
+    if (error) toast.error('فشل تحميل الإعدادات')
   }, [error])
 
   const handleChange = useCallback(
@@ -233,7 +233,7 @@ export function SocialMedia() {
         if (value && validateUrl(ch.field, value) === null) {
           patch[ch.field] = value
         } else if (value && validateUrl(ch.field, value) !== null) {
-          toast.error(`Please fix the ${ch.label} URL before saving`)
+          toast.error(`يرجى تصحيح رابط ${ch.label} قبل الحفظ`)
           setSaving(false)
           return
         }
@@ -241,10 +241,10 @@ export function SocialMedia() {
 
       await updateSocialMedia(patch)
       setSaved(true)
-      toast.success('Social media links saved')
+      toast.success('تم حفظ روابط التواصل الاجتماعي')
       setTimeout(() => setSaved(false), 2500)
     } catch {
-      toast.error('Failed to save social media links')
+      toast.error('فشل حفظ روابط التواصل الاجتماعي')
     } finally {
       setSaving(false)
     }
@@ -263,9 +263,9 @@ export function SocialMedia() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Social Media</CardTitle>
+        <CardTitle>وسائل التواصل</CardTitle>
         <CardDescription>
-          Links shown in the website navbar, footer, and contact page. Leave empty to hide a social icon.
+          الروابط المعروضة في شريط التنقل والتذييل وصفحة الاتصال. اتركه فارغاً لإخفاء أيقونة التواصل.
         </CardDescription>
       </CardHeader>
       <form onSubmit={handleSave}>
@@ -305,7 +305,7 @@ export function SocialMedia() {
         </CardContent>
         <CardFooter className="justify-between">
           <p className="text-xs text-muted-foreground">
-            {saved ? 'Links saved' : 'Leave empty to hide a social icon'}
+            {saved ? 'تم حفظ الروابط' : 'اتركه فارغاً لإخفاء أيقونة التواصل'}
           </p>
           <Button type="submit" disabled={saving}>
             {saving ? (
@@ -313,7 +313,7 @@ export function SocialMedia() {
             ) : saved ? (
               <Check className="size-4" />
             ) : null}
-            {saved ? 'Saved' : 'Save links'}
+            {saved ? 'تم الحفظ' : 'حفظ الروابط'}
           </Button>
         </CardFooter>
       </form>

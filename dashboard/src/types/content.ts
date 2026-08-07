@@ -15,17 +15,17 @@ export const SECTION_TYPES = [
 export type SectionType = (typeof SECTION_TYPES)[number]
 
 export const SECTION_TYPE_LABELS: Record<SectionType, string> = {
-  hero: 'Hero',
-  heading: 'عنوان (Heading)',
-  text: 'نص (Text)',
-  image: 'صورة (Image)',
-  buttons: 'أزرار (Buttons)',
-  statistics: 'إحصائيات (Statistics)',
-  gallery: 'معرض صور (Gallery)',
-  cta: 'دعوة للإجراء (CTA)',
-  faq: 'أسئلة شائعة (FAQ)',
-  video: 'فيديو (Video)',
-  custom: 'مخصص (Custom)',
+  hero: 'الرئيسية',
+  heading: 'عنوان',
+  text: 'نص',
+  image: 'صورة',
+  buttons: 'أزرار',
+  statistics: 'إحصائيات',
+  gallery: 'معرض صور',
+  cta: 'دعوة للإجراء',
+  faq: 'أسئلة شائعة',
+  video: 'فيديو',
+  custom: 'مخصص',
 }
 
 export interface SectionButton {

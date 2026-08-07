@@ -42,7 +42,7 @@ export function EditorCanvas({
       <div className="flex h-full items-center justify-center bg-white">
         <div className="flex items-center gap-2 text-sm text-muted-foreground">
           <Loader2 className="size-4 animate-spin" />
-          Loading page…
+          جارٍ تحميل الصفحة…
         </div>
       </div>
     )
@@ -55,9 +55,9 @@ export function EditorCanvas({
           <span className="flex size-12 items-center justify-center rounded-2xl bg-gray-50 text-muted-foreground">
             <FileText className="size-6" />
           </span>
-          <p className="text-sm font-medium text-foreground">No page selected</p>
+          <p className="text-sm font-medium text-foreground">لم يتم تحديد صفحة</p>
           <p className="text-sm text-muted-foreground">
-            Choose a page from the list to start editing.
+            اختر صفحة من القائمة لبدء التحرير.
           </p>
         </div>
       </div>
@@ -78,7 +78,7 @@ export function EditorCanvas({
           <span className="truncate">{page.slug || '/'}</span>
         </div>
         <span className="shrink-0 text-xs text-muted-foreground">
-          {enabledCount} of {sections.length} visible
+          {enabledCount} من {sections.length} ظاهر
         </span>
       </div>
 
@@ -112,9 +112,9 @@ export function EditorCanvas({
                   <Plus className="size-6" />
                 </span>
                 <div>
-                  <p className="text-sm font-medium text-foreground">This page is empty</p>
+                  <p className="text-sm font-medium text-foreground">هذه الصفحة فارغة</p>
                   <p className="mt-1 text-sm text-muted-foreground">
-                    Add a section below to start building.
+                    أضف قسماً أدناه لبدء البناء.
                   </p>
                 </div>
               </div>
@@ -129,7 +129,7 @@ export function EditorCanvas({
               className="w-full justify-center gap-2 rounded-xl border-dashed border-[#E5E7EB] py-3 text-sm text-muted-foreground hover:border-primary/30 hover:text-foreground transition-all duration-200"
             >
               <Plus className="size-4" />
-              Add Section
+              إضافة قسم
             </Button>
           </div>
         </div>

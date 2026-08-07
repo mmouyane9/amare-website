@@ -41,11 +41,11 @@ export function GeneralSettings() {
     if (!form) return
 
     if (!form.association_name?.trim()) {
-      toast.error('Association Name is required')
+      toast.error('اسم الجمعية مطلوب')
       return
     }
     if (!form.contact_email?.trim()) {
-      toast.error('Contact Email is required')
+      toast.error('البريد الإلكتروني مطلوب')
       return
     }
 
@@ -62,11 +62,11 @@ export function GeneralSettings() {
         working_hours: form.working_hours?.trim() || null,
       })
       setSaved(true)
-      toast.success('Settings saved')
+      toast.success('تم حفظ الإعدادات')
       refresh()
       setTimeout(() => setSaved(false), 2500)
     } catch {
-      toast.error('Failed to save settings')
+      toast.error('فشل حفظ الإعدادات')
     } finally {
       setSaving(false)
     }
@@ -85,15 +85,15 @@ export function GeneralSettings() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>General</CardTitle>
+        <CardTitle>عام</CardTitle>
         <CardDescription>
-          Association name, contact details, address and working hours.
+          اسم الجمعية وتفاصيل الاتصال والعنوان وساعات العمل.
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-5">
         <div className="grid gap-5 sm:grid-cols-2">
           <div className="space-y-1.5">
-            <Label htmlFor="general-association-name">Association Name</Label>
+            <Label htmlFor="general-association-name">اسم الجمعية</Label>
             <Input
               id="general-association-name"
               value={form?.association_name ?? ''}
@@ -102,7 +102,7 @@ export function GeneralSettings() {
             />
           </div>
           <div className="space-y-1.5">
-            <Label htmlFor="general-short-name">Short Name</Label>
+            <Label htmlFor="general-short-name">الاسم المختصر</Label>
             <Input
               id="general-short-name"
               value={form?.short_name ?? ''}
@@ -114,7 +114,7 @@ export function GeneralSettings() {
 
         <div className="grid gap-5 sm:grid-cols-2">
           <div className="space-y-1.5">
-            <Label htmlFor="general-email">Contact Email</Label>
+            <Label htmlFor="general-email">البريد الإلكتروني</Label>
             <Input
               id="general-email"
               type="email"
@@ -124,7 +124,7 @@ export function GeneralSettings() {
             />
           </div>
           <div className="space-y-1.5">
-            <Label htmlFor="general-phone">Phone Number</Label>
+            <Label htmlFor="general-phone">رقم الهاتف</Label>
             <Input
               id="general-phone"
               type="tel"
@@ -137,7 +137,7 @@ export function GeneralSettings() {
 
         <div className="grid gap-5 sm:grid-cols-2">
           <div className="space-y-1.5">
-            <Label htmlFor="general-whatsapp">WhatsApp Number</Label>
+            <Label htmlFor="general-whatsapp">رقم الواتساب</Label>
             <Input
               id="general-whatsapp"
               type="tel"
@@ -147,7 +147,7 @@ export function GeneralSettings() {
             />
           </div>
           <div className="space-y-1.5">
-            <Label htmlFor="general-hours">Working Hours</Label>
+            <Label htmlFor="general-hours">ساعات العمل</Label>
             <Input
               id="general-hours"
               value={form?.working_hours ?? ''}
@@ -158,18 +158,18 @@ export function GeneralSettings() {
         </div>
 
         <div className="space-y-1.5">
-          <Label htmlFor="general-address">Address</Label>
+          <Label htmlFor="general-address">العنوان</Label>
           <Textarea
             id="general-address"
             value={form?.address ?? ''}
             onChange={(e) => updateField('address', e.target.value)}
-            placeholder="Morocco"
+            placeholder="المغرب"
             className="min-h-16"
           />
         </div>
 
         <div className="space-y-1.5">
-          <Label htmlFor="general-maps">Google Maps URL</Label>
+          <Label htmlFor="general-maps">رابط خرائط جوجل</Label>
           <Input
             id="general-maps"
             value={form?.google_maps_url ?? ''}
@@ -180,7 +180,7 @@ export function GeneralSettings() {
       </CardContent>
       <CardFooter className="justify-between">
         <p className="text-xs text-muted-foreground">
-          {saved ? 'Settings saved' : 'Changes apply to the whole website'}
+          {saved ? 'تم حفظ الإعدادات' : 'التغييرات تطبق على الموقع بالكامل'}
         </p>
         <Button type="button" onClick={handleSave} disabled={saving}>
           {saving ? (
@@ -188,7 +188,7 @@ export function GeneralSettings() {
           ) : saved ? (
             <Check className="size-4" />
           ) : null}
-          {saved ? 'Saved' : 'Save changes'}
+          {saved ? 'تم الحفظ' : 'حفظ التغييرات'}
         </Button>
       </CardFooter>
     </Card>

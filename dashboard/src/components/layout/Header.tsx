@@ -15,11 +15,13 @@ function getInitials(name: string): string {
     .map((part) => part.charAt(0))
     .join('')
     .toUpperCase()
-    .slice(0, 2) || 'U'
+    .slice(0, 2) || 'م'
 }
 
 function formatRole(role: string | null): string {
-  if (!role) return 'User'
+  if (!role) return 'مستخدم'
+  if (role === 'super_admin') return 'المدير العام'
+  if (role === 'admin') return 'مشرف'
   return role
     .split('_')
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
@@ -29,7 +31,7 @@ function formatRole(role: string | null): string {
 export function Header({ title }: HeaderProps) {
   const { user } = useAuth()
 
-  const displayName = user?.name ?? 'Admin'
+  const displayName = user?.name ?? 'مدير'
   const email = user?.email ?? ''
   const role = user?.role ?? null
   const initials = getInitials(displayName)
@@ -49,11 +51,11 @@ export function Header({ title }: HeaderProps) {
 
       <div className="flex items-center gap-2 sm:gap-3">
         <div className="relative hidden md:block">
-          <Search className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
+          <Search className="pointer-events-none absolute top-1/2 right-3 size-4 -translate-y-1/2 text-muted-foreground" />
           <Input
             type="search"
-            placeholder="Search..."
-            className="h-9 w-60 rounded-lg border-border/60 bg-muted/50 pl-9 focus-visible:bg-background lg:w-64"
+            placeholder="ابحث..."
+            className="h-9 w-60 rounded-lg border-border/60 bg-muted/50 pr-9 focus-visible:bg-background lg:w-64"
           />
         </div>
 
@@ -61,10 +63,10 @@ export function Header({ title }: HeaderProps) {
           variant="ghost"
           size="icon"
           className="relative text-muted-foreground hover:text-foreground"
-          aria-label="Notifications"
+          aria-label="الإشعارات"
         >
           <Bell className="size-4.5" />
-          <span className="absolute top-2 right-2 size-2 rounded-full bg-destructive ring-2 ring-background" />
+          <span className="absolute top-2 left-2 size-2 rounded-full bg-destructive ring-2 ring-background" />
         </Button>
 
         <div className="flex items-center gap-2.5">

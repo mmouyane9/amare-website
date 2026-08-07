@@ -89,7 +89,7 @@ function productToForm(p: Product): ProductCreateInput {
 }
 
 function formatDate(dateStr: string): string {
-  return new Date(dateStr).toLocaleDateString('fr-FR', {
+  return new Date(dateStr).toLocaleDateString('ar-SA', {
     year: 'numeric',
     month: 'short',
     day: 'numeric',
@@ -144,7 +144,7 @@ export default function StorePage() {
       setTotal(result.total)
       setTotalPages(result.totalPages)
     } catch {
-      toast.error('Failed to load products')
+      toast.error('فشل تحميل المنتجات')
     } finally {
       setLoading(false)
     }
@@ -317,7 +317,7 @@ export default function StorePage() {
   return (
     <div>
       <div className="mb-6">
-        <h2 className="text-2xl font-semibold tracking-tight">AMARE Store</h2>
+        <h2 className="text-2xl font-semibold tracking-tight">متجر الجمعية</h2>
         <p className="text-sm text-muted-foreground">
           إدارة المنتجات — متجر الجمعية المغربية لهواة البحث والاستكشاف
         </p>
@@ -375,12 +375,12 @@ export default function StorePage() {
 
       <div className="mb-4 flex flex-wrap items-center gap-3">
         <div className="relative flex-1 min-w-[200px]">
-          <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+          <Search className="absolute right-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
           <Input
             placeholder="بحث باسم المنتج..."
             value={searchInput}
             onChange={(e) => handleSearchChange(e.target.value)}
-            className="pl-9"
+            className="pr-9"
           />
         </div>
 
@@ -489,7 +489,7 @@ export default function StorePage() {
               <Label>صورة المنتج</Label>
               {mainImagePreview ? (
                 <div className="relative inline-block">
-                  <img src={mainImagePreview} alt="Preview" className="h-48 w-48 rounded-xl object-cover border" />
+                  <img src={mainImagePreview} alt="معاينة" className="h-48 w-48 rounded-xl object-cover border" />
                   <button
                     type="button"
                     onClick={() => { setMainImageFile(null); setMainImagePreview(null) }}

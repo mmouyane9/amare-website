@@ -72,13 +72,13 @@ export function PageSettingsPanel({
     <div className="flex h-full min-h-0 flex-col overflow-y-auto">
       <div className="space-y-4 p-6">
         <div>
-          <h3 className="text-sm font-semibold text-foreground">Page Settings</h3>
-          <p className="text-xs text-muted-foreground">Title, URL, and metadata</p>
+          <h3 className="text-sm font-semibold text-foreground">إعدادات الصفحة</h3>
+          <p className="text-xs text-muted-foreground">العنوان والرابط والبيانات الوصفية</p>
         </div>
 
         <div className="space-y-3">
           <div className="space-y-1.5">
-            <Label className="text-xs font-medium text-muted-foreground">Page Title</Label>
+            <Label className="text-xs font-medium text-muted-foreground">عنوان الصفحة</Label>
             <Input
               value={title}
               onChange={(e) => onTitleChange(e.target.value)}
@@ -86,7 +86,7 @@ export function PageSettingsPanel({
             />
           </div>
           <div className="space-y-1.5">
-            <Label className="text-xs font-medium text-muted-foreground">URL Slug</Label>
+            <Label className="text-xs font-medium text-muted-foreground">الرابط المختصر</Label>
             <Input
               value={slug}
               onChange={(e) => onSlugChange(e.target.value)}
@@ -95,7 +95,7 @@ export function PageSettingsPanel({
           </div>
           {dirty && (
             <p className="rounded-xl bg-amber-50 px-3 py-2 text-xs font-medium text-amber-700">
-              You have unsaved changes
+              لديك تغييرات غير محفوظة
             </p>
           )}
         </div>
@@ -104,12 +104,12 @@ export function PageSettingsPanel({
 
         <div>
           <h3 className="text-sm font-semibold text-foreground">SEO</h3>
-          <p className="text-xs text-muted-foreground">Search engine optimization</p>
+          <p className="text-xs text-muted-foreground">تحسين محركات البحث</p>
         </div>
 
         <div className="space-y-3">
           <div className="space-y-1.5">
-            <Label className="text-xs font-medium text-muted-foreground">SEO Title</Label>
+            <Label className="text-xs font-medium text-muted-foreground">العنوان الوصفي</Label>
             <Input
               value={seoTitle}
               onChange={(e) => onSeoTitleChange(e.target.value)}
@@ -120,7 +120,7 @@ export function PageSettingsPanel({
             </p>
           </div>
           <div className="space-y-1.5">
-            <Label className="text-xs font-medium text-muted-foreground">Meta Description</Label>
+            <Label className="text-xs font-medium text-muted-foreground">الوصف الوصفي</Label>
             <Textarea
               value={seoDescription}
               onChange={(e) => onSeoDescriptionChange(e.target.value)}
@@ -131,16 +131,16 @@ export function PageSettingsPanel({
             </p>
           </div>
           <div className="space-y-1.5">
-            <Label className="text-xs font-medium text-muted-foreground">Keywords</Label>
+            <Label className="text-xs font-medium text-muted-foreground">الكلمات المفتاحية</Label>
             <Input
               value={seoKeywords}
               onChange={(e) => onSeoKeywordsChange(e.target.value)}
-              placeholder="keyword1, keyword2, keyword3"
+              placeholder="كلمة1, كلمة2, كلمة3"
               className="h-9 text-sm rounded-xl"
             />
           </div>
           <div className="space-y-1.5">
-            <Label className="text-xs font-medium text-muted-foreground">Open Graph Image</Label>
+            <Label className="text-xs font-medium text-muted-foreground">صورة Open Graph</Label>
             <Input
               value={ogImage}
               onChange={(e) => onOgImageChange(e.target.value)}
@@ -153,7 +153,7 @@ export function PageSettingsPanel({
         <Separator className="bg-[#E5E7EB]" />
 
         <div>
-          <h3 className="text-sm font-semibold text-foreground">Publishing</h3>
+          <h3 className="text-sm font-semibold text-foreground">النشر</h3>
         </div>
 
         <div className="space-y-2">
@@ -169,7 +169,7 @@ export function PageSettingsPanel({
             ) : (
               <Save className="size-4" />
             )}
-            Save Draft
+            حفظ المسودة
           </Button>
           <Button
             type="button"
@@ -182,7 +182,7 @@ export function PageSettingsPanel({
             ) : (
               <Send className="size-4" />
             )}
-            Publish
+            نشر
           </Button>
           <Button
             type="button"
@@ -195,7 +195,7 @@ export function PageSettingsPanel({
             onClick={handleReset}
           >
             <RotateCcw className="size-4" />
-            {confirmReset ? 'Confirm reset?' : 'Reset Changes'}
+            {confirmReset ? 'تأكيد الإعادة؟' : 'إعادة تعيين'}
           </Button>
         </div>
       </div>

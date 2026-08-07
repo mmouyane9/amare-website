@@ -207,116 +207,68 @@
       tool: '<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>',
     };
 
-    const dropdownData = {
-      about: {
-        title: 'من نحن', href: '#about',
-        items: [
-          { icon: 'org', title: 'الرئية الوطنية', desc: 'تعرف على تاريخ ومسيرة الجمعية', href:"/Who%20are%20we/national-vision.html" },
-          { icon: 'eye', title: 'الرسالة', desc: 'رؤيتنا نحو مستقبل أفضل' ,href:"/Who%20are%20we/our-mission.html"},
-          { icon: 'target', title: 'القيم', desc: 'الأهداف الاستراتيجية للجمعية' ,href:"/Who%20are%20we/our-values.html"},
-          { icon: 'users', title: 'المكتب المركزي', desc: 'الهيكل الإداري للجمعية' ,href:"/Who%20are%20we/central-office.html" },
-          { icon: 'file', title: 'خارطة التوسع', desc: 'القانون الأساسي للجمعية' ,href:"/Who%20are%20we/expansion-map.html"},
-   
-        ]
-      },
-      activities: {
-        title: 'أنشطتنا', href: '#',
-        items: [
-          { icon: 'map', title: 'خرجات', desc: 'أنشطة وفعاليات ميدانية', href: '/Our%20activities/outings.html' },
-          { icon: 'heart', title: 'مسابقات وراليات', desc: 'حملات تطوعية من أجل المجتمع', href: '/Our%20activities/competitions-trips.html' },
-          { icon: 'compass', title: 'تكوينات', desc: 'استكشاف تراثنا الطبيعي', href: '/Our%20activities/training.html' },
-          { icon: 'tool', title: 'معارض', desc: 'ورشات تكوينية وتأهيلية', href: '/Our%20activities/exhibitions.html' },
-          { icon: 'image', title: 'لقاءات', desc: 'معارض وفعاليات ثقافية', href: '/Our%20activities/meetings.html' },
-          { icon: 'calendar', title: 'حملات بيئية', desc: 'تعرف على فعالياتنا القادمة', href: '/Our%20activities/environmental-campaigns.html' },
-        ]
-      },
-      partners: {
-        title: 'شركاؤنا', href: '#',
-        items: [
-          { icon: 'map', title: 'LeFouilleurma', desc: 'شركاؤنا على المستوى الوطني', href: '/Our%20partners/lefouilleurma.html' },
-          { icon: 'globe', title: 'SENOTEC', desc: 'شركاؤنا على المستوى الدولي', href: '/Our%20partners/senotec.html' },
-          { icon: 'userPlus', title: 'ASTROMET', desc: 'انضم إلى قائمة شركائنا', href: '/Our%20partners/astromet.html' },
-          { icon: 'file', title: 'AssociationDetectionCentre', desc: 'اتفاقيات الشراكة والتعاون', href: '/Our%20partners/association-detection-centre.html' },
-          { icon: 'star', title: 'ANCPP', desc: 'قصص نجاح شراكاتنا', href: '/Our%20partners/ancpp.html' },
-          { icon: 'star', title: 'OMSDS', desc: 'قصص نجاح شراكاتنا', href: '/Our%20partners/omsds.html' },
-        ]
-      },
-      services: {
-        title: 'خدماتنا', href: '#services',
-        items: [
-          { icon: 'book', title: 'SOS AMARE', desc: 'دورات وورشات تكوينية', href: '/Our%20services/sos-amare.html' },
-          { icon: 'bag', title: 'متجر AMARE', desc: 'منتجات تدعم أنشطة الجمعية', href: 'amare store/index.html' },
-          { icon: 'userPlus', title: ' بيت المستكشف Amare', desc: 'انضم إلى مجتمع AMARE', href: '/Our%20services/explorer-house.html' },
-          { icon: 'clipboard', title: 'مجلة Amare ', desc: 'برامج تدريبية متخصصة', href: '/Our%20services/amare-magazine.html' },
-          { icon: 'leaf', title: ' اكاديمية Amare', desc: 'استشارات في المجال البيئي', href: '/Our%20services/amare-academy.html' },
-          { icon: 'search', title: 'النوادي', desc: 'دعم للباحثين والمستكشفين', href: '/clubs/' },
-          { icon: 'leaf', title: 'المستشار القانوني', desc: 'استشارات في المجال البيئي', href: '/Our%20services/legal-advisor.html' },
-          { icon: 'search', title: 'عقد التامين', desc: 'دعم للباحثين والمستكشفين', href: '/Our%20services/insurance-contract.html' },
-        ]
-      },
-      branches: {
-        title: 'الفروع الجهوية', href: 'branch.html',
-        items: [
-          { icon: 'map', title: 'جهة طنجة - تطوان - الحسيمة', desc: 'الجهة الشمالية للمملكة المغربية', href: 'branch.html?slug=tanger-tetouan-al-hoceima' },
-          { icon: 'map', title: 'جهة الشرق', desc: 'الجهة الشرقية من المتوسط إلى الصحراء', href: 'branch.html?slug=oriental' },
-          { icon: 'map', title: 'جهة فاس - مكناس', desc: 'الجهة الروحية والعلمية للمغرب', href: 'branch.html?slug=fes-meknes' },
-          { icon: 'map', title: 'جهة الرباط - سلا - القنيطرة', desc: 'الجهة الإدارية والحكومية', href: 'branch.html?slug=rabat-sale-kenitra' },
-          { icon: 'map', title: 'جهة بني ملال - خنيفرة', desc: 'الجهة الوسطى بين السهول والأطلس', href: 'branch.html?slug=beni-mellal-khenifra' },
-          { icon: 'map', title: 'جهة الدار البيضاء - سطات', desc: 'القطب الاقتصادي والتجاري الأول', href: 'branch.html?slug=casablanca-settat' },
-          { icon: 'map', title: 'جهة مراكش - آسفي', desc: 'الجهة السياحية الأولى للمغرب', href: 'branch.html?slug=marrakech-safi' },
-          { icon: 'map', title: 'جهة درعة - تافيلالت', desc: 'مهد الدولة العلوية ومنبع التمور', href: 'branch.html?slug=draa-tafilalet' },
-          { icon: 'map', title: 'جهة سوس - ماسة', desc: 'قطب فلاحي وسياحي جنوبي غربي', href: 'branch.html?slug=souss-massa' },
-          { icon: 'map', title: 'جهة كلميم - واد نون', desc: 'بوابة الصحراء المغربية', href: 'branch.html?slug=guelmim-oued-noun' },
-          { icon: 'map', title: 'جهة العيون - الساقية الحمراء', desc: 'كبرى جهات الجنوب المغربي', href: 'branch.html?slug=laayoune-sakia-el-hamra' },
-          { icon: 'map', title: 'جهة الداخلة - وادي الذهب', desc: 'جنة الرياضات المائية والصيد البحري', href: 'branch.html?slug=dakhla-oued-eddahab' },
-        ]
-      },
-      join: {
-        title: 'انخرط معنا', href: '/Join%20us/index.html',
-        items: [
-          { icon: 'userPlus', title: 'الانخراط online', desc: 'كن عضواً في الجمعية', href: '/Join%20us/join-us-online.html' },
-          {
-            icon: 'calendar',
-            title: 'تجديد الانخراط',
-            desc: 'تعبئة طلب تجديد الانخراط',
-            href: '/Join%20us/membership-renewal.html'
-          },
-          { icon: 'file', title: 'وثائق الانخراط', desc: 'حمّل وثائق الانخراط', href: '/Join%20us/documents.html' },
-          { icon: 'book', title: 'القانون الأساسي', desc: 'النظام الأساسي للجمعية', href: '/Join%20us/bylaws.html' },
-          {
-            icon: 'book',
-            title: 'القانون الداخلي',
-            desc: 'القانون الداخلي للجمعية',
-            href: '/Join%20us/internal-regulations.html'
-          },
-          {
+    const dropdownData = (function buildDynamicDropdownData() {
+      var data = {};
+      var panels = document.querySelectorAll('#megaDropdown .mega-panel');
+      for (var i = 0; i < panels.length; i++) {
+        var panel = panels[i];
+        var key = panel.getAttribute('data-panel');
+        if (!key) continue;
+        var titleEl = panel.querySelector('.mega-panel-title');
+        var linkEl = panel.querySelector('.mega-panel-link');
+        var items = panel.querySelectorAll('.mega-item');
+        var group = {
+          title: titleEl ? titleEl.textContent : '',
+          href: linkEl ? linkEl.getAttribute('href') : '#',
+          items: []
+        };
+        for (var j = 0; j < items.length; j++) {
+          var itemEl = items[j];
+          var itemTitle = itemEl.querySelector('.mega-title');
+          var itemDesc = itemEl.querySelector('.mega-desc');
+          group.items.push({
             icon: 'compass',
-            title: 'وثائق مقر الجمعية',
-            desc: 'ميثاق المستكشف المسؤول',
-            href: '/Join%20us/charter.html'
-          },
-          {
-            icon: 'folder',
-            title: 'وصل الايداع النهائي',
-            desc: 'إيداع الملفات الخارجية',
-            href: '/Join%20us/external-deposit-receipt.html'
-          },
-          {
-            icon: 'folder',
-            title: 'وصل الايداع المؤقت',
-            desc: 'إيداع الملفات الداخلية',
-            href: '/Join%20us/deposit-receipt.html'
-          },
-          {
-            icon: 'bell',
-            title: 'الإشعار بالخرجات',
-            desc: 'الإشعارات الخاصة بالخرجات',
-            href: '/Join%20us/activity-notifications.html'
-          },
-
-        ]
+            title: itemTitle ? itemTitle.textContent : '',
+            desc: itemDesc ? itemDesc.textContent : '',
+            href: itemEl.getAttribute('href') || '#'
+          });
+        }
+        data[key] = group;
       }
-    };
+      return data;
+    })();
+
+    function refreshDropdownData() {
+      for (var k in dropdownData) { delete dropdownData[k]; }
+      var newData = buildDynamicDropdownData;
+      // re-run
+      var panels = document.querySelectorAll('#megaDropdown .mega-panel');
+      for (var i = 0; i < panels.length; i++) {
+        var panel = panels[i];
+        var key = panel.getAttribute('data-panel');
+        if (!key) continue;
+        var titleEl = panel.querySelector('.mega-panel-title');
+        var linkEl = panel.querySelector('.mega-panel-link');
+        var items = panel.querySelectorAll('.mega-item');
+        var group = {
+          title: titleEl ? titleEl.textContent : '',
+          href: linkEl ? linkEl.getAttribute('href') : '#',
+          items: []
+        };
+        for (var j = 0; j < items.length; j++) {
+          var itemEl = items[j];
+          var itemTitle = itemEl.querySelector('.mega-title');
+          var itemDesc = itemEl.querySelector('.mega-desc');
+          group.items.push({
+            icon: 'compass',
+            title: itemTitle ? itemTitle.textContent : '',
+            desc: itemDesc ? itemDesc.textContent : '',
+            href: itemEl.getAttribute('href') || '#'
+          });
+        }
+        dropdownData[key] = group;
+      }
+    }
 
     function svg(path) {
       return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">' + path + '</svg>';
@@ -328,31 +280,9 @@
     var activeKey = null;
 
     function buildPanels() {
-      var html = '';
-      for (var key in dropdownData) {
-        var group = dropdownData[key];
-        html += '<div class="mega-panel" data-panel="' + key + '">';
-        html += '<div class="mega-panel-inner">';
-        html += '<div class="mega-panel-head">';
-        html += '<span class="mega-panel-title">' + group.title + '</span>';
-        var noViewAll = ['about', 'activities', 'partners', 'services', 'branches', 'join'];
-        if (noViewAll.indexOf(key) === -1) {
-          html += '<a href="' + group.href + '" class="mega-panel-link">عرض الكل <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></a>';
-        }
-        html += '</div>';
-        html += '<div class="mega-grid">';
-        for (var i = 0; i < group.items.length; i++) {
-          var item = group.items[i];
-          html += '<a href="' + (item.href || '#') + '" class="mega-item">';
-          html += '<span class="mega-icon">' + svg(icons[item.icon]) + '</span>';
-          html += '<span class="mega-text">';
-          html += '<span class="mega-title">' + item.title + '</span>';
-          html += '<span class="mega-desc">' + item.desc + '</span>';
-          html += '</span></a>';
-        }
-        html += '</div></div></div>';
-      }
-      dropdownContainer.innerHTML = html;
+      // Panels are now generated by navbar-renderer.js
+      // Refresh dropdownData from the DOM.
+      refreshDropdownData();
     }
 
     function setChevron(key, active) {
@@ -510,8 +440,8 @@
         });
       }
 
-      var hoverOnlyDropdowns = ['about', 'activities', 'partners', 'services', 'branches', 'join'];
-      for (var d = 0; d < hoverOnlyDropdowns.length; d++) {
+      // All dropdown links prevent default on desktop
+      for (var j = 0; j < triggers.length; j++) {
         (function(key) {
           var link = document.querySelector('li[data-dropdown="' + key + '"] > a');
           if (link) {
@@ -520,7 +450,7 @@
               e.preventDefault();
             });
           }
-        })(hoverOnlyDropdowns[d]);
+        })(triggers[j].getAttribute('data-dropdown'));
       }
 
       dropdownContainer.addEventListener('mouseenter', function() {
@@ -561,26 +491,17 @@
     }, { passive: true });
 
     function buildMobileDrawer() {
-      var items = document.querySelectorAll('.mobile-drawer-dropdown');
-      for (var i = 0; i < items.length; i++) {
-        var dd = items[i];
-        var key = dd.getAttribute('data-dd');
-        var group = dropdownData[key];
-        if (!group) continue;
-        var sub = dd.querySelector('.mobile-drawer-sub');
-        if (!sub) continue;
-        for (var j = 0; j < group.items.length; j++) {
-          var item = group.items[j];
-          var li = document.createElement('li');
-          li.innerHTML = '<a href="' + (item.href || '#') + '">' + svg(icons[item.icon]) + item.title + '</a>';
-          sub.appendChild(li);
-        }
-      }
+      // Mobile drawer submenus are now pre-populated by navbar-renderer.js
+      // Just refresh dropdownData for compatibility with other functions
+      refreshDropdownData();
     }
 
     function init() {
+      triggers = document.querySelectorAll('li[data-dropdown]');
       addChevrons();
       buildPanels();
+      // Re-query triggers as panels may have added new event listeners scope
+      triggers = document.querySelectorAll('li[data-dropdown]');
       setupDesktop();
       buildMobileSubmenus();
       buildMobileDrawer();
@@ -588,6 +509,16 @@
     }
 
     init();
+
+    // Public API: re-attach handlers after dynamic navbar update
+    window.AMARE_REATTACH_DROPDOWN = function() {
+      triggers = document.querySelectorAll('li[data-dropdown]');
+      refreshDropdownData();
+      addChevrons();
+      setupDesktop();
+      buildMobileSubmenus();
+      buildMobileDrawer();
+    };
   })();
 
   /* ---------- 10. Mobile Drawer Toggle ---------- */
@@ -647,12 +578,12 @@
 
     if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
 
-    // Accordion toggles
-    var toggles = drawer.querySelectorAll('.mobile-drawer-toggle');
-    for (var i = 0; i < toggles.length; i++) {
-      toggles[i].addEventListener('click', function(e) {
+    // Accordion toggles — use event delegation for dynamic content
+    drawer.addEventListener('click', function(e) {
+      var toggle = e.target.closest('.mobile-drawer-toggle');
+      if (toggle) {
         e.stopPropagation();
-        var btn = this;
+        var btn = toggle;
         var isOpen = btn.classList.contains('open');
         var parent = btn.closest('.mobile-drawer-dropdown');
         if (!parent) return;
@@ -667,26 +598,14 @@
           btn.classList.add('open');
           btn.setAttribute('aria-expanded', 'true');
         }
-      });
-    }
-
-    // Close drawer on any link tap
-    if (links) {
-      var allLinks = links.querySelectorAll('a');
-      for (var i = 0; i < allLinks.length; i++) {
-        (function(l) {
-          l.addEventListener('click', closeDrawer);
-        })(allLinks[i]);
       }
-    }
 
-    // Close drawer on bottom action buttons
-    var bottomLinks = drawer.querySelectorAll('.mobile-drawer-action');
-    for (var i = 0; i < bottomLinks.length; i++) {
-      (function(l) {
-        l.addEventListener('click', closeDrawer);
-      })(bottomLinks[i]);
-    }
+      // Close drawer on any link tap
+      var link = e.target.closest('a');
+      if (link) {
+        closeDrawer();
+      }
+    });
   })();
 
   /* ---------- 10. Newsletter form (front-end only demo) ---------- */

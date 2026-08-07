@@ -16,26 +16,26 @@ export interface ControlSection {
 export const CONTROL_SECTIONS: ControlSection[] = [
   {
     id: 'general',
-    label: 'General',
-    description: 'Association name, email, phone and address',
+    label: 'عام',
+    description: 'اسم الجمعية والبريد الإلكتروني والهاتف والعنوان',
     icon: Settings,
   },
   {
     id: 'administrators',
-    label: 'Administrators',
-    description: 'Manage admin access',
+    label: 'المسؤولون',
+    description: 'إدارة صلاحيات الوصول',
     icon: Users,
   },
   {
     id: 'branding',
-    label: 'Branding',
-    description: 'Logo and favicon',
+    label: 'العلامة التجارية',
+    description: 'الشعار والأيقونة',
     icon: Palette,
   },
   {
     id: 'social',
-    label: 'Social Media',
-    description: 'Social media profile links',
+    label: 'وسائل التواصل',
+    description: 'روابط حسابات وسائل التواصل الاجتماعي',
     icon: Globe,
   },
 ]

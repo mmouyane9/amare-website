@@ -31,6 +31,8 @@
     twitter: null,
     whatsapp_url: null,
     telegram: null,
+    organization_description: 'الجمعية المغربية لهواة البحث والاستكشاف هي إطار قانوني وطني يجمع الهواة تحت راية واحدة لصون التراث الوطني المغربي.',
+    show_logo: true,
   };
 
   var SETTINGS_ID = '00000000-0000-0000-0000-000000000001';
@@ -68,6 +70,8 @@
       twitter: row.twitter || FALLBACK.twitter,
       whatsapp_url: row.whatsapp_url || FALLBACK.whatsapp_url,
       telegram: row.telegram || FALLBACK.telegram,
+      organization_description: row.organization_description || FALLBACK.organization_description,
+      show_logo: row.show_logo !== undefined ? row.show_logo : FALLBACK.show_logo,
     };
   }
 
@@ -139,8 +143,12 @@
 
     /* --- Branding: footer logos --- */
     var footerLogos = document.querySelectorAll('.footer-brand .topbar-brand-logo');
+    var footerLogoContainers = document.querySelectorAll('.footer-brand .brand-mark');
     for (var f = 0; f < footerLogos.length; f++) {
       if (settings.footer_logo_url) footerLogos[f].src = settings.footer_logo_url;
+    }
+    for (var fc = 0; fc < footerLogoContainers.length; fc++) {
+      footerLogoContainers[fc].style.display = settings.show_logo ? '' : 'none';
     }
 
     /* --- Social media icons: update href / hide if empty --- */

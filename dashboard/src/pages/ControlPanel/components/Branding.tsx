@@ -35,24 +35,24 @@ interface BrandingItem {
 const BRANDING_ITEMS: BrandingItem[] = [
   {
     field: 'logo_url',
-    label: 'Logo',
-    description: 'Main logo — navbar, sidebar, loading screen',
+    label: 'الشعار',
+    description: 'الشعار الرئيسي — شريط التنقل والقائمة الجانبية وشاشة التحميل',
     folder: 'logo',
     accept: 'image/png,image/svg+xml,image/jpeg,image/webp',
     previewSize: 'size-20',
   },
   {
     field: 'footer_logo_url',
-    label: 'Footer Logo',
-    description: 'Footer variant — smaller, darker background',
+    label: 'شعار التذييل',
+    description: 'نسخة التذييل — أصغر، بخلفية داكنة',
     folder: 'footer',
     accept: 'image/png,image/svg+xml,image/jpeg,image/webp',
     previewSize: 'size-20',
   },
   {
     field: 'favicon_url',
-    label: 'Favicon',
-    description: 'Browser tab icon — ICO, PNG or SVG',
+    label: 'الأيقونة',
+    description: 'أيقونة علامة تبويب المتصفح — ICO, PNG أو SVG',
     folder: 'favicon',
     accept: 'image/png,image/svg+xml,image/x-icon,image/vnd.microsoft.icon,image/webp',
     previewSize: 'size-14',
@@ -117,9 +117,9 @@ export function Branding() {
         url = await uploadLogo(file, currentUrl)
       }
       setFieldUrl(item.field, url)
-      toast.success(`${item.label} uploaded`)
+      toast.success(`تم رفع ${item.label}`)
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : 'Failed to upload image')
+      toast.error(err instanceof Error ? err.message : 'فشل رفع الصورة')
     } finally {
       setUploading((prev) => ({ ...prev, [item.field]: false }))
     }
@@ -127,7 +127,7 @@ export function Branding() {
 
   const handleRemove = async (item: BrandingItem) => {
     setFieldUrl(item.field, '__REMOVE__')
-    toast.success(`${item.label} will be removed on save`)
+    toast.success(`سيتم حذف ${item.label} عند الحفظ`)
   }
 
   const handleDragOver = (e: DragEvent, field: BrandingField) => {
@@ -163,10 +163,10 @@ export function Branding() {
       setFormUrls({ logo_url: '', footer_logo_url: '', favicon_url: '' })
       refresh()
       setSaved(true)
-      toast.success('Branding saved')
+      toast.success('تم حفظ العلامة التجارية')
       setTimeout(() => setSaved(false), 2500)
     } catch {
-      toast.error('Failed to save branding')
+      toast.error('فشل حفظ العلامة التجارية')
     } finally {
       setSaving(false)
     }
@@ -187,10 +187,10 @@ export function Branding() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Branding</CardTitle>
+        <CardTitle>العلامة التجارية</CardTitle>
         <CardDescription>
-          Upload logos and favicon. Drag & drop or click to browse. Supported:
-          PNG, SVG, JPG, WEBP, ICO. Max 5 MB each.
+          رفع الشعارات والأيقونة. اسحب وأفلت أو انقر للتصفح. الصيغ المدعومة: PNG,
+          SVG, JPG, WEBP, ICO. الحد الأقصى 5 ميجابايت لكل ملف.
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-8">
@@ -248,7 +248,7 @@ export function Branding() {
                   <Input
                     value={isMarkedForRemoval ? '' : (formUrls[item.field] || currentUrls[item.field])}
                     onChange={(e) => setFieldUrl(item.field, e.target.value)}
-                    placeholder="https://... or upload a file"
+                    placeholder="https://... أو ارفع ملفاً"
                     className="h-9 text-xs"
                     disabled={isMarkedForRemoval}
                   />
@@ -266,7 +266,7 @@ export function Branding() {
                       ) : (
                         <Upload className="size-3.5" />
                       )}
-                      <span className="ml-1.5">Upload</span>
+                      <span className="ml-1.5">رفع</span>
                     </Button>
 
                     {(currentUrls[item.field] || formUrls[item.field]) && !isMarkedForRemoval && (
@@ -278,7 +278,7 @@ export function Branding() {
                         className="text-destructive hover:text-destructive"
                       >
                         <X className="size-3.5" />
-                        <span className="ml-1.5">Remove</span>
+                        <span className="ml-1.5">حذف</span>
                       </Button>
                     )}
 
@@ -289,7 +289,7 @@ export function Branding() {
                         size="sm"
                         onClick={() => setFieldUrl(item.field, '')}
                       >
-                        Undo
+                        تراجع
                       </Button>
                     )}
                   </div>
@@ -302,10 +302,10 @@ export function Branding() {
       <CardFooter className="justify-between">
         <p className="text-xs text-muted-foreground">
           {saved
-            ? 'Branding saved'
+            ? 'تم حفظ العلامة التجارية'
             : hasChanges
-              ? 'Unsaved changes'
-              : 'Upload or paste a URL for each image'}
+              ? 'تغييرات غير محفوظة'
+              : 'ارفع أو الصق رابط لكل صورة'}
         </p>
         <Button type="button" onClick={handleSave} disabled={saving || !hasChanges}>
           {saving ? (
@@ -313,7 +313,7 @@ export function Branding() {
           ) : saved ? (
             <Check className="size-4" />
           ) : null}
-          {saved ? 'Saved' : 'Save changes'}
+          {saved ? 'تم الحفظ' : 'حفظ التغييرات'}
         </Button>
       </CardFooter>
     </Card>

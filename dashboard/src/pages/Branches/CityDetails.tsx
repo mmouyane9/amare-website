@@ -151,7 +151,7 @@ export default function CityDetailsPage() {
 
   if (!region || !city) {
     return (
-      <div dir="rtl" className="flex flex-col items-center justify-center py-32 text-center">
+      <div className="flex flex-col items-center justify-center py-32 text-center">
         <Building2 className="size-14 text-muted-foreground/25" />
         <p className="mt-4 text-sm font-medium text-muted-foreground">
           المدينة غير موجودة.
@@ -245,7 +245,7 @@ export default function CityDetailsPage() {
   }
 
   return (
-    <div dir="rtl">
+    <div>
       <nav className="mb-4 flex items-center gap-1.5 text-sm text-muted-foreground">
         <Link
           to="/branches"

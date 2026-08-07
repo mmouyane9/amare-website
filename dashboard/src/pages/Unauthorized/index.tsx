@@ -13,15 +13,14 @@ export default function UnauthorizedPage() {
       </div>
 
       <div className="text-center space-y-2">
-        <h1 className="text-2xl font-semibold tracking-tight">Access Denied</h1>
+        <h1 className="text-2xl font-semibold tracking-tight">تم رفض الوصول</h1>
         <p className="text-sm text-muted-foreground max-w-sm">
-          You do not have permission to view this page. Contact an
-          administrator if you believe this is a mistake.
+          ليس لديك صلاحية لعرض هذه الصفحة. تواصل مع المسؤول إذا كنت تعتقد أن هذا خطأ.
         </p>
       </div>
 
       <Button variant="outline" onClick={() => navigate(-1)}>
-        Go back
+        رجوع
       </Button>
     </div>
   )

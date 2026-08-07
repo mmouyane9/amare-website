@@ -56,7 +56,7 @@ function initials(name: string): string {
 
 function formatDate(dateStr: string | null): string {
   if (!dateStr) return '—'
-  return new Date(dateStr).toLocaleDateString('en-US', {
+  return new Date(dateStr).toLocaleDateString('ar-SA', {
     year: 'numeric',
     month: 'short',
     day: 'numeric',
@@ -70,9 +70,9 @@ function roleBadge(role: string | null): 'default' | 'secondary' | 'outline' {
 }
 
 function roleLabel(role: string | null): string {
-  if (role === 'super_admin') return 'Super Admin'
-  if (role === 'admin') return 'Admin'
-  return role ?? 'Unknown'
+  if (role === 'super_admin') return 'مدير عام'
+  if (role === 'admin') return 'مشرف'
+  return role ?? 'غير معروف'
 }
 
 interface AdminDraft {
@@ -104,7 +104,7 @@ export function Administrators() {
       const data = await listAdmins()
       setAdmins(data)
     } catch {
-      toast.error('Failed to load administrators')
+      toast.error('فشل تحميل المسؤولين')
     } finally {
       setLoading(false)
     }
@@ -143,20 +143,20 @@ export function Administrators() {
           email: draft.email,
           role: draft.role,
         })
-        toast.success('Administrator updated')
+        toast.success('تم تحديث المسؤول')
       } else {
         if (!draft.password) {
-          toast.error('Password is required for new administrators')
+          toast.error('كلمة المرور مطلوبة للمسؤولين الجدد')
           setSaving(false)
           return
         }
         await createAdmin(draft.email, draft.password, draft.full_name)
-        toast.success('Administrator created')
+        toast.success('تم إضافة المسؤول')
       }
       setDialogOpen(false)
       await loadAdmins()
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : 'Operation failed')
+      toast.error(err instanceof Error ? err.message : 'فشلت العملية')
     } finally {
       setSaving(false)
     }
@@ -167,11 +167,11 @@ export function Administrators() {
     setRemoving(true)
     try {
       await deleteAdmin(removeTarget.id)
-      toast.success('Administrator removed')
+      toast.success('تم حذف المسؤول')
       setRemoveTarget(null)
       await loadAdmins()
     } catch {
-      toast.error('Failed to remove administrator')
+      toast.error('فشل حذف المسؤول')
     } finally {
       setRemoving(false)
     }
@@ -182,14 +182,14 @@ export function Administrators() {
       <CardHeader>
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>
-            <CardTitle>Administrators</CardTitle>
+            <CardTitle>المسؤولون</CardTitle>
             <CardDescription>
-              People with access to the admin panel.
+              الأشخاص الذين لديهم صلاحية الوصول إلى لوحة الإدارة.
             </CardDescription>
           </div>
           <Button type="button" onClick={openAdd}>
             <UserPlus className="size-4" />
-            Add Admin
+            إضافة مسؤول
           </Button>
         </div>
       </CardHeader>
@@ -201,20 +201,20 @@ export function Administrators() {
         ) : admins.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-12 text-center">
             <p className="text-sm font-medium text-muted-foreground">
-              No administrators found.
+              لا يوجد مسؤولون.
             </p>
             <p className="mt-1 text-xs text-muted-foreground/70">
-              Add your first administrator to get started.
+              أضف أول مسؤول للبدء.
             </p>
           </div>
         ) : (
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Administrator</TableHead>
-                <TableHead>Role</TableHead>
-                <TableHead className="hidden md:table-cell">Created</TableHead>
-                <TableHead className="text-right">Actions</TableHead>
+                <TableHead>المسؤول</TableHead>
+                <TableHead>الدور</TableHead>
+                <TableHead className="hidden md:table-cell">تاريخ الإضافة</TableHead>
+                <TableHead className="text-right">الإجراءات</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -253,7 +253,7 @@ export function Administrators() {
                         size="icon-xs"
                         className="text-muted-foreground"
                         onClick={() => openEdit(admin)}
-                        aria-label={`Edit ${admin.full_name}`}
+                        aria-label={`تعديل ${admin.full_name}`}
                       >
                         <Pencil className="size-3" />
                       </Button>
@@ -263,7 +263,7 @@ export function Administrators() {
                         size="icon-xs"
                         className="text-destructive hover:bg-destructive/10"
                         onClick={() => setRemoveTarget(admin)}
-                        aria-label={`Remove ${admin.full_name}`}
+                        aria-label={`حذف ${admin.full_name}`}
                       >
                         <Trash2 className="size-3" />
                       </Button>
@@ -280,17 +280,17 @@ export function Administrators() {
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
             <DialogTitle>
-              {editing ? 'Edit Administrator' : 'Add Administrator'}
+              {editing ? 'تعديل المسؤول' : 'إضافة مسؤول'}
             </DialogTitle>
             <DialogDescription>
               {editing
-                ? 'Update the details for this administrator.'
-                : 'Create a new administrator account.'}
+                ? 'تحديث تفاصيل هذا المسؤول.'
+                : 'إنشاء حساب مسؤول جديد.'}
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4">
             <div className="space-y-1.5">
-              <Label htmlFor="admin-fullname">Full Name</Label>
+              <Label htmlFor="admin-fullname">الاسم الكامل</Label>
               <Input
                 id="admin-fullname"
                 value={draft.full_name}
@@ -301,7 +301,7 @@ export function Administrators() {
               />
             </div>
             <div className="space-y-1.5">
-              <Label htmlFor="admin-email">Email</Label>
+              <Label htmlFor="admin-email">البريد الإلكتروني</Label>
               <Input
                 id="admin-email"
                 type="email"
@@ -314,7 +314,7 @@ export function Administrators() {
             </div>
             {!editing && (
               <div className="space-y-1.5">
-                <Label htmlFor="admin-password">Password</Label>
+                <Label htmlFor="admin-password">كلمة المرور</Label>
                 <Input
                   id="admin-password"
                   type="password"
@@ -327,7 +327,7 @@ export function Administrators() {
               </div>
             )}
             <div className="space-y-1.5">
-              <Label>Role</Label>
+              <Label>الدور</Label>
               <Select
                 value={draft.role}
                 onValueChange={(value) =>
@@ -335,11 +335,11 @@ export function Administrators() {
                 }
               >
                 <SelectTrigger className="w-full">
-                  <SelectValue placeholder="Select role" />
+                  <SelectValue placeholder="اختر الدور" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="super_admin">Super Admin</SelectItem>
-                  <SelectItem value="admin">Admin</SelectItem>
+                  <SelectItem value="super_admin">مدير عام</SelectItem>
+                  <SelectItem value="admin">مشرف</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -350,7 +350,7 @@ export function Administrators() {
               variant="outline"
               onClick={() => setDialogOpen(false)}
             >
-              Cancel
+              إلغاء
             </Button>
             <Button
               type="button"
@@ -362,7 +362,7 @@ export function Administrators() {
               }
             >
               {saving && <Loader2 className="size-4 animate-spin" />}
-              {editing ? 'Save Changes' : 'Create Admin'}
+              {editing ? 'حفظ التغييرات' : 'إنشاء مسؤول'}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -374,10 +374,10 @@ export function Administrators() {
       >
         <DialogContent className="sm:max-w-sm">
           <DialogHeader>
-            <DialogTitle>Remove Administrator?</DialogTitle>
+            <DialogTitle>حذف المسؤول؟</DialogTitle>
             <DialogDescription>
-              {removeTarget?.full_name ?? removeTarget?.email} will lose access
-              to the admin panel. This cannot be undone.
+              {removeTarget?.full_name ?? removeTarget?.email} سيفقد صلاحية
+              الوصول إلى لوحة الإدارة. لا يمكن التراجع عن هذا الإجراء.
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
@@ -386,7 +386,7 @@ export function Administrators() {
               variant="outline"
               onClick={() => setRemoveTarget(null)}
             >
-              Cancel
+              إلغاء
             </Button>
             <Button
               type="button"
@@ -395,7 +395,7 @@ export function Administrators() {
               disabled={removing}
             >
               {removing && <Loader2 className="size-4 animate-spin" />}
-              Remove
+              حذف
             </Button>
           </DialogFooter>
         </DialogContent>

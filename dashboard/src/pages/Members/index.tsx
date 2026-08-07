@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import {
   ChevronLeft,
   ChevronRight,
+  Check,
   Loader2,
   Pencil,
   Plus,
@@ -39,11 +40,18 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog'
 import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
+import {
   createMember,
   deleteMember,
   getMembers,
   subscribeToMembers,
   updateMember,
+  updateMemberStatus,
   type Member,
   type MemberCreateInput,
 } from '@/services/members.service'
@@ -51,23 +59,26 @@ import {
 const PAGE_SIZE = 10
 
 const STATUS_OPTIONS = [
-  { value: 'all', label: 'All Statuses' },
-  { value: 'active', label: 'Active' },
-  { value: 'inactive', label: 'Inactive' },
-  { value: 'pending', label: 'Pending' },
-  { value: 'expired', label: 'Expired' },
+  { value: 'all', label: 'جميع الحالات' },
+  { value: 'active', label: 'نشط' },
+  { value: 'inactive', label: 'غير نشط' },
 ]
 
-const STATUS_BADGE_VARIANT: Record<string, 'default' | 'secondary' | 'destructive' | 'outline'> = {
-  active: 'default',
-  inactive: 'secondary',
-  pending: 'outline',
-  expired: 'destructive',
+const STATUS_LABEL: Record<string, string> = {
+  active: 'نشط',
+  inactive: 'غير نشط',
 }
 
-function statusBadge(status: string | null) {
+function statusBadgeClass(status: string | null): string {
   const s = status?.toLowerCase() ?? ''
-  return STATUS_BADGE_VARIANT[s] ?? 'secondary'
+  return s === 'active'
+    ? 'bg-emerald-100 text-emerald-700 hover:bg-emerald-100'
+    : 'bg-muted text-muted-foreground hover:bg-muted'
+}
+
+function statusLabel(status: string | null): string {
+  const s = status?.toLowerCase() ?? ''
+  return STATUS_LABEL[s] ?? status ?? '—'
 }
 
 function fullName(member: Member): string {
@@ -77,7 +88,7 @@ function fullName(member: Member): string {
 
 function formatDate(dateStr: string | null): string {
   if (!dateStr) return '—'
-  return new Date(dateStr).toLocaleDateString('en-US', {
+  return new Date(dateStr).toLocaleDateString('ar-SA', {
     year: 'numeric',
     month: 'short',
     day: 'numeric',
@@ -95,12 +106,12 @@ function validatePhone(phone: string): boolean {
 
 function fieldErrors(input: MemberCreateInput): Record<string, string> {
   const errors: Record<string, string> = {}
-  if (!input.member_number?.trim()) errors.member_number = 'Membership number is required'
-  if (!input.first_name?.trim()) errors.first_name = 'First name is required'
-  if (!input.last_name?.trim()) errors.last_name = 'Last name is required'
-  if (!input.status?.trim()) errors.status = 'Status is required'
-  if (input.email && !validateEmail(input.email)) errors.email = 'Invalid email address'
-  if (input.phone && !validatePhone(input.phone)) errors.phone = 'Invalid phone number'
+  if (!input.member_number?.trim()) errors.member_number = 'رقم العضوية مطلوب'
+  if (!input.first_name?.trim()) errors.first_name = 'الاسم الأول مطلوب'
+  if (!input.last_name?.trim()) errors.last_name = 'الاسم الأخير مطلوب'
+  if (!input.status?.trim()) errors.status = 'الحالة مطلوبة'
+  if (input.email && !validateEmail(input.email)) errors.email = 'بريد إلكتروني غير صالح'
+  if (input.phone && !validatePhone(input.phone)) errors.phone = 'رقم هاتف غير صالح'
   return errors
 }
 
@@ -111,10 +122,12 @@ const EMPTY_FORM: MemberCreateInput = {
   email: '',
   phone: '',
   address: '',
+  city: '',
   birth_date: '',
   birth_place: '',
   national_id: '',
-  status: 'pending',
+  profession: '',
+  status: 'active',
   membership_date: new Date().toISOString().split('T')[0],
 }
 
@@ -126,10 +139,12 @@ function memberToForm(member: Member): MemberCreateInput {
     email: member.email ?? '',
     phone: member.phone ?? '',
     address: member.address ?? '',
+    city: member.city ?? '',
     birth_date: member.birth_date ?? '',
     birth_place: member.birth_place ?? '',
     national_id: member.national_id ?? '',
-    status: member.status ?? 'pending',
+    profession: member.profession ?? '',
+    status: member.status ?? 'active',
     membership_date: member.membership_date?.split('T')[0] ?? '',
   }
 }
@@ -183,8 +198,9 @@ export default function MembersPage() {
       setMembers(result.members)
       setTotal(result.total)
       setTotalPages(result.totalPages)
-    } catch {
-      toast.error('Failed to load members')
+    } catch (err) {
+      console.error('Failed to load members:', err)
+      toast.error('فشل تحميل الأعضاء')
     } finally {
       setLoading(false)
     }
@@ -251,15 +267,16 @@ export default function MembersPage() {
     try {
       if (editingMember) {
         await updateMember(editingMember.id, form)
-        toast.success('Member updated successfully')
+        toast.success('تم تحديث العضو بنجاح')
       } else {
         await createMember(form)
-        toast.success('Member created successfully')
+        toast.success('تم إضافة العضو بنجاح')
       }
       setModalOpen(false)
       await fetchMembers(page, search, statusFilter)
-    } catch {
-      toast.error(editingMember ? 'Failed to update member' : 'Failed to create member')
+    } catch (err) {
+      console.error(editingMember ? 'Failed to update member:' : 'Failed to create member:', err)
+      toast.error(editingMember ? 'فشل تحديث العضو' : 'فشل إضافة العضو')
     } finally {
       setSaving(false)
     }
@@ -270,13 +287,29 @@ export default function MembersPage() {
     setDeleting(true)
     try {
       await deleteMember(deleteTarget.id)
-      toast.success('Member deleted successfully')
+      toast.success('تم حذف العضو بنجاح')
       setDeleteTarget(null)
       await fetchMembers(page, search, statusFilter)
-    } catch {
-      toast.error('Failed to delete member')
+    } catch (err) {
+      console.error('Failed to delete member:', err)
+      toast.error('فشل حذف العضو')
     } finally {
       setDeleting(false)
+    }
+  }
+
+  const handleStatusToggle = async (member: Member, newStatus: string) => {
+    const previousMembers = [...members]
+    setMembers((prev) =>
+      prev.map((m) => (m.id === member.id ? { ...m, status: newStatus } : m)),
+    )
+    try {
+      await updateMemberStatus(member.id, newStatus)
+      toast.success('تم تحديث الحالة')
+    } catch (err) {
+      setMembers(previousMembers)
+      console.error('Failed to update member status:', err)
+      toast.error('فشل تحديث الحالة')
     }
   }
 
@@ -286,31 +319,31 @@ export default function MembersPage() {
     <div>
       <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h2 className="text-2xl font-semibold tracking-tight">Members</h2>
+          <h2 className="text-2xl font-semibold tracking-tight">الأعضاء</h2>
           <p className="text-sm text-muted-foreground">
-            Manage association members and their profiles.
+            إدارة أعضاء الجمعية وبياناتهم.
           </p>
         </div>
         <Button onClick={openCreateModal} className="gap-1.5">
           <Plus className="size-4" />
-          Add Member
+          إضافة عضو
         </Button>
       </div>
 
       <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center">
         <div className="relative flex-1">
-          <Search className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
+          <Search className="pointer-events-none absolute top-1/2 right-3 size-4 -translate-y-1/2 text-muted-foreground" />
           <Input
             type="search"
-            placeholder="Search by name, email, or membership number..."
-            className="h-9 pl-9"
+            placeholder="ابحث برقم العضوية أو الاسم أو البريد الإلكتروني أو رقم الهاتف..."
+            className="h-9 pr-9"
             value={searchInput}
             onChange={(e) => handleSearchInput(e.target.value)}
           />
         </div>
         <Select value={statusFilter} onValueChange={handleStatusChange}>
           <SelectTrigger className="h-9 w-full sm:w-40">
-            <SelectValue placeholder="Filter by status" />
+            <SelectValue placeholder="تصفية حسب الحالة" />
           </SelectTrigger>
           <SelectContent>
             {STATUS_OPTIONS.map((opt) => (
@@ -326,14 +359,14 @@ export default function MembersPage() {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Membership #</TableHead>
-              <TableHead>Full Name</TableHead>
-              <TableHead>Email</TableHead>
-              <TableHead>Phone</TableHead>
-              <TableHead>Address</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead>Join Date</TableHead>
-              <TableHead className="w-[100px]">Actions</TableHead>
+              <TableHead>رقم العضوية</TableHead>
+              <TableHead>الاسم الكامل</TableHead>
+              <TableHead>البريد الإلكتروني</TableHead>
+              <TableHead>رقم الهاتف</TableHead>
+              <TableHead>العنوان</TableHead>
+              <TableHead>الحالة</TableHead>
+              <TableHead>تاريخ الانضمام</TableHead>
+              <TableHead className="w-[100px]">الإجراءات</TableHead>
             </TableRow>
           </TableHeader>
           {loading ? (
@@ -345,12 +378,12 @@ export default function MembersPage() {
                   <div className="flex flex-col items-center justify-center py-16 text-center">
                     <Users className="size-10 text-muted-foreground/40" />
                     <p className="mt-3 text-sm font-medium text-muted-foreground">
-                      No members found.
+                      لا يوجد أعضاء.
                     </p>
                     <p className="mt-1 text-xs text-muted-foreground/70">
                       {search || statusFilter !== 'all'
-                        ? 'Try adjusting your search or filter.'
-                        : 'Add your first member to get started.'}
+                        ? 'جرّب تعديل البحث أو التصفية.'
+                        : 'أضف أول عضو للبدء.'}
                     </p>
                   </div>
                 </TableCell>
@@ -376,9 +409,37 @@ export default function MembersPage() {
                     {member.address ?? '—'}
                   </TableCell>
                   <TableCell>
-                    <Badge variant={statusBadge(member.status)}>
-                      {member.status ?? 'unknown'}
-                    </Badge>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <button className="cursor-pointer">
+                          <Badge className={statusBadgeClass(member.status)}>
+                            {statusLabel(member.status)}
+                          </Badge>
+                        </button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="start">
+                        <DropdownMenuItem
+                          onClick={() => handleStatusToggle(member, 'active')}
+                        >
+                          <Check
+                            className={member.status === 'active' ? 'opacity-100' : 'opacity-0'}
+                          />
+                          <span className={member.status === 'active' ? 'font-medium' : ''}>
+                            نشط
+                          </span>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem
+                          onClick={() => handleStatusToggle(member, 'inactive')}
+                        >
+                          <Check
+                            className={member.status === 'inactive' ? 'opacity-100' : 'opacity-0'}
+                          />
+                          <span className={member.status === 'inactive' ? 'font-medium' : ''}>
+                            غير نشط
+                          </span>
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
                   </TableCell>
                   <TableCell className="text-muted-foreground">
                     {formatDate(member.membership_date)}
@@ -389,7 +450,7 @@ export default function MembersPage() {
                         variant="ghost"
                         size="icon-xs"
                         onClick={() => openEditModal(member)}
-                        title="Edit"
+                        title="تعديل"
                       >
                         <Pencil className="size-3" />
                       </Button>
@@ -398,7 +459,7 @@ export default function MembersPage() {
                         size="icon-xs"
                         className="text-destructive hover:bg-destructive/10 hover:text-destructive"
                         onClick={() => setDeleteTarget(member)}
-                        title="Delete"
+                        title="حذف"
                       >
                         <Trash2 className="size-3" />
                       </Button>
@@ -414,7 +475,7 @@ export default function MembersPage() {
       {totalPagesValue > 1 && !loading && (
         <div className="mt-4 flex items-center justify-between text-sm text-muted-foreground">
           <span>
-            Showing {(page - 1) * PAGE_SIZE + 1}–{Math.min(page * PAGE_SIZE, total)} of {total}
+            عرض {(page - 1) * PAGE_SIZE + 1}–{Math.min(page * PAGE_SIZE, total)} من {total}
           </span>
           <div className="flex items-center gap-1">
             <Button
@@ -444,17 +505,17 @@ export default function MembersPage() {
         <DialogContent className="sm:max-w-lg">
           <DialogHeader>
             <DialogTitle>
-              {editingMember ? 'Edit Member' : 'Add Member'}
+              {editingMember ? 'تعديل العضو' : 'إضافة عضو'}
             </DialogTitle>
             <DialogDescription>
               {editingMember
-                ? 'Update the member details below.'
-                : 'Fill in the details to add a new member.'}
+                ? 'قم بتحديث بيانات العضو أدناه.'
+                : 'املأ البيانات لإضافة عضو جديد.'}
             </DialogDescription>
           </DialogHeader>
           <div className="grid max-h-[60vh] grid-cols-2 gap-3 overflow-y-auto py-1">
             <div className="col-span-2 sm:col-span-1">
-              <Label htmlFor="member_number">Membership Number *</Label>
+              <Label htmlFor="member_number">رقم العضوية *</Label>
               <Input
                 id="member_number"
                 value={form.member_number}
@@ -466,7 +527,7 @@ export default function MembersPage() {
               )}
             </div>
             <div className="col-span-2 sm:col-span-1">
-              <Label htmlFor="status">Status *</Label>
+              <Label htmlFor="status">الحالة *</Label>
               <Select
                 value={form.status}
                 onValueChange={(v) => handleFormChange('status', v)}
@@ -475,10 +536,8 @@ export default function MembersPage() {
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="active">Active</SelectItem>
-                  <SelectItem value="inactive">Inactive</SelectItem>
-                  <SelectItem value="pending">Pending</SelectItem>
-                  <SelectItem value="expired">Expired</SelectItem>
+                  <SelectItem value="active">نشط</SelectItem>
+                  <SelectItem value="inactive">غير نشط</SelectItem>
                 </SelectContent>
               </Select>
               {errors.status && (
@@ -486,7 +545,7 @@ export default function MembersPage() {
               )}
             </div>
             <div className="col-span-2 sm:col-span-1">
-              <Label htmlFor="first_name">First Name *</Label>
+              <Label htmlFor="first_name">الاسم الأول *</Label>
               <Input
                 id="first_name"
                 value={form.first_name}
@@ -498,7 +557,7 @@ export default function MembersPage() {
               )}
             </div>
             <div className="col-span-2 sm:col-span-1">
-              <Label htmlFor="last_name">Last Name *</Label>
+              <Label htmlFor="last_name">الاسم الأخير *</Label>
               <Input
                 id="last_name"
                 value={form.last_name}
@@ -510,7 +569,7 @@ export default function MembersPage() {
               )}
             </div>
             <div className="col-span-2 sm:col-span-1">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email">البريد الإلكتروني</Label>
               <Input
                 id="email"
                 type="email"
@@ -523,7 +582,7 @@ export default function MembersPage() {
               )}
             </div>
             <div className="col-span-2 sm:col-span-1">
-              <Label htmlFor="phone">Phone</Label>
+              <Label htmlFor="phone">رقم الهاتف</Label>
               <Input
                 id="phone"
                 type="tel"
@@ -536,7 +595,7 @@ export default function MembersPage() {
               )}
             </div>
             <div className="col-span-2 sm:col-span-1">
-              <Label htmlFor="national_id">National ID</Label>
+              <Label htmlFor="national_id">رقم البطاقة الوطنية</Label>
               <Input
                 id="national_id"
                 value={form.national_id}
@@ -544,7 +603,23 @@ export default function MembersPage() {
               />
             </div>
             <div className="col-span-2 sm:col-span-1">
-              <Label htmlFor="birth_date">Birth Date</Label>
+              <Label htmlFor="profession">المهنة</Label>
+              <Input
+                id="profession"
+                value={form.profession ?? ''}
+                onChange={(e) => handleFormChange('profession', e.target.value)}
+              />
+            </div>
+            <div className="col-span-2 sm:col-span-1">
+              <Label htmlFor="city">المدينة</Label>
+              <Input
+                id="city"
+                value={form.city ?? ''}
+                onChange={(e) => handleFormChange('city', e.target.value)}
+              />
+            </div>
+            <div className="col-span-2 sm:col-span-1">
+              <Label htmlFor="birth_date">تاريخ الميلاد</Label>
               <Input
                 id="birth_date"
                 type="date"
@@ -553,7 +628,7 @@ export default function MembersPage() {
               />
             </div>
             <div className="col-span-2 sm:col-span-1">
-              <Label htmlFor="birth_place">Birth Place</Label>
+              <Label htmlFor="birth_place">مكان الميلاد</Label>
               <Input
                 id="birth_place"
                 value={form.birth_place}
@@ -561,7 +636,7 @@ export default function MembersPage() {
               />
             </div>
             <div className="col-span-2 sm:col-span-1">
-              <Label htmlFor="membership_date">Join Date</Label>
+              <Label htmlFor="membership_date">تاريخ الانضمام</Label>
               <Input
                 id="membership_date"
                 type="date"
@@ -570,7 +645,7 @@ export default function MembersPage() {
               />
             </div>
             <div className="col-span-2">
-              <Label htmlFor="address">Address</Label>
+              <Label htmlFor="address">العنوان</Label>
               <Input
                 id="address"
                 value={form.address}
@@ -584,11 +659,11 @@ export default function MembersPage() {
               onClick={() => setModalOpen(false)}
               disabled={saving}
             >
-              Cancel
+              إلغاء
             </Button>
             <Button onClick={handleSave} disabled={saving}>
               {saving && <Loader2 className="mr-1 size-3 animate-spin" />}
-              {editingMember ? 'Update' : 'Save'}
+              {editingMember ? 'تحديث' : 'حفظ'}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -597,13 +672,13 @@ export default function MembersPage() {
       <Dialog open={!!deleteTarget} onOpenChange={(open) => { if (!open) setDeleteTarget(null) }}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Delete Member</DialogTitle>
+            <DialogTitle>حذف العضو</DialogTitle>
             <DialogDescription>
-              Are you sure you want to delete{' '}
+              هل أنت متأكد من حذف{' '}
               <span className="font-medium text-foreground">
-                {deleteTarget ? fullName(deleteTarget) : 'this member'}
+                {deleteTarget ? fullName(deleteTarget) : 'هذا العضو'}
               </span>
-              ? This action cannot be undone.
+              ؟ لا يمكن التراجع عن هذا الإجراء.
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
@@ -612,7 +687,7 @@ export default function MembersPage() {
               onClick={() => setDeleteTarget(null)}
               disabled={deleting}
             >
-              Cancel
+              إلغاء
             </Button>
             <Button
               variant="destructive"
@@ -620,7 +695,7 @@ export default function MembersPage() {
               disabled={deleting}
             >
               {deleting && <Loader2 className="mr-1 size-3 animate-spin" />}
-              Delete
+              حذف
             </Button>
           </DialogFooter>
         </DialogContent>

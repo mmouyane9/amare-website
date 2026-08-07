@@ -258,7 +258,7 @@ export function PagesPanel({
       <div className="shrink-0 border-b border-[#E5E7EB] px-3 pt-3 pb-2.5">
         <div className="mb-2.5 flex items-center justify-between px-1">
           <h2 className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
-            Pages
+            الصفحات
           </h2>
           <span className="rounded-full bg-gray-100 px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground">
             {pageCount}
@@ -271,7 +271,7 @@ export function PagesPanel({
             type="search"
             value={query}
             onChange={(e) => onQueryChange(e.target.value)}
-            placeholder="Filter pages…"
+            placeholder="تصفية الصفحات…"
             className="h-8 w-full rounded-lg border border-[#E5E7EB] bg-gray-50/70 py-1.5 pr-2.5 pl-7.5 text-[13px] outline-none transition-all placeholder:text-muted-foreground/50 focus:border-primary/30 focus:bg-white focus:ring-2 focus:ring-primary/8"
           />
         </div>
@@ -281,7 +281,7 @@ export function PagesPanel({
         ref={scrollRef}
         tabIndex={0}
         role="tree"
-        aria-label="Website pages"
+        aria-label="صفحات الموقع"
         className="min-h-0 flex-1 overflow-y-auto overflow-x-hidden py-1 outline-none"
         onKeyDown={handleKeyDown}
       >
@@ -289,7 +289,7 @@ export function PagesPanel({
           <div className="flex flex-col items-center gap-2 px-4 py-16 text-center">
             <Search className="size-5 text-muted-foreground/30" />
             <p className="text-[13px] text-muted-foreground">
-              No pages match{' '}
+              لا توجد صفحات تطابق{' '}
               <span className="font-medium text-foreground">"{query.trim()}"</span>
             </p>
           </div>

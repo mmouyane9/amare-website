@@ -1,0 +1,3 @@
+ALTER TABLE members
+  ADD COLUMN IF NOT EXISTS city       TEXT,
+  ADD COLUMN IF NOT EXISTS profession TEXT;

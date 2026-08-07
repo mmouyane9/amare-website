@@ -89,7 +89,7 @@ function updateToForm(u: HeroUpdate): UpdateForm {
 }
 
 function formatDate(dateStr: string): string {
-  return new Date(dateStr).toLocaleDateString('en-US', {
+  return new Date(dateStr).toLocaleDateString('ar-SA', {
     year: 'numeric',
     month: 'short',
     day: 'numeric',
@@ -122,7 +122,7 @@ export default function UpdatesPage() {
       const data = await getHeroUpdates()
       setUpdates(data)
     } catch {
-      toast.error('Failed to load updates')
+      toast.error('فشل تحميل المستجدات')
     } finally {
       setLoading(false)
     }
@@ -196,7 +196,7 @@ export default function UpdatesPage() {
 
   const handleSave = async () => {
     if (!form.title.trim()) {
-      toast.error('Title is required')
+      toast.error('العنوان مطلوب')
       return
     }
 
@@ -222,16 +222,16 @@ export default function UpdatesPage() {
         setUpdates((prev) =>
           prev.map((u) => (u.id === editingUpdate.id ? updated : u)),
         )
-        toast.success('Update saved successfully')
+        toast.success('تم حفظ المستجد بنجاح')
       } else {
         const created = await createHeroUpdate(payload)
         setUpdates((prev) => [created, ...prev])
-        toast.success('Update published successfully')
+        toast.success('تم نشر المستجد بنجاح')
       }
 
       setModalOpen(false)
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : 'Failed to save update')
+      toast.error(err instanceof Error ? err.message : 'فشل حفظ المستجد')
     } finally {
       setSaving(false)
     }
@@ -244,9 +244,9 @@ export default function UpdatesPage() {
       await deleteHeroUpdate(deleteTarget.id)
       setUpdates((prev) => prev.filter((u) => u.id !== deleteTarget.id))
       setDeleteTarget(null)
-      toast.success('Update deleted')
+      toast.success('تم حذف المستجد')
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : 'Failed to delete update')
+      toast.error(err instanceof Error ? err.message : 'فشل حذف المستجد')
     } finally {
       setDeleting(false)
     }
@@ -256,14 +256,14 @@ export default function UpdatesPage() {
     <div>
       <div className="mb-6 flex flex-wrap items-start justify-between gap-3">
         <div>
-          <h2 className="text-2xl font-semibold tracking-tight">Updates</h2>
+          <h2 className="text-2xl font-semibold tracking-tight">المستجدات</h2>
           <p className="text-sm text-muted-foreground">
-            Manage homepage hero content and announcements.
+            إدارة محتوى الصفحة الرئيسية والإعلانات.
           </p>
         </div>
         <Button onClick={openCreateModal}>
           <Plus className="size-4" />
-          New Update
+          مستجد جديد
         </Button>
       </div>
 
@@ -290,7 +290,7 @@ export default function UpdatesPage() {
       ) : updates.length === 0 ? (
         <div className="flex h-64 items-center justify-center rounded-xl border border-dashed border-border bg-muted/30">
           <p className="text-sm text-muted-foreground">
-            No updates yet. Create your first update.
+            لا توجد مستجدات. أنشئ أول مستجد.
           </p>
         </div>
       ) : (
@@ -314,12 +314,12 @@ export default function UpdatesPage() {
                 )}
                 <Badge
                   variant={STATUS_BADGE_VARIANT[update.status]}
-                  className="absolute top-2.5 left-2.5"
+                  className="absolute top-2.5 right-2.5"
                 >
                   {update.status === 'live' ? (
                     <Globe className="mr-1 size-3" />
                   ) : null}
-                  {update.status === 'live' ? 'Live' : 'Draft'}
+                  {update.status === 'live' ? 'منشور' : 'مسودة'}
                 </Badge>
               </div>
 
@@ -364,10 +364,10 @@ export default function UpdatesPage() {
                     <Button
                       variant="ghost"
                       size="icon-xs"
-                      title="Preview"
+                      title="معاينة"
                       onClick={() =>
                         toast.info(`Preview: ${update.title}`, {
-                          description: 'Preview will open in a new tab.',
+                          description: 'سيتم فتح المعاينة في علامة تبويب جديدة.',
                         })
                       }
                     >
@@ -376,7 +376,7 @@ export default function UpdatesPage() {
                     <Button
                       variant="ghost"
                       size="icon-xs"
-                      title="Edit"
+                      title="تعديل"
                       onClick={() => openEditModal(update)}
                     >
                       <Pencil className="size-3.5" />
@@ -384,7 +384,7 @@ export default function UpdatesPage() {
                     <Button
                       variant="ghost"
                       size="icon-xs"
-                      title="Delete"
+                      title="حذف"
                       onClick={() => setDeleteTarget(update)}
                     >
                       <Trash2 className="size-3.5 text-red-500" />
@@ -401,18 +401,18 @@ export default function UpdatesPage() {
         <DialogContent className="max-h-[90vh] max-w-xl overflow-y-auto">
           <DialogHeader>
             <DialogTitle>
-              {editingUpdate ? 'Edit Update' : 'New Update'}
+              {editingUpdate ? 'تعديل المستجد' : 'مستجد جديد'}
             </DialogTitle>
             <DialogDescription>
               {editingUpdate
-                ? 'Edit the hero content and announcement details.'
-                : 'Create a new homepage hero update with CTA buttons.'}
+                ? 'تعديل محتوى المستجد وتفاصيل الإعلان.'
+                : 'إنشاء مستجد جديد للصفحة الرئيسية مع أزرار الدعوة للإجراء.'}
             </DialogDescription>
           </DialogHeader>
 
           <div className="space-y-5 py-4">
             <div className="space-y-2">
-              <Label>Hero Image</Label>
+              <Label>الصورة الرئيسية</Label>
               {imagePreview ? (
                 <div className="relative inline-block">
                   <img
@@ -445,15 +445,15 @@ export default function UpdatesPage() {
                     <ImagePlus className="size-8" />
                   )}
                   <span className="text-sm font-medium">
-                    {isDragOver ? 'Drop image here' : 'Upload Image'}
+                    {isDragOver ? 'أسقط الصورة هنا' : 'رفع صورة'}
                   </span>
                   <span className="text-xs">
                     {isDragOver
-                      ? 'Release to upload'
-                      : 'Drag & drop or click to browse'}
+                      ? 'حرّر للرفع'
+                      : 'اسحب وأفلت أو انقر للتصفح'}
                   </span>
                   <span className="text-[11px] text-muted-foreground">
-                    Recommended: 1920 × 1080
+                    الموصى به: 1920 × 1080
                   </span>
                   <input
                     ref={fileInputRef}
@@ -467,47 +467,47 @@ export default function UpdatesPage() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="u-banner">Banner Text</Label>
+              <Label htmlFor="u-banner">نص الشريط</Label>
               <Input
                 id="u-banner"
                 value={form.banner_text}
                 onChange={(e) => handleFormChange('banner_text', e.target.value)}
-                placeholder="Registration is now open"
+                placeholder="التسجيل مفتوح الآن"
                 className="h-11 text-base"
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="u-title">Title</Label>
+              <Label htmlFor="u-title">العنوان</Label>
               <Input
                 id="u-title"
                 value={form.title}
                 onChange={(e) => handleFormChange('title', e.target.value)}
-                placeholder="Welcome to AMARE"
+                placeholder="مرحباً بكم في AMARE"
                 className="h-11 text-base"
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="u-desc">Description</Label>
+              <Label htmlFor="u-desc">الوصف</Label>
               <Textarea
                 id="u-desc"
                 value={form.description}
                 onChange={(e) => handleFormChange('description', e.target.value)}
-                placeholder="Short description for the hero section..."
+                placeholder="وصف مختصر لقسم المستجدات..."
                 rows={3}
               />
             </div>
 
             <div className="space-y-4">
               <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                Hero CTA Buttons
+                أزرار الدعوة للإجراء
               </p>
 
               <div className="grid gap-3">
                 <div className="space-y-2">
                   <Label htmlFor="btn1-text" className="text-xs">
-                    Button 1
+                    الزر ١
                   </Label>
                   <div className="grid grid-cols-2 gap-2">
                     <Input
@@ -516,21 +516,21 @@ export default function UpdatesPage() {
                       onChange={(e) =>
                         handleFormChange('button1_text', e.target.value)
                       }
-                      placeholder="Text"
+                      placeholder="النص"
                     />
                     <Input
                       value={form.button1_url}
                       onChange={(e) =>
                         handleFormChange('button1_url', e.target.value)
                       }
-                      placeholder="Link"
+                      placeholder="الرابط"
                     />
                   </div>
                 </div>
 
                 <div className="space-y-2">
                   <Label htmlFor="btn2-text" className="text-xs">
-                    Button 2
+                    الزر ٢
                   </Label>
                   <div className="grid grid-cols-2 gap-2">
                     <Input
@@ -539,21 +539,21 @@ export default function UpdatesPage() {
                       onChange={(e) =>
                         handleFormChange('button2_text', e.target.value)
                       }
-                      placeholder="Text"
+                      placeholder="النص"
                     />
                     <Input
                       value={form.button2_url}
                       onChange={(e) =>
                         handleFormChange('button2_url', e.target.value)
                       }
-                      placeholder="Link"
+                      placeholder="الرابط"
                     />
                   </div>
                 </div>
 
                 <div className="space-y-2">
                   <Label htmlFor="btn3-text" className="text-xs">
-                    Button 3
+                    الزر ٣
                   </Label>
                   <div className="grid grid-cols-2 gap-2">
                     <Input
@@ -562,14 +562,14 @@ export default function UpdatesPage() {
                       onChange={(e) =>
                         handleFormChange('button3_text', e.target.value)
                       }
-                      placeholder="Text"
+                      placeholder="النص"
                     />
                     <Input
                       value={form.button3_url}
                       onChange={(e) =>
                         handleFormChange('button3_url', e.target.value)
                       }
-                      placeholder="Link"
+                      placeholder="الرابط"
                     />
                   </div>
                 </div>
@@ -577,7 +577,7 @@ export default function UpdatesPage() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="u-status">Status</Label>
+              <Label htmlFor="u-status">الحالة</Label>
               <Select
                 value={form.status}
                 onValueChange={(value) =>
@@ -585,11 +585,11 @@ export default function UpdatesPage() {
                 }
               >
                 <SelectTrigger id="u-status" className="w-full">
-                  <SelectValue placeholder="Select status" />
+                  <SelectValue placeholder="اختر الحالة" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="live">Live</SelectItem>
-                  <SelectItem value="draft">Draft</SelectItem>
+                  <SelectItem value="live">منشور</SelectItem>
+                  <SelectItem value="draft">مسودة</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -597,11 +597,11 @@ export default function UpdatesPage() {
 
           <DialogFooter>
             <Button variant="outline" onClick={() => setModalOpen(false)}>
-              Cancel
+              إلغاء
             </Button>
             <Button onClick={handleSave} disabled={saving}>
               {saving && <Loader2 className="size-4 animate-spin" />}
-              {editingUpdate ? 'Save Changes' : 'Publish'}
+              {editingUpdate ? 'حفظ التغييرات' : 'نشر'}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -610,19 +610,19 @@ export default function UpdatesPage() {
       <Dialog open={!!deleteTarget} onOpenChange={(v) => { if (!v) setDeleteTarget(null) }}>
         <DialogContent className="max-w-sm">
           <DialogHeader>
-            <DialogTitle>Delete Update</DialogTitle>
+            <DialogTitle>حذف المستجد</DialogTitle>
             <DialogDescription>
-              Are you sure you want to delete &ldquo;{deleteTarget?.title}&rdquo;?
-              This action cannot be undone.
+              هل أنت متأكد من حذف &ldquo;{deleteTarget?.title}&rdquo;؟
+              لا يمكن التراجع عن هذا الإجراء.
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
             <Button variant="outline" onClick={() => setDeleteTarget(null)}>
-              Cancel
+              إلغاء
             </Button>
             <Button variant="destructive" onClick={handleDelete} disabled={deleting}>
               {deleting && <Loader2 className="size-4 animate-spin" />}
-              Delete
+              حذف
             </Button>
           </DialogFooter>
         </DialogContent>

@@ -1,0 +1,1709 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SOS AMARE | خدمة المساعدة المجتمعية | الجمعية المغربية لهواة البحث والاستكشاف</title>
+<meta name="description" content="SOS AMARE — خدمة مجتمعية تساعدك في العثور على أغراضك المفقودة بسرعة وبمساعدة المجتمع. أبلغ عن غرض مفقود وسنساعدك في استرجاعه.">
+<meta name="keywords" content="SOS AMARE, أغراض مفقودة, مساعدة, مجتمع, بطاقة وطنية, جواز سفر, محفظة, هاتف, مفاتيح, الجمعية المغربية">
+<meta name="author" content="الجمعية المغربية لهواة البحث والاستكشاف">
+<link rel="shortcut icon" href="../Amare%20files%20/logo.png" type="image/x-icon">
+
+<!-- Open Graph -->
+<meta property="og:title" content="SOS AMARE | خدمة المساعدة المجتمعية">
+<meta property="og:description" content="نساعدك في العثور على أغراضك المفقودة بسرعة وبمساعدة المجتمع.">
+<meta property="og:type" content="website">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="../style.css">
+<style>
+/* ==========================================================================
+   SOS AMARE Page — Premium styles (uses design tokens from ../style.css)
+   ========================================================================== */
+
+/* ---------- 1. Hero ---------- */
+.sos-hero {
+  position: relative;
+  padding: 140px 0 120px;
+  overflow: hidden;
+  background: linear-gradient(180deg, #E8F6FF 0%, #F4FBFE 52%, #EBF6FF 100%);
+}
+.sos-hero-bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.sos-hero-shape {
+  position: absolute;
+  border-radius: 50%;
+  animation: float 8s ease-in-out infinite;
+}
+.sos-hero-shape-1 {
+  width: 150px; height: 150px;
+  background: rgba(25,184,242,.14);
+  top: 10%; inset-inline-start: 4%;
+}
+.sos-hero-shape-2 {
+  width: 72px; height: 72px;
+  background: rgba(212,175,55,.22);
+  bottom: 14%; inset-inline-start: 12%;
+  animation-delay: 1.2s;
+}
+.sos-hero-shape-3 {
+  width: 210px; height: 210px;
+  background: rgba(18,59,120,.06);
+  top: 5%; inset-inline-end: 2%;
+  animation-delay: .6s;
+}
+.sos-hero-shape-4 {
+  width: 48px; height: 48px;
+  background: rgba(25,184,242,.28);
+  bottom: 20%; inset-inline-end: 15%;
+  animation-delay: 1.8s;
+}
+.sos-hero-shape-5 {
+  width: 100px; height: 100px;
+  background: rgba(25,184,242,.09);
+  top: 40%; inset-inline-end: 40%;
+  animation-delay: 2.4s;
+}
+
+.sos-hero-inner {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 740px;
+  margin: 0 auto;
+}
+
+.sos-hero-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px; height: 80px;
+  margin-bottom: 24px;
+  border-radius: 24px;
+  background: var(--gradient-primary);
+  box-shadow: var(--shadow-primary);
+}
+.sos-hero-icon svg { width: 38px; height: 38px; color: #fff; }
+
+.sos-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--color-white);
+  border: 1px solid rgba(25,184,242,.26);
+  color: var(--color-primary-dark);
+  font-weight: 800;
+  font-size: 13px;
+  padding: 8px 18px;
+  border-radius: var(--radius-pill);
+  box-shadow: 0 5px 16px rgba(25,184,242,.12);
+  margin-bottom: 22px;
+}
+.sos-hero-badge svg { width: 16px; height: 16px; color: var(--color-accent); }
+
+.sos-hero h1 {
+  font-size: clamp(36px, 5.5vw, 64px);
+  font-weight: 900;
+  color: var(--color-navy);
+  line-height: 1.2;
+  margin-bottom: 18px;
+  letter-spacing: -1px;
+}
+.sos-hero h1 span { color: var(--color-primary); }
+
+.sos-hero-subtitle {
+  font-size: clamp(16px, 1.6vw, 19px);
+  color: var(--color-text-soft);
+  line-height: 2;
+  max-width: 580px;
+  margin: 0 auto 36px;
+}
+
+.sos-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+}
+
+/* ---------- 2. How It Works ---------- */
+.sos-how {
+  position: relative;
+  padding: 110px 0;
+  background: var(--color-white);
+  overflow: hidden;
+}
+.sos-how-blobs {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.sos-how-blob {
+  position: absolute;
+  border-radius: 50%;
+}
+.sos-how-blob-1 {
+  width: 280px; height: 280px;
+  background: rgba(25,184,242,.05);
+  top: -100px; inset-inline-end: -80px;
+}
+.sos-how-blob-2 {
+  width: 220px; height: 220px;
+  background: rgba(212,175,55,.07);
+  bottom: -90px; inset-inline-start: -60px;
+}
+
+.sos-section-head {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto 60px;
+}
+.sos-section-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--color-primary-dark);
+  margin-bottom: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.sos-section-eyebrow svg { width: 14px; height: 14px; color: var(--color-accent); }
+.sos-section-title {
+  font-size: clamp(26px, 3.6vw, 40px);
+  font-weight: 900;
+  color: var(--color-navy);
+  margin-bottom: 16px;
+}
+.sos-section-desc {
+  font-size: 16px;
+  color: var(--color-text-soft);
+  line-height: 1.95;
+}
+
+.sos-how-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 26px;
+}
+
+.sos-how-card {
+  position: relative;
+  background: var(--color-white);
+  border-radius: 20px;
+  padding: 38px 26px 34px;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(18,59,120,.06);
+  overflow: hidden;
+  transition: transform var(--t-fast), box-shadow var(--t-fast);
+}
+.sos-how-card::after {
+  content: "";
+  position: absolute;
+  width: 120px; height: 120px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(25,184,242,.08), transparent 70%);
+  top: -46px; inset-inline-start: -46px;
+  pointer-events: none;
+}
+.sos-how-card:hover {
+  transform: translateY(-9px);
+  box-shadow: var(--shadow-md);
+}
+
+.sos-how-step {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px; height: 38px;
+  border-radius: var(--radius-pill);
+  background: var(--gradient-primary);
+  color: #fff;
+  font-size: 17px;
+  font-weight: 900;
+  margin-bottom: 16px;
+}
+
+.sos-how-icon {
+  width: 64px; height: 64px;
+  margin: 0 auto 18px;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(25,184,242,.12);
+  color: var(--color-primary-dark);
+  transition: background var(--t-fast), color var(--t-fast), transform var(--t-fast), box-shadow var(--t-fast);
+}
+.sos-how-icon svg { width: 28px; height: 28px; }
+.sos-how-card:hover .sos-how-icon {
+  background: var(--gradient-primary);
+  color: #fff;
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-primary);
+}
+
+.sos-how-card h3 {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--color-navy);
+  margin-bottom: 10px;
+}
+.sos-how-card p {
+  font-size: 14px;
+  color: var(--color-text-soft);
+  line-height: 1.75;
+}
+
+/* ---------- 3. Categories ---------- */
+.sos-cats {
+  position: relative;
+  padding: 110px 0;
+  background: linear-gradient(180deg, var(--color-light) 0%, #EDF6FD 100%);
+  overflow: hidden;
+}
+
+.sos-cats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+}
+
+.sos-cat-card {
+  position: relative;
+  background: var(--color-white);
+  border-radius: 18px;
+  padding: 34px 20px 30px;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(18,59,120,.05);
+  transition: transform var(--t-fast), box-shadow var(--t-fast);
+  cursor: pointer;
+}
+.sos-cat-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-md);
+}
+
+.sos-cat-icon {
+  width: 68px; height: 68px;
+  margin: 0 auto 16px;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(25,184,242,.11);
+  color: var(--color-primary-dark);
+  transition: background var(--t-fast), color var(--t-fast), transform var(--t-fast);
+}
+.sos-cat-icon svg { width: 30px; height: 30px; }
+.sos-cat-card:hover .sos-cat-icon {
+  background: var(--gradient-primary);
+  color: #fff;
+  transform: scale(1.05);
+}
+
+.sos-cat-icon-accent { background: rgba(212,175,55,.16); color: #B8960F; }
+.sos-cat-icon-navy { background: rgba(18,59,120,.09); color: var(--color-navy); }
+.sos-cat-icon-green { background: rgba(25,211,102,.12); color: #17A44E; }
+.sos-cat-icon-pink { background: rgba(236,72,153,.11); color: #DB2777; }
+.sos-cat-icon-orange { background: rgba(249,115,22,.12); color: #EA580C; }
+.sos-cat-icon-teal { background: rgba(20,184,166,.12); color: #0D9488; }
+
+.sos-cat-card h3 {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--color-navy);
+}
+
+/* ---------- 4. Report Form ---------- */
+.sos-form-section {
+  position: relative;
+  padding: 110px 0;
+  background: var(--color-white);
+  overflow: hidden;
+}
+.sos-form-section .container {
+  position: relative;
+  z-index: 2;
+}
+
+.sos-form-blobs {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.sos-form-blob {
+  position: absolute;
+  border-radius: 50%;
+}
+.sos-form-blob-1 {
+  width: 320px; height: 320px;
+  background: rgba(25,184,242,.05);
+  top: -120px; inset-inline-start: -100px;
+}
+.sos-form-blob-2 {
+  width: 260px; height: 260px;
+  background: rgba(212,175,55,.06);
+  bottom: -100px; inset-inline-end: -80px;
+}
+
+.sos-form-wrapper {
+  max-width: 760px;
+  margin: 0 auto;
+  background: var(--color-white);
+  border-radius: 24px;
+  padding: 50px 46px;
+  box-shadow: var(--shadow-md);
+  border: 1px solid rgba(18,59,120,.06);
+}
+
+.sos-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.sos-form-group { display: flex; flex-direction: column; gap: 6px; }
+.sos-form-group.full { grid-column: 1 / -1; }
+
+.sos-form-group label {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-navy);
+}
+.sos-form-group label .optional {
+  font-weight: 400;
+  color: var(--color-text-soft);
+  font-size: 12px;
+  margin-inline-start: 4px;
+}
+
+.sos-form-group input,
+.sos-form-group select,
+.sos-form-group textarea {
+  font-family: var(--font-main);
+  font-size: 15px;
+  padding: 13px 16px;
+  border: 1.5px solid rgba(18,59,120,.15);
+  border-radius: 14px;
+  background: var(--color-light);
+  color: var(--color-text);
+  transition: border-color var(--t-fast), box-shadow var(--t-fast), background var(--t-fast);
+  outline: none;
+}
+.sos-form-group input:focus,
+.sos-form-group select:focus,
+.sos-form-group textarea:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px rgba(25,184,242,.1);
+  background: var(--color-white);
+}
+.sos-form-group input.error,
+.sos-form-group select.error,
+.sos-form-group textarea.error {
+  border-color: #EF4444;
+  box-shadow: 0 0 0 4px rgba(239,68,68,.08);
+}
+
+.sos-form-group textarea { min-height: 130px; resize: vertical; }
+
+.sos-form-file {
+  position: relative;
+}
+.sos-form-file input[type="file"] {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+.sos-form-file-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px;
+  border: 2px dashed rgba(18,59,120,.18);
+  border-radius: 14px;
+  background: var(--color-light);
+  color: var(--color-text-soft);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color var(--t-fast), background var(--t-fast), color var(--t-fast);
+}
+.sos-form-file-label svg { width: 22px; height: 22px; color: var(--color-primary-dark); }
+.sos-form-file-label:hover {
+  border-color: var(--color-primary);
+  background: rgba(25,184,242,.04);
+  color: var(--color-primary-dark);
+}
+
+.sos-form-error {
+  font-size: 12px;
+  color: #EF4444;
+  margin-top: 2px;
+  display: none;
+}
+.sos-form-group input.error ~ .sos-form-error,
+.sos-form-group select.error ~ .sos-form-error,
+.sos-form-group textarea.error ~ .sos-form-error {
+  display: block;
+}
+
+.sos-form-submit {
+  margin-top: 28px;
+  text-align: center;
+}
+.sos-form-submit .btn {
+  font-size: 16px;
+  padding: 15px 48px;
+}
+
+.sos-form-success {
+  display: none;
+  text-align: center;
+  padding: 28px 0;
+}
+.sos-form-success.active { display: block; }
+.sos-form-success .success-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px; height: 72px;
+  border-radius: 50%;
+  background: rgba(25,211,102,.15);
+  color: #17A44E;
+  margin-bottom: 18px;
+}
+.sos-form-success .success-icon svg { width: 34px; height: 34px; }
+.sos-form-success h3 {
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--color-navy);
+  margin-bottom: 10px;
+}
+.sos-form-success p {
+  font-size: 15px;
+  color: var(--color-text-soft);
+  line-height: 1.9;
+}
+
+/* ---------- 5. Green Number ---------- */
+.sos-green {
+  position: relative;
+  padding: 100px 0;
+  background: linear-gradient(135deg, #059669 0%, #047857 50%, #065F46 100%);
+  overflow: hidden;
+}
+.sos-green-pattern {
+  position: absolute;
+  inset: 0;
+  opacity: .06;
+  background-image: radial-gradient(circle, #fff 1px, transparent 1px);
+  background-size: 24px 24px;
+  pointer-events: none;
+}
+.sos-green-blobs {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.sos-green-blob {
+  position: absolute;
+  border-radius: 50%;
+}
+.sos-green-blob-1 {
+  width: 350px; height: 350px;
+  background: rgba(255,255,255,.04);
+  top: -150px; inset-inline-end: -100px;
+}
+.sos-green-blob-2 {
+  width: 250px; height: 250px;
+  background: rgba(255,255,255,.03);
+  bottom: -100px; inset-inline-start: -80px;
+}
+
+.sos-green-inner {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.sos-green-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px; height: 72px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.14);
+  margin-bottom: 22px;
+}
+.sos-green-icon svg { width: 32px; height: 32px; color: #fff; }
+
+.sos-green h2 {
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 900;
+  color: #fff;
+  margin-bottom: 14px;
+}
+.sos-green-desc {
+  font-size: 16px;
+  color: rgba(255,255,255,.82);
+  line-height: 1.9;
+  margin-bottom: 30px;
+}
+
+.sos-green-number {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  font-size: clamp(30px, 5vw, 52px);
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: 3px;
+  direction: ltr;
+  background: rgba(255,255,255,.1);
+  border: 2px solid rgba(255,255,255,.2);
+  border-radius: var(--radius-pill);
+  padding: 18px 40px;
+  margin-bottom: 28px;
+}
+.sos-green-number svg {
+  width: 28px; height: 28px;
+  color: rgba(255,255,255,.8);
+  flex-shrink: 0;
+}
+
+.sos-green-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.sos-green-wa-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #25D366;
+  color: #fff;
+  font-weight: 700;
+  font-size: 14px;
+  padding: 11px 24px;
+  border-radius: var(--radius-pill);
+  text-decoration: none;
+  transition: transform var(--t-fast), box-shadow var(--t-fast);
+  box-shadow: 0 8px 24px rgba(37,211,102,.3);
+}
+.sos-green-wa-btn svg { width: 20px; height: 20px; }
+.sos-green-wa-btn:hover { transform: translateY(-3px); box-shadow: 0 14px 32px rgba(37,211,102,.45); }
+
+.sos-green-hours {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255,255,255,.72);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 11px 22px;
+  border-radius: var(--radius-pill);
+  background: rgba(255,255,255,.08);
+}
+.sos-green-hours svg { width: 18px; height: 18px; }
+
+/* ---------- 6. FAQ ---------- */
+.sos-faq {
+  position: relative;
+  padding: 110px 0;
+  background: linear-gradient(180deg, var(--color-white) 0%, #F9FCFF 100%);
+  overflow: hidden;
+}
+
+.sos-faq-list {
+  max-width: 740px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.sos-faq-item {
+  background: var(--color-white);
+  border: 1px solid rgba(18,59,120,.08);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: box-shadow var(--t-fast);
+}
+.sos-faq-item:hover { box-shadow: var(--shadow-sm); }
+
+.sos-faq-question {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 22px 26px;
+  background: none;
+  border: none;
+  font-family: var(--font-main);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-navy);
+  cursor: pointer;
+  text-align: start;
+  transition: color var(--t-fast);
+  line-height: 1.6;
+}
+.sos-faq-question:hover { color: var(--color-primary-dark); }
+.sos-faq-question[aria-expanded="true"] { color: var(--color-primary-dark); }
+
+.sos-faq-toggle {
+  width: 32px; height: 32px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: rgba(25,184,242,.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform var(--t-fast), background var(--t-fast);
+}
+.sos-faq-toggle svg {
+  width: 16px; height: 16px;
+  color: var(--color-primary-dark);
+  transition: transform var(--t-fast);
+}
+.sos-faq-question[aria-expanded="true"] .sos-faq-toggle {
+  background: var(--gradient-primary);
+}
+.sos-faq-question[aria-expanded="true"] .sos-faq-toggle svg {
+  color: #fff;
+  transform: rotate(180deg);
+}
+
+.sos-faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .45s var(--ease), padding .45s var(--ease);
+}
+.sos-faq-answer-inner {
+  padding: 0 26px 22px;
+  font-size: 15px;
+  color: var(--color-text-soft);
+  line-height: 1.9;
+}
+.sos-faq-item.open .sos-faq-answer { max-height: 200px; }
+
+/* ---------- 7. CTA ---------- */
+.sos-cta {
+  position: relative;
+  padding: 110px 0;
+  background: var(--color-white);
+  overflow: hidden;
+}
+.sos-cta-blobs {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.sos-cta-blob {
+  position: absolute;
+  border-radius: 50%;
+}
+.sos-cta-blob-1 {
+  width: 300px; height: 300px;
+  background: rgba(25,184,242,.05);
+  top: -100px; inset-inline-end: -80px;
+}
+.sos-cta-blob-2 {
+  width: 240px; height: 240px;
+  background: rgba(212,175,55,.07);
+  bottom: -100px; inset-inline-start: -60px;
+}
+
+.sos-cta-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 660px;
+  margin: 0 auto;
+  text-align: center;
+  background: linear-gradient(135deg, rgba(25,184,242,.05) 0%, rgba(18,59,120,.04) 100%);
+  border: 1px solid rgba(18,59,120,.08);
+  border-radius: 28px;
+  padding: 60px 46px;
+}
+.sos-cta-inner h2 {
+  font-size: clamp(24px, 3.4vw, 36px);
+  font-weight: 900;
+  color: var(--color-navy);
+  margin-bottom: 26px;
+  line-height: 1.5;
+}
+
+.sos-cta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+}
+
+/* ---------- Animations ---------- */
+@keyframes sosFadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.sos-reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity .7s var(--ease), transform .7s var(--ease);
+}
+.sos-reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1024px) {
+  .sos-how-grid { grid-template-columns: repeat(2, 1fr); }
+  .sos-cats-grid { grid-template-columns: repeat(4, 1fr); }
+}
+@media (max-width: 768px) {
+  .sos-hero { padding: 110px 0 80px; }
+  .sos-how { padding: 80px 0; }
+  .sos-how-grid { grid-template-columns: 1fr; }
+  .sos-cats { padding: 80px 0; }
+  .sos-cats-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .sos-form-section { padding: 80px 0; }
+  .sos-form-wrapper { padding: 34px 22px; }
+  .sos-form-grid { grid-template-columns: 1fr; }
+  .sos-green { padding: 80px 0; }
+  .sos-green-number { padding: 14px 28px; font-size: 26px; gap: 10px; }
+  .sos-green-number svg { width: 22px; height: 22px; }
+  .sos-faq { padding: 80px 0; }
+  .sos-cta { padding: 80px 0; }
+  .sos-cta-inner { padding: 40px 24px; }
+  .sos-cat-card { padding: 26px 14px 22px; }
+  .sos-cat-icon { width: 56px; height: 56px; }
+  .sos-cat-icon svg { width: 24px; height: 24px; }
+}
+@media (max-width: 480px) {
+  .sos-cats-grid { grid-template-columns: repeat(2, 1fr); }
+  .sos-faq-question { padding: 18px 18px; font-size: 15px; }
+  .sos-faq-answer-inner { padding: 0 18px 18px; font-size: 14px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== Skip Link ===== -->
+<a href="#main" class="visually-hidden">تخطَّ إلى المحتوى الرئيسي</a>
+
+<!-- ===== 1. Top Bar ===== -->
+<div class="topbar">
+  <div class="container">
+    <div class="topbar-right">
+      <a href="../index.html" class="topbar-brand" aria-label="الرئيسية">
+        <span class="topbar-brand-mark">
+          <img src="../Amare%20files%20/logo.png" alt="AMARE Logo" class="topbar-brand-logo">
+        </span>
+        <span class="topbar-brand-name" data-amare-setting="association_name">الجمعية المغربية لهواة البحث والاستكشاف</span>
+      </a>
+    </div>
+    <div class="topbar-left">
+      <div class="topbar-social">
+        <a href="#" aria-label="فيسبوك"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg></a>
+        <a href="#" aria-label="إنستغرام"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+        <a href="#" aria-label="لينكدإن"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 5 3.79 6.2 2.3 6.2 1 6.2 0 5 0 3.5 0 2 1.1.8 2.5.8s2.48 1.2 2.48 2.7zM.2 8.5h4.6V23H.2V8.5zM8 8.5h4.4v2h.06c.6-1.2 2.1-2.4 4.4-2.4 4.7 0 5.6 3.1 5.6 7.1V23h-4.6v-6.7c0-1.6 0-3.7-2.3-3.7s-2.6 1.8-2.6 3.6V23H8V8.5z"/></svg></a>
+      </div>
+      <div class="topbar-lang">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg>
+        <select aria-label="اختيار اللغة">
+          <option value="ar" selected>العربية</option>
+          <option value="fr">Français</option>
+          <option value="en">English</option>
+          <option value="es">Español</option>
+          <option value="ber">ⵜⴰⵎⴰⵣⵉⵖⵜ</option>
+        </select>
+      </div>
+      <a href="http://wa.me/+212684869996" target="_blank" rel="noopener" class="topbar-whatsapp ripple" aria-label="تواصل عبر واتساب">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.6.1-.2.3-.7 1-.9 1.2-.1.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.2-.4.1-.2 0-.4 0-.5s-.6-1.5-.8-2c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s1 2.6 1.1 2.7c.1.2 2 3 4.7 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 2-1.4.2-.6.2-1.2.1-1.3-.1-.1-.3-.2-.6-.3z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.6 1.4 5.1L2 22l5.1-1.3C8.5 21.5 10.2 22 12 22c5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18c-1.6 0-3.1-.4-4.5-1.2l-.3-.2-3.3.9.9-3.2-.2-.3C3.7 14.6 3.2 13.3 3.2 12c0-4.9 3.9-8.8 8.8-8.8s8.8 3.9 8.8 8.8-3.9 8.8-8.8 8.8z"/></svg>
+        <span>واتساب</span>
+      </a>
+      <a href="../login.html" class="topbar-login ripple" aria-label="تسجيل الدخول">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M15 3h6v18h-6M10 17l5-5-5-5M15 12H3"/>
+        </svg>
+        <span>تسجيل الدخول</span>
+      </a>
+      <a href="../amare store/index.html" class="nav-store-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+          <path d="M3 6h18"/>
+          <path d="M16 10a4 4 0 0 1-8 0"/>
+        </svg>
+        <span>متجر AMARE</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 2. Navbar ===== -->
+<header>
+  <nav class="navbar" id="navbar" aria-label="التنقل الرئيسي">
+    <div class="container">
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html">الرئيسية</a></li>
+        <li data-dropdown="about"><a href="../index.html#about">من نحن</a></li>
+        <li data-dropdown="activities"><a href="#">أنشطتنا</a></li>
+        <li data-dropdown="partners"><a href="#">شركاؤنا</a></li>
+        <li data-dropdown="services"><a href="../index.html#services">خدماتنا</a></li>
+        <li data-dropdown="branches"><a href="#">الفروع الجهوية</a></li>
+        <li data-dropdown="join"><a href="../Join%20us/join-us-online.html">انخرط معنا</a></li>
+        <li><a href="../News/news.html">الأخبار</a></li>
+        <li><a href="../Archive/archive.html">الأرشيف</a></li>
+        <li><a href="../contact.html">اتصل بنا</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="hamburger" id="hamburger" aria-label="فتح القائمة" aria-expanded="false" aria-controls="navLinks">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <div class="mega-dropdown" id="megaDropdown"></div>
+  </nav>
+</header>
+
+<!-- ===== Mobile Header (mobile only) ===== -->
+<div class="mobile-header" id="mobileHeader">
+  <div class="mobile-header-group">
+    <a class="mobile-header-logo" href="../index.html" aria-label="الرئيسية">
+      <img src="../Amare%20files%20/logo.png" alt="AMARE Logo">
+    </a>
+    <a class="mobile-header-brand" href="../index.html" aria-label="الرئيسية">
+      الجمعية المغربية لهواة<br>البحث والاستكشاف
+    </a>
+  </div>
+  <button class="mobile-hamburger" id="mobileHamburger" aria-label="فتح القائمة" aria-expanded="false" aria-controls="mobileDrawer">
+    <span></span><span></span><span></span>
+  </button>
+</div>
+
+<!-- ===== Mobile Drawer (off-canvas) ===== -->
+<div class="mobile-drawer" id="mobileDrawer" role="dialog" aria-modal="true" aria-label="القائمة الرئيسية">
+  <div class="mobile-drawer-inner">
+    <div class="mobile-drawer-header">
+      <button class="mobile-drawer-close" id="mobileDrawerClose" aria-label="إغلاق القائمة">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+      <a class="mobile-drawer-brand" href="../index.html">
+        <img src="../Amare%20files%20/logo.png" alt="AMARE Logo" class="mobile-drawer-brand-logo">
+        <span class="mobile-drawer-brand-name">الجمعية المغربية لهواة البحث والاستكشاف</span>
+      </a>
+    </div>
+    <nav class="mobile-drawer-nav" aria-label="التنقل الرئيسي">
+      <ul class="mobile-drawer-links" id="mobileDrawerLinks">
+        <li><a href="../index.html">الرئيسية</a></li>
+        <li class="mobile-drawer-dropdown" data-dd="about">
+          <div class="mobile-drawer-row">
+            <a href="../index.html#about">من نحن</a>
+            <button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </div>
+          <ul class="mobile-drawer-sub"></ul>
+        </li>
+        <li class="mobile-drawer-dropdown" data-dd="activities">
+          <div class="mobile-drawer-row">
+            <a href="#">أنشطتنا</a>
+            <button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </div>
+          <ul class="mobile-drawer-sub"></ul>
+        </li>
+        <li class="mobile-drawer-dropdown" data-dd="partners">
+          <div class="mobile-drawer-row">
+            <a href="#">شركاؤنا</a>
+            <button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </div>
+          <ul class="mobile-drawer-sub"></ul>
+        </li>
+        <li class="mobile-drawer-dropdown" data-dd="services">
+          <div class="mobile-drawer-row">
+            <a href="../index.html#services">خدماتنا</a>
+            <button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </div>
+          <ul class="mobile-drawer-sub"></ul>
+        </li>
+        <li class="mobile-drawer-dropdown" data-dd="branches">
+          <div class="mobile-drawer-row">
+            <a href="#">الفروع الجهوية</a>
+            <button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </div>
+          <ul class="mobile-drawer-sub"></ul>
+        </li>
+        <li class="mobile-drawer-dropdown" data-dd="join">
+          <div class="mobile-drawer-row">
+            <a href="../Join%20us/index.html">انخرط معنا</a>
+            <button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </div>
+          <ul class="mobile-drawer-sub"></ul>
+        </li>
+        <li><a href="../News/news.html">الأخبار</a></li>
+        <li><a href="../Archive/archive.html">الأرشيف</a></li>
+        <li><a href="../contact.html">اتصل بنا</a></li>
+      </ul>
+    </nav>
+    <div class="mobile-drawer-bottom">
+      <div class="mobile-drawer-actions">
+        <a href="../login.html" class="mobile-drawer-action mobile-drawer-action-login">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v18h-6M10 17l5-5-5-5M15 12H3"/></svg>
+          <span>تسجيل الدخول</span>
+        </a>
+        <a href="../amare store/index.html" class="mobile-drawer-action mobile-drawer-action-store">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span>متجر</span>
+        </a>
+        <a href="https://wa.me/212600000000" target="_blank" rel="noopener" class="mobile-drawer-action mobile-drawer-action-whatsapp">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.6.1-.2.3-.7 1-.9 1.2-.1.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.2-.4.1-.2 0-.4 0-.5s-.6-1.5-.8-2c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s1 2.6 1.1 2.7c.1.2 2 3 4.7 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 2-1.4.2-.6.2-1.2.1-1.3-.1-.1-.3-.2-.6-.3z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.6 1.4 5.1L2 22l5.1-1.3C8.5 21.5 10.2 22 12 22c5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18c-1.6 0-3.1-.4-4.5-1.2l-.3-.2-3.3.9.9-3.2-.2-.3C3.7 14.6 3.2 13.3 3.2 12c0-4.9 3.9-8.8 8.8-8.8s8.8 3.9 8.8 8.8-3.9 8.8-8.8 8.8z"/></svg>
+          <span>واتساب</span>
+        </a>
+      </div>
+      <div class="mobile-drawer-lang">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg>
+        <select aria-label="اختيار اللغة">
+          <option value="ar" selected>العربية</option>
+          <option value="fr">Français</option>
+          <option value="en">English</option>
+          <option value="es">Español</option>
+          <option value="ber">ⵜⴰⵎⴰⵣⵉⵖⵜ</option>
+        </select>
+      </div>
+      <div class="mobile-drawer-social">
+        <a href="#" aria-label="فيسبوك"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg></a>
+        <a href="#" aria-label="إنستغرام"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+        <a href="#" aria-label="لينكدإن"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 5 3.79 6.2 2.3 6.2 1 6.2 0 5 0 3.5 0 2 1.1.8 2.5.8s2.48 1.2 2.48 2.7zM.2 8.5h4.6V23H.2V8.5zM8 8.5h4.4v2h.06c.6-1.2 2.1-2.4 4.4-2.4 4.7 0 5.6 3.1 5.6 7.1V23h-4.6v-6.7c0-1.6 0-3.7-2.3-3.7s-2.6 1.8-2.6 3.6V23H8V8.5z"/></svg></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main id="main">
+
+<!-- ==========================================================================
+   1. HERO SECTION
+   ========================================================================== -->
+<section class="sos-hero" id="sosHero">
+  <div class="sos-hero-bg" aria-hidden="true">
+    <div class="sos-hero-shape sos-hero-shape-1"></div>
+    <div class="sos-hero-shape sos-hero-shape-2"></div>
+    <div class="sos-hero-shape sos-hero-shape-3"></div>
+    <div class="sos-hero-shape sos-hero-shape-4"></div>
+    <div class="sos-hero-shape sos-hero-shape-5"></div>
+  </div>
+
+  <div class="container">
+    <div class="sos-hero-inner">
+      <div class="sos-hero-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+          <polyline points="22 4 12 14.01 9 11.01"/>
+        </svg>
+      </div>
+      <h1>SOS <span>AMARE</span></h1>
+      <p class="sos-hero-subtitle">نساعدك في العثور على أغراضك المفقودة بسرعة وبمساعدة المجتمع.</p>
+      <div class="sos-hero-actions">
+        <a href="#sosForm" class="btn btn-accent" onclick="document.getElementById('sosForm').scrollIntoView({behavior:'smooth'}); return false;">
+          الإبلاغ عن غرض مفقود
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================================
+   2. HOW IT WORKS
+   ========================================================================== -->
+<section class="sos-how" id="sosHow">
+  <div class="sos-how-blobs" aria-hidden="true">
+    <div class="sos-how-blob sos-how-blob-1"></div>
+    <div class="sos-how-blob sos-how-blob-2"></div>
+  </div>
+
+  <div class="container">
+    <div class="sos-section-head">
+      <span class="sos-section-eyebrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        كيف تعمل الخدمة
+      </span>
+      <h2 class="sos-section-title">خطوات بسيطة لاستعادة أغراضك</h2>
+      <p class="sos-section-desc">نعمل معًا كمجتمع لمساعدتك في العثور على ما فقدته بأسرع وقت ممكن.</p>
+    </div>
+
+    <div class="sos-how-grid">
+      <div class="sos-how-card sos-reveal">
+        <div class="sos-how-step">1</div>
+        <div class="sos-how-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M12 20h9"/>
+            <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+          </svg>
+        </div>
+        <h3>الإبلاغ عن الغرض المفقود</h3>
+        <p>قم بملء النموذج بمعلومات دقيقة عن الغرض الذي فقدته.</p>
+      </div>
+
+      <div class="sos-how-card sos-reveal">
+        <div class="sos-how-step">2</div>
+        <div class="sos-how-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <circle cx="11" cy="11" r="8"/>
+            <path d="m21 21-4.3-4.3"/>
+          </svg>
+        </div>
+        <h3>مراجعة البلاغ</h3>
+        <p>يقوم فريقنا بمراجعة وتدقيق المعلومات قبل النشر.</p>
+      </div>
+
+      <div class="sos-how-card sos-reveal">
+        <div class="sos-how-step">3</div>
+        <div class="sos-how-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <circle cx="18" cy="5" r="3"/>
+            <circle cx="6" cy="12" r="3"/>
+            <circle cx="18" cy="19" r="3"/>
+            <path d="M8.59 13.51l6.83 3.98"/>
+            <path d="M15.41 6.51l-6.82 3.98"/>
+          </svg>
+        </div>
+        <h3>نشر البلاغ عبر الجمعية</h3>
+        <p>ننشر البلاغ عبر قنوات الجمعية ليصل إلى أكبر عدد من المجتمع.</p>
+      </div>
+
+      <div class="sos-how-card sos-reveal">
+        <div class="sos-how-step">4</div>
+        <div class="sos-how-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .3 2 .7 2.9a2 2 0 0 1-.4 2.1L8 10a16 16 0 0 0 6 6l1.3-1.4a2 2 0 0 1 2.1-.4c.9.4 1.9.6 2.9.7a2 2 0 0 1 1.7 2.1z"/>
+          </svg>
+        </div>
+        <h3>التواصل مع صاحب الغرض عند العثور عليه</h3>
+        <p>بمجرد العثور على الغرض، نتواصل معك مباشرة لإعادته.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================================
+   3. LOST ITEMS CATEGORIES
+   ========================================================================== -->
+<section class="sos-cats" id="sosCats">
+  <div class="container">
+    <div class="sos-section-head">
+      <span class="sos-section-eyebrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        فئات الأغراض
+      </span>
+      <h2 class="sos-section-title">ماذا يمكنك أن تبلغ عنه؟</h2>
+      <p class="sos-section-desc">يمكنك الإبلاغ عن أي غرض مفقود من الفئات التالية أو غيرها.</p>
+    </div>
+
+    <div class="sos-cats-grid">
+      <div class="sos-cat-card sos-reveal" onclick="document.querySelector('#sosForm select[name=item_type]').value='البطاقات الوطنية'; document.getElementById('sosForm').scrollIntoView({behavior:'smooth'});">
+        <div class="sos-cat-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <rect x="2" y="4" width="20" height="16" rx="2"/>
+            <path d="M10 4v16"/>
+            <circle cx="7" cy="9" r="1"/>
+            <circle cx="7" cy="15" r="1"/>
+          </svg>
+        </div>
+        <h3>البطاقات الوطنية</h3>
+      </div>
+
+      <div class="sos-cat-card sos-reveal" onclick="document.querySelector('#sosForm select[name=item_type]').value='جواز السفر'; document.getElementById('sosForm').scrollIntoView({behavior:'smooth'});">
+        <div class="sos-cat-icon sos-cat-icon-accent">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M2 12h20"/>
+            <path d="M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/>
+          </svg>
+        </div>
+        <h3>جواز السفر</h3>
+      </div>
+
+      <div class="sos-cat-card sos-reveal" onclick="document.querySelector('#sosForm select[name=item_type]').value='رخصة السياقة'; document.getElementById('sosForm').scrollIntoView({behavior:'smooth'});">
+        <div class="sos-cat-icon sos-cat-icon-navy">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <path d="M20.5 8.5H11"/>
+            <path d="M20.5 15.5H11"/>
+            <circle cx="8.5" cy="15.5" r="1.5"/>
+          </svg>
+        </div>
+        <h3>رخصة السياقة</h3>
+      </div>
+
+      <div class="sos-cat-card sos-reveal" onclick="document.querySelector('#sosForm select[name=item_type]').value='محفظة'; document.getElementById('sosForm').scrollIntoView({behavior:'smooth'});">
+        <div class="sos-cat-icon sos-cat-icon-green">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/>
+            <path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/>
+            <path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/>
+          </svg>
+        </div>
+        <h3>المحافظ</h3>
+      </div>
+
+      <div class="sos-cat-card sos-reveal" onclick="document.querySelector('#sosForm select[name=item_type]').value='هاتف'; document.getElementById('sosForm').scrollIntoView({behavior:'smooth'});">
+        <div class="sos-cat-icon sos-cat-icon-pink">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
+            <path d="M12 18h.01"/>
+          </svg>
+        </div>
+        <h3>الهواتف</h3>
+      </div>
+
+      <div class="sos-cat-card sos-reveal" onclick="document.querySelector('#sosForm select[name=item_type]').value='مفاتيح'; document.getElementById('sosForm').scrollIntoView({behavior:'smooth'});">
+        <div class="sos-cat-icon sos-cat-icon-orange">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <circle cx="7" cy="7" r="5.5"/>
+            <path d="M7 10v11"/>
+            <path d="M4 16h6"/>
+            <path d="M4 19h6"/>
+          </svg>
+        </div>
+        <h3>المفاتيح</h3>
+      </div>
+
+      <div class="sos-cat-card sos-reveal" onclick="document.querySelector('#sosForm select[name=item_type]').value='وثائق'; document.getElementById('sosForm').scrollIntoView({behavior:'smooth'});">
+        <div class="sos-cat-icon sos-cat-icon-teal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <path d="M8 13h8"/>
+            <path d="M8 17h5"/>
+          </svg>
+        </div>
+        <h3>الوثائق</h3>
+      </div>
+
+      <div class="sos-cat-card sos-reveal" onclick="document.querySelector('#sosForm select[name=item_type]').value='أغراض أخرى'; document.getElementById('sosForm').scrollIntoView({behavior:'smooth'});">
+        <div class="sos-cat-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M8 12h8"/>
+            <path d="M12 8v8"/>
+          </svg>
+        </div>
+        <h3>أغراض أخرى</h3>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================================
+   4. REPORT FORM
+   ========================================================================== -->
+<section class="sos-form-section" id="sosForm">
+  <div class="sos-form-blobs" aria-hidden="true">
+    <div class="sos-form-blob sos-form-blob-1"></div>
+    <div class="sos-form-blob sos-form-blob-2"></div>
+  </div>
+
+  <div class="container">
+    <div class="sos-section-head">
+      <span class="sos-section-eyebrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        نموذج التبليغ
+      </span>
+      <h2 class="sos-section-title">أبلغ عن غرض مفقود</h2>
+      <p class="sos-section-desc">املأ النموذج أدناه وسنتواصل معك في أقرب وقت.</p>
+    </div>
+
+    <div class="sos-form-wrapper">
+      <form id="sosReportForm" novalidate>
+        <div class="sos-form-grid">
+          <div class="sos-form-group">
+            <label for="fullName">الاسم الكامل *</label>
+            <input type="text" id="fullName" name="full_name" placeholder="أدخل اسمك الكامل" required>
+            <span class="sos-form-error">الاسم الكامل مطلوب</span>
+          </div>
+
+          <div class="sos-form-group">
+            <label for="phone">رقم الهاتف *</label>
+            <input type="tel" id="phone" name="phone" placeholder="06 XX XX XX XX" required dir="ltr">
+            <span class="sos-form-error">رقم الهاتف مطلوب</span>
+          </div>
+
+          <div class="sos-form-group">
+            <label for="email">البريد الإلكتروني <span class="optional">(اختياري)</span></label>
+            <input type="email" id="email" name="email" placeholder="example@email.com" dir="ltr">
+            <span class="sos-form-error">يرجى إدخال بريد إلكتروني صالح</span>
+          </div>
+
+          <div class="sos-form-group">
+            <label for="city">المدينة *</label>
+            <select id="city" name="city" required>
+              <option value="">اختر المدينة</option>
+              <option value="أكادير">أكادير</option>
+              <option value="الدار البيضاء">الدار البيضاء</option>
+              <option value="الرباط">الرباط</option>
+              <option value="مراكش">مراكش</option>
+              <option value="فاس">فاس</option>
+              <option value="طنجة">طنجة</option>
+              <option value="مكناس">مكناس</option>
+              <option value="وجدة">وجدة</option>
+              <option value="العيون">العيون</option>
+              <option value="الداخلة">الداخلة</option>
+              <option value="تطوان">تطوان</option>
+              <option value="آسفي">آسفي</option>
+              <option value="الجديدة">الجديدة</option>
+              <option value="الناظور">الناظور</option>
+              <option value="خريبكة">خريبكة</option>
+              <option value="بني ملال">بني ملال</option>
+              <option value="تارودانت">تارودانت</option>
+              <option value="تيزنيت">تيزنيت</option>
+              <option value="أخرى">أخرى</option>
+            </select>
+            <span class="sos-form-error">المدينة مطلوبة</span>
+          </div>
+
+          <div class="sos-form-group">
+            <label for="itemType">نوع الغرض *</label>
+            <select id="itemType" name="item_type" required>
+              <option value="">اختر نوع الغرض</option>
+              <option value="البطاقات الوطنية">البطاقات الوطنية</option>
+              <option value="جواز السفر">جواز السفر</option>
+              <option value="رخصة السياقة">رخصة السياقة</option>
+              <option value="محفظة">محفظة</option>
+              <option value="هاتف">هاتف</option>
+              <option value="مفاتيح">مفاتيح</option>
+              <option value="وثائق">وثائق</option>
+              <option value="أغراض أخرى">أغراض أخرى</option>
+            </select>
+            <span class="sos-form-error">نوع الغرض مطلوب</span>
+          </div>
+
+          <div class="sos-form-group">
+            <label for="lostDate">تاريخ الفقدان *</label>
+            <input type="date" id="lostDate" name="lost_date" required>
+            <span class="sos-form-error">تاريخ الفقدان مطلوب</span>
+          </div>
+
+          <div class="sos-form-group full">
+            <label for="description">وصف الغرض *</label>
+            <textarea id="description" name="description" placeholder="صف الغرض المفقود بالتفصيل (اللون، العلامة، المحتويات، أي علامات مميزة...)" required></textarea>
+            <span class="sos-form-error">وصف الغرض مطلوب</span>
+          </div>
+
+          <div class="sos-form-group full">
+            <label for="lostLocation">مكان الفقدان *</label>
+            <input type="text" id="lostLocation" name="lost_location" placeholder="أين فقدت الغرض؟ (اسم المكان، الحي، الشارع...)" required>
+            <span class="sos-form-error">مكان الفقدان مطلوب</span>
+          </div>
+
+          <div class="sos-form-group full">
+            <label>رفع صورة <span class="optional">(اختياري)</span></label>
+            <div class="sos-form-file">
+              <input type="file" id="itemImage" name="item_image" accept="image/*">
+              <label for="itemImage" class="sos-form-file-label">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                  <circle cx="8.5" cy="8.5" r="1.5"/>
+                  <polyline points="21 15 16 10 5 21"/>
+                </svg>
+                <span>اضغط لرفع صورة للغرض المفقود</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="sos-form-submit">
+          <button type="submit" class="btn btn-accent">
+            إرسال البلاغ
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+          </button>
+        </div>
+      </form>
+
+      <div class="sos-form-success" id="sosFormSuccess">
+        <div class="success-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+            <polyline points="22 4 12 14.01 9 11.01"/>
+          </svg>
+        </div>
+        <h3>تم إرسال البلاغ بنجاح!</h3>
+        <p>شكراً لتواصلك معنا. سنقوم بمراجعة بلاغك ونشره عبر قنوات الجمعية في أقرب وقت ممكن. سنتواصل معك فور العثور على غرضك.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================================
+   5. GREEN NUMBER
+   ========================================================================== -->
+<section class="sos-green" id="sosGreen">
+  <div class="sos-green-pattern" aria-hidden="true"></div>
+  <div class="sos-green-blobs" aria-hidden="true">
+    <div class="sos-green-blob sos-green-blob-1"></div>
+    <div class="sos-green-blob sos-green-blob-2"></div>
+  </div>
+
+  <div class="container">
+    <div class="sos-green-inner">
+      <div class="sos-green-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .3 2 .7 2.9a2 2 0 0 1-.4 2.1L8 10a16 16 0 0 0 6 6l1.3-1.4a2 2 0 0 1 2.1-.4c.9.4 1.9.6 2.9.7a2 2 0 0 1 1.7 2.1z"/>
+        </svg>
+      </div>
+      <h2>الرقم الأخضر</h2>
+      <p class="sos-green-desc">إذا كنت بحاجة إلى مساعدة عاجلة أو عثرت على غرض مفقود، يمكنك التواصل معنا مباشرة.</p>
+      <div class="sos-green-number">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .3 2 .7 2.9a2 2 0 0 1-.4 2.1L8 10a16 16 0 0 0 6 6l1.3-1.4a2 2 0 0 1 2.1-.4c.9.4 1.9.6 2.9.7a2 2 0 0 1 1.7 2.1z"/>
+        </svg>
+        0800 00 00 00
+      </div>
+      <div class="sos-green-actions">
+        <a href="tel:0800000000" class="sos-green-wa-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .3 2 .7 2.9a2 2 0 0 1-.4 2.1L8 10a16 16 0 0 0 6 6l1.3-1.4a2 2 0 0 1 2.1-.4c.9.4 1.9.6 2.9.7a2 2 0 0 1 1.7 2.1z"/>
+          </svg>
+          اتصل الآن
+        </a>
+        <a href="http://wa.me/+212684869996" target="_blank" rel="noopener" class="sos-green-wa-btn" style="background:#25D366;">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.6.1-.2.3-.7 1-.9 1.2-.1.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.2-.4.1-.2 0-.4 0-.5s-.6-1.5-.8-2c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s1 2.6 1.1 2.7c.1.2 2 3 4.7 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 2-1.4.2-.6.2-1.2.1-1.3-.1-.1-.3-.2-.6-.3z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.6 1.4 5.1L2 22l5.1-1.3C8.5 21.5 10.2 22 12 22c5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18c-1.6 0-3.1-.4-4.5-1.2l-.3-.2-3.3.9.9-3.2-.2-.3C3.7 14.6 3.2 13.3 3.2 12c0-4.9 3.9-8.8 8.8-8.8s8.8 3.9 8.8 8.8-3.9 8.8-8.8 8.8z"/></svg>
+          واتساب
+        </a>
+      </div>
+      <div class="sos-green-hours">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M12 6v6l4 2"/>
+        </svg>
+        ساعات العمل: من الإثنين إلى السبت | 9:00 - 18:00
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================================
+   6. FAQ
+   ========================================================================== -->
+<section class="sos-faq" id="sosFaq">
+  <div class="container">
+    <div class="sos-section-head">
+      <span class="sos-section-eyebrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        الأسئلة الشائعة
+      </span>
+      <h2 class="sos-section-title">كل ما تحتاج معرفته</h2>
+      <p class="sos-section-desc">إجابات على أكثر الأسئلة شيوعاً حول خدمة SOS AMARE.</p>
+    </div>
+
+    <div class="sos-faq-list">
+      <div class="sos-faq-item">
+        <button class="sos-faq-question" aria-expanded="false" onclick="this.parentElement.classList.toggle('open'); this.setAttribute('aria-expanded', this.parentElement.classList.contains('open'));">
+          <span>كيف أبلغ عن غرض مفقود؟</span>
+          <span class="sos-faq-toggle">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+          </span>
+        </button>
+        <div class="sos-faq-answer">
+          <div class="sos-faq-answer-inner">يمكنك الإبلاغ عن غرضك المفقود من خلال ملء النموذج أعلاه في هذه الصفحة. كل ما عليك هو إدخال معلوماتك الشخصية ووصف دقيق للغرض المفقود ومكان وزمان فقدانه. بعد ذلك سيقوم فريقنا بمراجعة البلاغ ونشره.</div>
+        </div>
+      </div>
+
+      <div class="sos-faq-item">
+        <button class="sos-faq-question" aria-expanded="false" onclick="this.parentElement.classList.toggle('open'); this.setAttribute('aria-expanded', this.parentElement.classList.contains('open'));">
+          <span>كم يستغرق نشر البلاغ؟</span>
+          <span class="sos-faq-toggle">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+          </span>
+        </button>
+        <div class="sos-faq-answer">
+          <div class="sos-faq-answer-inner">نقوم بمراجعة البلاغات خلال 24 ساعة من استلامها. بعد التأكد من صحة المعلومات، يتم نشر البلاغ فوراً عبر قنوات الجمعية الرسمية ليصل إلى أكبر عدد ممكن من المجتمع.</div>
+        </div>
+      </div>
+
+      <div class="sos-faq-item">
+        <button class="sos-faq-question" aria-expanded="false" onclick="this.parentElement.classList.toggle('open'); this.setAttribute('aria-expanded', this.parentElement.classList.contains('open'));">
+          <span>هل الخدمة مجانية؟</span>
+          <span class="sos-faq-toggle">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+          </span>
+        </button>
+        <div class="sos-faq-answer">
+          <div class="sos-faq-answer-inner">نعم، خدمة SOS AMARE مجانية بالكامل. هي جزء من الخدمات المجتمعية التي تقدمها الجمعية المغربية لهواة البحث والاستكشاف لمساعدة المجتمع دون أي مقابل مادي.</div>
+        </div>
+      </div>
+
+      <div class="sos-faq-item">
+        <button class="sos-faq-question" aria-expanded="false" onclick="this.parentElement.classList.toggle('open'); this.setAttribute('aria-expanded', this.parentElement.classList.contains('open'));">
+          <span>ماذا أفعل إذا عثرت على غرض مفقود؟</span>
+          <span class="sos-faq-toggle">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+          </span>
+        </button>
+        <div class="sos-faq-answer">
+          <div class="sos-faq-answer-inner">إذا عثرت على غرض مفقود، يمكنك التواصل معنا مباشرة عبر الرقم الأخضر أو واتساب. سنقوم بمطابقة الغرض مع البلاغات الموجودة لدينا والتواصل مع صاحبه. كما يمكنك تسليمه لأقرب فرع من فروع الجمعية.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================================
+   7. FINAL CTA
+   ========================================================================== -->
+<section class="sos-cta" id="sosCta">
+  <div class="sos-cta-blobs" aria-hidden="true">
+    <div class="sos-cta-blob sos-cta-blob-1"></div>
+    <div class="sos-cta-blob sos-cta-blob-2"></div>
+  </div>
+
+  <div class="container">
+    <div class="sos-cta-inner sos-reveal">
+      <h2>ساعدنا في إعادة المفقودات إلى أصحابها.</h2>
+      <div class="sos-cta-actions">
+        <a href="#sosForm" class="btn btn-accent" onclick="document.getElementById('sosForm').scrollIntoView({behavior:'smooth'}); return false;">
+          الإبلاغ عن غرض مفقود
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        </a>
+        <a href="../contact.html" class="btn btn-navy">
+          الاتصال بنا
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .3 2 .7 2.9a2 2 0 0 1-.4 2.1L8 10a16 16 0 0 0 6 6l1.3-1.4a2 2 0 0 1 2.1-.4c.9.4 1.9.6 2.9.7a2 2 0 0 1 1.7 2.1z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ===== Footer ===== -->
+<footer class="footer" id="contact">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-about">
+        <div class="footer-brand">
+          <span class="brand-mark">
+            <img src="../Amare%20files%20/logo.png" alt="AMARE Logo" class="topbar-brand-logo">
+          </span>
+          <span>
+            <span class="brand-name">الجمعية المغربية لهواة البحث والاستكشاف</span><br>
+          </span>
+        </div>
+        <p>الجمعية المغربية لهواة البحث والاستكشاف هي إطار قانوني وطني يجمع الهواة تحت راية واحدة لصون التراث الوطني المغربي.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="فيسبوك"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg></a>
+          <a href="#" aria-label="إنستغرام"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+          <a href="#" aria-label="لينكدإن"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 5 3.79 6.2 2.3 6.2 1 6.2 0 5 0 3.5 0 2 1.1.8 2.5.8s2.48 1.2 2.48 2.7zM.2 8.5h4.6V23H.2V8.5zM8 8.5h4.4v2h.06c.6-1.2 2.1-2.4 4.4-2.4 4.7 0 5.6 3.1 5.6 7.1V23h-4.6v-6.7c0-1.6 0-3.7-2.3-3.7s-2.6 1.8-2.6 3.6V23H8V8.5z"/></svg></a>
+        </div>
+      </div>
+
+      <nav aria-label="روابط سريعة">
+        <h4>روابط سريعة</h4>
+        <ul class="footer-links">
+          <li><a href="../index.html">الرئيسية</a></li>
+          <li><a href="../contact.html">اتصل بنا</a></li>
+          <li><a href="../index.html#services">خدماتنا</a></li>
+          <li><a href="../index.html#news">الاخبار</a></li>
+          <li><a href="../index.html#newsletter">الارشيف</a></li>
+          <li><a href="../index.html#home">الفروع الجهوية</a></li>
+          <li><a href="../Join%20us/join-us-online.html">انخرط معنا</a></li>
+          <li><a href="../index.html#services">شركاؤنا</a></li>
+          <li><a href="../index.html#services">انشطتنا</a></li>
+          <li><a href="../index.html#about">من نحن</a></li>
+        </ul>
+      </nav>
+
+      <nav aria-label="برامجنا">
+        <h4>برامجنا</h4>
+        <ul class="footer-links">
+          <li><a href="sos-amare.html">SOS Amare</a></li>
+          <li><a href="../amare store/index.html">متجر Amare</a></li>
+          <li><a href="../Our%20services/explorer-house.html">بيت المستكشف Amare</a></li>
+          <li><a href="../Our%20services/amare-magazine.html">مجلة Amare</a></li>
+          <li><a href="../Our%20services/amare-academy.html">أكاديمية Amare</a></li>
+          <li><a href="../clubs/">النوادي</a></li>
+          <li><a href="../Our%20services/legal-advisor.html">المستشار القانوني</a></li>
+          <li><a href="../Our%20services/insurance-contract.html">عقد التأمين</a></li>
+        </ul>
+      </nav>
+
+      <div>
+        <h4>تواصل معنا</h4>
+        <ul class="footer-contact">
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>ص.ب 749 أيت ملول 86150</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .3 2 .7 2.9a2 2 0 0 1-.4 2.1L8 10a16 16 0 0 0 6 6l1.3-1.4a2 2 0 0 1 2.1-.4c.9.4 1.9.6 2.9.7a2 2 0 0 1 1.7 2.1z"/></svg>
+            <span dir="ltr">+212 684869996</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z" opacity="0"/><path d="M22 6 12 13 2 6"/><path d="M2 6h20v12H2z"/></svg>
+            <span dir="ltr">association.amare.agadir@gmail.com</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="footer-location">
+        <h4>موقعنا</h4>
+        <div class="footer-map-card">
+          <span class="footer-map-badge">📍 Ait Melloul, Agadir</span>
+          <iframe
+            src="https://www.google.com/maps?q=30.385528,-9.448611&z=16&output=embed"
+            loading="lazy"
+            allowfullscreen
+            referrerpolicy="no-referrer-when-downgrade"
+            title="موقع الجمعية على الخريطة"
+            class="footer-map-frame"></iframe>
+          <div class="footer-map-footer">
+            <a href="https://www.google.com/maps?q=30.385528,-9.448611" target="_blank" rel="noopener" class="footer-map-btn">Open in Google Maps</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2026 الجمعية المغربية لهواة البحث والاستكشاف. جميع الحقوق محفوظة.</p>
+      <div class="footer-bottom-links">
+        <a href="#">سياسة الخصوصية</a>
+        <a href="#">الشروط والأحكام</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== Back to Top ===== -->
+<button class="back-to-top" id="backToTop" aria-label="العودة إلى الأعلى">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M18 15l-6-6-6 6"/></svg>
+</button>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../supabase/config.js"></script>
+<script src="../supabase/client.js"></script>
+<script src="../supabase/database.js"></script>
+<script src="../supabase/storage.js"></script>
+<script src="../supabase/auth.js"></script>
+<script src="../supabase/realtime.js"></script>
+<script src="../supabase/index.js"></script>
+<script src="../supabase/navbar.js"></script>
+<script src="../script.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  /* Scroll-triggered reveal animations */
+  var revealEls = Array.prototype.slice.call(document.querySelectorAll('.sos-reveal'));
+  if (revealEls.length) {
+    var revealObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.15 });
+    revealEls.forEach(function (el) { revealObserver.observe(el); });
+  }
+
+  /* Form validation & submission */
+  var form = document.getElementById('sosReportForm');
+  var successBox = document.getElementById('sosFormSuccess');
+  if (!form) return;
+
+  function showError(input) {
+    input.classList.add('error');
+    var err = input.parentElement.querySelector('.sos-form-error');
+    if (err) err.style.display = 'block';
+  }
+  function clearError(input) {
+    input.classList.remove('error');
+    var err = input.parentElement.querySelector('.sos-form-error');
+    if (err) err.style.display = 'none';
+  }
+
+  var inputs = form.querySelectorAll('input[required], select[required], textarea[required]');
+  inputs.forEach(function (input) {
+    input.addEventListener('input', function () {
+      if (input.value.trim()) clearError(input);
+    });
+    input.addEventListener('blur', function () {
+      if (input.value.trim()) clearError(input);
+    });
+  });
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var valid = true;
+
+    inputs.forEach(function (input) {
+      if (!input.value.trim()) {
+        showError(input);
+        valid = false;
+      }
+    });
+
+    var emailInput = document.getElementById('email');
+    if (emailInput && emailInput.value.trim()) {
+      var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRe.test(emailInput.value.trim())) {
+        showError(emailInput);
+        valid = false;
+      }
+    }
+
+    if (!valid) return;
+
+    form.style.display = 'none';
+    successBox.classList.add('active');
+    setTimeout(function () {
+      successBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 100);
+  });
+
+  /* Category card click — preselect item type in form */
+  var catCards = document.querySelectorAll('.sos-cat-card');
+  catCards.forEach(function (card) {
+    card.addEventListener('click', function () {
+      var value = this.getAttribute('data-type');
+      if (value) {
+        var select = document.getElementById('itemType');
+        if (select) select.value = value;
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>

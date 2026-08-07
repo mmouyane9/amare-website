@@ -222,57 +222,36 @@
       activities: {
         title: 'أنشطتنا', href: '#',
         items: [
-          { icon: 'map', title: 'خرجات', desc: 'أنشطة وفعاليات ميدانية' },
-          { icon: 'heart', title: 'مسابقات وراليات ', desc: 'حملات تطوعية من أجل المجتمع' },
-          { icon: 'compass', title: 'تكوينات', desc: 'استكشاف تراثنا الطبيعي' },
-          { icon: 'tool', title: 'معارض', desc: 'ورشات تكوينية وتأهيلية' },
-          { icon: 'image', title: 'لقاءات', desc: 'معارض وفعاليات ثقافية' },
-          { icon: 'calendar', title: 'حملات بيئية', desc: 'تعرف على فعالياتنا القادمة' },
+          { icon: 'map', title: 'خرجات', desc: 'أنشطة وفعاليات ميدانية', href: '/Our%20activities/outings.html' },
+          { icon: 'heart', title: 'مسابقات وراليات', desc: 'حملات تطوعية من أجل المجتمع', href: '/Our%20activities/competitions-trips.html' },
+          { icon: 'compass', title: 'تكوينات', desc: 'استكشاف تراثنا الطبيعي', href: '/Our%20activities/training.html' },
+          { icon: 'tool', title: 'معارض', desc: 'ورشات تكوينية وتأهيلية', href: '/Our%20activities/exhibitions.html' },
+          { icon: 'image', title: 'لقاءات', desc: 'معارض وفعاليات ثقافية', href: '/Our%20activities/meetings.html' },
+          { icon: 'calendar', title: 'حملات بيئية', desc: 'تعرف على فعالياتنا القادمة', href: '/Our%20activities/environmental-campaigns.html' },
         ]
       },
       partners: {
         title: 'شركاؤنا', href: '#',
         items: [
-          { icon: 'map', title: 'LeFouilleurma ', desc: 'شركاؤنا على المستوى الوطني' },
-          { icon: 'globe', title: 'SENOTEC ', desc: 'شركاؤنا على المستوى الدولي' },
-          { icon: 'userPlus', title: 'ASTROMET', desc: 'انضم إلى قائمة شركائنا' },
-          { icon: 'file', title: 'AssociationDetectionCentre ', desc: 'اتفاقيات الشراكة والتعاون' },
-          { icon: 'star', title: 'ANCPP ', desc: 'قصص نجاح شراكاتنا' },
-          { icon: 'star', title: 'OMSDS ', desc: 'قصص نجاح شراكاتنا' },
+          { icon: 'map', title: 'LeFouilleurma', desc: 'شركاؤنا على المستوى الوطني', href: '/Our%20partners/lefouilleurma.html' },
+          { icon: 'globe', title: 'SENOTEC', desc: 'شركاؤنا على المستوى الدولي', href: '/Our%20partners/senotec.html' },
+          { icon: 'userPlus', title: 'ASTROMET', desc: 'انضم إلى قائمة شركائنا', href: '/Our%20partners/astromet.html' },
+          { icon: 'file', title: 'AssociationDetectionCentre', desc: 'اتفاقيات الشراكة والتعاون', href: '/Our%20partners/association-detection-centre.html' },
+          { icon: 'star', title: 'ANCPP', desc: 'قصص نجاح شراكاتنا', href: '/Our%20partners/ancpp.html' },
+          { icon: 'star', title: 'OMSDS', desc: 'قصص نجاح شراكاتنا', href: '/Our%20partners/omsds.html' },
         ]
       },
       services: {
         title: 'خدماتنا', href: '#services',
         items: [
-          { icon: 'book', title: 'SOS AMARE', desc: 'دورات وورشات تكوينية' },
+          { icon: 'book', title: 'SOS AMARE', desc: 'دورات وورشات تكوينية', href: '/Our%20services/sos-amare.html' },
           { icon: 'bag', title: 'متجر AMARE', desc: 'منتجات تدعم أنشطة الجمعية', href: 'amare store/index.html' },
-          { icon: 'userPlus', title: ' بيت المستكشف Amare', desc: 'انضم إلى مجتمع AMARE' },
-          { icon: 'clipboard', title: 'مجلة Amare ', desc: 'برامج تدريبية متخصصة' },
-          { icon: 'leaf', title: ' اكاديمية Amare', desc: 'استشارات في المجال البيئي' },
-          { icon: 'search', title: 'النوادي', desc: 'دعم للباحثين والمستكشفين' },
-          { icon: 'leaf', title: 'المستشار القانوني', desc: 'استشارات في المجال البيئي' },
-          { icon: 'search', title: 'عقد التامين', desc: 'دعم للباحثين والمستكشفين' },
-        ]
-      },
-      news: {
-        title: 'الأخبار', href: '#news',
-        items: [
-          { icon: 'bell', title: 'آخر الأخبار', desc: 'أحدث أخبار الجمعية' },
-          { icon: 'mic', title: 'المقالات', desc: 'مقالات وحوارات حصرية' },
-          { icon: 'file', title: 'البلاغات', desc: 'بلاغات وإعلانات رسمية' },
-          { icon: 'mail', title: 'البيانات الصحفية', desc: 'بيانات صحفية وإعلامية' },
-          { icon: 'mail', title: 'النشرة الإخبارية', desc: 'اشترك في نشرتنا البريدية' },
-        ]
-      },
-      archive: {
-        title: 'الأرشيف', href: '#',
-        items: [
-          { icon: 'image', title: 'الصور', desc: 'ألبوم صور الفعاليات' },
-          { icon: 'video', title: 'الفيديوهات', desc: 'مكتبة فيديوهات الجمعية' },
-          { icon: 'folder', title: 'الوثائق', desc: 'مستندات ووثائق رسمية' },
-          { icon: 'barChart', title: 'التقارير السنوية', desc: 'تقارير الأداء السنوية' },
-          { icon: 'book', title: 'المجلات', desc: 'مجلة AMARE الدورية' },
-          { icon: 'download', title: 'الملفات القابلة للتحميل', desc: 'تحميل الملفات والاستمارات' },
+          { icon: 'userPlus', title: ' بيت المستكشف Amare', desc: 'انضم إلى مجتمع AMARE', href: '/Our%20services/explorer-house.html' },
+          { icon: 'clipboard', title: 'مجلة Amare ', desc: 'برامج تدريبية متخصصة', href: '/Our%20services/amare-magazine.html' },
+          { icon: 'leaf', title: ' اكاديمية Amare', desc: 'استشارات في المجال البيئي', href: '/Our%20services/amare-academy.html' },
+          { icon: 'search', title: 'النوادي', desc: 'دعم للباحثين والمستكشفين', href: '/clubs/' },
+          { icon: 'leaf', title: 'المستشار القانوني', desc: 'استشارات في المجال البيئي', href: '/Our%20services/legal-advisor.html' },
+          { icon: 'search', title: 'عقد التامين', desc: 'دعم للباحثين والمستكشفين', href: '/Our%20services/insurance-contract.html' },
         ]
       },
       branches: {
@@ -310,27 +289,21 @@
             desc: 'القانون الداخلي للجمعية',
             href: '/Join%20us/internal-regulations.html'
           },
-                    {
-            icon: 'calendar',
-            title: 'تجديد الانخراط',
-            desc: 'تعبئة طلب تجديد الانخراط',
-            href: '/Join%20us/membership-renewal.html'
-          },
           {
             icon: 'compass',
-            title: 'ميثاق الاستكشاف المسؤول',
+            title: 'وثائق مقر الجمعية',
             desc: 'ميثاق المستكشف المسؤول',
             href: '/Join%20us/charter.html'
           },
           {
             icon: 'folder',
-            title: 'الإيداع الخارجي',
+            title: 'وصل الايداع النهائي',
             desc: 'إيداع الملفات الخارجية',
             href: '/Join%20us/external-deposit-receipt.html'
           },
           {
             icon: 'folder',
-            title: 'الإيداع الداخلي',
+            title: 'وصل الايداع المؤقت',
             desc: 'إيداع الملفات الداخلية',
             href: '/Join%20us/deposit-receipt.html'
           },
@@ -362,7 +335,10 @@
         html += '<div class="mega-panel-inner">';
         html += '<div class="mega-panel-head">';
         html += '<span class="mega-panel-title">' + group.title + '</span>';
-        html += '<a href="' + group.href + '" class="mega-panel-link">عرض الكل <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></a>';
+        var noViewAll = ['about', 'activities', 'partners', 'services', 'branches', 'join'];
+        if (noViewAll.indexOf(key) === -1) {
+          html += '<a href="' + group.href + '" class="mega-panel-link">عرض الكل <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></a>';
+        }
         html += '</div>';
         html += '<div class="mega-grid">';
         for (var i = 0; i < group.items.length; i++) {
@@ -533,6 +509,20 @@
           }, 150);
         });
       }
+
+      var hoverOnlyDropdowns = ['about', 'activities', 'partners', 'services', 'branches', 'join'];
+      for (var d = 0; d < hoverOnlyDropdowns.length; d++) {
+        (function(key) {
+          var link = document.querySelector('li[data-dropdown="' + key + '"] > a');
+          if (link) {
+            link.addEventListener('click', function(e) {
+              if (isMobile()) return;
+              e.preventDefault();
+            });
+          }
+        })(hoverOnlyDropdowns[d]);
+      }
+
       dropdownContainer.addEventListener('mouseenter', function() {
         clearTimeout(closeTimer);
       });

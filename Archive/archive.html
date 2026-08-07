@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الأرشيف | وثائق وأنشطة الجمعية | الجمعية المغربية لهواة البحث والاستكشاف</title>
+<meta name="description" content="الأرشيف الرسمي للجمعية المغربية لهواة البحث والاستكشاف — استعرض الوثائق الرسمية والأنشطة السابقة والتقارير والمنشورات التاريخية.">
+<meta name="keywords" content="أرشيف, وثائق, تقارير, الجمعية المغربية, AMARE, أنشطة سابقة, منشورات">
+<meta name="author" content="الجمعية المغربية لهواة البحث والاستكشاف">
+<link rel="shortcut icon" href="../Amare%20files%20/logo.png" type="image/x-icon">
+<meta property="og:title" content="الأرشيف | الجمعية المغربية لهواة البحث والاستكشاف">
+<meta property="og:description" content="استعرض أرشيف الجمعية، الوثائق الرسمية، الأنشطة السابقة، التقارير، والمنشورات التاريخية.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+<style>
+/* ==========================================================================
+   Archive Page — Premium document library styles
+   Prefix: ar-
+   ========================================================================== */
+
+/* ---------- 1. Hero ---------- */
+.ar-hero {
+  position: relative; padding: 130px 0 110px; overflow: hidden;
+  background: linear-gradient(180deg, #E8F6FF 0%, #F4FBFE 52%, #EBF6FF 100%);
+}
+.ar-hero-bg { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.ar-hero-shape { position: absolute; border-radius: 50%; }
+.ar-hero-shape-1 { width: 200px; height: 200px; background: rgba(25,184,242,.1); top: 8%; inset-inline-start: 2%; animation: arFloat 10s ease-in-out infinite; }
+.ar-hero-shape-2 { width: 80px; height: 80px; background: rgba(212,175,55,.2); bottom: 16%; inset-inline-start: 14%; animation: arFloat 7s ease-in-out 1.4s infinite; }
+.ar-hero-shape-3 { width: 240px; height: 240px; background: rgba(18,59,120,.04); top: 4%; inset-inline-end: 2%; animation: arFloat 11s ease-in-out .5s infinite; }
+.ar-hero-inner { position: relative; z-index: 2; text-align: center; max-width: 700px; margin: 0 auto; }
+.ar-hero-icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 72px; height: 72px; margin-bottom: 22px;
+  border-radius: 20px; background: var(--gradient-primary);
+  box-shadow: var(--shadow-primary);
+}
+.ar-hero-icon svg { width: 32px; height: 32px; color: #fff; }
+.ar-hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--color-white); border: 1px solid rgba(25,184,242,.24);
+  color: var(--color-primary-dark); font-weight: 800; font-size: 13px;
+  padding: 8px 18px; border-radius: var(--radius-pill);
+  box-shadow: 0 5px 16px rgba(25,184,242,.12); margin-bottom: 18px;
+}
+.ar-hero-badge svg { width: 16px; height: 16px; color: var(--color-accent); }
+.ar-hero h1 {
+  font-size: clamp(34px, 5vw, 56px); font-weight: 900; color: var(--color-navy);
+  line-height: 1.2; margin-bottom: 16px; letter-spacing: -1px;
+}
+.ar-hero h1 span { color: var(--color-primary); }
+.ar-hero-subtitle {
+  font-size: clamp(15px, 1.5vw, 18px); color: var(--color-text-soft);
+  line-height: 2; max-width: 580px; margin: 0 auto 30px;
+}
+.ar-hero-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; }
+
+/* ---------- 2. Section Head ---------- */
+.ar-section-head { text-align: center; max-width: 640px; margin: 0 auto 50px; }
+.ar-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 13px; font-weight: 800; color: var(--color-primary-dark);
+  text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px;
+}
+.ar-eyebrow svg { width: 14px; height: 14px; color: var(--color-accent); }
+.ar-section-title {
+  font-size: clamp(26px, 3.6vw, 40px); font-weight: 900;
+  color: var(--color-navy); margin-bottom: 14px;
+}
+.ar-section-desc { font-size: 16px; color: var(--color-text-soft); line-height: 1.9; }
+
+/* ---------- 3. Categories ---------- */
+.ar-categories { position: relative; padding: 80px 0; background: var(--color-white); overflow: hidden; }
+.ar-cat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.ar-cat-card {
+  background: var(--color-white); border: 1px solid rgba(18,59,120,.08);
+  border-radius: 16px; padding: 28px 20px; text-align: center; cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--t-fast), box-shadow var(--t-fast), border-color var(--t-fast);
+}
+.ar-cat-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: var(--color-primary); }
+.ar-cat-icon {
+  width: 48px; height: 48px; margin: 0 auto 12px;
+  border-radius: 14px; display: flex; align-items: center; justify-content: center;
+  background: rgba(25,184,242,.08); color: var(--color-primary-dark);
+}
+.ar-cat-icon svg { width: 24px; height: 24px; }
+.ar-cat-card h3 { font-size: 15px; font-weight: 700; color: var(--color-navy); margin-bottom: 4px; }
+.ar-cat-card span { font-size: 13px; color: var(--color-text-soft); }
+.ar-cat-card.active { border-color: var(--color-primary); background: rgba(25,184,242,.03); }
+
+/* ---------- 4. Statistics ---------- */
+.ar-stats { position: relative; padding: 80px 0; background: linear-gradient(180deg, #F9FCFF 0%, var(--color-white) 100%); overflow: hidden; }
+.ar-stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+.ar-stat-card {
+  background: var(--color-white); border-radius: 20px; padding: 32px 22px; text-align: center;
+  box-shadow: var(--shadow-sm); border: 1px solid rgba(18,59,120,.06);
+  transition: transform var(--t-fast);
+}
+.ar-stat-card:hover { transform: translateY(-4px); }
+.ar-stat-icon {
+  width: 56px; height: 56px; margin: 0 auto 14px;
+  border-radius: 16px; display: flex; align-items: center; justify-content: center;
+  background: var(--gradient-primary); box-shadow: var(--shadow-primary);
+}
+.ar-stat-icon svg { width: 26px; height: 26px; color: #fff; }
+.ar-stat-number {
+  font-size: clamp(28px, 3vw, 40px); font-weight: 900; color: var(--color-navy);
+  line-height: 1; margin-bottom: 6px;
+}
+.ar-stat-label { font-size: 14px; color: var(--color-text-soft); font-weight: 600; }
+
+/* ---------- 5. Archive Library ---------- */
+.ar-library { position: relative; padding: 80px 0; background: linear-gradient(180deg, #E8F6FF 0%, #F4FBFE 100%); overflow: hidden; }
+.ar-library-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.ar-card {
+  background: var(--color-white); border-radius: 18px; overflow: hidden;
+  box-shadow: var(--shadow-sm); border: 1px solid rgba(18,59,120,.06);
+  transition: transform var(--t-fast), box-shadow var(--t-fast);
+}
+.ar-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); }
+.ar-card-thumb {
+  height: 160px; display: flex; align-items: center; justify-content: center; position: relative;
+}
+.ar-card-thumb svg { width: 48px; height: 48px; color: rgba(255,255,255,.8); }
+.ar-card-body { padding: 20px 18px 22px; }
+.ar-card-category {
+  display: inline-block; font-size: 11px; font-weight: 800;
+  padding: 4px 10px; border-radius: var(--radius-pill); margin-bottom: 10px;
+}
+.ar-card-body h3 {
+  font-size: 16px; font-weight: 700; color: var(--color-navy);
+  line-height: 1.55; margin-bottom: 8px;
+}
+.ar-card-body p {
+  font-size: 14px; color: var(--color-text-soft);
+  line-height: 1.75; margin-bottom: 14px;
+}
+.ar-card-meta {
+  display: flex; align-items: center; gap: 12px;
+  font-size: 12px; color: #94a3b8; margin-bottom: 14px;
+}
+.ar-card-meta svg { width: 13px; height: 13px; color: var(--color-accent); }
+.ar-card-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 13px; font-weight: 700; color: var(--color-primary-dark);
+  text-decoration: none; transition: gap var(--t-fast);
+}
+.ar-card-btn:hover { gap: 10px; }
+.ar-card-btn svg { width: 15px; height: 15px; }
+
+/* Thumb backgrounds */
+.ar-thumb-doc { background: linear-gradient(135deg, #3498db, #2980b9); }
+.ar-thumb-report { background: linear-gradient(135deg, #2ecc71, #27ae60); }
+.ar-thumb-image { background: linear-gradient(135deg, #9b59b6, #8e44ad); }
+.ar-thumb-video { background: linear-gradient(135deg, #e74c3c, #c0392b); }
+.ar-thumb-publication { background: linear-gradient(135deg, #f39c12, #e67e22); }
+.ar-thumb-official { background: linear-gradient(135deg, #1abc9c, #16a085); }
+
+/* Category colors */
+.ar-cat-activities { background: rgba(25,184,242,.12); color: var(--color-primary-dark); }
+.ar-cat-reports { background: rgba(46,204,113,.12); color: #1e8449; }
+.ar-cat-images { background: rgba(155,89,182,.12); color: #6c3483; }
+.ar-cat-videos { background: rgba(231,76,60,.12); color: #c0392b; }
+.ar-cat-official { background: rgba(26,188,156,.12); color: #148f77; }
+.ar-cat-publications { background: rgba(243,156,18,.12); color: #b8860b; }
+.ar-cat-announcements { background: rgba(52,73,94,.12); color: #2c3e50; }
+.ar-cat-other { background: rgba(149,165,166,.14); color: #7f8c8d; }
+
+/* ---------- 6. Search & Filter ---------- */
+.ar-search { position: relative; padding: 80px 0; background: var(--color-white); overflow: hidden; }
+.ar-search-bar {
+  max-width: 800px; margin: 0 auto;
+  display: flex; gap: 12px; flex-wrap: wrap; align-items: center; justify-content: center;
+}
+.ar-search-input { flex: 1 1 300px; position: relative; }
+.ar-search-input svg {
+  position: absolute; inset-inline-start: 16px; top: 50%; transform: translateY(-50%);
+  width: 20px; height: 20px; color: #94a3b8; pointer-events: none;
+}
+.ar-search-input input {
+  width: 100%; padding: 14px 44px 14px 18px;
+  border: 1px solid rgba(18,59,120,.14); border-radius: 14px;
+  font-family: var(--font-main); font-size: 15px;
+  background: var(--color-white); color: var(--color-text);
+  outline: none; transition: border-color var(--t-fast), box-shadow var(--t-fast);
+}
+.ar-search-input input:focus {
+  border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(25,184,242,.1);
+}
+.ar-search-filter {
+  padding: 14px 18px; min-width: 160px;
+  border: 1px solid rgba(18,59,120,.14); border-radius: 14px;
+  font-family: var(--font-main); font-size: 14px;
+  background: var(--color-white); color: var(--color-text);
+  outline: none; cursor: pointer;
+  transition: border-color var(--t-fast), box-shadow var(--t-fast);
+}
+.ar-search-filter:focus { border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(25,184,242,.1); }
+.ar-search-btn {
+  padding: 14px 28px; border: none; border-radius: 14px;
+  background: var(--gradient-primary); color: #fff;
+  font-family: var(--font-main); font-size: 14px; font-weight: 700;
+  cursor: pointer; transition: transform var(--t-fast), box-shadow var(--t-fast);
+  box-shadow: var(--shadow-primary);
+}
+.ar-search-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(25,184,242,.25); }
+
+/* ---------- 7. Downloads ---------- */
+.ar-downloads { position: relative; padding: 80px 0; background: linear-gradient(180deg, #F9FCFF 0%, var(--color-white) 100%); overflow: hidden; }
+.ar-dl-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; max-width: 860px; margin: 0 auto; }
+.ar-dl-item {
+  display: flex; align-items: center; gap: 16px;
+  background: var(--color-white); border: 1px solid rgba(18,59,120,.08);
+  border-radius: 16px; padding: 20px; box-shadow: var(--shadow-sm);
+  transition: transform var(--t-fast), box-shadow var(--t-fast);
+}
+.ar-dl-item:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+.ar-dl-icon {
+  width: 52px; height: 52px; flex-shrink: 0; border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(231,76,60,.1); color: #c0392b;
+}
+.ar-dl-icon svg { width: 24px; height: 24px; }
+.ar-dl-info { flex: 1; min-width: 0; }
+.ar-dl-info h4 { font-size: 15px; font-weight: 700; color: var(--color-navy); margin-bottom: 4px; }
+.ar-dl-info span { font-size: 13px; color: var(--color-text-soft); }
+.ar-dl-btn {
+  padding: 10px 18px; flex-shrink: 0;
+  border: none; border-radius: 10px;
+  background: var(--gradient-primary); color: #fff;
+  font-family: var(--font-main); font-size: 13px; font-weight: 700;
+  cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
+  transition: transform var(--t-fast), box-shadow var(--t-fast);
+  box-shadow: var(--shadow-primary); text-decoration: none;
+}
+.ar-dl-btn:hover { transform: translateY(-2px); }
+.ar-dl-btn svg { width: 15px; height: 15px; }
+
+/* ---------- 8. FAQ ---------- */
+.ar-faq { position: relative; padding: 80px 0; background: linear-gradient(180deg, var(--color-white) 0%, #F9FCFF 100%); overflow: hidden; }
+.ar-faq-list { max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; }
+.ar-faq-item {
+  background: var(--color-white); border: 1px solid rgba(18,59,120,.08);
+  border-radius: 16px; overflow: hidden; transition: box-shadow var(--t-fast);
+}
+.ar-faq-item:hover { box-shadow: var(--shadow-sm); }
+.ar-faq-question {
+  width: 100%; display: flex; align-items: center; justify-content: space-between;
+  gap: 14px; padding: 22px 26px; background: none; border: none;
+  font-family: var(--font-main); font-size: 16px; font-weight: 700;
+  color: var(--color-navy); cursor: pointer; text-align: start;
+  transition: color var(--t-fast); line-height: 1.6;
+}
+.ar-faq-question:hover { color: var(--color-primary-dark); }
+.ar-faq-question[aria-expanded="true"] { color: var(--color-primary-dark); }
+.ar-faq-toggle {
+  width: 32px; height: 32px; flex-shrink: 0; border-radius: 50%;
+  background: rgba(25,184,242,.1); display: flex; align-items: center; justify-content: center;
+  transition: transform var(--t-fast), background var(--t-fast);
+}
+.ar-faq-toggle svg { width: 16px; height: 16px; color: var(--color-primary-dark); transition: transform var(--t-fast); }
+.ar-faq-question[aria-expanded="true"] .ar-faq-toggle { background: var(--gradient-primary); }
+.ar-faq-question[aria-expanded="true"] .ar-faq-toggle svg { color: #fff; transform: rotate(180deg); }
+.ar-faq-answer { max-height: 0; overflow: hidden; transition: max-height .45s var(--ease), padding .45s var(--ease); }
+.ar-faq-answer-inner { padding: 0 26px 22px; font-size: 15px; color: var(--color-text-soft); line-height: 1.9; }
+.ar-faq-item.open .ar-faq-answer { max-height: 200px; }
+
+/* ---------- 9. CTA ---------- */
+.ar-cta { position: relative; padding: 80px 0; background: var(--color-white); overflow: hidden; }
+.ar-cta-blob { position: absolute; border-radius: 50%; pointer-events: none; }
+.ar-cta-blob-1 { width: 320px; height: 320px; background: rgba(25,184,242,.04); top: -120px; inset-inline-end: -80px; }
+.ar-cta-blob-2 { width: 260px; height: 260px; background: rgba(212,175,55,.06); bottom: -100px; inset-inline-start: -70px; }
+.ar-cta-inner {
+  position: relative; z-index: 2; max-width: 620px; margin: 0 auto; text-align: center;
+  background: linear-gradient(135deg, rgba(25,184,242,.05) 0%, rgba(18,59,120,.04) 100%);
+  border: 1px solid rgba(18,59,120,.08); border-radius: 24px; padding: 52px 40px;
+}
+.ar-cta-inner h2 {
+  font-size: clamp(24px, 3.4vw, 34px); font-weight: 900; color: var(--color-navy);
+  margin-bottom: 22px; line-height: 1.5;
+}
+.ar-cta-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; }
+
+/* ---------- Animations ---------- */
+@keyframes arFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+.ar-reveal { opacity: 0; transform: translateY(30px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
+.ar-reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1024px) {
+  .ar-cat-grid { grid-template-columns: repeat(3, 1fr); }
+  .ar-stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .ar-library-grid { grid-template-columns: repeat(2, 1fr); }
+  .ar-dl-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 768px) {
+  .ar-hero { padding: 100px 0 70px; }
+  .ar-categories, .ar-stats, .ar-library, .ar-search, .ar-downloads, .ar-faq, .ar-cta { padding: 60px 0; }
+  .ar-cat-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .ar-library-grid { grid-template-columns: 1fr; }
+  .ar-stats-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .ar-search-bar { flex-direction: column; }
+  .ar-search-filter { width: 100%; }
+  .ar-cta-inner { padding: 36px 22px; }
+}
+@media (max-width: 480px) {
+  .ar-cat-grid { grid-template-columns: repeat(2, 1fr); }
+  .ar-stats-grid { grid-template-columns: 1fr; }
+  .ar-dl-item { flex-direction: column; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<a href="#main" class="visually-hidden">تخطَّ إلى المحتوى الرئيسي</a>
+
+<!-- ===== 1. Top Bar ===== -->
+<div class="topbar">
+  <div class="container">
+    <div class="topbar-right">
+      <a href="../index.html" class="topbar-brand" aria-label="الرئيسية">
+        <span class="topbar-brand-mark">
+          <img src="../Amare%20files%20/logo.png" alt="AMARE Logo" class="topbar-brand-logo">
+        </span>
+        <span class="topbar-brand-name" data-amare-setting="association_name">الجمعية المغربية لهواة البحث والاستكشاف</span>
+      </a>
+    </div>
+    <div class="topbar-left">
+      <div class="topbar-social">
+        <a href="#" aria-label="فيسبوك"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg></a>
+        <a href="#" aria-label="إنستغرام"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+        <a href="#" aria-label="لينكدإن"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 5 3.79 6.2 2.3 6.2 1 6.2 0 5 0 3.5 0 2 1.1.8 2.5.8s2.48 1.2 2.48 2.7zM.2 8.5h4.6V23H.2V8.5zM8 8.5h4.4v2h.06c.6-1.2 2.1-2.4 4.4-2.4 4.7 0 5.6 3.1 5.6 7.1V23h-4.6v-6.7c0-1.6 0-3.7-2.3-3.7s-2.6 1.8-2.6 3.6V23H8V8.5z"/></svg></a>
+      </div>
+      <div class="topbar-lang">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg>
+        <select aria-label="اختيار اللغة">
+          <option value="ar" selected>العربية</option>
+          <option value="fr">Français</option>
+          <option value="en">English</option>
+          <option value="es">Español</option>
+          <option value="ber">ⵜⴰⵎⴰⵣⵉⵖⵜ</option>
+        </select>
+      </div>
+      <a href="http://wa.me/+212684869996" target="_blank" rel="noopener" class="topbar-whatsapp ripple" aria-label="تواصل عبر واتساب">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.6.1-.2.3-.7 1-.9 1.2-.1.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.2-.4.1-.2 0-.4 0-.5s-.6-1.5-.8-2c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s1 2.6 1.1 2.7c.1.2 2 3 4.7 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 2-1.4.2-.6.2-1.2.1-1.3-.1-.1-.3-.2-.6-.3z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.6 1.4 5.1L2 22l5.1-1.3C8.5 21.5 10.2 22 12 22c5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18c-1.6 0-3.1-.4-4.5-1.2l-.3-.2-3.3.9.9-3.2-.2-.3C3.7 14.6 3.2 13.3 3.2 12c0-4.9 3.9-8.8 8.8-8.8s8.8 3.9 8.8 8.8-3.9 8.8-8.8 8.8z"/></svg>
+        <span>واتساب</span>
+      </a>
+      <a href="../login.html" class="topbar-login ripple" aria-label="تسجيل الدخول">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v18h-6M10 17l5-5-5-5M15 12H3"/></svg>
+        <span>تسجيل الدخول</span>
+      </a>
+      <a href="../amare%20store/index.html" class="nav-store-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        <span>متجر AMARE</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 2. Navbar ===== -->
+<header>
+  <nav class="navbar" id="navbar" aria-label="التنقل الرئيسي">
+    <div class="container">
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html">الرئيسية</a></li>
+        <li data-dropdown="about"><a href="../index.html#about">من نحن</a></li>
+        <li data-dropdown="activities"><a href="#">أنشطتنا</a></li>
+        <li data-dropdown="partners"><a href="#">شركاؤنا</a></li>
+        <li data-dropdown="services"><a href="../index.html#services">خدماتنا</a></li>
+        <li data-dropdown="branches"><a href="#">الفروع الجهوية</a></li>
+        <li data-dropdown="join"><a href="../Join%20us/join-us-online.html">انخرط معنا</a></li>
+        <li><a href="../News/news.html">الأخبار</a></li>
+        <li><a href="archive.html" class="active">الأرشيف</a></li>
+        <li><a href="../contact.html">اتصل بنا</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="hamburger" id="hamburger" aria-label="فتح القائمة" aria-expanded="false" aria-controls="navLinks">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <div class="mega-dropdown" id="megaDropdown"></div>
+  </nav>
+</header>
+
+<!-- ===== Mobile Header ===== -->
+<div class="mobile-header" id="mobileHeader">
+  <div class="mobile-header-group">
+    <a class="mobile-header-logo" href="../index.html" aria-label="الرئيسية">
+      <img src="../Amare%20files%20/logo.png" alt="AMARE Logo">
+    </a>
+    <a class="mobile-header-brand" href="../index.html" aria-label="الرئيسية">
+      الجمعية المغربية لهواة<br>البحث والاستكشاف
+    </a>
+  </div>
+  <button class="mobile-hamburger" id="mobileHamburger" aria-label="فتح القائمة" aria-expanded="false" aria-controls="mobileDrawer">
+    <span></span><span></span><span></span>
+  </button>
+</div>
+
+<!-- ===== Mobile Drawer ===== -->
+<div class="mobile-drawer" id="mobileDrawer" role="dialog" aria-modal="true" aria-label="القائمة الرئيسية">
+  <div class="mobile-drawer-inner">
+    <div class="mobile-drawer-header">
+      <button class="mobile-drawer-close" id="mobileDrawerClose" aria-label="إغلاق القائمة">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+      <a class="mobile-drawer-brand" href="../index.html">
+        <img src="../Amare%20files%20/logo.png" alt="AMARE Logo" class="mobile-drawer-brand-logo">
+        <span class="mobile-drawer-brand-name">الجمعية المغربية لهواة البحث والاستكشاف</span>
+      </a>
+    </div>
+    <nav class="mobile-drawer-nav" aria-label="التنقل الرئيسي">
+      <ul class="mobile-drawer-links" id="mobileDrawerLinks">
+        <li><a href="../index.html">الرئيسية</a></li>
+        <li class="mobile-drawer-dropdown" data-dd="about">
+          <div class="mobile-drawer-row">
+            <a href="../index.html#about">من نحن</a>
+            <button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button>
+          </div>
+          <ul class="mobile-drawer-sub"></ul>
+        </li>
+        <li class="mobile-drawer-dropdown" data-dd="activities">
+          <div class="mobile-drawer-row">
+            <a href="#">أنشطتنا</a>
+            <button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button>
+          </div>
+          <ul class="mobile-drawer-sub"></ul>
+        </li>
+        <li class="mobile-drawer-dropdown" data-dd="partners">
+          <div class="mobile-drawer-row">
+            <a href="#">شركاؤنا</a>
+            <button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button>
+          </div>
+          <ul class="mobile-drawer-sub"></ul>
+        </li>
+        <li class="mobile-drawer-dropdown" data-dd="services">
+          <div class="mobile-drawer-row">
+            <a href="../index.html#services">خدماتنا</a>
+            <button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button>
+          </div>
+          <ul class="mobile-drawer-sub"></ul>
+        </li>
+        <li class="mobile-drawer-dropdown" data-dd="branches">
+          <div class="mobile-drawer-row">
+            <a href="#">الفروع الجهوية</a>
+            <button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button>
+          </div>
+          <ul class="mobile-drawer-sub"></ul>
+        </li>
+        <li class="mobile-drawer-dropdown" data-dd="join">
+          <div class="mobile-drawer-row">
+            <a href="../Join%20us/index.html">انخرط معنا</a>
+            <button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button>
+          </div>
+          <ul class="mobile-drawer-sub"></ul>
+        </li>
+        <li><a href="../News/news.html">الأخبار</a></li>
+        <li><a href="archive.html">الأرشيف</a></li>
+        <li><a href="../contact.html">اتصل بنا</a></li>
+      </ul>
+    </nav>
+    <div class="mobile-drawer-bottom">
+      <div class="mobile-drawer-actions">
+        <a href="../login.html" class="mobile-drawer-action mobile-drawer-action-login">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v18h-6M10 17l5-5-5-5M15 12H3"/></svg>
+          <span>تسجيل الدخول</span>
+        </a>
+        <a href="../amare store/index.html" class="mobile-drawer-action mobile-drawer-action-store">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span>متجر</span>
+        </a>
+        <a href="https://wa.me/212600000000" target="_blank" rel="noopener" class="mobile-drawer-action mobile-drawer-action-whatsapp">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.6.1-.2.3-.7 1-.9 1.2-.1.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.2-.4.1-.2 0-.4 0-.5s-.6-1.5-.8-2c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s1 2.6 1.1 2.7c.1.2 2 3 4.7 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 2-1.4.2-.6.2-1.2.1-1.3-.1-.1-.3-.2-.6-.3z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.6 1.4 5.1L2 22l5.1-1.3C8.5 21.5 10.2 22 12 22c5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18c-1.6 0-3.1-.4-4.5-1.2l-.3-.2-3.3.9.9-3.2-.2-.3C3.7 14.6 3.2 13.3 3.2 12c0-4.9 3.9-8.8 8.8-8.8s8.8 3.9 8.8 8.8-3.9 8.8-8.8 8.8z"/></svg>
+          <span>واتساب</span>
+        </a>
+      </div>
+      <div class="mobile-drawer-lang">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg>
+        <select aria-label="اختيار اللغة">
+          <option value="ar" selected>العربية</option>
+          <option value="fr">Français</option>
+          <option value="en">English</option>
+          <option value="es">Español</option>
+          <option value="ber">ⵜⴰⵎⴰⵣⵉⵖⵜ</option>
+        </select>
+      </div>
+      <div class="mobile-drawer-social">
+        <a href="#" aria-label="فيسبوك"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg></a>
+        <a href="#" aria-label="إنستغرام"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+        <a href="#" aria-label="لينكدإن"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 5 3.79 6.2 2.3 6.2 1 6.2 0 5 0 3.5 0 2 1.1.8 2.5.8s2.48 1.2 2.48 2.7zM.2 8.5h4.6V23H.2V8.5zM8 8.5h4.4v2h.06c.6-1.2 2.1-2.4 4.4-2.4 4.7 0 5.6 3.1 5.6 7.1V23h-4.6v-6.7c0-1.6 0-3.7-2.3-3.7s-2.6 1.8-2.6 3.6V23H8V8.5z"/></svg></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main id="main">
+
+<!-- ===== 1. HERO ===== -->
+<section class="ar-hero" id="arHero">
+  <div class="ar-hero-bg" aria-hidden="true">
+    <div class="ar-hero-shape ar-hero-shape-1"></div>
+    <div class="ar-hero-shape ar-hero-shape-2"></div>
+    <div class="ar-hero-shape ar-hero-shape-3"></div>
+  </div>
+  <div class="container">
+    <div class="ar-hero-inner">
+      <div class="ar-hero-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+      </div>
+      <span class="ar-hero-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        المكتبة الرقمية
+      </span>
+      <h1>الأر<span>شيف</span></h1>
+      <p class="ar-hero-subtitle">استعرض أرشيف الجمعية، الوثائق الرسمية، الأنشطة السابقة، التقارير، والمنشورات التاريخية.</p>
+      <div class="ar-hero-actions">
+        <a href="#arLibrary" class="btn btn-accent">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          تصفح الأرشيف
+        </a>
+        <a href="../contact.html" class="btn btn-navy">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .3 2 .7 2.9a2 2 0 0 1-.4 2.1L8 10a16 16 0 0 0 6 6l1.3-1.4a2 2 0 0 1 2.1-.4c.9.4 1.9.6 2.9.7a2 2 0 0 1 1.7 2.1z"/></svg>
+          تواصل معنا
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 2. STATISTICS ===== -->
+<section class="ar-stats" id="arStats">
+  <div class="container">
+    <div class="ar-section-head">
+      <span class="ar-eyebrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>
+        إحصائيات الأرشيف
+      </span>
+      <h2 class="ar-section-title">أرشيفنا بالأرقام</h2>
+    </div>
+    <div class="ar-stats-grid">
+      <div class="ar-stat-card ar-reveal">
+        <div class="ar-stat-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        </div>
+        <div class="ar-stat-number" data-count="1247">+1,247</div>
+        <div class="ar-stat-label">عدد الوثائق</div>
+      </div>
+      <div class="ar-stat-card ar-reveal">
+        <div class="ar-stat-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div class="ar-stat-number" data-count="356">+356</div>
+        <div class="ar-stat-label">عدد الأنشطة المؤرشفة</div>
+      </div>
+      <div class="ar-stat-card ar-reveal">
+        <div class="ar-stat-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        </div>
+        <div class="ar-stat-number" data-count="4820">+4,820</div>
+        <div class="ar-stat-label">عدد الصور</div>
+      </div>
+      <div class="ar-stat-card ar-reveal">
+        <div class="ar-stat-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        </div>
+        <div class="ar-stat-number" data-count="89">+89</div>
+        <div class="ar-stat-label">عدد التقارير</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 3. CATEGORIES ===== -->
+<section class="ar-categories" id="arCategories">
+  <div class="container">
+    <div class="ar-section-head">
+      <span class="ar-eyebrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18"/></svg>
+        تصفح حسب الفئة
+      </span>
+      <h2 class="ar-section-title">فئات الأرشيف</h2>
+      <p class="ar-section-desc">اختر الفئة التي تهمك لاستعراض المحتوى المؤرشف.</p>
+    </div>
+    <div class="ar-cat-grid" id="categoryGrid"></div>
+  </div>
+</section>
+
+<!-- ===== 4. SEARCH & FILTER ===== -->
+<section class="ar-search" id="arSearch">
+  <div class="container">
+    <div class="ar-section-head">
+      <span class="ar-eyebrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        بحث متقدم
+      </span>
+      <h2 class="ar-section-title">ابحث في الأرشيف</h2>
+    </div>
+    <div class="ar-search-bar">
+      <div class="ar-search-input">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" placeholder="ابحث عن وثيقة أو نشاط..." id="searchInput">
+      </div>
+      <select class="ar-search-filter" id="searchCategory">
+        <option value="">جميع الفئات</option>
+        <option value="activities">الأنشطة السابقة</option>
+        <option value="reports">التقارير السنوية</option>
+        <option value="images">الصور</option>
+        <option value="videos">الفيديوهات</option>
+        <option value="official">الوثائق الرسمية</option>
+        <option value="publications">المجلات والمنشورات</option>
+        <option value="announcements">البيانات والإعلانات</option>
+        <option value="other">ملفات متنوعة</option>
+      </select>
+      <select class="ar-search-filter" id="searchYear">
+        <option value="">جميع السنوات</option>
+        <option value="2026">2026</option>
+        <option value="2025">2025</option>
+        <option value="2024">2024</option>
+        <option value="2023">2023</option>
+        <option value="2022">2022</option>
+      </select>
+      <button class="ar-search-btn" id="searchBtn">بحث</button>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 5. ARCHIVE LIBRARY ===== -->
+<section class="ar-library" id="arLibrary">
+  <div class="container">
+    <div class="ar-section-head">
+      <span class="ar-eyebrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+        مكتبة الأرشيف
+      </span>
+      <h2 class="ar-section-title">تصفح المحتوى المؤرشف</h2>
+      <p class="ar-section-desc">استعرض جميع الوثائق والأنشطة والمنشورات المؤرشفة للجمعية.</p>
+    </div>
+    <div class="ar-library-grid" id="archiveGrid"></div>
+  </div>
+</section>
+
+<!-- ===== 6. DOWNLOADS ===== -->
+<section class="ar-downloads" id="arDownloads">
+  <div class="container">
+    <div class="ar-section-head">
+      <span class="ar-eyebrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        مركز التحميل
+      </span>
+      <h2 class="ar-section-title">تحميل الملفات</h2>
+    </div>
+    <div class="ar-dl-grid" id="downloadGrid"></div>
+  </div>
+</section>
+
+<!-- ===== 7. FAQ ===== -->
+<section class="ar-faq" id="arFaq">
+  <div class="container">
+    <div class="ar-section-head">
+      <span class="ar-eyebrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        الأسئلة الشائعة
+      </span>
+      <h2 class="ar-section-title">كل ما تريد معرفته عن الأرشيف</h2>
+    </div>
+    <div class="ar-faq-list">
+      <div class="ar-faq-item">
+        <button class="ar-faq-question" aria-expanded="false">
+          كيف أبحث داخل الأرشيف؟
+          <span class="ar-faq-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></span>
+        </button>
+        <div class="ar-faq-answer"><div class="ar-faq-answer-inner">يمكنك استخدام شريط البحث المتقدم للبحث بالكلمات المفتاحية، أو تصفية النتائج حسب الفئة والسنة للوصول إلى المحتوى الذي تبحث عنه بسهولة.</div></div>
+      </div>
+      <div class="ar-faq-item">
+        <button class="ar-faq-question" aria-expanded="false">
+          هل يمكن تحميل الوثائق؟
+          <span class="ar-faq-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></span>
+        </button>
+        <div class="ar-faq-answer"><div class="ar-faq-answer-inner">نعم، نوفر مركز تحميل يتيح لك تنزيل الوثائق الرسمية والتقارير والمنشورات بصيغة PDF مجاناً. بعض الوثائق قد تتطلب تسجيل الدخول للتحميل.</div></div>
+      </div>
+      <div class="ar-faq-item">
+        <button class="ar-faq-question" aria-expanded="false">
+          كيف يمكن طلب وثيقة قديمة؟
+          <span class="ar-faq-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></span>
+        </button>
+        <div class="ar-faq-answer"><div class="ar-faq-answer-inner">إذا لم تجد الوثيقة التي تبحث عنها في الأرشيف الرقمي، يمكنك التواصل مع فريق الأرشيف عبر نموذج الاتصال أو البريد الإلكتروني لتقديم طلب رسمي وسنساعدك في الحصول عليها.</div></div>
+      </div>
+      <div class="ar-faq-item">
+        <button class="ar-faq-question" aria-expanded="false">
+          هل تتم إضافة أرشيف جديد باستمرار؟
+          <span class="ar-faq-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></span>
+        </button>
+        <div class="ar-faq-answer"><div class="ar-faq-answer-inner">نعم، يتم تحديث الأرشيف بشكل دوري لإضافة الأنشطة الجديدة والوثائق والتقارير. نحرص على توثيق جميع أنشطة الجمعية وإضافتها إلى الأرشيف الرقمي باستمرار.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 8. CTA ===== -->
+<section class="ar-cta" id="arCta">
+  <div class="ar-cta-blob ar-cta-blob-1" aria-hidden="true"></div>
+  <div class="ar-cta-blob ar-cta-blob-2" aria-hidden="true"></div>
+  <div class="container">
+    <div class="ar-cta-inner ar-reveal">
+      <h2>اكتشف تاريخ وإنجازات الجمعية.</h2>
+      <div class="ar-cta-actions">
+        <a href="#arLibrary" class="btn btn-accent">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          استعرض الأرشيف
+        </a>
+        <a href="../contact.html" class="btn btn-navy">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .3 2 .7 2.9a2 2 0 0 1-.4 2.1L8 10a16 16 0 0 0 6 6l1.3-1.4a2 2 0 0 1 2.1-.4c.9.4 1.9.6 2.9.7a2 2 0 0 1 1.7 2.1z"/></svg>
+          اتصل بنا
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ===== Footer ===== -->
+<footer class="footer" id="contact">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-about">
+        <div class="footer-brand">
+          <span class="brand-mark">
+            <img src="../Amare%20files%20/logo.png" alt="AMARE Logo" class="topbar-brand-logo">
+          </span>
+          <span><span class="brand-name">الجمعية المغربية لهواة البحث والاستكشاف</span><br></span>
+        </div>
+        <p>الجمعية المغربية لهواة البحث والاستكشاف هي إطار قانوني وطني يجمع الهواة تحت راية واحدة لصون التراث الوطني المغربي.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="فيسبوك"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg></a>
+          <a href="#" aria-label="إنستغرام"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+          <a href="#" aria-label="لينكدإن"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 5 3.79 6.2 2.3 6.2 1 6.2 0 5 0 3.5 0 2 1.1.8 2.5.8s2.48 1.2 2.48 2.7zM.2 8.5h4.6V23H.2V8.5zM8 8.5h4.4v2h.06c.6-1.2 2.1-2.4 4.4-2.4 4.7 0 5.6 3.1 5.6 7.1V23h-4.6v-6.7c0-1.6 0-3.7-2.3-3.7s-2.6 1.8-2.6 3.6V23H8V8.5z"/></svg></a>
+        </div>
+      </div>
+      <nav aria-label="روابط سريعة">
+        <h4>روابط سريعة</h4>
+        <ul class="footer-links">
+          <li><a href="../index.html">الرئيسية</a></li>
+          <li><a href="../contact.html">اتصل بنا</a></li>
+          <li><a href="../index.html#services">خدماتنا</a></li>
+          <li><a href="../News/news.html">الاخبار</a></li>
+          <li><a href="archive.html">الارشيف</a></li>
+          <li><a href="../index.html#home">الفروع الجهوية</a></li>
+          <li><a href="../Join%20us/join-us-online.html">انخرط معنا</a></li>
+          <li><a href="../index.html#services">شركاؤنا</a></li>
+          <li><a href="../index.html#services">انشطتنا</a></li>
+          <li><a href="../index.html#about">من نحن</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="برامجنا">
+        <h4>برامجنا</h4>
+        <ul class="footer-links">
+          <li><a href="../Our%20services/sos-amare.html">SOS Amare</a></li>
+          <li><a href="../amare store/index.html">متجر Amare</a></li>
+          <li><a href="../Our%20services/explorer-house.html">بيت المستكشف Amare</a></li>
+          <li><a href="../Our%20services/amare-magazine.html">مجلة Amare</a></li>
+          <li><a href="../Our%20services/amare-academy.html">أكاديمية Amare</a></li>
+          <li><a href="../clubs/">النوادي</a></li>
+          <li><a href="../Our%20services/legal-advisor.html">المستشار القانوني</a></li>
+          <li><a href="../Our%20services/insurance-contract.html">عقد التأمين</a></li>
+        </ul>
+      </nav>
+      <div>
+        <h4>تواصل معنا</h4>
+        <ul class="footer-contact">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>ص.ب 749 أيت ملول 86150</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .3 2 .7 2.9a2 2 0 0 1-.4 2.1L8 10a16 16 0 0 0 6 6l1.3-1.4a2 2 0 0 1 2.1-.4c.9.4 1.9.6 2.9.7a2 2 0 0 1 1.7 2.1z"/></svg><span dir="ltr">+212 684869996</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z" opacity="0"/><path d="M22 6 12 13 2 6"/><path d="M2 6h20v12H2z"/></svg><span dir="ltr">association.amare.agadir@gmail.com</span></li>
+        </ul>
+      </div>
+      <div class="footer-location">
+        <h4>موقعنا</h4>
+        <div class="footer-map-card">
+          <span class="footer-map-badge">📍 Ait Melloul, Agadir</span>
+          <iframe src="https://www.google.com/maps?q=30.385528,-9.448611&z=16&output=embed" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade" title="موقع الجمعية على الخريطة" class="footer-map-frame"></iframe>
+          <div class="footer-map-footer">
+            <a href="https://www.google.com/maps?q=30.385528,-9.448611" target="_blank" rel="noopener" class="footer-map-btn">Open in Google Maps</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 الجمعية المغربية لهواة البحث والاستكشاف. جميع الحقوق محفوظة.</p>
+      <div class="footer-bottom-links">
+        <a href="#">سياسة الخصوصية</a>
+        <a href="#">الشروط والأحكام</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<button class="back-to-top" id="backToTop" aria-label="العودة إلى الأعلى">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M18 15l-6-6-6 6"/></svg>
+</button>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../supabase/config.js"></script>
+<script src="../supabase/client.js"></script>
+<script src="../supabase/database.js"></script>
+<script src="../supabase/storage.js"></script>
+<script src="../supabase/auth.js"></script>
+<script src="../supabase/realtime.js"></script>
+<script src="../supabase/index.js"></script>
+<script src="../supabase/navbar.js"></script>
+<script src="../script.js"></script>
+<script>
+/* ==========================================================================
+   Archive Data Store — Ready for Supabase integration
+   ========================================================================== */
+(function () {
+  'use strict';
+
+  var archiveData = [
+    { id: 1, category: 'activities', catLabel: 'الأنشطة السابقة', catClass: 'ar-cat-activities', thumbClass: 'ar-thumb-doc', title: 'تقرير الخرجة الاستكشافية إلى جبال الأطلس 2025', desc: 'تقرير مفصل يوثق فعاليات الخرجة الاستكشافية التي نظمتها الجمعية إلى جبال الأطلس الكبير.', date: '2025-09-15' },
+    { id: 2, category: 'reports', catLabel: 'التقارير السنوية', catClass: 'ar-cat-reports', thumbClass: 'ar-thumb-report', title: 'التقرير السنوي للجمعية 2025', desc: 'التقرير السنوي الشامل لأنشطة وإنجازات الجمعية خلال سنة 2025.', date: '2025-12-31' },
+    { id: 3, category: 'images', catLabel: 'الصور', catClass: 'ar-cat-images', thumbClass: 'ar-thumb-image', title: 'ألبوم صور حملة تنظيف شاطئ أكادير', desc: 'مجموعة صور توثق فعاليات حملة تنظيف شاطئ أكادير بمشاركة 200 متطوع.', date: '2025-07-10' },
+    { id: 4, category: 'videos', catLabel: 'الفيديوهات', catClass: 'ar-cat-videos', thumbClass: 'ar-thumb-video', title: 'فيديو توثيقي: المسابقة الوطنية للكشف عن المعادن', desc: 'تغطية مرئية شاملة لفعاليات المسابقة الوطنية للكشف عن المعادن.', date: '2025-06-20' },
+    { id: 5, category: 'official', catLabel: 'الوثائق الرسمية', catClass: 'ar-cat-official', thumbClass: 'ar-thumb-official', title: 'محضر الجمع العام السنوي 2025', desc: 'محضر رسمي يوثق أشغال الجمع العام السنوي وقراراته.', date: '2025-12-20' },
+    { id: 6, category: 'publications', catLabel: 'المجلات والمنشورات', catClass: 'ar-cat-publications', thumbClass: 'ar-thumb-publication', title: 'مجلة AMARE — العدد الثالث', desc: 'العدد الثالث من مجلة AMARE يتضمن مقالات ودراسات حول الاستكشاف والتنقيب.', date: '2025-10-01' },
+    { id: 7, category: 'announcements', catLabel: 'البيانات والإعلانات', catClass: 'ar-cat-announcements', thumbClass: 'ar-thumb-doc', title: 'بلاغ افتتاح فرع جهة طنجة', desc: 'بيان رسمي يعلن افتتاح الفرع الجهوي للجمعية بجهة طنجة - تطوان - الحسيمة.', date: '2025-05-15' },
+    { id: 8, category: 'other', catLabel: 'ملفات متنوعة', catClass: 'ar-cat-other', thumbClass: 'ar-thumb-doc', title: 'دليل المستكشف — الطبعة الأولى', desc: 'دليل شامل للمستكشف المبتدئ يتضمن نصائح وإرشادات حول أساسيات الاستكشاف.', date: '2025-03-01' },
+    { id: 9, category: 'activities', catLabel: 'الأنشطة السابقة', catClass: 'ar-cat-activities', thumbClass: 'ar-thumb-doc', title: 'تقرير الدورة التكوينية في الملاحة البرية', desc: 'تقرير مفصل عن الدورة التكوينية التي استفاد منها 35 عضواً.', date: '2025-06-10' },
+    { id: 10, category: 'reports', catLabel: 'التقارير السنوية', catClass: 'ar-cat-reports', thumbClass: 'ar-thumb-report', title: 'التقرير المالي السنوي 2024', desc: 'تقرير مالي مفصل يوثق مداخيل ومصاريف الجمعية لسنة 2024.', date: '2024-12-31' },
+    { id: 11, category: 'images', catLabel: 'الصور', catClass: 'ar-cat-images', thumbClass: 'ar-thumb-image', title: 'ألبوم معرض الاكتشافات الأثرية', desc: 'مجموعة صور من المعرض الجهوي للمستكشفين بمشاركة 30 عارضاً.', date: '2025-07-03' },
+    { id: 12, category: 'publications', catLabel: 'المجلات والمنشورات', catClass: 'ar-cat-publications', thumbClass: 'ar-thumb-publication', title: 'مجلة AMARE — العدد الثاني', desc: 'العدد الثاني من مجلة AMARE يغطي أنشطة الجمعية في النصف الأول من 2025.', date: '2025-04-15' },
+    { id: 13, category: 'videos', catLabel: 'الفيديوهات', catClass: 'ar-cat-videos', thumbClass: 'ar-thumb-video', title: 'فيديو: حملة تشجير غابة المعمورة', desc: 'تغطية مرئية لحملة التشجير التي نظمتها الجمعية بغابة المعمورة.', date: '2025-05-22' },
+    { id: 14, category: 'official', catLabel: 'الوثائق الرسمية', catClass: 'ar-cat-official', thumbClass: 'ar-thumb-official', title: 'القانون الأساسي للجمعية', desc: 'النظام الأساسي الرسمي للجمعية المغربية لهواة البحث والاستكشاف.', date: '2024-01-01' },
+    { id: 15, category: 'announcements', catLabel: 'البيانات والإعلانات', catClass: 'ar-cat-announcements', thumbClass: 'ar-thumb-doc', title: 'إعلان فتح باب الانخراط لموسم 2025', desc: 'بلاغ رسمي يعلن عن فتح باب الانخراط والتسجيل للموسم الجديد.', date: '2025-01-10' },
+    { id: 16, category: 'other', catLabel: 'ملفات متنوعة', catClass: 'ar-cat-other', thumbClass: 'ar-thumb-doc', title: 'أرشيف اتفاقيات الشراكة', desc: 'مجموعة اتفاقيات الشراكة الموقعة بين الجمعية ومختلف الشركاء.', date: '2024-06-01' },
+  ];
+
+  var categories = [
+    { id: 'activities', label: 'الأنشطة السابقة', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>', count: null },
+    { id: 'reports', label: 'التقارير السنوية', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>', count: null },
+    { id: 'images', label: 'الصور', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>', count: null },
+    { id: 'videos', label: 'الفيديوهات', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>', count: null },
+    { id: 'official', label: 'الوثائق الرسمية', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>', count: null },
+    { id: 'publications', label: 'المجلات والمنشورات', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>', count: null },
+    { id: 'announcements', label: 'البيانات والإعلانات', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>', count: null },
+    { id: 'other', label: 'ملفات متنوعة', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>', count: null },
+  ];
+
+  categories.forEach(function (cat) {
+    cat.count = archiveData.filter(function (n) { return n.category === cat.id; }).length;
+  });
+
+  /* -- Icons -- */
+  var thumbIcons = {
+    'ar-thumb-doc': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>',
+    'ar-thumb-report': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>',
+    'ar-thumb-image': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>',
+    'ar-thumb-video': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>',
+    'ar-thumb-publication': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>',
+    'ar-thumb-official': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
+  };
+
+  /* ==========================================================================
+     1. Render Categories
+     ========================================================================== */
+  function renderCategories(active) {
+    var container = document.getElementById('categoryGrid');
+    if (!container) return;
+    var html = '';
+    categories.forEach(function (c) {
+      var isActive = active === c.id;
+      html +=
+        '<div class="ar-cat-card' + (isActive ? ' active' : '') + '" data-category="' + c.id + '">' +
+          '<div class="ar-cat-icon">' + c.icon + '</div>' +
+          '<h3>' + c.label + '</h3>' +
+          '<span>' + c.count + ' عنصر</span>' +
+        '</div>';
+    });
+    container.innerHTML = html;
+
+    container.querySelectorAll('.ar-cat-card').forEach(function (card) {
+      card.addEventListener('click', function () {
+        var cat = this.getAttribute('data-category');
+        renderCategories(cat);
+        var filtered = archiveData.filter(function (n) { return n.category === cat; });
+        renderArchiveGrid(filtered);
+        document.getElementById('searchCategory').value = cat;
+        document.getElementById('arLibrary').scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+  }
+
+  /* ==========================================================================
+     2. Render Archive Grid
+     ========================================================================== */
+  function renderArchiveGrid(articles) {
+    var grid = document.getElementById('archiveGrid');
+    if (!grid) return;
+    var html = '';
+    (articles || archiveData).forEach(function (a) {
+      html +=
+        '<div class="ar-card ar-reveal">' +
+          '<div class="ar-card-thumb ' + a.thumbClass + '">' +
+            (thumbIcons[a.thumbClass] || thumbIcons['ar-thumb-doc']) +
+          '</div>' +
+          '<div class="ar-card-body">' +
+            '<span class="ar-card-category ' + a.catClass + '">' + a.catLabel + '</span>' +
+            '<h3>' + a.title + '</h3>' +
+            '<p>' + a.desc.substring(0, 80) + '...</p>' +
+            '<div class="ar-card-meta">' +
+              '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>' +
+              a.date +
+            '</div>' +
+            '<a href="#" class="ar-card-btn">عرض التفاصيل <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></a>' +
+          '</div>' +
+        '</div>';
+    });
+    grid.innerHTML = html;
+    observeReveal();
+  }
+
+  /* ==========================================================================
+     3. Search & Filter
+     ========================================================================== */
+  document.getElementById('searchBtn').addEventListener('click', function () {
+    var query = (document.getElementById('searchInput').value || '').trim().toLowerCase();
+    var cat = document.getElementById('searchCategory').value;
+    var year = document.getElementById('searchYear').value;
+    var filtered = archiveData.filter(function (n) {
+      var mq = !query || n.title.toLowerCase().indexOf(query) !== -1 || n.desc.toLowerCase().indexOf(query) !== -1;
+      var mc = !cat || n.category === cat;
+      var my = !year || n.date.indexOf(year) === 0;
+      return mq && mc && my;
+    });
+    renderArchiveGrid(filtered);
+    renderCategories(cat || '');
+    document.getElementById('arLibrary').scrollIntoView({ behavior: 'smooth' });
+  });
+
+  document.getElementById('searchInput').addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') document.getElementById('searchBtn').click();
+  });
+
+  /* ==========================================================================
+     4. Downloads
+     ========================================================================== */
+  var downloads = [
+    { title: 'القانون الأساسي للجمعية', size: '2.4 MB', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>' },
+    { title: 'التقرير السنوي 2025', size: '5.1 MB', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>' },
+    { title: 'نموذج طلب الانخراط', size: '1.2 MB', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12h6M12 9v6"/><path d="M2 12h2M20 12h2M12 2v2M12 20v2"/></svg>' },
+    { title: 'مجلة AMARE — العدد الثالث', size: '8.7 MB', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>' },
+    { title: 'دليل المستكشف — الطبعة الأولى', size: '3.9 MB', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>' },
+    { title: 'محضر الجمع العام 2025', size: '1.8 MB', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>' },
+  ];
+
+  function renderDownloads() {
+    var container = document.getElementById('downloadGrid');
+    if (!container) return;
+    var html = '';
+    downloads.forEach(function (d) {
+      html +=
+        '<div class="ar-dl-item ar-reveal">' +
+          '<div class="ar-dl-icon">' + d.icon + '</div>' +
+          '<div class="ar-dl-info"><h4>' + d.title + '</h4><span>PDF • ' + d.size + '</span></div>' +
+          '<a href="#" class="ar-dl-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> تحميل</a>' +
+        '</div>';
+    });
+    container.innerHTML = html;
+    observeReveal();
+  }
+
+  /* ==========================================================================
+     5. FAQ Accordion
+     ========================================================================== */
+  document.querySelectorAll('.ar-faq-question').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var item = this.parentElement;
+      var expanded = this.getAttribute('aria-expanded') === 'true';
+      document.querySelectorAll('.ar-faq-question').forEach(function (b) { b.setAttribute('aria-expanded', 'false'); });
+      document.querySelectorAll('.ar-faq-item').forEach(function (i) { i.classList.remove('open'); });
+      if (!expanded) {
+        this.setAttribute('aria-expanded', 'true');
+        item.classList.add('open');
+      }
+    });
+  });
+
+  /* ==========================================================================
+     6. Scroll Reveal
+     ========================================================================== */
+  function observeReveal() {
+    var els = document.querySelectorAll('.ar-reveal:not(.visible)');
+    if (!els.length) return;
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+      });
+    }, { threshold: 0.12 });
+    els.forEach(function (el) { observer.observe(el); });
+  }
+
+  /* ==========================================================================
+     Init
+     ========================================================================== */
+  renderCategories('');
+  renderArchiveGrid();
+  renderDownloads();
+  observeReveal();
+
+})();
+</script>
+</body>
+</html>

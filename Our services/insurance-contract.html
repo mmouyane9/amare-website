@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>عقد التأمين | الجمعية المغربية لهواة البحث والاستكشاف</title>
+<meta name="description" content="عقد التأمين — حماية إضافية لأعضاء الجمعية أثناء المشاركة في الأنشطة والفعاليات والرحلات الاستكشافية.">
+<meta name="keywords" content="عقد تأمين, تأمين, حماية, أعضاء, أنشطة, رحلات, الجمعية المغربية">
+<meta name="author" content="الجمعية المغربية لهواة البحث والاستكشاف">
+<link rel="shortcut icon" href="../Amare%20files%20/logo.png" type="image/x-icon">
+
+<meta property="og:title" content="عقد التأمين | الجمعية المغربية">
+<meta property="og:description" content="حماية إضافية لأعضاء الجمعية أثناء المشاركة في الأنشطة والفعاليات والرحلات الاستكشافية.">
+<meta property="og:type" content="website">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="../style.css">
+<style>
+/* ==========================================================================
+   Insurance Contract Page — Premium styles (uses design tokens from ../style.css)
+   ========================================================================== */
+
+/* ---------- 1. Hero ---------- */
+.ic-hero {
+  position: relative; padding: 140px 0 120px; overflow: hidden;
+  background: linear-gradient(180deg, #E8F6FF 0%, #F4FBFE 52%, #EBF6FF 100%);
+}
+.ic-hero-bg { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.ic-hero-shape {
+  position: absolute; border-radius: 50%;
+  animation: float 8s ease-in-out infinite;
+}
+.ic-hero-shape-1 {
+  width: 150px; height: 150px;
+  background: rgba(25,184,242,.13);
+  top: 8%; inset-inline-start: 4%;
+}
+.ic-hero-shape-2 {
+  width: 62px; height: 62px;
+  background: rgba(212,175,55,.22);
+  bottom: 16%; inset-inline-start: 12%;
+  animation-delay: 1.2s;
+}
+.ic-hero-shape-3 {
+  width: 200px; height: 200px;
+  background: rgba(18,59,120,.05);
+  top: 5%; inset-inline-end: 3%;
+  animation-delay: .6s;
+}
+.ic-hero-shape-4 {
+  width: 46px; height: 46px;
+  background: rgba(25,184,242,.24);
+  bottom: 22%; inset-inline-end: 15%;
+  animation-delay: 1.8s;
+}
+
+.ic-hero-inner {
+  position: relative; z-index: 2;
+  text-align: center; max-width: 700px; margin: 0 auto;
+}
+.ic-hero-icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 80px; height: 80px; margin-bottom: 24px;
+  border-radius: 24px;
+  background: var(--gradient-primary);
+  box-shadow: var(--shadow-primary);
+}
+.ic-hero-icon svg { width: 38px; height: 38px; color: #fff; }
+
+.ic-hero h1 {
+  font-size: clamp(30px, 5vw, 54px);
+  font-weight: 900; color: var(--color-navy);
+  line-height: 1.3; margin-bottom: 18px;
+}
+.ic-hero h1 span { color: var(--color-primary); }
+
+.ic-hero-subtitle {
+  font-size: clamp(16px, 1.6vw, 19px);
+  color: var(--color-text-soft);
+  line-height: 2; max-width: 580px;
+  margin: 0 auto 36px;
+}
+
+.ic-hero-actions {
+  display: flex; flex-wrap: wrap;
+  justify-content: center; gap: 16px;
+}
+
+/* ---------- Shared Section Head ---------- */
+.ic-section-head {
+  text-align: center; max-width: 680px;
+  margin: 0 auto 50px;
+}
+.ic-section-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 13px; font-weight: 800;
+  color: var(--color-primary-dark); margin-bottom: 14px;
+}
+.ic-section-eyebrow svg { width: 14px; height: 14px; color: var(--color-accent); }
+.ic-section-title {
+  font-size: clamp(26px, 3.6vw, 40px);
+  font-weight: 900; color: var(--color-navy); margin-bottom: 16px;
+}
+.ic-section-desc {
+  font-size: 16px; color: var(--color-text-soft); line-height: 1.95;
+}
+
+/* ---------- 2. About ---------- */
+.ic-about {
+  position: relative; padding: 100px 0;
+  background: var(--color-white); overflow: hidden;
+}
+.ic-about-blobs { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.ic-about-blob { position: absolute; border-radius: 50%; }
+.ic-about-blob-1 {
+  width: 280px; height: 280px;
+  background: rgba(25,184,242,.05);
+  top: -100px; inset-inline-end: -70px;
+}
+.ic-about-blob-2 {
+  width: 220px; height: 220px;
+  background: rgba(212,175,55,.06);
+  bottom: -90px; inset-inline-start: -50px;
+}
+
+.ic-about-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  position: relative; z-index: 2;
+}
+
+.ic-about-card {
+  background: var(--color-white);
+  border: 1px solid rgba(18,59,120,.08);
+  border-radius: 20px; padding: 36px 26px 30px;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--t-fast), box-shadow var(--t-fast);
+}
+.ic-about-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); }
+
+.ic-about-icon {
+  width: 62px; height: 62px; margin: 0 auto 16px;
+  border-radius: 16px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(25,184,242,.12); color: var(--color-primary-dark);
+}
+.ic-about-icon svg { width: 27px; height: 27px; }
+.ic-about-icon-accent { background: rgba(212,175,55,.16); color: #B8960F; }
+.ic-about-icon-navy { background: rgba(18,59,120,.1); color: var(--color-navy); }
+
+.ic-about-card h3 {
+  font-size: 17px; font-weight: 800;
+  color: var(--color-navy); margin-bottom: 10px;
+}
+.ic-about-card p {
+  font-size: 14px; color: var(--color-text-soft); line-height: 1.8;
+}
+
+/* ---------- 3. Coverage ---------- */
+.ic-coverage {
+  position: relative; padding: 100px 0;
+  background: linear-gradient(180deg, var(--color-light) 0%, #EDF6FD 100%);
+  overflow: hidden;
+}
+
+.ic-coverage-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.ic-cov-card {
+  position: relative;
+  background: var(--color-white); border-radius: 20px;
+  padding: 36px 24px 30px; text-align: center;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(18,59,120,.06);
+  border-top: 4px solid var(--color-primary);
+  overflow: hidden;
+  transition: transform var(--t-fast), box-shadow var(--t-fast), border-color var(--t-fast);
+}
+.ic-cov-card:nth-child(2n) { border-top-color: var(--color-accent); }
+.ic-cov-card:nth-child(3n) { border-top-color: var(--color-navy); }
+.ic-cov-card::after {
+  content: "";
+  position: absolute;
+  width: 120px; height: 120px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(25,184,242,.07), transparent 70%);
+  top: -44px; inset-inline-start: -44px; pointer-events: none;
+}
+.ic-cov-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-md); }
+
+.ic-cov-icon {
+  width: 60px; height: 60px; margin: 0 auto 16px;
+  border-radius: 16px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(25,184,242,.12); color: var(--color-primary-dark);
+  transition: background var(--t-fast), color var(--t-fast), transform var(--t-fast), box-shadow var(--t-fast);
+}
+.ic-cov-icon svg { width: 27px; height: 27px; }
+.ic-cov-icon-accent { background: rgba(212,175,55,.16); color: #B8960F; }
+.ic-cov-icon-navy { background: rgba(18,59,120,.09); color: var(--color-navy); }
+.ic-cov-icon-green { background: rgba(25,211,102,.12); color: #17A44E; }
+.ic-cov-icon-orange { background: rgba(249,115,22,.12); color: #EA580C; }
+.ic-cov-icon-teal { background: rgba(20,184,166,.12); color: #0D9488; }
+.ic-cov-card:hover .ic-cov-icon {
+  background: var(--gradient-primary); color: #fff;
+  transform: translateY(-4px); box-shadow: var(--shadow-primary);
+}
+
+.ic-cov-card h3 { font-size: 17px; font-weight: 800; color: var(--color-navy); margin-bottom: 8px; }
+.ic-cov-card p { font-size: 14px; color: var(--color-text-soft); line-height: 1.75; }
+
+/* ---------- 4. Eligibility ---------- */
+.ic-eligibility {
+  position: relative; padding: 100px 0;
+  background: var(--color-white); overflow: hidden;
+}
+
+.ic-eligibility-list {
+  max-width: 580px; margin: 0 auto;
+  display: flex; flex-direction: column; gap: 14px;
+}
+
+.ic-eligibility-item {
+  display: flex; align-items: center; gap: 16px;
+  background: var(--color-white);
+  border: 1px solid rgba(18,59,120,.07);
+  border-radius: 16px; padding: 20px 24px;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--t-fast);
+}
+.ic-eligibility-item:hover { transform: translateX(-4px); }
+
+.ic-eligibility-check {
+  width: 40px; height: 40px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(25,211,102,.12); color: #17A44E;
+  flex-shrink: 0;
+}
+.ic-eligibility-check svg { width: 22px; height: 22px; }
+.ic-eligibility-item span {
+  font-size: 16px; font-weight: 700; color: var(--color-navy);
+}
+
+/* ---------- 5. Documents ---------- */
+.ic-docs {
+  position: relative; padding: 100px 0;
+  background: linear-gradient(180deg, #F4FBFE 0%, var(--color-white) 100%);
+  overflow: hidden;
+}
+
+.ic-docs-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+}
+
+.ic-doc-card {
+  background: var(--color-white); border-radius: 18px;
+  padding: 30px 18px 26px; text-align: center;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(18,59,120,.06);
+  transition: transform var(--t-fast), box-shadow var(--t-fast);
+}
+.ic-doc-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); }
+
+.ic-doc-icon {
+  width: 56px; height: 56px; margin: 0 auto 14px;
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(18,59,120,.08); color: var(--color-navy);
+}
+.ic-doc-icon svg { width: 26px; height: 26px; }
+
+.ic-doc-card h3 {
+  font-size: 15px; font-weight: 800;
+  color: var(--color-navy);
+}
+
+/* ---------- 6. Steps ---------- */
+.ic-steps {
+  position: relative; padding: 100px 0;
+  background: var(--color-white); overflow: hidden;
+}
+
+.ic-steps-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 26px;
+}
+
+.ic-step-card {
+  background: var(--color-white); border-radius: 20px;
+  padding: 34px 22px 28px; text-align: center;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(18,59,120,.06);
+  position: relative;
+  transition: transform var(--t-fast), box-shadow var(--t-fast);
+}
+.ic-step-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-md); }
+
+.ic-step-num {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 40px; height: 40px; border-radius: var(--radius-pill);
+  background: var(--gradient-primary); color: #fff;
+  font-size: 18px; font-weight: 900; margin-bottom: 16px;
+}
+
+.ic-step-icon {
+  width: 58px; height: 58px; margin: 0 auto 14px;
+  border-radius: 16px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(25,184,242,.12); color: var(--color-primary-dark);
+  transition: background var(--t-fast), color var(--t-fast), transform var(--t-fast);
+}
+.ic-step-icon svg { width: 26px; height: 26px; }
+.ic-step-card:hover .ic-step-icon {
+  background: var(--gradient-primary); color: #fff; transform: scale(1.05);
+}
+
+.ic-step-card h3 { font-size: 17px; font-weight: 800; color: var(--color-navy); margin-bottom: 8px; }
+.ic-step-card p { font-size: 14px; color: var(--color-text-soft); line-height: 1.7; }
+
+/* ---------- 7. FAQ ---------- */
+.ic-faq {
+  position: relative; padding: 100px 0;
+  background: linear-gradient(180deg, var(--color-light) 0%, #EDF6FD 100%);
+  overflow: hidden;
+}
+
+.ic-faq-list {
+  max-width: 720px; margin: 0 auto;
+  display: flex; flex-direction: column; gap: 12px;
+}
+
+.ic-faq-item {
+  background: var(--color-white);
+  border: 1px solid rgba(18,59,120,.07);
+  border-radius: 16px; overflow: hidden;
+  transition: box-shadow var(--t-fast);
+}
+.ic-faq-item:hover { box-shadow: var(--shadow-sm); }
+
+.ic-faq-question {
+  width: 100%;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 14px; padding: 20px 24px;
+  background: none; border: none;
+  font-family: var(--font-main); font-size: 16px; font-weight: 700;
+  color: var(--color-navy); cursor: pointer; text-align: start;
+  line-height: 1.6;
+  transition: color var(--t-fast);
+}
+.ic-faq-question:hover { color: var(--color-primary-dark); }
+.ic-faq-question[aria-expanded="true"] { color: var(--color-primary-dark); }
+
+.ic-faq-toggle {
+  width: 30px; height: 30px; flex-shrink: 0;
+  border-radius: 50%;
+  background: rgba(25,184,242,.1);
+  display: flex; align-items: center; justify-content: center;
+  transition: transform var(--t-fast), background var(--t-fast);
+}
+.ic-faq-toggle svg {
+  width: 15px; height: 15px; color: var(--color-primary-dark);
+  transition: transform var(--t-fast);
+}
+.ic-faq-question[aria-expanded="true"] .ic-faq-toggle {
+  background: var(--gradient-primary);
+}
+.ic-faq-question[aria-expanded="true"] .ic-faq-toggle svg {
+  color: #fff; transform: rotate(180deg);
+}
+
+.ic-faq-answer {
+  max-height: 0; overflow: hidden;
+  transition: max-height .4s var(--ease), padding .4s var(--ease);
+}
+.ic-faq-answer-inner {
+  padding: 0 24px 20px;
+  font-size: 14px; color: var(--color-text-soft); line-height: 1.9;
+}
+.ic-faq-item.open .ic-faq-answer { max-height: 180px; }
+
+/* ---------- 8. CTA ---------- */
+.ic-cta {
+  position: relative; padding: 100px 0;
+  background: var(--color-white); overflow: hidden;
+}
+.ic-cta-blobs { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.ic-cta-blob { position: absolute; border-radius: 50%; }
+.ic-cta-blob-1 {
+  width: 280px; height: 280px;
+  background: rgba(25,184,242,.05);
+  top: -90px; inset-inline-end: -70px;
+}
+.ic-cta-blob-2 {
+  width: 220px; height: 220px;
+  background: rgba(212,175,55,.06);
+  bottom: -90px; inset-inline-start: -50px;
+}
+
+.ic-cta-inner {
+  position: relative; z-index: 2;
+  max-width: 620px; margin: 0 auto; text-align: center;
+}
+.ic-cta-inner h2 {
+  font-size: clamp(24px, 3.4vw, 36px);
+  font-weight: 900; color: var(--color-navy);
+  margin-bottom: 28px; line-height: 1.5;
+}
+.ic-cta-actions {
+  display: flex; flex-wrap: wrap;
+  justify-content: center; gap: 16px;
+}
+
+/* ---------- Animations ---------- */
+.ic-reveal {
+  opacity: 0; transform: translateY(30px);
+  transition: opacity .7s var(--ease), transform .7s var(--ease);
+}
+.ic-reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1024px) {
+  .ic-coverage-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+  .ic-hero { padding: 110px 0 80px; }
+  .ic-about { padding: 70px 0; }
+  .ic-about-grid { grid-template-columns: 1fr; }
+  .ic-coverage { padding: 70px 0; }
+  .ic-coverage-grid { grid-template-columns: 1fr; }
+  .ic-eligibility { padding: 70px 0; }
+  .ic-docs { padding: 70px 0; }
+  .ic-docs-grid { grid-template-columns: repeat(2, 1fr); }
+  .ic-steps { padding: 70px 0; }
+  .ic-steps-grid { grid-template-columns: repeat(2, 1fr); }
+  .ic-faq { padding: 70px 0; }
+  .ic-cta { padding: 80px 0; }
+}
+@media (max-width: 480px) {
+  .ic-docs-grid { grid-template-columns: 1fr; }
+  .ic-steps-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<a href="#main" class="visually-hidden">تخطَّ إلى المحتوى الرئيسي</a>
+
+<!-- ===== 1. Top Bar ===== -->
+<div class="topbar">
+  <div class="container">
+    <div class="topbar-right">
+      <a href="../index.html" class="topbar-brand" aria-label="الرئيسية">
+        <span class="topbar-brand-mark"><img src="../Amare%20files%20/logo.png" alt="AMARE Logo" class="topbar-brand-logo"></span>
+        <span class="topbar-brand-name" data-amare-setting="association_name">الجمعية المغربية لهواة البحث والاستكشاف</span>
+      </a>
+    </div>
+    <div class="topbar-left">
+      <div class="topbar-social">
+        <a href="#" aria-label="فيسبوك"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg></a>
+        <a href="#" aria-label="إنستغرام"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+        <a href="#" aria-label="لينكدإن"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 5 3.79 6.2 2.3 6.2 1 6.2 0 5 0 3.5 0 2 1.1.8 2.5.8s2.48 1.2 2.48 2.7zM.2 8.5h4.6V23H.2V8.5zM8 8.5h4.4v2h.06c.6-1.2 2.1-2.4 4.4-2.4 4.7 0 5.6 3.1 5.6 7.1V23h-4.6v-6.7c0-1.6 0-3.7-2.3-3.7s-2.6 1.8-2.6 3.6V23H8V8.5z"/></svg></a>
+      </div>
+      <div class="topbar-lang">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg>
+        <select aria-label="اختيار اللغة"><option value="ar" selected>العربية</option><option value="fr">Français</option><option value="en">English</option><option value="es">Español</option><option value="ber">ⵜⴰⵎⴰⵣⵉⵖⵜ</option></select>
+      </div>
+      <a href="http://wa.me/+212684869996" target="_blank" rel="noopener" class="topbar-whatsapp ripple" aria-label="تواصل عبر واتساب">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.6.1-.2.3-.7 1-.9 1.2-.1.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.2-.4.1-.2 0-.4 0-.5s-.6-1.5-.8-2c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s1 2.6 1.1 2.7c.1.2 2 3 4.7 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 2-1.4.2-.6.2-1.2.1-1.3-.1-.1-.3-.2-.6-.3z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.6 1.4 5.1L2 22l5.1-1.3C8.5 21.5 10.2 22 12 22c5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18c-1.6 0-3.1-.4-4.5-1.2l-.3-.2-3.3.9.9-3.2-.2-.3C3.7 14.6 3.2 13.3 3.2 12c0-4.9 3.9-8.8 8.8-8.8s8.8 3.9 8.8 8.8-3.9 8.8-8.8 8.8z"/></svg>
+        <span>واتساب</span>
+      </a>
+      <a href="../login.html" class="topbar-login ripple" aria-label="تسجيل الدخول">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v18h-6M10 17l5-5-5-5M15 12H3"/></svg><span>تسجيل الدخول</span>
+      </a>
+      <a href="../amare store/index.html" class="nav-store-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><span>متجر AMARE</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 2. Navbar ===== -->
+<header>
+  <nav class="navbar" id="navbar" aria-label="التنقل الرئيسي">
+    <div class="container">
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html">الرئيسية</a></li>
+        <li data-dropdown="about"><a href="../index.html#about">من نحن</a></li>
+        <li data-dropdown="activities"><a href="#">أنشطتنا</a></li>
+        <li data-dropdown="partners"><a href="#">شركاؤنا</a></li>
+        <li data-dropdown="services"><a href="../index.html#services">خدماتنا</a></li>
+        <li data-dropdown="branches"><a href="#">الفروع الجهوية</a></li>
+        <li data-dropdown="join"><a href="../Join%20us/join-us-online.html">انخرط معنا</a></li>
+        <li><a href="../News/news.html">الأخبار</a></li>
+        <li><a href="../Archive/archive.html">الأرشيف</a></li>
+        <li><a href="../contact.html">اتصل بنا</a></li>
+      </ul>
+      <div class="nav-actions"><button class="hamburger" id="hamburger" aria-label="فتح القائمة" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button></div>
+    </div>
+    <div class="mega-dropdown" id="megaDropdown"></div>
+  </nav>
+</header>
+
+<!-- ===== Mobile Header ===== -->
+<div class="mobile-header" id="mobileHeader">
+  <div class="mobile-header-group">
+    <a class="mobile-header-logo" href="../index.html" aria-label="الرئيسية"><img src="../Amare%20files%20/logo.png" alt="AMARE Logo"></a>
+    <a class="mobile-header-brand" href="../index.html" aria-label="الرئيسية">الجمعية المغربية لهواة<br>البحث والاستكشاف</a>
+  </div>
+  <button class="mobile-hamburger" id="mobileHamburger" aria-label="فتح القائمة" aria-expanded="false" aria-controls="mobileDrawer"><span></span><span></span><span></span></button>
+</div>
+
+<!-- ===== Mobile Drawer ===== -->
+<div class="mobile-drawer" id="mobileDrawer" role="dialog" aria-modal="true" aria-label="القائمة الرئيسية">
+  <div class="mobile-drawer-inner">
+    <div class="mobile-drawer-header">
+      <button class="mobile-drawer-close" id="mobileDrawerClose" aria-label="إغلاق القائمة"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+      <a class="mobile-drawer-brand" href="../index.html"><img src="../Amare%20files%20/logo.png" alt="AMARE Logo" class="mobile-drawer-brand-logo"><span class="mobile-drawer-brand-name">الجمعية المغربية لهواة البحث والاستكشاف</span></a>
+    </div>
+    <nav class="mobile-drawer-nav" aria-label="التنقل الرئيسي">
+      <ul class="mobile-drawer-links" id="mobileDrawerLinks">
+        <li><a href="../index.html">الرئيسية</a></li>
+        <li class="mobile-drawer-dropdown" data-dd="about"><div class="mobile-drawer-row"><a href="../index.html#about">من نحن</a><button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button></div><ul class="mobile-drawer-sub"></ul></li>
+        <li class="mobile-drawer-dropdown" data-dd="activities"><div class="mobile-drawer-row"><a href="#">أنشطتنا</a><button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button></div><ul class="mobile-drawer-sub"></ul></li>
+        <li class="mobile-drawer-dropdown" data-dd="partners"><div class="mobile-drawer-row"><a href="#">شركاؤنا</a><button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button></div><ul class="mobile-drawer-sub"></ul></li>
+        <li class="mobile-drawer-dropdown" data-dd="services"><div class="mobile-drawer-row"><a href="../index.html#services">خدماتنا</a><button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button></div><ul class="mobile-drawer-sub"></ul></li>
+        <li class="mobile-drawer-dropdown" data-dd="branches"><div class="mobile-drawer-row"><a href="#">الفروع الجهوية</a><button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button></div><ul class="mobile-drawer-sub"></ul></li>
+        <li class="mobile-drawer-dropdown" data-dd="join"><div class="mobile-drawer-row"><a href="../Join%20us/index.html">انخرط معنا</a><button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button></div><ul class="mobile-drawer-sub"></ul></li>
+        <li><a href="../News/news.html">الأخبار</a></li>
+        <li><a href="../Archive/archive.html">الأرشيف</a></li>
+        <li><a href="../contact.html">اتصل بنا</a></li>
+      </ul>
+    </nav>
+    <div class="mobile-drawer-bottom">
+      <div class="mobile-drawer-actions">
+        <a href="../login.html" class="mobile-drawer-action mobile-drawer-action-login"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v18h-6M10 17l5-5-5-5M15 12H3"/></svg><span>تسجيل الدخول</span></a>
+        <a href="../amare store/index.html" class="mobile-drawer-action mobile-drawer-action-store"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><span>متجر</span></a>
+        <a href="https://wa.me/212600000000" target="_blank" rel="noopener" class="mobile-drawer-action mobile-drawer-action-whatsapp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.6.1-.2.3-.7 1-.9 1.2-.1.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.2-.4.1-.2 0-.4 0-.5s-.6-1.5-.8-2c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s1 2.6 1.1 2.7c.1.2 2 3 4.7 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 2-1.4.2-.6.2-1.2.1-1.3-.1-.1-.3-.2-.6-.3z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.6 1.4 5.1L2 22l5.1-1.3C8.5 21.5 10.2 22 12 22c5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18c-1.6 0-3.1-.4-4.5-1.2l-.3-.2-3.3.9.9-3.2-.2-.3C3.7 14.6 3.2 13.3 3.2 12c0-4.9 3.9-8.8 8.8-8.8s8.8 3.9 8.8 8.8-3.9 8.8-8.8 8.8z"/></svg><span>واتساب</span></a>
+      </div>
+      <div class="mobile-drawer-lang">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg>
+        <select aria-label="اختيار اللغة"><option value="ar" selected>العربية</option><option value="fr">Français</option><option value="en">English</option><option value="es">Español</option><option value="ber">ⵜⴰⵎⴰⵣⵉⵖⵜ</option></select>
+      </div>
+      <div class="mobile-drawer-social">
+        <a href="#" aria-label="فيسبوك"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg></a>
+        <a href="#" aria-label="إنستغرام"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+        <a href="#" aria-label="لينكدإن"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 5 3.79 6.2 2.3 6.2 1 6.2 0 5 0 3.5 0 2 1.1.8 2.5.8s2.48 1.2 2.48 2.7zM.2 8.5h4.6V23H.2V8.5zM8 8.5h4.4v2h.06c.6-1.2 2.1-2.4 4.4-2.4 4.7 0 5.6 3.1 5.6 7.1V23h-4.6v-6.7c0-1.6 0-3.7-2.3-3.7s-2.6 1.8-2.6 3.6V23H8V8.5z"/></svg></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main id="main">
+
+<!-- ==========================================================================
+   1. HERO
+   ========================================================================== -->
+<section class="ic-hero" id="icHero">
+  <div class="ic-hero-bg" aria-hidden="true">
+    <div class="ic-hero-shape ic-hero-shape-1"></div>
+    <div class="ic-hero-shape ic-hero-shape-2"></div>
+    <div class="ic-hero-shape ic-hero-shape-3"></div>
+    <div class="ic-hero-shape ic-hero-shape-4"></div>
+  </div>
+  <div class="container">
+    <div class="ic-hero-inner">
+      <div class="ic-hero-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+      </div>
+      <h1>عقد <span>التأمين</span></h1>
+      <p class="ic-hero-subtitle">حماية إضافية لأعضاء الجمعية أثناء المشاركة في الأنشطة والفعاليات والرحلات الاستكشافية.</p>
+      <div class="ic-hero-actions">
+        <a href="../Join%20us/join-us-online.html" class="btn btn-accent">
+          طلب عقد التأمين
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        </a>
+        <a href="../contact.html" class="btn btn-navy">
+          تواصل معنا
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .3 2 .7 2.9a2 2 0 0 1-.4 2.1L8 10a16 16 0 0 0 6 6l1.3-1.4a2 2 0 0 1 2.1-.4c.9.4 1.9.6 2.9.7a2 2 0 0 1 1.7 2.1z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================================
+   2. ABOUT THE INSURANCE
+   ========================================================================== -->
+<section class="ic-about" id="icAbout">
+  <div class="ic-about-blobs" aria-hidden="true">
+    <div class="ic-about-blob ic-about-blob-1"></div>
+    <div class="ic-about-blob ic-about-blob-2"></div>
+  </div>
+  <div class="container">
+    <div class="ic-about-grid">
+      <div class="ic-about-card ic-reveal">
+        <div class="ic-about-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+        </div>
+        <h3>ما هو عقد التأمين؟</h3>
+        <p>تأمين جماعي مخصص لأعضاء الجمعية يغطي المخاطر المرتبطة بالمشاركة في الأنشطة الميدانية والرحلات الاستكشافية والفعاليات الرسمية.</p>
+      </div>
+      <div class="ic-about-card ic-reveal">
+        <div class="ic-about-icon ic-about-icon-accent">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+        </div>
+        <h3>لمن هذا التأمين؟</h3>
+        <p>لجميع أعضاء الجمعية الحاملين لعضوية سارية، المشاركين في الأنشطة والرحلات والفعاليات التي تنظمها الجمعية.</p>
+      </div>
+      <div class="ic-about-card ic-reveal">
+        <div class="ic-about-icon ic-about-icon-navy">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+        </div>
+        <h3>لماذا هو مهم؟</h3>
+        <p>يوفر حماية إضافية وراحة بال للأعضاء وعائلاتهم، ويضمن تغطية الحوادث والمخاطر المحتملة أثناء المشاركة.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================================
+   3. INSURANCE COVERAGE
+   ========================================================================== -->
+<section class="ic-coverage" id="icCoverage">
+  <div class="container">
+    <div class="ic-section-head">
+      <span class="ic-section-eyebrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>تغطية التأمين</span>
+      <h2 class="ic-section-title">ما الذي يغطيه عقد التأمين؟</h2>
+      <p class="ic-section-desc">يشمل عقد التأمين مجموعة واسعة من الحالات والمخاطر المرتبطة بأنشطة الجمعية.</p>
+    </div>
+    <div class="ic-coverage-grid">
+      <div class="ic-cov-card ic-reveal">
+        <div class="ic-cov-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+        <h3>الحوادث الشخصية</h3>
+        <p>تغطية شاملة للحوادث الشخصية التي قد يتعرض لها العضو أثناء المشاركة في أنشطة الجمعية.</p>
+      </div>
+      <div class="ic-cov-card ic-reveal">
+        <div class="ic-cov-icon ic-cov-icon-accent"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg></div>
+        <h3>الأنشطة الميدانية</h3>
+        <p>حماية أثناء المشاركة في الأنشطة الميدانية بمختلف أنواعها، بما في ذلك التنقيب والاستكشاف.</p>
+      </div>
+      <div class="ic-cov-card ic-reveal">
+        <div class="ic-cov-icon ic-cov-icon-navy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 17.3C6.6 21.6 17.4 21.6 21 17.3"/><path d="M8 13c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2-.6 0-1.1.2-1.5.7L4.3 10"/><path d="M16 13c-1.1 0-2-.9-2-2V9c0-1.1.9-2 2-2 .6 0 1.1.2 1.5.7L19.7 10"/></svg></div>
+        <h3>الرحلات الاستكشافية</h3>
+        <p>تغطية خاصة للرحلات الاستكشافية في مختلف مناطق المغرب، بما يشمل المناطق الجبلية والصحراوية.</p>
+      </div>
+      <div class="ic-cov-card ic-reveal">
+        <div class="ic-cov-icon ic-cov-icon-green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+        <h3>الفعاليات الرسمية</h3>
+        <p>تأمين شامل أثناء المشاركة في الفعاليات والمسابقات والمؤتمرات التي تنظمها الجمعية.</p>
+      </div>
+      <div class="ic-cov-card ic-reveal">
+        <div class="ic-cov-icon ic-cov-icon-orange"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg></div>
+        <h3>المسؤولية المدنية</h3>
+        <p>حماية قانونية تغطي المسؤولية المدنية للعضو تجاه الغير أثناء ممارسة الأنشطة.</p>
+      </div>
+      <div class="ic-cov-card ic-reveal">
+        <div class="ic-cov-icon ic-cov-icon-teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+        <h3>المساعدة عند الطوارئ</h3>
+        <p>خدمة المساعدة الطارئة على مدار الساعة لتقديم الدعم الفوري في الحالات الطارئة.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================================
+   4. ELIGIBILITY REQUIREMENTS
+   ========================================================================== -->
+<section class="ic-eligibility" id="icEligibility">
+  <div class="container">
+    <div class="ic-section-head">
+      <span class="ic-section-eyebrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>شروط الاستفادة</span>
+      <h2 class="ic-section-title">متطلبات الأهلية</h2>
+      <p class="ic-section-desc">الشروط الواجب توفرها للاستفادة من عقد التأمين.</p>
+    </div>
+    <div class="ic-eligibility-list">
+      <div class="ic-eligibility-item ic-reveal">
+        <div class="ic-eligibility-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <span>عضوية سارية في الجمعية</span>
+      </div>
+      <div class="ic-eligibility-item ic-reveal">
+        <div class="ic-eligibility-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <span>الالتزام بقوانين الجمعية</span>
+      </div>
+      <div class="ic-eligibility-item ic-reveal">
+        <div class="ic-eligibility-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <span>تعبئة استمارة الطلب</span>
+      </div>
+      <div class="ic-eligibility-item ic-reveal">
+        <div class="ic-eligibility-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <span>تقديم الوثائق المطلوبة</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================================
+   5. REQUIRED DOCUMENTS
+   ========================================================================== -->
+<section class="ic-docs" id="icDocs">
+  <div class="container">
+    <div class="ic-section-head">
+      <span class="ic-section-eyebrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>الوثائق المطلوبة</span>
+      <h2 class="ic-section-title">المستندات اللازمة</h2>
+      <p class="ic-section-desc">الوثائق التي يجب تقديمها لإتمام طلب عقد التأمين.</p>
+    </div>
+    <div class="ic-docs-grid">
+      <div class="ic-doc-card ic-reveal">
+        <div class="ic-doc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M10 4v16"/><circle cx="7" cy="9" r="1"/><circle cx="7" cy="15" r="1"/></svg></div>
+        <h3>نسخة من البطاقة الوطنية</h3>
+      </div>
+      <div class="ic-doc-card ic-reveal">
+        <div class="ic-doc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
+        <h3>صورة شخصية</h3>
+      </div>
+      <div class="ic-doc-card ic-reveal">
+        <div class="ic-doc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+        <h3>نسخة من بطاقة العضوية</h3>
+      </div>
+      <div class="ic-doc-card ic-reveal">
+        <div class="ic-doc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+        <h3>استمارة طلب التأمين</h3>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================================
+   6. APPLICATION PROCESS
+   ========================================================================== -->
+<section class="ic-steps" id="icSteps">
+  <div class="container">
+    <div class="ic-section-head">
+      <span class="ic-section-eyebrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>طريقة التقديم</span>
+      <h2 class="ic-section-title">خطوات الحصول على عقد التأمين</h2>
+      <p class="ic-section-desc">عملية بسيطة وسريعة للحصول على التغطية التأمينية.</p>
+    </div>
+    <div class="ic-steps-grid">
+      <div class="ic-step-card ic-reveal">
+        <div class="ic-step-num">1</div>
+        <div class="ic-step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+        <h3>تقديم الطلب</h3>
+        <p>تعبئة استمارة طلب التأمين وتقديمها مع الوثائق المطلوبة إلى إدارة الجمعية.</p>
+      </div>
+      <div class="ic-step-card ic-reveal">
+        <div class="ic-step-num">2</div>
+        <div class="ic-step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></div>
+        <h3>مراجعة الملف</h3>
+        <p>تقوم إدارة الجمعية بمراجعة الملف والتأكد من استيفاء جميع الشروط والوثائق.</p>
+      </div>
+      <div class="ic-step-card ic-reveal">
+        <div class="ic-step-num">3</div>
+        <div class="ic-step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <h3>تأكيد البيانات</h3>
+        <p>بعد الموافقة على الملف، يتم تأكيد البيانات وإرسالها إلى شركة التأمين المتعاقدة.</p>
+      </div>
+      <div class="ic-step-card ic-reveal">
+        <div class="ic-step-num">4</div>
+        <div class="ic-step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+        <h3>إصدار عقد التأمين</h3>
+        <p>يتم إصدار عقد التأمين وتسليم نسخة منه للعضو لتصبح التغطية سارية المفعول.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================================
+   7. FAQ
+   ========================================================================== -->
+<section class="ic-faq" id="icFaq">
+  <div class="container">
+    <div class="ic-section-head">
+      <span class="ic-section-eyebrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>الأسئلة الشائعة</span>
+      <h2 class="ic-section-title">أسئلة متكررة حول عقد التأمين</h2>
+    </div>
+    <div class="ic-faq-list">
+      <div class="ic-faq-item">
+        <button class="ic-faq-question" aria-expanded="false" onclick="this.parentElement.classList.toggle('open'); this.setAttribute('aria-expanded', this.parentElement.classList.contains('open'));">
+          <span>من يمكنه الاستفادة من عقد التأمين؟</span>
+          <span class="ic-faq-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></span>
+        </button>
+        <div class="ic-faq-answer"><div class="ic-faq-answer-inner">يمكن لجميع أعضاء الجمعية الحاملين لعضوية سارية المفعول الاستفادة من عقد التأمين. يشمل ذلك الأعضاء المشاركين في الأنشطة الميدانية والرحلات الاستكشافية والفعاليات الرسمية.</div></div>
+      </div>
+      <div class="ic-faq-item">
+        <button class="ic-faq-question" aria-expanded="false" onclick="this.parentElement.classList.toggle('open'); this.setAttribute('aria-expanded', this.parentElement.classList.contains('open'));">
+          <span>ما هي مدة صلاحية عقد التأمين؟</span>
+          <span class="ic-faq-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></span>
+        </button>
+        <div class="ic-faq-answer"><div class="ic-faq-answer-inner">مدة صلاحية عقد التأمين هي سنة كاملة ابتداءً من تاريخ الإصدار. يمكن تجديده سنوياً مع تجديد العضوية.</div></div>
+      </div>
+      <div class="ic-faq-item">
+        <button class="ic-faq-question" aria-expanded="false" onclick="this.parentElement.classList.toggle('open'); this.setAttribute('aria-expanded', this.parentElement.classList.contains('open'));">
+          <span>هل يشمل التأمين جميع الأنشطة؟</span>
+          <span class="ic-faq-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></span>
+        </button>
+        <div class="ic-faq-answer"><div class="ic-faq-answer-inner">يغطي عقد التأمين جميع الأنشطة الرسمية التي تنظمها الجمعية، بما في ذلك الأنشطة الميدانية والرحلات والفعاليات والمسابقات. لمزيد من التفاصيل حول حالات التغطية، يرجى مراجعة بنود العقد.</div></div>
+      </div>
+      <div class="ic-faq-item">
+        <button class="ic-faq-question" aria-expanded="false" onclick="this.parentElement.classList.toggle('open'); this.setAttribute('aria-expanded', this.parentElement.classList.contains('open'));">
+          <span>كيف يمكن تجديد عقد التأمين؟</span>
+          <span class="ic-faq-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></span>
+        </button>
+        <div class="ic-faq-answer"><div class="ic-faq-answer-inner">يتم تجديد عقد التأمين تلقائياً مع تجديد العضوية السنوية. في حالة انتهاء العقد قبل تجديد العضوية، يمكن التواصل مع إدارة الجمعية لتجديده بشكل منفصل.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================================
+   8. FINAL CTA
+   ========================================================================== -->
+<section class="ic-cta" id="icCta">
+  <div class="ic-cta-blobs" aria-hidden="true">
+    <div class="ic-cta-blob ic-cta-blob-1"></div>
+    <div class="ic-cta-blob ic-cta-blob-2"></div>
+  </div>
+  <div class="container">
+    <div class="ic-cta-inner ic-reveal">
+      <h2>احصل على تغطية تأمينية واستمتع بأنشطة الجمعية بكل ثقة.</h2>
+      <div class="ic-cta-actions">
+        <a href="../Join%20us/join-us-online.html" class="btn btn-accent">
+          طلب عقد التأمين
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        </a>
+        <a href="../contact.html" class="btn btn-navy">
+          اتصل بنا
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .3 2 .7 2.9a2 2 0 0 1-.4 2.1L8 10a16 16 0 0 0 6 6l1.3-1.4a2 2 0 0 1 2.1-.4c.9.4 1.9.6 2.9.7a2 2 0 0 1 1.7 2.1z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ===== Footer ===== -->
+<footer class="footer" id="contact">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-about">
+        <div class="footer-brand"><span class="brand-mark"><img src="../Amare%20files%20/logo.png" alt="AMARE Logo" class="topbar-brand-logo"></span><span><span class="brand-name">الجمعية المغربية لهواة البحث والاستكشاف</span><br></span></div>
+        <p>الجمعية المغربية لهواة البحث والاستكشاف هي إطار قانوني وطني يجمع الهواة تحت راية واحدة لصون التراث الوطني المغربي.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="فيسبوك"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg></a>
+          <a href="#" aria-label="إنستغرام"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+          <a href="#" aria-label="لينكدإن"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 5 3.79 6.2 2.3 6.2 1 6.2 0 5 0 3.5 0 2 1.1.8 2.5.8s2.48 1.2 2.48 2.7zM.2 8.5h4.6V23H.2V8.5zM8 8.5h4.4v2h.06c.6-1.2 2.1-2.4 4.4-2.4 4.7 0 5.6 3.1 5.6 7.1V23h-4.6v-6.7c0-1.6 0-3.7-2.3-3.7s-2.6 1.8-2.6 3.6V23H8V8.5z"/></svg></a>
+        </div>
+      </div>
+      <nav aria-label="روابط سريعة">
+        <h4>روابط سريعة</h4>
+        <ul class="footer-links">
+          <li><a href="../index.html">الرئيسية</a></li><li><a href="../contact.html">اتصل بنا</a></li><li><a href="../index.html#services">خدماتنا</a></li><li><a href="../index.html#news">الاخبار</a></li><li><a href="../index.html#newsletter">الارشيف</a></li><li><a href="../index.html#home">الفروع الجهوية</a></li><li><a href="../Join%20us/join-us-online.html">انخرط معنا</a></li><li><a href="../index.html#services">شركاؤنا</a></li><li><a href="../index.html#services">انشطتنا</a></li><li><a href="../index.html#about">من نحن</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="برامجنا">
+        <h4>برامجنا</h4>
+        <ul class="footer-links">
+          <li><a href="sos-amare.html">SOS Amare</a></li>
+          <li><a href="../amare store/index.html">متجر Amare</a></li>
+          <li><a href="explorer-house.html">بيت المستكشف Amare</a></li>
+          <li><a href="amare-magazine.html">مجلة Amare</a></li>
+          <li><a href="amare-academy.html">أكاديمية Amare</a></li>
+          <li><a href="../clubs/">النوادي</a></li>
+          <li><a href="legal-advisor.html">المستشار القانوني</a></li>
+          <li><a href="insurance-contract.html">عقد التأمين</a></li>
+        </ul>
+      </nav>
+      <div>
+        <h4>تواصل معنا</h4>
+        <ul class="footer-contact">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>ص.ب 749 أيت ملول 86150</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .3 2 .7 2.9a2 2 0 0 1-.4 2.1L8 10a16 16 0 0 0 6 6l1.3-1.4a2 2 0 0 1 2.1-.4c.9.4 1.9.6 2.9.7a2 2 0 0 1 1.7 2.1z"/></svg><span dir="ltr">+212 684869996</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z" opacity="0"/><path d="M22 6 12 13 2 6"/><path d="M2 6h20v12H2z"/></svg><span dir="ltr">association.amare.agadir@gmail.com</span></li>
+        </ul>
+      </div>
+      <div class="footer-location">
+        <h4>موقعنا</h4>
+        <div class="footer-map-card">
+          <span class="footer-map-badge">📍 Ait Melloul, Agadir</span>
+          <iframe src="https://www.google.com/maps?q=30.385528,-9.448611&z=16&output=embed" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade" title="موقع الجمعية على الخريطة" class="footer-map-frame"></iframe>
+          <div class="footer-map-footer"><a href="https://www.google.com/maps?q=30.385528,-9.448611" target="_blank" rel="noopener" class="footer-map-btn">Open in Google Maps</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 الجمعية المغربية لهواة البحث والاستكشاف. جميع الحقوق محفوظة.</p>
+      <div class="footer-bottom-links"><a href="#">سياسة الخصوصية</a><a href="#">الشروط والأحكام</a></div>
+    </div>
+  </div>
+</footer>
+
+<button class="back-to-top" id="backToTop" aria-label="العودة إلى الأعلى">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M18 15l-6-6-6 6"/></svg>
+</button>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../supabase/config.js"></script>
+<script src="../supabase/client.js"></script>
+<script src="../supabase/database.js"></script>
+<script src="../supabase/storage.js"></script>
+<script src="../supabase/auth.js"></script>
+<script src="../supabase/realtime.js"></script>
+<script src="../supabase/index.js"></script>
+<script src="../supabase/navbar.js"></script>
+<script src="../script.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  var revealEls = Array.prototype.slice.call(document.querySelectorAll('.ic-reveal'));
+  if (revealEls.length) {
+    var revealObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+    }, { threshold: 0.12 });
+    revealEls.forEach(function (el) { revealObserver.observe(el); });
+  }
+})();
+</script>
+</body>
+</html>

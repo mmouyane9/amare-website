@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الأخبار | آخر أخبار الجمعية | الجمعية المغربية لهواة البحث والاستكشاف</title>
+<meta name="description" content="آخر أخبار الجمعية المغربية لهواة البحث والاستكشاف — تابع الأنشطة والفعاليات والشراكات والمسابقات والحملات البيئية وكل جديد.">
+<meta name="keywords" content="أخبار, الجمعية المغربية, AMARE, أنشطة, فعاليات, شراكات, مسابقات, حملات بيئية">
+<meta name="author" content="الجمعية المغربية لهواة البحث والاستكشاف">
+<link rel="shortcut icon" href="../Amare%20files%20/logo.png" type="image/x-icon">
+<meta property="og:title" content="الأخبار | الجمعية المغربية لهواة البحث والاستكشاف">
+<meta property="og:description" content="تابع آخر أخبار الجمعية المغربية لهواة البحث والاستكشاف والأنشطة والفعاليات والشراكات.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+<style>
+/* ==========================================================================
+   News Portal — Premium editorial styles
+   Prefix: nw-
+   ========================================================================== */
+
+/* ---------- 1. Hero ---------- */
+.nw-hero {
+  position: relative; padding: 130px 0 110px; overflow: hidden;
+  background: linear-gradient(180deg, #E8F6FF 0%, #F4FBFE 52%, #EBF6FF 100%);
+}
+.nw-hero-bg { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.nw-hero-shape { position: absolute; border-radius: 50%; }
+.nw-hero-shape-1 { width: 200px; height: 200px; background: rgba(25,184,242,.1); top: 8%; inset-inline-start: 2%; animation: nwFloat 10s ease-in-out infinite; }
+.nw-hero-shape-2 { width: 80px; height: 80px; background: rgba(212,175,55,.2); bottom: 16%; inset-inline-start: 14%; animation: nwFloat 7s ease-in-out 1.4s infinite; }
+.nw-hero-shape-3 { width: 240px; height: 240px; background: rgba(18,59,120,.04); top: 4%; inset-inline-end: 2%; animation: nwFloat 11s ease-in-out .5s infinite; }
+.nw-hero-inner { position: relative; z-index: 2; text-align: center; max-width: 700px; margin: 0 auto; }
+.nw-hero-icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 72px; height: 72px; margin-bottom: 22px;
+  border-radius: 20px; background: var(--gradient-primary);
+  box-shadow: var(--shadow-primary);
+}
+.nw-hero-icon svg { width: 32px; height: 32px; color: #fff; }
+.nw-hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--color-white); border: 1px solid rgba(25,184,242,.24);
+  color: var(--color-primary-dark); font-weight: 800; font-size: 13px;
+  padding: 8px 18px; border-radius: var(--radius-pill);
+  box-shadow: 0 5px 16px rgba(25,184,242,.12); margin-bottom: 18px;
+}
+.nw-hero-badge svg { width: 16px; height: 16px; color: var(--color-accent); }
+.nw-hero h1 {
+  font-size: clamp(34px, 5vw, 56px); font-weight: 900; color: var(--color-navy);
+  line-height: 1.2; margin-bottom: 16px; letter-spacing: -1px;
+}
+.nw-hero h1 span { color: var(--color-primary); }
+.nw-hero-subtitle {
+  font-size: clamp(15px, 1.5vw, 18px); color: var(--color-text-soft);
+  line-height: 2; max-width: 580px; margin: 0 auto 30px;
+}
+.nw-hero-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; }
+
+/* ---------- 2. Section Head ---------- */
+.nw-section-head { text-align: center; max-width: 640px; margin: 0 auto 50px; }
+.nw-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 13px; font-weight: 800; color: var(--color-primary-dark);
+  text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px;
+}
+.nw-eyebrow svg { width: 14px; height: 14px; color: var(--color-accent); }
+.nw-section-title {
+  font-size: clamp(26px, 3.6vw, 40px); font-weight: 900;
+  color: var(--color-navy); margin-bottom: 14px;
+}
+.nw-section-desc { font-size: 16px; color: var(--color-text-soft); line-height: 1.9; }
+
+/* ---------- 3. Featured News ---------- */
+.nw-featured { position: relative; padding: 80px 0; background: var(--color-white); overflow: hidden; }
+.nw-featured-card {
+  display: grid; grid-template-columns: 1.2fr 1fr; gap: 0;
+  background: var(--color-white); border-radius: 24px; overflow: hidden;
+  box-shadow: var(--shadow-lg); border: 1px solid rgba(18,59,120,.08);
+}
+.nw-featured-img {
+  min-height: 380px;
+  background: linear-gradient(135deg, rgba(25,184,242,.12) 0%, rgba(18,59,120,.1) 100%);
+  display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;
+}
+.nw-featured-img svg { width: 100px; height: 100px; color: rgba(25,184,242,.15); }
+.nw-featured-body {
+  padding: 48px 40px; display: flex; flex-direction: column; justify-content: center;
+}
+.nw-featured-category {
+  display: inline-block; font-size: 12px; font-weight: 800;
+  padding: 5px 14px; border-radius: var(--radius-pill);
+  margin-bottom: 16px; width: fit-content;
+}
+.nw-featured-body h2 {
+  font-size: clamp(24px, 2.8vw, 32px); font-weight: 900;
+  color: var(--color-navy); line-height: 1.4; margin-bottom: 14px;
+}
+.nw-featured-body p {
+  font-size: 16px; color: var(--color-text-soft); line-height: 1.9; margin-bottom: 20px;
+}
+.nw-featured-meta {
+  display: flex; flex-wrap: wrap; gap: 16px; align-items: center;
+  font-size: 13px; color: #94a3b8; margin-bottom: 22px;
+}
+.nw-featured-meta span {
+  display: inline-flex; align-items: center; gap: 5px;
+}
+.nw-featured-meta svg { width: 14px; height: 14px; color: var(--color-accent); }
+
+/* ---------- 4. News Grid ---------- */
+.nw-grid { position: relative; padding: 80px 0; background: linear-gradient(180deg, #F9FCFF 0%, var(--color-white) 100%); overflow: hidden; }
+.nw-grid-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.nw-card {
+  background: var(--color-white); border-radius: 18px; overflow: hidden;
+  box-shadow: var(--shadow-sm); border: 1px solid rgba(18,59,120,.06);
+  transition: transform var(--t-fast), box-shadow var(--t-fast);
+}
+.nw-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); }
+.nw-card-img {
+  height: 180px;
+  background: linear-gradient(135deg, rgba(25,184,242,.1) 0%, rgba(18,59,120,.08) 100%);
+  display: flex; align-items: center; justify-content: center; position: relative;
+}
+.nw-card-img svg { width: 48px; height: 48px; color: rgba(25,184,242,.16); }
+.nw-card-body { padding: 20px 18px 22px; }
+.nw-card-category {
+  display: inline-block; font-size: 11px; font-weight: 800;
+  padding: 4px 10px; border-radius: var(--radius-pill); margin-bottom: 10px;
+}
+.nw-card-body h3 {
+  font-size: 16px; font-weight: 700; color: var(--color-navy);
+  line-height: 1.55; margin-bottom: 8px;
+}
+.nw-card-body p {
+  font-size: 14px; color: var(--color-text-soft);
+  line-height: 1.75; margin-bottom: 14px;
+}
+.nw-card-meta {
+  display: flex; align-items: center; gap: 12px;
+  font-size: 12px; color: #94a3b8; margin-bottom: 14px;
+}
+.nw-card-meta svg { width: 13px; height: 13px; color: var(--color-accent); }
+.nw-card-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 13px; font-weight: 700; color: var(--color-primary-dark);
+  text-decoration: none; transition: gap var(--t-fast);
+}
+.nw-card-link:hover { gap: 10px; }
+.nw-card-link svg { width: 15px; height: 15px; }
+
+/* ---------- 5. Categories ---------- */
+.nw-categories { position: relative; padding: 80px 0; background: var(--color-white); overflow: hidden; }
+.nw-cat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.nw-cat-card {
+  background: var(--color-white); border: 1px solid rgba(18,59,120,.08);
+  border-radius: 16px; padding: 28px 20px; text-align: center;
+  box-shadow: var(--shadow-sm); cursor: pointer;
+  transition: transform var(--t-fast), box-shadow var(--t-fast), border-color var(--t-fast);
+}
+.nw-cat-card:hover {
+  transform: translateY(-4px); box-shadow: var(--shadow-md);
+  border-color: var(--color-primary);
+}
+.nw-cat-icon {
+  width: 48px; height: 48px; margin: 0 auto 12px;
+  border-radius: 14px; display: flex; align-items: center; justify-content: center;
+  background: rgba(25,184,242,.08); color: var(--color-primary-dark);
+}
+.nw-cat-icon svg { width: 24px; height: 24px; }
+.nw-cat-card h3 { font-size: 15px; font-weight: 700; color: var(--color-navy); margin-bottom: 4px; }
+.nw-cat-card span { font-size: 13px; color: var(--color-text-soft); }
+.nw-cat-card.active { border-color: var(--color-primary); background: rgba(25,184,242,.03); }
+
+/* ---------- 6. Search & Filter ---------- */
+.nw-search { position: relative; padding: 80px 0; background: linear-gradient(180deg, #E8F6FF 0%, #F4FBFE 100%); overflow: hidden; }
+.nw-search-bar {
+  max-width: 800px; margin: 0 auto;
+  display: flex; gap: 12px; flex-wrap: wrap; align-items: center; justify-content: center;
+}
+.nw-search-input {
+  flex: 1 1 300px; position: relative;
+}
+.nw-search-input svg {
+  position: absolute; inset-inline-start: 16px; top: 50%; transform: translateY(-50%);
+  width: 20px; height: 20px; color: #94a3b8; pointer-events: none;
+}
+.nw-search-input input {
+  width: 100%; padding: 14px 44px 14px 18px;
+  border: 1px solid rgba(18,59,120,.14); border-radius: 14px;
+  font-family: var(--font-main); font-size: 15px;
+  background: var(--color-white); color: var(--color-text);
+  outline: none; transition: border-color var(--t-fast), box-shadow var(--t-fast);
+}
+.nw-search-input input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(25,184,242,.1);
+}
+.nw-search-filter {
+  padding: 14px 18px; min-width: 160px;
+  border: 1px solid rgba(18,59,120,.14); border-radius: 14px;
+  font-family: var(--font-main); font-size: 14px;
+  background: var(--color-white); color: var(--color-text);
+  outline: none; cursor: pointer;
+  transition: border-color var(--t-fast), box-shadow var(--t-fast);
+}
+.nw-search-filter:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(25,184,242,.1);
+}
+.nw-search-btn {
+  padding: 14px 28px; border: none; border-radius: 14px;
+  background: var(--gradient-primary); color: #fff;
+  font-family: var(--font-main); font-size: 14px; font-weight: 700;
+  cursor: pointer; transition: transform var(--t-fast), box-shadow var(--t-fast);
+  box-shadow: var(--shadow-primary);
+}
+.nw-search-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(25,184,242,.25); }
+
+/* ---------- 7. Newsletter ---------- */
+.nw-newsletter { position: relative; padding: 80px 0; background: var(--color-white); overflow: hidden; }
+.nw-newsletter-blob { position: absolute; border-radius: 50%; pointer-events: none; }
+.nw-newsletter-blob-1 { width: 300px; height: 300px; background: rgba(25,184,242,.04); top: -100px; inset-inline-end: -80px; }
+.nw-newsletter-inner {
+  position: relative; z-index: 2; max-width: 600px; margin: 0 auto; text-align: center;
+  background: linear-gradient(135deg, rgba(25,184,242,.05) 0%, rgba(18,59,120,.04) 100%);
+  border: 1px solid rgba(18,59,120,.08); border-radius: 24px; padding: 52px 40px;
+}
+.nw-newsletter-icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 64px; height: 64px; margin-bottom: 18px;
+  border-radius: 18px; background: var(--gradient-primary);
+  box-shadow: var(--shadow-primary);
+}
+.nw-newsletter-icon svg { width: 28px; height: 28px; color: #fff; }
+.nw-newsletter-inner h2 {
+  font-size: clamp(22px, 3vw, 30px); font-weight: 900;
+  color: var(--color-navy); margin-bottom: 10px;
+}
+.nw-newsletter-inner p {
+  font-size: 15px; color: var(--color-text-soft); line-height: 1.8; margin-bottom: 24px;
+}
+.nw-newsletter-form {
+  display: flex; gap: 10px; max-width: 440px; margin: 0 auto;
+}
+.nw-newsletter-form input {
+  flex: 1; padding: 13px 18px;
+  border: 1px solid rgba(18,59,120,.14); border-radius: 12px;
+  font-family: var(--font-main); font-size: 14px;
+  background: var(--color-white); color: var(--color-text);
+  outline: none; transition: border-color var(--t-fast), box-shadow var(--t-fast);
+}
+.nw-newsletter-form input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(25,184,242,.1);
+}
+.nw-newsletter-form button {
+  padding: 13px 24px; border: none; border-radius: 12px;
+  background: var(--gradient-primary); color: #fff;
+  font-family: var(--font-main); font-size: 14px; font-weight: 700;
+  cursor: pointer; white-space: nowrap;
+  transition: transform var(--t-fast), box-shadow var(--t-fast);
+  box-shadow: var(--shadow-primary);
+}
+.nw-newsletter-form button:hover { transform: translateY(-2px); }
+
+/* ---------- 8. CTA ---------- */
+.nw-cta { position: relative; padding: 80px 0; background: linear-gradient(180deg, #F9FCFF 0%, var(--color-white) 100%); overflow: hidden; }
+.nw-cta-blob { position: absolute; border-radius: 50%; pointer-events: none; }
+.nw-cta-blob-1 { width: 320px; height: 320px; background: rgba(25,184,242,.04); top: -120px; inset-inline-end: -80px; }
+.nw-cta-blob-2 { width: 260px; height: 260px; background: rgba(212,175,55,.06); bottom: -100px; inset-inline-start: -70px; }
+.nw-cta-inner {
+  position: relative; z-index: 2; max-width: 620px; margin: 0 auto; text-align: center;
+  background: linear-gradient(135deg, rgba(25,184,242,.05) 0%, rgba(18,59,120,.04) 100%);
+  border: 1px solid rgba(18,59,120,.08); border-radius: 24px; padding: 52px 40px;
+}
+.nw-cta-inner h2 {
+  font-size: clamp(24px, 3.4vw, 34px); font-weight: 900; color: var(--color-navy);
+  margin-bottom: 22px; line-height: 1.5;
+}
+.nw-cta-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; }
+
+/* ---------- Category Colors ---------- */
+.cat-activities { background: rgba(25,184,242,.12); color: var(--color-primary-dark); }
+.cat-partnerships { background: rgba(212,175,55,.14); color: #b8960f; }
+.cat-competitions { background: rgba(39,174,96,.12); color: #1e8449; }
+.cat-outings { background: rgba(142,68,173,.12); color: #6c3483; }
+.cat-environmental { background: rgba(46,204,113,.12); color: #1e8449; }
+.cat-exhibitions { background: rgba(230,126,34,.12); color: #c96a1e; }
+.cat-association { background: rgba(18,59,120,.1); color: var(--color-navy); }
+.cat-announcements { background: rgba(231,76,60,.12); color: #c0392b; }
+
+/* ---------- Animations ---------- */
+@keyframes nwFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+.nw-reveal { opacity: 0; transform: translateY(30px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
+.nw-reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1024px) {
+  .nw-featured-card { grid-template-columns: 1fr; }
+  .nw-featured-img { min-height: 260px; }
+  .nw-grid-cards { grid-template-columns: repeat(2, 1fr); }
+  .nw-cat-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 768px) {
+  .nw-hero { padding: 100px 0 70px; }
+  .nw-featured, .nw-grid, .nw-categories, .nw-search, .nw-newsletter, .nw-cta { padding: 60px 0; }
+  .nw-featured-body { padding: 30px 22px; }
+  .nw-grid-cards { grid-template-columns: 1fr; }
+  .nw-cat-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .nw-newsletter-inner { padding: 36px 22px; }
+  .nw-cta-inner { padding: 36px 22px; }
+  .nw-newsletter-form { flex-direction: column; }
+  .nw-search-bar { flex-direction: column; }
+  .nw-search-filter { width: 100%; }
+}
+@media (max-width: 480px) {
+  .nw-cat-grid { grid-template-columns: repeat(2, 1fr); }
+  .nw-featured-meta { flex-direction: column; align-items: flex-start; gap: 6px; }
+}
+</style>
+</head>
+<body>
+
+<a href="#main" class="visually-hidden">تخطَّ إلى المحتوى الرئيسي</a>
+
+<!-- ===== 1. Top Bar ===== -->
+<div class="topbar">
+  <div class="container">
+    <div class="topbar-right">
+      <a href="../index.html" class="topbar-brand" aria-label="الرئيسية">
+        <span class="topbar-brand-mark">
+          <img src="../Amare%20files%20/logo.png" alt="AMARE Logo" class="topbar-brand-logo">
+        </span>
+        <span class="topbar-brand-name" data-amare-setting="association_name">الجمعية المغربية لهواة البحث والاستكشاف</span>
+      </a>
+    </div>
+    <div class="topbar-left">
+      <div class="topbar-social">
+        <a href="#" aria-label="فيسبوك"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg></a>
+        <a href="#" aria-label="إنستغرام"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+        <a href="#" aria-label="لينكدإن"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 5 3.79 6.2 2.3 6.2 1 6.2 0 5 0 3.5 0 2 1.1.8 2.5.8s2.48 1.2 2.48 2.7zM.2 8.5h4.6V23H.2V8.5zM8 8.5h4.4v2h.06c.6-1.2 2.1-2.4 4.4-2.4 4.7 0 5.6 3.1 5.6 7.1V23h-4.6v-6.7c0-1.6 0-3.7-2.3-3.7s-2.6 1.8-2.6 3.6V23H8V8.5z"/></svg></a>
+      </div>
+      <div class="topbar-lang">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg>
+        <select aria-label="اختيار اللغة">
+          <option value="ar" selected>العربية</option>
+          <option value="fr">Français</option>
+          <option value="en">English</option>
+          <option value="es">Español</option>
+          <option value="ber">ⵜⴰⵎⴰⵣⵉⵖⵜ</option>
+        </select>
+      </div>
+      <a href="http://wa.me/+212684869996" target="_blank" rel="noopener" class="topbar-whatsapp ripple" aria-label="تواصل عبر واتساب">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.6.1-.2.3-.7 1-.9 1.2-.1.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.2-.4.1-.2 0-.4 0-.5s-.6-1.5-.8-2c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s1 2.6 1.1 2.7c.1.2 2 3 4.7 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 2-1.4.2-.6.2-1.2.1-1.3-.1-.1-.3-.2-.6-.3z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.6 1.4 5.1L2 22l5.1-1.3C8.5 21.5 10.2 22 12 22c5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18c-1.6 0-3.1-.4-4.5-1.2l-.3-.2-3.3.9.9-3.2-.2-.3C3.7 14.6 3.2 13.3 3.2 12c0-4.9 3.9-8.8 8.8-8.8s8.8 3.9 8.8 8.8-3.9 8.8-8.8 8.8z"/></svg>
+        <span>واتساب</span>
+      </a>
+      <a href="../login.html" class="topbar-login ripple" aria-label="تسجيل الدخول">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v18h-6M10 17l5-5-5-5M15 12H3"/></svg>
+        <span>تسجيل الدخول</span>
+      </a>
+      <a href="../amare%20store/index.html" class="nav-store-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        <span>متجر AMARE</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 2. Navbar ===== -->
+<header>
+  <nav class="navbar" id="navbar" aria-label="التنقل الرئيسي">
+    <div class="container">
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html">الرئيسية</a></li>
+        <li data-dropdown="about"><a href="../index.html#about">من نحن</a></li>
+        <li data-dropdown="activities"><a href="#">أنشطتنا</a></li>
+        <li data-dropdown="partners"><a href="#">شركاؤنا</a></li>
+        <li data-dropdown="services"><a href="../index.html#services">خدماتنا</a></li>
+        <li data-dropdown="branches"><a href="#">الفروع الجهوية</a></li>
+        <li data-dropdown="join"><a href="../Join%20us/join-us-online.html">انخرط معنا</a></li>
+        <li><a href="news.html" class="active">الأخبار</a></li>
+        <li><a href="../Archive/archive.html">الأرشيف</a></li>
+        <li><a href="../contact.html">اتصل بنا</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="hamburger" id="hamburger" aria-label="فتح القائمة" aria-expanded="false" aria-controls="navLinks">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <div class="mega-dropdown" id="megaDropdown"></div>
+  </nav>
+</header>
+
+<!-- ===== Mobile Header ===== -->
+<div class="mobile-header" id="mobileHeader">
+  <div class="mobile-header-group">
+    <a class="mobile-header-logo" href="../index.html" aria-label="الرئيسية">
+      <img src="../Amare%20files%20/logo.png" alt="AMARE Logo">
+    </a>
+    <a class="mobile-header-brand" href="../index.html" aria-label="الرئيسية">
+      الجمعية المغربية لهواة<br>البحث والاستكشاف
+    </a>
+  </div>
+  <button class="mobile-hamburger" id="mobileHamburger" aria-label="فتح القائمة" aria-expanded="false" aria-controls="mobileDrawer">
+    <span></span><span></span><span></span>
+  </button>
+</div>
+
+<!-- ===== Mobile Drawer ===== -->
+<div class="mobile-drawer" id="mobileDrawer" role="dialog" aria-modal="true" aria-label="القائمة الرئيسية">
+  <div class="mobile-drawer-inner">
+    <div class="mobile-drawer-header">
+      <button class="mobile-drawer-close" id="mobileDrawerClose" aria-label="إغلاق القائمة">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+      <a class="mobile-drawer-brand" href="../index.html">
+        <img src="../Amare%20files%20/logo.png" alt="AMARE Logo" class="mobile-drawer-brand-logo">
+        <span class="mobile-drawer-brand-name">الجمعية المغربية لهواة البحث والاستكشاف</span>
+      </a>
+    </div>
+    <nav class="mobile-drawer-nav" aria-label="التنقل الرئيسي">
+      <ul class="mobile-drawer-links" id="mobileDrawerLinks">
+        <li><a href="../index.html">الرئيسية</a></li>
+        <li class="mobile-drawer-dropdown" data-dd="about">
+          <div class="mobile-drawer-row">
+            <a href="../index.html#about">من نحن</a>
+            <button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </div>
+          <ul class="mobile-drawer-sub"></ul>
+        </li>
+        <li class="mobile-drawer-dropdown" data-dd="activities">
+          <div class="mobile-drawer-row">
+            <a href="#">أنشطتنا</a>
+            <button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </div>
+          <ul class="mobile-drawer-sub"></ul>
+        </li>
+        <li class="mobile-drawer-dropdown" data-dd="partners">
+          <div class="mobile-drawer-row">
+            <a href="#">شركاؤنا</a>
+            <button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </div>
+          <ul class="mobile-drawer-sub"></ul>
+        </li>
+        <li class="mobile-drawer-dropdown" data-dd="services">
+          <div class="mobile-drawer-row">
+            <a href="../index.html#services">خدماتنا</a>
+            <button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </div>
+          <ul class="mobile-drawer-sub"></ul>
+        </li>
+        <li class="mobile-drawer-dropdown" data-dd="branches">
+          <div class="mobile-drawer-row">
+            <a href="#">الفروع الجهوية</a>
+            <button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </div>
+          <ul class="mobile-drawer-sub"></ul>
+        </li>
+        <li class="mobile-drawer-dropdown" data-dd="join">
+          <div class="mobile-drawer-row">
+            <a href="../Join%20us/index.html">انخرط معنا</a>
+            <button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </div>
+          <ul class="mobile-drawer-sub"></ul>
+        </li>
+        <li><a href="news.html">الأخبار</a></li>
+        <li><a href="../Archive/archive.html">الأرشيف</a></li>
+        <li><a href="../contact.html">اتصل بنا</a></li>
+      </ul>
+    </nav>
+    <div class="mobile-drawer-bottom">
+      <div class="mobile-drawer-actions">
+        <a href="../login.html" class="mobile-drawer-action mobile-drawer-action-login">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v18h-6M10 17l5-5-5-5M15 12H3"/></svg>
+          <span>تسجيل الدخول</span>
+        </a>
+        <a href="../amare store/index.html" class="mobile-drawer-action mobile-drawer-action-store">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span>متجر</span>
+        </a>
+        <a href="https://wa.me/212600000000" target="_blank" rel="noopener" class="mobile-drawer-action mobile-drawer-action-whatsapp">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.6.1-.2.3-.7 1-.9 1.2-.1.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.2-.4.1-.2 0-.4 0-.5s-.6-1.5-.8-2c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s1 2.6 1.1 2.7c.1.2 2 3 4.7 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 2-1.4.2-.6.2-1.2.1-1.3-.1-.1-.3-.2-.6-.3z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.6 1.4 5.1L2 22l5.1-1.3C8.5 21.5 10.2 22 12 22c5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18c-1.6 0-3.1-.4-4.5-1.2l-.3-.2-3.3.9.9-3.2-.2-.3C3.7 14.6 3.2 13.3 3.2 12c0-4.9 3.9-8.8 8.8-8.8s8.8 3.9 8.8 8.8-3.9 8.8-8.8 8.8z"/></svg>
+          <span>واتساب</span>
+        </a>
+      </div>
+      <div class="mobile-drawer-lang">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg>
+        <select aria-label="اختيار اللغة">
+          <option value="ar" selected>العربية</option>
+          <option value="fr">Français</option>
+          <option value="en">English</option>
+          <option value="es">Español</option>
+          <option value="ber">ⵜⴰⵎⴰⵣⵉⵖⵜ</option>
+        </select>
+      </div>
+      <div class="mobile-drawer-social">
+        <a href="#" aria-label="فيسبوك"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg></a>
+        <a href="#" aria-label="إنستغرام"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+        <a href="#" aria-label="لينكدإن"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 5 3.79 6.2 2.3 6.2 1 6.2 0 5 0 3.5 0 2 1.1.8 2.5.8s2.48 1.2 2.48 2.7zM.2 8.5h4.6V23H.2V8.5zM8 8.5h4.4v2h.06c.6-1.2 2.1-2.4 4.4-2.4 4.7 0 5.6 3.1 5.6 7.1V23h-4.6v-6.7c0-1.6 0-3.7-2.3-3.7s-2.6 1.8-2.6 3.6V23H8V8.5z"/></svg></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main id="main">
+
+<!-- ===== 1. HERO ===== -->
+<section class="nw-hero" id="nwHero">
+  <div class="nw-hero-bg" aria-hidden="true">
+    <div class="nw-hero-shape nw-hero-shape-1"></div>
+    <div class="nw-hero-shape nw-hero-shape-2"></div>
+    <div class="nw-hero-shape nw-hero-shape-3"></div>
+  </div>
+  <div class="container">
+    <div class="nw-hero-inner">
+      <div class="nw-hero-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      </div>
+      <span class="nw-hero-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        بوابة الأخبار
+      </span>
+      <h1>آخر <span>الأخبار</span></h1>
+      <p class="nw-hero-subtitle">تابع آخر أخبار الجمعية المغربية لهواة البحث والاستكشاف، والأنشطة، والفعاليات، والشراكات، وكل جديد.</p>
+      <div class="nw-hero-actions">
+        <a href="#nwLatest" class="btn btn-accent">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+          أحدث الأخبار
+        </a>
+        <a href="../contact.html" class="btn btn-navy">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .3 2 .7 2.9a2 2 0 0 1-.4 2.1L8 10a16 16 0 0 0 6 6l1.3-1.4a2 2 0 0 1 2.1-.4c.9.4 1.9.6 2.9.7a2 2 0 0 1 1.7 2.1z"/></svg>
+          تواصل معنا
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 2. FEATURED NEWS ===== -->
+<section class="nw-featured" id="nwFeatured">
+  <div class="container">
+    <div class="nw-section-head">
+      <span class="nw-eyebrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        خبر مميز
+      </span>
+      <h2 class="nw-section-title">أبرز الأخبار</h2>
+    </div>
+    <div class="nw-featured-card nw-reveal" id="featuredCard"></div>
+  </div>
+</section>
+
+<!-- ===== 3. LATEST NEWS ===== -->
+<section class="nw-grid" id="nwLatest">
+  <div class="container">
+    <div class="nw-section-head">
+      <span class="nw-eyebrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        أحدث الأخبار
+      </span>
+      <h2 class="nw-section-title">آخر ما نشر</h2>
+      <p class="nw-section-desc">تصفح أحدث أخبار ومقالات الجمعية المغربية لهواة البحث والاستكشاف.</p>
+    </div>
+    <div class="nw-grid-cards" id="newsGrid"></div>
+  </div>
+</section>
+
+<!-- ===== 4. CATEGORIES ===== -->
+<section class="nw-categories" id="nwCategories">
+  <div class="container">
+    <div class="nw-section-head">
+      <span class="nw-eyebrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18"/></svg>
+        تصفح حسب الفئة
+      </span>
+      <h2 class="nw-section-title">فئات الأخبار</h2>
+      <p class="nw-section-desc">اختر الفئة التي تهمك لتصفح الأخبار المتعلقة بها.</p>
+    </div>
+    <div class="nw-cat-grid" id="categoryGrid"></div>
+  </div>
+</section>
+
+<!-- ===== 5. SEARCH & FILTER ===== -->
+<section class="nw-search" id="nwSearch">
+  <div class="container">
+    <div class="nw-section-head">
+      <span class="nw-eyebrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        بحث متقدم
+      </span>
+      <h2 class="nw-section-title">ابحث في الأخبار</h2>
+    </div>
+    <div class="nw-search-bar">
+      <div class="nw-search-input">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" placeholder="ابحث عن خبر..." id="searchInput">
+      </div>
+      <select class="nw-search-filter" id="searchCategory">
+        <option value="">جميع الفئات</option>
+        <option value="activities">أنشطة</option>
+        <option value="partnerships">شراكات</option>
+        <option value="competitions">مسابقات</option>
+        <option value="outings">خرجات</option>
+        <option value="environmental">حملات بيئية</option>
+        <option value="exhibitions">معارض</option>
+        <option value="association">الجمعية</option>
+        <option value="announcements">إعلانات</option>
+      </select>
+      <select class="nw-search-filter" id="searchYear">
+        <option value="">جميع السنوات</option>
+        <option value="2026">2026</option>
+        <option value="2025">2025</option>
+        <option value="2024">2024</option>
+      </select>
+      <button class="nw-search-btn" id="searchBtn">بحث</button>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 6. NEWSLETTER ===== -->
+<section class="nw-newsletter" id="nwNewsletter">
+  <div class="nw-newsletter-blob nw-newsletter-blob-1" aria-hidden="true"></div>
+  <div class="container">
+    <div class="nw-newsletter-inner nw-reveal">
+      <div class="nw-newsletter-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 6 12 13 2 6"/><path d="M2 6h20v12H2z"/></svg>
+      </div>
+      <h2>اشترك في نشرتنا الإخبارية</h2>
+      <p>توصل بأحدث الأخبار والفعاليات مباشرة على بريدك الإلكتروني.</p>
+      <form class="nw-newsletter-form" id="newsletterForm" novalidate>
+        <input type="email" placeholder="البريد الإلكتروني" dir="ltr" required id="newsletterEmail">
+        <button type="submit">اشترك الآن</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 7. CTA ===== -->
+<section class="nw-cta" id="nwCta">
+  <div class="nw-cta-blob nw-cta-blob-1" aria-hidden="true"></div>
+  <div class="nw-cta-blob nw-cta-blob-2" aria-hidden="true"></div>
+  <div class="container">
+    <div class="nw-cta-inner nw-reveal">
+      <h2>ابق على اطلاع بكل جديد.</h2>
+      <div class="nw-cta-actions">
+        <a href="#nwLatest" class="btn btn-accent">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+          جميع الأخبار
+        </a>
+        <a href="../contact.html" class="btn btn-navy">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .3 2 .7 2.9a2 2 0 0 1-.4 2.1L8 10a16 16 0 0 0 6 6l1.3-1.4a2 2 0 0 1 2.1-.4c.9.4 1.9.6 2.9.7a2 2 0 0 1 1.7 2.1z"/></svg>
+          اتصل بنا
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ===== Footer ===== -->
+<footer class="footer" id="contact">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-about">
+        <div class="footer-brand">
+          <span class="brand-mark">
+            <img src="../Amare%20files%20/logo.png" alt="AMARE Logo" class="topbar-brand-logo">
+          </span>
+          <span>
+            <span class="brand-name">الجمعية المغربية لهواة البحث والاستكشاف</span><br>
+          </span>
+        </div>
+        <p>الجمعية المغربية لهواة البحث والاستكشاف هي إطار قانوني وطني يجمع الهواة تحت راية واحدة لصون التراث الوطني المغربي.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="فيسبوك"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg></a>
+          <a href="#" aria-label="إنستغرام"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+          <a href="#" aria-label="لينكدإن"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 5 3.79 6.2 2.3 6.2 1 6.2 0 5 0 3.5 0 2 1.1.8 2.5.8s2.48 1.2 2.48 2.7zM.2 8.5h4.6V23H.2V8.5zM8 8.5h4.4v2h.06c.6-1.2 2.1-2.4 4.4-2.4 4.7 0 5.6 3.1 5.6 7.1V23h-4.6v-6.7c0-1.6 0-3.7-2.3-3.7s-2.6 1.8-2.6 3.6V23H8V8.5z"/></svg></a>
+        </div>
+      </div>
+      <nav aria-label="روابط سريعة">
+        <h4>روابط سريعة</h4>
+        <ul class="footer-links">
+          <li><a href="../index.html">الرئيسية</a></li>
+          <li><a href="../contact.html">اتصل بنا</a></li>
+          <li><a href="../index.html#services">خدماتنا</a></li>
+          <li><a href="news.html">الاخبار</a></li>
+          <li><a href="../index.html#newsletter">الارشيف</a></li>
+          <li><a href="../index.html#home">الفروع الجهوية</a></li>
+          <li><a href="../Join%20us/join-us-online.html">انخرط معنا</a></li>
+          <li><a href="../index.html#services">شركاؤنا</a></li>
+          <li><a href="../index.html#services">انشطتنا</a></li>
+          <li><a href="../index.html#about">من نحن</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="برامجنا">
+        <h4>برامجنا</h4>
+        <ul class="footer-links">
+          <li><a href="../Our%20services/sos-amare.html">SOS Amare</a></li>
+          <li><a href="../amare store/index.html">متجر Amare</a></li>
+          <li><a href="../Our%20services/explorer-house.html">بيت المستكشف Amare</a></li>
+          <li><a href="../Our%20services/amare-magazine.html">مجلة Amare</a></li>
+          <li><a href="../Our%20services/amare-academy.html">أكاديمية Amare</a></li>
+          <li><a href="../clubs/">النوادي</a></li>
+          <li><a href="../Our%20services/legal-advisor.html">المستشار القانوني</a></li>
+          <li><a href="../Our%20services/insurance-contract.html">عقد التأمين</a></li>
+        </ul>
+      </nav>
+      <div>
+        <h4>تواصل معنا</h4>
+        <ul class="footer-contact">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>ص.ب 749 أيت ملول 86150</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .3 2 .7 2.9a2 2 0 0 1-.4 2.1L8 10a16 16 0 0 0 6 6l1.3-1.4a2 2 0 0 1 2.1-.4c.9.4 1.9.6 2.9.7a2 2 0 0 1 1.7 2.1z"/></svg><span dir="ltr">+212 684869996</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z" opacity="0"/><path d="M22 6 12 13 2 6"/><path d="M2 6h20v12H2z"/></svg><span dir="ltr">association.amare.agadir@gmail.com</span></li>
+        </ul>
+      </div>
+      <div class="footer-location">
+        <h4>موقعنا</h4>
+        <div class="footer-map-card">
+          <span class="footer-map-badge">📍 Ait Melloul, Agadir</span>
+          <iframe src="https://www.google.com/maps?q=30.385528,-9.448611&z=16&output=embed" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade" title="موقع الجمعية على الخريطة" class="footer-map-frame"></iframe>
+          <div class="footer-map-footer">
+            <a href="https://www.google.com/maps?q=30.385528,-9.448611" target="_blank" rel="noopener" class="footer-map-btn">Open in Google Maps</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 الجمعية المغربية لهواة البحث والاستكشاف. جميع الحقوق محفوظة.</p>
+      <div class="footer-bottom-links">
+        <a href="#">سياسة الخصوصية</a>
+        <a href="#">الشروط والأحكام</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<button class="back-to-top" id="backToTop" aria-label="العودة إلى الأعلى">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M18 15l-6-6-6 6"/></svg>
+</button>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../supabase/config.js"></script>
+<script src="../supabase/client.js"></script>
+<script src="../supabase/database.js"></script>
+<script src="../supabase/storage.js"></script>
+<script src="../supabase/auth.js"></script>
+<script src="../supabase/realtime.js"></script>
+<script src="../supabase/index.js"></script>
+<script src="../supabase/navbar.js"></script>
+<script src="../script.js"></script>
+<script>
+/* ==========================================================================
+   News Data Store — Ready for Supabase integration
+   Replace fetchNews() with Supabase query for dynamic content.
+   ========================================================================== */
+(function () {
+  'use strict';
+
+  var newsData = [
+    { id: 1, category: 'activities', catLabel: 'أنشطة', catClass: 'cat-activities', title: 'خرجة استكشافية ناجحة إلى جبال الأطلس الكبير', summary: 'نظمت الجمعية خرجة استكشافية إلى منطقة إمليل بجبال الأطلس الكبير بمشاركة 45 عضواً، تم خلالها استكشاف المناظر الطبيعية والتعرف على التنوع البيولوجي.', author: 'فريق التحرير', date: '2026-08-05', featured: true },
+    { id: 2, category: 'partnerships', catLabel: 'شراكات', catClass: 'cat-partnerships', title: 'توقيع اتفاقية شراكة مع ASTROMET', summary: 'وقعت الجمعية اتفاقية شراكة استراتيجية مع شركة ASTROMET المتخصصة في التنقيب والاستكشاف المعدني بالمغرب.', author: 'لجنة الشراكات', date: '2026-07-28', featured: false },
+    { id: 3, category: 'competitions', catLabel: 'مسابقات', catClass: 'cat-competitions', title: 'إعلان نتائج المسابقة الوطنية للكشف عن المعادن', summary: 'اختتمت الجمعية المسابقة الوطنية للكشف عن المعادن بمشاركة 120 متسابقاً من مختلف جهات المملكة.', author: 'لجنة المسابقات', date: '2026-07-20', featured: false },
+    { id: 4, category: 'outings', catLabel: 'خرجات', catClass: 'cat-outings', title: 'رحلة استكشافية إلى مغارة فريواطو بتازة', summary: 'نظمت الجمعية رحلة استكشافية إلى مغارة فريواطو، إحدى أعمق المغارات في إفريقيا، مع فريق متخصص في علم الكهوف.', author: 'فريق التحرير', date: '2026-07-15', featured: false },
+    { id: 5, category: 'environmental', catLabel: 'حملات بيئية', catClass: 'cat-environmental', title: 'حملة تنظيف شاطئ أكادير تجمع 200 متطوع', summary: 'نجحت الحملة البيئية التي نظمتها الجمعية في جمع أكثر من 2 طن من النفايات بشاطئ أكادير بمشاركة 200 متطوع.', author: 'لجنة البيئة', date: '2026-07-10', featured: false },
+    { id: 6, category: 'exhibitions', catLabel: 'معارض', catClass: 'cat-exhibitions', title: 'المعرض الجهوي للمستكشفين يحقق نجاحاً كبيراً', summary: 'اختتم المعرض الجهوي للمستكشفين الذي نظمته الجمعية بمشاركة 30 عارضاً وعرض لأحدث الاكتشافات والأجهزة.', author: 'فريق التحرير', date: '2026-07-03', featured: false },
+    { id: 7, category: 'association', catLabel: 'الجمعية', catClass: 'cat-association', title: 'انعقاد الجمع العام السنوي للجمعية', summary: 'عقدت الجمعية جمعها العام السنوي بحضور ممثلي الفروع الجهوية، وتمت مناقشة التقريرين الأدبي والمالي وانتخاب المكتب الجديد.', author: 'الأمانة العامة', date: '2026-06-25', featured: false },
+    { id: 8, category: 'announcements', catLabel: 'إعلانات', catClass: 'cat-announcements', title: 'فتح باب الانخراط للموسم الجديد 2026-2027', summary: 'تعلن الجمعية عن فتح باب الانخراط للموسم الجديد، ويمكن للراغبين التسجيل عبر الموقع الإلكتروني أو في المقر.', author: 'لجنة العضوية', date: '2026-06-18', featured: false },
+    { id: 9, category: 'activities', catLabel: 'أنشطة', catClass: 'cat-activities', title: 'دورة تكوينية في الملاحة البرية وقراءة الخرائط', summary: 'نظمت الجمعية دورة تكوينية في الملاحة البرية لفائدة 35 عضواً، تضمنت دروساً نظرية وتطبيقات ميدانية.', author: 'لجنة التكوين', date: '2026-06-10', featured: false },
+    { id: 10, category: 'partnerships', catLabel: 'شراكات', catClass: 'cat-partnerships', title: 'اتفاقية تعاون مع منظمة OMSDS للتنمية الاجتماعية', summary: 'وقعت الجمعية اتفاقية تعاون مع منظمة OMSDS للتنمية الاجتماعية والتضامن لدعم الأنشطة الاجتماعية والتطوعية.', author: 'لجنة الشراكات', date: '2026-06-01', featured: false },
+    { id: 11, category: 'environmental', catLabel: 'حملات بيئية', catClass: 'cat-environmental', title: 'حملة تشجير غابة المعمورة بمشاركة 150 متطوعاً', summary: 'نظمت الجمعية حملة تشجير بغابة المعمورة تم فيها غرس 1000 شجرة بمشاركة السلطات المحلية والمدارس.', author: 'لجنة البيئة', date: '2026-05-22', featured: false },
+    { id: 12, category: 'association', catLabel: 'الجمعية', catClass: 'cat-association', title: 'افتتاح فرع جديد للجمعية بجهة طنجة', summary: 'افتتحت الجمعية فرعاً جهوياً جديداً بجهة طنجة - تطوان - الحسيمة لتوسيع نطاق أنشطتها في شمال المملكة.', author: 'المكتب المركزي', date: '2026-05-15', featured: false },
+  ];
+
+  var categories = [
+    { id: 'activities', label: 'أنشطة', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>', count: null },
+    { id: 'partnerships', label: 'شراكات', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><path d="M20 8v6M23 11h-6"/></svg>', count: null },
+    { id: 'competitions', label: 'مسابقات', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>', count: null },
+    { id: 'outings', label: 'خرجات', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>', count: null },
+    { id: 'environmental', label: 'حملات بيئية', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M11 20A7 7 0 0 1 9.8 6.9C15.5 4.9 17 3.5 19 2c1 2 2 4.5 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>', count: null },
+    { id: 'exhibitions', label: 'معارض', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>', count: null },
+    { id: 'association', label: 'الجمعية', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21h18M6 21V7l6-4 6 4v14M10 21v-6h4v6"/></svg>', count: null },
+    { id: 'announcements', label: 'إعلانات', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>', count: null },
+  ];
+
+  /* -- Count articles per category -- */
+  categories.forEach(function (cat) {
+    cat.count = newsData.filter(function (n) { return n.category === cat.id; }).length;
+  });
+
+  /* ==========================================================================
+     1. Render Featured News
+     ========================================================================== */
+  function renderFeatured() {
+    var featured = newsData.filter(function (n) { return n.featured; })[0] || newsData[0];
+    var container = document.getElementById('featuredCard');
+    if (!container) return;
+    container.innerHTML =
+      '<div class="nw-featured-img">' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>' +
+      '</div>' +
+      '<div class="nw-featured-body">' +
+        '<span class="nw-featured-category ' + featured.catClass + '">' + featured.catLabel + '</span>' +
+        '<h2>' + featured.title + '</h2>' +
+        '<p>' + featured.summary + '</p>' +
+        '<div class="nw-featured-meta">' +
+          '<span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>' + featured.date + '</span>' +
+          '<span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>' + featured.author + '</span>' +
+        '</div>' +
+        '<a href="#" class="btn btn-primary">اقرأ المزيد</a>' +
+      '</div>';
+  }
+
+  /* ==========================================================================
+     2. Render News Grid
+     ========================================================================== */
+  function renderGrid(articles) {
+    var grid = document.getElementById('newsGrid');
+    if (!grid) return;
+    var html = '';
+    (articles || newsData).forEach(function (n) {
+      html +=
+        '<div class="nw-card nw-reveal">' +
+          '<div class="nw-card-img">' +
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>' +
+          '</div>' +
+          '<div class="nw-card-body">' +
+            '<span class="nw-card-category ' + n.catClass + '">' + n.catLabel + '</span>' +
+            '<h3>' + n.title + '</h3>' +
+            '<p>' + n.summary.substring(0, 80) + '...</p>' +
+            '<div class="nw-card-meta">' +
+              '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>' +
+              n.date +
+            '</div>' +
+            '<a href="#" class="nw-card-link">اقرأ المزيد <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></a>' +
+          '</div>' +
+        '</div>';
+    });
+    grid.innerHTML = html;
+    observeReveal();
+  }
+
+  /* ==========================================================================
+     3. Render Categories
+     ========================================================================== */
+  function renderCategories(active) {
+    var container = document.getElementById('categoryGrid');
+    if (!container) return;
+    var html = '';
+    categories.forEach(function (c) {
+      var isActive = active === c.id;
+      html +=
+        '<div class="nw-cat-card' + (isActive ? ' active' : '') + '" data-category="' + c.id + '">' +
+          '<div class="nw-cat-icon">' + c.icon + '</div>' +
+          '<h3>' + c.label + '</h3>' +
+          '<span>' + c.count + ' خبر</span>' +
+        '</div>';
+    });
+    container.innerHTML = html;
+
+    container.querySelectorAll('.nw-cat-card').forEach(function (card) {
+      card.addEventListener('click', function () {
+        var cat = this.getAttribute('data-category');
+        renderCategories(cat);
+        var filtered = newsData.filter(function (n) { return n.category === cat; });
+        renderGrid(filtered);
+        document.getElementById('searchCategory').value = cat;
+        document.getElementById('nwLatest').scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+  }
+
+  /* ==========================================================================
+     4. Search & Filter
+     ========================================================================== */
+  document.getElementById('searchBtn').addEventListener('click', function () {
+    var query = (document.getElementById('searchInput').value || '').trim().toLowerCase();
+    var cat = document.getElementById('searchCategory').value;
+    var year = document.getElementById('searchYear').value;
+    var filtered = newsData.filter(function (n) {
+      var matchQuery = !query || n.title.toLowerCase().indexOf(query) !== -1 || n.summary.toLowerCase().indexOf(query) !== -1;
+      var matchCat = !cat || n.category === cat;
+      var matchYear = !year || n.date.indexOf(year) === 0;
+      return matchQuery && matchCat && matchYear;
+    });
+    renderGrid(filtered);
+    renderCategories(cat || '');
+    document.getElementById('nwLatest').scrollIntoView({ behavior: 'smooth' });
+  });
+
+  document.getElementById('searchInput').addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') document.getElementById('searchBtn').click();
+  });
+
+  /* ==========================================================================
+     5. Newsletter
+     ========================================================================== */
+  var newsletterForm = document.getElementById('newsletterForm');
+  if (newsletterForm) {
+    newsletterForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var email = document.getElementById('newsletterEmail');
+      if (!email.value.trim()) return;
+      email.value = '';
+      alert('تم الاشتراك بنجاح! شكراً لانضمامك إلى نشرتنا الإخبارية.');
+    });
+  }
+
+  /* ==========================================================================
+     6. Scroll Reveal
+     ========================================================================== */
+  function observeReveal() {
+    var els = document.querySelectorAll('.nw-reveal:not(.visible)');
+    if (!els.length) return;
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    els.forEach(function (el) { observer.observe(el); });
+  }
+
+  /* ==========================================================================
+     Init
+     ========================================================================== */
+  renderFeatured();
+  renderGrid();
+  renderCategories('');
+  observeReveal();
+
+})();
+</script>
+</body>
+</html>

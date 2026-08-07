@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مسابقات وراليات | أنشطة الجمعية | الجمعية المغربية لهواة البحث والاستكشاف</title>
+<meta name="description" content="مسابقات وراليات — تحديات ومغامرات تنظمها الجمعية المغربية لهواة البحث والاستكشاف تجمع بين المنافسة والاستكشاف.">
+<meta name="keywords" content="مسابقات, راليات, تحديات, الجمعية المغربية, AMARE, مغامرات, جوائز">
+<meta name="author" content="الجمعية المغربية لهواة البحث والاستكشاف">
+<link rel="shortcut icon" href="../Amare%20files%20/logo.png" type="image/x-icon">
+<meta property="og:title" content="مسابقات وراليات | أنشطة الجمعية">
+<meta property="og:description" content="مسابقات وراليات — تحديات ومغامرات تنظمها الجمعية المغربية لهواة البحث والاستكشاف.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+<style>
+/* ==========================================================================
+   Activity Page — Premium styles (uses design tokens from ../style.css)
+   Prefix: ac-
+   ========================================================================== */
+
+/* ---------- 1. Hero ---------- */
+.ac-hero {
+  position: relative; padding: 120px 0 100px; overflow: hidden;
+  background: linear-gradient(180deg, #E8F6FF 0%, #F4FBFE 52%, #EBF6FF 100%);
+}
+.ac-hero-bg { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.ac-hero-shape { position: absolute; border-radius: 50%; }
+.ac-hero-shape-1 { width: 200px; height: 200px; background: rgba(25,184,242,.1); top: 6%; inset-inline-start: 2%; animation: acFloat 10s ease-in-out infinite; }
+.ac-hero-shape-2 { width: 90px; height: 90px; background: rgba(212,175,55,.2); bottom: 18%; inset-inline-start: 16%; animation: acFloat 7s ease-in-out 1.4s infinite; }
+.ac-hero-shape-3 { width: 240px; height: 240px; background: rgba(18,59,120,.04); top: 4%; inset-inline-end: 2%; animation: acFloat 11s ease-in-out .5s infinite; }
+.ac-hero-inner { position: relative; z-index: 2; text-align: center; max-width: 680px; margin: 0 auto; }
+
+.ac-hero-cover {
+  width: 100%; height: 260px;
+  border-radius: 22px; overflow: hidden;
+  margin-bottom: 32px;
+  background: linear-gradient(135deg, rgba(25,184,242,.14) 0%, rgba(18,59,120,.1) 100%);
+  border: 1px solid rgba(18,59,120,.08);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: var(--shadow-md);
+}
+.ac-hero-cover svg { width: 80px; height: 80px; color: rgba(25,184,242,.18); }
+
+.ac-hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--color-white); border: 1px solid rgba(25,184,242,.24);
+  color: var(--color-primary-dark); font-weight: 800; font-size: 13px;
+  padding: 8px 18px; border-radius: var(--radius-pill);
+  box-shadow: 0 5px 16px rgba(25,184,242,.12); margin-bottom: 18px;
+}
+.ac-hero-badge svg { width: 16px; height: 16px; color: var(--color-accent); }
+.ac-hero h1 {
+  font-size: clamp(34px, 5vw, 56px); font-weight: 900; color: var(--color-navy);
+  line-height: 1.2; margin-bottom: 16px; letter-spacing: -1px;
+}
+.ac-hero h1 span { color: var(--color-primary); }
+.ac-hero-subtitle {
+  font-size: clamp(16px, 1.5vw, 18px); color: var(--color-text-soft);
+  line-height: 2; max-width: 540px; margin: 0 auto 30px;
+}
+.ac-hero-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; }
+
+/* ---------- 2. About ---------- */
+.ac-about { position: relative; padding: 100px 0; background: var(--color-white); overflow: hidden; }
+.ac-about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+.ac-about-visual { position: relative; }
+.ac-about-img {
+  width: 100%; aspect-ratio: 4/3;
+  background: linear-gradient(135deg, rgba(25,184,242,.1) 0%, rgba(18,59,120,.08) 100%);
+  border-radius: 24px; border: 1px solid rgba(18,59,120,.08);
+  display: flex; align-items: center; justify-content: center; overflow: hidden;
+}
+.ac-about-img svg { width: 200px; height: 200px; color: rgba(25,184,242,.14); }
+.ac-about-img-overlay {
+  position: absolute; inset-inline-start: -28px; bottom: -28px;
+  width: 100px; height: 100px; background: var(--gradient-primary);
+  border-radius: 20px; display: flex; align-items: center; justify-content: center;
+  box-shadow: var(--shadow-primary);
+}
+.ac-about-img-overlay svg { width: 40px; height: 40px; color: #fff; }
+.ac-about-text .ac-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 13px; font-weight: 800; color: var(--color-primary-dark);
+  text-transform: uppercase; letter-spacing: 1px; margin-bottom: 14px;
+}
+.ac-about-text .ac-eyebrow svg { width: 14px; height: 14px; color: var(--color-accent); }
+.ac-about-text h2 {
+  font-size: clamp(26px, 3.4vw, 38px); font-weight: 900; color: var(--color-navy);
+  margin-bottom: 18px; line-height: 1.35;
+}
+.ac-about-text p { font-size: 16px; color: var(--color-text-soft); line-height: 2; margin-bottom: 14px; }
+
+/* ---------- 3. Section Head ---------- */
+.ac-section-head { text-align: center; max-width: 640px; margin: 0 auto 56px; }
+.ac-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 13px; font-weight: 800; color: var(--color-primary-dark);
+  text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px;
+}
+.ac-eyebrow svg { width: 14px; height: 14px; color: var(--color-accent); }
+.ac-section-title {
+  font-size: clamp(26px, 3.6vw, 40px); font-weight: 900;
+  color: var(--color-navy); margin-bottom: 14px;
+}
+.ac-section-desc { font-size: 16px; color: var(--color-text-soft); line-height: 1.9; }
+
+/* ---------- 4. Highlights ---------- */
+.ac-highlights { position: relative; padding: 100px 0; background: linear-gradient(180deg, #F9FCFF 0%, var(--color-white) 100%); overflow: hidden; }
+.ac-highlights-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+.ac-hl-card {
+  background: var(--color-white); border-radius: 20px; padding: 36px 24px 30px;
+  text-align: center; box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(18,59,120,.06);
+  transition: transform var(--t-fast), box-shadow var(--t-fast);
+  position: relative; overflow: hidden;
+}
+.ac-hl-card::before {
+  content: ""; position: absolute; width: 80px; height: 80px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(25,184,242,.08), transparent 70%);
+  top: -30px; inset-inline-start: -30px; pointer-events: none;
+}
+.ac-hl-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-md); }
+.ac-hl-icon {
+  width: 60px; height: 60px; margin: 0 auto 18px;
+  border-radius: 16px; display: flex; align-items: center; justify-content: center;
+  background: rgba(25,184,242,.1); color: var(--color-primary-dark);
+}
+.ac-hl-icon svg { width: 28px; height: 28px; }
+.ac-hl-card h3 { font-size: 17px; font-weight: 700; color: var(--color-navy); margin-bottom: 10px; }
+.ac-hl-card p { font-size: 14px; color: var(--color-text-soft); line-height: 1.8; }
+
+/* ---------- 5. Gallery ---------- */
+.ac-gallery { position: relative; padding: 100px 0; background: linear-gradient(180deg, #E8F6FF 0%, #F4FBFE 100%); overflow: hidden; }
+.ac-gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.ac-gallery-item {
+  position: relative; aspect-ratio: 4/3; border-radius: 18px;
+  overflow: hidden; box-shadow: var(--shadow-sm);
+  transition: transform var(--t-fast), box-shadow var(--t-fast);
+}
+.ac-gallery-item:hover { transform: scale(1.03); box-shadow: var(--shadow-lg); }
+.ac-gallery-placeholder {
+  width: 100%; height: 100%;
+  background: linear-gradient(135deg, rgba(25,184,242,.12) 0%, rgba(18,59,120,.08) 100%);
+  display: flex; align-items: center; justify-content: center;
+}
+.ac-gallery-placeholder svg { width: 64px; height: 64px; color: rgba(25,184,242,.22); }
+
+/* ---------- 6. Upcoming Events ---------- */
+.ac-events { position: relative; padding: 100px 0; background: var(--color-white); overflow: hidden; }
+.ac-events-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.ac-event-card {
+  background: var(--color-white); border-radius: 20px;
+  overflow: hidden; box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(18,59,120,.06);
+  transition: transform var(--t-fast), box-shadow var(--t-fast);
+}
+.ac-event-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); }
+.ac-event-img {
+  height: 160px; background: linear-gradient(135deg, rgba(25,184,242,.14) 0%, rgba(18,59,120,.1) 100%);
+  display: flex; align-items: center; justify-content: center;
+}
+.ac-event-img svg { width: 48px; height: 48px; color: rgba(25,184,242,.2); }
+.ac-event-body { padding: 22px 20px; }
+.ac-event-tag {
+  display: inline-block; font-size: 12px; font-weight: 800; padding: 4px 12px;
+  border-radius: var(--radius-pill); margin-bottom: 12px;
+}
+.ac-event-tag.upcoming { background: rgba(25,184,242,.12); color: var(--color-primary-dark); }
+.ac-event-tag.active { background: rgba(39,174,96,.12); color: #27ae60; }
+.ac-event-tag.past { background: rgba(149,165,166,.12); color: #7f8c8d; }
+.ac-event-card h3 { font-size: 17px; font-weight: 700; color: var(--color-navy); margin-bottom: 8px; }
+.ac-event-meta {
+  display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 10px;
+  font-size: 13px; color: var(--color-text-soft);
+}
+.ac-event-meta span {
+  display: inline-flex; align-items: center; gap: 4px;
+}
+.ac-event-meta svg { width: 14px; height: 14px; color: var(--color-accent); }
+.ac-event-card p { font-size: 14px; color: var(--color-text-soft); line-height: 1.7; }
+
+/* ---------- 7. Participation ---------- */
+.ac-participate { position: relative; padding: 100px 0; background: linear-gradient(180deg, #F9FCFF 0%, var(--color-white) 100%); overflow: hidden; }
+.ac-participate-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+.ac-participate-text h2 {
+  font-size: clamp(24px, 3vw, 36px); font-weight: 900; color: var(--color-navy); margin-bottom: 18px;
+}
+.ac-participate-text p { font-size: 16px; color: var(--color-text-soft); line-height: 2; margin-bottom: 14px; }
+.ac-req-list { list-style: none; padding: 0; margin-top: 20px; }
+.ac-req-list li {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 14px 0; border-bottom: 1px solid rgba(18,59,120,.06);
+  font-size: 15px; color: var(--color-navy); line-height: 1.7;
+}
+.ac-req-list li:last-child { border-bottom: none; }
+.ac-req-check {
+  width: 28px; height: 28px; flex-shrink: 0; margin-top: 2px;
+  border-radius: 50%; background: rgba(39,174,96,.12);
+  display: flex; align-items: center; justify-content: center;
+}
+.ac-req-check svg { width: 14px; height: 14px; color: #27ae60; }
+.ac-participate-visual {
+  background: linear-gradient(135deg, rgba(25,184,242,.05) 0%, rgba(18,59,120,.04) 100%);
+  border: 1px solid rgba(18,59,120,.08); border-radius: 24px;
+  padding: 48px 36px; text-align: center;
+}
+.ac-participate-visual svg { width: 100px; height: 100px; color: rgba(25,184,242,.14); margin-bottom: 20px; }
+.ac-participate-visual h3 { font-size: 20px; font-weight: 700; color: var(--color-navy); margin-bottom: 10px; }
+.ac-participate-visual p { font-size: 15px; color: var(--color-text-soft); line-height: 1.8; }
+
+/* ---------- 8. FAQ ---------- */
+.ac-faq { position: relative; padding: 100px 0; background: linear-gradient(180deg, var(--color-white) 0%, #F9FCFF 100%); overflow: hidden; }
+.ac-faq-list { max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; }
+.ac-faq-item {
+  background: var(--color-white); border: 1px solid rgba(18,59,120,.08);
+  border-radius: 16px; overflow: hidden;
+  transition: box-shadow var(--t-fast);
+}
+.ac-faq-item:hover { box-shadow: var(--shadow-sm); }
+.ac-faq-question {
+  width: 100%; display: flex; align-items: center; justify-content: space-between;
+  gap: 14px; padding: 22px 26px; background: none; border: none;
+  font-family: var(--font-main); font-size: 16px; font-weight: 700;
+  color: var(--color-navy); cursor: pointer; text-align: start;
+  transition: color var(--t-fast); line-height: 1.6;
+}
+.ac-faq-question:hover { color: var(--color-primary-dark); }
+.ac-faq-question[aria-expanded="true"] { color: var(--color-primary-dark); }
+.ac-faq-toggle {
+  width: 32px; height: 32px; flex-shrink: 0; border-radius: 50%;
+  background: rgba(25,184,242,.1); display: flex; align-items: center; justify-content: center;
+  transition: transform var(--t-fast), background var(--t-fast);
+}
+.ac-faq-toggle svg { width: 16px; height: 16px; color: var(--color-primary-dark); transition: transform var(--t-fast); }
+.ac-faq-question[aria-expanded="true"] .ac-faq-toggle { background: var(--gradient-primary); }
+.ac-faq-question[aria-expanded="true"] .ac-faq-toggle svg { color: #fff; transform: rotate(180deg); }
+.ac-faq-answer { max-height: 0; overflow: hidden; transition: max-height .45s var(--ease), padding .45s var(--ease); }
+.ac-faq-answer-inner { padding: 0 26px 22px; font-size: 15px; color: var(--color-text-soft); line-height: 1.9; }
+.ac-faq-item.open .ac-faq-answer { max-height: 200px; }
+
+/* ---------- 9. CTA ---------- */
+.ac-cta { position: relative; padding: 100px 0; background: var(--color-white); overflow: hidden; }
+.ac-cta-blob { position: absolute; border-radius: 50%; pointer-events: none; }
+.ac-cta-blob-1 { width: 320px; height: 320px; background: rgba(25,184,242,.04); top: -120px; inset-inline-end: -80px; }
+.ac-cta-blob-2 { width: 260px; height: 260px; background: rgba(212,175,55,.06); bottom: -100px; inset-inline-start: -70px; }
+.ac-cta-inner {
+  position: relative; z-index: 2; max-width: 660px; margin: 0 auto; text-align: center;
+  background: linear-gradient(135deg, rgba(25,184,242,.05) 0%, rgba(18,59,120,.04) 100%);
+  border: 1px solid rgba(18,59,120,.08); border-radius: 28px; padding: 56px 44px;
+}
+.ac-cta-inner h2 {
+  font-size: clamp(24px, 3.4vw, 36px); font-weight: 900; color: var(--color-navy);
+  margin-bottom: 24px; line-height: 1.5;
+}
+.ac-cta-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; }
+
+/* ---------- Animations ---------- */
+@keyframes acFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+.ac-reveal { opacity: 0; transform: translateY(30px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
+.ac-reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1024px) {
+  .ac-about-grid { grid-template-columns: 1fr; gap: 40px; }
+  .ac-highlights-grid { grid-template-columns: repeat(2, 1fr); }
+  .ac-events-grid { grid-template-columns: repeat(2, 1fr); }
+  .ac-gallery-grid { grid-template-columns: repeat(2, 1fr); }
+  .ac-participate-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 768px) {
+  .ac-hero { padding: 100px 0 70px; }
+  .ac-about, .ac-highlights, .ac-gallery, .ac-events, .ac-participate, .ac-faq, .ac-cta { padding: 70px 0; }
+  .ac-hero-cover { height: 180px; }
+  .ac-highlights-grid { grid-template-columns: 1fr; }
+  .ac-events-grid { grid-template-columns: 1fr; }
+  .ac-gallery-grid { grid-template-columns: 1fr; }
+  .ac-cta-inner { padding: 36px 22px; }
+  .ac-about-img-overlay { width: 70px; height: 70px; inset-inline-start: -14px; bottom: -14px; }
+  .ac-about-img-overlay svg { width: 28px; height: 28px; }
+  .ac-participate-visual { padding: 32px 22px; }
+}
+</style>
+</head>
+<body>
+
+<a href="#main" class="visually-hidden">تخطَّ إلى المحتوى الرئيسي</a>
+
+<!-- ===== 1. Top Bar ===== -->
+<div class="topbar">
+  <div class="container">
+    <div class="topbar-right">
+      <a href="../index.html" class="topbar-brand" aria-label="الرئيسية">
+        <span class="topbar-brand-mark">
+          <img src="../Amare%20files%20/logo.png" alt="AMARE Logo" class="topbar-brand-logo">
+        </span>
+        <span class="topbar-brand-name" data-amare-setting="association_name">الجمعية المغربية لهواة البحث والاستكشاف</span>
+      </a>
+    </div>
+    <div class="topbar-left">
+      <div class="topbar-social">
+        <a href="#" aria-label="فيسبوك"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg></a>
+        <a href="#" aria-label="إنستغرام"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+        <a href="#" aria-label="لينكدإن"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 5 3.79 6.2 2.3 6.2 1 6.2 0 5 0 3.5 0 2 1.1.8 2.5.8s2.48 1.2 2.48 2.7zM.2 8.5h4.6V23H.2V8.5zM8 8.5h4.4v2h.06c.6-1.2 2.1-2.4 4.4-2.4 4.7 0 5.6 3.1 5.6 7.1V23h-4.6v-6.7c0-1.6 0-3.7-2.3-3.7s-2.6 1.8-2.6 3.6V23H8V8.5z"/></svg></a>
+      </div>
+      <div class="topbar-lang">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg>
+        <select aria-label="اختيار اللغة">
+          <option value="ar" selected>العربية</option>
+          <option value="fr">Français</option>
+          <option value="en">English</option>
+          <option value="es">Español</option>
+          <option value="ber">ⵜⴰⵎⴰⵣⵉⵖⵜ</option>
+        </select>
+      </div>
+      <a href="http://wa.me/+212684869996" target="_blank" rel="noopener" class="topbar-whatsapp ripple" aria-label="تواصل عبر واتساب">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.6.1-.2.3-.7 1-.9 1.2-.1.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.2-.4.1-.2 0-.4 0-.5s-.6-1.5-.8-2c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s1 2.6 1.1 2.7c.1.2 2 3 4.7 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 2-1.4.2-.6.2-1.2.1-1.3-.1-.1-.3-.2-.6-.3z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.6 1.4 5.1L2 22l5.1-1.3C8.5 21.5 10.2 22 12 22c5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18c-1.6 0-3.1-.4-4.5-1.2l-.3-.2-3.3.9.9-3.2-.2-.3C3.7 14.6 3.2 13.3 3.2 12c0-4.9 3.9-8.8 8.8-8.8s8.8 3.9 8.8 8.8-3.9 8.8-8.8 8.8z"/></svg>
+        <span>واتساب</span>
+      </a>
+      <a href="../login.html" class="topbar-login ripple" aria-label="تسجيل الدخول">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v18h-6M10 17l5-5-5-5M15 12H3"/></svg>
+        <span>تسجيل الدخول</span>
+      </a>
+      <a href="../amare%20store/index.html" class="nav-store-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        <span>متجر AMARE</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 2. Navbar ===== -->
+<header>
+  <nav class="navbar" id="navbar" aria-label="التنقل الرئيسي">
+    <div class="container">
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html">الرئيسية</a></li>
+        <li data-dropdown="about"><a href="../index.html#about">من نحن</a></li>
+        <li data-dropdown="activities"><a href="#">أنشطتنا</a></li>
+        <li data-dropdown="partners"><a href="#">شركاؤنا</a></li>
+        <li data-dropdown="services"><a href="../index.html#services">خدماتنا</a></li>
+        <li data-dropdown="branches"><a href="#">الفروع الجهوية</a></li>
+        <li data-dropdown="join"><a href="../Join%20us/join-us-online.html">انخرط معنا</a></li>
+        <li><a href="../News/news.html">الأخبار</a></li>
+        <li><a href="../Archive/archive.html">الأرشيف</a></li>
+        <li><a href="../contact.html">اتصل بنا</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="hamburger" id="hamburger" aria-label="فتح القائمة" aria-expanded="false" aria-controls="navLinks">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <div class="mega-dropdown" id="megaDropdown"></div>
+  </nav>
+</header>
+
+<!-- ===== Mobile Header ===== -->
+<div class="mobile-header" id="mobileHeader">
+  <div class="mobile-header-group">
+    <a class="mobile-header-logo" href="../index.html" aria-label="الرئيسية">
+      <img src="../Amare%20files%20/logo.png" alt="AMARE Logo">
+    </a>
+    <a class="mobile-header-brand" href="../index.html" aria-label="الرئيسية">
+      الجمعية المغربية لهواة<br>البحث والاستكشاف
+    </a>
+  </div>
+  <button class="mobile-hamburger" id="mobileHamburger" aria-label="فتح القائمة" aria-expanded="false" aria-controls="mobileDrawer">
+    <span></span><span></span><span></span>
+  </button>
+</div>
+
+<!-- ===== Mobile Drawer ===== -->
+<div class="mobile-drawer" id="mobileDrawer" role="dialog" aria-modal="true" aria-label="القائمة الرئيسية">
+  <div class="mobile-drawer-inner">
+    <div class="mobile-drawer-header">
+      <button class="mobile-drawer-close" id="mobileDrawerClose" aria-label="إغلاق القائمة">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+      <a class="mobile-drawer-brand" href="../index.html">
+        <img src="../Amare%20files%20/logo.png" alt="AMARE Logo" class="mobile-drawer-brand-logo">
+        <span class="mobile-drawer-brand-name">الجمعية المغربية لهواة البحث والاستكشاف</span>
+      </a>
+    </div>
+    <nav class="mobile-drawer-nav" aria-label="التنقل الرئيسي">
+      <ul class="mobile-drawer-links" id="mobileDrawerLinks">
+        <li><a href="../index.html">الرئيسية</a></li>
+        <li class="mobile-drawer-dropdown" data-dd="about">
+          <div class="mobile-drawer-row">
+            <a href="../index.html#about">من نحن</a>
+            <button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </div>
+          <ul class="mobile-drawer-sub"></ul>
+        </li>
+        <li class="mobile-drawer-dropdown" data-dd="activities">
+          <div class="mobile-drawer-row">
+            <a href="#">أنشطتنا</a>
+            <button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </div>
+          <ul class="mobile-drawer-sub"></ul>
+        </li>
+        <li class="mobile-drawer-dropdown" data-dd="partners">
+          <div class="mobile-drawer-row">
+            <a href="#">شركاؤنا</a>
+            <button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </div>
+          <ul class="mobile-drawer-sub"></ul>
+        </li>
+        <li class="mobile-drawer-dropdown" data-dd="services">
+          <div class="mobile-drawer-row">
+            <a href="../index.html#services">خدماتنا</a>
+            <button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </div>
+          <ul class="mobile-drawer-sub"></ul>
+        </li>
+        <li class="mobile-drawer-dropdown" data-dd="branches">
+          <div class="mobile-drawer-row">
+            <a href="#">الفروع الجهوية</a>
+            <button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </div>
+          <ul class="mobile-drawer-sub"></ul>
+        </li>
+        <li class="mobile-drawer-dropdown" data-dd="join">
+          <div class="mobile-drawer-row">
+            <a href="../Join%20us/index.html">انخرط معنا</a>
+            <button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </div>
+          <ul class="mobile-drawer-sub"></ul>
+        </li>
+        <li><a href="../News/news.html">الأخبار</a></li>
+        <li><a href="../Archive/archive.html">الأرشيف</a></li>
+        <li><a href="../contact.html">اتصل بنا</a></li>
+      </ul>
+    </nav>
+    <div class="mobile-drawer-bottom">
+      <div class="mobile-drawer-actions">
+        <a href="../login.html" class="mobile-drawer-action mobile-drawer-action-login">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v18h-6M10 17l5-5-5-5M15 12H3"/></svg>
+          <span>تسجيل الدخول</span>
+        </a>
+        <a href="../amare store/index.html" class="mobile-drawer-action mobile-drawer-action-store">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span>متجر</span>
+        </a>
+        <a href="https://wa.me/212600000000" target="_blank" rel="noopener" class="mobile-drawer-action mobile-drawer-action-whatsapp">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.6.1-.2.3-.7 1-.9 1.2-.1.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.2-.4.1-.2 0-.4 0-.5s-.6-1.5-.8-2c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s1 2.6 1.1 2.7c.1.2 2 3 4.7 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 2-1.4.2-.6.2-1.2.1-1.3-.1-.1-.3-.2-.6-.3z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.6 1.4 5.1L2 22l5.1-1.3C8.5 21.5 10.2 22 12 22c5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18c-1.6 0-3.1-.4-4.5-1.2l-.3-.2-3.3.9.9-3.2-.2-.3C3.7 14.6 3.2 13.3 3.2 12c0-4.9 3.9-8.8 8.8-8.8s8.8 3.9 8.8 8.8-3.9 8.8-8.8 8.8z"/></svg>
+          <span>واتساب</span>
+        </a>
+      </div>
+      <div class="mobile-drawer-lang">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg>
+        <select aria-label="اختيار اللغة">
+          <option value="ar" selected>العربية</option>
+          <option value="fr">Français</option>
+          <option value="en">English</option>
+          <option value="es">Español</option>
+          <option value="ber">ⵜⴰⵎⴰⵣⵉⵖⵜ</option>
+        </select>
+      </div>
+      <div class="mobile-drawer-social">
+        <a href="#" aria-label="فيسبوك"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg></a>
+        <a href="#" aria-label="إنستغرام"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+        <a href="#" aria-label="لينكدإن"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 5 3.79 6.2 2.3 6.2 1 6.2 0 5 0 3.5 0 2 1.1.8 2.5.8s2.48 1.2 2.48 2.7zM.2 8.5h4.6V23H.2V8.5zM8 8.5h4.4v2h.06c.6-1.2 2.1-2.4 4.4-2.4 4.7 0 5.6 3.1 5.6 7.1V23h-4.6v-6.7c0-1.6 0-3.7-2.3-3.7s-2.6 1.8-2.6 3.6V23H8V8.5z"/></svg></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main id="main">
+
+<!-- ===== 1. HERO ===== -->
+<section class="ac-hero" id="acHero">
+  <div class="ac-hero-bg" aria-hidden="true">
+    <div class="ac-hero-shape ac-hero-shape-1"></div>
+    <div class="ac-hero-shape ac-hero-shape-2"></div>
+    <div class="ac-hero-shape ac-hero-shape-3"></div>
+  </div>
+  <div class="container">
+    <div class="ac-hero-inner">
+      <div class="ac-hero-cover" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      </div>
+      <span class="ac-hero-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        نشاط تنافسي
+      </span>
+      <h1>مسابقات <span>وراليات</span></h1>
+      <p class="ac-hero-subtitle">تحديات ومغامرات تنافسية تنظمها الجمعية تجمع بين روح المنافسة وحب الاستكشاف في مختلف مناطق المغرب.</p>
+      <div class="ac-hero-actions">
+        <a href="#acParticipate" class="btn btn-accent">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+          شارك معنا
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 2. ABOUT ===== -->
+<section class="ac-about" id="acAbout">
+  <div class="container">
+    <div class="ac-about-grid">
+      <div class="ac-about-visual">
+        <div class="ac-about-img" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div class="ac-about-img-overlay" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+      </div>
+      <div class="ac-about-text">
+        <span class="ac-eyebrow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          عن المسابقات والراليات
+        </span>
+        <h2>تحدّى ذاتك واكتشف المغرب</h2>
+        <p>المسابقات والراليات من أبرز أنشطة الجمعية المغربية لهواة البحث والاستكشاف. ننظم تحديات تنافسية تجمع بين المهارات الاستكشافية وروح المغامرة في مختلف مناطق المملكة.</p>
+        <p>تهدف هذه المسابقات إلى تعزيز روح المنافسة الشريفة بين الأعضاء، وتطوير مهاراتهم الاستكشافية، واكتشاف مناطق جديدة من المغرب بطريقة ممتعة وتفاعلية.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 3. HIGHLIGHTS ===== -->
+<section class="ac-highlights" id="acHighlights">
+  <div class="container">
+    <div class="ac-section-head">
+      <span class="ac-eyebrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        مميزات المسابقات
+      </span>
+      <h2 class="ac-section-title">أبرز مميزات المسابقات وراليات</h2>
+      <p class="ac-section-desc">تحديات استكشافية تجمع بين التشويق والتعلم.</p>
+    </div>
+    <div class="ac-highlights-grid">
+      <div class="ac-hl-card ac-reveal">
+        <div class="ac-hl-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h3>التحديات</h3>
+        <p>تحديات متنوعة في الملاحة والاستكشاف تختبر مهاراتك وقدراتك الميدانية.</p>
+      </div>
+      <div class="ac-hl-card ac-reveal">
+        <div class="ac-hl-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        </div>
+        <h3>الجوائز</h3>
+        <p>جوائز قيمة وشهادات تقديرية للفائزين في مختلف فئات المسابقات.</p>
+      </div>
+      <div class="ac-hl-card ac-reveal">
+        <div class="ac-hl-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <h3>الرحلات</h3>
+        <p>رحلات استكشافية إلى وجهات جديدة ومثيرة في مختلف جهات المملكة.</p>
+      </div>
+      <div class="ac-hl-card ac-reveal">
+        <div class="ac-hl-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3>المغامرات</h3>
+        <p>مغامرات لا تُنسى مع فريق من الهواة والمحترفين في جو من الحماس والتشويق.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 4. GALLERY ===== -->
+<section class="ac-gallery" id="acGallery">
+  <div class="container">
+    <div class="ac-section-head">
+      <span class="ac-eyebrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        معرض الصور
+      </span>
+      <h2 class="ac-section-title">صور من مسابقات ورالياتنا</h2>
+      <p class="ac-section-desc">لحظات حماسية من مسابقاتنا ورالياتنا الاستكشافية.</p>
+    </div>
+    <div class="ac-gallery-grid">
+      <div class="ac-gallery-item ac-reveal"><div class="ac-gallery-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div></div>
+      <div class="ac-gallery-item ac-reveal"><div class="ac-gallery-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div></div>
+      <div class="ac-gallery-item ac-reveal"><div class="ac-gallery-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div></div>
+      <div class="ac-gallery-item ac-reveal"><div class="ac-gallery-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div></div>
+      <div class="ac-gallery-item ac-reveal"><div class="ac-gallery-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div></div>
+      <div class="ac-gallery-item ac-reveal"><div class="ac-gallery-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 5. UPCOMING EVENTS ===== -->
+<section class="ac-events" id="acEvents">
+  <div class="container">
+    <div class="ac-section-head">
+      <span class="ac-eyebrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        الفعاليات القادمة
+      </span>
+      <h2 class="ac-section-title">مسابقات ورالياتنا القادمة</h2>
+      <p class="ac-section-desc">تعرف على برنامج مسابقاتنا ورالياتنا القادمة وانضم إلى التحدي.</p>
+    </div>
+    <div class="ac-events-grid">
+      <div class="ac-event-card ac-reveal">
+        <div class="ac-event-img"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
+        <div class="ac-event-body">
+          <span class="ac-event-tag upcoming">قادم</span>
+          <h3>رالي الأطلس الكبير</h3>
+          <div class="ac-event-meta">
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>5 أكتوبر 2026</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>مراكش</span>
+          </div>
+          <p>سباق استكشافي لمدة ثلاثة أيام في جبال الأطلس الكبير يتضمن تحديات في الملاحة والتوجيه.</p>
+        </div>
+      </div>
+      <div class="ac-event-card ac-reveal">
+        <div class="ac-event-img"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
+        <div class="ac-event-body">
+          <span class="ac-event-tag active">التسجيل مفتوح</span>
+          <h3>مسابقة الكشف عن المعادن</h3>
+          <div class="ac-event-meta">
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>20 أكتوبر 2026</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>ورزازات</span>
+          </div>
+          <p>مسابقة وطنية للكشف عن المعادن باستخدام أحدث الأجهزة مع جوائز قيمة للفائزين.</p>
+        </div>
+      </div>
+      <div class="ac-event-card ac-reveal">
+        <div class="ac-event-img"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
+        <div class="ac-event-body">
+          <span class="ac-event-tag upcoming">قريباً</span>
+          <h3>رالي الصحراء المغربية</h3>
+          <div class="ac-event-meta">
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>10 نونبر 2026</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>مرزوكة</span>
+          </div>
+          <p>مغامرة استكشافية في قلب الصحراء المغربية تجمع بين القيادة والتوجيه والاستكشاف.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 6. PARTICIPATION ===== -->
+<section class="ac-participate" id="acParticipate">
+  <div class="container">
+    <div class="ac-participate-grid">
+      <div class="ac-participate-text">
+        <span class="ac-eyebrow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+          كيفية المشاركة
+        </span>
+        <h2>انضم إلى مسابقاتنا ورالياتنا</h2>
+        <p>المشاركة في مسابقات وراليات الجمعية متاحة لجميع الأعضاء المسجلين. قم بالتسجيل المسبق لضمان مشاركتك في التحدي القادم.</p>
+        <ul class="ac-req-list">
+          <li>
+            <span class="ac-req-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <span>أن تكون عضواً مسجلاً في الجمعية</span>
+          </li>
+          <li>
+            <span class="ac-req-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <span>التسجيل المسبق قبل 72 ساعة من موعد المسابقة</span>
+          </li>
+          <li>
+            <span class="ac-req-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <span>إحضار المعدات الشخصية المناسبة حسب نوع المسابقة</span>
+          </li>
+          <li>
+            <span class="ac-req-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <span>الالتزام بقوانين وأنظمة المسابقة وتعليمات الحكام</span>
+          </li>
+          <li>
+            <span class="ac-req-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <span>دفع رسوم المشاركة لتغطية تكاليف التنظيم والجوائز</span>
+          </li>
+        </ul>
+      </div>
+      <div class="ac-participate-visual">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <h3>مستعد للتحدي؟</h3>
+        <p>سجل الآن في أقرب مسابقة أو رالي وأثبت مهاراتك الاستكشافية.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 7. FAQ ===== -->
+<section class="ac-faq" id="acFaq">
+  <div class="container">
+    <div class="ac-section-head">
+      <span class="ac-eyebrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        الأسئلة الشائعة
+      </span>
+      <h2 class="ac-section-title">كل ما تريد معرفته عن المسابقات والراليات</h2>
+    </div>
+    <div class="ac-faq-list">
+      <div class="ac-faq-item">
+        <button class="ac-faq-question" aria-expanded="false">
+          كيف يمكنني التسجيل في المسابقات والراليات؟
+          <span class="ac-faq-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></span>
+        </button>
+        <div class="ac-faq-answer"><div class="ac-faq-answer-inner">يمكنك التسجيل من خلال الموقع الإلكتروني للجمعية أو عن طريق التواصل مع لجنة التنظيم. سيتم تزويدك بجميع التفاصيل والقوانين قبل موعد المسابقة.</div></div>
+      </div>
+      <div class="ac-faq-item">
+        <button class="ac-faq-question" aria-expanded="false">
+          ما هي تكلفة المشاركة في المسابقات؟
+          <span class="ac-faq-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></span>
+        </button>
+        <div class="ac-faq-answer"><div class="ac-faq-answer-inner">تختلف رسوم المشاركة حسب نوع المسابقة والرالي. تشمل الرسوم التأمين والوجبات والجوائز. نوفر أيضاً خصومات للتسجيل المبكر والمجموعات.</div></div>
+      </div>
+      <div class="ac-faq-item">
+        <button class="ac-faq-question" aria-expanded="false">
+          هل يمكن للمبتدئين المشاركة؟
+          <span class="ac-faq-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></span>
+        </button>
+        <div class="ac-faq-answer"><div class="ac-faq-answer-inner">نعم، نوفر فئات مختلفة تناسب جميع المستويات من المبتدئين إلى المحترفين. كما ننظم دورات تحضيرية قبل كل مسابقة.</div></div>
+      </div>
+      <div class="ac-faq-item">
+        <button class="ac-faq-question" aria-expanded="false">
+          ما هي الجوائز المقدمة للفائزين؟
+          <span class="ac-faq-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></span>
+        </button>
+        <div class="ac-faq-answer"><div class="ac-faq-answer-inner">نقدم جوائز قيمة تشمل أجهزة كشف، معدات استكشاف، شهادات تقديرية، وكؤوس للفائزين في مختلف الفئات. كما يحصل جميع المشاركين على شهادات مشاركة.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 8. CTA ===== -->
+<section class="ac-cta" id="acCta">
+  <div class="ac-cta-blob ac-cta-blob-1" aria-hidden="true"></div>
+  <div class="ac-cta-blob ac-cta-blob-2" aria-hidden="true"></div>
+  <div class="container">
+    <div class="ac-cta-inner ac-reveal">
+      <h2>هل أنت مستعد لخوض التحدي والفوز بالجوائز؟</h2>
+      <div class="ac-cta-actions">
+        <a href="#acParticipate" class="btn btn-accent">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+          سجل للمشاركة
+        </a>
+        <a href="../contact.html" class="btn btn-navy">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .3 2 .7 2.9a2 2 0 0 1-.4 2.1L8 10a16 16 0 0 0 6 6l1.3-1.4a2 2 0 0 1 2.1-.4c.9.4 1.9.6 2.9.7a2 2 0 0 1 1.7 2.1z"/></svg>
+          اتصل بنا
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ===== Footer ===== -->
+<footer class="footer" id="contact">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-about">
+        <div class="footer-brand">
+          <span class="brand-mark">
+            <img src="../Amare%20files%20/logo.png" alt="AMARE Logo" class="topbar-brand-logo">
+          </span>
+          <span>
+            <span class="brand-name">الجمعية المغربية لهواة البحث والاستكشاف</span><br>
+          </span>
+        </div>
+        <p>الجمعية المغربية لهواة البحث والاستكشاف هي إطار قانوني وطني يجمع الهواة تحت راية واحدة لصون التراث الوطني المغربي.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="فيسبوك"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg></a>
+          <a href="#" aria-label="إنستغرام"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+          <a href="#" aria-label="لينكدإن"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 5 3.79 6.2 2.3 6.2 1 6.2 0 5 0 3.5 0 2 1.1.8 2.5.8s2.48 1.2 2.48 2.7zM.2 8.5h4.6V23H.2V8.5zM8 8.5h4.4v2h.06c.6-1.2 2.1-2.4 4.4-2.4 4.7 0 5.6 3.1 5.6 7.1V23h-4.6v-6.7c0-1.6 0-3.7-2.3-3.7s-2.6 1.8-2.6 3.6V23H8V8.5z"/></svg></a>
+        </div>
+      </div>
+      <nav aria-label="روابط سريعة">
+        <h4>روابط سريعة</h4>
+        <ul class="footer-links">
+          <li><a href="../index.html">الرئيسية</a></li>
+          <li><a href="../contact.html">اتصل بنا</a></li>
+          <li><a href="../index.html#services">خدماتنا</a></li>
+          <li><a href="../index.html#news">الاخبار</a></li>
+          <li><a href="../index.html#newsletter">الارشيف</a></li>
+          <li><a href="../index.html#home">الفروع الجهوية</a></li>
+          <li><a href="../Join%20us/join-us-online.html">انخرط معنا</a></li>
+          <li><a href="../index.html#services">شركاؤنا</a></li>
+          <li><a href="../index.html#services">انشطتنا</a></li>
+          <li><a href="../index.html#about">من نحن</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="برامجنا">
+        <h4>برامجنا</h4>
+        <ul class="footer-links">
+          <li><a href="../Our%20services/sos-amare.html">SOS Amare</a></li>
+          <li><a href="../amare store/index.html">متجر Amare</a></li>
+          <li><a href="../Our%20services/explorer-house.html">بيت المستكشف Amare</a></li>
+          <li><a href="../Our%20services/amare-magazine.html">مجلة Amare</a></li>
+          <li><a href="../Our%20services/amare-academy.html">أكاديمية Amare</a></li>
+          <li><a href="../clubs/">النوادي</a></li>
+          <li><a href="../Our%20services/legal-advisor.html">المستشار القانوني</a></li>
+          <li><a href="../Our%20services/insurance-contract.html">عقد التأمين</a></li>
+        </ul>
+      </nav>
+      <div>
+        <h4>تواصل معنا</h4>
+        <ul class="footer-contact">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>ص.ب 749 أيت ملول 86150</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .3 2 .7 2.9a2 2 0 0 1-.4 2.1L8 10a16 16 0 0 0 6 6l1.3-1.4a2 2 0 0 1 2.1-.4c.9.4 1.9.6 2.9.7a2 2 0 0 1 1.7 2.1z"/></svg><span dir="ltr">+212 684869996</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z" opacity="0"/><path d="M22 6 12 13 2 6"/><path d="M2 6h20v12H2z"/></svg><span dir="ltr">association.amare.agadir@gmail.com</span></li>
+        </ul>
+      </div>
+      <div class="footer-location">
+        <h4>موقعنا</h4>
+        <div class="footer-map-card">
+          <span class="footer-map-badge">📍 Ait Melloul, Agadir</span>
+          <iframe src="https://www.google.com/maps?q=30.385528,-9.448611&z=16&output=embed" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade" title="موقع الجمعية على الخريطة" class="footer-map-frame"></iframe>
+          <div class="footer-map-footer">
+            <a href="https://www.google.com/maps?q=30.385528,-9.448611" target="_blank" rel="noopener" class="footer-map-btn">Open in Google Maps</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 الجمعية المغربية لهواة البحث والاستكشاف. جميع الحقوق محفوظة.</p>
+      <div class="footer-bottom-links">
+        <a href="#">سياسة الخصوصية</a>
+        <a href="#">الشروط والأحكام</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<button class="back-to-top" id="backToTop" aria-label="العودة إلى الأعلى">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M18 15l-6-6-6 6"/></svg>
+</button>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../supabase/config.js"></script>
+<script src="../supabase/client.js"></script>
+<script src="../supabase/database.js"></script>
+<script src="../supabase/storage.js"></script>
+<script src="../supabase/auth.js"></script>
+<script src="../supabase/realtime.js"></script>
+<script src="../supabase/index.js"></script>
+<script src="../supabase/navbar.js"></script>
+<script src="../script.js"></script>
+<script>
+(function () {
+  'use strict';
+  var revealEls = document.querySelectorAll('.ac-reveal');
+  if (revealEls.length) {
+    var revealObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.15 });
+    revealEls.forEach(function (el) { revealObserver.observe(el); });
+  }
+
+  var faqButtons = document.querySelectorAll('.ac-faq-question');
+  faqButtons.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var item = this.parentElement;
+      var expanded = this.getAttribute('aria-expanded') === 'true';
+      faqButtons.forEach(function (b) { b.setAttribute('aria-expanded', 'false'); });
+      document.querySelectorAll('.ac-faq-item').forEach(function (i) { i.classList.remove('open'); });
+      if (!expanded) {
+        this.setAttribute('aria-expanded', 'true');
+        item.classList.add('open');
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>

@@ -481,7 +481,7 @@ export async function deletePageSection(sectionId: string): Promise<void> {
 }
 
 export async function reorderPageSections(
-  pageId: string,
+  _pageId: string,
   sectionIds: string[],
 ): Promise<void> {
   const updates = sectionIds.map((id, index) => ({

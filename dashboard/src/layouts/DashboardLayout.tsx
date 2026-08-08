@@ -6,7 +6,9 @@ import { Sidebar } from '@/components/layout/Sidebar'
 
 export function DashboardLayout() {
   const { pathname } = useLocation()
-  const currentItem = NAV_ITEMS.find((item) => item.path === pathname)
+  const isPageEditor = pathname.startsWith('/pages/') && pathname !== '/pages'
+  const matchPath = isPageEditor ? '/pages' : pathname
+  const currentItem = NAV_ITEMS.find((item) => item.path === matchPath)
   const title = currentItem?.label ?? 'الإدارة'
 
   return (

@@ -25,7 +25,6 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
-import RenewalSection from '@/components/RenewalSection'
 import { useAuth } from '@/contexts/AuthContext'
 import { cn } from '@/lib/utils'
 import {
@@ -383,10 +382,6 @@ export default function DashboardPage() {
           </CardContent>
         </Card>
       </section>
-
-      <Separator />
-
-      <RenewalSection />
     </div>
   )
 }

@@ -125,6 +125,11 @@ export interface PageRow {
   seo_description: string
   seo_keywords: string
   og_image: string
+  og_title: string
+  og_description: string
+  canonical_url: string
+  nav_title: string
+  is_featured: boolean
   sort_order: number
   is_homepage: boolean
   created_by: string | null
@@ -148,6 +153,81 @@ export interface SectionRow {
   created_at: string
   updated_at: string
 }
+
+export interface PageContentRow {
+  id: string
+  page_id: string
+  content_key: string
+  content_type: 'text' | 'richtext' | 'markdown' | 'html' | 'json'
+  label: string | null
+  value: string | null
+  json_value: Record<string, unknown> | null
+  sort_order: number
+  created_at: string
+  updated_at: string
+}
+
+export interface PageImageRow {
+  id: string
+  page_id: string
+  image_key: string
+  label: string | null
+  url: string | null
+  alt_text: string | null
+  width: number | null
+  height: number | null
+  file_size: number | null
+  mime_type: string | null
+  sort_order: number
+  created_at: string
+  updated_at: string
+}
+
+export interface PageVersionRow {
+  id: string
+  page_id: string
+  version: number
+  snapshot: Record<string, unknown>
+  message: string | null
+  created_by: string | null
+  created_at: string
+}
+
+export interface PageSnapshot {
+  page: PageRow
+  sections: SectionRow[]
+  content: PageContentRow[]
+  images: PageImageRow[]
+}
+
+export const STATUS_OPTIONS = [
+  { value: 'all', label: 'جميع الحالات' },
+  { value: 'published', label: 'منشور' },
+  { value: 'draft', label: 'مسودة' },
+  { value: 'archived', label: 'مؤرشف' },
+] as const
+
+export const STATUS_LABEL: Record<string, string> = {
+  published: 'منشور',
+  draft: 'مسودة',
+  archived: 'مؤرشف',
+}
+
+export const TEMPLATE_OPTIONS = [
+  { value: 'all', label: 'جميع القوالب' },
+  { value: 'home', label: 'الرئيسية' },
+  { value: 'page', label: 'صفحة' },
+  { value: 'services', label: 'خدمات' },
+  { value: 'activities', label: 'أنشطة' },
+  { value: 'news', label: 'أخبار' },
+  { value: 'archive', label: 'أرشيف' },
+  { value: 'updates', label: 'مستجدات' },
+  { value: 'store', label: 'متجر' },
+  { value: 'branches', label: 'فروع' },
+  { value: 'contact', label: 'اتصل بنا' },
+  { value: 'auth', label: 'تسجيل' },
+  { value: 'default', label: 'افتراضي' },
+] as const
 
 export function defaultSectionData<T extends SectionType>(type: T): Record<string, unknown> {
   switch (type) {

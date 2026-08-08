@@ -19,6 +19,7 @@ import CityDetailsPage from '@/pages/Branches/CityDetails'
 import NavbarPage from '@/pages/Navigation/Navbar'
 import FooterPage from '@/pages/Navigation/Footer'
 import PagesPage from '@/pages/Pages'
+import PageEditor from '@/pages/Pages/PageEditor'
 import ControlPanelPage from '@/pages/ControlPanel'
 import NotFoundPage from '@/pages/NotFound'
 import UnauthorizedPage from '@/pages/Unauthorized'
@@ -66,6 +67,7 @@ export default function AppRouter() {
             <Route element={<DashboardLayout />}>
               <Route path="/branches/:regionId" element={<RegionDetailsPage />} />
               <Route path="/branches/:regionId/cities/:cityId" element={<CityDetailsPage />} />
+              <Route path="/pages/:id" element={<PageEditor />} />
               {appRoutes.map((route) => (
                 <Route key={route.path} path={route.path} element={route.element} />
               ))}

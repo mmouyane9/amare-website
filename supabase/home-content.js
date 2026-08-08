@@ -507,16 +507,166 @@
   }
 
   /* ------------------------------------------------------------------
+     Data mappers — translate CMS content shapes to injector shapes
+     ------------------------------------------------------------------ */
+
+  function mapHeroData(d) {
+    return {
+      heading: d.heading || '',
+      subheading: d.subheading || '',
+      description: d.description || '',
+      eyebrow: d.subheading || '',
+      buttons: [
+        { label: d.primaryButtonText || '', url: d.primaryButtonUrl || '#', variant: 'secondary' },
+        { label: d.secondaryButtonText || '', url: d.secondaryButtonUrl || '#', variant: 'primary' },
+      ],
+      backgroundImage: d.backgroundImage || '',
+    };
+  }
+
+  function mapAboutData(d) {
+    return {
+      eyebrow: d.subheading || '',
+      heading: d.heading ? d.heading.split(' ').slice(0, -1).join(' ') : '',
+      headingHighlight: d.heading ? d.heading.split(' ').pop() : '',
+      description: d.subheading || '',
+      paragraphs: d.body ? d.body.split('\n\n').filter(function(p) { return p.trim(); }) : [],
+      buttons: [
+        { label: d.buttonText || '', url: d.buttonUrl || '#' },
+      ],
+      image: { url: d.image || '', alt: '' },
+    };
+  }
+
+  function injectAboutStats(d) {
+    var statMap = ['.about-stat-1', '.about-stat-2', '.about-stat-3'];
+    if (d && d.stats) {
+      for (var s = 0; s < Math.min(statMap.length, d.stats.length); s++) {
+        var statNum = el(statMap[s] + ' .about-stat-num');
+        var statLbl = el(statMap[s] + ' .about-stat-lbl');
+        if (statNum) {
+          statNum.textContent = d.stats[s].number + (d.stats[s].suffix || '');
+          statNum.setAttribute('data-count', d.stats[s].number);
+          statNum.setAttribute('data-suffix', d.stats[s].suffix || '');
+        }
+        if (statLbl) statLbl.textContent = d.stats[s].label;
+      }
+    }
+  }
+
+  function mapStatsData(d) {
+    return d;
+  }
+
+  function mapFeaturesGridData(d) {
+    return {
+      eyebrow: d.subheading || '',
+      heading: d.heading || '',
+      description: '',
+      cards: (d.cards || []).map(function(c) {
+        return { heading: c.title || '', description: c.description || '' };
+      }),
+    };
+  }
+
+  function mapActivitiesGridData(d) {
+    return {
+      heading: d.heading || '',
+      description: d.subheading || '',
+      cards: (d.cards || []).map(function(c) {
+        return {
+          title: c.title || '',
+          description: c.description || '',
+          image: c.image || '',
+          linkText: 'اكتشف المزيد',
+          linkUrl: c.link || '#',
+        };
+      }),
+    };
+  }
+
+  function mapNewsGridData(d) {
+    return {
+      heading: d.heading || '',
+      eyebrow: d.subheading || '',
+      cards: [],
+    };
+  }
+
+  function mapCtaData(d) {
+    return {
+      heading: d.heading || '',
+      description: d.description || '',
+      buttonLabel: d.buttonText || '',
+      buttonUrl: d.buttonUrl || '#',
+      backgroundImage: d.image || '',
+    };
+  }
+
+  function mapPartnersData(d) {
+    return d;
+  }
+
+  /* Inject partners logos into the partners section */
+  function injectPartners(d) {
+    if (!d || !d.partners) return;
+    var grid = el('#partners .partners-grid') || el('.partners-grid');
+    if (!grid) return;
+    grid.innerHTML = '';
+    for (var i = 0; i < d.partners.length; i++) {
+      var p = d.partners[i];
+      var card = document.createElement('div');
+      card.className = 'partner-card';
+      var html = '';
+      if (p.logo) html += '<img src="' + esc(p.logo) + '" alt="' + esc(p.name) + '" class="partner-logo"/>';
+      if (p.name) html += '<p class="partner-name">' + esc(p.name) + '</p>';
+      if (p.website) html = '<a href="' + esc(p.website) + '" target="_blank" rel="noopener">' + html + '</a>';
+      card.innerHTML = html;
+      grid.appendChild(card);
+    }
+  }
+
+  /* ------------------------------------------------------------------
      Dispatch: route section to the correct injector
      ------------------------------------------------------------------ */
   function injectSection(section) {
     if (!section || !section.enabled) return;
     var type = section.type;
     var data = section.data || {};
+    var key = section.section_key || '';
+
+    console.log('[Home CMS] Dispatching section:', { type: type, key: key, fields: Object.keys(data) });
 
     switch (type) {
-      case 'hero': return injectHero(data);
-      case 'cta':  return injectCta(data);
+      case 'hero':  return injectHero(mapHeroData(data));
+      case 'cta':   return injectCta(mapCtaData(data));
+
+      case 'card_group': {
+        if (key === 'features')  return injectFeaturesGrid(mapFeaturesGridData(data));
+        if (key === 'activities') return injectActivitiesGrid(mapActivitiesGridData(data));
+        break;
+      }
+
+      case 'text_block': {
+        if (key === 'about') {
+          return injectAbout(mapAboutData(data));
+        }
+        break;
+      }
+
+      case 'statistics': {
+        return injectAboutStats(mapStatsData(data));
+      }
+
+      case 'partners': {
+        return injectPartners(mapPartnersData(data));
+      }
+
+      case 'news': {
+        return injectNewsGrid(mapNewsGridData(data));
+      }
+
+      /* Legacy custom renderer support */
       case 'custom': {
         var renderer = data._renderer || '';
         switch (renderer) {
@@ -528,7 +678,10 @@
           default: break;
         }
       }
-      default: break;
+      default: {
+        console.log('[Home CMS] Unknown section type:', type, key);
+        break;
+      }
     }
   }
 
@@ -559,9 +712,14 @@
           .eq('visible', true)
           .order('sort_order', { ascending: true })
           .then(function (sectionsResult) {
-            if (sectionsResult.error || !sectionsResult.data) return callback(null);
+            if (sectionsResult.error || !sectionsResult.data) {
+              console.log('[Home CMS] page_sections error or no data:', sectionsResult.error);
+              return callback(null);
+            }
 
             var rows = sectionsResult.data;
+            console.log('[Home CMS] page_sections loaded:', rows.length, 'sections for page_id:', pageId);
+
             if (!Array.isArray(rows) || rows.length === 0) return callback(null);
 
             var sections = [];
@@ -579,6 +737,8 @@
                 if (Object.prototype.hasOwnProperty.call(settings, sk)) data[sk] = settings[sk];
               }
               if (Object.keys(styles).length > 0) data._styles = styles;
+
+              console.log('[Home CMS] Section:', row.section_type, '/', row.section_key, '| fields:', Object.keys(data).join(', '));
 
               sections.push({
                 id: row.id,
@@ -619,17 +779,21 @@
      Bootstrap
      ------------------------------------------------------------------ */
   function init() {
+    console.log('[Home CMS] Starting... DOM ready?', document.readyState);
     /* Inject hero fallback immediately — zero flicker */
     injectHero(FALLBACK.hero);
 
     /* Load all sections from page_sections (single source of truth) */
     loadHomeFromSupabase(function (sections) {
       if (sections && sections.length > 0) {
+        console.log('[Home CMS] Loaded', sections.length, 'CMS sections — injecting...');
         /* Inject every section from CMS — the complete page */
         for (var i = 0; i < sections.length; i++) {
           injectSection(sections[i]);
         }
+        console.log('[Home CMS] All', sections.length, 'sections injected.');
       } else {
+        console.log('[Home CMS] No CMS sections found — using fallbacks.');
         /* Supabase unreachable or no sections — use full fallback */
         injectAllFallbacks();
       }

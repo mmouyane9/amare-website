@@ -260,85 +260,106 @@
      Supabase fetch
      ------------------------------------------------------------------ */
   function loadSections(callback) {
-    var S = window.Supabase;
-    if (!S || !S.getClient) { console.log('[Mission CMS] Supabase not available'); return callback(null); }
-    var client = S.getClient();
-    if (!client) { console.log('[Mission CMS] No Supabase client'); return callback(null); }
+    var MAX_RETRIES = 30;
+    var RETRY_MS = 200;
 
-    console.log('[Mission CMS] Loading page — slug:', PAGE_SLUG);
-
-    client
-      .from('pages')
-      .select('id, title, slug, status')
-      .eq('slug', PAGE_SLUG)
-      .eq('status', 'published')
-      .single()
-      .then(function (pageResult) {
-        if (pageResult.error || !pageResult.data) {
-          console.log('[Mission CMS] Page not found or not published:', pageResult.error);
-          return callback(null);
+    function tryLoad(retries) {
+      var S = window.Supabase;
+      if (!S || !S.getClient) {
+        if (retries < MAX_RETRIES) {
+          setTimeout(function () { tryLoad(retries + 1); }, RETRY_MS);
+          return;
         }
-        var pageId = pageResult.data.id;
-        console.log('[Mission CMS] Page UUID:', pageId);
+        console.log('[Mission CMS] Supabase client not available after waiting');
+        return callback(null);
+      }
 
-        client
-          .from('page_sections')
-          .select('id, section_type, section_key, content, settings, styles, visible, sort_order')
-          .eq('page_id', pageId)
-          .eq('visible', true)
-          .order('sort_order', { ascending: true })
-          .then(function (secResult) {
-            if (secResult.error || !secResult.data) {
-              console.log('[Mission CMS] No sections found:', secResult.error);
-              return callback(null);
-            }
-            var rows = secResult.data;
-            console.log('[Mission CMS] Loaded page_sections count:', rows.length);
+      var client = S.getClient();
+      if (!client) {
+        if (retries < MAX_RETRIES) {
+          setTimeout(function () { tryLoad(retries + 1); }, RETRY_MS);
+          return;
+        }
+        console.log('[Mission CMS] Supabase client init failed after waiting');
+        return callback(null);
+      }
 
-            var sections = [];
-            for (var i = 0; i < rows.length; i++) {
-              var row = rows[i];
-              var data = {};
-              var content = row.content || {};
-              var settings = row.settings || {};
-              var styles = row.styles || {};
+      console.log('[Mission CMS] Supabase client ready — fetching page data...');
 
-              for (var ck in content) {
-                if (Object.prototype.hasOwnProperty.call(content, ck)) data[ck] = content[ck];
+      client
+        .from('pages')
+        .select('id, title, slug, status')
+        .eq('slug', PAGE_SLUG)
+        .eq('status', 'published')
+        .single()
+        .then(function (pageResult) {
+          if (pageResult.error || !pageResult.data) {
+            console.log('[Mission CMS] Page not found or not published:', pageResult.error);
+            return callback(null);
+          }
+          var pageId = pageResult.data.id;
+          console.log('[Mission CMS] Page UUID:', pageId);
+
+          client
+            .from('page_sections')
+            .select('id, section_type, section_key, content, settings, styles, visible, sort_order')
+            .eq('page_id', pageId)
+            .eq('visible', true)
+            .order('sort_order', { ascending: true })
+            .then(function (secResult) {
+              if (secResult.error || !secResult.data) {
+                console.log('[Mission CMS] No sections found:', secResult.error);
+                return callback(null);
               }
-              for (var sk in settings) {
-                if (Object.prototype.hasOwnProperty.call(settings, sk)) data[sk] = settings[sk];
+              var rows = secResult.data;
+              console.log('[Mission CMS] Loaded page_sections count:', rows.length);
+
+              var sections = [];
+              for (var i = 0; i < rows.length; i++) {
+                var row = rows[i];
+                var data = {};
+                var content = row.content || {};
+                var settings = row.settings || {};
+                var styles = row.styles || {};
+
+                for (var ck in content) {
+                  if (Object.prototype.hasOwnProperty.call(content, ck)) data[ck] = content[ck];
+                }
+                for (var sk in settings) {
+                  if (Object.prototype.hasOwnProperty.call(settings, sk)) data[sk] = settings[sk];
+                }
+                if (Object.keys(styles).length > 0) data._styles = styles;
+
+                console.log('[Mission CMS] Section ' + i + ': type=' + row.section_type + ', renderer=' + (data._renderer || 'none'));
+
+                sections.push({
+                  id: row.id,
+                  type: row.section_type,
+                  enabled: row.visible,
+                  order: row.sort_order,
+                  section_key: row.section_key,
+                  data: data,
+                });
               }
-              if (Object.keys(styles).length > 0) data._styles = styles;
-
-              console.log('[Mission CMS] Section ' + i + ': type=' + row.section_type + ', renderer=' + (data._renderer || 'none'));
-
-              sections.push({
-                id: row.id,
-                type: row.section_type,
-                enabled: row.visible,
-                order: row.sort_order,
-                section_key: row.section_key,
-                data: data,
-              });
-            }
-            return callback(sections);
-          })
-          .catch(function (err) { console.log('[Mission CMS] Error:', err); return callback(null); });
-      })
-      .catch(function (err) { console.log('[Mission CMS] Error:', err); return callback(null); });
+              return callback(sections);
+            })
+            .catch(function (err) { console.log('[Mission CMS] Error:', err); return callback(null); });
+        })
+        .catch(function (err) { console.log('[Mission CMS] Error:', err); return callback(null); });
+    }
+    tryLoad(0);
   }
 
   /* ------------------------------------------------------------------
-     Dispatcher — custom sections ordered by sort_order position
+     Dispatcher — routes by type for hero/cta, _renderer for footer,
+     sequential order for other custom sections.
      ------------------------------------------------------------------ */
-  var SECTION_INDEX = 0;
+  var CUSTOM_ORDER = 0;
 
   function dispatchSection(section) {
     if (!section || !section.enabled) return;
     var type = section.type;
     var data = section.data || {};
-    var index = SECTION_INDEX++;
 
     switch (type) {
       case 'hero':    console.log('[Mission CMS] Rendering hero');      return injectHero(data);
@@ -346,20 +367,11 @@
       case 'custom':  {
         var renderer = data._renderer || '';
         if (renderer === 'footer') { console.log('[Mission CMS] Rendering footer'); return injectFooter(data); }
-        /* Position-based dispatcher for custom sections:
-           1st custom → Mission Statement
-           2nd custom → Pillars
-           3rd custom → Approach
-           4th custom → Quote */
-        var customIndex = 1;
-        for (var i = 0; i < index; i++) {
-          if (section.type === 'hero' || section.type === 'cta') continue;
-          customIndex++;
-        }
-        if (customIndex === 1) { console.log('[Mission CMS] Rendering mission statement'); return injectMissionStatement(data); }
-        if (customIndex === 2) { console.log('[Mission CMS] Rendering pillars'); return injectPillars(data); }
-        if (customIndex === 3) { console.log('[Mission CMS] Rendering approach'); return injectApproach(data); }
-        if (customIndex === 4) { console.log('[Mission CMS] Rendering quote'); return injectQuote(data); }
+        CUSTOM_ORDER++;
+        if (CUSTOM_ORDER === 1) { console.log('[Mission CMS] Rendering mission statement'); return injectMissionStatement(data); }
+        if (CUSTOM_ORDER === 2) { console.log('[Mission CMS] Rendering pillars'); return injectPillars(data); }
+        if (CUSTOM_ORDER === 3) { console.log('[Mission CMS] Rendering approach'); return injectApproach(data); }
+        if (CUSTOM_ORDER === 4) { console.log('[Mission CMS] Rendering quote'); return injectQuote(data); }
         break;
       }
     }
@@ -371,7 +383,7 @@
         console.log('[Mission CMS] No CMS sections — using HTML fallback');
         return;
       }
-      SECTION_INDEX = 0;
+      CUSTOM_ORDER = 0;
       for (var i = 0; i < sections.length; i++) {
         dispatchSection(sections[i]);
       }

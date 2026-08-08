@@ -287,103 +287,153 @@
      Supabase fetch
      ------------------------------------------------------------------ */
   function loadSections(callback) {
-    var S = window.Supabase;
-    if (!S || !S.getClient) return callback(null);
-    var client = S.getClient();
-    if (!client) return callback(null);
+    var MAX_RETRIES = 30;
+    var RETRY_MS = 200;
 
-    client
-      .from('pages')
-      .select('id, title, slug, status')
-      .eq('slug', PAGE_SLUG)
-      .eq('status', 'published')
-      .single()
-      .then(function (pageResult) {
-        if (pageResult.error || !pageResult.data) return callback(null);
-        var pageId = pageResult.data.id;
+    function tryLoad(retries) {
+      var S = window.Supabase;
+      if (!S || !S.getClient) {
+        if (retries < MAX_RETRIES) {
+          setTimeout(function () { tryLoad(retries + 1); }, RETRY_MS);
+          return;
+        }
+        console.log('[Loader] Supabase client not available after waiting');
+        return callback(null);
+      }
 
-        client
-          .from('page_sections')
-          .select('id, section_type, section_key, content, settings, styles, visible, sort_order')
-          .eq('page_id', pageId)
-          .eq('visible', true)
-          .order('sort_order', { ascending: true })
-          .then(function (secResult) {
-            if (secResult.error || !secResult.data) return callback(null);
-            var rows = secResult.data;
-            if (!Array.isArray(rows) || rows.length === 0) return callback(null);
+      var client = S.getClient();
+      if (!client) {
+        if (retries < MAX_RETRIES) {
+          setTimeout(function () { tryLoad(retries + 1); }, RETRY_MS);
+          return;
+        }
+        console.log('[Loader] Supabase client init failed after waiting');
+        return callback(null);
+      }
 
-            var sections = [];
-            for (var i = 0; i < rows.length; i++) {
-              var row = rows[i];
-              var data = {};
-              var content = row.content || {};
-              var settings = row.settings || {};
-              var styles = row.styles || {};
+      console.log('[Loader] Supabase client ready — fetching page data...');
 
-              for (var ck in content) {
-                if (Object.prototype.hasOwnProperty.call(content, ck)) data[ck] = content[ck];
+      client
+        .from('pages')
+        .select('id, title, slug, status')
+        .eq('slug', PAGE_SLUG)
+        .eq('status', 'published')
+        .single()
+        .then(function (pageResult) {
+          if (pageResult.error) {
+            console.log('[National Vision CMS] Page query error:', pageResult.error.message, '| code:', pageResult.error.code);
+            return callback(null);
+          }
+          if (!pageResult.data) {
+            console.log('[National Vision CMS] Page not found — slug:', PAGE_SLUG, '| status filter: published');
+            return callback(null);
+          }
+          var pageId = pageResult.data.id;
+          console.log('[National Vision CMS] Page found — id:', pageId, '| slug:', pageResult.data.slug, '| status:', pageResult.data.status);
+
+          client
+            .from('page_sections')
+            .select('id, section_type, section_key, title, content, settings, styles, visible, sort_order')
+            .eq('page_id', pageId)
+            .eq('visible', true)
+            .order('sort_order', { ascending: true })
+            .then(function (secResult) {
+              if (secResult.error) {
+                console.log('[National Vision CMS] Sections query error:', secResult.error.message, '| code:', secResult.error.code);
+                return callback(null);
               }
-              for (var sk in settings) {
-                if (Object.prototype.hasOwnProperty.call(settings, sk)) data[sk] = settings[sk];
+              if (!secResult.data || !Array.isArray(secResult.data) || secResult.data.length === 0) {
+                console.log('[National Vision CMS] No sections found — page_id:', pageId, '| visible filter: true');
+                return callback(null);
               }
-              if (Object.keys(styles).length > 0) data._styles = styles;
+              var rows = secResult.data;
+              console.log('[National Vision CMS] Loaded', rows.length, 'sections for page_id:', pageId);
+
+              var sections = [];
+              for (var i = 0; i < rows.length; i++) {
+                var row = rows[i];
+                var data = {};
+                var content = row.content || {};
+                var settings = row.settings || {};
+                var styles = row.styles || {};
+
+                for (var ck in content) {
+                  if (Object.prototype.hasOwnProperty.call(content, ck)) data[ck] = content[ck];
+                }
+                for (var sk in settings) {
+                  if (Object.prototype.hasOwnProperty.call(settings, sk)) data[sk] = settings[sk];
+                }
+                if (Object.keys(styles).length > 0) data._styles = styles;
 
               sections.push({
-                id: row.id,
-                type: row.section_type,
-                enabled: row.visible,
-                order: row.sort_order,
-                section_key: row.section_key,
-                data: data,
-              });
-            }
-            return callback(sections);
-          })
-          .catch(function () { return callback(null); });
-      })
-      .catch(function () { return callback(null); });
+                  id: row.id,
+                  type: row.section_type,
+                  enabled: row.visible,
+                  order: row.sort_order,
+                  section_key: row.section_key,
+                  title: row.title,
+                  data: data,
+                });
+              }
+
+              return callback(sections);
+            })
+            .catch(function () { return callback(null); });
+        })
+        .catch(function () { return callback(null); });
+    }
+    tryLoad(0);
   }
 
   /* ------------------------------------------------------------------
-     Section dispatcher — order matters: sections arrive in sort_order
+     Section dispatcher — routes by section_type for hero/statistics/cta,
+     by _renderer for footer, and by sequential order for other custom sections.
      ------------------------------------------------------------------ */
-  var SECTION_INDEX = 0;
-
   function dispatchSection(section) {
     if (!section || !section.enabled) return;
     var type = section.type;
     var data = section.data || {};
-    var index = SECTION_INDEX++;
+    var key = section.section_key;
+    var title = section.title || '';
 
-    switch (type) {
-      case 'hero': return injectHero(data);
-      case 'statistics': return injectStatistics(data);
-      case 'cta': return injectCta(data);
-      case 'custom': {
-        var renderer = data._renderer || '';
-        if (renderer === 'footer') return injectFooter(data);
-        /* Section order is fixed in the page layout:
-           1st custom → Vision Statement
-           2nd custom → Strategic Objectives
-           3rd custom → National Priorities
-           4th custom → Quote */
-        if (index === 1) return injectVisionStatement(data);
-        if (index === 2) return injectObjectives(data);
-        if (index === 3) return injectPriorities(data);
-        if (index === 4) return injectQuote(data);
-        break;
+    console.log('[National Vision CMS] Dispatching:', { type: type, section_key: key, title: title });
+
+    try {
+      switch (type) {
+        case 'hero': return injectHero(data);
+        case 'statistics': return injectStatistics(data);
+        case 'cta': return injectCta(data);
+        case 'custom': {
+          var renderer = data._renderer || '';
+          if (renderer === 'footer') return injectFooter(data);
+
+          if (key === 'nv.vision' || title === 'رؤيتنا') return injectVisionStatement(data);
+          if (key === 'nv.objectives' || title === 'الأهداف الاستراتيجية') return injectObjectives(data);
+          if (key === 'nv.priorities' || title === 'أولوياتنا الوطنية') return injectPriorities(data);
+          if (key === 'nv.quote' || title === 'اقتباس ملهم') return injectQuote(data);
+
+          console.log('[National Vision CMS] Unmatched custom — key:', key, '| title:', title, '| skipping');
+          break;
+        }
+        default:
+          console.log('[National Vision CMS] Unknown section type:', type, '— skipping');
       }
+    } catch (err) {
+      console.error('[National Vision CMS] Render error:', err, { type: type, section_key: key, title: title });
     }
   }
 
   function init() {
     loadSections(function (sections) {
-      if (!sections || sections.length === 0) return;
-      SECTION_INDEX = 0;
+      if (!sections || sections.length === 0) {
+        console.log('[National Vision CMS] No sections — using HTML fallback');
+        return;
+      }
+      console.log('[National Vision CMS] Loaded ' + sections.length + ' sections — injecting...');
       for (var i = 0; i < sections.length; i++) {
         dispatchSection(sections[i]);
       }
+      console.log('[National Vision CMS] Rendering complete — ' + sections.length + ' sections processed');
     });
   }
 

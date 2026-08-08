@@ -249,78 +249,98 @@
      Supabase fetch
      ------------------------------------------------------------------ */
   function loadSections(callback) {
-    var S = window.Supabase;
-    if (!S || !S.getClient) { console.log('[ExpansionMap CMS] Supabase not available'); return callback(null); }
-    var client = S.getClient();
-    if (!client) { console.log('[ExpansionMap CMS] No Supabase client'); return callback(null); }
+    var MAX_RETRIES = 30;
+    var RETRY_MS = 200;
 
-    console.log('[ExpansionMap CMS] Loading page — slug:', PAGE_SLUG);
-
-    client.from('pages')
-      .select('id, title, slug, status')
-      .eq('slug', PAGE_SLUG)
-      .eq('status', 'published')
-      .single()
-      .then(function (pageResult) {
-        if (pageResult.error || !pageResult.data) {
-          console.log('[ExpansionMap CMS] Page not found or not published:', pageResult.error);
-          return callback(null);
+    function tryLoad(retries) {
+      var S = window.Supabase;
+      if (!S || !S.getClient) {
+        if (retries < MAX_RETRIES) {
+          setTimeout(function () { tryLoad(retries + 1); }, RETRY_MS);
+          return;
         }
-        var pageId = pageResult.data.id;
-        console.log('[ExpansionMap CMS] Page UUID:', pageId);
+        console.log('[ExpansionMap CMS] Supabase client not available after waiting');
+        return callback(null);
+      }
 
-        client.from('page_sections')
-          .select('id, section_type, section_key, content, settings, styles, visible, sort_order')
-          .eq('page_id', pageId)
-          .eq('visible', true)
-          .order('sort_order', { ascending: true })
-          .then(function (secResult) {
-            if (secResult.error || !secResult.data) {
-              console.log('[ExpansionMap CMS] No sections found:', secResult.error);
-              return callback(null);
-            }
-            var rows = secResult.data;
-            console.log('[ExpansionMap CMS] Loaded page_sections count:', rows.length);
+      var client = S.getClient();
+      if (!client) {
+        if (retries < MAX_RETRIES) {
+          setTimeout(function () { tryLoad(retries + 1); }, RETRY_MS);
+          return;
+        }
+        console.log('[ExpansionMap CMS] Supabase client init failed after waiting');
+        return callback(null);
+      }
 
-            var sections = [];
-            for (var i = 0; i < rows.length; i++) {
-              var row = rows[i];
-              var data = {};
-              var content = row.content || {};
-              var settings = row.settings || {};
-              var styles = row.styles || {};
-              for (var ck in content) {
-                if (Object.prototype.hasOwnProperty.call(content, ck)) data[ck] = content[ck];
+      console.log('[ExpansionMap CMS] Supabase client ready — fetching page data...');
+
+      client.from('pages')
+        .select('id, title, slug, status')
+        .eq('slug', PAGE_SLUG)
+        .eq('status', 'published')
+        .single()
+        .then(function (pageResult) {
+          if (pageResult.error || !pageResult.data) {
+            console.log('[ExpansionMap CMS] Page not found or not published:', pageResult.error);
+            return callback(null);
+          }
+          var pageId = pageResult.data.id;
+          console.log('[ExpansionMap CMS] Page UUID:', pageId);
+
+          client.from('page_sections')
+            .select('id, section_type, section_key, content, settings, styles, visible, sort_order')
+            .eq('page_id', pageId)
+            .eq('visible', true)
+            .order('sort_order', { ascending: true })
+            .then(function (secResult) {
+              if (secResult.error || !secResult.data) {
+                console.log('[ExpansionMap CMS] No sections found:', secResult.error);
+                return callback(null);
               }
-              for (var sk in settings) {
-                if (Object.prototype.hasOwnProperty.call(settings, sk)) data[sk] = settings[sk];
+              var rows = secResult.data;
+              console.log('[ExpansionMap CMS] Loaded page_sections count:', rows.length);
+
+              var sections = [];
+              for (var i = 0; i < rows.length; i++) {
+                var row = rows[i];
+                var data = {};
+                var content = row.content || {};
+                var settings = row.settings || {};
+                var styles = row.styles || {};
+                for (var ck in content) {
+                  if (Object.prototype.hasOwnProperty.call(content, ck)) data[ck] = content[ck];
+                }
+                for (var sk in settings) {
+                  if (Object.prototype.hasOwnProperty.call(settings, sk)) data[sk] = settings[sk];
+                }
+                if (Object.keys(styles).length > 0) data._styles = styles;
+
+                console.log('[ExpansionMap CMS] Section ' + i + ': type=' + row.section_type + ', renderer=' + (data._renderer || 'none'));
+
+                sections.push({
+                  id: row.id, type: row.section_type, enabled: row.visible,
+                  order: row.sort_order, section_key: row.section_key, data: data,
+                });
               }
-              if (Object.keys(styles).length > 0) data._styles = styles;
-
-              console.log('[ExpansionMap CMS] Section ' + i + ': type=' + row.section_type + ', renderer=' + (data._renderer || 'none'));
-
-              sections.push({
-                id: row.id, type: row.section_type, enabled: row.visible,
-                order: row.sort_order, section_key: row.section_key, data: data,
-              });
-            }
-            return callback(sections);
-          })
-          .catch(function (err) { console.log('[ExpansionMap CMS] Error:', err); return callback(null); });
-      })
-      .catch(function (err) { console.log('[ExpansionMap CMS] Error:', err); return callback(null); });
+              return callback(sections);
+            })
+            .catch(function (err) { console.log('[ExpansionMap CMS] Error:', err); return callback(null); });
+        })
+        .catch(function (err) { console.log('[ExpansionMap CMS] Error:', err); return callback(null); });
+    }
+    tryLoad(0);
   }
 
   /* ------------------------------------------------------------------
-     Dispatch
+     Dispatch — routes by type, _renderer for footer, sequential order
      ------------------------------------------------------------------ */
-  var SECTION_INDEX = 0;
+  var CUSTOM_ORDER = 0;
 
   function dispatchSection(section) {
     if (!section || !section.enabled) return;
     var type = section.type;
     var data = section.data || {};
-    var index = SECTION_INDEX++;
 
     switch (type) {
       case 'hero':       console.log('[ExpansionMap CMS] Rendering hero');       return injectHero(data);
@@ -329,11 +349,10 @@
       case 'custom': {
         var renderer = data._renderer || '';
         if (renderer === 'footer') { console.log('[ExpansionMap CMS] Rendering footer'); return injectFooter(data); }
-        /* Position: 0→Vision, 1→Map, 2→Phases */
-        var ci = 0; for (var i = 0; i < index; i++) ci++;
-        if (ci === 0) { console.log('[ExpansionMap CMS] Rendering vision'); return injectVision(data); }
-        if (ci === 1) { console.log('[ExpansionMap CMS] Rendering map section-head + legend'); return injectMap(data); }
-        if (ci === 2) { console.log('[ExpansionMap CMS] Rendering phases'); return injectPhases(data); }
+        CUSTOM_ORDER++;
+        if (CUSTOM_ORDER === 1) { console.log('[ExpansionMap CMS] Rendering vision'); return injectVision(data); }
+        if (CUSTOM_ORDER === 2) { console.log('[ExpansionMap CMS] Rendering map section-head + legend'); return injectMap(data); }
+        if (CUSTOM_ORDER === 3) { console.log('[ExpansionMap CMS] Rendering phases'); return injectPhases(data); }
         break;
       }
     }
@@ -345,7 +364,7 @@
         console.log('[ExpansionMap CMS] No CMS sections — using HTML fallback');
         return;
       }
-      SECTION_INDEX = 0;
+      CUSTOM_ORDER = 0;
       for (var i = 0; i < sections.length; i++) dispatchSection(sections[i]);
       console.log('[ExpansionMap CMS] Rendering complete —', sections.length, 'sections rendered');
     });

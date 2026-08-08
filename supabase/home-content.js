@@ -194,14 +194,13 @@
     var actions = el('.hero-actions');
     if (actions && d.buttons) {
       var anchors = actions.querySelectorAll('a');
-      for (var j = 0; j < Math.min(anchors.length, d.buttons.length); j++) {
+      for (var j = 0; j < anchors.length; j++) {
         var a = anchors[j], b = d.buttons[j];
-        if (!b.label) { a.style.display = 'none'; continue; }
+        if (!b || !b.label) { a.style.display = 'none'; continue; }
         a.style.display = '';
         var svgs = a.querySelectorAll('svg'), svgHtml = '';
         for (var k = 0; k < svgs.length; k++) svgHtml += svgs[k].outerHTML;
         a.href = b.url || '#';
-        var variantClass = b.variant ? (' ' + b.variant) : '';
         a.innerHTML = esc(b.label) + ' ' + svgHtml;
       }
     }
@@ -471,14 +470,19 @@
     var mapHeading = el('.footer-location h4');
     if (mapHeading && d.mapHeading) mapHeading.textContent = d.mapHeading;
 
+    var gmUrl = d.googleMapsUrl;
+    if (!gmUrl && d.mapLat && d.mapLon) {
+      gmUrl = 'https://www.google.com/maps?q=' + d.mapLat + ',' + d.mapLon;
+    }
+
     var mapIframe = el('.footer-map-frame');
-    if (mapIframe && d.googleMapsUrl) {
-      mapIframe.src = d.googleMapsUrl.replace('&output=embed', '') + '&output=embed';
+    if (mapIframe && gmUrl) {
+      mapIframe.src = gmUrl.replace('&output=embed', '') + '&output=embed';
     }
 
     var mapBtn = el('.footer-map-btn');
-    if (mapBtn && d.googleMapsUrl) {
-      mapBtn.href = d.googleMapsUrl.replace('&z=16&output=embed', '');
+    if (mapBtn && gmUrl) {
+      mapBtn.href = gmUrl.replace('&z=16&output=embed', '');
     }
 
     /* Copyright */
@@ -511,15 +515,23 @@
      ------------------------------------------------------------------ */
 
   function mapHeroData(d) {
+    var buttons = [];
+    if (Array.isArray(d.buttons) && d.buttons.length > 0) {
+      buttons = d.buttons.map(function(b) {
+        return { label: b.label || '', url: b.url || '#', variant: b.variant || 'primary' };
+      });
+    } else {
+      buttons = [
+        { label: d.primaryButtonText || '', url: d.primaryButtonUrl || '#', variant: 'secondary' },
+        { label: d.secondaryButtonText || '', url: d.secondaryButtonUrl || '#', variant: 'primary' },
+      ];
+    }
     return {
       heading: d.heading || '',
       subheading: d.subheading || '',
       description: d.description || '',
       eyebrow: d.subheading || '',
-      buttons: [
-        { label: d.primaryButtonText || '', url: d.primaryButtonUrl || '#', variant: 'secondary' },
-        { label: d.secondaryButtonText || '', url: d.secondaryButtonUrl || '#', variant: 'primary' },
-      ],
+      buttons: buttons,
       backgroundImage: d.backgroundImage || '',
     };
   }
@@ -545,9 +557,11 @@
         var statNum = el(statMap[s] + ' .about-stat-num');
         var statLbl = el(statMap[s] + ' .about-stat-lbl');
         if (statNum) {
-          statNum.textContent = d.stats[s].number + (d.stats[s].suffix || '');
-          statNum.setAttribute('data-count', d.stats[s].number);
-          statNum.setAttribute('data-suffix', d.stats[s].suffix || '');
+          var val = d.stats[s].value || d.stats[s].number || '0';
+          var suffix = d.stats[s].suffix || '';
+          statNum.textContent = val + suffix;
+          statNum.setAttribute('data-count', val);
+          statNum.setAttribute('data-suffix', suffix);
         }
         if (statLbl) statLbl.textContent = d.stats[s].label;
       }
@@ -597,9 +611,9 @@
     return {
       heading: d.heading || '',
       description: d.description || '',
-      buttonLabel: d.buttonText || '',
+      buttonLabel: d.buttonLabel || d.buttonText || '',
       buttonUrl: d.buttonUrl || '#',
-      backgroundImage: d.image || '',
+      backgroundImage: d.backgroundImage || d.image || '',
     };
   }
 
@@ -689,11 +703,31 @@
      Supabase fetch — load page + sections from page_sections table
      ------------------------------------------------------------------ */
   function loadHomeFromSupabase(callback) {
-    var S = window.Supabase;
-    if (!S || !S.getClient) return callback(null);
+    var MAX_RETRIES = 30;
+    var RETRY_MS = 200;
 
-    var client = S.getClient();
-    if (!client) return callback(null);
+    function tryLoad(retries) {
+      var S = window.Supabase;
+      if (!S || !S.getClient) {
+        if (retries < MAX_RETRIES) {
+          setTimeout(function () { tryLoad(retries + 1); }, RETRY_MS);
+          return;
+        }
+        console.log('[Home CMS] Supabase client not available after', MAX_RETRIES * RETRY_MS, 'ms');
+        return callback(null);
+      }
+
+      var client = S.getClient();
+      if (!client) {
+        if (retries < MAX_RETRIES) {
+          setTimeout(function () { tryLoad(retries + 1); }, RETRY_MS);
+          return;
+        }
+        console.log('[Home CMS] Supabase client init failed after waiting');
+        return callback(null);
+      }
+
+      console.log('[Home CMS] Supabase client ready — fetching homepage data...');
 
     client
       .from('pages')
@@ -702,7 +736,10 @@
       .eq('status', 'published')
       .single()
       .then(function (pageResult) {
-        if (pageResult.error || !pageResult.data) return callback(null);
+        if (pageResult.error || !pageResult.data) {
+          console.log('[Home CMS] Page not found or error:', pageResult.error);
+          return callback(null);
+        }
         var pageId = pageResult.data.id;
 
         client
@@ -759,6 +796,9 @@
       .catch(function () {
         return callback(null);
       });
+    } // end tryLoad
+
+    tryLoad(0);
   }
 
   /* ------------------------------------------------------------------

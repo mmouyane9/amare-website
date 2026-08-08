@@ -8,30 +8,12 @@ export interface TreeNode {
 
 export const TREE_DATA: TreeNode[] = [
   { id: 'home', label: 'الرئيسية', type: 'page', pageKey: 'home' },
-  {
-    id: 'who-we-are',
-    label: 'من نحن',
-    type: 'folder',
-    children: [
-      { id: 'national-vision', label: 'الرؤية الوطنية', type: 'page', pageKey: 'national-vision' },
-      { id: 'our-mission', label: 'الرسالة', type: 'page', pageKey: 'our-mission' },
-      { id: 'our-values', label: 'القيم', type: 'page', pageKey: 'our-values' },
-      { id: 'central-office', label: 'المكتب المركزي', type: 'page', pageKey: 'central-office' },
-      { id: 'expansion-map', label: 'خارطة التوسع', type: 'page', pageKey: 'expansion-map' },
-    ],
-  },
+  { id: 'who-we-are', label: 'من نحن', type: 'page', pageKey: 'who-we-are' },
   {
     id: 'our-activities',
     label: 'أنشطتنا',
-    type: 'folder',
-    children: [
-      { id: 'activities-excursions', label: 'خرجات', type: 'page', pageKey: 'activities-excursions' },
-      { id: 'activities-competitions', label: 'مسابقات وراليات', type: 'page', pageKey: 'activities-competitions' },
-      { id: 'activities-trainings', label: 'تكوينات', type: 'page', pageKey: 'activities-trainings' },
-      { id: 'activities-exhibitions', label: 'معارض', type: 'page', pageKey: 'activities-exhibitions' },
-      { id: 'activities-meetings', label: 'لقاءات', type: 'page', pageKey: 'activities-meetings' },
-      { id: 'activities-environmental', label: 'حملات بيئية', type: 'page', pageKey: 'activities-environmental' },
-    ],
+    type: 'page',
+    pageKey: 'our-activities',
   },
   {
     id: 'our-partners',
@@ -53,12 +35,7 @@ export const TREE_DATA: TreeNode[] = [
     children: [
       { id: 'services-sos-amare', label: 'SOS Amare', type: 'page', pageKey: 'services-sos-amare' },
       { id: 'services-store', label: 'متجر Amare', type: 'page', pageKey: 'services-store' },
-      { id: 'services-explorer-house', label: 'بيت المستكشف Amare', type: 'page', pageKey: 'services-explorer-house' },
       { id: 'services-magazine', label: 'مجلة Amare', type: 'page', pageKey: 'services-magazine' },
-      { id: 'services-academy', label: 'أكاديمية Amare', type: 'page', pageKey: 'services-academy' },
-      { id: 'services-clubs', label: 'النوادي', type: 'page', pageKey: 'services-clubs' },
-      { id: 'services-legal-advisor', label: 'المستشار القانوني', type: 'page', pageKey: 'services-legal-advisor' },
-      { id: 'services-insurance', label: 'عقد التأمين', type: 'page', pageKey: 'services-insurance' },
     ],
   },
   {
@@ -88,12 +65,6 @@ export const TREE_DATA: TreeNode[] = [
       { id: 'join-us-online', label: 'الانخراط Online', type: 'page', pageKey: 'join-us-online' },
       { id: 'membership-renewal', label: 'تجديد الانخراط', type: 'page', pageKey: 'membership-renewal' },
       { id: 'documents', label: 'وثائق الانخراط', type: 'page', pageKey: 'documents' },
-      { id: 'bylaws', label: 'القانون الأساسي', type: 'page', pageKey: 'bylaws' },
-      { id: 'internal-regulations', label: 'القانون الداخلي', type: 'page', pageKey: 'internal-regulations' },
-      { id: 'charter', label: 'ميثاق الاستكشاف المسؤول', type: 'page', pageKey: 'charter' },
-      { id: 'deposit-receipt', label: 'الإيداع الداخلي', type: 'page', pageKey: 'deposit-receipt' },
-      { id: 'external-deposit-receipt', label: 'الإيداع الخارجي', type: 'page', pageKey: 'external-deposit-receipt' },
-      { id: 'activity-notifications', label: 'الأسعار بالخرجات', type: 'page', pageKey: 'activity-notifications' },
     ],
   },
   { id: 'news', label: 'الأخبار', type: 'page', pageKey: 'news' },

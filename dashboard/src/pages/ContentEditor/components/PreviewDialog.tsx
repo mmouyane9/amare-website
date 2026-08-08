@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react'
 import { Globe, Lock } from 'lucide-react'
 
 import { Badge } from '@/components/ui/badge'
@@ -18,13 +19,44 @@ interface PreviewDialogProps {
 
 export function PreviewDialog({ page, sections, open, onOpenChange }: PreviewDialogProps) {
   const displaySections = sections ?? []
+  const isHomepage = page?.slug === '/' || page?.is_homepage === true
+  const iframeRef = useRef<HTMLIFrameElement>(null)
+
+  useEffect(() => {
+    if (!open || !isHomepage || !iframeRef.current) return
+
+    const iframe = iframeRef.current
+    const handleLoad = () => {
+      if (!iframe.contentWindow) return
+      iframe.contentWindow.postMessage(
+        {
+          type: 'preview-sections',
+          status: page?.status ?? 'draft',
+          sections: displaySections.map((s) => ({
+            type: s.type,
+            enabled: s.enabled,
+            data: s.data,
+          })),
+        },
+        '*',
+      )
+    }
+
+    iframe.addEventListener('load', handleLoad)
+    if (iframe.contentDocument?.readyState === 'complete') {
+      handleLoad()
+    }
+    return () => iframe.removeEventListener('load', handleLoad)
+  }, [open, isHomepage, displaySections, page?.status])
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="gap-0 p-0 sm:max-w-3xl">
+      <DialogContent
+        className={isHomepage ? 'gap-0 p-0 sm:max-w-5xl' : 'gap-0 p-0 sm:max-w-3xl'}
+      >
         {page ? (
           <>
-            <div className="flex items-center gap-3 border-b border-border/60 px-4 py-3">
+            <div className="flex shrink-0 items-center gap-3 border-b border-border/60 px-4 py-3">
               <div className="flex gap-1.5">
                 <span className="size-2.5 rounded-full bg-destructive/70" />
                 <span className="size-2.5 rounded-full bg-amber-500/70" />
@@ -40,19 +72,30 @@ export function PreviewDialog({ page, sections, open, onOpenChange }: PreviewDia
               </Badge>
             </div>
 
-            <div className="max-h-[65svh] overflow-y-auto">
-              <article className="mx-auto w-full max-w-2xl px-8 py-10 space-y-8">
-                {displaySections
-                  .filter((s) => s.enabled)
-                  .map((section) => (
-                    <SectionPreview key={section.id} section={section} />
-                  ))}
-              </article>
-            </div>
-
-            <div className="border-t border-border/60 bg-muted/50 px-4 py-2.5 text-center text-xs text-muted-foreground">
-              معاينة — هكذا يرى الزوار "{page.title || page.slug}" بعد النشر.
-            </div>
+            {isHomepage ? (
+              <iframe
+                ref={iframeRef}
+                src="/preview-homepage.html"
+                className="min-h-0 flex-1 w-full border-0"
+                style={{ height: '70svh' }}
+                title="معاينة الصفحة الرئيسية"
+              />
+            ) : (
+              <>
+                <div className="max-h-[65svh] overflow-y-auto">
+                  <article className="mx-auto w-full max-w-2xl px-8 py-10 space-y-8">
+                    {displaySections
+                      .filter((s) => s.enabled)
+                      .map((section) => (
+                        <SectionPreview key={section.id} section={section} />
+                      ))}
+                  </article>
+                </div>
+                <div className="border-t border-border/60 bg-muted/50 px-4 py-2.5 text-center text-xs text-muted-foreground">
+                  معاينة — هكذا يرى الزوار "{page.title || page.slug}" بعد النشر.
+                </div>
+              </>
+            )}
           </>
         ) : (
           <DialogHeader>

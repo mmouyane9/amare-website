@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import {
   Check,
   Eye,
+  FileText,
   Loader2,
   Monitor,
   PanelLeft,
@@ -20,6 +21,7 @@ import { PagesPanel, type SidebarPage } from '@/pages/ContentEditor/components/P
 import { PreviewDialog } from '@/pages/ContentEditor/components/PreviewDialog'
 import { PageSettingsPanel } from '@/pages/ContentEditor/components/PropertiesPanel'
 import { SectionEditorPanel } from '@/pages/ContentEditor/components/SectionEditorPanel'
+import { FlatFieldsPanel } from '@/pages/ContentEditor/components/FlatFieldsPanel'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -38,7 +40,7 @@ import {
   publishPage,
   createSection,
   reorderSections,
-  createDefaultSectionsForPage,
+  seedAboutPage,
 } from '@/services/content.service'
 import type { PageRow, PageSection, SectionType } from '@/types/content'
 import { sectionRowToPageSection } from '@/types/content'
@@ -69,6 +71,7 @@ export default function ContentEditorPage() {
   const [sectionQuery, setSectionQuery] = useState('')
   const [showPagesMobile, setShowPagesMobile] = useState(false)
   const [showPageSettings, setShowPageSettings] = useState(false)
+  const [showFlatFields, setShowFlatFields] = useState(false)
   const [previewOpen, setPreviewOpen] = useState(false)
   const [selectedSectionId, setSelectedSectionId] = useState<string | null>(null)
   const [showAddModal, setShowAddModal] = useState(false)
@@ -185,10 +188,17 @@ export default function ContentEditorPage() {
       console.log('[CMS] getSections count:', sectionRows.length, 'page_id:', page.id)
 
       if (sectionRows.length === 0) {
-        console.log('[CMS] No sections found — creating defaults for page_id:', page.id)
-        await createDefaultSectionsForPage(page.id)
-        sectionRows = await getSections(page.id)
-        console.log('[CMS] After defaults — sections count:', sectionRows.length)
+        if (pageKey === 'about') {
+          console.log('[CMS] Seeding about page sections...')
+          const seeded = await seedAboutPage()
+          sectionRows = await getSections(seeded.id)
+          console.log('[CMS] Seeded about page sections:', sectionRows.length)
+        } else {
+          console.warn(
+            '[CMS] Zero sections returned for page. Verify RLS, page status, and section visibility.',
+            { pageId: page.id, pageSlug: lookupSlug, pageStatus: page.status },
+          )
+        }
       }
 
       const mapped = sectionRows.map((row) => {
@@ -582,6 +592,17 @@ export default function ContentEditorPage() {
 
               <Button
                 type="button"
+                variant="ghost"
+                size="sm"
+                onClick={() => setShowFlatFields(true)}
+                className="gap-1 text-muted-foreground hover:text-foreground"
+              >
+                <FileText className="size-3.5" />
+                <span className="hidden sm:inline">حقول</span>
+              </Button>
+
+              <Button
+                type="button"
                 variant="outline"
                 size="sm"
                 className="gap-1.5 rounded-xl"
@@ -726,6 +747,23 @@ export default function ContentEditorPage() {
               onPublish={handlePublish}
               onReset={handleReset}
             />
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={showFlatFields} onOpenChange={setShowFlatFields}>
+        <DialogContent className="max-h-[85svh] max-w-lg gap-0 overflow-hidden p-0">
+          <DialogHeader className="border-b border-[#E5E7EB] px-6 py-4">
+            <DialogTitle className="flex items-center gap-2 text-base font-semibold">
+              <FileText className="size-4 text-primary" />
+              الحقول المسطحة
+            </DialogTitle>
+            <p className="text-sm text-muted-foreground">
+              تعديل مباشر لحقول المحتوى من page_content
+            </p>
+          </DialogHeader>
+          <div className="overflow-y-auto p-4">
+            <FlatFieldsPanel page={selectedPage} />
           </div>
         </DialogContent>
       </Dialog>

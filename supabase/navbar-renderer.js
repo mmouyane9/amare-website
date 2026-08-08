@@ -52,7 +52,93 @@
       }
     }
 
+    // Collapse consolidated dropdowns: "من نحن" and "أنشطتنا" become plain links.
+    for (var k = 0; k < roots.length; k++) {
+      collapseConsolidatedNodes(roots[k]);
+    }
+
+    // Remove links to deleted service pages from the tree.
+    for (var m = 0; m < roots.length; m++) {
+      filterDeletedServices(roots[m]);
+    }
+
     return roots;
+  }
+
+  // URLs of deleted service pages — remove these from the navbar.
+  var DELETED_SERVICE_URLS = [
+    '/Our%20services/explorer-house.html',
+    '/Our%20services/amare-academy.html',
+    '/clubs/index.html',
+    '/clubs/',
+    '/Our%20services/legal-advisor.html',
+    '/Our%20services/insurance-contract.html',
+    // Deleted Join Us pages
+    '/Join%20us/bylaws.html',
+    '/Join%20us/internal-regulations.html',
+    '/Join%20us/charter.html',
+    '/Join%20us/deposit-receipt.html',
+    '/Join%20us/external-deposit-receipt.html',
+    '/Join%20us/activity-notifications.html',
+    '/Join%20us/application.html',
+    '/Join%20us/commitment.html',
+  ];
+
+  function isDeletedService(url) {
+    if (!url) return false;
+    for (var i = 0; i < DELETED_SERVICE_URLS.length; i++) {
+      if (url.indexOf(DELETED_SERVICE_URLS[i]) !== -1) return true;
+    }
+    return false;
+  }
+
+  function filterDeletedServices(node) {
+    if (!node.children || node.children.length === 0) return;
+    var filtered = [];
+    for (var i = 0; i < node.children.length; i++) {
+      if (!isDeletedService(node.children[i].url)) {
+        filtered.push(node.children[i]);
+      }
+    }
+    node.children = filtered;
+    for (var j = 0; j < node.children.length; j++) {
+      filterDeletedServices(node.children[j]);
+    }
+  }
+
+  function collapseConsolidatedNodes(node) {
+    if (!node.children || node.children.length === 0) return;
+
+    // Check if all children point to a consolidated section
+    var childUrl0 = (node.children[0].url || '');
+    var dest = '';
+
+    if (childUrl0.indexOf('/Who%20are%20we/') !== -1 || childUrl0.indexOf('/Who are we/') !== -1) {
+      dest = '/Who%20are%20we/index.html';
+    } else if (childUrl0.indexOf('/Our%20activities/') !== -1 || childUrl0.indexOf('/Our activities/') !== -1) {
+      dest = '/Our%20activities/index.html';
+    }
+
+    if (dest) {
+      var allMatch = true;
+      for (var i = 1; i < node.children.length; i++) {
+        var u = (node.children[i].url || '');
+        if (u.indexOf(dest.replace('/index.html', '')) === -1) {
+          allMatch = false;
+          break;
+        }
+      }
+      if (allMatch) {
+        node.children = [];
+        node.url = dest;
+        return;
+      }
+    }
+
+    // Recurse into remaining children
+    for (var j = 0; j < node.children.length; j++) {
+      collapseConsolidatedNodes(node.children[j]);
+    }
   }
 
   /* -------------------------------------------------------------------------

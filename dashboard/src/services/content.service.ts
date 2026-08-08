@@ -1,6 +1,7 @@
 import { supabase } from '@/lib/supabase'
 import { getCurrentUser } from '@/services/auth.service'
 import { HOME_PAGE_SECTIONS } from '@/data/home-page-content'
+import { ABOUT_PAGE_SECTIONS } from '@/data/about-page-content'
 import type {
   PageRow,
   PageSection,
@@ -153,6 +154,37 @@ export async function seedHomePage(): Promise<PageRow> {
   return page
 }
 
+export async function seedAboutPage(): Promise<PageRow> {
+  const userId = await getUserId()
+
+  const { data, error } = await supabase
+    .from(PAGES_TABLE)
+    .upsert(
+      {
+        title: 'من نحن',
+        slug: '/about',
+        status: 'published',
+        sort_order: 2,
+        seo_title: 'من نحن | الجمعية المغربية لهواة البحث والاستكشاف',
+        seo_description: 'تعرف على الجمعية المغربية لهواة البحث والاستكشاف — رؤيتها الوطنية، رسالتها، قيمها، مكتبها المركزي، وخارطة توسعها في مختلف جهات المملكة.',
+        seo_keywords: 'جمعية, رؤية وطنية, رسالة, قيم, مكتب مركزي, خارطة توسع, استكشاف, بحث علمي, تراث, بيئة, المغرب',
+        og_image: 'Amare%20files%20/logo.png',
+        created_by: userId ?? null,
+        updated_by: userId ?? null,
+      },
+      { onConflict: 'slug' },
+    )
+    .select()
+    .single()
+
+  if (error) throw new Error(error.message)
+  const page = parsePage(data)
+
+  await saveSections(page.id, ABOUT_PAGE_SECTIONS as unknown as PageSection[])
+
+  return page
+}
+
 export async function saveDraft(
   slug: string,
   updates: {
@@ -220,12 +252,39 @@ export async function getSections(pageId: string): Promise<SectionRow[]> {
     console.error('[CMS Service] getSections error:', error, 'page_id:', pageId)
     throw new Error(error.message)
   }
-  console.log('[CMS Service] getSections: page_id =', pageId, '→', (data ?? []).length, 'rows')
+  const count = (data ?? []).length
+  console.log('[CMS Service] getSections: page_id =', pageId, '→', count, 'rows')
+  if (count === 0) {
+    console.warn(
+      '[CMS Service] getSections returned zero rows. Possible causes:\n' +
+      '  1. RLS filtering — check page_sections.visible = TRUE and pages.status = \'published\'\n' +
+      '  2. profiles table — ensure auth.uid() has a role (super_admin/admin/editor)\n' +
+      '  3. Supabase project/keys — verify VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY',
+      { pageId },
+    )
+  }
   return (data ?? []).map(parseSection)
 }
 
 export async function saveSections(pageId: string, sections: PageSection[]): Promise<void> {
-  console.log('[CMS Service] saveSections: deleting existing for page_id =', pageId)
+  console.log('[CMS Service] saveSections: preserving metadata for page_id =', pageId)
+
+  const { data: existingRows } = await supabase
+    .from(SECTIONS_TABLE)
+    .select('id, section_key, title, description')
+    .eq('page_id', pageId)
+
+  const metaById: Record<string, { section_key: string | null; title: string | null; description: string | null }> = {}
+  if (existingRows) {
+    for (const row of existingRows) {
+      metaById[row.id] = {
+        section_key: (row as Record<string, unknown>).section_key as string | null,
+        title: (row as Record<string, unknown>).title as string | null,
+        description: (row as Record<string, unknown>).description as string | null,
+      }
+    }
+  }
+
   const { error: deleteErr } = await supabase.from(SECTIONS_TABLE).delete().eq('page_id', pageId)
   if (deleteErr) {
     console.error('[CMS Service] saveSections delete error:', deleteErr)
@@ -253,11 +312,14 @@ export async function saveSections(pageId: string, sections: PageSection[]): Pro
       }
     }
 
+    const existing = metaById[section.id]
     return {
       id: section.id,
       page_id: pageId,
       section_type: section.type,
-      section_key: null,
+      section_key: existing?.section_key ?? null,
+      title: existing?.title ?? null,
+      description: existing?.description ?? null,
       visible: section.enabled,
       sort_order: index + 1,
       content,
@@ -272,6 +334,46 @@ export async function saveSections(pageId: string, sections: PageSection[]): Pro
     throw new Error(error.message)
   }
   console.log('[CMS Service] saveSections: inserted', rows.length, 'rows for page_id =', pageId)
+}
+
+// ---------------------------------------------------------------------------
+// Page Content — flat field system
+// ---------------------------------------------------------------------------
+
+export async function getPageContent(pageId: string): Promise<Array<{ content_key: string; value: string; label: string | null }>> {
+  const { data, error } = await supabase
+    .from('page_content')
+    .select('content_key, value, label')
+    .eq('page_id', pageId)
+    .order('sort_order', { ascending: true })
+
+  if (error) {
+    console.error('[CMS Service] getPageContent error:', error)
+    throw new Error(error.message)
+  }
+  return (data ?? []) as Array<{ content_key: string; value: string; label: string | null }>
+}
+
+export async function savePageField(
+  pageId: string,
+  contentKey: string,
+  value: string,
+  label?: string,
+): Promise<void> {
+  const { error } = await supabase
+    .from('page_content')
+    .upsert({
+      page_id: pageId,
+      content_key: contentKey,
+      content_type: 'text',
+      label: label ?? contentKey,
+      value,
+    }, { onConflict: 'page_id, content_key' })
+
+  if (error) {
+    console.error('[CMS Service] savePageField error:', error)
+    throw new Error(error.message)
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -290,6 +392,15 @@ export async function createDefaultSectionsForPage(pageId: string): Promise<void
   ]
 
   await saveSections(pageId, sections)
+}
+
+export async function seedHomepageSections(pageId: string): Promise<void> {
+  const sections = HOME_PAGE_SECTIONS.map((section) => ({
+    ...section,
+    id: generateSectionId(),
+  }))
+
+  await saveSections(pageId, sections as PageSection[])
 }
 
 // ---------------------------------------------------------------------------

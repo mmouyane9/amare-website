@@ -3,7 +3,13 @@ import { getCurrentUser } from '@/services/auth.service'
 import { HOME_PAGE_SECTIONS } from '@/data/home-page-content'
 import { ABOUT_PAGE_SECTIONS } from '@/data/about-page-content'
 import { ACTIVITIES_PAGE_SECTIONS } from '@/data/activities-page-content'
-import { getPartnerSections, getPartnerSlug, LE_FOUILLEURMA, SENOTEC } from '@/data/partner-page-content'
+import { SOS_AMARE_SECTIONS } from '@/data/sos-amare-page-content'
+import { AMARE_MAGAZINE_SECTIONS } from '@/data/amare-magazine-page-content'
+import { DOCUMENTS_SECTIONS } from '@/data/documents-page-content'
+import { NEWS_PAGE_SECTIONS } from '@/data/news-page-content'
+import { ARCHIVE_PAGE_SECTIONS } from '@/data/archive-page-content'
+import { CONTACT_PAGE_SECTIONS } from '@/data/contact-page-content'
+import { getPartnerSections, getPartnerSlug, LE_FOUILLEURMA, SENOTEC, ASTROMET, ASSOCIATION_DETECTION_CENTRE, ANCPP, OMSDS } from '@/data/partner-page-content'
 import type {
   PageRow,
   PageSection,
@@ -218,11 +224,203 @@ export async function seedActivitiesPage(): Promise<PageRow> {
   return page
 }
 
+export async function seedSosAmarePage(): Promise<PageRow> {
+  const userId = await getUserId()
+
+  const { data, error } = await supabase
+    .from(PAGES_TABLE)
+    .upsert(
+      {
+        title: 'SOS AMARE',
+        slug: '/services/sos-amare',
+        status: 'published',
+        sort_order: 12,
+        created_by: userId ?? null,
+        updated_by: userId ?? null,
+      },
+      { onConflict: 'slug' },
+    )
+    .select()
+    .single()
+
+  if (error) throw new Error(error.message)
+  const page = parsePage(data)
+
+  await saveSections(page.id, SOS_AMARE_SECTIONS as unknown as PageSection[])
+
+  return page
+}
+
+export async function seedAmareMagazinePage(): Promise<PageRow> {
+  const userId = await getUserId()
+
+  const { data, error } = await supabase
+    .from(PAGES_TABLE)
+    .upsert(
+      {
+        title: 'مجلة AMARE',
+        slug: '/amare-magazine',
+        status: 'published',
+        created_by: userId ?? null,
+        updated_by: userId ?? null,
+      },
+      { onConflict: 'slug' },
+    )
+    .select()
+    .single()
+
+  if (error) throw new Error(error.message)
+  const page = parsePage(data)
+
+  // page_sections.id is a UUID column — assign real UUIDs so the
+  // editor-side fallback seed works if the SQL migration was not applied.
+  const withUuids = AMARE_MAGAZINE_SECTIONS.map((section) => ({
+    ...section,
+    id: crypto.randomUUID(),
+  }))
+
+  await saveSections(page.id, withUuids as PageSection[])
+
+  return page
+}
+
+export async function seedDocumentsPage(): Promise<PageRow> {
+  const userId = await getUserId()
+
+  const { data, error } = await supabase
+    .from(PAGES_TABLE)
+    .upsert(
+      {
+        title: 'وثائق الانخراط',
+        slug: '/documents',
+        status: 'published',
+        created_by: userId ?? null,
+        updated_by: userId ?? null,
+      },
+      { onConflict: 'slug' },
+    )
+    .select()
+    .single()
+
+  if (error) throw new Error(error.message)
+  const page = parsePage(data)
+
+  // page_sections.id is a UUID column — assign real UUIDs so the
+  // editor-side fallback seed works if the SQL migration was not applied.
+  const withUuids = DOCUMENTS_SECTIONS.map((section) => ({
+    ...section,
+    id: crypto.randomUUID(),
+  }))
+
+  await saveSections(page.id, withUuids as PageSection[])
+
+  return page
+}
+
+export async function seedNewsPage(): Promise<PageRow> {
+  const userId = await getUserId()
+
+  const { data, error } = await supabase
+    .from(PAGES_TABLE)
+    .upsert(
+      {
+        title: 'الأخبار',
+        slug: '/news',
+        status: 'published',
+        created_by: userId ?? null,
+        updated_by: userId ?? null,
+      },
+      { onConflict: 'slug' },
+    )
+    .select()
+    .single()
+
+  if (error) throw new Error(error.message)
+  const page = parsePage(data)
+
+  // page_sections.id is a UUID column — assign real UUIDs so the
+  // editor-side fallback seed works if the SQL migration was not applied.
+  const withUuids = NEWS_PAGE_SECTIONS.map((section) => ({
+    ...section,
+    id: crypto.randomUUID(),
+  }))
+
+  await saveSections(page.id, withUuids as PageSection[])
+
+  return page
+}
+
+export async function seedArchivePage(): Promise<PageRow> {
+  const userId = await getUserId()
+
+  const { data, error } = await supabase
+    .from(PAGES_TABLE)
+    .upsert(
+      {
+        title: 'الأرشيف',
+        slug: '/archive',
+        status: 'published',
+        created_by: userId ?? null,
+        updated_by: userId ?? null,
+      },
+      { onConflict: 'slug' },
+    )
+    .select()
+    .single()
+
+  if (error) throw new Error(error.message)
+  const page = parsePage(data)
+
+  // page_sections.id is a UUID column — assign real UUIDs so the
+  // editor-side fallback seed works if the SQL migration was not applied.
+  const withUuids = ARCHIVE_PAGE_SECTIONS.map((section) => ({
+    ...section,
+    id: crypto.randomUUID(),
+  }))
+
+  await saveSections(page.id, withUuids as PageSection[])
+
+  return page
+}
+
+export async function seedContactPage(): Promise<PageRow> {
+  const userId = await getUserId()
+
+  const { data, error } = await supabase
+    .from(PAGES_TABLE)
+    .upsert(
+      {
+        title: 'اتصل بنا',
+        slug: '/contact.html',
+        status: 'published',
+        created_by: userId ?? null,
+        updated_by: userId ?? null,
+      },
+      { onConflict: 'slug' },
+    )
+    .select()
+    .single()
+
+  if (error) throw new Error(error.message)
+  const page = parsePage(data)
+
+  // page_sections.id is a UUID column — assign real UUIDs so the
+  // editor-side fallback seed works if the SQL migration was not applied.
+  const withUuids = CONTACT_PAGE_SECTIONS.map((section) => ({
+    ...section,
+    id: crypto.randomUUID(),
+  }))
+
+  await saveSections(page.id, withUuids as PageSection[])
+
+  return page
+}
+
 export async function seedPartnersPages(): Promise<void> {
   const userId = await getUserId()
 
-  // Currently only LeFouilleurma has the full 8-section template
-  const partners = [LE_FOUILLEURMA, SENOTEC]
+  // Full 8-section template partners
+  const partners = [LE_FOUILLEURMA, SENOTEC, ASTROMET, ASSOCIATION_DETECTION_CENTRE, ANCPP, OMSDS]
 
   for (const partner of partners) {
     const slug = getPartnerSlug(partner.name)
@@ -260,7 +458,7 @@ export async function seedOnePartnerPage(partnerName: string): Promise<PageRow> 
   const sections = getPartnerSections(partnerName)
 
   // Look up the actual partner data from the name
-  const partner = [LE_FOUILLEURMA, SENOTEC].find(p => p.name === partnerName) || LE_FOUILLEURMA
+  const partner = [LE_FOUILLEURMA, SENOTEC, ASTROMET, ASSOCIATION_DETECTION_CENTRE, ANCPP, OMSDS].find(p => p.name === partnerName) || LE_FOUILLEURMA
 
   const { data, error } = await supabase
     .from(PAGES_TABLE)

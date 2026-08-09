@@ -2,7 +2,6 @@ import {
   Bell,
   Building2,
   FilePenLine,
-  FileText,
   LayoutDashboard,
   Menu,
   Newspaper,
@@ -23,8 +22,8 @@ export interface NavItem {
 
 export const NAV_ITEMS: NavItem[] = [
   { label: 'لوحة التحكم', path: '/dashboard', icon: LayoutDashboard },
-  { label: 'الأعضاء', path: '/members', icon: Users },
-  { label: 'طلبات الانخراط الجديدة', path: '/membership-requests', icon: UserPlus },
+  { label: 'المنخرطون و المنخرطات', path: '/members', icon: Users },
+  { label: 'تجديد الانخراط', path: '/membership-requests', icon: UserPlus },
   { label: 'الأخبار', path: '/news', icon: Newspaper },
   { label: 'المستجدات', path: '/updates', icon: Bell },
   { label: 'المشاركون في المسابقة', path: '/competition', icon: Trophy },
@@ -33,6 +32,5 @@ export const NAV_ITEMS: NavItem[] = [
   { label: 'محرر المحتوى', path: '/content-editor', icon: FilePenLine },
   { label: 'القائمة العلوية (Navbar)', path: '/navigation/navbar', icon: Menu },
   { label: 'القائمة السفلية (Footer)', path: '/navigation/footer', icon: PanelBottom },
-  { label: 'الصفحات', path: '/pages', icon: FileText },
   { label: 'الإعدادات', path: '/settings', icon: Settings },
 ]

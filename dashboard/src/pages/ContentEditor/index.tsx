@@ -2,8 +2,10 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import {
   Check,
   Eye,
+  ExternalLink,
   FileText,
   Loader2,
+  Lock,
   Monitor,
   PanelLeft,
   RotateCcw,
@@ -14,6 +16,7 @@ import {
   Tablet,
   Undo2,
 } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 
 import { EditorCanvas } from '@/pages/ContentEditor/components/EditorCanvas'
@@ -42,9 +45,20 @@ import {
   reorderSections,
   seedAboutPage,
   seedActivitiesPage,
+  seedSosAmarePage,
+  seedAmareMagazinePage,
+  seedDocumentsPage,
+  seedNewsPage,
+  seedArchivePage,
+  seedContactPage,
   seedOnePartnerPage,
 } from '@/services/content.service'
 import { getPartnerNameFromKey } from '@/data/partner-page-content'
+import {
+  getSystemManagedPage,
+  getSystemManagedPageKeys,
+} from '@/data/systemManagedPages'
+import { ReadOnlyPagePanel } from '@/pages/ContentEditor/components/ReadOnlyPagePanel'
 import type { PageRow, PageSection, SectionType } from '@/types/content'
 import { sectionRowToPageSection } from '@/types/content'
 
@@ -54,7 +68,10 @@ type PreviewMode = 'desktop' | 'tablet' | 'mobile'
 const HISTORY_LIMIT = 50
 
 export default function ContentEditorPage() {
+  const navigate = useNavigate()
   const initialId = useMemo(() => getWebsitePages()[0]?.id ?? 'home', [])
+
+  const lockedKeys = useMemo(() => getSystemManagedPageKeys(), [])
 
   const [sidebarPages, setSidebarPages] = useState<SidebarPage[]>([])
   const [pagesLoading, setPagesLoading] = useState(true)
@@ -145,6 +162,29 @@ export default function ContentEditorPage() {
   }, [discovered])
 
   const loadPageContent = useCallback(async (pageKey: string) => {
+    if (getSystemManagedPage(pageKey)) {
+      console.log('[CMS] Read-only system-managed page — skipping CMS load:', pageKey)
+      setSelectedPage(null)
+      setSections([])
+      setDirty(false)
+      setSelectedSectionId(null)
+      setSeoTitle('')
+      setSeoDescription('')
+      setSeoKeywords('')
+      setOgImage('')
+      setTitle('')
+      setSlug('')
+      setLastSavedAt(null)
+      setShowPageSettings(false)
+      setShowFlatFields(false)
+      setPreviewOpen(false)
+      setShowAddModal(false)
+      undoStack.current = []
+      redoStack.current = []
+      setHistoryTick(0)
+      return
+    }
+
     try {
       setPageLoading(true)
 
@@ -207,6 +247,36 @@ export default function ContentEditorPage() {
           const seeded = await seedOnePartnerPage(partnerName)
           sectionRows = await getSections(seeded.id)
           console.log('[CMS] Seeded partner page sections:', sectionRows.length)
+        } else if (pageKey === 'services-sos-amare') {
+          console.log('[CMS] Seeding SOS AMARE page sections...')
+          const seeded = await seedSosAmarePage()
+          sectionRows = await getSections(seeded.id)
+          console.log('[CMS] Seeded SOS AMARE page sections:', sectionRows.length)
+        } else if (pageKey === 'services-magazine') {
+          console.log('[CMS] Seeding AMARE Magazine page sections...')
+          const seeded = await seedAmareMagazinePage()
+          sectionRows = await getSections(seeded.id)
+          console.log('[CMS] Seeded AMARE Magazine page sections:', sectionRows.length)
+        } else if (pageKey === 'documents') {
+          console.log('[CMS] Seeding Documents page sections...')
+          const seeded = await seedDocumentsPage()
+          sectionRows = await getSections(seeded.id)
+          console.log('[CMS] Seeded Documents page sections:', sectionRows.length)
+        } else if (pageKey === 'news') {
+          console.log('[CMS] Seeding News page sections...')
+          const seeded = await seedNewsPage()
+          sectionRows = await getSections(seeded.id)
+          console.log('[CMS] Seeded News page sections:', sectionRows.length)
+        } else if (pageKey === 'archive') {
+          console.log('[CMS] Seeding Archive page sections...')
+          const seeded = await seedArchivePage()
+          sectionRows = await getSections(seeded.id)
+          console.log('[CMS] Seeded Archive page sections:', sectionRows.length)
+        } else if (pageKey === 'contact') {
+          console.log('[CMS] Seeding Contact page sections...')
+          const seeded = await seedContactPage()
+          sectionRows = await getSections(seeded.id)
+          console.log('[CMS] Seeded Contact page sections:', sectionRows.length)
         } else {
           console.warn(
             '[CMS] Zero sections returned for page. Verify RLS, page status, and section visibility.',
@@ -432,6 +502,11 @@ export default function ContentEditorPage() {
 
   const pageTitle = selectedPage?.title || title || selectedKey
   const pageStatus = selectedPage?.status ?? 'draft'
+  const systemManagedInfo = useMemo(
+    () => getSystemManagedPage(selectedKey) ?? null,
+    [selectedKey],
+  )
+  const displayTitle = systemManagedInfo?.label ?? pageTitle
 
   const selectedSection = useMemo(
     () => sections.find((s) => s.id === selectedSectionId) ?? null,
@@ -483,20 +558,27 @@ export default function ContentEditorPage() {
         ) : (
           <div className="flex min-w-0 items-center gap-3">
             <span className="truncate text-sm font-semibold text-foreground">
-              {pageTitle}
+              {displayTitle}
             </span>
-            {selectedPage && (
-              <span
-                className={cn(
-                  'shrink-0 rounded-full px-2 py-0.5 text-[10px] font-medium capitalize',
-                  pageStatus === 'published'
-                    ? 'bg-emerald-50 text-emerald-600'
-                    : 'bg-amber-50 text-amber-600',
-                )}
-              >
-                {pageStatus}
-                {dirty && ' · غير محفوظ'}
+            {systemManagedInfo ? (
+              <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-amber-50 px-2 py-0.5 text-[10px] font-medium text-amber-600">
+                <Lock className="size-3" />
+                غير قابل للتعديل
               </span>
+            ) : (
+              selectedPage && (
+                <span
+                  className={cn(
+                    'shrink-0 rounded-full px-2 py-0.5 text-[10px] font-medium capitalize',
+                    pageStatus === 'published'
+                      ? 'bg-emerald-50 text-emerald-600'
+                      : 'bg-amber-50 text-amber-600',
+                  )}
+                >
+                  {pageStatus}
+                  {dirty && ' · غير محفوظ'}
+                </span>
+              )
             )}
           </div>
         )}
@@ -591,6 +673,18 @@ export default function ContentEditorPage() {
             </span>
           )}
 
+          {systemManagedInfo?.route && (
+            <Button
+              type="button"
+              size="sm"
+              className="gap-1.5 rounded-xl"
+              onClick={() => navigate(systemManagedInfo.route!)}
+            >
+              <ExternalLink className="size-3.5" />
+              الانتقال إلى {systemManagedInfo.manageLabel}
+            </Button>
+          )}
+
           {selectedPage && (
             <>
               <Button
@@ -656,6 +750,7 @@ export default function ContentEditorPage() {
               pages={sidebarPages}
               selectedId={selectedKey}
               query={query}
+              lockedKeys={lockedKeys}
               onQueryChange={setQuery}
               onSelect={handleSelectPage}
             />
@@ -663,25 +758,29 @@ export default function ContentEditorPage() {
         </aside>
 
         <section className="min-w-0 h-full">
-          <EditorCanvas
-            page={selectedPage}
-            sections={sectionQuery ? filteredSections : sections}
-            selectedSectionId={selectedSectionId}
-            loading={pageLoading}
-            showAddModal={showAddModal}
-            pageKey={selectedKey}
-            onSelectSection={(id) => {
-              setSelectedSectionId(id)
-              if (id) setShowPageSettings(false)
-            }}
-            onUpdateSection={updateSection}
-            onToggleSection={toggleSection}
-            onDeleteSection={deleteSection}
-            onDuplicateSection={duplicateSection}
-            onMoveSection={moveSection}
-            onAddSection={addSection}
-            onShowAddModal={setShowAddModal}
-          />
+          {systemManagedInfo ? (
+            <ReadOnlyPagePanel info={systemManagedInfo} />
+          ) : (
+            <EditorCanvas
+              page={selectedPage}
+              sections={sectionQuery ? filteredSections : sections}
+              selectedSectionId={selectedSectionId}
+              loading={pageLoading}
+              showAddModal={showAddModal}
+              pageKey={selectedKey}
+              onSelectSection={(id) => {
+                setSelectedSectionId(id)
+                if (id) setShowPageSettings(false)
+              }}
+              onUpdateSection={updateSection}
+              onToggleSection={toggleSection}
+              onDeleteSection={deleteSection}
+              onDuplicateSection={duplicateSection}
+              onMoveSection={moveSection}
+              onAddSection={addSection}
+              onShowAddModal={setShowAddModal}
+            />
+          )}
         </section>
 
         <aside className="hidden h-full border-l border-[#E5E7EB] overflow-hidden xl:block">
@@ -697,6 +796,18 @@ export default function ContentEditorPage() {
               }}
               onDuplicate={() => duplicateSection(selectedSection.id)}
             />
+          ) : systemManagedInfo ? (
+            <div className="flex h-full flex-col items-center justify-center gap-3 px-6 text-center">
+              <span className="flex size-16 items-center justify-center rounded-2xl bg-amber-50/60 text-amber-500/60">
+                <Lock className="size-7" />
+              </span>
+              <div>
+                <p className="text-sm font-medium text-muted-foreground">قراءة فقط</p>
+                <p className="mt-1 text-xs text-muted-foreground">
+                  تُدار هذه الصفحة من {systemManagedInfo.manageLabel}.
+                </p>
+              </div>
+            </div>
           ) : (
             <div className="flex h-full flex-col items-center justify-center gap-3 px-6 text-center">
               <span className="flex size-16 items-center justify-center rounded-2xl bg-gray-50 text-muted-foreground/40">
@@ -723,6 +834,7 @@ export default function ContentEditorPage() {
               pages={sidebarPages}
               selectedId={selectedKey}
               query={query}
+              lockedKeys={lockedKeys}
               onQueryChange={setQuery}
               onSelect={handleSelectPage}
             />
@@ -730,7 +842,7 @@ export default function ContentEditorPage() {
         </DialogContent>
       </Dialog>
 
-      <Dialog open={showPageSettings} onOpenChange={setShowPageSettings}>
+      <Dialog open={showPageSettings && !systemManagedInfo} onOpenChange={setShowPageSettings}>
         <DialogContent className="max-h-[85svh] max-w-lg gap-0 overflow-hidden p-0">
           <DialogHeader className="border-b border-[#E5E7EB] px-6 py-4">
             <DialogTitle className="flex items-center gap-2 text-base font-semibold">
@@ -765,7 +877,7 @@ export default function ContentEditorPage() {
         </DialogContent>
       </Dialog>
 
-      <Dialog open={showFlatFields} onOpenChange={setShowFlatFields}>
+      <Dialog open={showFlatFields && !systemManagedInfo} onOpenChange={setShowFlatFields}>
         <DialogContent className="max-h-[85svh] max-w-lg gap-0 overflow-hidden p-0">
           <DialogHeader className="border-b border-[#E5E7EB] px-6 py-4">
             <DialogTitle className="flex items-center gap-2 text-base font-semibold">
@@ -785,7 +897,7 @@ export default function ContentEditorPage() {
       <PreviewDialog
         page={selectedPage}
         sections={sections}
-        open={previewOpen}
+        open={previewOpen && !systemManagedInfo}
         onOpenChange={setPreviewOpen}
       />
     </div>

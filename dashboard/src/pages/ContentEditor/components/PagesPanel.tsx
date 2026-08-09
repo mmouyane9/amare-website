@@ -4,6 +4,7 @@ import {
   FileText,
   Folder,
   FolderOpen,
+  Lock,
   Search,
 } from 'lucide-react'
 
@@ -32,6 +33,7 @@ interface PagesPanelProps {
   query: string
   onQueryChange: (query: string) => void
   onSelect: (pageKey: string) => void
+  lockedKeys?: ReadonlySet<string>
 }
 
 const INDENT_PX = 20
@@ -58,6 +60,7 @@ export function PagesPanel({
   query,
   onQueryChange,
   onSelect,
+  lockedKeys,
 }: PagesPanelProps) {
   const [expanded, setExpanded] = useState<Set<string>>(() => loadExpandedState())
   const [focusNodeId, setFocusNodeId] = useState<string | null>(null)
@@ -304,6 +307,7 @@ export function PagesPanel({
                 selectedId={selectedId}
                 focusId={focusNodeId}
                 status={node.pageKey ? statusMap.get(node.pageKey) : undefined}
+                lockedKeys={lockedKeys}
                 onToggle={toggleFolder}
                 onSelect={selectPage}
                 onFocus={setFocusNodeId}
@@ -321,6 +325,7 @@ export function PagesPanel({
                 selectedId={selectedId}
                 focusId={focusNodeId}
                 statusMap={statusMap}
+                lockedKeys={lockedKeys}
                 onToggle={toggleFolder}
                 onSelect={selectPage}
                 onFocus={setFocusNodeId}
@@ -340,6 +345,7 @@ function TreeNodeRenderer({
   selectedId,
   focusId,
   statusMap,
+  lockedKeys,
   onToggle,
   onSelect,
   onFocus,
@@ -350,6 +356,7 @@ function TreeNodeRenderer({
   selectedId: string
   focusId: string | null
   statusMap: Map<string, SidebarPage['status']>
+  lockedKeys?: ReadonlySet<string>
   onToggle: (id: string) => void
   onSelect: (pageKey: string) => void
   onFocus: (id: string) => void
@@ -366,6 +373,7 @@ function TreeNodeRenderer({
         selectedId={selectedId}
         focusId={focusId}
         status={status}
+        lockedKeys={lockedKeys}
         onToggle={onToggle}
         onSelect={onSelect}
         onFocus={onFocus}
@@ -387,6 +395,7 @@ function TreeNodeRenderer({
                 selectedId={selectedId}
                 focusId={focusId}
                 statusMap={statusMap}
+                lockedKeys={lockedKeys}
                 onToggle={onToggle}
                 onSelect={onSelect}
                 onFocus={onFocus}
@@ -406,6 +415,7 @@ function TreeItem({
   selectedId,
   focusId,
   status,
+  lockedKeys,
   onToggle,
   onSelect,
   onFocus,
@@ -416,6 +426,7 @@ function TreeItem({
   selectedId: string
   focusId: string | null
   status?: SidebarPage['status']
+  lockedKeys?: ReadonlySet<string>
   onToggle: (id: string) => void
   onSelect: (pageKey: string) => void
   onFocus: (id: string) => void
@@ -425,6 +436,7 @@ function TreeItem({
   const isSelected = node.pageKey === selectedId
   const isFocused = focusId === node.id
   const showStatus = !isFolder && status
+  const isLocked = !isFolder && !!node.pageKey && !!lockedKeys?.has(node.pageKey)
 
   const handleClick = () => {
     if (isFolder) {
@@ -495,21 +507,32 @@ function TreeItem({
         className={cn(
           'min-w-0 flex-1 truncate',
           isSelected && 'font-semibold',
+          isLocked && !isSelected && 'text-muted-foreground/70',
         )}
       >
         {node.label}
       </span>
 
-      {showStatus && (
-        <span className="ml-auto shrink-0 flex items-center gap-1">
-          <span
-            className={cn(
-              'size-1.5 rounded-full transition-colors',
-              statusColor(status),
-            )}
-            title={status}
-          />
+      {isLocked ? (
+        <span
+          className="ml-auto flex shrink-0 items-center text-muted-foreground/50"
+          title="غير قابل للتعديل"
+          aria-label="غير قابل للتعديل"
+        >
+          <Lock className="size-3.5" />
         </span>
+      ) : (
+        showStatus && (
+          <span className="ml-auto shrink-0 flex items-center gap-1">
+            <span
+              className={cn(
+                'size-1.5 rounded-full transition-colors',
+                statusColor(status),
+              )}
+              title={status}
+            />
+          </span>
+        )
       )}
     </button>
   )

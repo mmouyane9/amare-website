@@ -124,6 +124,7 @@
   display: flex; align-items: center; justify-content: center; position: relative;
 }
 .nw-card-img svg { width: 48px; height: 48px; color: rgba(25,184,242,.16); }
+.nw-card-photo, .nw-featured-photo { width: 100%; height: 100%; object-fit: cover; display: block; }
 .nw-card-body { padding: 20px 18px 22px; }
 .nw-card-category {
   display: inline-block; font-size: 11px; font-weight: 800;
@@ -758,16 +759,23 @@
 </button>
 
 <script src="../supabase/navbar-loader.js"></script>
+<script src="../supabase/news-content.js"></script>
 <script src="../script.js"></script>
 <script>
 /* ==========================================================================
-   News Data Store — Ready for Supabase integration
-   Replace fetchNews() with Supabase query for dynamic content.
+   News Data Store — loaded from the CMS (supabase/news-content.js), which
+   feeds live content through window.NewsPage.setData(). The arrays below are
+   the hardcoded fallback shown until CMS data arrives.
    ========================================================================== */
 (function () {
   'use strict';
 
-  var newsData = [
+  function esc(str) {
+    if (!str) return '';
+    return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  var DEFAULT_NEWS = [
     { id: 1, category: 'activities', catLabel: 'أنشطة', catClass: 'cat-activities', title: 'خرجة استكشافية ناجحة إلى جبال الأطلس الكبير', summary: 'نظمت الجمعية خرجة استكشافية إلى منطقة إمليل بجبال الأطلس الكبير بمشاركة 45 عضواً، تم خلالها استكشاف المناظر الطبيعية والتعرف على التنوع البيولوجي.', author: 'فريق التحرير', date: '2026-08-05', featured: true },
     { id: 2, category: 'partnerships', catLabel: 'شراكات', catClass: 'cat-partnerships', title: 'توقيع اتفاقية شراكة مع ASTROMET', summary: 'وقعت الجمعية اتفاقية شراكة استراتيجية مع شركة ASTROMET المتخصصة في التنقيب والاستكشاف المعدني بالمغرب.', author: 'لجنة الشراكات', date: '2026-07-28', featured: false },
     { id: 3, category: 'competitions', catLabel: 'مسابقات', catClass: 'cat-competitions', title: 'إعلان نتائج المسابقة الوطنية للكشف عن المعادن', summary: 'اختتمت الجمعية المسابقة الوطنية للكشف عن المعادن بمشاركة 120 متسابقاً من مختلف جهات المملكة.', author: 'لجنة المسابقات', date: '2026-07-20', featured: false },
@@ -782,7 +790,7 @@
     { id: 12, category: 'association', catLabel: 'الجمعية', catClass: 'cat-association', title: 'افتتاح فرع جديد للجمعية بجهة طنجة', summary: 'افتتحت الجمعية فرعاً جهوياً جديداً بجهة طنجة - تطوان - الحسيمة لتوسيع نطاق أنشطتها في شمال المملكة.', author: 'المكتب المركزي', date: '2026-05-15', featured: false },
   ];
 
-  var categories = [
+  var DEFAULT_CATEGORIES = [
     { id: 'activities', label: 'أنشطة', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>', count: null },
     { id: 'partnerships', label: 'شراكات', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><path d="M20 8v6M23 11h-6"/></svg>', count: null },
     { id: 'competitions', label: 'مسابقات', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>', count: null },
@@ -793,10 +801,17 @@
     { id: 'announcements', label: 'إعلانات', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>', count: null },
   ];
 
+  /* -- Working data (CMS loader may replace via window.NewsPage.setData) -- */
+  var newsData = DEFAULT_NEWS;
+  var categories = DEFAULT_CATEGORIES.slice();
+
   /* -- Count articles per category -- */
-  categories.forEach(function (cat) {
-    cat.count = newsData.filter(function (n) { return n.category === cat.id; }).length;
-  });
+  function recalcCounts() {
+    categories.forEach(function (cat) {
+      cat.count = newsData.filter(function (n) { return n.category === cat.id; }).length;
+    });
+  }
+  recalcCounts();
 
   /* ==========================================================================
      1. Render Featured News
@@ -805,19 +820,20 @@
     var featured = newsData.filter(function (n) { return n.featured; })[0] || newsData[0];
     var container = document.getElementById('featuredCard');
     if (!container) return;
+    var featuredImg = featured.image
+      ? '<img class="nw-featured-photo" src="' + esc(featured.image) + '" alt="' + esc(featured.title) + '">'
+      : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>';
     container.innerHTML =
-      '<div class="nw-featured-img">' +
-        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>' +
-      '</div>' +
+      '<div class="nw-featured-img">' + featuredImg + '</div>' +
       '<div class="nw-featured-body">' +
-        '<span class="nw-featured-category ' + featured.catClass + '">' + featured.catLabel + '</span>' +
-        '<h2>' + featured.title + '</h2>' +
-        '<p>' + featured.summary + '</p>' +
+        '<span class="nw-featured-category ' + esc(featured.catClass) + '">' + esc(featured.catLabel) + '</span>' +
+        '<h2>' + esc(featured.title) + '</h2>' +
+        '<p>' + esc(featured.summary) + '</p>' +
         '<div class="nw-featured-meta">' +
-          '<span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>' + featured.date + '</span>' +
-          '<span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>' + featured.author + '</span>' +
+          '<span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>' + esc(featured.date) + '</span>' +
+          '<span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>' + esc(featured.author) + '</span>' +
         '</div>' +
-        '<a href="#" class="btn btn-primary">اقرأ المزيد</a>' +
+        '<a href="' + esc(featured.linkUrl || '#') + '" class="btn btn-primary">' + esc(featured.linkLabel || 'اقرأ المزيد') + '</a>' +
       '</div>';
   }
 
@@ -829,20 +845,21 @@
     if (!grid) return;
     var html = '';
     (articles || newsData).forEach(function (n) {
+      var cardImg = n.image
+        ? '<img class="nw-card-photo" src="' + esc(n.image) + '" alt="' + esc(n.title) + '">'
+        : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>';
       html +=
         '<div class="nw-card nw-reveal">' +
-          '<div class="nw-card-img">' +
-            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>' +
-          '</div>' +
+          '<div class="nw-card-img">' + cardImg + '</div>' +
           '<div class="nw-card-body">' +
-            '<span class="nw-card-category ' + n.catClass + '">' + n.catLabel + '</span>' +
-            '<h3>' + n.title + '</h3>' +
-            '<p>' + n.summary.substring(0, 80) + '...</p>' +
+            '<span class="nw-card-category ' + esc(n.catClass) + '">' + esc(n.catLabel) + '</span>' +
+            '<h3>' + esc(n.title) + '</h3>' +
+            '<p>' + esc(n.summary).substring(0, 80) + '...</p>' +
             '<div class="nw-card-meta">' +
               '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>' +
-              n.date +
+              esc(n.date) +
             '</div>' +
-            '<a href="#" class="nw-card-link">اقرأ المزيد <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></a>' +
+            '<a href="' + esc(n.linkUrl || '#') + '" class="nw-card-link">' + esc(n.linkLabel || 'اقرأ المزيد') + ' <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></a>' +
           '</div>' +
         '</div>';
     });
@@ -940,6 +957,38 @@
   renderGrid();
   renderCategories('');
   observeReveal();
+
+  /* ==========================================================================
+     CMS integration — supabase/news-content.js feeds live content through
+     this API. Defaults above stay visible until CMS data arrives.
+     ========================================================================== */
+  window.NewsPage = {
+    setData: function (news, cats) {
+      if (news && news.length) {
+        newsData = news.map(function (n) {
+          if (!n.catClass) n.catClass = 'cat-' + (n.category || '');
+          return n;
+        });
+        recalcCounts();
+      }
+      if (cats && cats.length) {
+        categories = cats.map(function (c) {
+          var def = null;
+          for (var i = 0; i < DEFAULT_CATEGORIES.length; i++) {
+            if (DEFAULT_CATEGORIES[i].id === c.id) { def = DEFAULT_CATEGORIES[i]; break; }
+          }
+          return { id: c.id, label: c.label, icon: def ? def.icon : '', count: null };
+        });
+        recalcCounts();
+      }
+    },
+    render: function () {
+      renderFeatured();
+      renderGrid();
+      renderCategories('');
+      observeReveal();
+    }
+  };
 
 })();
 </script>

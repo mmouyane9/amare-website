@@ -799,6 +799,1021 @@ function ExpansionMapEditor({ data, onChange }: CustomEditorProps) {
 }
 
 // =====================================================================
+// AMARE MAGAZINE EDITORS
+// =====================================================================
+
+// MAGAZINE FEATURED ARTICLE  (_renderer: "magFeatured")
+function MagFeaturedEditor({ data, onChange }: CustomEditorProps) {
+  const image = (data.image as string) ?? ''
+
+  return (
+    <div className="space-y-3">
+      <FieldGroup label="صورة المقال">
+        <div className="relative aspect-video w-full overflow-hidden rounded-md bg-muted">
+          {image ? (
+            <img src={image} alt="" className="size-full object-cover" />
+          ) : (
+            <div className="flex size-full items-center justify-center">
+              <ImageIcon className="size-5 text-muted-foreground" />
+            </div>
+          )}
+        </div>
+        <Input value={image} onChange={(e) => onChange({ ...data, image: e.target.value })} placeholder="رابط الصورة" className="h-9 text-sm" />
+      </FieldGroup>
+      <FieldGroup label="التصنيف (Badge)">
+        <Input value={(data.badge as string) ?? ''} onChange={(e) => onChange({ ...data, badge: e.target.value })} className="h-9 text-sm" />
+      </FieldGroup>
+      <FieldGroup label="عنوان المقال">
+        <Input value={(data.heading as string) ?? ''} onChange={(e) => onChange({ ...data, heading: e.target.value })} className="h-9 text-sm" />
+      </FieldGroup>
+      <FieldGroup label="الوصف (Excerpt)">
+        <Textarea value={(data.excerpt as string) ?? ''} onChange={(e) => onChange({ ...data, excerpt: e.target.value })} className="min-h-20 resize-y text-sm" />
+      </FieldGroup>
+      <div className="grid grid-cols-2 gap-2">
+        <FieldGroup label="التاريخ">
+          <Input value={(data.date as string) ?? ''} onChange={(e) => onChange({ ...data, date: e.target.value })} className="h-9 text-sm" />
+        </FieldGroup>
+        <FieldGroup label="مدة القراءة">
+          <Input value={(data.readTime as string) ?? ''} onChange={(e) => onChange({ ...data, readTime: e.target.value })} className="h-9 text-sm" />
+        </FieldGroup>
+      </div>
+      <div className="grid grid-cols-2 gap-2">
+        <FieldGroup label="نص الرابط">
+          <Input value={(data.linkLabel as string) ?? ''} onChange={(e) => onChange({ ...data, linkLabel: e.target.value })} className="h-9 text-sm" />
+        </FieldGroup>
+        <FieldGroup label="الرابط">
+          <Input value={(data.linkUrl as string) ?? ''} onChange={(e) => onChange({ ...data, linkUrl: e.target.value })} className="h-9 text-sm" />
+        </FieldGroup>
+      </div>
+    </div>
+  )
+}
+
+// MAGAZINE LATEST ARTICLES  (_renderer: "magLatest")
+function MagLatestEditor({ data, onChange }: CustomEditorProps) {
+  const articles = (data.articles ?? []) as Array<{
+    image: string
+    badge: string
+    title: string
+    excerpt: string
+    date: string
+    readTime: string
+    linkUrl: string
+  }>
+
+  return (
+    <div className="space-y-3">
+      <FieldGroup label="العنوان الفرعي (Eyebrow)">
+        <Input value={(data.eyebrow as string) ?? ''} onChange={(e) => onChange({ ...data, eyebrow: e.target.value })} className="h-9 text-sm" />
+      </FieldGroup>
+      <FieldGroup label="العنوان الرئيسي">
+        <Input value={(data.heading as string) ?? ''} onChange={(e) => onChange({ ...data, heading: e.target.value })} className="h-9 text-sm" />
+      </FieldGroup>
+      <FieldGroup label="الوصف">
+        <Input value={(data.description as string) ?? ''} onChange={(e) => onChange({ ...data, description: e.target.value })} className="h-9 text-sm" />
+      </FieldGroup>
+
+      <div className="space-y-2">
+        <SectionLabel>المقالات</SectionLabel>
+        {articles.map((article, i) => (
+          <RepeaterItem key={i} onDelete={() => onChange({ ...data, articles: articles.filter((_, j) => j !== i) })}>
+            <div className="space-y-2 pr-5">
+              <div className="relative aspect-video w-full overflow-hidden rounded-md bg-muted">
+                {article.image ? (
+                  <img src={article.image} alt={article.title} className="size-full object-cover" />
+                ) : (
+                  <div className="flex size-full items-center justify-center">
+                    <ImageIcon className="size-5 text-muted-foreground" />
+                  </div>
+                )}
+              </div>
+              <Input value={article.image} onChange={(e) => onChange({ ...data, articles: articles.map((x, j) => (j === i ? { ...x, image: e.target.value } : x)) })} placeholder="رابط الصورة" className="h-8 text-sm" />
+              <div className="flex gap-2">
+                <Input value={article.badge} onChange={(e) => onChange({ ...data, articles: articles.map((x, j) => (j === i ? { ...x, badge: e.target.value } : x)) })} placeholder="التصنيف" className="h-8 w-24 text-sm" />
+                <Input value={article.readTime} onChange={(e) => onChange({ ...data, articles: articles.map((x, j) => (j === i ? { ...x, readTime: e.target.value } : x)) })} placeholder="مدة القراءة" className="h-8 flex-1 text-sm" />
+              </div>
+              <Input value={article.title} onChange={(e) => onChange({ ...data, articles: articles.map((x, j) => (j === i ? { ...x, title: e.target.value } : x)) })} placeholder="العنوان" className="h-8 text-sm font-medium" />
+              <Textarea value={article.excerpt} onChange={(e) => onChange({ ...data, articles: articles.map((x, j) => (j === i ? { ...x, excerpt: e.target.value } : x)) })} placeholder="الوصف المختصر" className="min-h-16 resize-y text-sm" />
+              <div className="flex gap-2">
+                <Input value={article.date} onChange={(e) => onChange({ ...data, articles: articles.map((x, j) => (j === i ? { ...x, date: e.target.value } : x)) })} placeholder="التاريخ" className="h-8 flex-1 text-sm" />
+                <Input value={article.linkUrl} onChange={(e) => onChange({ ...data, articles: articles.map((x, j) => (j === i ? { ...x, linkUrl: e.target.value } : x)) })} placeholder="الرابط" className="h-8 flex-1 text-sm" />
+              </div>
+            </div>
+          </RepeaterItem>
+        ))}
+        <Button type="button" variant="outline" size="sm" onClick={() => onChange({ ...data, articles: [...articles, { image: '', badge: '', title: '', excerpt: '', date: '', readTime: '', linkUrl: '#' }] })}>
+          <Plus className="size-3.5" /> إضافة مقال
+        </Button>
+      </div>
+    </div>
+  )
+}
+
+// MAGAZINE CATEGORIES  (_renderer: "magCats")
+function MagCatsEditor({ data, onChange }: CustomEditorProps) {
+  const categories = (data.categories ?? []) as Array<{ title: string; count: string }>
+
+  return (
+    <div className="space-y-3">
+      <FieldGroup label="العنوان الفرعي (Eyebrow)">
+        <Input value={(data.eyebrow as string) ?? ''} onChange={(e) => onChange({ ...data, eyebrow: e.target.value })} className="h-9 text-sm" />
+      </FieldGroup>
+      <FieldGroup label="العنوان الرئيسي">
+        <Input value={(data.heading as string) ?? ''} onChange={(e) => onChange({ ...data, heading: e.target.value })} className="h-9 text-sm" />
+      </FieldGroup>
+      <FieldGroup label="الوصف">
+        <Input value={(data.description as string) ?? ''} onChange={(e) => onChange({ ...data, description: e.target.value })} className="h-9 text-sm" />
+      </FieldGroup>
+
+      <div className="space-y-2">
+        <SectionLabel>الفئات</SectionLabel>
+        {categories.map((cat, i) => (
+          <RepeaterItem key={i} onDelete={() => onChange({ ...data, categories: categories.filter((_, j) => j !== i) })}>
+            <div className="flex gap-2 pr-5">
+              <Input value={cat.title} onChange={(e) => onChange({ ...data, categories: categories.map((x, j) => (j === i ? { ...x, title: e.target.value } : x)) })} placeholder="اسم الفئة" className="h-8 flex-1 text-sm" />
+              <Input value={cat.count} onChange={(e) => onChange({ ...data, categories: categories.map((x, j) => (j === i ? { ...x, count: e.target.value } : x)) })} placeholder="العدد (مثال: 12 مقالاً)" className="h-8 flex-1 text-sm" />
+            </div>
+          </RepeaterItem>
+        ))}
+        <Button type="button" variant="outline" size="sm" onClick={() => onChange({ ...data, categories: [...categories, { title: '', count: '' }] })}>
+          <Plus className="size-3.5" /> إضافة فئة
+        </Button>
+      </div>
+    </div>
+  )
+}
+
+// MAGAZINE NEWSLETTER  (_renderer: "magNewsletter")
+function MagNewsletterEditor({ data, onChange }: CustomEditorProps) {
+  return (
+    <div className="space-y-3">
+      <FieldGroup label="العنوان الرئيسي">
+        <Input value={(data.heading as string) ?? ''} onChange={(e) => onChange({ ...data, heading: e.target.value })} className="h-9 text-sm" />
+      </FieldGroup>
+      <FieldGroup label="الوصف">
+        <Input value={(data.description as string) ?? ''} onChange={(e) => onChange({ ...data, description: e.target.value })} className="h-9 text-sm" />
+      </FieldGroup>
+      <FieldGroup label="نص زر الاشتراك">
+        <Input value={(data.buttonLabel as string) ?? ''} onChange={(e) => onChange({ ...data, buttonLabel: e.target.value })} className="h-9 text-sm" />
+      </FieldGroup>
+    </div>
+  )
+}
+
+// MAGAZINE FINAL CTA  (_renderer: "magCta")
+function MagCtaEditor({ data, onChange }: CustomEditorProps) {
+  const buttons = (data.buttons ?? []) as Array<{ id: string; label: string; url: string; variant: string }>
+
+  return (
+    <div className="space-y-3">
+      <FieldGroup label="العنوان الرئيسي">
+        <Input value={(data.heading as string) ?? ''} onChange={(e) => onChange({ ...data, heading: e.target.value })} className="h-9 text-sm" />
+      </FieldGroup>
+
+      <div className="space-y-2">
+        <SectionLabel>الأزرار</SectionLabel>
+        {buttons.map((btn, i) => (
+          <RepeaterItem key={i} onDelete={() => onChange({ ...data, buttons: buttons.filter((_, j) => j !== i) })}>
+            <div className="flex gap-2 pr-5">
+              <Input value={btn.label} onChange={(e) => onChange({ ...data, buttons: buttons.map((x, j) => (j === i ? { ...x, label: e.target.value } : x)) })} placeholder="نص الزر" className="h-8 flex-1 text-sm" />
+              <Input value={btn.url} onChange={(e) => onChange({ ...data, buttons: buttons.map((x, j) => (j === i ? { ...x, url: e.target.value } : x)) })} placeholder="الرابط" className="h-8 flex-1 text-sm" />
+            </div>
+          </RepeaterItem>
+        ))}
+        <Button type="button" variant="outline" size="sm" onClick={() => onChange({ ...data, buttons: [...buttons, { id: `btn-${Date.now()}`, label: '', url: '#', variant: 'primary' }] })}>
+          <Plus className="size-3.5" /> إضافة زر
+        </Button>
+      </div>
+    </div>
+  )
+}
+
+// =====================================================================
+// DOCUMENTS (وثائق الانخراط)  custom renderers
+// =====================================================================
+
+// DOCUMENTS GRID  (_renderer: "docGrid")
+function DocGridEditor({ data, onChange }: CustomEditorProps) {
+  const documents = (data.documents ?? []) as Array<{
+    title: string
+    description: string
+    format: string
+    size: string
+    date: string
+    buttonLabel: string
+    url: string
+  }>
+
+  return (
+    <div className="space-y-3">
+      <FieldGroup label="العنوان الفرعي (Eyebrow)">
+        <Input value={(data.eyebrow as string) ?? ''} onChange={(e) => onChange({ ...data, eyebrow: e.target.value })} className="h-9 text-sm" />
+      </FieldGroup>
+      <FieldGroup label="العنوان الرئيسي">
+        <Input value={(data.heading as string) ?? ''} onChange={(e) => onChange({ ...data, heading: e.target.value })} className="h-9 text-sm" />
+      </FieldGroup>
+      <FieldGroup label="الوصف">
+        <Input value={(data.description as string) ?? ''} onChange={(e) => onChange({ ...data, description: e.target.value })} className="h-9 text-sm" />
+      </FieldGroup>
+
+      <div className="space-y-2">
+        <SectionLabel>الوثائق</SectionLabel>
+        {documents.map((doc, i) => (
+          <RepeaterItem key={i} onDelete={() => onChange({ ...data, documents: documents.filter((_, j) => j !== i) })}>
+            <div className="space-y-2 pr-5">
+              <div className="flex gap-2">
+                <Input value={doc.title} onChange={(e) => onChange({ ...data, documents: documents.map((x, j) => (j === i ? { ...x, title: e.target.value } : x)) })} placeholder="اسم الوثيقة" className="h-8 flex-1 text-sm font-medium" />
+                <Input value={doc.format} onChange={(e) => onChange({ ...data, documents: documents.map((x, j) => (j === i ? { ...x, format: e.target.value } : x)) })} placeholder="الصيغة (PDF/DOCX)" className="h-8 w-24 text-sm" />
+              </div>
+              <Textarea value={doc.description} onChange={(e) => onChange({ ...data, documents: documents.map((x, j) => (j === i ? { ...x, description: e.target.value } : x)) })} placeholder="الوصف" className="min-h-14 resize-y text-sm" />
+              <div className="flex gap-2">
+                <Input value={doc.size} onChange={(e) => onChange({ ...data, documents: documents.map((x, j) => (j === i ? { ...x, size: e.target.value } : x)) })} placeholder="الحجم (مثال: 1.2 MB)" className="h-8 w-28 text-sm" />
+                <Input value={doc.date} onChange={(e) => onChange({ ...data, documents: documents.map((x, j) => (j === i ? { ...x, date: e.target.value } : x)) })} placeholder="التاريخ" className="h-8 flex-1 text-sm" />
+              </div>
+              <div className="flex gap-2">
+                <Input value={doc.buttonLabel} onChange={(e) => onChange({ ...data, documents: documents.map((x, j) => (j === i ? { ...x, buttonLabel: e.target.value } : x)) })} placeholder="نص زر التحميل" className="h-8 flex-1 text-sm" />
+                <Input value={doc.url} onChange={(e) => onChange({ ...data, documents: documents.map((x, j) => (j === i ? { ...x, url: e.target.value } : x)) })} placeholder="رابط التحميل" className="h-8 flex-1 text-sm" />
+              </div>
+            </div>
+          </RepeaterItem>
+        ))}
+        <Button type="button" variant="outline" size="sm" onClick={() => onChange({ ...data, documents: [...documents, { title: '', description: '', format: 'PDF', size: '', date: '', buttonLabel: '', url: '#' }] })}>
+          <Plus className="size-3.5" /> إضافة وثيقة
+        </Button>
+      </div>
+    </div>
+  )
+}
+
+// DOWNLOAD ALL  (_renderer: "docDownload")
+function DocDownloadEditor({ data, onChange }: CustomEditorProps) {
+  return (
+    <div className="space-y-3">
+      <FieldGroup label="العنوان الرئيسي">
+        <Input value={(data.heading as string) ?? ''} onChange={(e) => onChange({ ...data, heading: e.target.value })} className="h-9 text-sm" />
+      </FieldGroup>
+      <FieldGroup label="الوصف">
+        <Textarea value={(data.description as string) ?? ''} onChange={(e) => onChange({ ...data, description: e.target.value })} className="min-h-20 resize-y text-sm" />
+      </FieldGroup>
+      <div className="grid grid-cols-2 gap-2">
+        <FieldGroup label="نص الزر">
+          <Input value={(data.buttonLabel as string) ?? ''} onChange={(e) => onChange({ ...data, buttonLabel: e.target.value })} className="h-9 text-sm" />
+        </FieldGroup>
+        <FieldGroup label="الرابط">
+          <Input value={(data.url as string) ?? ''} onChange={(e) => onChange({ ...data, url: e.target.value })} className="h-9 text-sm" />
+        </FieldGroup>
+      </div>
+    </div>
+  )
+}
+
+// MEMBERSHIP REQUIREMENTS  (_renderer: "docRequirements")
+function DocRequirementsEditor({ data, onChange }: CustomEditorProps) {
+  const items = (data.items ?? []) as string[]
+
+  return (
+    <div className="space-y-3">
+      <FieldGroup label="العنوان الفرعي (Eyebrow)">
+        <Input value={(data.eyebrow as string) ?? ''} onChange={(e) => onChange({ ...data, eyebrow: e.target.value })} className="h-9 text-sm" />
+      </FieldGroup>
+      <FieldGroup label="العنوان الرئيسي">
+        <Input value={(data.heading as string) ?? ''} onChange={(e) => onChange({ ...data, heading: e.target.value })} className="h-9 text-sm" />
+      </FieldGroup>
+      <FieldGroup label="الوصف">
+        <Input value={(data.description as string) ?? ''} onChange={(e) => onChange({ ...data, description: e.target.value })} className="h-9 text-sm" />
+      </FieldGroup>
+
+      <div className="space-y-2">
+        <SectionLabel>المتطلبات</SectionLabel>
+        {items.map((item, i) => (
+          <RepeaterItem key={i} onDelete={() => onChange({ ...data, items: items.filter((_, j) => j !== i) })}>
+            <Input value={item} onChange={(e) => onChange({ ...data, items: items.map((x, j) => (j === i ? e.target.value : x)) })} placeholder="شرط" className="h-8 pr-5 text-sm" />
+          </RepeaterItem>
+        ))}
+        <Button type="button" variant="outline" size="sm" onClick={() => onChange({ ...data, items: [...items, ''] })}>
+          <Plus className="size-3.5" /> إضافة شرط
+        </Button>
+      </div>
+    </div>
+  )
+}
+
+// FAQ  (_renderer: "docFaq")
+function DocFaqEditor({ data, onChange }: CustomEditorProps) {
+  const items = (data.items ?? []) as Array<{ question: string; answer: string }>
+
+  return (
+    <div className="space-y-3">
+      <FieldGroup label="العنوان الفرعي (Eyebrow)">
+        <Input value={(data.eyebrow as string) ?? ''} onChange={(e) => onChange({ ...data, eyebrow: e.target.value })} className="h-9 text-sm" />
+      </FieldGroup>
+      <FieldGroup label="العنوان الرئيسي">
+        <Input value={(data.heading as string) ?? ''} onChange={(e) => onChange({ ...data, heading: e.target.value })} className="h-9 text-sm" />
+      </FieldGroup>
+      <FieldGroup label="الوصف">
+        <Input value={(data.description as string) ?? ''} onChange={(e) => onChange({ ...data, description: e.target.value })} className="h-9 text-sm" />
+      </FieldGroup>
+
+      <div className="space-y-2">
+        <SectionLabel>الأسئلة</SectionLabel>
+        {items.map((item, i) => (
+          <RepeaterItem key={i} onDelete={() => onChange({ ...data, items: items.filter((_, j) => j !== i) })}>
+            <div className="space-y-2 pr-5">
+              <Input value={item.question} onChange={(e) => onChange({ ...data, items: items.map((x, j) => (j === i ? { ...x, question: e.target.value } : x)) })} placeholder="السؤال" className="h-8 text-sm font-medium" />
+              <Textarea value={item.answer} onChange={(e) => onChange({ ...data, items: items.map((x, j) => (j === i ? { ...x, answer: e.target.value } : x)) })} placeholder="الجواب" className="min-h-16 resize-y text-sm" />
+            </div>
+          </RepeaterItem>
+        ))}
+        <Button type="button" variant="outline" size="sm" onClick={() => onChange({ ...data, items: [...items, { question: '', answer: '' }] })}>
+          <Plus className="size-3.5" /> إضافة سؤال
+        </Button>
+      </div>
+    </div>
+  )
+}
+
+// DOCUMENTS FINAL CTA  (_renderer: "docCta")
+function DocCtaEditor({ data, onChange }: CustomEditorProps) {
+  const buttons = (data.buttons ?? []) as Array<{ id: string; label: string; url: string; variant: string }>
+
+  return (
+    <div className="space-y-3">
+      <FieldGroup label="العنوان الرئيسي">
+        <Input value={(data.heading as string) ?? ''} onChange={(e) => onChange({ ...data, heading: e.target.value })} className="h-9 text-sm" />
+      </FieldGroup>
+      <FieldGroup label="الوصف">
+        <Textarea value={(data.description as string) ?? ''} onChange={(e) => onChange({ ...data, description: e.target.value })} className="min-h-20 resize-y text-sm" />
+      </FieldGroup>
+
+      <div className="space-y-2">
+        <SectionLabel>الأزرار</SectionLabel>
+        {buttons.map((btn, i) => (
+          <RepeaterItem key={i} onDelete={() => onChange({ ...data, buttons: buttons.filter((_, j) => j !== i) })}>
+            <div className="flex gap-2 pr-5">
+              <Input value={btn.label} onChange={(e) => onChange({ ...data, buttons: buttons.map((x, j) => (j === i ? { ...x, label: e.target.value } : x)) })} placeholder="نص الزر" className="h-8 flex-1 text-sm" />
+              <Input value={btn.url} onChange={(e) => onChange({ ...data, buttons: buttons.map((x, j) => (j === i ? { ...x, url: e.target.value } : x)) })} placeholder="الرابط" className="h-8 flex-1 text-sm" />
+            </div>
+          </RepeaterItem>
+        ))}
+        <Button type="button" variant="outline" size="sm" onClick={() => onChange({ ...data, buttons: [...buttons, { id: `btn-${Date.now()}`, label: '', url: '#', variant: 'primary' }] })}>
+          <Plus className="size-3.5" /> إضافة زر
+        </Button>
+      </div>
+    </div>
+  )
+}
+
+// =====================================================================
+// NEWS (الأخبار)  custom renderers
+// =====================================================================
+
+// FEATURED NEWS HEAD  (_renderer: "nwFeatured")
+function NwFeaturedEditor({ data, onChange }: CustomEditorProps) {
+  return (
+    <div className="space-y-3">
+      <FieldGroup label="العنوان الفرعي (Eyebrow)">
+        <Input value={(data.eyebrow as string) ?? ''} onChange={(e) => onChange({ ...data, eyebrow: e.target.value })} className="h-9 text-sm" />
+      </FieldGroup>
+      <FieldGroup label="العنوان الرئيسي">
+        <Input value={(data.heading as string) ?? ''} onChange={(e) => onChange({ ...data, heading: e.target.value })} className="h-9 text-sm" />
+      </FieldGroup>
+      <p className="text-xs text-muted-foreground">الخبر المميز نفسه يُحرَّر في قسم «أحدث الأخبار» — البطاقة المميزة تعرض الخبر الأول المعلَّم بخانة «مميز».</p>
+    </div>
+  )
+}
+
+// LATEST NEWS GRID  (_renderer: "nwGrid")
+function NwGridEditor({ data, onChange }: CustomEditorProps) {
+  const items = (data.items ?? []) as Array<{
+    category: string
+    catLabel: string
+    featured: boolean
+    title: string
+    summary: string
+    author: string
+    date: string
+    image: string
+    linkUrl: string
+    linkLabel: string
+  }>
+
+  return (
+    <div className="space-y-3">
+      <FieldGroup label="العنوان الفرعي (Eyebrow)">
+        <Input value={(data.eyebrow as string) ?? ''} onChange={(e) => onChange({ ...data, eyebrow: e.target.value })} className="h-9 text-sm" />
+      </FieldGroup>
+      <FieldGroup label="العنوان الرئيسي">
+        <Input value={(data.heading as string) ?? ''} onChange={(e) => onChange({ ...data, heading: e.target.value })} className="h-9 text-sm" />
+      </FieldGroup>
+      <FieldGroup label="الوصف">
+        <Input value={(data.description as string) ?? ''} onChange={(e) => onChange({ ...data, description: e.target.value })} className="h-9 text-sm" />
+      </FieldGroup>
+
+      <div className="space-y-2">
+        <SectionLabel>الأخبار</SectionLabel>
+        {items.map((item, i) => (
+          <RepeaterItem key={i} onDelete={() => onChange({ ...data, items: items.filter((_, j) => j !== i) })}>
+            <div className="space-y-2 pr-5">
+              <label className="flex items-center gap-2 text-xs text-muted-foreground">
+                <input
+                  type="checkbox"
+                  checked={Boolean(item.featured)}
+                  onChange={(e) => onChange({ ...data, items: items.map((x, j) => (j === i ? { ...x, featured: e.target.checked } : x)) })}
+                  className="size-3.5"
+                />
+                خبر مميز (يُعرض في قسم «أبرز الأخبار»)
+              </label>
+              <div className="flex gap-2">
+                <Input value={item.catLabel} onChange={(e) => onChange({ ...data, items: items.map((x, j) => (j === i ? { ...x, catLabel: e.target.value } : x)) })} placeholder="تسمية الفئة" className="h-8 flex-1 text-sm" />
+                <Input value={item.category} onChange={(e) => onChange({ ...data, items: items.map((x, j) => (j === i ? { ...x, category: e.target.value } : x)) })} placeholder="معرف الفئة (activities…)" className="h-8 flex-1 text-sm" />
+              </div>
+              <div className="relative aspect-video w-full overflow-hidden rounded-md bg-muted">
+                {item.image ? (
+                  <img src={item.image} alt={item.title} className="size-full object-cover" />
+                ) : (
+                  <div className="flex size-full items-center justify-center">
+                    <ImageIcon className="size-5 text-muted-foreground" />
+                  </div>
+                )}
+              </div>
+              <Input value={item.image} onChange={(e) => onChange({ ...data, items: items.map((x, j) => (j === i ? { ...x, image: e.target.value } : x)) })} placeholder="رابط الصورة" className="h-8 text-sm" />
+              <Input value={item.title} onChange={(e) => onChange({ ...data, items: items.map((x, j) => (j === i ? { ...x, title: e.target.value } : x)) })} placeholder="العنوان" className="h-8 text-sm font-medium" />
+              <Textarea value={item.summary} onChange={(e) => onChange({ ...data, items: items.map((x, j) => (j === i ? { ...x, summary: e.target.value } : x)) })} placeholder="الوصف" className="min-h-14 resize-y text-sm" />
+              <div className="flex gap-2">
+                <Input value={item.date} onChange={(e) => onChange({ ...data, items: items.map((x, j) => (j === i ? { ...x, date: e.target.value } : x)) })} placeholder="التاريخ (مثال: 2026-08-05)" className="h-8 flex-1 text-sm" />
+                <Input value={item.author} onChange={(e) => onChange({ ...data, items: items.map((x, j) => (j === i ? { ...x, author: e.target.value } : x)) })} placeholder="المؤلف" className="h-8 flex-1 text-sm" />
+              </div>
+              <div className="flex gap-2">
+                <Input value={item.linkLabel} onChange={(e) => onChange({ ...data, items: items.map((x, j) => (j === i ? { ...x, linkLabel: e.target.value } : x)) })} placeholder="نص الرابط" className="h-8 flex-1 text-sm" />
+                <Input value={item.linkUrl} onChange={(e) => onChange({ ...data, items: items.map((x, j) => (j === i ? { ...x, linkUrl: e.target.value } : x)) })} placeholder="الرابط" className="h-8 flex-1 text-sm" />
+              </div>
+            </div>
+          </RepeaterItem>
+        ))}
+        <Button type="button" variant="outline" size="sm" onClick={() => onChange({ ...data, items: [...items, { category: 'activities', catLabel: '', featured: false, title: '', summary: '', author: '', date: '', image: '', linkUrl: '#', linkLabel: 'اقرأ المزيد' }] })}>
+          <Plus className="size-3.5" /> إضافة خبر
+        </Button>
+      </div>
+    </div>
+  )
+}
+
+// NEWS CATEGORIES  (_renderer: "nwCategories")
+function NwCategoriesEditor({ data, onChange }: CustomEditorProps) {
+  const categories = (data.categories ?? []) as Array<{ id: string; label: string }>
+
+  return (
+    <div className="space-y-3">
+      <FieldGroup label="العنوان الفرعي (Eyebrow)">
+        <Input value={(data.eyebrow as string) ?? ''} onChange={(e) => onChange({ ...data, eyebrow: e.target.value })} className="h-9 text-sm" />
+      </FieldGroup>
+      <FieldGroup label="العنوان الرئيسي">
+        <Input value={(data.heading as string) ?? ''} onChange={(e) => onChange({ ...data, heading: e.target.value })} className="h-9 text-sm" />
+      </FieldGroup>
+      <FieldGroup label="الوصف">
+        <Input value={(data.description as string) ?? ''} onChange={(e) => onChange({ ...data, description: e.target.value })} className="h-9 text-sm" />
+      </FieldGroup>
+      <p className="text-xs text-muted-foreground">أيقونات الفئات ثابتة في الصفحة ولا تتغير؛ الأعداد تُحسب تلقائياً من الأخبار. تأكد من أن «معرف الفئة» يطابق قيمة حقل category في الأخبار.</p>
+
+      <div className="space-y-2">
+        <SectionLabel>الفئات</SectionLabel>
+        {categories.map((cat, i) => (
+          <RepeaterItem key={i} onDelete={() => onChange({ ...data, categories: categories.filter((_, j) => j !== i) })}>
+            <div className="flex gap-2 pr-5">
+              <Input value={cat.id} onChange={(e) => onChange({ ...data, categories: categories.map((x, j) => (j === i ? { ...x, id: e.target.value } : x)) })} placeholder="المعرف (activities…)" className="h-8 w-32 text-sm" />
+              <Input value={cat.label} onChange={(e) => onChange({ ...data, categories: categories.map((x, j) => (j === i ? { ...x, label: e.target.value } : x)) })} placeholder="اسم الفئة" className="h-8 flex-1 text-sm" />
+            </div>
+          </RepeaterItem>
+        ))}
+        <Button type="button" variant="outline" size="sm" onClick={() => onChange({ ...data, categories: [...categories, { id: '', label: '' }] })}>
+          <Plus className="size-3.5" /> إضافة فئة
+        </Button>
+      </div>
+    </div>
+  )
+}
+
+// SEARCH & FILTER HEAD  (_renderer: "nwSearch")
+function NwSearchEditor({ data, onChange }: CustomEditorProps) {
+  return (
+    <div className="space-y-3">
+      <FieldGroup label="العنوان الفرعي (Eyebrow)">
+        <Input value={(data.eyebrow as string) ?? ''} onChange={(e) => onChange({ ...data, eyebrow: e.target.value })} className="h-9 text-sm" />
+      </FieldGroup>
+      <FieldGroup label="العنوان الرئيسي">
+        <Input value={(data.heading as string) ?? ''} onChange={(e) => onChange({ ...data, heading: e.target.value })} className="h-9 text-sm" />
+      </FieldGroup>
+      <p className="text-xs text-muted-foreground">حقل البحث والتصفية نفسه (بالفئة والسنة) ثابت ويعمل تلقائياً على الأخبار.</p>
+    </div>
+  )
+}
+
+// NEWSLETTER  (_renderer: "nwNewsletter")
+function NwNewsletterEditor({ data, onChange }: CustomEditorProps) {
+  return (
+    <div className="space-y-3">
+      <FieldGroup label="العنوان الرئيسي">
+        <Input value={(data.heading as string) ?? ''} onChange={(e) => onChange({ ...data, heading: e.target.value })} className="h-9 text-sm" />
+      </FieldGroup>
+      <FieldGroup label="الوصف">
+        <Input value={(data.description as string) ?? ''} onChange={(e) => onChange({ ...data, description: e.target.value })} className="h-9 text-sm" />
+      </FieldGroup>
+      <FieldGroup label="نص زر الاشتراك">
+        <Input value={(data.buttonLabel as string) ?? ''} onChange={(e) => onChange({ ...data, buttonLabel: e.target.value })} className="h-9 text-sm" />
+      </FieldGroup>
+    </div>
+  )
+}
+
+// FINAL CTA  (_renderer: "nwCta")
+function NwCtaEditor({ data, onChange }: CustomEditorProps) {
+  const buttons = (data.buttons ?? []) as Array<{ id: string; label: string; url: string; variant: string }>
+
+  return (
+    <div className="space-y-3">
+      <FieldGroup label="العنوان الرئيسي">
+        <Input value={(data.heading as string) ?? ''} onChange={(e) => onChange({ ...data, heading: e.target.value })} className="h-9 text-sm" />
+      </FieldGroup>
+
+      <div className="space-y-2">
+        <SectionLabel>الأزرار</SectionLabel>
+        {buttons.map((btn, i) => (
+          <RepeaterItem key={i} onDelete={() => onChange({ ...data, buttons: buttons.filter((_, j) => j !== i) })}>
+            <div className="flex gap-2 pr-5">
+              <Input value={btn.label} onChange={(e) => onChange({ ...data, buttons: buttons.map((x, j) => (j === i ? { ...x, label: e.target.value } : x)) })} placeholder="نص الزر" className="h-8 flex-1 text-sm" />
+              <Input value={btn.url} onChange={(e) => onChange({ ...data, buttons: buttons.map((x, j) => (j === i ? { ...x, url: e.target.value } : x)) })} placeholder="الرابط" className="h-8 flex-1 text-sm" />
+            </div>
+          </RepeaterItem>
+        ))}
+        <Button type="button" variant="outline" size="sm" onClick={() => onChange({ ...data, buttons: [...buttons, { id: `btn-${Date.now()}`, label: '', url: '#', variant: 'primary' }] })}>
+          <Plus className="size-3.5" /> إضافة زر
+        </Button>
+      </div>
+    </div>
+  )
+}
+
+// =====================================================================
+// ARCHIVE (الأرشيف)  custom renderers
+// =====================================================================
+
+// ARCHIVE STATISTICS  (_renderer: "arStats")
+function ArStatsEditor({ data, onChange }: CustomEditorProps) {
+  const stats = (data.stats ?? []) as Array<{ display: string; count: string; label: string }>
+
+  return (
+    <div className="space-y-3">
+      <FieldGroup label="العنوان الفرعي (Eyebrow)">
+        <Input value={(data.eyebrow as string) ?? ''} onChange={(e) => onChange({ ...data, eyebrow: e.target.value })} className="h-9 text-sm" />
+      </FieldGroup>
+      <FieldGroup label="العنوان الرئيسي">
+        <Input value={(data.heading as string) ?? ''} onChange={(e) => onChange({ ...data, heading: e.target.value })} className="h-9 text-sm" />
+      </FieldGroup>
+      <p className="text-xs text-muted-foreground">الأيقونات ثابتة في الصفحة ولا تتغير. «القيمة المعروضة» تحتفظ بعلامة + والفواصل؛ «العدد» يُستخدم في عدّاد الحركة.</p>
+
+      <div className="space-y-2">
+        <SectionLabel>الإحصائيات</SectionLabel>
+        {stats.map((st, i) => (
+          <RepeaterItem key={i} onDelete={() => onChange({ ...data, stats: stats.filter((_, j) => j !== i) })}>
+            <div className="space-y-2 pr-5">
+              <div className="flex gap-2">
+                <Input value={st.display} onChange={(e) => onChange({ ...data, stats: stats.map((x, j) => (j === i ? { ...x, display: e.target.value } : x)) })} placeholder="القيمة المعروضة (مثال: +1,247)" className="h-8 flex-1 text-sm" />
+                <Input value={st.count} onChange={(e) => onChange({ ...data, stats: stats.map((x, j) => (j === i ? { ...x, count: e.target.value } : x)) })} placeholder="العدد (1247)" className="h-8 w-28 text-sm" />
+              </div>
+              <Input value={st.label} onChange={(e) => onChange({ ...data, stats: stats.map((x, j) => (j === i ? { ...x, label: e.target.value } : x)) })} placeholder="التسمية" className="h-8 text-sm" />
+            </div>
+          </RepeaterItem>
+        ))}
+        <Button type="button" variant="outline" size="sm" onClick={() => onChange({ ...data, stats: [...stats, { display: '', count: '', label: '' }] })}>
+          <Plus className="size-3.5" /> إضافة إحصائية
+        </Button>
+      </div>
+    </div>
+  )
+}
+
+// ARCHIVE CATEGORIES  (_renderer: "arCategories")
+function ArCategoriesEditor({ data, onChange }: CustomEditorProps) {
+  const categories = (data.categories ?? []) as Array<{ id: string; label: string }>
+
+  return (
+    <div className="space-y-3">
+      <FieldGroup label="العنوان الفرعي (Eyebrow)">
+        <Input value={(data.eyebrow as string) ?? ''} onChange={(e) => onChange({ ...data, eyebrow: e.target.value })} className="h-9 text-sm" />
+      </FieldGroup>
+      <FieldGroup label="العنوان الرئيسي">
+        <Input value={(data.heading as string) ?? ''} onChange={(e) => onChange({ ...data, heading: e.target.value })} className="h-9 text-sm" />
+      </FieldGroup>
+      <FieldGroup label="الوصف">
+        <Input value={(data.description as string) ?? ''} onChange={(e) => onChange({ ...data, description: e.target.value })} className="h-9 text-sm" />
+      </FieldGroup>
+      <p className="text-xs text-muted-foreground">أيقونات الفئات ثابتة في الصفحة ولا تتغير؛ الأعداد تُحسب تلقائياً من عناصر الأرشيف. تأكد من أن «معرف الفئة» يطابق قيمة حقل category في عناصر الأرشيف.</p>
+
+      <div className="space-y-2">
+        <SectionLabel>الفئات</SectionLabel>
+        {categories.map((cat, i) => (
+          <RepeaterItem key={i} onDelete={() => onChange({ ...data, categories: categories.filter((_, j) => j !== i) })}>
+            <div className="flex gap-2 pr-5">
+              <Input value={cat.id} onChange={(e) => onChange({ ...data, categories: categories.map((x, j) => (j === i ? { ...x, id: e.target.value } : x)) })} placeholder="المعرف (activities…)" className="h-8 w-32 text-sm" />
+              <Input value={cat.label} onChange={(e) => onChange({ ...data, categories: categories.map((x, j) => (j === i ? { ...x, label: e.target.value } : x)) })} placeholder="اسم الفئة" className="h-8 flex-1 text-sm" />
+            </div>
+          </RepeaterItem>
+        ))}
+        <Button type="button" variant="outline" size="sm" onClick={() => onChange({ ...data, categories: [...categories, { id: '', label: '' }] })}>
+          <Plus className="size-3.5" /> إضافة فئة
+        </Button>
+      </div>
+    </div>
+  )
+}
+
+// SEARCH & FILTER HEAD  (_renderer: "arSearch")
+function ArSearchEditor({ data, onChange }: CustomEditorProps) {
+  return (
+    <div className="space-y-3">
+      <FieldGroup label="العنوان الفرعي (Eyebrow)">
+        <Input value={(data.eyebrow as string) ?? ''} onChange={(e) => onChange({ ...data, eyebrow: e.target.value })} className="h-9 text-sm" />
+      </FieldGroup>
+      <FieldGroup label="العنوان الرئيسي">
+        <Input value={(data.heading as string) ?? ''} onChange={(e) => onChange({ ...data, heading: e.target.value })} className="h-9 text-sm" />
+      </FieldGroup>
+      <p className="text-xs text-muted-foreground">حقل البحث والتصفية نفسه (بالفئة والسنة) ثابت ويعمل تلقائياً على عناصر الأرشيف.</p>
+    </div>
+  )
+}
+
+// ARCHIVE LIBRARY GRID  (_renderer: "arLibrary")
+const ARCHIVE_THUMB_OPTIONS: Array<{ value: string; label: string }> = [
+  { value: 'ar-thumb-doc', label: 'وثيقة' },
+  { value: 'ar-thumb-report', label: 'تقرير' },
+  { value: 'ar-thumb-image', label: 'صورة' },
+  { value: 'ar-thumb-video', label: 'فيديو' },
+  { value: 'ar-thumb-publication', label: 'منشور' },
+  { value: 'ar-thumb-official', label: 'وثيقة رسمية' },
+]
+
+function ArLibraryEditor({ data, onChange }: CustomEditorProps) {
+  const items = (data.items ?? []) as Array<{
+    category: string
+    catLabel: string
+    thumbClass: string
+    title: string
+    desc: string
+    date: string
+    linkUrl: string
+    linkLabel: string
+  }>
+
+  return (
+    <div className="space-y-3">
+      <FieldGroup label="العنوان الفرعي (Eyebrow)">
+        <Input value={(data.eyebrow as string) ?? ''} onChange={(e) => onChange({ ...data, eyebrow: e.target.value })} className="h-9 text-sm" />
+      </FieldGroup>
+      <FieldGroup label="العنوان الرئيسي">
+        <Input value={(data.heading as string) ?? ''} onChange={(e) => onChange({ ...data, heading: e.target.value })} className="h-9 text-sm" />
+      </FieldGroup>
+      <FieldGroup label="الوصف">
+        <Input value={(data.description as string) ?? ''} onChange={(e) => onChange({ ...data, description: e.target.value })} className="h-9 text-sm" />
+      </FieldGroup>
+      <p className="text-xs text-muted-foreground">لا توجد صور محتوى في هذه الصفحة؛ البطاقات تعرض أيقونة حسب نوع العنصر. «معرف الفئة» يطابق قيم خيارات البحث وفئات قسم الأرشيف.</p>
+
+      <div className="space-y-2">
+        <SectionLabel>عناصر الأرشيف</SectionLabel>
+        {items.map((item, i) => (
+          <RepeaterItem key={i} onDelete={() => onChange({ ...data, items: items.filter((_, j) => j !== i) })}>
+            <div className="space-y-2 pr-5">
+              <div className="flex gap-2">
+                <Input value={item.catLabel} onChange={(e) => onChange({ ...data, items: items.map((x, j) => (j === i ? { ...x, catLabel: e.target.value } : x)) })} placeholder="تسمية الفئة" className="h-8 flex-1 text-sm" />
+                <Input value={item.category} onChange={(e) => onChange({ ...data, items: items.map((x, j) => (j === i ? { ...x, category: e.target.value } : x)) })} placeholder="معرف الفئة (activities…)" className="h-8 flex-1 text-sm" />
+              </div>
+              <label className="flex items-center gap-2 text-xs text-muted-foreground">
+                نوع العنصر
+                <select
+                  value={item.thumbClass}
+                  onChange={(e) => onChange({ ...data, items: items.map((x, j) => (j === i ? { ...x, thumbClass: e.target.value } : x)) })}
+                  className="h-8 flex-1 rounded-md border border-input bg-background px-2 text-sm"
+                >
+                  {ARCHIVE_THUMB_OPTIONS.map((opt) => (
+                    <option key={opt.value} value={opt.value}>{opt.label}</option>
+                  ))}
+                </select>
+              </label>
+              <Input value={item.title} onChange={(e) => onChange({ ...data, items: items.map((x, j) => (j === i ? { ...x, title: e.target.value } : x)) })} placeholder="العنوان" className="h-8 text-sm font-medium" />
+              <Textarea value={item.desc} onChange={(e) => onChange({ ...data, items: items.map((x, j) => (j === i ? { ...x, desc: e.target.value } : x)) })} placeholder="الوصف" className="min-h-14 resize-y text-sm" />
+              <Input value={item.date} onChange={(e) => onChange({ ...data, items: items.map((x, j) => (j === i ? { ...x, date: e.target.value } : x)) })} placeholder="التاريخ (مثال: 2025-09-15)" className="h-8 text-sm" />
+              <div className="flex gap-2">
+                <Input value={item.linkLabel} onChange={(e) => onChange({ ...data, items: items.map((x, j) => (j === i ? { ...x, linkLabel: e.target.value } : x)) })} placeholder="نص الرابط" className="h-8 flex-1 text-sm" />
+                <Input value={item.linkUrl} onChange={(e) => onChange({ ...data, items: items.map((x, j) => (j === i ? { ...x, linkUrl: e.target.value } : x)) })} placeholder="الرابط" className="h-8 flex-1 text-sm" />
+              </div>
+            </div>
+          </RepeaterItem>
+        ))}
+        <Button type="button" variant="outline" size="sm" onClick={() => onChange({ ...data, items: [...items, { category: 'activities', catLabel: '', thumbClass: 'ar-thumb-doc', title: '', desc: '', date: '', linkUrl: '#', linkLabel: 'عرض التفاصيل' }] })}>
+          <Plus className="size-3.5" /> إضافة عنصر
+        </Button>
+      </div>
+    </div>
+  )
+}
+
+// ARCHIVE DOWNLOADS  (_renderer: "arDownloads")
+function ArDownloadsEditor({ data, onChange }: CustomEditorProps) {
+  const items = (data.items ?? []) as Array<{ title: string; size: string; fileUrl: string; linkLabel: string }>
+
+  return (
+    <div className="space-y-3">
+      <FieldGroup label="العنوان الفرعي (Eyebrow)">
+        <Input value={(data.eyebrow as string) ?? ''} onChange={(e) => onChange({ ...data, eyebrow: e.target.value })} className="h-9 text-sm" />
+      </FieldGroup>
+      <FieldGroup label="العنوان الرئيسي">
+        <Input value={(data.heading as string) ?? ''} onChange={(e) => onChange({ ...data, heading: e.target.value })} className="h-9 text-sm" />
+      </FieldGroup>
+      <p className="text-xs text-muted-foreground">أيقونات الملفات ثابتة في الصفحة ولا تتغير؛ التسمية «PDF • الحجم» تُنشأ تلقائياً من الحجم.</p>
+
+      <div className="space-y-2">
+        <SectionLabel>ملفات التحميل</SectionLabel>
+        {items.map((dl, i) => (
+          <RepeaterItem key={i} onDelete={() => onChange({ ...data, items: items.filter((_, j) => j !== i) })}>
+            <div className="space-y-2 pr-5">
+              <Input value={dl.title} onChange={(e) => onChange({ ...data, items: items.map((x, j) => (j === i ? { ...x, title: e.target.value } : x)) })} placeholder="اسم الملف" className="h-8 text-sm font-medium" />
+              <div className="flex gap-2">
+                <Input value={dl.size} onChange={(e) => onChange({ ...data, items: items.map((x, j) => (j === i ? { ...x, size: e.target.value } : x)) })} placeholder="الحجم (مثال: 2.4 MB)" className="h-8 w-28 text-sm" />
+                <Input value={dl.linkLabel} onChange={(e) => onChange({ ...data, items: items.map((x, j) => (j === i ? { ...x, linkLabel: e.target.value } : x)) })} placeholder="نص زر التحميل" className="h-8 flex-1 text-sm" />
+              </div>
+              <Input value={dl.fileUrl} onChange={(e) => onChange({ ...data, items: items.map((x, j) => (j === i ? { ...x, fileUrl: e.target.value } : x)) })} placeholder="رابط الملف" className="h-8 text-sm" />
+            </div>
+          </RepeaterItem>
+        ))}
+        <Button type="button" variant="outline" size="sm" onClick={() => onChange({ ...data, items: [...items, { title: '', size: '', fileUrl: '#', linkLabel: 'تحميل' }] })}>
+          <Plus className="size-3.5" /> إضافة ملف
+        </Button>
+      </div>
+    </div>
+  )
+}
+
+// ARCHIVE FAQ  (_renderer: "arFaq")
+function ArFaqEditor({ data, onChange }: CustomEditorProps) {
+  const items = (data.items ?? []) as Array<{ question: string; answer: string }>
+
+  return (
+    <div className="space-y-3">
+      <FieldGroup label="العنوان الفرعي (Eyebrow)">
+        <Input value={(data.eyebrow as string) ?? ''} onChange={(e) => onChange({ ...data, eyebrow: e.target.value })} className="h-9 text-sm" />
+      </FieldGroup>
+      <FieldGroup label="العنوان الرئيسي">
+        <Input value={(data.heading as string) ?? ''} onChange={(e) => onChange({ ...data, heading: e.target.value })} className="h-9 text-sm" />
+      </FieldGroup>
+
+      <div className="space-y-2">
+        <SectionLabel>الأسئلة</SectionLabel>
+        {items.map((item, i) => (
+          <RepeaterItem key={i} onDelete={() => onChange({ ...data, items: items.filter((_, j) => j !== i) })}>
+            <div className="space-y-2 pr-5">
+              <Input value={item.question} onChange={(e) => onChange({ ...data, items: items.map((x, j) => (j === i ? { ...x, question: e.target.value } : x)) })} placeholder="السؤال" className="h-8 text-sm font-medium" />
+              <Textarea value={item.answer} onChange={(e) => onChange({ ...data, items: items.map((x, j) => (j === i ? { ...x, answer: e.target.value } : x)) })} placeholder="الجواب" className="min-h-16 resize-y text-sm" />
+            </div>
+          </RepeaterItem>
+        ))}
+        <Button type="button" variant="outline" size="sm" onClick={() => onChange({ ...data, items: [...items, { question: '', answer: '' }] })}>
+          <Plus className="size-3.5" /> إضافة سؤال
+        </Button>
+      </div>
+    </div>
+  )
+}
+
+// ARCHIVE FINAL CTA  (_renderer: "arCta")
+function ArCtaEditor({ data, onChange }: CustomEditorProps) {
+  const buttons = (data.buttons ?? []) as Array<{ id: string; label: string; url: string; variant: string }>
+
+  return (
+    <div className="space-y-3">
+      <FieldGroup label="العنوان الرئيسي">
+        <Input value={(data.heading as string) ?? ''} onChange={(e) => onChange({ ...data, heading: e.target.value })} className="h-9 text-sm" />
+      </FieldGroup>
+
+      <div className="space-y-2">
+        <SectionLabel>الأزرار</SectionLabel>
+        {buttons.map((btn, i) => (
+          <RepeaterItem key={i} onDelete={() => onChange({ ...data, buttons: buttons.filter((_, j) => j !== i) })}>
+            <div className="flex gap-2 pr-5">
+              <Input value={btn.label} onChange={(e) => onChange({ ...data, buttons: buttons.map((x, j) => (j === i ? { ...x, label: e.target.value } : x)) })} placeholder="نص الزر" className="h-8 flex-1 text-sm" />
+              <Input value={btn.url} onChange={(e) => onChange({ ...data, buttons: buttons.map((x, j) => (j === i ? { ...x, url: e.target.value } : x)) })} placeholder="الرابط" className="h-8 flex-1 text-sm" />
+            </div>
+          </RepeaterItem>
+        ))}
+        <Button type="button" variant="outline" size="sm" onClick={() => onChange({ ...data, buttons: [...buttons, { id: `btn-${Date.now()}`, label: '', url: '#', variant: 'primary' }] })}>
+          <Plus className="size-3.5" /> إضافة زر
+        </Button>
+      </div>
+    </div>
+  )
+}
+
+// CONTACT CARDS  (_renderer: "contactCards")
+function ContactCardsEditor({ data, onChange }: CustomEditorProps) {
+  const items = (data.items ?? []) as Array<{ id: string; title: string; value: string; detail: string }>
+
+  return (
+    <div className="space-y-3">
+      <FieldGroup label="العنوان الفرعي (Eyebrow)">
+        <Input value={(data.eyebrow as string) ?? ''} onChange={(e) => onChange({ ...data, eyebrow: e.target.value })} className="h-9 text-sm" />
+      </FieldGroup>
+      <FieldGroup label="العنوان الرئيسي">
+        <Input value={(data.heading as string) ?? ''} onChange={(e) => onChange({ ...data, heading: e.target.value })} className="h-9 text-sm" />
+      </FieldGroup>
+      <FieldGroup label="الوصف">
+        <Input value={(data.description as string) ?? ''} onChange={(e) => onChange({ ...data, description: e.target.value })} className="h-9 text-sm" />
+      </FieldGroup>
+      <p className="text-xs text-muted-foreground">بطاقات معلومات التواصل الأربع. أيقونات البطاقات ثابتة في الصفحة ولا تتغير؛ العنوان والقيمة والتفصيل قابلة للتحرير. نفس القيم تُستعمل تلقائيًا في قائمة معلومات بطاقة التواصل.</p>
+
+      <div className="space-y-2">
+        <SectionLabel>بطاقات التواصل</SectionLabel>
+        {items.map((item, i) => (
+          <RepeaterItem key={i} onDelete={() => onChange({ ...data, items: items.filter((_, j) => j !== i) })}>
+            <div className="space-y-2 pr-5">
+              <div className="flex gap-2">
+                <Input value={item.title} onChange={(e) => onChange({ ...data, items: items.map((x, j) => (j === i ? { ...x, title: e.target.value } : x)) })} placeholder="العنوان (العنوان، الهاتف…)" className="h-8 w-40 text-sm" />
+                <Input value={item.id} onChange={(e) => onChange({ ...data, items: items.map((x, j) => (j === i ? { ...x, id: e.target.value } : x)) })} placeholder="المعرف (address…)" className="h-8 flex-1 text-sm" />
+              </div>
+              <Input value={item.value} onChange={(e) => onChange({ ...data, items: items.map((x, j) => (j === i ? { ...x, value: e.target.value } : x)) })} placeholder="القيمة" className="h-8 text-sm" />
+              <Input value={item.detail} onChange={(e) => onChange({ ...data, items: items.map((x, j) => (j === i ? { ...x, detail: e.target.value } : x)) })} placeholder="التفصيل (اختياري)" className="h-8 text-sm" />
+            </div>
+          </RepeaterItem>
+        ))}
+        <Button type="button" variant="outline" size="sm" onClick={() => onChange({ ...data, items: [...items, { id: `item-${Date.now()}`, title: '', value: '', detail: '' }] })}>
+          <Plus className="size-3.5" /> إضافة بطاقة
+        </Button>
+      </div>
+    </div>
+  )
+}
+
+// CONTACT FORM + INFO CARD  (_renderer: "contactForm")
+function ContactFormEditor({ data, onChange }: CustomEditorProps) {
+  const social = (data.social ?? []) as Array<{ id: string; label: string; url: string }>
+  const fields = (data.fields ?? []) as Array<{ id: string; label: string; placeholder: string }>
+  const subjects = (data.subjects ?? []) as string[]
+
+  return (
+    <div className="space-y-3">
+      <FieldGroup label="العنوان الفرعي (Eyebrow)">
+        <Input value={(data.eyebrow as string) ?? ''} onChange={(e) => onChange({ ...data, eyebrow: e.target.value })} className="h-9 text-sm" />
+      </FieldGroup>
+      <FieldGroup label="العنوان الرئيسي">
+        <Input value={(data.heading as string) ?? ''} onChange={(e) => onChange({ ...data, heading: e.target.value })} className="h-9 text-sm" />
+      </FieldGroup>
+      <FieldGroup label="الوصف">
+        <Input value={(data.description as string) ?? ''} onChange={(e) => onChange({ ...data, description: e.target.value })} className="h-9 text-sm" />
+      </FieldGroup>
+
+      <SectionLabel>بطاقة معلومات التواصل</SectionLabel>
+      <FieldGroup label="عنوان البطاقة">
+        <Input value={(data.infoTitle as string) ?? ''} onChange={(e) => onChange({ ...data, infoTitle: e.target.value })} className="h-9 text-sm" />
+      </FieldGroup>
+      <FieldGroup label="وصف البطاقة">
+        <Textarea value={(data.infoDescription as string) ?? ''} onChange={(e) => onChange({ ...data, infoDescription: e.target.value })} className="min-h-16 resize-y text-sm" />
+      </FieldGroup>
+      <p className="text-xs text-muted-foreground">قائمة العنوان/الهاتف/البريد/ساعات العمل تُملأ تلقائيًا من قيم «بطاقات التواصل».</p>
+
+      <FieldGroup label="عنوان أزرار التواصل الاجتماعي">
+        <Input value={(data.socialTitle as string) ?? ''} onChange={(e) => onChange({ ...data, socialTitle: e.target.value })} className="h-9 text-sm" />
+      </FieldGroup>
+      <div className="space-y-2">
+        <SectionLabel>روابط التواصل الاجتماعي</SectionLabel>
+        {social.map((s, i) => (
+          <RepeaterItem key={i} onDelete={() => onChange({ ...data, social: social.filter((_, j) => j !== i) })}>
+            <div className="flex gap-2 pr-5">
+              <Input value={s.label} onChange={(e) => onChange({ ...data, social: social.map((x, j) => (j === i ? { ...x, label: e.target.value } : x)) })} placeholder="الاسم (فيسبوك…)" className="h-8 w-40 text-sm" />
+              <Input value={s.id} onChange={(e) => onChange({ ...data, social: social.map((x, j) => (j === i ? { ...x, id: e.target.value } : x)) })} placeholder="المعرف (fb…)" className="h-8 w-24 text-sm" />
+              <Input value={s.url} onChange={(e) => onChange({ ...data, social: social.map((x, j) => (j === i ? { ...x, url: e.target.value } : x)) })} placeholder="الرابط" className="h-8 flex-1 text-sm" />
+            </div>
+          </RepeaterItem>
+        ))}
+        <Button type="button" variant="outline" size="sm" onClick={() => onChange({ ...data, social: [...social, { id: '', label: '', url: '#' }] })}>
+          <Plus className="size-3.5" /> إضافة رابط
+        </Button>
+      </div>
+
+      <SectionLabel>النموذج</SectionLabel>
+      <FieldGroup label="عنوان النموذج">
+        <Input value={(data.formTitle as string) ?? ''} onChange={(e) => onChange({ ...data, formTitle: e.target.value })} className="h-9 text-sm" />
+      </FieldGroup>
+      <FieldGroup label="وصف النموذج">
+        <Input value={(data.formDescription as string) ?? ''} onChange={(e) => onChange({ ...data, formDescription: e.target.value })} className="h-9 text-sm" />
+      </FieldGroup>
+
+      <div className="space-y-2">
+        <SectionLabel>الحقول (تسمية + نص إرشادي)</SectionLabel>
+        {fields.map((f, i) => (
+          <RepeaterItem key={i} onDelete={() => onChange({ ...data, fields: fields.filter((_, j) => j !== i) })}>
+            <div className="space-y-2 pr-5">
+              <div className="flex gap-2">
+                <Input value={f.id} onChange={(e) => onChange({ ...data, fields: fields.map((x, j) => (j === i ? { ...x, id: e.target.value } : x)) })} placeholder="المعرف (name…)" className="h-8 w-28 text-sm" />
+                <Input value={f.label} onChange={(e) => onChange({ ...data, fields: fields.map((x, j) => (j === i ? { ...x, label: e.target.value } : x)) })} placeholder="التسمية" className="h-8 flex-1 text-sm" />
+              </div>
+              <Input value={f.placeholder} onChange={(e) => onChange({ ...data, fields: fields.map((x, j) => (j === i ? { ...x, placeholder: e.target.value } : x)) })} placeholder="النص الإرشادي" className="h-8 text-sm" />
+            </div>
+          </RepeaterItem>
+        ))}
+        <Button type="button" variant="outline" size="sm" onClick={() => onChange({ ...data, fields: [...fields, { id: '', label: '', placeholder: '' }] })}>
+          <Plus className="size-3.5" /> إضافة حقل
+        </Button>
+      </div>
+
+      <div className="space-y-2">
+        <SectionLabel>خيارات الموضوع</SectionLabel>
+        {subjects.map((s, i) => (
+          <RepeaterItem key={i} onDelete={() => onChange({ ...data, subjects: subjects.filter((_, j) => j !== i) })}>
+            <Input value={s} onChange={(e) => onChange({ ...data, subjects: subjects.map((x, j) => (j === i ? e.target.value : x)) })} placeholder="خيار (استفسار…)" className="h-8 text-sm pr-5" />
+          </RepeaterItem>
+        ))}
+        <Button type="button" variant="outline" size="sm" onClick={() => onChange({ ...data, subjects: [...subjects, ''] })}>
+          <Plus className="size-3.5" /> إضافة خيار
+        </Button>
+      </div>
+
+      <FieldGroup label="نص زر الإرسال">
+        <Input value={(data.submitLabel as string) ?? ''} onChange={(e) => onChange({ ...data, submitLabel: e.target.value })} className="h-9 text-sm" />
+      </FieldGroup>
+    </div>
+  )
+}
+
+// CONTACT MAP  (_renderer: "contactMap")
+function ContactMapEditor({ data, onChange }: CustomEditorProps) {
+  return (
+    <div className="space-y-3">
+      <FieldGroup label="العنوان الفرعي (Eyebrow)">
+        <Input value={(data.eyebrow as string) ?? ''} onChange={(e) => onChange({ ...data, eyebrow: e.target.value })} className="h-9 text-sm" />
+      </FieldGroup>
+      <FieldGroup label="العنوان الرئيسي">
+        <Input value={(data.heading as string) ?? ''} onChange={(e) => onChange({ ...data, heading: e.target.value })} className="h-9 text-sm" />
+      </FieldGroup>
+      <FieldGroup label="رابط خريطة جوجل (iframe src)">
+        <Input value={(data.mapUrl as string) ?? ''} onChange={(e) => onChange({ ...data, mapUrl: e.target.value })} placeholder="https://www.google.com/maps?q=…" className="h-9 text-sm" />
+      </FieldGroup>
+    </div>
+  )
+}
+
+// CONTACT FAQ  (_renderer: "contactFaq")
+function ContactFaqEditor({ data, onChange }: CustomEditorProps) {
+  const items = (data.items ?? []) as Array<{ question: string; answer: string }>
+
+  return (
+    <div className="space-y-3">
+      <FieldGroup label="العنوان الفرعي (Eyebrow)">
+        <Input value={(data.eyebrow as string) ?? ''} onChange={(e) => onChange({ ...data, eyebrow: e.target.value })} className="h-9 text-sm" />
+      </FieldGroup>
+      <FieldGroup label="العنوان الرئيسي">
+        <Input value={(data.heading as string) ?? ''} onChange={(e) => onChange({ ...data, heading: e.target.value })} className="h-9 text-sm" />
+      </FieldGroup>
+      <FieldGroup label="الوصف">
+        <Input value={(data.description as string) ?? ''} onChange={(e) => onChange({ ...data, description: e.target.value })} className="h-9 text-sm" />
+      </FieldGroup>
+
+      <div className="space-y-2">
+        <SectionLabel>الأسئلة</SectionLabel>
+        {items.map((item, i) => (
+          <RepeaterItem key={i} onDelete={() => onChange({ ...data, items: items.filter((_, j) => j !== i) })}>
+            <div className="space-y-2 pr-5">
+              <Input value={item.question} onChange={(e) => onChange({ ...data, items: items.map((x, j) => (j === i ? { ...x, question: e.target.value } : x)) })} placeholder="السؤال" className="h-8 text-sm font-medium" />
+              <Textarea value={item.answer} onChange={(e) => onChange({ ...data, items: items.map((x, j) => (j === i ? { ...x, answer: e.target.value } : x)) })} placeholder="الجواب" className="min-h-16 resize-y text-sm" />
+            </div>
+          </RepeaterItem>
+        ))}
+        <Button type="button" variant="outline" size="sm" onClick={() => onChange({ ...data, items: [...items, { question: '', answer: '' }] })}>
+          <Plus className="size-3.5" /> إضافة سؤال
+        </Button>
+      </div>
+    </div>
+  )
+}
+
+// CONTACT FINAL CTA  (_renderer: "contactCta")
+function ContactCtaEditor({ data, onChange }: CustomEditorProps) {
+  const button = (data.button ?? { label: '', url: '#' }) as { label: string; url: string }
+
+  return (
+    <div className="space-y-3">
+      <FieldGroup label="العنوان الرئيسي">
+        <Input value={(data.heading as string) ?? ''} onChange={(e) => onChange({ ...data, heading: e.target.value })} className="h-9 text-sm" />
+      </FieldGroup>
+      <FieldGroup label="الوصف">
+        <Input value={(data.description as string) ?? ''} onChange={(e) => onChange({ ...data, description: e.target.value })} className="h-9 text-sm" />
+      </FieldGroup>
+      <SectionLabel>الزر</SectionLabel>
+      <div className="flex gap-2">
+        <Input value={button.label} onChange={(e) => onChange({ ...data, button: { ...button, label: e.target.value } })} placeholder="نص الزر" className="h-9 flex-1 text-sm" />
+        <Input value={button.url} onChange={(e) => onChange({ ...data, button: { ...button, url: e.target.value } })} placeholder="الرابط" className="h-9 flex-1 text-sm" />
+      </div>
+    </div>
+  )
+}
+
+// =====================================================================
 // RENDERER REGISTRY
 // =====================================================================
 
@@ -815,6 +1830,34 @@ const RENDERER_EDITORS: Record<string, CustomSectionEditorComponent> = {
   values: ValuesEditor,
   centralOffice: CentralOfficeEditor,
   expansionMap: ExpansionMapEditor,
+  magFeatured: MagFeaturedEditor,
+  magLatest: MagLatestEditor,
+  magCats: MagCatsEditor,
+  magNewsletter: MagNewsletterEditor,
+  magCta: MagCtaEditor,
+  docGrid: DocGridEditor,
+  docDownload: DocDownloadEditor,
+  docRequirements: DocRequirementsEditor,
+  docFaq: DocFaqEditor,
+  docCta: DocCtaEditor,
+  nwFeatured: NwFeaturedEditor,
+  nwGrid: NwGridEditor,
+  nwCategories: NwCategoriesEditor,
+  nwSearch: NwSearchEditor,
+  nwNewsletter: NwNewsletterEditor,
+  nwCta: NwCtaEditor,
+  arStats: ArStatsEditor,
+  arCategories: ArCategoriesEditor,
+  arSearch: ArSearchEditor,
+  arLibrary: ArLibraryEditor,
+  arDownloads: ArDownloadsEditor,
+  arFaq: ArFaqEditor,
+  arCta: ArCtaEditor,
+  contactCards: ContactCardsEditor,
+  contactForm: ContactFormEditor,
+  contactMap: ContactMapEditor,
+  contactFaq: ContactFaqEditor,
+  contactCta: ContactCtaEditor,
 }
 
 export function getCustomSectionEditor(

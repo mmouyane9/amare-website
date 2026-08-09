@@ -69,6 +69,9 @@ function assignIcon(page: DiscoveredPage): string {
   if (name.includes('استمار') || name.includes('application')) return 'clipboard-list'
   if (name.includes('التزا') || name.includes('commitment')) return 'file-check'
   if (name.includes('اتصل') || name.includes('contact') || name.includes('تواصل')) return 'mail'
+  if (name.includes('مجلة') || name.includes('magazine')) return 'newspaper'
+  if (name.includes('أخبار') || name.includes('news')) return 'newspaper'
+  if (name.includes('أرشيف') || name.includes('archive')) return 'archive'
   return 'file-text'
 }
 
@@ -143,6 +146,34 @@ const MANIFEST: DiscoveredPage[] = [
     order: 9,
   },
   {
+    id: 'services-sos-amare',
+    name: 'SOS AMARE',
+    path: '/services/sos-amare',
+    section: 'خدماتنا',
+    order: 12,
+  },
+  {
+    id: 'services-magazine',
+    name: 'مجلة AMARE',
+    path: '/amare-magazine',
+    section: 'خدماتنا',
+    order: 13,
+  },
+  {
+    id: 'news',
+    name: 'الأخبار',
+    path: '/news',
+    section: 'الأخبار',
+    order: 14,
+  },
+  {
+    id: 'archive',
+    name: 'الأرشيف',
+    path: '/archive',
+    section: 'الأرشيف',
+    order: 15,
+  },
+  {
     id: 'rabat-sale-kenitra',
     name: 'جهة الرباط - سلا - القنيطرة',
     path: '/regional-branches/rabat-sale-kenitra.html',
@@ -173,7 +204,7 @@ const MANIFEST: DiscoveredPage[] = [
   {
     id: 'documents',
     name: 'وثائق الانخراط',
-    path: '/Join%20us/documents.html',
+    path: '/documents',
     section: 'انخرط معنا',
     order: 11,
   },

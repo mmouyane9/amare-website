@@ -807,15 +807,19 @@
 </button>
 
 <script src="../supabase/navbar-loader.js"></script>
+<script src="../supabase/archive-content.js"></script>
 <script src="../script.js"></script>
 <script>
 /* ==========================================================================
-   Archive Data Store — Ready for Supabase integration
+   Archive Data Store — loaded from the CMS (supabase/archive-content.js),
+   which feeds live content through window.ArchivePage.setData(). The arrays
+   below are the DEFAULT fallback shown until CMS data arrives (or when the
+   CMS has not been configured for this page yet).
    ========================================================================== */
 (function () {
   'use strict';
 
-  var archiveData = [
+  var DEFAULT_ARCHIVE = [
     { id: 1, category: 'activities', catLabel: 'الأنشطة السابقة', catClass: 'ar-cat-activities', thumbClass: 'ar-thumb-doc', title: 'تقرير الخرجة الاستكشافية إلى جبال الأطلس 2025', desc: 'تقرير مفصل يوثق فعاليات الخرجة الاستكشافية التي نظمتها الجمعية إلى جبال الأطلس الكبير.', date: '2025-09-15' },
     { id: 2, category: 'reports', catLabel: 'التقارير السنوية', catClass: 'ar-cat-reports', thumbClass: 'ar-thumb-report', title: 'التقرير السنوي للجمعية 2025', desc: 'التقرير السنوي الشامل لأنشطة وإنجازات الجمعية خلال سنة 2025.', date: '2025-12-31' },
     { id: 3, category: 'images', catLabel: 'الصور', catClass: 'ar-cat-images', thumbClass: 'ar-thumb-image', title: 'ألبوم صور حملة تنظيف شاطئ أكادير', desc: 'مجموعة صور توثق فعاليات حملة تنظيف شاطئ أكادير بمشاركة 200 متطوع.', date: '2025-07-10' },
@@ -834,7 +838,7 @@
     { id: 16, category: 'other', catLabel: 'ملفات متنوعة', catClass: 'ar-cat-other', thumbClass: 'ar-thumb-doc', title: 'أرشيف اتفاقيات الشراكة', desc: 'مجموعة اتفاقيات الشراكة الموقعة بين الجمعية ومختلف الشركاء.', date: '2024-06-01' },
   ];
 
-  var categories = [
+  var DEFAULT_CATEGORIES = [
     { id: 'activities', label: 'الأنشطة السابقة', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>', count: null },
     { id: 'reports', label: 'التقارير السنوية', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>', count: null },
     { id: 'images', label: 'الصور', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>', count: null },
@@ -845,9 +849,21 @@
     { id: 'other', label: 'ملفات متنوعة', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>', count: null },
   ];
 
-  categories.forEach(function (cat) {
-    cat.count = archiveData.filter(function (n) { return n.category === cat.id; }).length;
-  });
+  /* -- Working data (CMS loader may replace via window.ArchivePage.setData) -- */
+  var archiveData = DEFAULT_ARCHIVE;
+  var categories = DEFAULT_CATEGORIES.slice();
+
+  function recalcCounts() {
+    categories.forEach(function (cat) {
+      cat.count = archiveData.filter(function (n) { return n.category === cat.id; }).length;
+    });
+  }
+  recalcCounts();
+
+  function esc(str) {
+    if (!str) return '';
+    return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
 
   /* -- Icons -- */
   var thumbIcons = {
@@ -897,20 +913,21 @@
     if (!grid) return;
     var html = '';
     (articles || archiveData).forEach(function (a) {
+      var desc = a.desc ? String(a.desc) : '';
       html +=
         '<div class="ar-card ar-reveal">' +
-          '<div class="ar-card-thumb ' + a.thumbClass + '">' +
+          '<div class="ar-card-thumb ' + esc(a.thumbClass || 'ar-thumb-doc') + '">' +
             (thumbIcons[a.thumbClass] || thumbIcons['ar-thumb-doc']) +
           '</div>' +
           '<div class="ar-card-body">' +
-            '<span class="ar-card-category ' + a.catClass + '">' + a.catLabel + '</span>' +
-            '<h3>' + a.title + '</h3>' +
-            '<p>' + a.desc.substring(0, 80) + '...</p>' +
+            '<span class="ar-card-category ' + esc(a.catClass) + '">' + esc(a.catLabel) + '</span>' +
+            '<h3>' + esc(a.title) + '</h3>' +
+            '<p>' + esc(desc.substring(0, 80)) + '...</p>' +
             '<div class="ar-card-meta">' +
               '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>' +
-              a.date +
+              esc(a.date) +
             '</div>' +
-            '<a href="#" class="ar-card-btn">عرض التفاصيل <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></a>' +
+            '<a href="' + esc(a.linkUrl || '#') + '" class="ar-card-btn">' + esc(a.linkLabel || 'عرض التفاصيل') + ' <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></a>' +
           '</div>' +
         '</div>';
     });
@@ -943,7 +960,7 @@
   /* ==========================================================================
      4. Downloads
      ========================================================================== */
-  var downloads = [
+  var DEFAULT_DOWNLOADS = [
     { title: 'القانون الأساسي للجمعية', size: '2.4 MB', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>' },
     { title: 'التقرير السنوي 2025', size: '5.1 MB', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>' },
     { title: 'نموذج طلب الانخراط', size: '1.2 MB', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12h6M12 9v6"/><path d="M2 12h2M20 12h2M12 2v2M12 20v2"/></svg>' },
@@ -952,6 +969,8 @@
     { title: 'محضر الجمع العام 2025', size: '1.8 MB', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>' },
   ];
 
+  var downloads = DEFAULT_DOWNLOADS;
+
   function renderDownloads() {
     var container = document.getElementById('downloadGrid');
     if (!container) return;
@@ -959,9 +978,9 @@
     downloads.forEach(function (d) {
       html +=
         '<div class="ar-dl-item ar-reveal">' +
-          '<div class="ar-dl-icon">' + d.icon + '</div>' +
-          '<div class="ar-dl-info"><h4>' + d.title + '</h4><span>PDF • ' + d.size + '</span></div>' +
-          '<a href="#" class="ar-dl-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> تحميل</a>' +
+          '<div class="ar-dl-icon">' + (d.icon || '') + '</div>' +
+          '<div class="ar-dl-info"><h4>' + esc(d.title) + '</h4><span>PDF • ' + esc(d.size) + '</span></div>' +
+          '<a href="' + esc(d.fileUrl || '#') + '" class="ar-dl-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> ' + esc(d.linkLabel || 'تحميل') + '</a>' +
         '</div>';
     });
     container.innerHTML = html;
@@ -1005,6 +1024,41 @@
   renderArchiveGrid();
   renderDownloads();
   observeReveal();
+
+  /* ==========================================================================
+     CMS integration — supabase/archive-content.js feeds live content through
+     this API. Defaults above stay visible until CMS data arrives.
+     ========================================================================== */
+  window.ArchivePage = {
+    setData: function (archive, cats, dls) {
+      if (archive && archive.length) {
+        archiveData = archive.map(function (a) {
+          if (!a.catClass) a.catClass = 'ar-cat-' + (a.category || '');
+          return a;
+        });
+        recalcCounts();
+      }
+      if (cats && cats.length) {
+        categories = cats.map(function (c) {
+          var def = null;
+          for (var i = 0; i < DEFAULT_CATEGORIES.length; i++) {
+            if (DEFAULT_CATEGORIES[i].id === c.id) { def = DEFAULT_CATEGORIES[i]; break; }
+          }
+          return { id: c.id, label: c.label, icon: def ? def.icon : '', count: null };
+        });
+        recalcCounts();
+      }
+      if (dls && dls.length) {
+        downloads = dls;
+      }
+    },
+    render: function () {
+      renderCategories('');
+      renderArchiveGrid();
+      renderDownloads();
+      observeReveal();
+    },
+  };
 
 })();
 </script>

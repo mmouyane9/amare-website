@@ -8,7 +8,7 @@ export interface TreeNode {
 
 export const TREE_DATA: TreeNode[] = [
   { id: 'home', label: 'الرئيسية', type: 'page', pageKey: 'home' },
-  { id: 'who-we-are', label: 'من نحن', type: 'page', pageKey: 'who-we-are' },
+  { id: 'who-we-are', label: 'من نحن', type: 'page', pageKey: 'about' },
   {
     id: 'our-activities',
     label: 'أنشطتنا',

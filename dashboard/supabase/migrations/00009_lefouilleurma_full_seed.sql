@@ -22,10 +22,10 @@ BEGIN
 
   -- 2. ABOUT (update existing sort_order=2)
   UPDATE page_sections SET section_type = 'custom',
-    content = '{"_renderer":"partnerAbout","eyebrow":"عن LeFouilleurma","heading":"شريككم الموثوق في مجال التنقيب والاستكشاف","paragraphs":["LeFouilleurma هي شركة مغربية متخصصة في بيع وشراء أجهزة الكشف عن المعادن والكنوز. تقدم الشركة مجموعة واسعة من الأجهزة المتطورة لتلبية احتياجات الهواة والمحترفين على حد سواء.","نعمل مع الجمعية المغربية لهواة البحث والاستكشاف في إطار شراكة وطنية تهدف إلى توفير أحدث أجهزة الكشف والتنقيب لأعضاء الجمعية بأسعار تفضيلية."]}'::jsonb,
+    content = '{"_renderer":"partnerAbout","eyebrow":"عن LeFouilleurma","heading":"شريككم الموثوق في مجال التنقيب والاستكشاف","image":"","paragraphs":["LeFouilleurma هي شركة مغربية متخصصة في بيع وشراء أجهزة الكشف عن المعادن والكنوز. تقدم الشركة مجموعة واسعة من الأجهزة المتطورة لتلبية احتياجات الهواة والمحترفين على حد سواء.","نعمل مع الجمعية المغربية لهواة البحث والاستكشاف في إطار شراكة وطنية تهدف إلى توفير أحدث أجهزة الكشف والتنقيب لأعضاء الجمعية بأسعار تفضيلية."]}'::jsonb,
     settings='{}'::jsonb, styles='{}'::jsonb
     WHERE page_id = v_pid AND sort_order = 2;
-  IF NOT FOUND THEN INSERT INTO page_sections (id, page_id, section_type, visible, sort_order, content, settings, styles) VALUES (gen_random_uuid(), v_pid, 'custom', TRUE, 2, '{"_renderer":"partnerAbout","eyebrow":"عن LeFouilleurma","heading":"شريككم الموثوق في مجال التنقيب والاستكشاف","paragraphs":["LeFouilleurma هي شركة مغربية متخصصة في بيع وشراء أجهزة الكشف عن المعادن والكنوز. تقدم الشركة مجموعة واسعة من الأجهزة المتطورة لتلبية احتياجات الهواة والمحترفين على حد سواء.","نعمل مع الجمعية المغربية لهواة البحث والاستكشاف في إطار شراكة وطنية تهدف إلى توفير أحدث أجهزة الكشف والتنقيب لأعضاء الجمعية بأسعار تفضيلية."]}'::jsonb, '{}'::jsonb, '{}'::jsonb); END IF;
+  IF NOT FOUND THEN INSERT INTO page_sections (id, page_id, section_type, visible, sort_order, content, settings, styles) VALUES (gen_random_uuid(), v_pid, 'custom', TRUE, 2, '{"_renderer":"partnerAbout","eyebrow":"عن LeFouilleurma","heading":"شريككم الموثوق في مجال التنقيب والاستكشاف","image":"","paragraphs":["LeFouilleurma هي شركة مغربية متخصصة في بيع وشراء أجهزة الكشف عن المعادن والكنوز. تقدم الشركة مجموعة واسعة من الأجهزة المتطورة لتلبية احتياجات الهواة والمحترفين على حد سواء.","نعمل مع الجمعية المغربية لهواة البحث والاستكشاف في إطار شراكة وطنية تهدف إلى توفير أحدث أجهزة الكشف والتنقيب لأعضاء الجمعية بأسعار تفضيلية."]}'::jsonb, '{}'::jsonb, '{}'::jsonb); END IF;
 
   -- 3. SERVICES (update existing sort_order=3 OR insert)
   UPDATE page_sections SET section_type = 'custom',
@@ -45,7 +45,7 @@ BEGIN
   IF NOT EXISTS (SELECT 1 FROM page_sections WHERE page_id = v_pid AND sort_order = 5) THEN
     INSERT INTO page_sections (id, page_id, section_type, section_key, visible, sort_order, content, settings, styles)
     VALUES (gen_random_uuid(), v_pid, 'custom', NULL, TRUE, 5,
-      '{"_renderer":"partnerGallery","eyebrow":"معرض الصور","heading":"صور من أعمالنا","description":"جانب من أنشطتنا ومشاريعنا المشتركة."}'::jsonb, '{}'::jsonb, '{}'::jsonb);
+      '{"_renderer":"partnerGallery","eyebrow":"معرض الصور","heading":"صور من أعمالنا","description":"جانب من أنشطتنا ومشاريعنا المشتركة.","images":[{"id":"gimg-0","url":"","alt":""},{"id":"gimg-1","url":"","alt":""},{"id":"gimg-2","url":"","alt":""},{"id":"gimg-3","url":"","alt":""},{"id":"gimg-4","url":"","alt":""},{"id":"gimg-5","url":"","alt":""}]}'::jsonb, '{}'::jsonb, '{}'::jsonb);
   END IF;
 
   -- 6. CONTACT (update existing sort_order=6 OR insert)

@@ -13,6 +13,7 @@ export interface PartnerContent {
   aboutEyebrow: string
   aboutHeading: string
   aboutParagraphs: string[]
+  aboutImage: string
   /* Services */
   servicesEyebrow: string
   servicesHeading: string
@@ -27,6 +28,7 @@ export interface PartnerContent {
   galleryEyebrow: string
   galleryHeading: string
   galleryDescription: string
+  galleryImages: string[]
   /* Contact info */
   contactHeading: string
   contactDescription: string
@@ -70,6 +72,7 @@ function buildPartnerSections(p: PartnerContent, order: number): PageSection[] {
         eyebrow: p.aboutEyebrow,
         heading: p.aboutHeading,
         paragraphs: p.aboutParagraphs,
+        image: p.aboutImage,
       },
     },
     {
@@ -108,6 +111,7 @@ function buildPartnerSections(p: PartnerContent, order: number): PageSection[] {
         eyebrow: p.galleryEyebrow,
         heading: p.galleryHeading,
         description: p.galleryDescription,
+        images: p.galleryImages.map((url, i) => ({ id: `gimg-${i}`, url, alt: '' })),
       },
     },
     {
@@ -167,6 +171,7 @@ export const LE_FOUILLEURMA: PartnerContent = {
     'LeFouilleurma هي شركة مغربية متخصصة في بيع وشراء أجهزة الكشف عن المعادن والكنوز. تقدم الشركة مجموعة واسعة من الأجهزة المتطورة لتلبية احتياجات الهواة والمحترفين على حد سواء.',
     'نعمل مع الجمعية المغربية لهواة البحث والاستكشاف في إطار شراكة وطنية تهدف إلى توفير أحدث أجهزة الكشف والتنقيب لأعضاء الجمعية بأسعار تفضيلية.',
   ],
+  aboutImage: '',
   servicesEyebrow: 'خدماتنا',
   servicesHeading: 'ماذا نقدم؟',
   servicesDescription: 'نقدم مجموعة متكاملة من الخدمات المتخصصة في مجال التنقيب والاستكشاف.',
@@ -188,6 +193,7 @@ export const LE_FOUILLEURMA: PartnerContent = {
   galleryEyebrow: 'معرض الصور',
   galleryHeading: 'صور من أعمالنا',
   galleryDescription: 'جانب من أنشطتنا ومشاريعنا المشتركة.',
+  galleryImages: ['', '', '', '', '', ''],
   contactHeading: 'تواصل معنا',
   contactDescription: 'نحن هنا للإجابة على استفساراتكم.',
   email: 'contact@lefouilleurma.ma',

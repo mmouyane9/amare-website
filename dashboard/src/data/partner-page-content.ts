@@ -269,7 +269,7 @@ const PARTNER_SLUGS: Record<string, string> = {
 
 const SLUG_TO_NAME: Record<string, string> = {
   'lefouilleurma': 'LeFouilleurma',
-  'senotec': 'SENOTEC',
+  'scnotce': 'SENOTEC',
   'astromet': 'ASTROMET',
   'detection-centre': 'AssociationDetectionCentre',
   'ancpp': 'ANCPP',

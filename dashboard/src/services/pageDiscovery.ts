@@ -108,9 +108,9 @@ const MANIFEST: DiscoveredPage[] = [
     order: 4,
   },
   {
-    id: 'partners-senotec',
+    id: 'partners-scnotce',
     name: 'SENOTEC',
-    path: '/partners/senotec',
+    path: '/partners/scnotce',
     section: 'شركاؤنا',
     order: 5,
   },

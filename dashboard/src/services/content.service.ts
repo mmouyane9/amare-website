@@ -3,8 +3,7 @@ import { getCurrentUser } from '@/services/auth.service'
 import { HOME_PAGE_SECTIONS } from '@/data/home-page-content'
 import { ABOUT_PAGE_SECTIONS } from '@/data/about-page-content'
 import { ACTIVITIES_PAGE_SECTIONS } from '@/data/activities-page-content'
-import { getPartnerSections, getPartnerSlug } from '@/data/partner-page-content'
-import { LE_FOUILLEURMA } from '@/data/partner-page-content'
+import { getPartnerSections, getPartnerSlug, LE_FOUILLEURMA, SENOTEC } from '@/data/partner-page-content'
 import type {
   PageRow,
   PageSection,
@@ -223,7 +222,7 @@ export async function seedPartnersPages(): Promise<void> {
   const userId = await getUserId()
 
   // Currently only LeFouilleurma has the full 8-section template
-  const partners = [LE_FOUILLEURMA]
+  const partners = [LE_FOUILLEURMA, SENOTEC]
 
   for (const partner of partners) {
     const slug = getPartnerSlug(partner.name)
@@ -260,11 +259,14 @@ export async function seedOnePartnerPage(partnerName: string): Promise<PageRow> 
   const slug = getPartnerSlug(partnerName)
   const sections = getPartnerSections(partnerName)
 
+  // Look up the actual partner data from the name
+  const partner = [LE_FOUILLEURMA, SENOTEC].find(p => p.name === partnerName) || LE_FOUILLEURMA
+
   const { data, error } = await supabase
     .from(PAGES_TABLE)
     .upsert(
       {
-        title: LE_FOUILLEURMA.name,
+        title: partner.name,
         slug,
         status: 'published',
         created_by: userId ?? null,

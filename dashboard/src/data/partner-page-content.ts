@@ -209,6 +209,55 @@ export const LE_FOUILLEURMA: PartnerContent = {
   ],
 }
 
+export const SENOTEC: PartnerContent = {
+  name: 'SENOTEC',
+  badge: 'شريك دولي',
+  subtitle: 'شريك دولي للجمعية المغربية لهواة البحث والاستكشاف، متخصص في الحلول التقنية والأمنية المتطورة على المستوى الدولي.',
+  websiteUrl: 'https://www.senotec.com',
+  aboutEyebrow: 'عن SENOTEC',
+  aboutHeading: 'شريككم الموثوق في مجال التنقيب والاستكشاف',
+  aboutImage: '',
+  aboutParagraphs: [
+    'SENOTEC هي شركة دولية متخصصة في تقديم الحلول التقنية والأمنية المتطورة. تمتلك الشركة خبرة واسعة في مجال أنظمة المراقبة والحماية الإلكترونية للمؤسسات والمنشآت.',
+    'نعمل مع الجمعية المغربية لهواة البحث والاستكشاف في إطار شراكة دولية تهدف إلى تعزيز الأمن والسلامة في الأنشطة الميدانية والاستكشافية.',
+  ],
+  servicesEyebrow: 'خدماتنا',
+  servicesHeading: 'ماذا نقدم؟',
+  servicesDescription: 'نقدم مجموعة متكاملة من الخدمات المتخصصة في مجال التنقيب والاستكشاف.',
+  services: [
+    { title: 'التنقيب المعدني', description: 'دراسات جيولوجية متقدمة للتنقيب عن المعادن والثروات الطبيعية في مختلف مناطق المغرب.' },
+    { title: 'الدراسات الجيولوجية', description: 'تحليل وتوثيق التكوينات الجيولوجية وتقديم استشارات متخصصة للمشاريع الاستكشافية.' },
+    { title: 'رسم الخرائط', description: 'تصميم وإنتاج خرائط جيولوجية وطبوغرافية دقيقة باستخدام أحدث التقنيات الرقمية.' },
+    { title: 'التحاليل المخبرية', description: 'تحاليل متطورة للعينات المعدنية والصخرية باستخدام أحدث الأجهزة والتقنيات المخبرية.' },
+  ],
+  whyEyebrow: 'لماذا الشراكة معنا؟',
+  whyHeading: 'مميزات شراكتنا',
+  whyDescription: 'نعمل جنبًا إلى جنب مع شركائنا لتحقيق النجاح المشترك.',
+  whyCards: [
+    { title: 'خبرة مهنية', description: 'نمتلك خبرة تمتد لسنوات في مجال التنقيب والاستكشاف المعدني بالمغرب.' },
+    { title: 'شريك موثوق', description: 'نلتزم بأعلى معايير الجودة والمهنية في جميع مشاريعنا وخدماتنا.' },
+    { title: 'خدمات عالية الجودة', description: 'نقدم خدمات متكاملة تلبي احتياجات شركائنا بأعلى مستوى من الدقة والكفاءة.' },
+    { title: 'تعاون وطني ودولي', description: 'نعمل في إطار تعاون وطني ودولي لتعزيز البحث والاستكشاف المعدني.' },
+  ],
+  galleryEyebrow: 'معرض الصور',
+  galleryHeading: 'صور من أعمالنا',
+  galleryDescription: 'جانب من أنشطتنا ومشاريعنا المشتركة.',
+  galleryImages: ['', '', '', '', '', ''],
+  contactHeading: 'تواصل معنا',
+  contactDescription: 'نحن هنا للإجابة على استفساراتكم.',
+  email: 'contact@senotec.com',
+  phone: '+212 522 000 000',
+  website: 'www.senotec.com',
+  address: 'شارع الحسن الثاني، الرباط، المغرب',
+  formHeading: 'تواصل مع SENOTEC',
+  formDescription: 'أرسل لنا استفسارك وسنرد عليك في أقرب وقت.',
+  ctaHeading: 'هل أنت مهتم بالعمل مع هذا الشريك؟',
+  ctaButtons: [
+    { label: 'زيارة الموقع الإلكتروني', url: 'https://www.senotec.com' },
+    { label: 'تواصل مع الشريك', url: '#prForm' },
+  ],
+}
+
 const PARTNER_SLUGS: Record<string, string> = {
   'LeFouilleurma': '/partners/lefouilleurma',
   'SENOTEC': '/partners/senotec',
@@ -227,10 +276,16 @@ const SLUG_TO_NAME: Record<string, string> = {
   'omsds': 'OMSDS',
 }
 
+const NAME_TO_PARTNER: Record<string, PartnerContent> = {
+  'LeFouilleurma': LE_FOUILLEURMA,
+  'SENOTEC': SENOTEC,
+}
+
 export function getPartnerSections(name: string): PageSection[] {
+  const partner = NAME_TO_PARTNER[name] || LE_FOUILLEURMA
   const idx = Object.keys(SLUG_TO_NAME).indexOf(Object.keys(SLUG_TO_NAME).find(k => SLUG_TO_NAME[k] === name) || '')
   const order = idx >= 0 ? idx * 100 + 1 : 1
-  return buildPartnerSections(LE_FOUILLEURMA, order)
+  return buildPartnerSections(partner, order)
 }
 
 export function getPartnerSlug(name: string): string {

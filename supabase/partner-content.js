@@ -18,7 +18,7 @@
     var path = window.location.pathname;
     var match = path.match(/\/Our[^/]*\/([^.]+)/i) || path.match(/\/partners\/([^/.]+)/i);
     var raw = match ? match[1] : (path.split('/').pop() || '').replace('.html', '');
-    var MAP = { 'senotec': '/partners/scnotce' };
+    var MAP = { 'senotec': '/partners/scnotce', 'association-detection-centre': '/partners/detection-centre' };
     if (MAP[raw]) return MAP[raw];
     return '/partners/' + raw;
   }

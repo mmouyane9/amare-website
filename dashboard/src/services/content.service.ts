@@ -3,6 +3,7 @@ import { getCurrentUser } from '@/services/auth.service'
 import { HOME_PAGE_SECTIONS } from '@/data/home-page-content'
 import { ABOUT_PAGE_SECTIONS } from '@/data/about-page-content'
 import { ACTIVITIES_PAGE_SECTIONS } from '@/data/activities-page-content'
+import { getPartnerSections, getPartnerSlug, PARTNERS } from '@/data/partner-page-content'
 import type {
   PageRow,
   PageSection,
@@ -213,6 +214,66 @@ export async function seedActivitiesPage(): Promise<PageRow> {
   const page = parsePage(data)
 
   await saveSections(page.id, ACTIVITIES_PAGE_SECTIONS as unknown as PageSection[])
+
+  return page
+}
+
+export async function seedPartnersPages(): Promise<void> {
+  const userId = await getUserId()
+
+  for (const partner of PARTNERS) {
+    const slug = getPartnerSlug(partner.name)
+    const sections = getPartnerSections(partner.name)
+
+    const { data, error } = await supabase
+      .from(PAGES_TABLE)
+      .upsert(
+        {
+          title: partner.name,
+          slug,
+          status: 'published',
+          created_by: userId ?? null,
+          updated_by: userId ?? null,
+        },
+        { onConflict: 'slug' },
+      )
+      .select()
+      .single()
+
+    if (error) {
+      console.error('[CMS] seedPartnersPages error for', partner.name, error)
+      continue
+    }
+
+    const page = parsePage(data)
+    await saveSections(page.id, sections as unknown as PageSection[])
+    console.log('[CMS] Seeded partner page:', partner.name, slug)
+  }
+}
+
+export async function seedOnePartnerPage(partnerName: string): Promise<PageRow> {
+  const userId = await getUserId()
+  const slug = getPartnerSlug(partnerName)
+  const sections = getPartnerSections(partnerName)
+
+  const { data, error } = await supabase
+    .from(PAGES_TABLE)
+    .upsert(
+      {
+        title: partnerName,
+        slug,
+        status: 'published',
+        created_by: userId ?? null,
+        updated_by: userId ?? null,
+      },
+      { onConflict: 'slug' },
+    )
+    .select()
+    .single()
+
+  if (error) throw new Error(error.message)
+  const page = parsePage(data)
+  await saveSections(page.id, sections as unknown as PageSection[])
 
   return page
 }

@@ -42,7 +42,9 @@ import {
   reorderSections,
   seedAboutPage,
   seedActivitiesPage,
+  seedOnePartnerPage,
 } from '@/services/content.service'
+import { getPartnerNameFromKey } from '@/data/partner-page-content'
 import type { PageRow, PageSection, SectionType } from '@/types/content'
 import { sectionRowToPageSection } from '@/types/content'
 
@@ -199,6 +201,12 @@ export default function ContentEditorPage() {
           const seeded = await seedActivitiesPage()
           sectionRows = await getSections(seeded.id)
           console.log('[CMS] Seeded activities page sections:', sectionRows.length)
+        } else if (pageKey.startsWith('partners-')) {
+          const partnerName = getPartnerNameFromKey(pageKey.replace('partners-', ''))
+          console.log('[CMS] Seeding partner page:', partnerName)
+          const seeded = await seedOnePartnerPage(partnerName)
+          sectionRows = await getSections(seeded.id)
+          console.log('[CMS] Seeded partner page sections:', sectionRows.length)
         } else {
           console.warn(
             '[CMS] Zero sections returned for page. Verify RLS, page status, and section visibility.',

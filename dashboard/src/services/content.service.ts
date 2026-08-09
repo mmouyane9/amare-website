@@ -3,7 +3,8 @@ import { getCurrentUser } from '@/services/auth.service'
 import { HOME_PAGE_SECTIONS } from '@/data/home-page-content'
 import { ABOUT_PAGE_SECTIONS } from '@/data/about-page-content'
 import { ACTIVITIES_PAGE_SECTIONS } from '@/data/activities-page-content'
-import { getPartnerSections, getPartnerSlug, PARTNERS } from '@/data/partner-page-content'
+import { getPartnerSections, getPartnerSlug } from '@/data/partner-page-content'
+import { LE_FOUILLEURMA } from '@/data/partner-page-content'
 import type {
   PageRow,
   PageSection,
@@ -221,7 +222,10 @@ export async function seedActivitiesPage(): Promise<PageRow> {
 export async function seedPartnersPages(): Promise<void> {
   const userId = await getUserId()
 
-  for (const partner of PARTNERS) {
+  // Currently only LeFouilleurma has the full 8-section template
+  const partners = [LE_FOUILLEURMA]
+
+  for (const partner of partners) {
     const slug = getPartnerSlug(partner.name)
     const sections = getPartnerSections(partner.name)
 
@@ -260,7 +264,7 @@ export async function seedOnePartnerPage(partnerName: string): Promise<PageRow> 
     .from(PAGES_TABLE)
     .upsert(
       {
-        title: partnerName,
+        title: LE_FOUILLEURMA.name,
         slug,
         status: 'published',
         created_by: userId ?? null,

@@ -17,9 +17,10 @@
   function detectSlug() {
     var path = window.location.pathname;
     var match = path.match(/\/Our[^/]*\/([^.]+)/i) || path.match(/\/partners\/([^/.]+)/i);
-    if (match) return '/partners/' + match[1];
-    var file = (path.split('/').pop() || '').replace('.html', '');
-    return '/partners/' + file;
+    var raw = match ? match[1] : (path.split('/').pop() || '').replace('.html', '');
+    var MAP = { 'senotec': '/partners/scnotce' };
+    if (MAP[raw]) return MAP[raw];
+    return '/partners/' + raw;
   }
 
   /* ------------------------------------------------------------------ */

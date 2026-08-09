@@ -41,6 +41,7 @@ import {
   createSection,
   reorderSections,
   seedAboutPage,
+  seedActivitiesPage,
 } from '@/services/content.service'
 import type { PageRow, PageSection, SectionType } from '@/types/content'
 import { sectionRowToPageSection } from '@/types/content'
@@ -193,6 +194,11 @@ export default function ContentEditorPage() {
           const seeded = await seedAboutPage()
           sectionRows = await getSections(seeded.id)
           console.log('[CMS] Seeded about page sections:', sectionRows.length)
+        } else if (pageKey === 'our-activities') {
+          console.log('[CMS] Seeding activities page sections...')
+          const seeded = await seedActivitiesPage()
+          sectionRows = await getSections(seeded.id)
+          console.log('[CMS] Seeded activities page sections:', sectionRows.length)
         } else {
           console.warn(
             '[CMS] Zero sections returned for page. Verify RLS, page status, and section visibility.',

@@ -2,6 +2,7 @@ import { supabase } from '@/lib/supabase'
 import { getCurrentUser } from '@/services/auth.service'
 import { HOME_PAGE_SECTIONS } from '@/data/home-page-content'
 import { ABOUT_PAGE_SECTIONS } from '@/data/about-page-content'
+import { ACTIVITIES_PAGE_SECTIONS } from '@/data/activities-page-content'
 import type {
   PageRow,
   PageSection,
@@ -181,6 +182,37 @@ export async function seedAboutPage(): Promise<PageRow> {
   const page = parsePage(data)
 
   await saveSections(page.id, ABOUT_PAGE_SECTIONS as unknown as PageSection[])
+
+  return page
+}
+
+export async function seedActivitiesPage(): Promise<PageRow> {
+  const userId = await getUserId()
+
+  const { data, error } = await supabase
+    .from(PAGES_TABLE)
+    .upsert(
+      {
+        title: 'أنشطتنا',
+        slug: '/activities',
+        status: 'published',
+        sort_order: 3,
+        seo_title: 'أنشطتنا | الجمعية المغربية لهواة البحث والاستكشاف',
+        seo_description: 'أنشطة الجمعية المغربية لهواة البحث والاستكشاف — خرجات، مسابقات، تكوينات، معارض، لقاءات، وحملات بيئية.',
+        seo_keywords: 'أنشطة, خرجات, مسابقات, تكوينات, معارض, لقاءات, حملات بيئية, استكشاف, جمعية, المغرب',
+        og_image: 'Amare%20files%20/logo.png',
+        created_by: userId ?? null,
+        updated_by: userId ?? null,
+      },
+      { onConflict: 'slug' },
+    )
+    .select()
+    .single()
+
+  if (error) throw new Error(error.message)
+  const page = parsePage(data)
+
+  await saveSections(page.id, ACTIVITIES_PAGE_SECTIONS as unknown as PageSection[])
 
   return page
 }

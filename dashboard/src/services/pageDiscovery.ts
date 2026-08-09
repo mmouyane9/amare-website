@@ -94,6 +94,13 @@ const MANIFEST: DiscoveredPage[] = [
     order: 2,
   },
   {
+    id: 'our-activities',
+    name: 'أنشطتنا',
+    path: '/activities',
+    section: 'أنشطتنا',
+    order: 3,
+  },
+  {
     id: 'rabat-sale-kenitra',
     name: 'جهة الرباط - سلا - القنيطرة',
     path: '/regional-branches/rabat-sale-kenitra.html',

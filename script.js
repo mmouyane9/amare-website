@@ -240,7 +240,6 @@
 
     function refreshDropdownData() {
       for (var k in dropdownData) { delete dropdownData[k]; }
-      var newData = buildDynamicDropdownData;
       // re-run
       var panels = document.querySelectorAll('#megaDropdown .mega-panel');
       for (var i = 0; i < panels.length; i++) {

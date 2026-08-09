@@ -282,6 +282,22 @@
 }
 .nw-cta-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; }
 
+/* ---------- 9. Empty / Error states ---------- */
+.nw-state { text-align: center; padding: 64px 20px; max-width: 560px; margin: 0 auto; }
+.nw-state-icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 72px; height: 72px; margin-bottom: 20px;
+  border-radius: 20px; background: rgba(25,184,242,.08);
+  color: var(--color-primary-dark);
+}
+.nw-state-icon svg { width: 32px; height: 32px; }
+.nw-state-title {
+  font-size: clamp(20px, 2.6vw, 26px); font-weight: 900;
+  color: var(--color-navy); margin-bottom: 10px;
+}
+.nw-state-desc { font-size: 15px; color: var(--color-text-soft); line-height: 1.9; margin-bottom: 24px; }
+.nw-state-error .nw-state-icon { background: rgba(231,76,60,.08); color: #c0392b; }
+
 /* ---------- Category Colors ---------- */
 .cat-activities { background: rgba(25,184,242,.12); color: var(--color-primary-dark); }
 .cat-partnerships { background: rgba(212,175,55,.14); color: #b8960f; }
@@ -581,6 +597,25 @@
       <p class="nw-section-desc">تصفح أحدث أخبار ومقالات الجمعية المغربية لهواة البحث والاستكشاف.</p>
     </div>
     <div class="nw-grid-cards" id="newsGrid"></div>
+
+    <!-- Empty / Error states (shown when Supabase has no published articles / fails) -->
+    <div class="nw-state" id="newsEmpty" hidden>
+      <div class="nw-state-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      </div>
+      <h3 class="nw-state-title">لا توجد أخبار منشورة بعد</h3>
+      <p class="nw-state-desc">ستتوفر أخبار وأنشطة الجمعية هنا بمجرد نشرها. عد قريباً للاطلاع على آخر المستجدات.</p>
+      <a href="../index.html" class="btn btn-primary">العودة إلى الرئيسية</a>
+    </div>
+
+    <div class="nw-state nw-state-error" id="newsError" hidden>
+      <div class="nw-state-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      </div>
+      <h3 class="nw-state-title">تعذر تحميل الأخبار</h3>
+      <p class="nw-state-desc">حدث خطأ ما أثناء جلب الأخبار. يرجى المحاولة مرة أخرى بعد قليل.</p>
+      <button type="button" class="btn btn-primary" id="newsRetryBtn">إعادة المحاولة</button>
+    </div>
   </div>
 </section>
 
@@ -763,9 +798,9 @@
 <script src="../script.js"></script>
 <script>
 /* ==========================================================================
-   News Data Store — loaded from the CMS (supabase/news-content.js), which
-   feeds live content through window.NewsPage.setData(). The arrays below are
-   the hardcoded fallback shown until CMS data arrives.
+   News Data Store — fed live by supabase/news-articles.js (public.news).
+   The store starts empty (loading state); the loader then fills it via
+   window.NewsPage.setData() or shows the empty/error states.
    ========================================================================== */
 (function () {
   'use strict';
@@ -774,21 +809,6 @@
     if (!str) return '';
     return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   }
-
-  var DEFAULT_NEWS = [
-    { id: 1, category: 'activities', catLabel: 'أنشطة', catClass: 'cat-activities', title: 'خرجة استكشافية ناجحة إلى جبال الأطلس الكبير', summary: 'نظمت الجمعية خرجة استكشافية إلى منطقة إمليل بجبال الأطلس الكبير بمشاركة 45 عضواً، تم خلالها استكشاف المناظر الطبيعية والتعرف على التنوع البيولوجي.', author: 'فريق التحرير', date: '2026-08-05', featured: true },
-    { id: 2, category: 'partnerships', catLabel: 'شراكات', catClass: 'cat-partnerships', title: 'توقيع اتفاقية شراكة مع ASTROMET', summary: 'وقعت الجمعية اتفاقية شراكة استراتيجية مع شركة ASTROMET المتخصصة في التنقيب والاستكشاف المعدني بالمغرب.', author: 'لجنة الشراكات', date: '2026-07-28', featured: false },
-    { id: 3, category: 'competitions', catLabel: 'مسابقات', catClass: 'cat-competitions', title: 'إعلان نتائج المسابقة الوطنية للكشف عن المعادن', summary: 'اختتمت الجمعية المسابقة الوطنية للكشف عن المعادن بمشاركة 120 متسابقاً من مختلف جهات المملكة.', author: 'لجنة المسابقات', date: '2026-07-20', featured: false },
-    { id: 4, category: 'outings', catLabel: 'خرجات', catClass: 'cat-outings', title: 'رحلة استكشافية إلى مغارة فريواطو بتازة', summary: 'نظمت الجمعية رحلة استكشافية إلى مغارة فريواطو، إحدى أعمق المغارات في إفريقيا، مع فريق متخصص في علم الكهوف.', author: 'فريق التحرير', date: '2026-07-15', featured: false },
-    { id: 5, category: 'environmental', catLabel: 'حملات بيئية', catClass: 'cat-environmental', title: 'حملة تنظيف شاطئ أكادير تجمع 200 متطوع', summary: 'نجحت الحملة البيئية التي نظمتها الجمعية في جمع أكثر من 2 طن من النفايات بشاطئ أكادير بمشاركة 200 متطوع.', author: 'لجنة البيئة', date: '2026-07-10', featured: false },
-    { id: 6, category: 'exhibitions', catLabel: 'معارض', catClass: 'cat-exhibitions', title: 'المعرض الجهوي للمستكشفين يحقق نجاحاً كبيراً', summary: 'اختتم المعرض الجهوي للمستكشفين الذي نظمته الجمعية بمشاركة 30 عارضاً وعرض لأحدث الاكتشافات والأجهزة.', author: 'فريق التحرير', date: '2026-07-03', featured: false },
-    { id: 7, category: 'association', catLabel: 'الجمعية', catClass: 'cat-association', title: 'انعقاد الجمع العام السنوي للجمعية', summary: 'عقدت الجمعية جمعها العام السنوي بحضور ممثلي الفروع الجهوية، وتمت مناقشة التقريرين الأدبي والمالي وانتخاب المكتب الجديد.', author: 'الأمانة العامة', date: '2026-06-25', featured: false },
-    { id: 8, category: 'announcements', catLabel: 'إعلانات', catClass: 'cat-announcements', title: 'فتح باب الانخراط للموسم الجديد 2026-2027', summary: 'تعلن الجمعية عن فتح باب الانخراط للموسم الجديد، ويمكن للراغبين التسجيل عبر الموقع الإلكتروني أو في المقر.', author: 'لجنة العضوية', date: '2026-06-18', featured: false },
-    { id: 9, category: 'activities', catLabel: 'أنشطة', catClass: 'cat-activities', title: 'دورة تكوينية في الملاحة البرية وقراءة الخرائط', summary: 'نظمت الجمعية دورة تكوينية في الملاحة البرية لفائدة 35 عضواً، تضمنت دروساً نظرية وتطبيقات ميدانية.', author: 'لجنة التكوين', date: '2026-06-10', featured: false },
-    { id: 10, category: 'partnerships', catLabel: 'شراكات', catClass: 'cat-partnerships', title: 'اتفاقية تعاون مع منظمة OMSDS للتنمية الاجتماعية', summary: 'وقعت الجمعية اتفاقية تعاون مع منظمة OMSDS للتنمية الاجتماعية والتضامن لدعم الأنشطة الاجتماعية والتطوعية.', author: 'لجنة الشراكات', date: '2026-06-01', featured: false },
-    { id: 11, category: 'environmental', catLabel: 'حملات بيئية', catClass: 'cat-environmental', title: 'حملة تشجير غابة المعمورة بمشاركة 150 متطوعاً', summary: 'نظمت الجمعية حملة تشجير بغابة المعمورة تم فيها غرس 1000 شجرة بمشاركة السلطات المحلية والمدارس.', author: 'لجنة البيئة', date: '2026-05-22', featured: false },
-    { id: 12, category: 'association', catLabel: 'الجمعية', catClass: 'cat-association', title: 'افتتاح فرع جديد للجمعية بجهة طنجة', summary: 'افتتحت الجمعية فرعاً جهوياً جديداً بجهة طنجة - تطوان - الحسيمة لتوسيع نطاق أنشطتها في شمال المملكة.', author: 'المكتب المركزي', date: '2026-05-15', featured: false },
-  ];
 
   var DEFAULT_CATEGORIES = [
     { id: 'activities', label: 'أنشطة', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>', count: null },
@@ -801,8 +821,8 @@
     { id: 'announcements', label: 'إعلانات', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>', count: null },
   ];
 
-  /* -- Working data (CMS loader may replace via window.NewsPage.setData) -- */
-  var newsData = DEFAULT_NEWS;
+  /* -- Working data (fed by supabase/news-articles.js via window.NewsPage) -- */
+  var newsData = [];
   var categories = DEFAULT_CATEGORIES.slice();
 
   /* -- Count articles per category -- */
@@ -819,19 +839,30 @@
   function renderFeatured() {
     var featured = newsData.filter(function (n) { return n.featured; })[0] || newsData[0];
     var container = document.getElementById('featuredCard');
+    var section = document.getElementById('nwFeatured');
     if (!container) return;
+    if (!featured) {
+      if (section) section.style.display = 'none';
+      container.innerHTML = '';
+      return;
+    }
+    if (section) section.style.display = '';
     var featuredImg = featured.image
       ? '<img class="nw-featured-photo" src="' + esc(featured.image) + '" alt="' + esc(featured.title) + '">'
       : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>';
+    var summary = featured.summary ? '<p>' + esc(featured.summary) + '</p>' : '';
+    var author = featured.author
+      ? '<span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>' + esc(featured.author) + '</span>'
+      : '';
     container.innerHTML =
       '<div class="nw-featured-img">' + featuredImg + '</div>' +
       '<div class="nw-featured-body">' +
         '<span class="nw-featured-category ' + esc(featured.catClass) + '">' + esc(featured.catLabel) + '</span>' +
         '<h2>' + esc(featured.title) + '</h2>' +
-        '<p>' + esc(featured.summary) + '</p>' +
+        summary +
         '<div class="nw-featured-meta">' +
           '<span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>' + esc(featured.date) + '</span>' +
-          '<span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>' + esc(featured.author) + '</span>' +
+          author +
         '</div>' +
         '<a href="' + esc(featured.linkUrl || '#') + '" class="btn btn-primary">' + esc(featured.linkLabel || 'اقرأ المزيد') + '</a>' +
       '</div>';
@@ -843,18 +874,21 @@
   function renderGrid(articles) {
     var grid = document.getElementById('newsGrid');
     if (!grid) return;
+    var list = articles || newsData;
+    if (!list.length) { grid.innerHTML = ''; return; }
     var html = '';
-    (articles || newsData).forEach(function (n) {
+    list.forEach(function (n) {
       var cardImg = n.image
         ? '<img class="nw-card-photo" src="' + esc(n.image) + '" alt="' + esc(n.title) + '">'
         : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>';
+      var desc = n.summary ? '<p>' + esc(n.summary).substring(0, 80) + '...</p>' : '';
       html +=
         '<div class="nw-card nw-reveal">' +
           '<div class="nw-card-img">' + cardImg + '</div>' +
           '<div class="nw-card-body">' +
             '<span class="nw-card-category ' + esc(n.catClass) + '">' + esc(n.catLabel) + '</span>' +
             '<h3>' + esc(n.title) + '</h3>' +
-            '<p>' + esc(n.summary).substring(0, 80) + '...</p>' +
+            desc +
             '<div class="nw-card-meta">' +
               '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>' +
               esc(n.date) +
@@ -951,20 +985,32 @@
   }
 
   /* ==========================================================================
-     Init
+     7. Page State — loading / ready / empty / error
      ========================================================================== */
-  renderFeatured();
-  renderGrid();
+  function setState(kind) {
+    var featured = document.getElementById('nwFeatured');
+    var grid = document.getElementById('newsGrid');
+    var emptyEl = document.getElementById('newsEmpty');
+    var errorEl = document.getElementById('newsError');
+    if (featured) featured.style.display = kind === 'ready' ? '' : 'none';
+    if (grid && (kind === 'empty' || kind === 'error')) grid.innerHTML = '';
+    if (emptyEl) emptyEl.hidden = kind !== 'empty';
+    if (errorEl) errorEl.hidden = kind !== 'error';
+  }
+
+  /* ==========================================================================
+     Init — start in loading state; supabase/news-articles.js feeds real data
+     ========================================================================== */
+  setState('loading');
   renderCategories('');
   observeReveal();
 
   /* ==========================================================================
-     CMS integration — supabase/news-content.js feeds live content through
-     this API. Defaults above stay visible until CMS data arrives.
+     Public API — supabase/news-articles.js (public.news table) drives this.
      ========================================================================== */
   window.NewsPage = {
     setData: function (news, cats) {
-      if (news && news.length) {
+      if (news) {
         newsData = news.map(function (n) {
           if (!n.catClass) n.catClass = 'cat-' + (n.category || '');
           return n;
@@ -983,14 +1029,25 @@
       }
     },
     render: function () {
+      setState('ready');
       renderFeatured();
       renderGrid();
       renderCategories('');
       observeReveal();
+    },
+    showEmpty: function () {
+      newsData = [];
+      recalcCounts();
+      setState('empty');
+      renderCategories('');
+    },
+    showError: function () {
+      setState('error');
     }
   };
 
 })();
 </script>
+<script src="../supabase/news-articles.js"></script>
 </body>
 </html>

@@ -5,14 +5,12 @@
    injects it into the existing page DOM.
 
    The News page renders its news grid / featured / category cards from a
-   hardcoded JS store (newsData + categories inside News/news.html). This
-   loader therefore:
+   JS store (newsData + categories inside News/news.html). This loader
+   therefore:
      1. Injects the editable static text (hero, section heads, newsletter,
         CTA) directly into the DOM — preserving the SVG icons.
-     2. Feeds the live news items + categories to the page through
-        window.NewsPage.setData(news, cats) then re-renders via
-        window.NewsPage.render(). Category SVG icons are preserved by the
-        page (looked up from its own defaults).
+     2. Does NOT feed news items / categories — those now come from the
+        public.news table through supabase/news-articles.js.
 
    Hardcoded HTML/JS serves as fallback when no CMS content is available.
 
@@ -32,7 +30,7 @@
 
   function isNewsPage() {
     var path = window.location.pathname;
-    return /news/i.test(path);
+    return /news\.html/i.test(path);
   }
 
   // Set text while preserving the first FontAwesome <i> / <svg> icon child.
@@ -101,14 +99,14 @@
     var sec = document.querySelector('#nwLatest');
     if (!sec) return;
     setSectionHead(sec, d.eyebrow, d.heading, d.description);
-    if (d.items) pending.news = d.items;
+    // News cards are no longer fed from CMS sections — they come from the
+    // public.news table via supabase/news-articles.js (real published data).
   }
 
   function injectNwCategories(d) {
     var sec = document.querySelector('#nwCategories');
     if (!sec) return;
     setSectionHead(sec, d.eyebrow, d.heading, d.description);
-    if (d.categories) pending.cats = d.categories;
   }
 
   function injectNwSearch(d) {
@@ -136,18 +134,11 @@
     injectButtons(sec.querySelectorAll('.nw-cta-actions a'), d.buttons);
   }
 
-  var pending = { news: null, cats: null };
+  var pending = null;
 
   function applyNewsData() {
-    if (pending.news || pending.cats) {
-      if (window.NewsPage) {
-        window.NewsPage.setData(pending.news, pending.cats);
-        window.NewsPage.render();
-      } else {
-        // The page store script may not have run yet — retry briefly.
-        setTimeout(applyNewsData, 50);
-      }
-    }
+    // News cards / categories now come exclusively from the public.news table
+    // via supabase/news-articles.js. Nothing to apply from CMS sections.
   }
 
   function injectSection(section) {

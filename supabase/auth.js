@@ -11,7 +11,7 @@
      getCurrentUser()                     current auth user (Promise)
      getCurrentProfile(force?)            profile from the profiles table
      isAuthenticated()                    is a session active (sync)
-     isAdmin()                            role === 'admin' from profiles (Promise)
+     isAdmin()                            role === 'super_admin' | 'admin' from profiles (Promise)
      getSession()                         current session (sync)
      init()                               session restore + cross-page sync
      onAuthStateChange(cb)                subscribe to auth events
@@ -214,7 +214,7 @@
         metadata.full_name || metadata.name || metadata.fullName || '',
       avatar_url:
         metadata.avatar_url || metadata.picture || metadata.avatarUrl || '',
-      role: 'user',
+      role: 'member',
     };
     return resolveClient()
       .from('profiles')
@@ -227,7 +227,10 @@
 
   function isAdmin() {
     return getCurrentProfile().then(function (profile) {
-      return !!(profile && profile.role === 'admin');
+      return !!(
+        profile &&
+        (profile.role === 'super_admin' || profile.role === 'admin')
+      );
     });
   }
 

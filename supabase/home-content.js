@@ -823,7 +823,22 @@
     /* Inject hero fallback immediately — zero flicker */
     injectHero(FALLBACK.hero);
 
-    /* Load all sections from page_sections (single source of truth) */
+    /* Track whether a live promotional Hero (hero_updates) was found.
+       When present it OVERRIDES the default hero below. */
+    var promoHero = null;
+
+    /* 1. Fetch the live promotional Hero from hero_updates (managed by the
+          Dashboard "المستجدات" page). It wins over the default hero.
+          The service returns null when no live promotion exists. */
+    var heroService = window.__AMARE_HERO_SERVICE;
+    if (heroService && heroService.loadHeroFromSupabase) {
+      heroService.loadHeroFromSupabase(function (cmsHero) {
+        promoHero = cmsHero;
+        if (promoHero) injectHero(promoHero);
+      });
+    }
+
+    /* 2. Load all sections from page_sections (single source of truth) */
     loadHomeFromSupabase(function (sections) {
       if (sections && sections.length > 0) {
         console.log('[Home CMS] Loaded', sections.length, 'CMS sections — injecting...');
@@ -832,10 +847,15 @@
           injectSection(sections[i]);
         }
         console.log('[Home CMS] All', sections.length, 'sections injected.');
+
+        /* If the promotional Hero arrived before the CMS sections finished
+           loading, re-assert it on top of the default hero section. */
+        if (promoHero) injectHero(promoHero);
       } else {
         console.log('[Home CMS] No CMS sections found — using fallbacks.');
         /* Supabase unreachable or no sections — use full fallback */
         injectAllFallbacks();
+        if (promoHero) injectHero(promoHero);
       }
     });
   }

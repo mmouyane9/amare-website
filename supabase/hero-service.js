@@ -42,28 +42,73 @@
   /**
    * Fetch the live Hero from hero_updates.
    * Returns the transformed data object, or null on failure / no live hero.
+   *
+   * Selection rules:
+   *   - status = 'live'
+   *   - optional start_date / end_date window honoured when present
+   *     (rows without a start/end date are always eligible)
+   *   - the highest-priority (lowest display_order) live hero wins
+   *
+   * Backward compatible: if the table has no start_date/end_date columns yet,
+   * rows simply have no scheduling constraint.
    */
   function loadHeroFromSupabase(callback) {
-    var S = window.Supabase;
-    if (!S || !S.getClient) return callback(null);
+    var MAX_RETRIES = 30;
+    var RETRY_MS = 200;
 
-    var client = S.getClient();
-    if (!client) return callback(null);
-
-    client
-      .from('hero_updates')
-      .select('*')
-      .eq('status', 'live')
-      .limit(1)
-      .single()
-      .then(function (result) {
-        if (result.error) return callback(null);
-        var hero = transformCMSHero(result.data);
-        return callback(hero);
-      })
-      .catch(function () {
+    function tryLoad(retries) {
+      var S = window.Supabase;
+      if (!S || !S.getClient) {
+        if (retries < MAX_RETRIES) {
+          setTimeout(function () { tryLoad(retries + 1); }, RETRY_MS);
+          return;
+        }
+        console.log('[Hero Service] Supabase client not available after', MAX_RETRIES * RETRY_MS, 'ms');
         return callback(null);
-      });
+      }
+
+      var client = S.getClient();
+      if (!client) {
+        if (retries < MAX_RETRIES) {
+          setTimeout(function () { tryLoad(retries + 1); }, RETRY_MS);
+          return;
+        }
+        console.log('[Hero Service] Supabase client init failed after waiting');
+        return callback(null);
+      }
+
+      client
+        .from('hero_updates')
+        .select('*')
+        .eq('status', 'live')
+        .order('display_order', { ascending: true })
+        .order('created_at', { ascending: false })
+        .limit(20)
+        .then(function (result) {
+          if (result.error || !result.data || result.data.length === 0) {
+            return callback(null);
+          }
+
+          var now = new Date();
+          var active = [];
+          for (var i = 0; i < result.data.length; i++) {
+            var row = result.data[i];
+            var start = row.start_date ? new Date(row.start_date) : null;
+            var end = row.end_date ? new Date(row.end_date) : null;
+            if (start && now < start) continue;
+            if (end && now > end) continue;
+            active.push(row);
+          }
+          if (active.length === 0) return callback(null);
+
+          return callback(transformCMSHero(active[0]));
+        })
+        .catch(function () {
+          return callback(null);
+        });
+    }
+
+    tryLoad(0);
   }
 
   /* Expose */

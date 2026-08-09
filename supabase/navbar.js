@@ -122,7 +122,7 @@
 
   function buildChip(user, profile, firstNameOnly) {
     var name = firstNameOnly ? resolveFirstName(user, profile) : resolveName(user, profile);
-    var isAdmin = !!(profile && profile.role === 'admin');
+    var isAdmin = !!(profile && (profile.role === 'super_admin' || profile.role === 'admin'));
     var html = '<div class="amare-auth-chip">';
     html += avatarHtml(resolveAvatar(user, profile), name);
     html += '<span class="amare-auth-name">' + escapeHtml(name) + '</span>';
@@ -195,7 +195,7 @@
 
     var name = resolveName(user, state.profile);
     var email = user.email || '';
-    var isAdmin = !!(state.profile && state.profile.role === 'admin');
+    var isAdmin = !!(state.profile && (state.profile.role === 'super_admin' || state.profile.role === 'admin'));
 
     var head = document.createElement('div');
     head.className = 'amare-user-menu-head';

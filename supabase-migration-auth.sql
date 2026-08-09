@@ -9,7 +9,7 @@
 --   - email      unique, NOT NULL
 --   - full_name  display name
 --   - avatar_url avatar image
---   - role       'user' | 'admin'   (read only from this table)
+--   - role       'member' | admin roles   (read only from this table)
 --   - created_at / updated_at timestamps
 --
 -- Includes:
@@ -21,12 +21,12 @@
 --   6. Row Level Security policies
 --   7. permissions (grants)
 --
--- NOTE: Administration is driven ONLY by the `role` column. There are no
--- hardcoded administrator emails. To promote a user to admin, run:
+-- SECURITY:
+--   New signups ALWAYS get role 'member' (see handle_new_user() below).
+--   A client-supplied role is never trusted during signup.
 --
---   update public.profiles
---   set role = 'admin'
---   where id = '<the-auth-user-uuid>';
+-- Administration is driven ONLY by the `role` column. To promote a user,
+-- an authorized admin updates the profile role (Dashboard -> المسؤولون).
 -- ============================================================
 
 -- ---------------------------------------------------------------------------
@@ -37,10 +37,14 @@ create table if not exists public.profiles (
   email      text not null unique,
   full_name  text,
   avatar_url text,
-  role       text not null default 'user' check (role in ('user', 'admin')),
+  role       text not null default 'member' check (role in ('member', 'admin')),
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
+
+-- Ensure an existing live table also defaults to 'member' on re-run.
+alter table public.profiles
+  alter column role set default 'member';
 
 -- ---------------------------------------------------------------------------
 -- 2) Indexes
@@ -75,6 +79,9 @@ create trigger set_profiles_updated_at
 -- Creates a profile whenever a new auth.users row appears (email sign-up,
 -- Google OAuth, invite, ...). ON CONFLICT ... DO NOTHING guarantees we never
 -- create a second profile for the same user.
+--
+-- SECURITY: role is hard-coded to 'member'. A role received from untrusted
+-- user metadata is NEVER used, so a normal signup can never become an admin.
 create or replace function public.handle_new_user()
 returns trigger
 language plpgsql
@@ -82,7 +89,7 @@ security definer
 set search_path = ''
 as $$
 begin
-  insert into public.profiles (id, email, full_name, avatar_url)
+  insert into public.profiles (id, email, full_name, avatar_url, role)
   values (
     new.id,
     coalesce(new.email, ''),
@@ -95,7 +102,8 @@ begin
       new.raw_user_meta_data->>'avatar_url',
       new.raw_user_meta_data->>'picture',
       ''
-    )
+    ),
+    'member'
   )
   on conflict (id) do nothing;
 
@@ -142,12 +150,12 @@ create policy "profiles_select_own"
 
 -- Safety net: an authenticated user may create their own profile if the
 -- trigger missed it (e.g. users created before this migration).
--- role is forced to 'user' so nobody can self-assign 'admin'.
+-- role is forced to 'member' so nobody can self-assign an admin role.
 drop policy if exists "profiles_insert_own" on public.profiles;
 create policy "profiles_insert_own"
   on public.profiles
   for insert
-  with check (auth.uid() = id and role = 'user');
+  with check (auth.uid() = id and role = 'member');
 
 -- Users can update their own profile but may NOT change their role
 -- (unless they are already an admin, who manages everything).

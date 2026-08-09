@@ -47,7 +47,7 @@ export interface PartnerContent {
 function buildPartnerSections(p: PartnerContent, order: number): PageSection[] {
   return [
     {
-      id: `sec-partner-hero-${p.name.toLowerCase().replace(/\s+/g, '-')}`,
+      id: crypto.randomUUID(),
       type: 'hero',
       enabled: true,
       order,
@@ -63,7 +63,7 @@ function buildPartnerSections(p: PartnerContent, order: number): PageSection[] {
       },
     },
     {
-      id: `sec-partner-about-${p.name.toLowerCase().replace(/\s+/g, '-')}`,
+      id: crypto.randomUUID(),
       type: 'custom',
       enabled: true,
       order: order + 1,
@@ -76,7 +76,7 @@ function buildPartnerSections(p: PartnerContent, order: number): PageSection[] {
       },
     },
     {
-      id: `sec-partner-services-${p.name.toLowerCase().replace(/\s+/g, '-')}`,
+      id: crypto.randomUUID(),
       type: 'custom',
       enabled: true,
       order: order + 2,
@@ -89,7 +89,7 @@ function buildPartnerSections(p: PartnerContent, order: number): PageSection[] {
       },
     },
     {
-      id: `sec-partner-why-${p.name.toLowerCase().replace(/\s+/g, '-')}`,
+      id: crypto.randomUUID(),
       type: 'custom',
       enabled: true,
       order: order + 3,
@@ -102,7 +102,7 @@ function buildPartnerSections(p: PartnerContent, order: number): PageSection[] {
       },
     },
     {
-      id: `sec-partner-gallery-${p.name.toLowerCase().replace(/\s+/g, '-')}`,
+      id: crypto.randomUUID(),
       type: 'custom',
       enabled: true,
       order: order + 4,
@@ -115,7 +115,7 @@ function buildPartnerSections(p: PartnerContent, order: number): PageSection[] {
       },
     },
     {
-      id: `sec-partner-contact-${p.name.toLowerCase().replace(/\s+/g, '-')}`,
+      id: crypto.randomUUID(),
       type: 'custom',
       enabled: true,
       order: order + 5,
@@ -130,7 +130,7 @@ function buildPartnerSections(p: PartnerContent, order: number): PageSection[] {
       },
     },
     {
-      id: `sec-partner-form-${p.name.toLowerCase().replace(/\s+/g, '-')}`,
+      id: crypto.randomUUID(),
       type: 'custom',
       enabled: true,
       order: order + 6,
@@ -141,7 +141,7 @@ function buildPartnerSections(p: PartnerContent, order: number): PageSection[] {
       },
     },
     {
-      id: `sec-partner-cta-${p.name.toLowerCase().replace(/\s+/g, '-')}`,
+      id: crypto.randomUUID(),
       type: 'custom',
       enabled: true,
       order: order + 7,

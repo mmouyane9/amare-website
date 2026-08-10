@@ -191,7 +191,7 @@
         // missing profile block the redirect.
       });
     }
-    window.location.assign('index.html');
+    window.location.assign('/index.html');
   }
 
   /* ---------- 10. Form submit ---------- */

@@ -33,6 +33,28 @@
       .replace(/"/g, '&quot;');
   }
 
+  function normalizeUrl(url) {
+    if (!url || url === '#') return url || '#';
+    if (/^(https?:|mailto:|tel:|javascript:|#|\/)/i.test(url)) return url;
+    return '/' + url;
+  }
+
+  /* Resolve a nav label/description for the active language (Arabic stored
+     in the DB, English title_en when available, or the i18n dynamic map). */
+  function navLabel(item) {
+    if (window.I18n && window.I18n.resolveNavLabel) {
+      return window.I18n.resolveNavLabel(item);
+    }
+    return item.title_ar || item.title_en || '';
+  }
+
+  function navDesc(item) {
+    if (window.I18n && window.I18n.resolveNavDesc) {
+      return window.I18n.resolveNavDesc(item);
+    }
+    return item.description_ar || '';
+  }
+
   function buildTree(items) {
     var map = {};
     var roots = [];
@@ -154,18 +176,18 @@
       var item = tree[i];
       if (!item.is_visible) continue;
 
-      var href = item.url || '#';
+      var href = normalizeUrl(item.url);
       var hasChildren = item.children.length > 0;
 
       if (hasChildren) {
         html += '<li data-dropdown="nav-dd-' + item.id + '">';
-        html += '<a href="' + escapeHtml(href) + '">' + escapeHtml(item.title_ar) + '</a>';
+        html += '<a href="' + escapeHtml(href) + '">' + escapeHtml(navLabel(item)) + '</a>';
         html += '</li>';
       } else {
         html += '<li>';
         html += '<a href="' + escapeHtml(href) + '"';
         if (item.target_blank) html += ' target="_blank" rel="noopener"';
-        html += '>' + escapeHtml(item.title_ar) + '</a>';
+        html += '>' + escapeHtml(navLabel(item)) + '</a>';
         html += '</li>';
       }
     }
@@ -189,9 +211,9 @@
       html += '<div class="mega-panel" data-panel="nav-dd-' + item.id + '">';
       html += '<div class="mega-panel-inner">';
       html += '<div class="mega-panel-head">';
-      html += '<span class="mega-panel-title">' + escapeHtml(item.title_ar) + '</span>';
+      html += '<span class="mega-panel-title">' + escapeHtml(navLabel(item)) + '</span>';
       if (item.url && item.url !== '#') {
-        html += '<a href="' + escapeHtml(item.url) + '" class="mega-panel-link">عرض الكل <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></a>';
+        html += '<a href="' + escapeHtml(normalizeUrl(item.url)) + '" class="mega-panel-link">' + (window.I18n ? window.I18n.t('nav.viewAll') : 'عرض الكل') + ' <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></a>';
       }
       html += '</div>';
       html += '<div class="mega-grid">';
@@ -199,13 +221,13 @@
       for (var j = 0; j < item.children.length; j++) {
         var child = item.children[j];
         if (!child.is_visible) continue;
-        html += '<a href="' + escapeHtml(child.url || '#') + '" class="mega-item"';
+        html += '<a href="' + escapeHtml(normalizeUrl(child.url)) + '" class="mega-item"';
         if (child.target_blank) html += ' target="_blank" rel="noopener"';
         html += '>';
         html += '<span class="mega-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg></span>';
         html += '<span class="mega-text">';
-        html += '<span class="mega-title">' + escapeHtml(child.title_ar) + '</span>';
-        html += '<span class="mega-desc">' + escapeHtml(child.description_ar || '') + '</span>';
+        html += '<span class="mega-title">' + escapeHtml(navLabel(child)) + '</span>';
+        html += '<span class="mega-desc">' + escapeHtml(navDesc(child)) + '</span>';
         html += '</span></a>';
       }
 
@@ -227,14 +249,14 @@
       var item = tree[i];
       if (!item.is_visible) continue;
 
-      var href = item.url || '#';
+      var href = normalizeUrl(item.url);
       var hasChildren = item.children.length > 0;
 
       if (hasChildren) {
         html += '<li class="mobile-drawer-dropdown" data-dd="nav-dd-' + item.id + '">';
         html += '<div class="mobile-drawer-row">';
-        html += '<a href="' + escapeHtml(href) + '">' + escapeHtml(item.title_ar) + '</a>';
-        html += '<button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false">';
+        html += '<a href="' + escapeHtml(href) + '">' + escapeHtml(navLabel(item)) + '</a>';
+        html += '<button class="mobile-drawer-toggle" aria-label="' + (window.I18n ? window.I18n.t('nav.submenu') : 'فتح القائمة الفرعية') + '" aria-expanded="false">';
         html += '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>';
         html += '</button>';
         html += '</div>';
@@ -242,16 +264,16 @@
         for (var j = 0; j < item.children.length; j++) {
           var child = item.children[j];
           if (!child.is_visible) continue;
-          html += '<li><a href="' + escapeHtml(child.url || '#') + '"';
+          html += '<li><a href="' + escapeHtml(normalizeUrl(child.url)) + '"';
           if (child.target_blank) html += ' target="_blank" rel="noopener"';
-          html += '>' + escapeHtml(child.title_ar) + '</a></li>';
+          html += '>' + escapeHtml(navLabel(child)) + '</a></li>';
         }
         html += '</ul>';
         html += '</li>';
       } else {
         html += '<li><a href="' + escapeHtml(href) + '"';
         if (item.target_blank) html += ' target="_blank" rel="noopener"';
-        html += '>' + escapeHtml(item.title_ar) + '</a></li>';
+        html += '>' + escapeHtml(navLabel(item)) + '</a></li>';
       }
     }
     ul.innerHTML = html;
@@ -417,15 +439,18 @@
     var drawer = document.getElementById('mobileDrawer');
     if (!drawer) return;
 
-    // Remove previous listener if re-attaching
     drawer.removeEventListener('click', mobileDrawerClickHandler);
     drawer.addEventListener('click', mobileDrawerClickHandler);
   }
 
   function mobileDrawerClickHandler(e) {
-    var toggle = e.target.closest('.mobile-drawer-toggle');
+    var target = e.target;
+    if (!target || !target.closest) return;
+
+    var toggle = target.closest('.mobile-drawer-toggle');
     if (toggle) {
-      e.stopPropagation();
+      e.preventDefault();
+      e.stopImmediatePropagation();
       var isOpen = toggle.classList.contains('open');
       var parent = toggle.closest('.mobile-drawer-dropdown');
       if (!parent) return;
@@ -524,6 +549,13 @@
 
   function boot() {
     fetchAndRender().then(subscribe);
+
+    // Re-render labels when the language changes (data is unchanged, so the
+    // fingerprint cache must be reset to force a repaint).
+    window.addEventListener('amare:langchange', function () {
+      lastRendered = '';
+      fetchAndRender();
+    });
   }
 
   if (document.readyState === 'loading') {

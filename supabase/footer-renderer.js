@@ -32,6 +32,24 @@
       .replace(/"/g, '&quot;');
   }
 
+  function normalizeUrl(url) {
+    if (!url || url === '#') return url || '#';
+    if (/^(https?:|mailto:|tel:|javascript:|#|\/)/i.test(url)) return url;
+    return '/' + url;
+  }
+
+  /* Resolve a footer label/column title for the active language. */
+  function resolveLabel(item) {
+    if (window.I18n && window.I18n.resolveFooterLabel) {
+      return window.I18n.resolveFooterLabel(item);
+    }
+    return item.title_ar || item.title_en || '';
+  }
+
+  function resolveColumnLabel(column) {
+    return resolveLabel(column);
+  }
+
   /* ==========================================================================
      SVG icons for contact items
      ========================================================================== */
@@ -83,16 +101,16 @@
       if (!item.is_visible) continue;
 
       var icon = contactIcon(item.icon || 'map-pin');
-      var value = item.value || item.title_ar;
+      var value = item.value || resolveLabel(item);
 
       html += '<li>';
 
       if (item.link_type === 'tel' && item.url) {
-        html += '<a href="' + escapeHtml(item.url) + '"';
+        html += '<a href="' + escapeHtml(normalizeUrl(item.url)) + '"';
         if (item.open_in_new_tab) html += ' target="_blank" rel="noopener"';
         html += '>' + icon + '<span dir="ltr">' + escapeHtml(value) + '</span></a>';
       } else if (item.link_type === 'mailto' && item.url) {
-        html += '<a href="' + escapeHtml(item.url) + '"';
+        html += '<a href="' + escapeHtml(normalizeUrl(item.url)) + '"';
         html += '>' + icon + '<span dir="ltr">' + escapeHtml(value) + '</span></a>';
       } else {
         html += icon + '<span>' + escapeHtml(value) + '</span>';
@@ -122,7 +140,7 @@
 
     // Update the <h4> title
     var h4 = nav.querySelector('h4');
-    if (h4) h4.textContent = column.title_ar;
+    if (h4) h4.textContent = resolveColumnLabel(column);
 
     var ul = nav.querySelector('.footer-links');
     if (!ul) return;
@@ -133,12 +151,12 @@
       if (!item.is_visible) continue;
 
       if (item.url) {
-        html += '<li><a href="' + escapeHtml(item.url) + '"';
+        html += '<li><a href="' + escapeHtml(normalizeUrl(item.url)) + '"';
         if (item.open_in_new_tab) html += ' target="_blank" rel="noopener"';
-        html += '>' + escapeHtml(item.title_ar) + '</a></li>';
+        html += '>' + escapeHtml(resolveLabel(item)) + '</a></li>';
       } else {
         html += '<li><span class="footer-section-title">' +
-          escapeHtml(item.title_ar) + '</span></li>';
+          escapeHtml(resolveLabel(item)) + '</span></li>';
       }
     }
     ul.innerHTML = html;
@@ -149,7 +167,7 @@
     if (!mapContainer) return;
 
     var h4 = mapContainer.querySelector('h4');
-    if (h4) h4.textContent = column.title_ar;
+    if (h4) h4.textContent = resolveColumnLabel(column);
 
     // Find the first map item
     var mapItem = null;
@@ -163,13 +181,13 @@
 
     // Update the badge
     var badge = mapContainer.querySelector('.footer-map-badge');
-    if (badge) badge.textContent = mapItem.value || column.title_ar;
+    if (badge) badge.textContent = mapItem.value || resolveColumnLabel(column);
 
     // Update the iframe
     var iframe = mapContainer.querySelector('iframe');
     if (iframe && mapItem.url) {
       iframe.src = mapItem.url;
-      iframe.title = mapItem.title_ar;
+      iframe.title = resolveLabel(mapItem);
     }
 
     // Update the "Open in Google Maps" button
@@ -275,6 +293,13 @@
 
   function boot() {
     fetchAndRender().then(subscribe);
+
+    // Re-render labels when the language changes (data is unchanged, so the
+    // fingerprint cache must be reset to force a repaint).
+    window.addEventListener('amare:langchange', function () {
+      lastRendered = '';
+      fetchAndRender();
+    });
   }
 
   if (document.readyState === 'loading') {

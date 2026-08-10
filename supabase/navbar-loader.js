@@ -4,7 +4,7 @@
    Include this ONE script on every page and it will load the entire
    Supabase chain in the correct order:
 
-     CDN SDK → config → client → database → storage →
+     CDN SDK → i18n → i18n-text → config → client → database → storage →
      auth → realtime → index → navbar-renderer → footer-renderer → navbar
 
    The script auto-detects its own directory, so it works at any page depth
@@ -23,6 +23,8 @@
   var base = me.src.substring(0, me.src.lastIndexOf('/') + 1);
 
   var files = [
+    'i18n.js',
+    'i18n-text.js',
     'config.js',
     'client.js',
     'database.js',

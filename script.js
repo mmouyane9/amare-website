@@ -354,7 +354,7 @@
 
         var toggle = document.createElement('button');
         toggle.className = 'sub-toggle';
-        toggle.setAttribute('aria-label', 'فتح القائمة الفرعية');
+        toggle.setAttribute('aria-label', (window.I18n && window.I18n.t('nav.submenu')) || 'فتح القائمة الفرعية');
         toggle.setAttribute('aria-expanded', 'false');
         toggle.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>';
         linkWrap.appendChild(toggle);
@@ -549,17 +549,17 @@
 
     function openDrawer() {
       hamburger.classList.add('open');
+      createOverlay();
       drawer.classList.add('open');
       hamburger.setAttribute('aria-expanded', 'true');
-      document.body.style.overflow = 'hidden';
-      createOverlay();
+      document.documentElement.style.overflow = 'hidden';
     }
 
     function closeDrawer() {
       hamburger.classList.remove('open');
       drawer.classList.remove('open');
       hamburger.setAttribute('aria-expanded', 'false');
-      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
       removeOverlay();
       var subs = drawer.querySelectorAll('.mobile-drawer-sub.open');
       for (var i = 0; i < subs.length; i++) subs[i].classList.remove('open');
@@ -579,9 +579,13 @@
 
     // Accordion toggles — use event delegation for dynamic content
     drawer.addEventListener('click', function(e) {
-      var toggle = e.target.closest('.mobile-drawer-toggle');
+      var target = e.target;
+      if (!target || !target.closest) return;
+
+      var toggle = target.closest('.mobile-drawer-toggle');
       if (toggle) {
-        e.stopPropagation();
+        e.preventDefault();
+        e.stopImmediatePropagation();
         var btn = toggle;
         var isOpen = btn.classList.contains('open');
         var parent = btn.closest('.mobile-drawer-dropdown');
@@ -597,11 +601,22 @@
           btn.classList.add('open');
           btn.setAttribute('aria-expanded', 'true');
         }
+        return;
       }
 
-      // Close drawer on any link tap
-      var link = e.target.closest('a');
+      // If user clicked the link text in a dropdown row (href="#"),
+      // toggle the submenu instead of closing the drawer
+      var link = target.closest('a');
       if (link) {
+        var dropdownParent = link.closest('.mobile-drawer-dropdown');
+        if (dropdownParent) {
+          var rowToggle = dropdownParent.querySelector('.mobile-drawer-toggle');
+          if (rowToggle && link.getAttribute('href') === '#') {
+            e.preventDefault();
+            rowToggle.click();
+            return;
+          }
+        }
         closeDrawer();
       }
     });
@@ -619,10 +634,10 @@
       const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
       if (emailPattern.test(email)) {
-        formMsg.textContent = 'شكرًا لك! تم تسجيل اشتراكك بنجاح.';
+        formMsg.textContent = (window.I18n && window.I18n.t('newsletter.success')) || 'شكرًا لك! تم تسجيل اشتراكك بنجاح.';
         newsletterForm.reset();
       } else {
-        formMsg.textContent = 'يرجى إدخال بريد إلكتروني صحيح.';
+        formMsg.textContent = (window.I18n && window.I18n.t('newsletter.error')) || 'يرجى إدخال بريد إلكتروني صحيح.';
       }
     });
   }
@@ -974,7 +989,7 @@
       clearSignature('sigMember');
       clearSignature('sigPresident');
 
-      window.location.href = 'preview.html';
+      window.location.href = '/preview.html';
 
     } catch (err) {
       submitBtn.classList.remove('loading');

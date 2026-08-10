@@ -15,7 +15,7 @@
 
   function esc(str) {
     if (!str) return '';
-    return String(str).replace(/&/g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   }
 
   function el(selector) {
@@ -75,13 +75,7 @@
       teamEyebrow: 'فريق القيادة',
       teamHeading: 'أعضاء المكتب المركزي',
       teamDescription: 'يتكون المكتب المركزي من نخبة من الكفاءات الوطنية التي تسهر على تحقيق أهداف الجمعية وترجمة رؤيتها إلى واقع.',
-      members: [
-        { name: 'عبد الرحيم العسري', role: 'رئيس المكتب المركزي', bio: 'خبرة واسعة في تدبير الشأن الجمعوي وقيادة الفرق، يشرف على تنفيذ الرؤية الاستراتيجية للجمعية ومتابعة برامجها الوطنية.', color: '#123B78', facebook: '#', instagram: '#', linkedin: '#', profileUrl: '#' },
-        { name: 'فاطمة الزهراء بنعلي', role: 'عضو المكتب المركزي', bio: 'تساهم في تنسيق العمل بين اللجان والمكتب المركزي، وتدبير ملفات التكوين والتأطير لفائدة المنخرطين والمنخرطات.', color: '#0F9CD1', facebook: '#', instagram: '#', linkedin: '#', profileUrl: '#' },
-        { name: 'يوسف أيت لحسن', role: 'عضو المكتب المركزي', bio: 'يساهم في تدبير الميزانية والمحاسبة، ويحرص على الشفافية في تدبير الموارد المالية وفق مقتضيات القانون الأساسي للجمعية.', color: '#17A44E', facebook: '#', instagram: '#', linkedin: '#', profileUrl: '#' },
-        { name: 'خديجة إدريسي', role: 'عضو المكتب المركزي', bio: 'تساهم في تدبير الجانب الإداري والتوثيقي، وتتبع أشغال المكتب والجمع العام، وتنسيق المراسلات مع الشركاء والمؤسسات.', color: '#DB2777', facebook: '#', instagram: '#', linkedin: '#', profileUrl: '#' },
-        { name: 'محمد الصقلي', role: 'عضو المكتب المركزي', bio: 'يساهم في إعداد التقارير ومحاضر الاجتماعات، ومواكبة الملفات الإدارية والقانونية المرتبطة بتسيير الجمعية.', color: '#2563EB', facebook: '#', instagram: '#', linkedin: '#', profileUrl: '#' },
-      ],
+      members: [],
     },
     expansionMap: {
       eyebrow: 'رؤيتنا للتوسع',
@@ -223,6 +217,12 @@
      CENTRAL OFFICE injector
      ------------------------------------------------------------------ */
   function injectCentralOffice(d) {
+    console.log('[CO DEBUG] injectCentralOffice called with data keys:', Object.keys(d));
+    console.log('[CO DEBUG] d.members:', d.members ? d.members.length : 'undefined', 'members');
+    if (d.members && d.members.length > 0) {
+      console.log('[CO DEBUG] First member:', JSON.stringify(d.members[0]));
+    }
+
     var eyebrow = el('#central-office .co-about .eyebrow');
     if (eyebrow && d.eyebrow) eyebrow.textContent = d.eyebrow;
 
@@ -243,7 +243,15 @@
 
     if (d.members) {
       window.__AMARE_ABOUT_CO_MEMBERS = d.members;
+      console.log('[CO DEBUG] window.__AMARE_ABOUT_CO_MEMBERS set with', d.members.length, 'members');
+      console.log('[CO DEBUG] Stored member 0 name:', d.members[0].name);
+      console.log('[CO DEBUG] Stored member 0 role:', d.members[0].role);
+      console.log('[CO DEBUG] Stored member 0 bio:', d.members[0].bio);
     }
+
+    /* Re-render members immediately */
+    var event = new CustomEvent('about-cms-ready');
+    document.dispatchEvent(event);
   }
 
   /* ------------------------------------------------------------------
@@ -417,6 +425,15 @@
                   if (Object.prototype.hasOwnProperty.call(settings, sk)) data[sk] = settings[sk];
                 }
                 if (Object.keys(styles).length > 0) data._styles = styles;
+
+                if (data._renderer === 'centralOffice') {
+                  console.log('[CO DEBUG] Raw content from Supabase for centralOffice:', JSON.stringify(content));
+                  console.log('[CO DEBUG] Flattened data.members:', data.members ? data.members.length : 'undefined');
+                  if (data.members && data.members[0]) {
+                    console.log('[CO DEBUG] Flattened data.members[0] keys:', Object.keys(data.members[0]));
+                    console.log('[CO DEBUG] Flattened data.members[0]:', JSON.stringify(data.members[0]));
+                  }
+                }
 
                 sections.push({
                   id: row.id,

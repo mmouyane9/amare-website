@@ -41,7 +41,7 @@ export const HOME_PAGE_SECTIONS: PageSection[] = [
           },
           {
             id: 'btn-hero-join',
-            label: 'الانخراط Online',
+            label: 'انخرط في الجمعية',
             url: 'Join us/join-us-online.html',
             variant: 'primary',
           },

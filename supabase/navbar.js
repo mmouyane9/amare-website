@@ -24,22 +24,28 @@
     return;
   }
 
-  var LOGIN_LABEL = 'تسجيل الدخول';
-  var LOGOUT_LABEL = 'تسجيل الخروج';
-  var ADMIN_BADGE = 'الإدارة';
   var MENU_ID = 'amare-user-menu';
   var TRIGGER_SELECTOR = '.topbar-login, .mobile-drawer-action-login';
+
+  // Labels follow the active language; falls back to Arabic.
+  function t(key, fallback) {
+    if (window.I18n && window.I18n.t) return window.I18n.t(key);
+    return fallback;
+  }
+
+  var LOGOUT_LABEL = function () { return t('nav.logout', 'تسجيل الخروج'); };
+  var ADMIN_BADGE = function () { return t('nav.admin', 'الإدارة'); };
 
   var ICON_LOGOUT =
     '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M15 3h6v18h-6M10 17l5-5-5-5M15 12H3"/></svg>';
   var ICON_CHEVRON =
     '<svg class="amare-auth-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>';
 
-  // Admin-only links rendered inside the user dropdown, above "تسجيل الخروج".
+  // Admin-only links rendered inside the user dropdown, above the sign-out.
   var ADMIN_LINKS = [
-    { icon: '🗄️', label: 'قاعدة البيانات', href: '/admin/database.html' },
-    { icon: '📝', label: 'إدارة المحتوى', href: '/admin/content.html' },
-    { icon: '⚙️', label: 'لوحة التحكم', href: '/admin/dashboard.html' },
+    { icon: '🗄️', label: function () { return t('admin.db', 'قاعدة البيانات'); }, href: '/admin/database.html' },
+    { icon: '📝', label: function () { return t('admin.content', 'إدارة المحتوى'); }, href: '/admin/content.html' },
+    { icon: '⚙️', label: function () { return t('admin.dashboard', 'لوحة التحكم'); }, href: '/admin/dashboard.html' },
   ];
 
   var state = { user: null, profile: null };
@@ -62,21 +68,9 @@
     return escapeHtml(value).replace(/`/g, '&#96;');
   }
 
-  // Resolve the path to login.html relative to the current page (works from
-  // root and from sub-folders such as "Who are we/" and "Join us/").
+  // Resolve the path to login.html relative to the current page.
   function loginPageUrl() {
-    var parts = (window.location.pathname || '/').split('/');
-    parts.pop();
-    var depth = 0;
-    for (var i = 0; i < parts.length; i++) {
-      if (parts[i]) depth++;
-    }
-    var prefix = '';
-    while (depth > 0) {
-      prefix += '../';
-      depth--;
-    }
-    return prefix + 'login.html';
+    return '/login.html';
   }
 
   function resolveName(user, profile) {
@@ -127,7 +121,7 @@
     html += avatarHtml(resolveAvatar(user, profile), name);
     html += '<span class="amare-auth-name">' + escapeHtml(name) + '</span>';
     if (isAdmin) {
-      html += '<span class="amare-auth-badge">' + ADMIN_BADGE + '</span>';
+      html += '<span class="amare-auth-badge">' + ADMIN_BADGE() + '</span>';
     }
     html += ICON_CHEVRON;
     html += '</div>';
@@ -171,6 +165,11 @@
         el.innerHTML = buildChip(user, profile, !isTopbar);
       } else {
         restore(el);
+        // Re-apply the active language to the static login button (restore()
+        // resets it to the original Arabic markup).
+        if (window.I18n && window.I18n.translateContent) {
+          window.I18n.translateContent(el);
+        }
       }
     }
 
@@ -213,7 +212,7 @@
     if (isAdmin) {
       var badge = document.createElement('span');
       badge.className = 'amare-auth-badge';
-      badge.textContent = ADMIN_BADGE;
+      badge.textContent = ADMIN_BADGE();
       head.appendChild(badge);
     }
 
@@ -222,7 +221,7 @@
     signout.className = 'amare-user-menu-signout';
     signout.setAttribute('data-amare-signout', '');
     signout.setAttribute('role', 'menuitem');
-    signout.innerHTML = ICON_LOGOUT + '<span>' + LOGOUT_LABEL + '</span>';
+    signout.innerHTML = ICON_LOGOUT + '<span>' + LOGOUT_LABEL() + '</span>';
 
     menu.innerHTML = '';
     menu.appendChild(head);
@@ -236,7 +235,7 @@
         adminLink.innerHTML =
           '<span class="amare-user-menu-link-icon" aria-hidden="true">' +
           ADMIN_LINKS[i].icon +
-          '</span><span>' + ADMIN_LINKS[i].label + '</span>';
+          '</span><span>' + ADMIN_LINKS[i].label() + '</span>';
         menu.appendChild(adminLink);
       }
       var divider = document.createElement('div');
@@ -335,6 +334,11 @@
 
     window.addEventListener('amare:authchange', function (e) {
       state = (e && e.detail) || {};
+      render();
+    });
+
+    // Rebuild the auth chips when the language changes.
+    window.addEventListener('amare:langchange', function () {
       render();
     });
 

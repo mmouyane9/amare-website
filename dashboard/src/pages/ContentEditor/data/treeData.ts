@@ -62,7 +62,7 @@ export const TREE_DATA: TreeNode[] = [
     label: 'انخرط معنا',
     type: 'folder',
     children: [
-      { id: 'join-us-online', label: 'الانخراط Online', type: 'page', pageKey: 'join-us-online' },
+      { id: 'join-us-online', label: 'انخرط في الجمعية', type: 'page', pageKey: 'join-us-online' },
       { id: 'membership-renewal', label: 'تجديد الانخراط', type: 'page', pageKey: 'membership-renewal' },
       { id: 'documents', label: 'وثائق الانخراط', type: 'page', pageKey: 'documents' },
     ],

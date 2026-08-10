@@ -23,6 +23,31 @@
     return (s && s[key]) || defaultValue;
   }
 
+  /* Use the translated fallback from I18n when available (Arabic is the
+     default), otherwise the hardcoded Arabic fallback below. */
+  function localizedFallback() {
+    if (window.I18n && window.I18n.home) {
+      var fb = window.I18n.home();
+      if (fb) {
+        // Re-apply dynamic settings (association name) for the Arabic UI,
+        // matching the historic hardcoded fallback behaviour.
+        if (window.I18n.getCurrentLanguage() === 'ar') {
+          if (fb.about && fb.about.paragraphs && fb.about.paragraphs.length > 0) {
+            fb.about.paragraphs[0] =
+              'تأسست ' + getSetting('association_name', 'الجمعية المغربية لهواة البحث والاستكشاف') +
+              ' سنة 2014 على يد مجموعة من الفاعلين المدنيين، بهدف الاستجابة للاحتياجات الحقيقية للمجتمعات المحلية عبر برامج ميدانية في التعليم والصحة والتمكين الاقتصادي.';
+          }
+          if (fb.featuresGrid) {
+            fb.featuresGrid.eyebrow =
+              'لماذا ' + getSetting('association_name', 'الجمعية المغربية لهواة البحث والاستكشاف');
+          }
+        }
+        return fb;
+      }
+    }
+    return FALLBACK;
+  }
+
   var FALLBACK = {
     hero: {
       heading:
@@ -32,9 +57,9 @@
         'شارك في المسابقة الوطنية، وانخرط إلكترونياً في الجمعية، أو جدد عضويتك بسهولة، واطلع على آخر الأنشطة والفعاليات والأخبار عبر المنصة الرسمية.',
       backgroundImage: '',
       buttons: [
-        { label: 'شارك في المسابقة', url: 'competition.html', variant: 'secondary' },
-        { label: 'الانخراط Online', url: 'Join us/join-us-online.html', variant: 'primary' },
-        { label: 'تجديد الانخراط', url: 'Join us/membership-renewal.html', variant: 'outline' },
+        { label: 'شارك في المسابقة', url: '/competition.html', variant: 'secondary' },
+        { label: 'انخرط في الجمعية', url: '/Join us/join-us-online.html', variant: 'primary' },
+        { label: 'تجديد الانخراط', url: '/Join us/membership-renewal.html', variant: 'outline' },
       ],
     },
     about: {
@@ -101,7 +126,7 @@
       heading: 'ادعم رسالتنا\nبمنتجات حصرية',
       description: 'اكتشف مجموعة منتجات AMARE الحصرية. كل عملية شراء تساهم في دعم أنشطة الجمعية، وتمويل برامج البحث والاستكشاف، وحماية التراث الوطني.',
       buttonLabel: 'تسوق الآن',
-      buttonUrl: 'amare store/index.html',
+      buttonUrl: '/amare store/index.html',
       backgroundImage: 'Amare files /amare-shop.png',
     },
     newsletterCta: {
@@ -129,10 +154,10 @@
       ],
       programsHeading: 'برامجنا',
       programs: [
-        { label: 'SOS Amare', url: 'Our%20services/sos-amare.html' }, { label: 'متجر Amare', url: 'amare store/index.html' },
-        { label: 'بيت المستكشف Amare', url: 'Our%20services/explorer-house.html' }, { label: 'مجلة Amare', url: 'Our%20services/amare-magazine.html' },
-        { label: 'أكاديمية Amare', url: 'Our%20services/amare-academy.html' }, { label: 'النوادي', url: 'clubs/' },
-        { label: 'المستشار القانوني', url: 'Our%20services/legal-advisor.html' }, { label: 'عقد التأمين', url: 'Our%20services/insurance-contract.html' },
+        { label: 'SOS Amare', url: '/Our%20services/sos-amare.html' }, { label: 'متجر Amare', url: '/amare store/index.html' },
+        { label: 'بيت المستكشف Amare', url: '/Our%20services/explorer-house.html' }, { label: 'مجلة Amare', url: '/Our%20services/amare-magazine.html' },
+        { label: 'أكاديمية Amare', url: '/Our%20services/amare-academy.html' }, { label: 'النوادي', url: '/clubs/' },
+        { label: 'المستشار القانوني', url: '/Our%20services/legal-advisor.html' }, { label: 'عقد التأمين', url: '/Our%20services/insurance-contract.html' },
       ],
       contactHeading: 'تواصل معنا',
       contact: { address: getSetting('address', 'ص.ب 749 أيت ملول 86150'), phone: getSetting('phone', '+212 684869996'), email: getSetting('contact_email', 'association.amare.agadir@gmail.com') },
@@ -159,6 +184,32 @@
     return document.querySelector(selector);
   }
 
+  /* Translate a text value via the page-content dictionary for the
+     active language. Arabic values stay as-is in Arabic mode; in every
+     other language, an I18n.t() lookup is performed. Translations that
+     do not match any dictionary key fall back to the original Arabic
+     (per the user's rule), never keys, never null/undefined. */
+  function L(text) {
+    if (text == null || text === '') return '';
+    if (!window.I18n) return text;
+    var lang = window.I18n.getCurrentLanguage();
+    if (lang === 'ar') return text;
+    var result = window.I18n.t(text);
+    if (result !== text) return result;
+    /* If the full string contains \n, try per-line translation. */
+    if (String(text).indexOf('\n') !== -1) {
+      var parts = String(text).split('\n');
+      var changed = false, rebuilt = [];
+      for (var i = 0; i < parts.length; i++) {
+        var p = window.I18n.t(parts[i]);
+        if (p !== parts[i]) changed = true;
+        rebuilt.push(p);
+      }
+      if (changed) return rebuilt.join('\n');
+    }
+    return text;
+  }
+
   /* ------------------------------------------------------------------
      HERO injector
      heading lines → <br> separated in h1 (last line wrapped in <span>)
@@ -167,7 +218,7 @@
   function injectHero(d) {
     var h1 = el('.hero-inner h1');
     if (h1) {
-      var lines = (d.heading || '').split('\n');
+      var lines = (L(d.heading || '')).split('\n');
       var html = '';
       for (var i = 0; i < lines.length; i++) {
         var line = lines[i].trim();
@@ -184,15 +235,19 @@
 
     var eyebrow = el('.hero-inner .hero-eyebrow');
     if (eyebrow) {
-      var eyebrowText = d.eyebrow || d.subheading || '';
+      var eyebrowText = L(d.eyebrow || d.subheading || '');
+      /* Strip misplaced Arabic "إلى" when followed by a competition name
+         like "DETECTLAND MAROC 2" (CMS data artifact). */
+      eyebrowText = eyebrowText.replace(/^إلى\s+(?=[A-Z])/i, '');
       eyebrow.textContent = eyebrowText;
     }
 
     var desc = el('.hero-inner p.hero-fade');
-    if (desc && d.description) desc.textContent = d.description;
+    if (desc && d.description) desc.textContent = L(d.description);
 
     var actions = el('.hero-actions');
     if (actions && d.buttons) {
+      var heroCtaKeys = ['hero.cta1', 'hero.cta2', 'hero.cta3'];
       var anchors = actions.querySelectorAll('a');
       for (var j = 0; j < anchors.length; j++) {
         var a = anchors[j], b = d.buttons[j];
@@ -200,8 +255,14 @@
         a.style.display = '';
         var svgs = a.querySelectorAll('svg'), svgHtml = '';
         for (var k = 0; k < svgs.length; k++) svgHtml += svgs[k].outerHTML;
-        a.href = b.url || '#';
-        a.innerHTML = esc(b.label) + ' ' + svgHtml;
+        a.href = b.url || '';
+        var btnLabel = L(b.label);
+        if (btnLabel === b.label) {
+          var key = heroCtaKeys[j] || '';
+          var keyVal = (window.I18n && key && window.I18n.t(key));
+          if (keyVal && keyVal !== key) btnLabel = keyVal;
+        }
+        a.innerHTML = esc(btnLabel) + ' ' + svgHtml;
       }
     }
 
@@ -216,23 +277,23 @@
     var eyebrow = el('.about-eyebrow');
     if (eyebrow && d.eyebrow) {
       var svg = eyebrow.querySelector('svg');
-      eyebrow.innerHTML = (svg ? svg.outerHTML + ' ' : '') + esc(d.eyebrow);
+      eyebrow.innerHTML = (svg ? svg.outerHTML + ' ' : '') + esc(L(d.eyebrow));
     }
 
     var title = el('.about-title');
     if (title && d.heading !== undefined) {
-      var hl = d.headingHighlight || '';
-      title.innerHTML = esc(d.heading || '') + ' <span class="about-title-em">' + esc(hl) + '</span>';
-      if (d.headingSub) title.innerHTML += ' ' + esc(d.headingSub);
+      var hl = L(d.headingHighlight || '');
+      title.innerHTML = esc(L(d.heading || '')) + ' <span class="about-title-em">' + esc(hl) + '</span>';
+      if (d.headingSub) title.innerHTML += ' ' + esc(L(d.headingSub));
     }
 
     var descHead = el('.about-desc-head');
-    if (descHead && d.description) descHead.textContent = d.description;
+    if (descHead && d.description) descHead.textContent = L(d.description);
 
     var paragraphs = document.querySelectorAll('.about-content .about-text');
     if (d.paragraphs) {
       for (var p = 0; p < Math.min(paragraphs.length, d.paragraphs.length); p++) {
-        paragraphs[p].textContent = d.paragraphs[p];
+        paragraphs[p].textContent = L(d.paragraphs[p]);
       }
     }
 
@@ -241,8 +302,8 @@
       for (var f = 0; f < Math.min(featureItems.length, d.features.length); f++) {
         var ft = featureItems[f].querySelector('.about-ftitle');
         var fd = featureItems[f].querySelector('.about-fdesc');
-        if (ft) ft.textContent = d.features[f].title || '';
-        if (fd) fd.textContent = d.features[f].description || '';
+        if (ft) ft.textContent = L(d.features[f].title || '');
+        if (fd) fd.textContent = L(d.features[f].description || '');
       }
     }
 
@@ -251,12 +312,13 @@
       for (var ab = 0; ab < Math.min(aboutBtns.length, d.buttons.length); ab++) {
         var ba = aboutBtns[ab], bb = d.buttons[ab];
         ba.href = bb.url || '#';
+        var translatedLabel = L(bb.label);
         var bSpan = ba.querySelector('span');
-        if (bSpan) bSpan.textContent = bb.label;
+        if (bSpan) bSpan.textContent = translatedLabel;
         else {
           var bsvgs = ba.querySelectorAll('svg'), bsvg = '';
           for (var bs = 0; bs < bsvgs.length; bs++) bsvg += bsvgs[bs].outerHTML;
-          ba.innerHTML = bsvg + '<span>' + esc(bb.label) + '</span>';
+          ba.innerHTML = bsvg + '<span>' + esc(translatedLabel) + '</span>';
         }
       }
     }
@@ -264,7 +326,7 @@
     var aboutImg = el('.about-visual .about-img');
     if (aboutImg && d.image) {
       aboutImg.src = d.image.url || '';
-      aboutImg.alt = d.image.alt || '';
+      aboutImg.alt = L(d.image.alt || '');
     }
 
     if (d.stats) {
@@ -277,7 +339,7 @@
           statNum.setAttribute('data-count', d.stats[s].value);
           statNum.setAttribute('data-suffix', d.stats[s].suffix || '');
         }
-        if (statLbl) statLbl.textContent = d.stats[s].label;
+        if (statLbl) statLbl.textContent = L(d.stats[s].label);
       }
     }
   }
@@ -285,21 +347,21 @@
   /* FEATURES GRID (renderer: featuresGrid) */
   function injectFeaturesGrid(d) {
     var eyebrow = el('#features .eyebrow');
-    if (eyebrow && d.eyebrow) eyebrow.textContent = d.eyebrow;
+    if (eyebrow && d.eyebrow) eyebrow.textContent = L(d.eyebrow);
 
     var heading = el('#features .section-title');
-    if (heading && d.heading) heading.textContent = d.heading;
+    if (heading && d.heading) heading.textContent = L(d.heading);
 
     var desc = el('#features .section-desc');
-    if (desc && d.description) desc.textContent = d.description;
+    if (desc && d.description) desc.textContent = L(d.description);
 
     var cards = document.querySelectorAll('#features .feature-card');
     if (d.cards) {
       for (var i = 0; i < Math.min(cards.length, d.cards.length); i++) {
         var h3 = cards[i].querySelector('h3');
         var p = cards[i].querySelector('p');
-        if (h3) h3.textContent = d.cards[i].heading || '';
-        if (p) p.textContent = d.cards[i].description || '';
+        if (h3) h3.textContent = L(d.cards[i].heading || '');
+        if (p) p.textContent = L(d.cards[i].description || '');
       }
     }
   }
@@ -307,10 +369,10 @@
   /* ACTIVITIES GRID (renderer: activitiesGrid) */
   function injectActivitiesGrid(d) {
     var heading = el('.activities-title');
-    if (heading && d.heading) heading.textContent = d.heading;
+    if (heading && d.heading) heading.textContent = L(d.heading);
 
     var desc = el('.activities-desc');
-    if (desc && d.description) desc.textContent = d.description;
+    if (desc && d.description) desc.textContent = L(d.description);
 
     var cards = document.querySelectorAll('#services .activity-card');
     if (d.cards) {
@@ -322,14 +384,14 @@
 
         if (img && d.cards[i].image) {
           img.src = d.cards[i].image;
-          img.alt = d.cards[i].title || '';
+          img.alt = L(d.cards[i].title || '');
         }
-        if (title) title.textContent = d.cards[i].title || '';
-        if (cardDesc) cardDesc.textContent = d.cards[i].description || '';
+        if (title) title.textContent = L(d.cards[i].title || '');
+        if (cardDesc) cardDesc.textContent = L(d.cards[i].description || '');
         if (link) {
           link.href = d.cards[i].linkUrl || '#';
           var arrow = link.querySelector('.activity-link-arrow');
-          link.innerHTML = esc(d.cards[i].linkText || '') + (arrow ? ' <span class="activity-link-arrow">' + arrow.textContent + '</span>' : '');
+          link.innerHTML = esc(L(d.cards[i].linkText || '')) + (arrow ? ' <span class="activity-link-arrow">' + arrow.textContent + '</span>' : '');
         }
       }
     }
@@ -338,10 +400,10 @@
   /* NEWS GRID (renderer: newsGrid) */
   function injectNewsGrid(d) {
     var eyebrow = el('#news .eyebrow');
-    if (eyebrow && d.eyebrow) eyebrow.textContent = d.eyebrow;
+    if (eyebrow && d.eyebrow) eyebrow.textContent = L(d.eyebrow);
 
     var heading = el('#news .section-title');
-    if (heading && d.heading) heading.textContent = d.heading;
+    if (heading && d.heading) heading.textContent = L(d.heading);
 
     var cards = document.querySelectorAll('#news .news-card');
     if (d.cards) {
@@ -352,51 +414,112 @@
         var title = cards[i].querySelector('h3');
         var more = cards[i].querySelector('.news-more');
 
-        if (img && d.cards[i].image) { img.src = d.cards[i].image; img.alt = d.cards[i].title || ''; }
-        if (badge && d.cards[i].badge) badge.textContent = d.cards[i].badge;
+        if (img && d.cards[i].image) { img.src = d.cards[i].image; img.alt = L(d.cards[i].title || ''); }
+        if (badge && d.cards[i].badge) badge.textContent = L(d.cards[i].badge);
         if (date && d.cards[i].date) {
           var svg = date.querySelector('svg');
-          date.innerHTML = (svg ? svg.outerHTML + ' ' : '') + esc(d.cards[i].date);
+          date.innerHTML = (svg ? svg.outerHTML + ' ' : '') + esc(L(d.cards[i].date));
         }
-        if (title) title.textContent = d.cards[i].title || '';
+        if (title) title.textContent = L(d.cards[i].title || '');
         if (more) {
           more.href = d.cards[i].linkUrl || '#';
           var msvg = more.querySelector('svg');
-          more.innerHTML = esc(d.cards[i].linkText || '') + ' ' + (msvg ? msvg.outerHTML : '');
+          more.innerHTML = esc(L(d.cards[i].linkText || '')) + ' ' + (msvg ? msvg.outerHTML : '');
         }
       }
     }
   }
 
-  /* CTA — dispatched to store banner or newsletter based on heading content */
-  function injectCta(d) {
+  /* CTA — dispatched to store banner or newsletter. When called from
+     injectAllFallbacks the caller knows which variant, so the `isNewsletter`
+     hint prevents a wrong branch on translated headings. When called from
+     CMS dispatch, detection is done on the raw Arabic heading. */
+  function injectCta(d, isNewsletter) {
     var heading = d.heading || '';
 
-    /* Detect which CTA section by heading keywords */
-    if (heading.indexOf('نشرتنا') !== -1 || heading.indexOf('اشترك') !== -1) {
+    /* Detect which CTA section by heading keywords (raw Arabic) */
+    var isNl = isNewsletter !== undefined
+      ? isNewsletter
+      : (heading.indexOf('نشرتنا') !== -1 || heading.indexOf('اشترك') !== -1);
+
+    if (isNl) {
       /* Newsletter */
       var nh = el('#newsletter h2');
-      if (nh && d.heading) nh.textContent = d.heading;
+      if (nh && d.heading) {
+        var nlHeading = L(d.heading);
+        if (nlHeading === d.heading && !/[\u0600-\u06FF]/.test(d.heading)) {
+          nlHeading = (window.I18n && window.I18n.t('newsletter.title')) || nlHeading;
+        }
+        nh.textContent = nlHeading;
+      }
 
       var nd = el('#newsletter p');
-      if (nd && d.description) nd.textContent = d.description;
+      if (nd && d.description) {
+        var nlDesc = L(d.description);
+        if (nlDesc === d.description && !/[\u0600-\u06FF]/.test(d.description)) {
+          nlDesc = (window.I18n && window.I18n.t('newsletter.desc')) || nlDesc;
+        }
+        nd.textContent = nlDesc;
+      }
 
       var nbtn = el('#newsletter button[type="submit"]');
-      if (nbtn && d.buttonLabel) nbtn.textContent = d.buttonLabel;
+      if (nbtn && d.buttonLabel) {
+        var nlBtn = L(d.buttonLabel);
+        if (nlBtn === d.buttonLabel && !/[\u0600-\u06FF]/.test(d.buttonLabel)) {
+          nlBtn = (window.I18n && window.I18n.t('newsletter.cta')) || nlBtn;
+        }
+        nbtn.textContent = nlBtn;
+      }
     } else {
       /* Store banner */
+
+      /* Eyebrow / badge */
+      var se = el('.store-eyebrow');
+      if (se) {
+        var seSvg = se.querySelector('svg');
+        var seLabel = L(d.eyebrowLabel || 'متجر AMARE');
+        /* If the L() helper could not translate a non-Arabic source,
+           fall back to the key-based translation. */
+        if (seLabel === (d.eyebrowLabel || 'متجر AMARE') && !/[\u0600-\u06FF]/.test(seLabel)) {
+          seLabel = (window.I18n && window.I18n.t('store.eyebrow')) || seLabel;
+        }
+        se.innerHTML = (seSvg ? seSvg.outerHTML + ' ' : '') + esc(seLabel);
+      }
+
+      /* Heading / title */
       var sh = el('.store-title');
-      if (sh && d.heading) sh.innerHTML = esc(d.heading).replace(/\n/g, '<br>');
+      if (sh && d.heading) {
+        var headingTranslated = L(d.heading);
+        /* If L() returned the source unchanged and it has no Arabic chars,
+           fall back to the i18n key (which already carries the <br>). */
+        if (headingTranslated === d.heading && !/[\u0600-\u06FF]/.test(d.heading)) {
+          headingTranslated = (window.I18n && window.I18n.t('store.title')) || headingTranslated;
+          sh.innerHTML = headingTranslated;
+        } else {
+          sh.innerHTML = esc(headingTranslated).replace(/\n/g, '<br>');
+        }
+      }
 
+      /* Description */
       var sd = el('.store-desc');
-      if (sd && d.description) sd.textContent = d.description;
+      if (sd && d.description) {
+        var descTranslated = L(d.description);
+        if (descTranslated === d.description && !/[\u0600-\u06FF]/.test(d.description)) {
+          descTranslated = (window.I18n && window.I18n.t('store.desc')) || descTranslated;
+        }
+        sd.textContent = descTranslated;
+      }
 
+      /* CTA button */
       var sbtn = el('.store-btn');
       if (sbtn) {
         sbtn.href = d.buttonUrl || '#';
-        var span = sbtn.querySelector('span');
-        var svg = sbtn.querySelector('svg');
-        sbtn.innerHTML = (svg ? svg.outerHTML + ' ' : '') + '<span>' + esc(d.buttonLabel || '') + '</span>';
+        var btnSvg = sbtn.querySelector('svg');
+        var btnLabel = L(d.buttonLabel || '');
+        if (btnLabel === (d.buttonLabel || '') && !/[\u0600-\u06FF]/.test(d.buttonLabel || '')) {
+          btnLabel = (window.I18n && window.I18n.t('store.cta')) || btnLabel;
+        }
+        sbtn.innerHTML = (btnSvg ? btnSvg.outerHTML + ' ' : '') + '<span>' + esc(btnLabel) + '</span>';
       }
 
       if (d.backgroundImage) {
@@ -426,21 +549,13 @@
     }
 
     /* Quick links */
-    var quickNavs = document.querySelectorAll('.footer nav');
-    var quickUl = null, programsUl = null;
-    for (var qn = 0; qn < quickNavs.length; qn++) {
-      var navH4 = quickNavs[qn].querySelector('h4');
-      if (navH4) {
-        if (navH4.textContent.indexOf('روابط سريعة') !== -1 || navH4.textContent.indexOf('Quick') !== -1) {
-          if (d.quickLinksHeading) navH4.textContent = d.quickLinksHeading;
-          quickUl = quickNavs[qn].querySelector('ul');
-        }
-        if (navH4.textContent.indexOf('برامجنا') !== -1 || navH4.textContent.indexOf('Program') !== -1) {
-          if (d.programsHeading) navH4.textContent = d.programsHeading;
-          programsUl = quickNavs[qn].querySelector('ul');
-        }
-      }
-    }
+    var quickUl = document.querySelector('nav[data-amare-section="quick-links"] ul');
+    var quickH4 = document.querySelector('nav[data-amare-section="quick-links"] h4');
+    if (quickH4 && d.quickLinksHeading) quickH4.textContent = d.quickLinksHeading;
+
+    var programsUl = document.querySelector('nav[data-amare-section="programs"] ul');
+    var programsH4 = document.querySelector('nav[data-amare-section="programs"] h4');
+    if (programsH4 && d.programsHeading) programsH4.textContent = d.programsHeading;
 
     injectLinkList(quickUl, d.quickLinks);
     injectLinkList(programsUl, d.programs);
@@ -563,7 +678,7 @@
           statNum.setAttribute('data-count', val);
           statNum.setAttribute('data-suffix', suffix);
         }
-        if (statLbl) statLbl.textContent = d.stats[s].label;
+        if (statLbl) statLbl.textContent = L(d.stats[s].label);
       }
     }
   }
@@ -653,7 +768,11 @@
 
     switch (type) {
       case 'hero':  return injectHero(mapHeroData(data));
-      case 'cta':   return injectCta(mapCtaData(data));
+      case 'cta': {
+        var rawHeading = data.heading || '';
+        var isNl = rawHeading.indexOf('نشرتنا') !== -1 || rawHeading.indexOf('اشترك') !== -1;
+        return injectCta(mapCtaData(data), isNl);
+      }
 
       case 'card_group': {
         if (key === 'features')  return injectFeaturesGrid(mapFeaturesGridData(data));
@@ -805,14 +924,15 @@
      Inject all fallbacks
      ------------------------------------------------------------------ */
   function injectAllFallbacks() {
-    injectHero(FALLBACK.hero);
-    injectAbout(FALLBACK.about);
-    injectFeaturesGrid(FALLBACK.featuresGrid);
-    injectActivitiesGrid(FALLBACK.activitiesGrid);
-    injectNewsGrid(FALLBACK.newsGrid);
-    injectCta(FALLBACK.storeCta);
-    injectCta(FALLBACK.newsletterCta);
-    injectFooter(FALLBACK.footer);
+    var fb = localizedFallback();
+    injectHero(fb.hero);
+    injectAbout(fb.about);
+    injectFeaturesGrid(fb.featuresGrid);
+    injectActivitiesGrid(fb.activitiesGrid);
+    injectNewsGrid(fb.newsGrid);
+    injectCta(fb.storeCta, false);
+    injectCta(fb.newsletterCta, true);
+    injectFooter(fb.footer);
   }
 
   /* ------------------------------------------------------------------
@@ -821,11 +941,25 @@
   function init() {
     console.log('[Home CMS] Starting... DOM ready?', document.readyState);
     /* Inject hero fallback immediately — zero flicker */
-    injectHero(FALLBACK.hero);
+    injectHero(localizedFallback().hero);
 
-    /* Track whether a live promotional Hero (hero_updates) was found.
-       When present it OVERRIDES the default hero below. */
+    /* Track loaded CMS sections and promo hero for re-rendering on
+       language change. */
+    var loadedSections = null;
     var promoHero = null;
+
+    function renderAll() {
+      /* Baseline: all fallbacks in the current language. */
+      injectAllFallbacks();
+      /* Overwrite with CMS sections (injectors translate Arabic via L()). */
+      if (loadedSections) {
+        for (var i = 0; i < loadedSections.length; i++) {
+          injectSection(loadedSections[i]);
+        }
+      }
+      /* Promotional hero always wins over everything else. */
+      if (promoHero) injectHero(promoHero);
+    }
 
     /* 1. Fetch the live promotional Hero from hero_updates (managed by the
           Dashboard "المستجدات" page). It wins over the default hero.
@@ -833,14 +967,17 @@
     var heroService = window.__AMARE_HERO_SERVICE;
     if (heroService && heroService.loadHeroFromSupabase) {
       heroService.loadHeroFromSupabase(function (cmsHero) {
-        promoHero = cmsHero;
-        if (promoHero) injectHero(promoHero);
+        if (cmsHero) {
+          promoHero = cmsHero;
+          injectHero(promoHero);
+        }
       });
     }
 
     /* 2. Load all sections from page_sections (single source of truth) */
     loadHomeFromSupabase(function (sections) {
       if (sections && sections.length > 0) {
+        loadedSections = sections;
         console.log('[Home CMS] Loaded', sections.length, 'CMS sections — injecting...');
         /* Inject every section from CMS — the complete page */
         for (var i = 0; i < sections.length; i++) {
@@ -858,6 +995,16 @@
         if (promoHero) injectHero(promoHero);
       }
     });
+
+    /* 3. Re-render everything when i18n is ready (handles the case where
+          home-content boots before the I18n layer initialised). */
+    window.addEventListener('amare:i18nready', renderAll);
+
+    /* 4. Re-render everything when the language changes. The injectors
+          now translate all Arabic strings via the L() helper, so
+          fallbacks AND CMS content are redrawn correctly in every
+          language — no section is left behind. */
+    window.addEventListener('amare:langchange', renderAll);
   }
 
   if (document.readyState === 'loading') {

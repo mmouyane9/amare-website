@@ -106,17 +106,24 @@
 
   function updateDOM(settings) {
     /* --- Browser title --- */
-    document.title = settings.association_name + ' | معًا نصنع أثرًا حقيقيًا';
-
-    /* --- Meta tags --- */
-    var metaOgTitle = document.querySelector('meta[property="og:title"]');
-    if (metaOgTitle && settings.association_name) {
-      metaOgTitle.setAttribute('content', settings.association_name);
+    if (window.I18n && window.I18n.pageTitle) {
+      var i18nTitle = window.I18n.pageTitle();
+      if (i18nTitle) document.title = i18nTitle;
+      else document.title = settings.association_name;
+    } else {
+      document.title = settings.association_name;
     }
 
-    var metaAuthor = document.querySelector('meta[name="author"]');
-    if (metaAuthor && settings.association_name) {
-      metaAuthor.setAttribute('content', settings.association_name);
+    /* --- Meta tags (only when i18n is not managing them) --- */
+    if (!window.I18n) {
+      var metaOgTitle = document.querySelector('meta[property="og:title"]');
+      if (metaOgTitle && settings.association_name) {
+        metaOgTitle.setAttribute('content', settings.association_name);
+      }
+      var metaAuthor = document.querySelector('meta[name="author"]');
+      if (metaAuthor && settings.association_name) {
+        metaAuthor.setAttribute('content', settings.association_name);
+      }
     }
 
     /* --- Favicon --- */

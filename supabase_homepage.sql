@@ -35,7 +35,7 @@ BEGIN
       "backgroundImage": "",
       "buttons": [
         {"id": "btn-hero-1", "label": "شارك في المسابقة", "url": "competition.html", "variant": "secondary"},
-        {"id": "btn-hero-2", "label": "الانخراط Online", "url": "Join us/join-us-online.html", "variant": "primary"},
+        {"id": "btn-hero-2", "label": "انخرط في الجمعية", "url": "Join us/join-us-online.html", "variant": "primary"},
         {"id": "btn-hero-3", "label": "تجديد الانخراط", "url": "Join us/membership-renewal.html", "variant": "outline"}
       ]
     }$CONTENT$::jsonb,

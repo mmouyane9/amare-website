@@ -46,8 +46,8 @@
       heading: 'اكتشف أنشطتنا',
       description: 'تابع آخر أنشطة الجمعية ومبادراتها.',
       buttons: [
-        { label: 'آخر الأخبار', url: '../News/news.html' },
-        { label: 'تواصل معنا', url: '../contact.html' },
+        { label: 'آخر الأخبار', url: '/News/news.html' },
+        { label: 'تواصل معنا', url: '/contact.html' },
       ],
     },
   };

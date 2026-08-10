@@ -859,12 +859,29 @@
     linkedin: { label:'لينكدإن', svg:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 5 3.79 6.2 2.3 6.2 1 6.2 0 5 0 3.5 0 2 1.1.8 2.5.8s2.48 1.2 2.48 2.7zM.2 8.5h4.6V23H.2V8.5zM8 8.5h4.4v2h.06c.6-1.2 2.1-2.4 4.4-2.4 4.7 0 5.6 3.1 5.6 7.1V23h-4.6v-6.7c0-1.6 0-3.7-2.3-3.7s-2.6 1.8-2.6 3.6V23H8V8.5z"/></svg>'}
   };
 
+  var MEMBER_PHOTOS = {
+    'محمد ميان': 'محمد ميان.jpeg',
+    'نعيمة الحيان': 'نعيمة الحيان.jpeg',
+    'سعيد الخاضري': 'سعيد الخاضيري.jpeg',
+    'سعيد الخاضيري': 'سعيد الخاضيري.jpeg',
+    'هشام أيت علي': 'هشام \u0627\u0654يت علي.jpeg',
+    'عزيز لخميري': 'عزيز لكميري.jpeg',
+    'عزيز لكميري': 'عزيز لكميري.jpeg'
+  };
+
+  function memberPhoto(name) {
+    var fn = MEMBER_PHOTOS[name];
+    return fn ? '../image/' + encodeURI(fn) : null;
+  }
+
   function memberCard(m, idx) {
     console.log('[CO DEBUG] memberCard('+idx+') name:', m.name);
     console.log('[CO DEBUG] memberCard('+idx+') role:', m.role);
     console.log('[CO DEBUG] memberCard('+idx+') bio:', (m.bio||'').substring(0,40));
+    var photo = memberPhoto(m.name);
+    var imgSrc = photo || avatarDataUri(m.name, m.color);
     var soc = ['facebook','instagram','linkedin'].map(function(k) { var it=SOCIALS[k]; return '<a href="'+escapeHtml(m[k]||'#')+'" aria-label="'+it.label+'" rel="noopener">'+it.svg+'</a>'; }).join('');
-    return '<article class="co-member-card" style="--i:'+idx+'"><div class="co-member-photo"><img src="'+avatarDataUri(m.name,m.color)+'" alt="صورة '+escapeHtml(m.name)+'" loading="lazy" width="96" height="96"></div><div class="co-member-body"><h3>'+escapeHtml(m.name)+'</h3><span class="co-member-role">'+escapeHtml(m.role)+'</span><p>'+escapeHtml(m.bio)+'</p><div class="co-member-social">'+soc+'</div><a href="'+escapeHtml(m.profileUrl||'#')+'" class="co-member-btn">عرض الملف الشخصي</a></div></article>';
+    return '<article class="co-member-card" style="--i:'+idx+'"><div class="co-member-photo"><img src="'+imgSrc+'" alt="صورة '+escapeHtml(m.name)+'" loading="lazy" width="96" height="96"></div><div class="co-member-body"><h3>'+escapeHtml(m.name)+'</h3><span class="co-member-role">'+escapeHtml(m.role)+'</span><p>'+escapeHtml(m.bio)+'</p><div class="co-member-social">'+soc+'</div><a href="'+escapeHtml(m.profileUrl||'#')+'" class="co-member-btn">عرض الملف الشخصي</a></div></article>';
   }
 
   function renderMembers() {

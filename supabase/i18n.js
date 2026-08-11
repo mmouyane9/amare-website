@@ -5,11 +5,8 @@
    Loaded automatically on every page via supabase/navbar-loader.js.
 
    Languages (code / direction / default):
-     ar  — العربية       (RTL, default)
-     fr  — Français      (LTR)
-     en  — English       (LTR)
-     es  — Español       (LTR)
-     zgh — ⵜⴰⵎⴰⵣⵉⵖⵜ    (LTR) — Tifinagh
+     ar  — العربية       (RTL, default / primary)
+     fr  — Français      (LTR, secondary)
 
    API:
      I18n.initI18n()          — boot (auto called on script load)
@@ -22,7 +19,7 @@
                                 page-content dictionary for Arabic strings)
      I18n.translateContent(el)
      I18n.markDynamic(el)     — un-bind data-i18n* from CMS-owned containers
-     I18n.resolveNavLabel(item)   — pick title_ar/title_en/dynamic for nav
+     I18n.resolveNavLabel(item)   — pick title_ar/dynamic for nav
      I18n.resolveNavDesc(item)
      I18n.resolveFooterLabel(item)
      I18n.localizeDynamic(englishText)
@@ -38,9 +35,6 @@
 
   var STORAGE_KEY = 'site_language';
   var DEFAULT_LANG = 'ar';
-  var FALLBACK_FONT = "'Noto Sans Tifinagh', sans-serif";
-  var FONT_EMBED =
-    'https://fonts.googleapis.com/css2?family=Noto+Sans+Tifinagh:wght@400;700&display=swap';
 
   /* ------------------------------------------------------------------ */
   /* Language registry                                                   */
@@ -48,18 +42,11 @@
   var LANGUAGES = {
     ar: { label: 'العربية', dir: 'rtl', native: 'العربية' },
     fr: { label: 'Français', dir: 'ltr', native: 'Français' },
-    en: { label: 'English', dir: 'ltr', native: 'English' },
-    es: { label: 'Español', dir: 'ltr', native: 'Español' },
-    zgh: { label: 'Tamazight', dir: 'ltr', native: 'ⵜⴰⵎⴰⵣⵉⵖⵜ' },
   };
-
-  /* Historic option values found in the existing page markup that must be
-     mapped to the canonical language code (the selectors use "ber"). */
-  var LANG_ALIASES = { ber: 'zgh' };
 
   var currentLanguage = DEFAULT_LANG;
 
-  /* Page-content dictionary (supabase/i18n-text.js) — Arabic string → fr/en/es/zgh.
+  /* Page-content dictionary (supabase/i18n-text.js) — Arabic string → fr.
      Loaded lazily from window.AMARE_TEXT_TABLE, so script order does not matter. */
   var AR_RE = /[\u0600-\u06FF]/;
   var TEXT_SKIP_TAGS = {
@@ -89,6 +76,7 @@
   /* ------------------------------------------------------------------ */
   var translations = {
     ar: {
+      'lang.switch': 'Français',
       'lang.select': 'اختيار اللغة',
       'lang.aria': 'اختيار اللغة',
 
@@ -244,9 +232,15 @@
       'page.news': 'الأخبار | آخر أخبار الجمعية | الجمعية المغربية لهواة البحث والاستكشاف',
       'page.contact': 'اتصل بنا | الجمعية المغربية لهواة البحث والاستكشاف',
       'page.login': 'تسجيل الدخول | الجمعية المغربية لهواة البحث والاستكشاف',
+
+      'about.memberPhoto': 'صورة ',
+      'about.viewProfile': 'عرض الملف الشخصي',
+      'map.branchCount': 'عدد الفروع',
+      'map.expansionStatus': 'حالة التوسع',
     },
 
     fr: {
+      'lang.switch': 'العربية',
       'lang.select': 'Choisir la langue',
       'lang.aria': 'Choisir la langue',
 
@@ -402,554 +396,85 @@
       'page.news': 'Actualités | Dernières nouvelles | Association marocaine des amateurs de recherche et d’exploration',
       'page.contact': 'Contactez-nous | Association marocaine des amateurs de recherche et d’exploration',
       'page.login': 'Connexion | Association marocaine des amateurs de recherche et d’exploration',
-    },
 
-    en: {
-      'lang.select': 'Choose language',
-      'lang.aria': 'Choose language',
-
-      'misc.skip': 'Skip to main content',
-      'misc.backToTop': 'Back to top',
-
-      'social.facebook': 'Facebook',
-      'social.instagram': 'Instagram',
-      'social.linkedin': 'LinkedIn',
-      'social.youtube': 'YouTube',
-
-      'topbar.whatsapp': 'WhatsApp',
-      'topbar.whatsappAria': 'Contact us on WhatsApp',
-      'topbar.store': 'AMARE Store',
-      'topbar.brandAria': 'Home',
-
-      'nav.main': 'Main navigation',
-      'nav.home': 'Home',
-      'nav.about': 'About Us',
-      'nav.activities': 'Our Activities',
-      'nav.partners': 'Our Partners',
-      'nav.services': 'Our Services',
-      'nav.branches': 'Regional Branches',
-      'nav.join': 'Join Us',
-      'nav.news': 'News',
-      'nav.archive': 'Archive',
-      'nav.contact': 'Contact Us',
-      'nav.login': 'Login',
-      'nav.logout': 'Logout',
-      'nav.admin': 'Administration',
-      'nav.store': 'Store',
-      'nav.openMenu': 'Open menu',
-      'nav.closeMenu': 'Close menu',
-      'nav.mobileMenu': 'Main menu',
-      'nav.submenu': 'Open submenu',
-      'nav.viewAll': 'View all',
-      'nav.activePage': 'Current page',
-
-      'meta.description': 'Moroccan Association of Research and Exploration Enthusiasts — a Moroccan association working on social development, education and economic empowerment, with over 500 beneficiaries and 12 years of field work.',
-      'meta.keywords': 'association, development, volunteering, Morocco, charity, empowerment',
-      'meta.author': 'Moroccan Association of Research and Exploration Enthusiasts',
-      'meta.ogTitle': 'Moroccan Association of Research and Exploration Enthusiasts',
-      'meta.ogDescription': 'Together we create a real impact in the community',
-
-      'hero.aria': 'A team of volunteers working on a community project',
-      'hero.eyebrow': 'National competition registration is now open',
-      'hero.title': 'Discover...<br>Participate...<br>Join the Moroccan Association<br><span>for Research and Exploration</span>',
-      'hero.desc': 'Participate in the national competition, join the association online, or easily renew your membership, and stay up to date with the latest activities, events and news through the official platform.',
-      'hero.cta1': 'Participate in the competition',
-      'hero.cta2': 'Join the association',
-      'hero.cta3': 'Renew membership',
-      'hero.scroll': 'Scroll down',
-
-      'about.eyebrow': 'About Us',
-      'about.title': 'We build today',
-      'about.titleEm': 'a brighter',
-      'about.titleSub': 'tomorrow for the next generations',
-      'about.desc': 'Since 2014, we have been making a difference in the lives of thousands of Moroccan families',
-      'about.p1': 'The Moroccan Association of Research and Exploration Enthusiasts was founded in 2014 by a group of civil society actors, to respond to the real needs of local communities through field programs in education, health and economic empowerment.',
-      'about.p2': 'We believe that lasting change begins with individuals, which is why we work hand in hand with local communities, volunteers and partners to build solutions whose impact lasts for years to come.',
-      'about.f1t': 'Educational programs',
-      'about.f1d': 'School support and literacy to give children and adults fair educational opportunities.',
-      'about.f2t': 'Health care',
-      'about.f2d': 'Regular free medical caravans for families in remote areas.',
-      'about.f3t': 'Economic empowerment',
-      'about.f3d': 'Vocational training and support for income-generating projects for women and youth.',
-      'about.btn1': 'Discover our programs',
-      'about.btn2': 'Contact us',
-      'about.imgAlt': 'Field volunteers',
-      'about.stat1': 'beneficiaries',
-      'about.stat2': 'volunteers',
-      'about.stat3': 'years',
-
-      'features.eyebrow': 'Why the Moroccan Association for Research and Exploration',
-      'features.title': 'What makes us stand out',
-      'features.desc': 'We combine field expertise with full transparency to ensure a real and tangible impact in every project we carry out.',
-      'features.c1t': 'Educational programs',
-      'features.c1d': 'School support and literacy to give children and adults fair educational opportunities.',
-      'features.c2t': 'Health care',
-      'features.c2d': 'Regular free medical caravans for families in remote areas.',
-      'features.c3t': 'Economic empowerment',
-      'features.c3d': 'Vocational training and support for income-generating projects for women and youth.',
-      'features.c4t': 'Full transparency',
-      'features.c4d': 'Regular financial and field reports available to all donors and partners.',
-
-      'activities.title': 'Our Activities',
-      'activities.desc': 'Discover the key activities and programs organized by the association throughout the year.',
-      'activities.a1t': 'Outings',
-      'activities.a1d': 'Field and exploration trips to discover Moroccan nature and heritage.',
-      'activities.a2t': 'Competitions & rallies',
-      'activities.a2d': 'Organizing competitions, challenges and exploration rallies to strengthen team spirit.',
-      'activities.a3t': 'Training',
-      'activities.a3d': 'Training courses and workshops in research, exploration and first aid.',
-      'activities.a4t': 'Exhibitions',
-      'activities.a4d': 'Scientific and cultural exhibitions to showcase natural heritage and exploration.',
-      'activities.a5t': 'Meetings',
-      'activities.a5d': 'Scientific meetings with experts and enthusiasts in the field of exploration.',
-      'activities.a6t': 'Environmental campaigns',
-      'activities.a6d': 'Campaigns for environmental awareness, nature protection and resource conservation.',
-      'activities.more': 'Discover more',
-      'activities.a1alt': 'Outings',
-      'activities.a2alt': 'Competitions & rallies',
-      'activities.a3alt': 'Training',
-      'activities.a4alt': 'Exhibitions',
-      'activities.a5alt': 'Meetings',
-      'activities.a6alt': 'Environmental campaigns',
-
-      'news.eyebrow': 'Latest updates',
-      'news.title': 'Association news and events',
-      'news.badge1': 'Education',
-      'news.badge2': 'Health',
-      'news.badge3': 'Empowerment',
-      'news.c1t': 'Launch of the scholarship program for the new season',
-      'news.c1d': '12 July 2026',
-      'news.c2t': 'A free medical caravan benefiting more than 300 people',
-      'news.c2d': '28 June 2026',
-      'news.c3t': 'Vocational training workshops kick off for 40 women',
-      'news.c3d': '05 June 2026',
-      'news.more': 'Read more',
-      'news.img1alt': 'Scholarship distribution ceremony',
-      'news.img2alt': 'Free medical caravan',
-      'news.img3alt': 'Training workshop for women',
-
-      'store.eyebrow': 'AMARE Store',
-      'store.title': 'Support our mission<br>with exclusive products',
-      'store.desc': 'Discover AMARE\'s exclusive range of products. Every purchase helps support the association\'s activities, fund research and exploration programs, and protect our national heritage.',
-      'store.cta': 'Shop now',
-      'store.imgAlt': 'AMARE Store',
-
-      'newsletter.title': 'Subscribe to our newsletter',
-      'newsletter.desc': 'Be the first to know about our latest programs, events and success stories we build together.',
-      'newsletter.aria': 'Email address',
-      'newsletter.placeholder': 'Your email',
-      'newsletter.cta': 'Subscribe now',
-      'newsletter.success': 'Thank you! Your subscription has been registered successfully.',
-      'newsletter.error': 'Please enter a valid email address.',
-
-      'footer.quickLinks': 'Quick Links',
-      'footer.programs': 'Our Programs',
-      'footer.contact': 'Contact Us',
-      'footer.location': 'Our Location',
-      'footer.mapTitle': 'Association location on the map',
-      'footer.mapBtn': 'Open in Google Maps',
-      'footer.rightsReserved': 'All rights reserved.',
-      'footer.privacy': 'Privacy Policy',
-      'footer.terms': 'Terms & Conditions',
-
-      'admin.db': 'Database',
-      'admin.content': 'Content Management',
-      'admin.dashboard': 'Dashboard',
-
-      'page.home': 'Moroccan Association for Research and Exploration | Together we create a real impact',
-      'page.news': 'News | Latest association news | Moroccan Association for Research and Exploration',
-      'page.contact': 'Contact Us | Moroccan Association for Research and Exploration',
-      'page.login': 'Login | Moroccan Association for Research and Exploration',
-    },
-
-    es: {
-      'lang.select': 'Elegir idioma',
-      'lang.aria': 'Elegir idioma',
-
-      'misc.skip': 'Saltar al contenido principal',
-      'misc.backToTop': 'Volver arriba',
-
-      'social.facebook': 'Facebook',
-      'social.instagram': 'Instagram',
-      'social.linkedin': 'LinkedIn',
-      'social.youtube': 'YouTube',
-
-      'topbar.whatsapp': 'WhatsApp',
-      'topbar.whatsappAria': 'Contáctenos por WhatsApp',
-      'topbar.store': 'Tienda AMARE',
-      'topbar.brandAria': 'Inicio',
-
-      'nav.main': 'Navegación principal',
-      'nav.home': 'Inicio',
-      'nav.about': 'Quiénes somos',
-      'nav.activities': 'Nuestras actividades',
-      'nav.partners': 'Nuestros socios',
-      'nav.services': 'Nuestros servicios',
-      'nav.branches': 'Sucursales regionales',
-      'nav.join': 'Únete a nosotros',
-      'nav.news': 'Noticias',
-      'nav.archive': 'Archivo',
-      'nav.contact': 'Contáctanos',
-      'nav.login': 'Iniciar sesión',
-      'nav.logout': 'Cerrar sesión',
-      'nav.admin': 'Administración',
-      'nav.store': 'Tienda',
-      'nav.openMenu': 'Abrir menú',
-      'nav.closeMenu': 'Cerrar menú',
-      'nav.mobileMenu': 'Menú principal',
-      'nav.submenu': 'Abrir submenú',
-      'nav.viewAll': 'Ver todo',
-      'nav.activePage': 'Página actual',
-
-      'meta.description': 'Asociación Marroquí de Aficionados a la Investigación y la Exploración — una asociación marroquí que trabaja en desarrollo social, educación y empoderamiento económico, con más de 500 beneficiarios y 12 años de trabajo de campo.',
-      'meta.keywords': 'asociación, desarrollo, voluntariado, Marruecos, obra benéfica, empoderamiento',
-      'meta.author': 'Asociación Marroquí de Aficionados a la Investigación y la Exploración',
-      'meta.ogTitle': 'Asociación Marroquí de Aficionados a la Investigación y la Exploración',
-      'meta.ogDescription': 'Juntos creamos un impacto real en la comunidad',
-
-      'hero.aria': 'Un equipo de voluntarios trabajando en un proyecto comunitario',
-      'hero.eyebrow': 'La inscripción al concurso nacional ya está abierta',
-      'hero.title': 'Descubre...<br>Participa...<br>Únete a la Asociación Marroquí<br><span>de Aficionados a la Investigación y la Exploración</span>',
-      'hero.desc': 'Participa en el concurso nacional, afíliate en línea a la asociación o renueva fácilmente tu membresía, y mantente al día con las últimas actividades, eventos y noticias a través de la plataforma oficial.',
-      'hero.cta1': 'Participar en el concurso',
-      'hero.cta2': 'Únete a la asociación',
-      'hero.cta3': 'Renovar membresía',
-      'hero.scroll': 'Desplázate hacia abajo',
-
-      'about.eyebrow': 'Quiénes somos',
-      'about.title': 'Construimos hoy',
-      'about.titleEm': 'un mañana',
-      'about.titleSub': 'más brillante para las próximas generaciones',
-      'about.desc': 'Desde 2014 marcamos la diferencia en la vida de miles de familias marroquíes',
-      'about.p1': 'La Asociación Marroquí de Aficionados a la Investigación y la Exploración fue fundada en 2014 por un grupo de actores de la sociedad civil, para responder a las necesidades reales de las comunidades locales mediante programas de campo en educación, salud y empoderamiento económico.',
-      'about.p2': 'Creemos que el cambio duradero comienza con las personas, por eso trabajamos codo a codo con las comunidades locales, los voluntarios y los socios para construir soluciones cuyo impacto perdure durante años.',
-      'about.f1t': 'Programas educativos',
-      'about.f1d': 'Apoyo escolar y alfabetización para brindar a niños y adultos oportunidades educativas justas.',
-      'about.f2t': 'Atención sanitaria',
-      'about.f2d': 'Caravanas médicas gratuitas y periódicas para familias de zonas remotas.',
-      'about.f3t': 'Empoderamiento económico',
-      'about.f3d': 'Formación profesional y apoyo a proyectos generadores de ingresos para mujeres y jóvenes.',
-      'about.btn1': 'Descubre nuestros programas',
-      'about.btn2': 'Contáctanos',
-      'about.imgAlt': 'Voluntarios de campo',
-      'about.stat1': 'beneficiarios',
-      'about.stat2': 'voluntarios',
-      'about.stat3': 'años',
-
-      'features.eyebrow': 'Por qué la Asociación Marroquí de Investigación y Exploración',
-      'features.title': 'Lo que nos distingue',
-      'features.desc': 'Combinamos experiencia de campo y transparencia total para garantizar un impacto real y tangible en cada proyecto que realizamos.',
-      'features.c1t': 'Programas educativos',
-      'features.c1d': 'Apoyo escolar y alfabetización para brindar a niños y adultos oportunidades educativas justas.',
-      'features.c2t': 'Atención sanitaria',
-      'features.c2d': 'Caravanas médicas gratuitas y periódicas para familias de zonas remotas.',
-      'features.c3t': 'Empoderamiento económico',
-      'features.c3d': 'Formación profesional y apoyo a proyectos generadores de ingresos para mujeres y jóvenes.',
-      'features.c4t': 'Transparencia total',
-      'features.c4d': 'Informes financieros y de campo periódicos disponibles para todos los donantes y socios.',
-
-      'activities.title': 'Nuestras actividades',
-      'activities.desc': 'Descubre las principales actividades y programas que organiza la asociación durante todo el año.',
-      'activities.a1t': 'Excursiones',
-      'activities.a1d': 'Viajes de campo y exploración para descubrir la naturaleza y el patrimonio marroquí.',
-      'activities.a2t': 'Competiciones y rallys',
-      'activities.a2d': 'Organización de competiciones, desafíos y rallys de exploración para reforzar el espíritu de equipo.',
-      'activities.a3t': 'Formaciones',
-      'activities.a3d': 'Cursos y talleres de formación en investigación, exploración y primeros auxilios.',
-      'activities.a4t': 'Exposiciones',
-      'activities.a4d': 'Exposiciones científicas y culturales para dar a conocer el patrimonio natural.',
-      'activities.a5t': 'Encuentros',
-      'activities.a5d': 'Encuentros científicos con expertos y aficionados al campo de la exploración.',
-      'activities.a6t': 'Campañas ambientales',
-      'activities.a6d': 'Campañas de concienciación ambiental, protección de la naturaleza y conservación de los recursos.',
-      'activities.more': 'Descubre más',
-      'activities.a1alt': 'Excursiones',
-      'activities.a2alt': 'Competiciones y rallys',
-      'activities.a3alt': 'Formaciones',
-      'activities.a4alt': 'Exposiciones',
-      'activities.a5alt': 'Encuentros',
-      'activities.a6alt': 'Campañas ambientales',
-
-      'news.eyebrow': 'Últimas novedades',
-      'news.title': 'Noticias y eventos de la asociación',
-      'news.badge1': 'Educación',
-      'news.badge2': 'Salud',
-      'news.badge3': 'Empoderamiento',
-      'news.c1t': 'Lanzamiento del programa de becas para la nueva temporada',
-      'news.c1d': '12 de julio de 2026',
-      'news.c2t': 'Una caravana médica gratuita que benefició a más de 300 personas',
-      'news.c2d': '28 de junio de 2026',
-      'news.c3t': 'Arrancan los talleres de formación profesional para 40 mujeres',
-      'news.c3d': '05 de junio de 2026',
-      'news.more': 'Leer más',
-      'news.img1alt': 'Ceremonia de entrega de becas',
-      'news.img2alt': 'Caravana médica gratuita',
-      'news.img3alt': 'Taller de formación para mujeres',
-
-      'store.eyebrow': 'Tienda AMARE',
-      'store.title': 'Apoya nuestra misión<br>con productos exclusivos',
-      'store.desc': 'Descubre la gama exclusiva de productos AMARE. Cada compra contribuye a apoyar las actividades de la asociación, financiar programas de investigación y exploración y proteger nuestro patrimonio nacional.',
-      'store.cta': 'Comprar ahora',
-      'store.imgAlt': 'Tienda AMARE',
-
-      'newsletter.title': 'Suscríbete a nuestro boletín',
-      'newsletter.desc': 'Sé el primero en enterarte de nuestros últimos programas, eventos e historias de éxito que construimos juntos.',
-      'newsletter.aria': 'Correo electrónico',
-      'newsletter.placeholder': 'Tu correo electrónico',
-      'newsletter.cta': 'Suscribirse',
-      'newsletter.success': '¡Gracias! Tu suscripción se ha registrado correctamente.',
-      'newsletter.error': 'Por favor, introduce un correo electrónico válido.',
-
-      'footer.quickLinks': 'Enlaces rápidos',
-      'footer.programs': 'Nuestros programas',
-      'footer.contact': 'Contáctanos',
-      'footer.location': 'Nuestra ubicación',
-      'footer.mapTitle': 'Ubicación de la asociación en el mapa',
-      'footer.mapBtn': 'Abrir en Google Maps',
-      'footer.rightsReserved': 'Todos los derechos reservados.',
-      'footer.privacy': 'Política de privacidad',
-      'footer.terms': 'Términos y condiciones',
-
-      'admin.db': 'Base de datos',
-      'admin.content': 'Gestión de contenido',
-      'admin.dashboard': 'Panel de control',
-
-      'page.home': 'Asociación Marroquí de Investigación y Exploración | Juntos creamos un impacto real',
-      'page.news': 'Noticias | Últimas noticias de la asociación | Asociación Marroquí de Investigación y Exploración',
-      'page.contact': 'Contáctanos | Asociación Marroquí de Investigación y Exploración',
-      'page.login': 'Iniciar sesión | Asociación Marroquí de Investigación y Exploración',
-    },
-
-    zgh: {
-      'lang.select': 'ⵙⵜⵉ ⵜⵓⵜⵍⴰⵢⵜ',
-      'lang.aria': 'ⵙⵜⵉ ⵜⵓⵜⵍⴰⵢⵜ',
-
-      'misc.skip': 'ⵙⵏⵜⵜⵍ ⵖⵔ ⵓⴳⴰⵡⴰⵙ ⴰⵎⵣⵡⴰⵔⵓ',
-      'misc.backToTop': 'ⵔⵣⵣⵓ ⵖⵔ ⵜⴰⴼⴰⵡⵜ',
-
-      'social.facebook': 'Facebook',
-      'social.instagram': 'Instagram',
-      'social.linkedin': 'LinkedIn',
-      'social.youtube': 'YouTube',
-
-      'topbar.whatsapp': 'WhatsApp',
-      'topbar.whatsappAria': 'ⵜⵎⴰⵙⴰⵔⴰ ⴷ ⵏⵏⵖ ⵙ WhatsApp',
-      'topbar.store': 'ⴰⵏⵣⴰ ⵏ AMARE',
-      'topbar.brandAria': 'ⴰⵙⵏⵓ',
-
-      'nav.main': 'ⴰⵎⴰⵔⴰⵢ ⴰⵎⵣⵡⴰⵔⵓ',
-      'nav.home': 'ⴰⵙⵏⵓ',
-      'nav.about': 'ⵅⴼ ⵏⵏⵖ',
-      'nav.activities': 'ⵉⵎⴰⵍⴰⵙⵏ ⵏⵏⵖ',
-      'nav.partners': 'ⵉⵎⴷⴰⵡⴰⵏ ⵏⵏⵖ',
-      'nav.services': 'ⵉⵙⵉⵖⵉⵎⵏ ⵏⵏⵖ',
-      'nav.branches': 'ⵉⴼⵕⵄⵏ ⵉⵏⴰⴷⵓⵔⴰⵏ',
-      'nav.join': 'ⴽⵛⵎ ⴷ ⵏⵏⵖ',
-      'nav.news': 'ⵉⵏⵖⵎⵉⵙⵏ',
-      'nav.archive': 'ⴰⵎⴰⵔⴰⵏ',
-      'nav.contact': 'ⵜⵎⴰⵙⴰⵔⴰ ⴷ ⵏⵏⵖ',
-      'nav.login': 'ⴰⵏⵛⵎⵎⴽ',
-      'nav.logout': 'ⴰⴼⵙⵙⵉ',
-      'nav.admin': 'ⵜⵉⵙⵓⴼⴰ',
-      'nav.store': 'ⴰⵏⵣⴰ',
-      'nav.openMenu': 'ⵔⵣⵎ ⵜⵓⵎⵔⵉⵏ',
-      'nav.closeMenu': 'ⵇⵇⵙ ⵜⵓⵎⵔⵉⵏ',
-      'nav.mobileMenu': 'ⵜⴰⵎⵓⵎⵔⵉⵏ ⵜⴰⵎⵣⵡⴰⵔⵓⵜ',
-      'nav.submenu': 'ⵔⵣⵎ ⵜⴰⵎⵓⵎⵔⵉⵏ ⵜⴰⵎⵣⵔⴰⵡⵜ',
-      'nav.viewAll': 'ⵥⵕ ⴰⴽⴽⵯ',
-      'nav.activePage': 'ⵜⴰⵙⵏⴰ ⵜⴰⵎⵉⵔⴰⵏⵜ',
-
-      'meta.description': 'ⵜⴰⵎⵣⴳⵉⴷⴰ ⵜⴰⵎⵖⵔⵉⴱⵉⵢⵜ ⵏ ⵉⵏⵎⵉⵏⴰⵢⵏ ⵏ ⵓⵎⴰⴷⴷⵓⵔ ⴷ ⵜⵎⵣⵣⴰⵍⵍⵉⵜ — ⵜⴰⵎⵣⴳⵉⴷⴰ ⵜⴰⵎⵖⵔⵉⴱⵉⵢⵜ ⵍⵍⵉ ⵉⵅⴷⴷⵎⵏ ⵅⴼ ⵜⵏⵖⵎⵉ, ⵜⵓⵙⵙⵏⴰ ⴷ ⵓⵎⴰⴷⴰ ⴰⴷⵉⵎⵙⴰⵏ, ⵙ ⵓⴳⴳⴰⵔ ⵏ 500 ⵏ ⵓⵎⵙⵏⴰⵎ ⴷ 12 ⵏ ⵉⵙⴳⴳⵯⴰⵙⵏ ⵏ ⵜⵡⵓⵔⵉ ⵖ ⵓⵙⴰⵢⵙ.',
-      'meta.keywords': 'ⵜⴰⵎⵣⴳⵉⴷⴰ, ⵜⵏⵖⵎⵉ, ⵜⵓⵏⵏⵓⵏⵜ, ⵍⵎⵖⵔⵉⴱ, ⵜⵡⵓⵔⵉ ⵏ ⵍⵅⵉⵔ, ⴰⵎⴰⴷⴰ',
-      'meta.author': 'ⵜⴰⵎⵣⴳⵉⴷⴰ ⵜⴰⵎⵖⵔⵉⴱⵉⵢⵜ ⵏ ⵉⵏⵎⵉⵏⴰⵢⵏ ⵏ ⵓⵎⴰⴷⴷⵓⵔ ⴷ ⵜⵎⵣⵣⴰⵍⵍⵉⵜ',
-      'meta.ogTitle': 'ⵜⴰⵎⵣⴳⵉⴷⴰ ⵜⴰⵎⵖⵔⵉⴱⵉⵢⵜ ⵏ ⵉⵏⵎⵉⵏⴰⵢⵏ ⵏ ⵓⵎⴰⴷⴷⵓⵔ ⴷ ⵜⵎⵣⵣⴰⵍⵍⵉⵜ',
-      'meta.ogDescription': 'ⵉⵎⵏⵓ ⵏⵙⴰⵡⵍ ⴰⵀⵉⵍ ⴰⵏⵇⵇⴰⵏ ⵖ ⵓⵏⴰⵎⵓⵔ',
-
-      'hero.aria': 'ⵜⴰⵔⴱⴱⵉⵄⵜ ⵏ ⵉⵎⵏⵏⵓⵜⵉⵏ ⵍⵍⵉ ⵉⵅⴷⴷⵎⵏ ⵖ ⵉⵎⵛⵔⵓⵄ ⴰⵎⴰⵣⵉⵔⴰⵏ',
-      'hero.eyebrow': 'ⴰⵔ ⴷ ⴰⵡⵉⵍⵏⵉⵏ ⵉⵏⵛⵎⵎⴰⴽⵏ ⵏ ⵜⵎⵣⵣⴰⵍⵍⵉⵜ ⵜⴰⵏⴰⵎⵓⵔⵜ',
-      'hero.title': 'ⴰⵊⵊ ⴰⴷ ⵜⵎⵥⵍⵉⴹ...<br>ⴰⵊⵊ ⴰⴷ ⵜⴰⵊⵊ ⵏⵜⵜⵓⵏⵏⵉ...<br>ⴽⵛⵎ ⴷ ⵜⴰⵎⵣⴳⵉⴷⴰ ⵜⴰⵎⵖⵔⵉⴱⵉⵢⵜ<br><span>ⵏ ⵉⵏⵎⵉⵏⴰⵢⵏ ⵏ ⵓⵙⴳⴰⵡ ⴷ ⵓⵙⵖⵉⵎⵙ</span>',
-      'hero.desc': 'ⴰⵊⵊ ⴰⵢⵏⵏ ⴰⴷ ⵜⵙⴰⴽⵔ ⵖ ⵜⵎⵣⵣⴰⵍⵍⵉⵜ ⵜⴰⵏⴰⵎⵓⵔⵜ, ⴰⵊⵊ ⴰⴷ ⵜⴽⵛⵎ ⵙ ⵓⵏⵟⵟⴰⵍ ⵏ ⵜⵎⵣⴳⵉⴷⴰ, ⵏⵖ ⴰⴷ ⵜⵓⵏⴳⵉ ⵜⴰⵏⵉⵎⴰⵏⵜ ⵏⵏⴽ, ⵙ ⵓⵀⵉⵍ ⵙⵙⴰⵃⴱ ⵉⵙⵏⵓⴱⴱⵄⵏ ⵏ ⵜⵉⴷⵎⵎⵉ ⴷ ⵉⵏⵖⵎⵉⵙⵏ ⵙ ⵜⴰⵙⴰⵡⵓⵏⵜ ⵜⴰⵏⴰⵎⵓⵏⵜ.',
-      'hero.cta1': 'ⴰⵊⵊ ⴰⴷ ⵜⵙⵙⵏ ⴰⴳⵎⵎⵉ ⴰⴷ ⵜⴰⵏⴰⵎⵓⵔⵜ',
-      'hero.cta2': 'ⴽⵛⵎ ⴷ ⵜⴰⵎⵣⴳⵉⴷⴰ',
-      'hero.cta3': 'ⵓⵏⴳⵉ ⵜⴰⵏⵉⵎⴰⵏⵜ',
-      'hero.scroll': 'ⴰⴳⴰⵔ ⵖⵔ ⵉⵣⴷⴰⵔ',
-
-      'about.eyebrow': 'ⵅⴼ ⵏⵏⵖ',
-      'about.title': 'ⵏⵏⵉⵖ ⴰⴷ ⵏⴱⵏⵓ ⵖⴰⵙⴰⵙ',
-      'about.titleEm': 'ⴰⵙⴽⴽⴰ',
-      'about.titleSub': 'ⵉⴼⵍⵓ ⵉⴼⵍ ⵉ ⵉⵎⵓⴹⴰⵏ ⵏ ⵜⵎⴰⵏⵓⵜ',
-      'about.desc': 'ⵣⴳ 2014 ⵏⵙⴰⵡⵍ ⴰⵏⵓⵖⵏⵓ ⵖ ⵓⴷⵔⴰⵔ ⵏ ⵎⴰⵢⵏ ⵉⵖⵉ ⵉⵖⴰⵙⵏ ⵏ ⵜⵉⵡⵓⵔⵉⵡⵉⵏ ⵜⵉⵎⵖⵔⵉⴱⵉⵢⵉⵏ',
-      'about.p1': 'ⵜⵍⵍⴰ ⵜⵎⵣⴳⵉⴷⴰ ⵜⴰⵎⵖⵔⵉⴱⵉⵢⵜ ⵏ ⵉⵏⵎⵉⵏⴰⵢⵏ ⵏ ⵓⵙⴳⴰⵡ ⴷ ⵓⵙⵖⵉⵎⵙ ⴳ ⵓⵙⴳⴳⵯⴰⵙ 2014, ⵙ ⵢⴰⵜ ⵜⵔⴰⴱⴱⵉⵄⵜ ⵏ ⵉⵏⴰⵎⵓⵔⵏ ⵉⵎⴰⴷⴰⵏⵏ, ⴱⴰⵛ ⴰⴷ ⵜⵜⵊⴰⵡⴱ ⵉ ⵉⵃⵡⴰⵢⵊ ⵏ ⵉⵏⴰⵎⵓⵔⵏ ⵉⵏⵖⵔⵉⴱⵏ ⵙ ⵉⵎⵛⵔⵓⵄⵏ ⵉⵎⴰⵣⵉⵔⴰⵏⵏ ⵖ ⵜⵓⵙⵙⵏⴰ, ⵜⴰⴷⵓⵙⵉ ⴷ ⵓⵎⴰⴷⴰ ⴰⴷⵉⵎⵙⴰⵏ.',
-      'about.p2': 'ⵏⵣⵉⵀⵎ ⵎⴰⵙ ⴰⵀⵉⵍ ⴰⴷⴷⵓⵔ ⵉⵎⵓⵏ ⵉⴱⴷⴰ ⵙ ⵉⵏⴰⵎⵓⵔⵏ, ⵓⵔ ⵉⵙ ⵏⵅⴷⴷⵎ ⴷ ⵉⵎⵏⵏⵓⵜⵉⵏ ⴷ ⵉⵎⴷⴰⵡⴰⵏ ⴱⴰⵛ ⴰⴷ ⵏⴱⵏⵓ ⵜⵉⴼⵔⴰⴽⵉⵏ ⵍⵍⵉ ⵢⴰⴷ ⵉⵇⵇⵉⵎⵏ ⵉ ⵉⵙⴳⴳⵯⴰⵙⵏ ⴷ ⵎⵏⵏⴰⵡ ⵏ ⵉⵎⵔⵔⵓⵙⵏ.',
-      'about.f1t': 'ⵉⵎⵛⵔⵓⵄⵏ ⵉⵙⵍⵎⴰⵏ',
-      'about.f1d': 'ⴰⵎⴰⵡⴰⵍ ⴰⵙⴽⴰⵡⴰⵏ ⴷ ⵜⵓⴷⴷⵓⵜ ⵉ ⵉⵏⵓⵙⵉⴷⴰⵜⵏ ⴷ ⵉⵎⵇⵇⵓⵔⵏ ⴱⴰⵛ ⴰⴷ ⵖⵉⵍⵉⵏ ⵜⵉⵙⵓⴷⴷⵙⵉⵏ ⵜⵉⵍⵎⴰⵏⵉⵏ.',
-      'about.f2t': 'ⵜⴰⴷⵓⵙⵉ',
-      'about.f2d': 'ⵜⵉⵔⴰⴱⴱⵉⵄⵉⵏ ⵜⵉⵏⵜⵉⴳⵎⴰⵏⵉⵏ ⵜⵉⴱⵉⴷⴰⵖⴰⵏⵉⵏ ⴷ ⵜⵉⴳⵓⵎⵎⴰⵏⵉⵏ ⵉ ⵜⵡⴰⵛⵓⵍⵉⵏ ⵏ ⵜⵎⵏⴰⴹⵉⵏ ⵜⵉⵏⴰⵔⵓⵣⵣⵉⵏ.',
-      'about.f3t': 'ⴰⵎⴰⴷⴰ ⴰⴷⵉⵎⵙⴰⵏ',
-      'about.f3d': 'ⴰⵙⵖⵉⵎⵙ ⵓⵣⵣⵓⵔ ⴷ ⵓⵎⴰⵡⴰⵍ ⵏ ⵉⵎⵛⵔⵓⵄⵏ ⵉⵣⵎⵎⵉⵎⵏ ⴰⴷⴰⵔ ⵉ ⵜⵎⵖⴰⵔⵉⵏ ⴷ ⵉⵎⵛⴰⵢⵏ.',
-      'about.btn1': 'ⵙⵙⵏ ⵉⵎⵛⵔⵓⵄⵏ ⵏⵏⵖ',
-      'about.btn2': 'ⵜⵎⴰⵙⴰⵔⴰ ⴷ ⵏⵏⵖ',
-      'about.imgAlt': 'ⵉⵎⵏⵏⵓⵜⵉⵏ ⵖ ⵓⵙⴰⵢⵙ',
-      'about.stat1': 'ⵏ ⵉⵏⴰⵎⵓⵔⵏ',
-      'about.stat2': 'ⵏ ⵉⵎⵏⵏⵓⵜⵉⵏ',
-      'about.stat3': 'ⵏ ⵉⵙⴳⴳⵯⴰⵙⵏ',
-
-      'features.eyebrow': 'ⵎⴰⵖⴰⵔ ⵜⴰⵎⵣⴳⵉⴷⴰ ⵜⴰⵎⵖⵔⵉⴱⵉⵢⵜ ⵏ ⵓⵙⴳⴰⵡ ⴷ ⵓⵙⵖⵉⵎⵙ',
-      'features.title': 'ⵉⵏ ⵉⵥⵍⴰⵏ ⵙ ⵜⵡⵓⵔⵉ ⵏⵏⵖ',
-      'features.desc': 'ⵏⴷⴷⵓ ⵣⴳ ⵜⵏⵖⵎⵉⵡⵉⵏ ⵏ ⵓⵙⴰⵢⵙ ⴷ ⵜⵓⵏⵏⵓⵏⵜ ⵉⵎⵏⵓ ⴱⴰⵛ ⴰⴷ ⵏⵎⵍ ⴰⵀⵉⵍ ⴰⵏⵇⵇⴰⵏ ⴷ ⵓⴷⵎⴰⵏ ⵖ ⴽⵓ ⵢⴰⵏ ⵉⵎⵛⵔⵓⵄ ⵏⵏⵖ.',
-      'features.c1t': 'ⵉⵎⵛⵔⵓⵄⵏ ⵉⵙⵍⵎⴰⵏ',
-      'features.c1d': 'ⴰⵎⴰⵡⴰⵍ ⴰⵙⴽⴰⵡⴰⵏ ⴷ ⵜⵓⴷⴷⵓⵜ ⵉ ⵉⵏⵓⵙⵉⴷⴰⵜⵏ ⴷ ⵉⵎⵇⵇⵓⵔⵏ.',
-      'features.c2t': 'ⵜⴰⴷⵓⵙⵉ',
-      'features.c2d': 'ⵜⵉⵔⴰⴱⴱⵉⵄⵉⵏ ⵜⵉⵏⵜⵉⴳⵎⴰⵏⵉⵏ ⵜⵉⴱⵉⴷⴰⵖⴰⵏⵉⵏ ⵉ ⵜⵡⴰⵛⵓⵍⵉⵏ.',
-      'features.c3t': 'ⴰⵎⴰⴷⴰ ⴰⴷⵉⵎⵙⴰⵏ',
-      'features.c3d': 'ⴰⵙⵖⵉⵎⵙ ⵓⵣⵣⵓⵔ ⴷ ⵓⵎⴰⵡⴰⵍ ⵏ ⵉⵎⵛⵔⵓⵄⵏ ⵉⵣⵎⵎⵉⵎⵏ ⴰⴷⴰⵔ.',
-      'features.c4t': 'ⵜⵓⵏⵏⵓⵏⵜ ⵉⵎⵏⵓ',
-      'features.c4d': 'ⵉⵏⵏⴰⵢⵏ ⵉⵏⴼⵉⵏⵔⵉⵢⵏ ⴷ ⵏ ⵓⵙⴰⵢⵙ ⵍⵍⵉ ⵍⵍⴰⵏ ⵉ ⵉⵎⵏⴰⴷⴰⵢⵏ ⴷ ⵉⵎⴷⴰⵡⴰⵏ ⴰⴽⴽⵯ.',
-
-      'activities.title': 'ⵉⵎⴰⵍⴰⵙⵏ ⵏⵏⵖ',
-      'activities.desc': 'ⵙⵙⵏ ⵉⵎⴰⵍⴰⵙⵏ ⴷ ⵉⵎⵛⵔⵓⵄⵏ ⵉⵎⵓⵏⴰⵡⵏ ⵍⵍⵉ ⵜⵙⴽⵔ ⵜⵎⵣⴳⵉⴷⴰ ⵖ ⵓⵙⴳⴳⵯⴰⵙ.',
-      'activities.a1t': 'ⵜⵓⵙⵙⵉⴹⴰ ⵏ ⵜⵖⴰⵡⵉⵡⵉⵏ',
-      'activities.a1d': 'ⵜⵉⵎⵖⵓⵔⵉⵏ ⵏ ⵓⵙⴰⵢⵙ ⴷ ⵓⵙⵖⵉⵎⵙ ⴱⴰⵛ ⴰⴷ ⵏⵙⵙⵏ ⵜⵉⴳⵉⵔⴰ ⴷ ⵉⵍⵍⴰⵙ ⵏ ⵜⴰⴳⵍⴷⵉⵜ.',
-      'activities.a2t': 'ⵜⵉⵎⵣⵣⴰⵍⵍⵉⵏ ⴷ ⵉⵔⴰⵍⵢⴰⵜⵏ',
-      'activities.a2d': 'ⴰⵙⵏⵎⴰⵍⴰ ⵏ ⵜⵎⵣⵣⴰⵍⵍⵉⵏ ⴷ ⵉⵙⴽⴽⵉⵍⵏ ⵏ ⵓⵙⵖⵉⵎⵙ ⴱⴰⵛ ⴰⴷ ⵏⵣⵣⵓⵏⴳⵓⵎ ⵣⵖ ⵓⵏⵎⵎⴰⵍ ⵏ ⵜⵔⴱⴱⵉⵄⵜ.',
-      'activities.a3t': 'ⵉⵙⵖⵉⵎⵏ',
-      'activities.a3d': 'ⵜⵉⵎⵔⴰⵡⵉⵏ ⴷ ⵉⵙⵖⵉⵎⵏ ⵖ ⵓⵙⴳⴰⵡ, ⵓⵙⵖⵉⵎⵙ ⴷ ⵉⵎⴰⵡⴰⵍⵏ ⵉⵣⵡⴰⵔⵏ.',
-      'activities.a4t': 'ⵉⵎⵥⵍⵉⵄⵏ',
-      'activities.a4d': 'ⵉⵎⵥⵍⵉⵄⵏ ⵉⵎⵓⵙⵏⴰⵡⵏ ⴷ ⵉⵏⴰⵎⵓⵏⵏ ⴱⴰⵛ ⴰⴷ ⵏⵙⵙⵏ ⵉⵍⵍⴰⵙ ⴰⵏⴰⵎⵓⵔ ⴷ ⵓⵙⵖⵉⵎⵙ.',
-      'activities.a5t': 'ⵜⵉⵎⵍⴰⵢⵉⵏ',
-      'activities.a5d': 'ⵜⵉⵎⵍⴰⵢⵉⵏ ⵜⵉⵎⵓⵙⵏⴰⵡⵉⵏ ⴷ ⵜⵉⵏⵖⵎⵉⵙⵉⵏ ⴷ ⵉⵎⵙⵙⵏⵡⵏ ⴷ ⵉⵏⵎⵉⵏⴰⵢⵏ.',
-      'activities.a6t': 'ⵜⵉⵡⵉⵏⴰⵢⵉⵏ ⵜⵉⵎⴰⵣⵉⵔⴰⵏⵉⵏ',
-      'activities.a6d': 'ⵜⵉⵡⵉⵏⴰⵢⵉⵏ ⵏ ⵡⴰⵖⴱⴰⵍ ⵏ ⵜⵉⴳⵉⵔⴰ ⴷ ⵓⵃⵟⵟⵓ ⵏ ⵉⵙⴰⵢⵙ ⴷ ⵜⵓⴷⵓⵔⵜ ⵏ ⵉⵙⴼⵉⵡⵏ.',
-      'activities.more': 'ⵙⵙⵏ ⵓⴳⴳⴰⵔ',
-      'activities.a1alt': 'ⵜⵓⵙⵙⵉⴹⴰ ⵏ ⵜⵖⴰⵡⵉⵡⵉⵏ',
-      'activities.a2alt': 'ⵜⵉⵎⵣⵣⴰⵍⵍⵉⵏ ⴷ ⵉⵔⴰⵍⵢⴰⵜⵏ',
-      'activities.a3alt': 'ⵉⵙⵖⵉⵎⵏ',
-      'activities.a4alt': 'ⵉⵎⵥⵍⵉⵄⵏ',
-      'activities.a5alt': 'ⵜⵉⵎⵍⴰⵢⵉⵏ',
-      'activities.a6alt': 'ⵜⵉⵡⵉⵏⴰⵢⵉⵏ ⵜⵉⵎⴰⵣⵉⵔⴰⵏⵉⵏ',
-
-      'news.eyebrow': 'ⵉⵏⵖⵎⵉⵙⵏ ⵉⵎⵇⵇⵓⵔⵏ',
-      'news.title': 'ⵉⵏⵖⵎⵉⵙⵏ ⴷ ⵉⵎⴰⵍⴰⵙⵏ ⵏ ⵜⵎⵣⴳⵉⴷⴰ',
-      'news.badge1': 'ⵜⵓⵙⵙⵏⴰ',
-      'news.badge2': 'ⵜⴰⴷⵓⵙⵉ',
-      'news.badge3': 'ⴰⵎⴰⴷⴰ',
-      'news.c1t': 'ⴰⵙⵙⵏⵜⵉ ⵏ ⵓⵎⵛⵔⵓⵄ ⵏ ⵜⵎⵓⵔⵣⴰⵡⵉⵏ ⵏ ⵓⵙⴳⴳⵯⴰⵙ ⴰⵎⴰⵢⵏⵓ',
-      'news.c1d': '12 ⵢⵓⵍⵢⵓⵣ 2026',
-      'news.c2t': 'ⵜⴰⵔⴰⴱⴱⵉⵄⵜ ⵜⵓⵏⵜⵉⴳⵎⴰⵏⵜ ⵉⵙⵏⴰⵎⴰⵏ ⵓⴳⴳⴰⵔ ⵏ 300 ⵏ ⵓⴼⴳⴰⵏ',
-      'news.c2d': '28 ⵢⵓⵏⵢⵓ 2026',
-      'news.c3t': 'ⴰⵙⵙⵏⵜⵉ ⵏ ⵜⵉⵎⵔⴰⵡⵉⵏ ⵏ ⵓⵙⵖⵉⵎⵙ ⵓⵣⵣⵓⵔ ⵉ 40 ⵏ ⵜⵎⵖⴰⵔⵜ',
-      'news.c3d': '05 ⵢⵓⵏⵢⵓ 2026',
-      'news.more': 'ⵖⵔ ⵓⴳⴳⴰⵔ',
-      'news.img1alt': 'ⵜⴰⴼⴰⵙⴽⴰ ⵏ ⵜⵎⵓⵔⵣⴰⵡⵉⵏ',
-      'news.img2alt': 'ⵜⴰⵔⴰⴱⴱⵉⵄⵜ ⵜⵓⵏⵜⵉⴳⵎⴰⵏⵜ',
-      'news.img3alt': 'ⴰⵙⵖⵉⵎⵙ ⵉ ⵜⵎⵖⴰⵔⵉⵏ',
-
-      'store.eyebrow': 'ⴰⵏⵣⴰ ⵏ AMARE',
-      'store.title': 'ⴰⵡⵙ ⵉ ⵓⵎⵛⵔⵓⵄ ⵏⵏⵖ<br>ⵙ ⵉⴼⵔⴰⵖⵏ ⵉⵎⵣⵣⵓⵣⵏ',
-      'store.desc': 'ⵙⵙⵏ ⴰⴳⵔⵓ ⴰⵎⵣⵣⵓⵣ ⵏ ⵉⴼⵔⴰⵖⵏ ⵏ AMARE. ⴽⵓ ⵢⴰⵏ ⵉⵏⵣⵣⴰ ⵉⵜⵜⴰⵡⵙ ⵉ ⵜⵡⵓⵔⵉⵡⵉⵏ ⵏ ⵜⵎⵣⴳⵉⴷⴰ, ⵉⵜⵜⴰⵡⵙ ⵉ ⵉⵎⵛⵔⵓⵄⵏ ⵏ ⵓⵙⴳⴰⵡ ⴷ ⵓⵙⵖⵉⵎⵙ, ⴷ ⵓⵃⵟⵟⵓ ⵏ ⵉⵍⵍⴰⵙ ⴰⵏⴰⵎⵓⵔ.',
-      'store.cta': 'ⴰⵣⵣⵏ ⴷⴰⴳⵉ',
-      'store.imgAlt': 'ⴰⵏⵣⴰ ⵏ AMARE',
-
-      'newsletter.title': 'ⴰⵔⴰ ⵖⵔ ⵉⵏⵖⵎⵉⵙⵏ ⵏⵏⵖ',
-      'newsletter.desc': 'ⴰⵢⵜ ⵉⵣⵡⴰⵔⵏ ⴰⴷ ⵜⵙⵙⵏ ⵅⴼ ⵉⵎⵛⵔⵓⵄⵏ ⴷ ⵉⵎⴰⵍⴰⵙⵏ ⴷ ⵉⵙⴰⵢ ⵏ ⵓⵎⵉⴹⴰⵏ ⵍⵍⵉ ⵏⵙⴽⵔ ⴷ ⵢⴰⵏ.',
-      'newsletter.aria': 'ⵉⵎⴰⵢⵍ ⵏⵏⴽ',
-      'newsletter.placeholder': 'ⵉⵎⴰⵢⵍ ⵏⵏⴽ',
-      'newsletter.cta': 'ⴰⵔⴰ ⵖⵉⵍⴰ',
-      'newsletter.success': 'ⵜⴰⵏⵎⵎⵉⵔⵜ! ⵜⵓⵔⴰ ⵜⵉⵔⴰⵎⵓⵜ ⵏⵏⴽ ⵙ ⵍⵎⵏⴰⵃ.',
-      'newsletter.error': 'ⵜⵓⵊⴰ ⴰⴷ ⵜⴽⵛⵎ ⵉⵎⴰⵢⵍ ⵉⵏⴷⴷⵏ.',
-
-      'footer.quickLinks': 'ⵉⵙⵡⴷⴰⵢⵏ ⵉⴱⴷⴷⴰⵏ',
-      'footer.programs': 'ⵉⵎⵛⵔⵓⵄⵏ ⵏⵏⵖ',
-      'footer.contact': 'ⵜⵎⴰⵙⴰⵔⴰ ⴷ ⵏⵏⵖ',
-      'footer.location': 'ⴰⵎⵣⴳⴰⵏ ⵏⵏⵖ',
-      'footer.mapTitle': 'ⴰⵎⵣⴳⴰⵏ ⵏ ⵜⵎⵣⴳⵉⴷⴰ ⵖ ⵜⴽⴰⵔⴹⴰ',
-      'footer.mapBtn': 'ⵔⵣⵎ ⵖ Google Maps',
-      'footer.rightsReserved': 'ⴰⴽⴽⵯ ⵉⵣⵔⴼⴰⵏ ⵜⵜⵓⵃⵟⵟⴰⵏ.',
-      'footer.privacy': 'ⴰⵙⵙⴰⵔⵓ ⵏ ⵜⵉⵏⵎⵎⴰⵙⵉⵏ',
-      'footer.terms': 'ⵉⵣⵔⴼⴰⵏ ⴷ ⵉⵙⵓⴼⵏ',
-
-      'admin.db': 'ⵜⴰⵙⵉⵍⴰ',
-      'admin.content': 'ⴰⵙⵖⵉⵎⵙ ⵏ ⵓⴳⴰⵡⴰⵙ',
-      'admin.dashboard': 'ⵜⴰⵙⵎⵓⵏⵉⵜ',
-
-      'page.home': 'ⵜⴰⵎⵣⴳⵉⴷⴰ ⵜⴰⵎⵖⵔⵉⴱⵉⵢⵜ ⵏ ⵓⵙⴳⴰⵡ ⴷ ⵓⵙⵖⵉⵎⵙ | ⵉⵎⵏⵓ ⵏⵏⵙⴰⵡⵍ ⴰⵀⵉⵍ ⴰⵏⵇⵇⴰⵏ',
-      'page.news': 'ⵉⵏⵖⵎⵉⵙⵏ | ⵉⵏⵖⵎⵉⵙⵏ ⵉⵎⵇⵇⵓⵔⵏ ⵏ ⵜⵎⵣⴳⵉⴷⴰ | ⵜⴰⵎⵣⴳⵉⴷⴰ ⵜⴰⵎⵖⵔⵉⴱⵉⵢⵜ ⵏ ⵓⵙⴳⴰⵡ ⴷ ⵓⵙⵖⵉⵎⵙ',
-      'page.contact': 'ⵜⵎⴰⵙⴰⵔⴰ ⴷ ⵏⵏⵖ | ⵜⴰⵎⵣⴳⵉⴷⴰ ⵜⴰⵎⵖⵔⵉⴱⵉⵢⵜ ⵏ ⵓⵙⴳⴰⵡ ⴷ ⵓⵙⵖⵉⵎⵙ',
-      'page.login': 'ⴰⵏⵛⵎⵎⴽ | ⵜⴰⵎⵣⴳⵉⴷⴰ ⵜⴰⵎⵖⵔⵉⴱⵉⵢⵜ ⵏ ⵓⵙⴳⴰⵡ ⴷ ⵓⵙⵖⵉⵎⵙ',
+      'about.memberPhoto': 'Photo de ',
+      'about.viewProfile': 'Voir le profil',
+      'map.branchCount': 'Nombre de branches',
+      'map.expansionStatus': 'Statut d\'expansion',
     },
   };
 
   /* ------------------------------------------------------------------ */
   /* Dynamic CMS labels — keyed by the English value stored in the DB    */
   /* (title_en on navigation_items / footer_columns / footer_items).     */
-  /* Used only for fr / es / zgh since the DB has no such columns yet.   */
+  /* Used only for fr since the DB has no title_fr column yet.           */
   /* ------------------------------------------------------------------ */
   var dynamic = {
-    'Home': { fr: 'Accueil', es: 'Inicio', zgh: 'ⴰⵙⵏⵓ' },
-    'About Us': { fr: 'À propos', es: 'Quiénes somos', zgh: 'ⵅⴼ ⵏⵏⵖ' },
-    'Our Activities': { fr: 'Nos activités', es: 'Nuestras actividades', zgh: 'ⵉⵎⴰⵍⴰⵙⵏ ⵏⵏⵖ' },
-    'Our Partners': { fr: 'Nos partenaires', es: 'Nuestros socios', zgh: 'ⵉⵎⴷⴰⵡⴰⵏ ⵏⵏⵖ' },
-    'Our Services': { fr: 'Nos services', es: 'Nuestros servicios', zgh: 'ⵉⵙⵉⵖⵉⵎⵏ ⵏⵏⵖ' },
-    'Regional Branches': { fr: 'Branches régionales', es: 'Sucursales regionales', zgh: 'ⵉⴼⵕⵄⵏ ⵉⵏⴰⴷⵓⵔⴰⵏ' },
-    'Join Us': { fr: 'Rejoignez-nous', es: 'Únete a nosotros', zgh: 'ⴽⵛⵎ ⴷ ⵏⵏⵖ' },
-    'News': { fr: 'Actualités', es: 'Noticias', zgh: 'ⵉⵏⵖⵎⵉⵙⵏ' },
-    'Archive': { fr: 'Archives', es: 'Archivo', zgh: 'ⴰⵎⴰⵔⴰⵏ' },
-    'Contact Us': { fr: 'Contactez-nous', es: 'Contáctanos', zgh: 'ⵜⵎⴰⵙⴰⵔⴰ ⴷ ⵏⵏⵖ' },
-    'National Presidency': { fr: 'Présidence nationale', es: 'Presidencia nacional', zgh: 'ⴰⵏⵙⵙⵉⵅⴼ ⴰⵏⴰⵎⵓⵔ' },
-    'Our Mission': { fr: 'Notre mission', es: 'Nuestra misión', zgh: 'ⵜⴰⵡⵓⵔⵉ ⵏⵏⵖ' },
-    'Our Values': { fr: 'Nos valeurs', es: 'Nuestros valores', zgh: 'ⵉⵎⵢⴰⵍ ⵏⵏⵖ' },
-    'Central Office': { fr: 'Bureau central', es: 'Oficina central', zgh: 'ⴰⵙⵎⴰⵍⵓ ⴰⵎⵎⴰⵙ' },
-    'Expansion Map': { fr: 'Carte d’expansion', es: 'Mapa de expansión', zgh: 'ⵜⴰⴽⴰⵔⴹⴰ ⵏ ⵓⵎⵣⴳⵉⵡ' },
-    'Outings': { fr: 'Sorties', es: 'Excursiones', zgh: 'ⵜⵓⵙⵙⵉⴹⴰ ⵏ ⵜⵖⴰⵡⵉⵡⵉⵏ' },
-    'Competitions & Rallies': { fr: 'Compétitions & rallyes', es: 'Competiciones y rallys', zgh: 'ⵜⵉⵎⵣⵣⴰⵍⵍⵉⵏ ⴷ ⵉⵔⴰⵍⵢⴰⵜⵏ' },
-    'Training': { fr: 'Formations', es: 'Formaciones', zgh: 'ⵉⵙⵖⵉⵎⵏ' },
-    'Exhibitions': { fr: 'Expositions', es: 'Exposiciones', zgh: 'ⵉⵎⵥⵍⵉⵄⵏ' },
-    'Meetings': { fr: 'Rencontres', es: 'Encuentros', zgh: 'ⵜⵉⵎⵍⴰⵢⵉⵏ' },
-    'Environmental Campaigns': { fr: 'Campagnes environnementales', es: 'Campañas ambientales', zgh: 'ⵜⵉⵡⵉⵏⴰⵢⵉⵏ ⵜⵉⵎⴰⵣⵉⵔⴰⵏⵉⵏ' },
-    'LeFouilleurma': { fr: 'LeFouilleurma', es: 'LeFouilleurma', zgh: 'LeFouilleurma' },
-    'SENOTEC': { fr: 'SENOTEC', es: 'SENOTEC', zgh: 'SENOTEC' },
-    'ASTROMET': { fr: 'ASTROMET', es: 'ASTROMET', zgh: 'ASTROMET' },
-    'AssociationDetectionCentre': { fr: 'Centre de Détection', es: 'Centro de Detección', zgh: 'ⴰⵎⵎⴰⵙ ⵏ ⵓⵙⵙⵉⴹ' },
-    'ANCPP': { fr: 'ANCPP', es: 'ANCPP', zgh: 'ANCPP' },
-    'OMSDS': { fr: 'OMSDS', es: 'OMSDS', zgh: 'OMSDS' },
-    'SOS AMARE': { fr: 'SOS AMARE', es: 'SOS AMARE', zgh: 'SOS AMARE' },
-    'AMARE Store': { fr: 'Boutique AMARE', es: 'Tienda AMARE', zgh: 'ⴰⵏⵣⴰ ⵏ AMARE' },
-    'Explorer House': { fr: 'Maison de l’explorateur', es: 'Casa del explorador', zgh: 'ⴰⵙⵏⵓ ⵏ ⵓⵙⵖⵉⵎⵙ' },
-    'AMARE Magazine': { fr: 'Magazine AMARE', es: 'Revista AMARE', zgh: 'ⴰⵎⴰⴳⴰⵣⵉⵏ AMARE' },
-    'AMARE Academy': { fr: 'Académie AMARE', es: 'Academia AMARE', zgh: 'ⵜⴰⵙⴷⴰⵡⵉⵜ AMARE' },
-    'Clubs': { fr: 'Clubs', es: 'Clubes', zgh: 'ⵉⵏⴰⵡⵏ' },
-    'Legal Advisor': { fr: 'Conseiller juridique', es: 'Asesor jurídico', zgh: 'ⴰⵎⵙⵉⵖⴼ ⴰⵣⵔⴼⴰⵏ' },
-    'Insurance Contract': { fr: 'Contrat d’assurance', es: 'Contrato de seguro', zgh: 'ⵓⵎⴰⵖ ⵏ ⵜⵏⵏⴰⵢⵜ' },
-    'Join Online': { fr: 'Adhérer en ligne', es: 'Afiliarse en línea', zgh: 'ⴽⵛⵎ ⴷ Online' },
-    'Membership Renewal': { fr: 'Renouvellement d’adhésion', es: 'Renovación de membresía', zgh: 'ⵜⴰⵏⴳⴰ ⵏ ⵜⵏⵉⵎⴰⵏⵜ' },
-    'Membership Documents': { fr: 'Documents d’adhésion', es: 'Documentos de membresía', zgh: 'ⵉⵙⴽⵯⴼⴰⵏ ⵏ ⵜⵏⵉⵎⴰⵏⵜ' },
-    'Bylaws': { fr: 'Statuts', es: 'Estatutos', zgh: 'ⵓⵎⵉⵖ ⴰⵙⵍⴰⵏ' },
-    'Internal Regulations': { fr: 'Règlement intérieur', es: 'Reglamento interno', zgh: 'ⴰⵙⵏⵉⵖⴼ ⴰⵏⵙⴰ' },
-    'Association Charter': { fr: 'Charte de l’association', es: 'Carta de la asociación', zgh: 'ⵜⴰⴳⵯⵔⴰ ⵏ ⵜⵎⵣⴳⵉⴷⴰ' },
-    'Final Deposit Receipt': { fr: 'Reçu de dépôt final', es: 'Recibo de depósito final', zgh: 'ⴰⵎⵟⵟⴰⵡ ⵏ ⵓⵙⴳⴳⴰⴷ ⴰⵎⴳⴳⴰⵔⵓ' },
-    'Temporary Deposit Receipt': { fr: 'Reçu de dépôt temporaire', es: 'Recibo de depósito temporal', zgh: 'ⴰⵎⵟⵟⴰⵡ ⵏ ⵓⵙⴳⴳⴰⴷ ⴰⵎⵣⵣⴰⵔⵓ' },
-    'Activity Notifications': { fr: 'Notifications d’activités', es: 'Notificaciones de actividades', zgh: 'ⵉⵙⵙⵉⵏ ⵏ ⵉⵎⴰⵍⴰⵙⵏ' },
-    'About the Association': { fr: 'À propos de l’association', es: 'Sobre la asociación', zgh: 'ⵅⴼ ⵜⵎⵣⴳⵉⴷⴰ' },
-    'Quick Links': { fr: 'Liens rapides', es: 'Enlaces rápidos', zgh: 'ⵉⵙⵡⴷⴰⵢⵏ ⵉⴱⴷⴷⴰⵏ' },
-    'Our Programs': { fr: 'Nos programmes', es: 'Nuestros programas', zgh: 'ⵉⵎⵛⵔⵓⵄⵏ ⵏⵏⵖ' },
-    'Our Location': { fr: 'Notre localisation', es: 'Nuestra ubicación', zgh: 'ⴰⵎⵣⴳⴰⵏ ⵏⵏⵖ' },
-    'Activities': { fr: 'Activités', es: 'Actividades', zgh: 'ⵉⵎⴰⵍⴰⵙⵏ' },
-    'Partners': { fr: 'Partenaires', es: 'Socios', zgh: 'ⵉⵎⴷⴰⵡⴰⵏ' },
-    'Services': { fr: 'Services', es: 'Servicios', zgh: 'ⵉⵙⵉⵖⵉⵎⵏ' },
-    'Branches': { fr: 'Branches', es: 'Sucursales', zgh: 'ⵉⴼⵕⵄⵏ' },
-    'Tanger-Tetouan-Al Hoceima': { fr: 'Tanger-Tétouan-Al Hoceïma', es: 'Tánger-Tetuán-Alhucemas', zgh: 'ⵟⴰⵏⵊⴰ-ⵜⵉⵟⵟⴰⵡⵉⵏ-ⵍⵃⵓⵙⵉⵎⴰ' },
-    'Oriental': { fr: 'Oriental', es: 'Oriental', zgh: 'ⴰⴳⵎⵓⴹ' },
-    'Fes-Meknes': { fr: 'Fès-Meknès', es: 'Fez-Mequinez', zgh: 'ⴼⴰⵙ-ⵎⴽⵏⴰⵙ' },
-    'Rabat-Sale-Kenitra': { fr: 'Rabat-Salé-Kénitra', es: 'Rabat-Salé-Kenitra', zgh: 'ⵕⴱⴰⵟ-ⵙⵍⴰ-ⵇⵏⵉⵟⵔⴰ' },
-    'Beni Mellal-Khenifra': { fr: 'Béni Mellal-Khénifra', es: 'Beni Melal-Jenifra', zgh: 'ⴱⵏⵉ ⵎⵍⵍⴰⵍ-ⵅⵏⵉⴼⵔⴰ' },
-    'Casablanca-Settat': { fr: 'Casablanca-Settat', es: 'Casablanca-Settat', zgh: 'ⴰⵏⴼⴰ-ⵙⵟⵟⴰⵜ' },
-    'Marrakech-Safi': { fr: 'Marrakech-Safi', es: 'Marrakech-Safi', zgh: 'ⵎⵕⵕⴰⴽⵛ-ⴰⵙⴼⵉ' },
-    'Draa-Tafilalet': { fr: 'Drâa-Tafilalet', es: 'Draa-Tafilalet', zgh: 'ⴷⵔⴰ-ⵜⴰⴼⵉⵍⴰⵍⵜ' },
-    'Souss-Massa': { fr: 'Souss-Massa', es: 'Sus-Masa', zgh: 'ⵙⵓⵙ-ⵎⴰⵙⵙⴰ' },
-    'Guelmim-Oued Noun': { fr: 'Guelmim-Oued Noun', es: 'Guelmim-Wadi Noun', zgh: 'ⴳⵓⵍⵎⵉⵎ-ⴰⵙⵉⴼ ⵏⵓⵏ' },
-    'Laayoune-Sakia El Hamra': { fr: 'Laâyoune-Sakia El Hamra', es: 'El Aaiún-Saguía el Hamra', zgh: 'ⵍⵄⵢⵓⵏ-ⵜⴰⵇⵙⴰⵢⵜ ⵏ ⵜⴰⵖⵎⵔⵜ' },
-    'Dakhla-Oued Eddahab': { fr: 'Dakhla-Oued Eddahab', es: 'Dajla-Río de Oro', zgh: 'ⴷⴰⵅⵍⴰ-ⴰⵙⵉⴼ ⵓⵍⵀⴱ' },
-    'Contact': { fr: 'Contact', es: 'Contacto', zgh: 'ⵜⴰⵎⴰⵙⴰⵔⴰ' },
+    'Home': { fr: 'Accueil' },
+    'About Us': { fr: 'À propos' },
+    'Our Activities': { fr: 'Nos activités' },
+    'Our Partners': { fr: 'Nos partenaires' },
+    'Our Services': { fr: 'Nos services' },
+    'Regional Branches': { fr: 'Branches régionales' },
+    'Join Us': { fr: 'Rejoignez-nous' },
+    'News': { fr: 'Actualités' },
+    'Archive': { fr: 'Archives' },
+    'Contact Us': { fr: 'Contactez-nous' },
+    'National Presidency': { fr: 'Présidence nationale' },
+    'Our Mission': { fr: 'Notre mission' },
+    'Our Values': { fr: 'Nos valeurs' },
+    'Central Office': { fr: 'Bureau central' },
+    'Expansion Map': { fr: 'Carte d’expansion' },
+    'Outings': { fr: 'Sorties' },
+    'Competitions & Rallies': { fr: 'Compétitions & rallyes' },
+    'Training': { fr: 'Formations' },
+    'Exhibitions': { fr: 'Expositions' },
+    'Meetings': { fr: 'Rencontres' },
+    'Environmental Campaigns': { fr: 'Campagnes environnementales' },
+    'LeFouilleurma': { fr: 'LeFouilleurma' },
+    'SENOTEC': { fr: 'SENOTEC' },
+    'ASTROMET': { fr: 'ASTROMET' },
+    'AssociationDetectionCentre': { fr: 'Centre de Détection' },
+    'ANCPP': { fr: 'ANCPP' },
+    'OMSDS': { fr: 'OMSDS' },
+    'SOS AMARE': { fr: 'SOS AMARE' },
+    'AMARE Store': { fr: 'Boutique AMARE' },
+    'Explorer House': { fr: 'Maison de l’explorateur' },
+    'AMARE Magazine': { fr: 'Magazine AMARE' },
+    'AMARE Academy': { fr: 'Académie AMARE' },
+    'Clubs': { fr: 'Clubs' },
+    'Legal Advisor': { fr: 'Conseiller juridique' },
+    'Insurance Contract': { fr: 'Contrat d’assurance' },
+    'Join Online': { fr: 'Adhérer en ligne' },
+    'Membership Renewal': { fr: 'Renouvellement d’adhésion' },
+    'Membership Documents': { fr: 'Documents d’adhésion' },
+    'Bylaws': { fr: 'Statuts' },
+    'Internal Regulations': { fr: 'Règlement intérieur' },
+    'Association Charter': { fr: 'Charte de l’association' },
+    'Final Deposit Receipt': { fr: 'Reçu de dépôt final' },
+    'Temporary Deposit Receipt': { fr: 'Reçu de dépôt temporaire' },
+    'Activity Notifications': { fr: 'Notifications d’activités' },
+    'About the Association': { fr: 'À propos de l’association' },
+    'Quick Links': { fr: 'Liens rapides' },
+    'Our Programs': { fr: 'Nos programmes' },
+    'Our Location': { fr: 'Notre localisation' },
+    'Activities': { fr: 'Activités' },
+    'Partners': { fr: 'Partenaires' },
+    'Services': { fr: 'Services' },
+    'Branches': { fr: 'Branches' },
+    'Tanger-Tetouan-Al Hoceima': { fr: 'Tanger-Tétouan-Al Hoceïma' },
+    'Oriental': { fr: 'Oriental' },
+    'Fes-Meknes': { fr: 'Fès-Meknès' },
+    'Rabat-Sale-Kenitra': { fr: 'Rabat-Salé-Kénitra' },
+    'Beni Mellal-Khenifra': { fr: 'Béni Mellal-Khénifra' },
+    'Casablanca-Settat': { fr: 'Casablanca-Settat' },
+    'Marrakech-Safi': { fr: 'Marrakech-Safi' },
+    'Draa-Tafilalet': { fr: 'Drâa-Tafilalet' },
+    'Souss-Massa': { fr: 'Souss-Massa' },
+    'Guelmim-Oued Noun': { fr: 'Guelmim-Oued Noun' },
+    'Laayoune-Sakia El Hamra': { fr: 'Laâyoune-Sakia El Hamra' },
+    'Dakhla-Oued Eddahab': { fr: 'Dakhla-Oued Eddahab' },
+    'Contact': { fr: 'Contact' },
   };
 
   /* ------------------------------------------------------------------ */
@@ -1059,30 +584,12 @@
       },
     };
 
-    if (lang === 'en') {
-      home.hero.heading = 'Discover...\nParticipate...\nJoin the Moroccan Association\nfor Research and Exploration';
-      home.hero.subheading = 'National competition registration is now open';
-      home.hero.description = 'Participate in the national competition, join the association online, or easily renew your membership, and stay up to date with the latest activities, events and news through the official platform.';
-      home.storeCta.heading = 'Support our mission\nwith exclusive products';
-      home.storeCta.description = 'Discover AMARE\'s exclusive range of products. Every purchase helps support the association\'s activities, fund research and exploration programs, and protect our national heritage.';
-    } else if (lang === 'fr') {
+    if (lang === 'fr') {
       home.hero.heading = 'Découvrez...\nParticipez...\nRejoignez l’association marocaine\ndes amateurs de recherche et d’exploration';
       home.hero.subheading = 'Les inscriptions au concours national sont ouvertes';
       home.hero.description = 'Participez au concours national, adhérez en ligne à l’association ou renouvelez facilement votre adhésion, et suivez les dernières activités, événements et actualités via la plateforme officielle.';
       home.storeCta.heading = 'Soutenez notre mission\navec des produits exclusifs';
       home.storeCta.description = 'Découvrez la gamme exclusive de produits AMARE. Chaque achat contribue à soutenir les activités de l\'association, à financer les programmes de recherche et d\'exploration et à protéger le patrimoine national.';
-    } else if (lang === 'es') {
-      home.hero.heading = 'Descubre...\nParticipa...\nÚnete a la Asociación Marroquí\nde Aficionados a la Investigación y la Exploración';
-      home.hero.subheading = 'La inscripción al concurso nacional ya está abierta';
-      home.hero.description = 'Participa en el concurso nacional, afíliate en línea a la asociación o renueva fácilmente tu membresía, y mantente al día con las últimas actividades, eventos y noticias a través de la plataforma oficial.';
-      home.storeCta.heading = 'Apoya nuestra misión\ncon productos exclusivos';
-      home.storeCta.description = 'Descubre la gama exclusiva de productos AMARE. Cada compra contribuye a apoyar las actividades de la asociación, financiar programas de investigación y exploración y proteger nuestro patrimonio nacional.';
-    } else if (lang === 'zgh') {
-      home.hero.heading = 'ⴰⵊⵊ ⴰⴷ ⵜⵎⵥⵍⵉⴹ...\nⴰⵊⵊ ⴰⴷ ⵜⴰⵊⵊ ⵏⵜⵜⵓⵏⵏⵉ...\nⴽⵛⵎ ⴷ ⵜⴰⵎⵣⴳⵉⴷⴰ ⵜⴰⵎⵖⵔⵉⴱⵉⵢⵜ\nⵏ ⵉⵏⵎⵉⵏⴰⵢⵏ ⵏ ⵓⵙⴳⴰⵡ ⴷ ⵓⵙⵖⵉⵎⵙ';
-      home.hero.subheading = 'ⴰⵔ ⴷ ⴰⵡⵉⵍⵏⵉⵏ ⵉⵏⵛⵎⵎⴰⴽⵏ ⵏ ⵜⵎⵣⵣⴰⵍⵍⵉⵜ ⵜⴰⵏⴰⵎⵓⵔⵜ';
-      home.hero.description = 'ⴰⵊⵊ ⴰⵢⵏⵏ ⴰⴷ ⵜⵙⴰⴽⵔ ⵖ ⵜⵎⵣⵣⴰⵍⵍⵉⵜ ⵜⴰⵏⴰⵎⵓⵔⵜ, ⴰⵊⵊ ⴰⴷ ⵜⴽⵛⵎ ⵙ ⵓⵏⵟⵟⴰⵍ ⵏ ⵜⵎⵣⴳⵉⴷⴰ, ⵏⵖ ⴰⴷ ⵜⵓⵏⴳⵉ ⵜⴰⵏⵉⵎⴰⵏⵜ ⵏⵏⴽ, ⵙ ⵓⵀⵉⵍ ⵙⵙⴰⵃⴱ ⵉⵙⵏⵓⴱⴱⵄⵏ ⵏ ⵜⵉⴷⵎⵎⵉ ⴷ ⵉⵏⵖⵎⵉⵙⵏ ⵙ ⵜⴰⵙⴰⵡⵓⵏⵜ ⵜⴰⵏⴰⵎⵓⵏⵜ.';
-      home.storeCta.heading = 'ⴰⵡⵙ ⵉ ⵓⵎⵛⵔⵓⵄ ⵏⵏⵖ\nⵙ ⵉⴼⵔⴰⵖⵏ ⵉⵎⵣⵣⵓⵣⵏ';
-      home.storeCta.description = 'ⵙⵙⵏ ⴰⴳⵔⵓ ⴰⵎⵣⵣⵓⵣ ⵏ ⵉⴼⵔⴰⵖⵏ ⵏ AMARE. ⴽⵓ ⵢⴰⵏ ⵉⵏⵣⵣⴰ ⵉⵜⵜⴰⵡⵙ ⵉ ⵜⵡⵓⵔⵉⵡⵉⵏ ⵏ ⵜⵎⵣⴳⵉⴷⴰ, ⵉⵜⵜⴰⵡⵙ ⵉ ⵉⵎⵛⵔⵓⵄⵏ ⵏ ⵓⵙⴳⴰⵡ ⴷ ⵓⵙⵖⵉⵎⵙ, ⴷ ⵓⵃⵟⵟⵓ ⵏ ⵉⵍⵍⴰⵙ ⴰⵏⴰⵎⵓⵔ.';
     }
 
     return home;
@@ -1093,7 +600,6 @@
   /* ------------------------------------------------------------------ */
   function normalizeLang(code) {
     if (code && LANGUAGES[code]) return code;
-    if (code && LANG_ALIASES[code]) return LANG_ALIASES[code];
     return DEFAULT_LANG;
   }
 
@@ -1141,7 +647,6 @@
     if (!item) return '';
     var lang = currentLanguage;
     if (lang === 'ar') return item.title_ar || item.title_en || '';
-    if (lang === 'en') return item.title_en || item.title_ar || '';
     var dyn = localizeDynamic(item.title_en || item.title_ar || '');
     return dyn || item.title_ar || item.title_en || '';
   }
@@ -1150,7 +655,6 @@
     if (!item) return '';
     var lang = currentLanguage;
     if (lang === 'ar') return item.description_ar || '';
-    if (lang === 'en') return item.description_en || item.description_ar || '';
     var dyn = localizeDynamic(item.title_en || item.title_ar || '');
     if (dyn) return dyn;
     return item.description_ar || '';
@@ -1177,284 +681,231 @@
     if (parent.hasAttribute('data-i18n') || parent.hasAttribute('data-i18n-html')) return false;
     /* Skip text nodes inside CMS-owned sections that must preserve raw Arabic. */
     if (parent.closest && parent.closest('[data-amare-no-translate]')) return false;
-    /* Previously translated by this pass — re-visit even though the node no
-       longer contains Arabic (its original is tracked in arOriginals). */
-    if (arOriginals.has(node)) return true;
-    return AR_RE.test(node.data || '');
+    var text = node.data || '';
+    if (!AR_RE.test(text)) return false;
+    return true;
   }
 
-  function collectTextNodes(root, filter) {
-    var nodes = [];
-    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
-      acceptNode: function (node) {
-        return filter(node) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
-      },
-    });
-    while (walker.nextNode()) nodes.push(walker.currentNode);
-    return nodes;
+  function translateTextNode(node) {
+    var raw = node.data || '';
+    var normalized = normText(raw);
+    var entry = lookupTextEntry(normalized);
+    if (!entry) return;
+    var translated = entry[currentLanguage];
+    if (!translated) {
+      translated = entry[DEFAULT_LANG] || null;
+      if (!translated) return;
+    }
+    var original = arOriginals.get(node) || raw;
+    arOriginals.set(node, original);
+    node.data = translated;
   }
 
   function translateTextNodes(root) {
-    root = root || document.body || document;
-    var lang = currentLanguage;
-    if (lang === 'ar') {
-      restoreArabicTextNodes(root);
-      return;
-    }
-    if (!window.AMARE_TEXT_TABLE) return;
-    var nodes = collectTextNodes(root, isTranslatableTextNode);
-    for (var i = 0; i < nodes.length; i++) {
-      var node = nodes[i];
-      var data = node.data || '';
-      /* Re-visits use the recorded Arabic original, not the currently
-         displayed (already-translated) text. */
-      var source = arOriginals.has(node) ? arOriginals.get(node) : data;
-      var norm = normText(source);
-      if (!norm) continue;
-      var entry = lookupTextEntry(norm);
-      if (!entry) continue;
-      var target = entry[lang];
-      if (!target || !target.trim()) continue;
-      /* Already translated to the active language — skip. */
-      if (node.__amareLang === lang) continue;
-      if (!arOriginals.has(node)) arOriginals.set(node, data);
-      var lead = (source.match(/^[\s\u00A0]*/) || [''])[0];
-      var trail = (source.match(/[\s\u00A0]*$/) || [''])[0];
-      node.data = lead + target + trail;
-      node.__amareLang = lang;
-    }
-  }
-
-  function restoreArabicTextNodes(root) {
-    root = root || document.body || document;
-    var nodes = collectTextNodes(root, function (node) {
-      if (!node || node.nodeType !== 3) return false;
-      var parent = node.parentNode;
-      if (!parent || !parent.hasAttribute) return false;
-      var tag = parent.tagName ? parent.tagName.toUpperCase() : '';
-      if (TEXT_SKIP_TAGS[tag]) return false;
-      if (parent.hasAttribute('data-i18n') || parent.hasAttribute('data-i18n-html')) return false;
-      return arOriginals.has(node);
-    });
-    for (var i = 0; i < nodes.length; i++) {
-      var node = nodes[i];
-      var orig = arOriginals.get(node);
-      if (orig) {
-        node.data = orig;
-        node.__amareLang = undefined;
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null, false);
+    var node;
+    while ((node = walker.nextNode())) {
+      if (isTranslatableTextNode(node)) {
+        translateTextNode(node);
       }
     }
   }
 
-  /* Remove data-i18n* bindings from a container (and its descendants)
-     whose content is owned by a CMS content script, so the attribute
-     pass never clobbers injected content. Injected Arabic is still
-     translated by the text-node pass. */
-  function markDynamic(root) {
-    root = root || document;
-    var attrs = [
-      'data-i18n',
-      'data-i18n-html',
-      'data-i18n-placeholder',
-      'data-i18n-title',
-      'data-i18n-aria-label',
-      'data-i18n-alt',
-      'data-i18n-content',
-    ];
-    var els = root.querySelectorAll
-      ? root.querySelectorAll('[data-i18n],[data-i18n-html],[data-i18n-placeholder],[data-i18n-title],[data-i18n-aria-label],[data-i18n-alt],[data-i18n-content]')
-      : [];
-    for (var i = 0; i < els.length; i++) {
-      for (var j = 0; j < attrs.length; j++) {
-        if (els[i].hasAttribute(attrs[j])) els[i].removeAttribute(attrs[j]);
-      }
-    }
-    if (root.hasAttribute) {
-      for (var k = 0; k < attrs.length; k++) {
-        if (root.hasAttribute(attrs[k])) root.removeAttribute(attrs[k]);
+  /* Restore original Arabic text nodes (before switching back to ar) */
+  function restoreArabicNodes(root) {
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null, false);
+    var node;
+    while ((node = walker.nextNode())) {
+      var original = arOriginals.get(node);
+      if (original !== undefined) {
+        node.data = original;
       }
     }
   }
 
-  /* ------------------------------------------------------------------ */
-  /* DOM translation                                                     */
-  /* ------------------------------------------------------------------ */
-  function translateContent(root) {
-    root = root || document;
+  /* Attribute-based translation (data-i18n*) */
+  function attrSelector() {
+    return '[data-i18n],[data-i18n-html],[data-i18n-placeholder],[data-i18n-title],[data-i18n-aria-label],[data-i18n-alt],[data-i18n-content]';
+  }
 
-    var i;
-
-    /* HTML content (safe strings that may contain <br> etc.) */
-    var htmlEls = root.querySelectorAll('[data-i18n-html]');
-    for (i = 0; i < htmlEls.length; i++) {
-      var hv = t(htmlEls[i].getAttribute('data-i18n-html'));
-      if (hv && hv !== htmlEls[i].getAttribute('data-i18n-html')) htmlEls[i].innerHTML = hv;
-    }
-
-    /* Plain text */
-    var textEls = root.querySelectorAll('[data-i18n]');
-    for (i = 0; i < textEls.length; i++) {
-      var el = textEls[i];
+  function translateAttr(el) {
+    if (el.hasAttribute('data-i18n')) {
       var key = el.getAttribute('data-i18n');
-      var value = t(key);
-      if (!value || value === key) continue;
-      setTextKeepSvg(el, value);
+      if (currentLanguage === 'ar') {
+        var orig = el.getAttribute('data-i18n-ar-original');
+        if (orig !== null && orig !== undefined) {
+          el.textContent = orig;
+        } else {
+          var fallback = translations[DEFAULT_LANG];
+          if (fallback && fallback[key]) el.textContent = fallback[key];
+        }
+      } else {
+        if (!el.hasAttribute('data-i18n-ar-original')) {
+          el.setAttribute('data-i18n-ar-original', el.textContent || '');
+        }
+        el.textContent = t(key);
+      }
     }
-
-    /* Placeholders */
-    var phEls = root.querySelectorAll('[data-i18n-placeholder]');
-    for (i = 0; i < phEls.length; i++) {
-      var phv = t(phEls[i].getAttribute('data-i18n-placeholder'));
-      if (phv) phEls[i].setAttribute('placeholder', phv);
+    if (el.hasAttribute('data-i18n-html')) {
+      var hk = el.getAttribute('data-i18n-html');
+      if (currentLanguage === 'ar') {
+        var hOrig = el.getAttribute('data-i18n-html-ar-original');
+        if (hOrig !== null && hOrig !== undefined) {
+          el.innerHTML = hOrig;
+        } else {
+          var hFallback = translations[DEFAULT_LANG];
+          if (hFallback && hFallback[hk]) el.innerHTML = hFallback[hk];
+        }
+      } else {
+        if (!el.hasAttribute('data-i18n-html-ar-original')) {
+          el.setAttribute('data-i18n-html-ar-original', el.innerHTML || '');
+        }
+        el.innerHTML = t(hk);
+      }
     }
-
-    /* Title attributes */
-    var titleEls = root.querySelectorAll('[data-i18n-title]');
-    for (i = 0; i < titleEls.length; i++) {
-      var tv = t(titleEls[i].getAttribute('data-i18n-title'));
-      if (tv) titleEls[i].setAttribute('title', tv);
+    if (el.hasAttribute('data-i18n-placeholder')) {
+      el.setAttribute('placeholder', t(el.getAttribute('data-i18n-placeholder')));
     }
-
-    /* alt attributes */
-    var altEls = root.querySelectorAll('[data-i18n-alt]');
-    for (i = 0; i < altEls.length; i++) {
-      var altv = t(altEls[i].getAttribute('data-i18n-alt'));
-      if (altv) altEls[i].setAttribute('alt', altv);
+    if (el.hasAttribute('data-i18n-title')) {
+      el.setAttribute('title', t(el.getAttribute('data-i18n-title')));
     }
-
-    /* aria-labels */
-    var ariaEls = root.querySelectorAll('[data-i18n-aria-label]');
-    for (i = 0; i < ariaEls.length; i++) {
-      var av = t(ariaEls[i].getAttribute('data-i18n-aria-label'));
-      if (av) ariaEls[i].setAttribute('aria-label', av);
+    if (el.hasAttribute('data-i18n-aria-label')) {
+      el.setAttribute('aria-label', t(el.getAttribute('data-i18n-aria-label')));
     }
-
-    /* Meta content — translate <meta> content via data-i18n-content */
-    var metaEls = root.querySelectorAll('meta[data-i18n-content]');
-    for (i = 0; i < metaEls.length; i++) {
-      var mv = t(metaEls[i].getAttribute('data-i18n-content'));
-      if (mv) metaEls[i].setAttribute('content', mv);
+    if (el.hasAttribute('data-i18n-alt')) {
+      el.setAttribute('alt', t(el.getAttribute('data-i18n-alt')));
     }
-
-    /* <title> → document.title */
-    var pageKey = document.documentElement ? document.documentElement.getAttribute('data-i18n-page') : null;
-    if (pageKey) {
-      var titleVal = t('page.' + pageKey);
-      if (titleVal && titleVal.indexOf('page.') !== 0) document.title = titleVal;
+    if (el.hasAttribute('data-i18n-content')) {
+      var ck = el.getAttribute('data-i18n-content');
+      el.setAttribute('content', t(ck));
     }
-
-    /* Text-node pass — dictionary-driven, no markup required. */
-    translateTextNodes(root);
   }
 
-  /* Replace text content but keep child elements (e.g. <svg> icons). */
-  function setTextKeepSvg(el, value) {
-    var hasElements = false;
-    var children = [];
-    for (var n = 0; n < el.childNodes.length; n++) {
-      if (el.childNodes[n].nodeType === 1) {
-        hasElements = true;
-        children.push(el.childNodes[n]);
-      }
+  function translateContent(root) {
+    /* Attribute-based pass */
+    var els = root.querySelectorAll ? root.querySelectorAll(attrSelector()) : [];
+    for (var i = 0; i < els.length; i++) {
+      translateAttr(els[i]);
     }
-    if (!hasElements) {
-      el.textContent = value;
-      return;
+    /* Text-node pass */
+    if (currentLanguage === 'ar') {
+      restoreArabicNodes(root);
+    } else {
+      translateTextNodes(root);
     }
-    // Preserve the element children, rebuild around a single translated text node.
-    el.textContent = '';
-    el.appendChild(document.createTextNode(value));
-    for (var c = 0; c < children.length; c++) {
-      if (children[c].tagName && children[c].tagName.toLowerCase() === 'svg') {
-        el.appendChild(children[c]);
-      }
+  }
+
+  /* Internal: prevent i18n from touching a CMS-injected container so its
+     content matches CMS data verbatim (called by content scripts). */
+  function markDynamic(el) {
+    if (!el) return;
+    if (el.setAttribute) el.setAttribute('data-amare-dynamic', 'true');
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Page <title> update                                                 */
+  /* ------------------------------------------------------------------ */
+  function updatePageTitle() {
+    var pageKey = document.documentElement ? document.documentElement.getAttribute('data-i18n-page') : null;
+    if (!pageKey) return;
+    var key = 'page.' + pageKey;
+    var title = translations[currentLanguage] && translations[currentLanguage][key];
+    if (!title) {
+      title = translations[DEFAULT_LANG] && translations[DEFAULT_LANG][key];
+    }
+    if (title) {
+      document.title = title;
     }
   }
 
   function translatePage() {
     translateContent(document);
+    updatePageTitle();
   }
 
   /* ------------------------------------------------------------------ */
-  /* Selectors — sync all language <select> elements                     */
+  /* Language dropdown — shows current language + chevron in button,     */
+  /* opens a dropdown panel with both languages.                         */
   /*                                                                     */
-  /* Existing pages ship two static selectors per page: one in the       */
-  /* top bar (.topbar-lang) and one in the mobile drawer                 */
-  /* (.mobile-drawer-lang). Both are detected automatically, so no page  */
-  /* markup change is required to make switching work. A new selector    */
-  /* may opt in explicitly with data-amare-lang-select.                  */
+  /* Markup expected:                                                    */
+  /*   .topbar-lang or .mobile-drawer-lang                               */
+  /*     button.lang-btn   → trigger                                     */
+  /*       span.lang-current  → "العربية" / "Français"                    */
+  /*     ul.lang-dropdown                                               */
+  /*       li > button.lang-option[data-lang="ar"|"fr"]                  */
   /* ------------------------------------------------------------------ */
-  function getLangSelects() {
+  function getLangDropdowns() {
     var result = [];
-    var explicit = document.querySelectorAll('select[data-amare-lang-select]');
-    for (var i = 0; i < explicit.length; i++) {
-      if (result.indexOf(explicit[i]) === -1) result.push(explicit[i]);
-    }
     var containers = document.querySelectorAll('.topbar-lang, .mobile-drawer-lang');
     for (var j = 0; j < containers.length; j++) {
-      var sel = containers[j].querySelector('select');
-      if (sel && result.indexOf(sel) === -1) result.push(sel);
+      if (result.indexOf(containers[j]) === -1) result.push(containers[j]);
     }
     return result;
   }
 
-  // A selector may use the historic "ber" value instead of "zgh".
-  function setSelectValue(select, code) {
-    if (select.querySelector('option[value="' + code + '"]')) {
-      select.value = code;
-    } else if (code === 'zgh' && select.querySelector('option[value="ber"]')) {
-      select.value = 'ber';
+  function closeAllDropdowns(except) {
+    var dropdowns = getLangDropdowns();
+    for (var i = 0; i < dropdowns.length; i++) {
+      if (dropdowns[i] === except) continue;
+      dropdowns[i].classList.remove('open');
     }
   }
 
-  function syncSelects() {
-    var selects = getLangSelects();
-    for (var i = 0; i < selects.length; i++) {
-      setSelectValue(selects[i], currentLanguage);
-    }
-  }
-
-  function attachSelectListeners() {
-    document.addEventListener(
-      'change',
-      function (e) {
-        var target = e.target;
-        if (!target || target.tagName !== 'SELECT') return;
-        var inLangContainer =
-          target.closest &&
-          target.closest('.topbar-lang, .mobile-drawer-lang');
-        if (target.hasAttribute('data-amare-lang-select') || inLangContainer) {
-          setLanguage(target.value);
+  function syncLangDropdowns() {
+    var dropdowns = getLangDropdowns();
+    for (var i = 0; i < dropdowns.length; i++) {
+      var container = dropdowns[i];
+      var currentEl = container.querySelector('.lang-current');
+      if (currentEl) {
+        currentEl.textContent = LANGUAGES[currentLanguage].native;
+      }
+      var options = container.querySelectorAll('.lang-option');
+      for (var j = 0; j < options.length; j++) {
+        var opt = options[j];
+        var lang = opt.getAttribute('data-lang');
+        if (lang === currentLanguage) {
+          opt.classList.add('active');
+        } else {
+          opt.classList.remove('active');
         }
-      },
-      true
-    );
+      }
+    }
   }
 
-  /* ------------------------------------------------------------------ */
-  /* Tifinagh font support — lazy-load fallback for zgh                  */
-  /* ------------------------------------------------------------------ */
-  function ensureTifinaghFont() {
-    if (currentLanguage !== 'zgh') return;
-    if (document.getElementById('amare-tifinagh-font')) return;
-    var link = document.createElement('link');
-    link.id = 'amare-tifinagh-font';
-    link.rel = 'stylesheet';
-    link.href = FONT_EMBED;
-    document.head.appendChild(link);
+  function handleDropdownClick(e) {
+    var btn = e.target.closest('.lang-btn');
+    var option = e.target.closest('.lang-option');
+
+    if (option) {
+      var lang = option.getAttribute('data-lang');
+      if (lang) {
+        setLanguage(lang);
+        var container = option.closest('.topbar-lang, .mobile-drawer-lang');
+        if (container) container.classList.remove('open');
+      }
+      return;
+    }
+
+    if (btn) {
+      var container = btn.closest('.topbar-lang, .mobile-drawer-lang');
+      if (!container) return;
+      var isOpen = container.classList.contains('open');
+      closeAllDropdowns(container);
+      if (!isOpen) {
+        container.classList.add('open');
+      }
+    }
   }
 
-  function fontFamilyChain() {
-    var base = document.documentElement.getAttribute('data-font-main');
-    if (!base) {
-      // Read from the CSS custom property if available
-      var cs = getComputedStyle(document.documentElement);
-      base = cs && cs.getPropertyValue('--font-main') ? cs.getPropertyValue('--font-main').trim() : "'Cairo', sans-serif";
+  function handleOutsideClick(e) {
+    if (!e.target.closest('.topbar-lang, .mobile-drawer-lang')) {
+      closeAllDropdowns(null);
     }
-    if (currentLanguage === 'zgh') {
-      return base.replace(/;\s*$/, '') + ', ' + FALLBACK_FONT;
-    }
-    return base;
+  }
+
+  function attachDropdownListeners() {
+    document.addEventListener('click', handleDropdownClick, false);
+    document.addEventListener('click', handleOutsideClick, false);
   }
 
   /* ------------------------------------------------------------------ */
@@ -1467,7 +918,8 @@
   function setLanguage(code) {
     var lang = normalizeLang(code);
     if (lang === currentLanguage) {
-      syncSelects();
+      syncLangDropdowns();
+      closeAllDropdowns(null);
       return;
     }
     currentLanguage = lang;
@@ -1478,8 +930,8 @@
     html.setAttribute('dir', LANGUAGES[lang].dir);
 
     translatePage();
-    syncSelects();
-    ensureTifinaghFont();
+    syncLangDropdowns();
+    closeAllDropdowns(null);
 
     window.dispatchEvent(new CustomEvent('amare:langchange', { detail: { language: lang } }));
   }
@@ -1491,8 +943,6 @@
     var observer = new MutationObserver(function (mutations) {
       /* Arabic is the target language — nothing to translate. */
       if (currentLanguage === 'ar') return;
-      /* Cheap pre-filter: only schedule a scan when an added node actually
-         contains Arabic text (avoids full scans on table/realtime churn). */
       var hasArabic = false;
       for (var i = 0; i < mutations.length && !hasArabic; i++) {
         var added = mutations[i].addedNodes;
@@ -1524,20 +974,18 @@
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', function () {
         translatePage();
-        syncSelects();
-        ensureTifinaghFont();
+        syncLangDropdowns();
         startTextObserver();
         window.dispatchEvent(new CustomEvent('amare:i18nready', { detail: { language: currentLanguage } }));
       });
     } else {
       translatePage();
-      syncSelects();
-      ensureTifinaghFont();
+      syncLangDropdowns();
       startTextObserver();
       window.dispatchEvent(new CustomEvent('amare:i18nready', { detail: { language: currentLanguage } }));
     }
 
-    attachSelectListeners();
+    attachDropdownListeners();
   }
 
   function home() {
@@ -1569,7 +1017,6 @@
     markDynamic: markDynamic,
     home: home,
     pageTitle: pageTitle,
-    fontFamilyChain: fontFamilyChain,
   };
 
   /* Boot immediately — i18n must be ready before other renderers run. */

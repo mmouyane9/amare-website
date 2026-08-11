@@ -54,15 +54,15 @@
       </div>
 
       <div class="topbar-lang">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg>
-        <select aria-label="اختيار اللغة" data-i18n-aria-label="lang.select">
-          <option value="ar" selected>العربية</option>
-          <option value="fr">Français</option>
-          <option value="en">English</option>
-          <option value="es">Español</option>
-          <option value="ber">ⵜⴰⵎⴰⵣⵉⵖⵜ</option>
-        </select>
-
+        <button class="lang-btn" type="button" aria-label="اختيار اللغة" data-i18n-aria-label="lang.select">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg>
+          <span class="lang-current">العربية</span>
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="lang-chevron"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <ul class="lang-dropdown">
+          <li><button class="lang-option active" type="button" data-lang="ar"><span class="lang-flag">🇲🇦</span> العربية <span class="lang-check">✓</span></button></li>
+          <li><button class="lang-option" type="button" data-lang="fr"><span class="lang-flag">🇫🇷</span> Français</button></li>
+        </ul>
       </div>
 
       <a href="http://wa.me/+212684869996" target="_blank" rel="noopener" class="topbar-whatsapp ripple" aria-label="تواصل عبر واتساب" data-i18n-aria-label="topbar.whatsappAria">
@@ -223,14 +223,15 @@
         </a>
       </div>
       <div class="mobile-drawer-lang">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg>
-        <select aria-label="اختيار اللغة" data-i18n-aria-label="lang.select">
-          <option value="ar" selected>العربية</option>
-          <option value="fr">Français</option>
-          <option value="en">English</option>
-          <option value="es">Español</option>
-          <option value="ber">ⵜⴰⵎⴰⵣⵉⵖⵜ</option>
-        </select>
+        <button class="lang-btn" type="button" aria-label="اختيار اللغة" data-i18n-aria-label="lang.select">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg>
+          <span class="lang-current">العربية</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="lang-chevron"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <ul class="lang-dropdown">
+          <li><button class="lang-option active" type="button" data-lang="ar"><span class="lang-flag">🇲🇦</span> العربية <span class="lang-check">✓</span></button></li>
+          <li><button class="lang-option" type="button" data-lang="fr"><span class="lang-flag">🇫🇷</span> Français</button></li>
+        </ul>
       </div>
       <div class="mobile-drawer-social">
         <a href="#" aria-label="فيسبوك" data-i18n-aria-label="social.facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg></a>

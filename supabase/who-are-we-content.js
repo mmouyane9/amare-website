@@ -114,25 +114,40 @@
   };
 
   /* ------------------------------------------------------------------
+     Translate a text value via the page-content dictionary for the
+     active language. Arabic values stay as-is in Arabic mode; in every
+     other language, an I18n.t() lookup is performed. Translations that
+     do not match any dictionary key fall back to the original Arabic. */
+  function L(text) {
+    if (text == null || text === '') return '';
+    if (!window.I18n) return text;
+    var lang = window.I18n.getCurrentLanguage();
+    if (lang === 'ar') return text;
+    var result = window.I18n.t(text);
+    if (result !== text) return result;
+    return text;
+  }
+
+  /* ------------------------------------------------------------------
      HERO injector
      ------------------------------------------------------------------ */
   function injectHero(d) {
     var badge = el('.about-hero-badge');
     if (badge && d.subheading) {
       var svg = badge.querySelector('svg');
-      badge.innerHTML = (svg ? svg.outerHTML + ' ' : '') + esc(d.subheading);
+      badge.innerHTML = (svg ? svg.outerHTML + ' ' : '') + esc(L(d.subheading));
     }
 
     var h1 = el('.about-hero h1');
     if (h1 && d.heading) {
-      var parts = (d.heading || '').split(' ');
+      var parts = L(d.heading || '').split(' ');
       var lastWord = parts.pop();
       var rest = parts.join(' ');
       h1.innerHTML = esc(rest) + ' <span>' + esc(lastWord) + '</span>';
     }
 
     var desc = el('.about-hero p');
-    if (desc && d.description) desc.textContent = d.description;
+    if (desc && d.description) desc.textContent = L(d.description);
 
     var navLinks = el('.about-nav-links');
     if (navLinks && d.buttons) {
@@ -142,7 +157,7 @@
         var b = d.buttons[i];
         if (b) {
           a.href = b.url || '#';
-          a.textContent = b.label || '';
+          a.textContent = L(b.label || '');
           a.style.display = '';
         } else {
           a.style.display = 'none';
@@ -156,21 +171,21 @@
      ------------------------------------------------------------------ */
   function injectNationalVision(d) {
     var eyebrow = el('#national-vision .eyebrow');
-    if (eyebrow && d.eyebrow) eyebrow.textContent = d.eyebrow;
+    if (eyebrow && d.eyebrow) eyebrow.textContent = L(d.eyebrow);
 
     var heading = el('#national-vision .nv-vision-title');
-    if (heading && d.heading) heading.textContent = d.heading;
+    if (heading && d.heading) heading.textContent = L(d.heading);
 
     var desc = el('#national-vision .nv-vision-lead');
-    if (desc && d.description) desc.textContent = d.description;
+    if (desc && d.description) desc.textContent = L(d.description);
 
     var cards = document.querySelectorAll('#national-vision .nv-vision-card');
     if (d.cards) {
       for (var i = 0; i < Math.min(cards.length, d.cards.length); i++) {
         var h3 = cards[i].querySelector('h3');
         var p = cards[i].querySelector('p');
-        if (h3) h3.textContent = d.cards[i].title || '';
-        if (p) p.textContent = d.cards[i].description || '';
+        if (h3) h3.textContent = L(d.cards[i].title || '');
+        if (p) p.textContent = L(d.cards[i].description || '');
       }
     }
   }
@@ -180,13 +195,13 @@
      ------------------------------------------------------------------ */
   function injectMission(d) {
     var eyebrow = el('#mission .eyebrow');
-    if (eyebrow && d.eyebrow) eyebrow.textContent = d.eyebrow;
+    if (eyebrow && d.eyebrow) eyebrow.textContent = L(d.eyebrow);
 
     var heading = el('#mission .om-mission-title');
-    if (heading && d.heading) heading.textContent = d.heading;
+    if (heading && d.heading) heading.textContent = L(d.heading);
 
     var desc = el('#mission .om-mission-lead');
-    if (desc && d.description) desc.textContent = d.description;
+    if (desc && d.description) desc.textContent = L(d.description);
   }
 
   /* ------------------------------------------------------------------
@@ -194,21 +209,21 @@
      ------------------------------------------------------------------ */
   function injectValues(d) {
     var eyebrow = el('#values .eyebrow');
-    if (eyebrow && d.eyebrow) eyebrow.textContent = d.eyebrow;
+    if (eyebrow && d.eyebrow) eyebrow.textContent = L(d.eyebrow);
 
     var heading = el('#values .section-title');
-    if (heading && d.heading) heading.textContent = d.heading;
+    if (heading && d.heading) heading.textContent = L(d.heading);
 
     var desc = el('#values .section-desc');
-    if (desc && d.description) desc.textContent = d.description;
+    if (desc && d.description) desc.textContent = L(d.description);
 
     var cards = document.querySelectorAll('#values .ov-value-card');
     if (d.cards) {
       for (var i = 0; i < Math.min(cards.length, d.cards.length); i++) {
         var h3 = cards[i].querySelector('h3');
         var p = cards[i].querySelector('p');
-        if (h3) h3.textContent = d.cards[i].title || '';
-        if (p) p.textContent = d.cards[i].description || '';
+        if (h3) h3.textContent = L(d.cards[i].title || '');
+        if (p) p.textContent = L(d.cards[i].description || '');
       }
     }
   }
@@ -217,39 +232,28 @@
      CENTRAL OFFICE injector
      ------------------------------------------------------------------ */
   function injectCentralOffice(d) {
-    console.log('[CO DEBUG] injectCentralOffice called with data keys:', Object.keys(d));
-    console.log('[CO DEBUG] d.members:', d.members ? d.members.length : 'undefined', 'members');
-    if (d.members && d.members.length > 0) {
-      console.log('[CO DEBUG] First member:', JSON.stringify(d.members[0]));
-    }
-
     var eyebrow = el('#central-office .co-about .eyebrow');
-    if (eyebrow && d.eyebrow) eyebrow.textContent = d.eyebrow;
+    if (eyebrow && d.eyebrow) eyebrow.textContent = L(d.eyebrow);
 
     var heading = el('#central-office .co-about-title');
-    if (heading && d.heading) heading.textContent = d.heading;
+    if (heading && d.heading) heading.textContent = L(d.heading);
 
     var desc = el('#central-office .co-about-lead');
-    if (desc && d.description) desc.textContent = d.description;
+    if (desc && d.description) desc.textContent = L(d.description);
 
     var teamEyebrow = el('#central-office .co-team .eyebrow');
-    if (teamEyebrow && d.teamEyebrow) teamEyebrow.textContent = d.teamEyebrow;
+    if (teamEyebrow && d.teamEyebrow) teamEyebrow.textContent = L(d.teamEyebrow);
 
     var teamHeading = el('#central-office .co-team .section-title');
-    if (teamHeading && d.teamHeading) teamHeading.textContent = d.teamHeading;
+    if (teamHeading && d.teamHeading) teamHeading.textContent = L(d.teamHeading);
 
     var teamDesc = el('#central-office .co-team .section-desc');
-    if (teamDesc && d.teamDescription) teamDesc.textContent = d.teamDescription;
+    if (teamDesc && d.teamDescription) teamDesc.textContent = L(d.teamDescription);
 
     if (d.members) {
       window.__AMARE_ABOUT_CO_MEMBERS = d.members;
-      console.log('[CO DEBUG] window.__AMARE_ABOUT_CO_MEMBERS set with', d.members.length, 'members');
-      console.log('[CO DEBUG] Stored member 0 name:', d.members[0].name);
-      console.log('[CO DEBUG] Stored member 0 role:', d.members[0].role);
-      console.log('[CO DEBUG] Stored member 0 bio:', d.members[0].bio);
     }
 
-    /* Re-render members immediately */
     var event = new CustomEvent('about-cms-ready');
     document.dispatchEvent(event);
   }
@@ -259,38 +263,38 @@
      ------------------------------------------------------------------ */
   function injectExpansionMap(d) {
     var eyebrow = el('#expansion-map .em-vision .eyebrow');
-    if (eyebrow && d.eyebrow) eyebrow.textContent = d.eyebrow;
+    if (eyebrow && d.eyebrow) eyebrow.textContent = L(d.eyebrow);
 
     var heading = el('#expansion-map .em-vision-title');
-    if (heading && d.heading) heading.textContent = d.heading;
+    if (heading && d.heading) heading.textContent = L(d.heading);
 
     var desc = el('#expansion-map .em-vision-lead');
-    if (desc && d.description) desc.textContent = d.description;
+    if (desc && d.description) desc.textContent = L(d.description);
 
     var mapEyebrow = el('#expansion-map .em-map .eyebrow');
-    if (mapEyebrow && d.mapEyebrow) mapEyebrow.textContent = d.mapEyebrow;
+    if (mapEyebrow && d.mapEyebrow) mapEyebrow.textContent = L(d.mapEyebrow);
 
     var mapHeading = el('#expansion-map .em-map .section-title');
-    if (mapHeading && d.mapHeading) mapHeading.textContent = d.mapHeading;
+    if (mapHeading && d.mapHeading) mapHeading.textContent = L(d.mapHeading);
 
     var mapDesc = el('#expansion-map .em-map .section-desc');
-    if (mapDesc && d.mapDescription) mapDesc.textContent = d.mapDescription;
+    if (mapDesc && d.mapDescription) mapDesc.textContent = L(d.mapDescription);
 
     var legendTitle = el('.em-legend-title');
-    if (legendTitle && d.legendTitle) legendTitle.textContent = d.legendTitle;
+    if (legendTitle && d.legendTitle) legendTitle.textContent = L(d.legendTitle);
 
     var legendSub = el('.em-legend-sub');
-    if (legendSub && d.legendSub) legendSub.textContent = d.legendSub;
+    if (legendSub && d.legendSub) legendSub.textContent = L(d.legendSub);
 
     var legendItems = document.querySelectorAll('.em-legend-item');
     if (legendItems.length >= 3) {
-      if (d.legendActive) legendItems[0].childNodes[legendItems[0].childNodes.length - 1].textContent = d.legendActive;
-      if (d.legendUpcoming) legendItems[1].childNodes[legendItems[1].childNodes.length - 1].textContent = d.legendUpcoming;
-      if (d.legendFuture) legendItems[2].childNodes[legendItems[2].childNodes.length - 1].textContent = d.legendFuture;
+      if (d.legendActive) legendItems[0].childNodes[legendItems[0].childNodes.length - 1].textContent = L(d.legendActive);
+      if (d.legendUpcoming) legendItems[1].childNodes[legendItems[1].childNodes.length - 1].textContent = L(d.legendUpcoming);
+      if (d.legendFuture) legendItems[2].childNodes[legendItems[2].childNodes.length - 1].textContent = L(d.legendFuture);
     }
 
     var emptyDetail = el('.em-map-detail.is-empty span');
-    if (emptyDetail && d.emptyDetail) emptyDetail.textContent = d.emptyDetail;
+    if (emptyDetail && d.emptyDetail) emptyDetail.textContent = L(d.emptyDetail);
 
     if (d.regions) {
       window.__AMARE_ABOUT_REGIONS = d.regions;
@@ -302,17 +306,17 @@
      ------------------------------------------------------------------ */
   function injectCta(d) {
     var h2 = el('#about-cta h2');
-    if (h2 && d.heading) h2.textContent = d.heading;
+    if (h2 && d.heading) h2.textContent = L(d.heading);
 
     var p = el('#about-cta p');
-    if (p && d.description) p.textContent = d.description;
+    if (p && d.description) p.textContent = L(d.description);
 
     var buttons = document.querySelectorAll('#about-cta .about-cta-actions a');
     if (buttons.length > 0) {
       var btn = buttons[0];
       if (d.buttonLabel) {
         var svg = btn.querySelector('svg');
-        btn.textContent = d.buttonLabel;
+        btn.textContent = L(d.buttonLabel);
         if (svg) btn.appendChild(svg);
       }
       if (d.buttonUrl) btn.href = d.buttonUrl;
@@ -475,17 +479,35 @@
   /* ------------------------------------------------------------------
      Bootstrap
      ------------------------------------------------------------------ */
+  var _lastSections = null;
+
+  function renderAllSections() {
+    if (_lastSections && _lastSections.length > 0) {
+      console.log('[About CMS] Re-rendering', _lastSections.length, 'CMS sections...');
+      for (var i = 0; i < _lastSections.length; i++) {
+        injectSection(_lastSections[i]);
+      }
+    } else {
+      console.log('[About CMS] Re-rendering fallbacks...');
+      injectAllFallbacks();
+    }
+    var event = new CustomEvent('about-cms-ready');
+    document.dispatchEvent(event);
+  }
+
   function init() {
     console.log('[About CMS] Starting...');
 
     loadAboutFromSupabase(function (sections) {
       if (sections && sections.length > 0) {
+        _lastSections = sections;
         console.log('[About CMS] Loaded', sections.length, 'CMS sections — injecting...');
         for (var i = 0; i < sections.length; i++) {
           injectSection(sections[i]);
         }
         console.log('[About CMS] All sections injected.');
       } else {
+        _lastSections = null;
         console.log('[About CMS] No CMS sections — using fallbacks.');
         injectAllFallbacks();
       }
@@ -493,6 +515,11 @@
       /* Signal that CMS data is ready (triggers map + member grid init) */
       var event = new CustomEvent('about-cms-ready');
       document.dispatchEvent(event);
+    });
+
+    /* Re-render everything when language changes */
+    window.addEventListener('amare:langchange', function () {
+      renderAllSections();
     });
   }
 

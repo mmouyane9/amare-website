@@ -276,14 +276,15 @@
         <a href="#" aria-label="لينكدإن" data-i18n-aria-label="social.linkedin"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 5 3.79 6.2 2.3 6.2 1 6.2 0 5 0 3.5 0 2 1.1.8 2.5.8s2.48 1.2 2.48 2.7zM.2 8.5h4.6V23H.2V8.5zM8 8.5h4.4v2h.06c.6-1.2 2.1-2.4 4.4-2.4 4.7 0 5.6 3.1 5.6 7.1V23h-4.6v-6.7c0-1.6 0-3.7-2.3-3.7s-2.6 1.8-2.6 3.6V23H8V8.5z"/></svg></a>
       </div>
       <div class="topbar-lang">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg>
-        <select aria-label="اختيار اللغة" data-i18n-aria-label="lang.select">
-          <option value="ar" selected>العربية</option>
-          <option value="fr">Français</option>
-          <option value="en">English</option>
-          <option value="es">Español</option>
-          <option value="ber">ⵜⴰⵎⴰⵣⵉⵖⵜ</option>
-        </select>
+        <button class="lang-btn" type="button" aria-label="اختيار اللغة" data-i18n-aria-label="lang.select">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg>
+          <span class="lang-current">العربية</span>
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="lang-chevron"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <ul class="lang-dropdown">
+          <li><button class="lang-option active" type="button" data-lang="ar"><span class="lang-flag">🇲🇦</span> العربية <span class="lang-check">✓</span></button></li>
+          <li><button class="lang-option" type="button" data-lang="fr"><span class="lang-flag">🇫🇷</span> Français</button></li>
+        </ul>
       </div>
       <a href="http://wa.me/+212684869996" target="_blank" rel="noopener" class="topbar-whatsapp ripple" aria-label="تواصل عبر واتساب" data-i18n-aria-label="topbar.whatsappAria">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.6.1-.2.3-.7 1-.9 1.2-.1.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.2-.4.1-.2 0-.4 0-.5s-.6-1.5-.8-2c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s1 2.6 1.1 2.7c.1.2 2 3 4.7 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 2-1.4.2-.6.2-1.2.1-1.3-.1-.1-.3-.2-.6-.3z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.6 1.4 5.1L2 22l5.1-1.3C8.5 21.5 10.2 22 12 22c5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18c-1.6 0-3.1-.4-4.5-1.2l-.3-.2-3.3.9.9-3.2-.2-.3C3.7 14.6 3.2 13.3 3.2 12c0-4.9 3.9-8.8 8.8-8.8s8.8 3.9 8.8 8.8-3.9 8.8-8.8 8.8z"/></svg>
@@ -422,11 +423,8 @@
       <div class="mobile-drawer-lang">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg>
         <select aria-label="اختيار اللغة">
-          <option value="ar" selected>العربية</option>
+          <option value="ar">العربية</option>
           <option value="fr">Français</option>
-          <option value="en">English</option>
-          <option value="es">Español</option>
-          <option value="ber">ⵜⴰⵎⴰⵣⵉⵖⵜ</option>
         </select>
       </div>
       <div class="mobile-drawer-social">
@@ -603,7 +601,7 @@
 <!-- =====================================================================
      4. المكتب المركزي
      ===================================================================== -->
-<section id="central-office" data-amare-no-translate>
+<section id="central-office">
   <section class="about-section co-about">
     <div class="co-about-blobs" aria-hidden="true">
       <div class="co-about-blob co-about-blob-1"></div>
@@ -621,12 +619,12 @@
     </div>
   </section>
 
-  <section class="about-section co-team" data-amare-no-translate>
+  <section class="about-section co-team">
     <div class="container">
       <div class="section-head reveal">
-        <span class="eyebrow">Équipe dirigeante</span>
-        <h2 class="section-title">Membres du bureau central</h2>
-        <p class="section-desc">Le bureau central est composé d'une élite de compétences nationales qui veillent à la réalisation des objectifs de l'association et à la concrétisation de sa vision.</p>
+        <span class="eyebrow">فريق القيادة</span>
+        <h2 class="section-title">أعضاء المكتب المركزي</h2>
+        <p class="section-desc">يتكون المكتب المركزي من نخبة من الكفاءات الوطنية التي تسهر على تحقيق أهداف الجمعية وترجمة رؤيتها إلى واقع.</p>
       </div>
       <div class="co-team-grid" id="coMembersGrid"></div>
     </div>
@@ -842,7 +840,17 @@
   ];
 
   function getMembers() { return window.__AMARE_ABOUT_CO_MEMBERS || FALLBACK_MEMBERS; }
-  function getRegions() { return window.__AMARE_ABOUT_REGIONS || FALLBACK_REGIONS; }
+  function getRegions() {
+    var regions = window.__AMARE_ABOUT_REGIONS;
+    if (regions) return regions;
+    var lang = (window.I18n && window.I18n.getCurrentLanguage && window.I18n.getCurrentLanguage()) || 'ar';
+    if (lang !== 'fr') return FALLBACK_REGIONS;
+    return FALLBACK_REGIONS.map(function(r) {
+      var name = r.name;
+      if (window.I18n) { var t = window.I18n.t(name); if (t !== name) name = t; }
+      return { id: r.id, name: name, status: r.status, branches: r.branches };
+    });
+  }
 
   /* --- avatar helpers --- */
   function initials(name) { var p = String(name).trim().split(/\s+/); return p.slice(0,2).map(function(x){return x.charAt(0);}).join(' '); }
@@ -853,11 +861,30 @@
     return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(s);
   }
 
-  var SOCIALS = {
+  var SOCIALS_AR = {
     facebook: { label:'فيسبوك', svg:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg>'},
     instagram: { label:'إنستغرام', svg:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>'},
     linkedin: { label:'لينكدإن', svg:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 5 3.79 6.2 2.3 6.2 1 6.2 0 5 0 3.5 0 2 1.1.8 2.5.8s2.48 1.2 2.48 2.7zM.2 8.5h4.6V23H.2V8.5zM8 8.5h4.4v2h.06c.6-1.2 2.1-2.4 4.4-2.4 4.7 0 5.6 3.1 5.6 7.1V23h-4.6v-6.7c0-1.6 0-3.7-2.3-3.7s-2.6 1.8-2.6 3.6V23H8V8.5z"/></svg>'}
   };
+
+  var SOCIALS_FR = {
+    facebook: { label:'Facebook', svg:SOCIALS_AR.facebook.svg },
+    instagram: { label:'Instagram', svg:SOCIALS_AR.instagram.svg },
+    linkedin: { label:'LinkedIn', svg:SOCIALS_AR.linkedin.svg }
+  };
+
+  function getSocials() {
+    if (window.I18n && window.I18n.getCurrentLanguage() === 'fr') return SOCIALS_FR;
+    return SOCIALS_AR;
+  }
+
+  function L(key, arDefault) {
+    if (window.I18n && window.I18n.t) {
+      var val = window.I18n.t(key);
+      if (val && val !== key) return val;
+    }
+    return arDefault || '';
+  }
 
   var MEMBER_PHOTOS = {
     'محمد ميان': 'محمد ميان.jpeg',
@@ -881,8 +908,29 @@
     console.log('[CO DEBUG] memberCard('+idx+') bio:', (m.bio||'').substring(0,40));
     var photo = memberPhoto(m.name);
     var imgSrc = photo || avatarDataUri(m.name, m.color);
-    var soc = ['facebook','instagram','linkedin'].map(function(k) { var it=SOCIALS[k]; return '<a href="'+escapeHtml(m[k]||'#')+'" aria-label="'+it.label+'" rel="noopener">'+it.svg+'</a>'; }).join('');
-    return '<article class="co-member-card" style="--i:'+idx+'"><div class="co-member-photo"><img src="'+imgSrc+'" alt="صورة '+escapeHtml(m.name)+'" loading="lazy" width="96" height="96"></div><div class="co-member-body"><h3>'+escapeHtml(m.name)+'</h3><span class="co-member-role">'+escapeHtml(m.role)+'</span><p>'+escapeHtml(m.bio)+'</p><div class="co-member-social">'+soc+'</div><a href="'+escapeHtml(m.profileUrl||'#')+'" class="co-member-btn">عرض الملف الشخصي</a></div></article>';
+    var socs = getSocials();
+    var soc = ['facebook','instagram','linkedin'].map(function(k) { var it=socs[k]; return '<a href="'+escapeHtml(m[k]||'#')+'" aria-label="'+escapeHtml(it.label)+'" rel="noopener">'+it.svg+'</a>'; }).join('');
+    var altText = L('about.memberPhoto', 'صورة ') + escapeHtml(m.name);
+    var btnText = L('about.viewProfile', 'عرض الملف الشخصي');
+
+    var role = m.role || '';
+    if (window.I18n) {
+      var lang = window.I18n.getCurrentLanguage();
+      if (lang !== 'ar') {
+        var t = window.I18n.t(role);
+        if (t !== role) role = t;
+      }
+    }
+    var bio = m.bio || '';
+    if (window.I18n) {
+      var langB = window.I18n.getCurrentLanguage();
+      if (langB !== 'ar') {
+        var tb = window.I18n.t(bio);
+        if (tb !== bio) bio = tb;
+      }
+    }
+
+    return '<article class="co-member-card" style="--i:'+idx+'"><div class="co-member-photo"><img src="'+imgSrc+'" alt="'+altText+'" loading="lazy" width="96" height="96"></div><div class="co-member-body"><h3>'+escapeHtml(m.name)+'</h3><span class="co-member-role">'+escapeHtml(role)+'</span><p>'+escapeHtml(bio)+'</p><div class="co-member-social">'+soc+'</div><a href="'+escapeHtml(m.profileUrl||'#')+'" class="co-member-btn">'+btnText+'</a></div></article>';
   }
 
   function renderMembers() {
@@ -900,16 +948,23 @@
   }
 
   /* --- Expansion Map --- */
-  var STATUS_LABELS = { active:'نشطة', upcoming:'مرتقبة', future:'مستقبلية' };
+  var STATUS_LABELS_AR = { active:'نشطة', upcoming:'مرتقبة', future:'مستقبلية' };
+  var STATUS_LABELS_FR = { active:'Active', upcoming:'À venir', future:'Future' };
+
+  function getStatusLabels() {
+    if (window.I18n && window.I18n.getCurrentLanguage() === 'fr') return STATUS_LABELS_FR;
+    return STATUS_LABELS_AR;
+  }
 
   function regionById(id) { var regions = getRegions(); for(var i=0;i<regions.length;i++) if(regions[i].id===id) return regions[i]; return null; }
   function statusClass(s) { return 'is-'+s; }
 
-  var mapSvg = document.querySelector('.em-map-frame svg');
-  var tooltip = document.getElementById('emMapTooltip');
-  var detail = document.getElementById('emMapDetail');
+  function getMapSvg() { return document.querySelector('.em-map-frame svg'); }
+  function getTooltip() { return document.getElementById('emMapTooltip'); }
+  function getDetail() { return document.getElementById('emMapDetail'); }
 
   function applyRegionData() {
+    var mapSvg = getMapSvg();
     if(!mapSvg) return;
     Array.prototype.slice.call(mapSvg.querySelectorAll('.em-region')).forEach(function(p) {
       var d = regionById(p.getAttribute('data-region'));
@@ -918,19 +973,23 @@
   }
 
   function tooltipHtml(d) {
+    var sl = getStatusLabels();
     return '<div class="em-tooltip-title">'+escapeHtml(d.name)+'</div>'+
-      '<div class="em-tooltip-row"><span>عدد الفروع</span><strong>'+d.branches+'</strong></div>'+
-      '<div class="em-tooltip-row"><span>حالة التوسع</span><span class="em-tooltip-status '+statusClass(d.status)+'">'+STATUS_LABELS[d.status]+'</span></div>';
+      '<div class="em-tooltip-row"><span>'+L('map.branchCount', 'عدد الفروع')+'</span><strong>'+d.branches+'</strong></div>'+
+      '<div class="em-tooltip-row"><span>'+L('map.expansionStatus', 'حالة التوسع')+'</span><span class="em-tooltip-status '+statusClass(d.status)+'">'+sl[d.status]+'</span></div>';
   }
 
   function detailHtml(d) {
-    return '<div class="em-detail-head"><h4>'+escapeHtml(d.name)+'</h4><span class="em-detail-status '+statusClass(d.status)+'">'+STATUS_LABELS[d.status]+'</span></div>'+
-      '<div class="em-detail-rows"><div class="em-detail-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>عدد الفروع</span><strong>'+d.branches+'</strong></div>'+
-      '<div class="em-detail-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg><span>حالة التوسع</span><strong>'+STATUS_LABELS[d.status]+'</strong></div></div>';
+    var sl = getStatusLabels();
+    return '<div class="em-detail-head"><h4>'+escapeHtml(d.name)+'</h4><span class="em-detail-status '+statusClass(d.status)+'">'+sl[d.status]+'</span></div>'+
+      '<div class="em-detail-rows"><div class="em-detail-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>'+L('map.branchCount', 'عدد الفروع')+'</span><strong>'+d.branches+'</strong></div>'+
+      '<div class="em-detail-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg><span>'+L('map.expansionStatus', 'حالة التوسع')+'</span><strong>'+sl[d.status]+'</strong></div></div>';
   }
 
   function selectRegion(d) {
-    if(!detail) return;
+    var detail = getDetail();
+    var mapSvg = getMapSvg();
+    if(!detail || !mapSvg) return;
     Array.prototype.slice.call(mapSvg.querySelectorAll('.em-region')).forEach(function(p) {
       p.classList.toggle('is-selected', p.getAttribute('data-region')===d.id);
     });
@@ -939,6 +998,8 @@
   }
 
   function positionTooltip(evt, frame) {
+    var tooltip = getTooltip();
+    if(!tooltip) return;
     var r = frame.getBoundingClientRect();
     var x = evt.clientX - r.left, y = evt.clientY - r.top;
     var tr = tooltip.getBoundingClientRect(), off = 16;
@@ -949,11 +1010,19 @@
     tooltip.style.top = Math.max(8,t)+'px';
   }
 
+  var _mapMousemove, _mapMouseleave, _mapClick;
+
   function initMap() {
     applyRegionData();
-    if(!mapSvg||!tooltip||!detail) return;
+    var mapSvg = getMapSvg();
+    var tooltip = getTooltip();
+    if(!mapSvg||!tooltip||!getDetail()) return;
     var frame = mapSvg.closest('.em-map-frame');
-    mapSvg.addEventListener('mousemove', function(evt) {
+    if (!frame) return;
+    if (_mapMousemove) mapSvg.removeEventListener('mousemove', _mapMousemove);
+    if (_mapMouseleave) mapSvg.removeEventListener('mouseleave', _mapMouseleave);
+    if (_mapClick) mapSvg.removeEventListener('click', _mapClick);
+    _mapMousemove = function(evt) {
       var p = evt.target.closest?evt.target.closest('.em-region'):null;
       if(!p){tooltip.classList.remove('is-visible');return;}
       var d=regionById(p.getAttribute('data-region'));
@@ -961,12 +1030,15 @@
       tooltip.innerHTML=tooltipHtml(d);
       tooltip.classList.add('is-visible');
       positionTooltip(evt,frame);
-    });
-    mapSvg.addEventListener('mouseleave',function(){tooltip.classList.remove('is-visible');});
-    mapSvg.addEventListener('click',function(evt){
+    };
+    _mapMouseleave = function(){tooltip.classList.remove('is-visible');};
+    _mapClick = function(evt){
       var p=evt.target.closest?evt.target.closest('.em-region'):null;
       if(p){var d=regionById(p.getAttribute('data-region'));if(d)selectRegion(d);}
-    });
+    };
+    mapSvg.addEventListener('mousemove', _mapMousemove);
+    mapSvg.addEventListener('mouseleave', _mapMouseleave);
+    mapSvg.addEventListener('click', _mapClick);
   }
 
   /* Init — run immediately, then re-run if CMS data arrives later */
@@ -980,6 +1052,12 @@
   /* Re-init when CMS data arrives */
   document.addEventListener('about-cms-ready', function() {
     initAll();
+  });
+
+  /* Re-render when language changes */
+  window.addEventListener('amare:langchange', function() {
+    renderMembers();
+    initMap();
   });
 })();
 </script>

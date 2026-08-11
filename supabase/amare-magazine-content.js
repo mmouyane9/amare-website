@@ -212,6 +212,8 @@
   }
 
   /* ------------------------------------------------------------------ */
+  var _lastSections = null;
+
   function loadFromSupabase(callback) {
     var MAX_RETRIES = 30, RETRY_MS = 200;
 
@@ -255,16 +257,29 @@
     tryLoad(0);
   }
 
+  function renderAll() {
+    if (_lastSections && _lastSections.length > 0) {
+      console.log('[MAGAZINE CMS] Re-rendering', _lastSections.length, 'CMS sections...');
+      for (var i = 0; i < _lastSections.length; i++) injectSection(_lastSections[i]);
+    }
+  }
+
   function init() {
     if (!isMagazinePage()) return;
     loadFromSupabase(function (sections) {
       if (sections && sections.length > 0) {
+        _lastSections = sections;
         console.log('[MAGAZINE CMS] Rendering', sections.length, 'CMS sections...');
         for (var i = 0; i < sections.length; i++) injectSection(sections[i]);
         console.log('[MAGAZINE CMS] Rendering complete');
       } else {
         console.log('[MAGAZINE CMS] No CMS sections — HTML fallback');
+        _lastSections = null;
       }
+    });
+
+    window.addEventListener('amare:langchange', function () {
+      renderAll();
     });
   }
 

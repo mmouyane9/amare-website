@@ -284,6 +284,8 @@
   /* ------------------------------------------------------------------
      Supabase fetch
      ------------------------------------------------------------------ */
+  var _lastSections = null;
+
   function loadSections(callback) {
     var MAX_RETRIES = 30;
     var RETRY_MS = 200;
@@ -402,17 +404,33 @@
     }
   }
 
+  function renderAll() {
+    if (_lastSections && _lastSections.length > 0) {
+      console.log('[Values CMS] Re-rendering', _lastSections.length, 'CMS sections...');
+      CUSTOM_ORDER = 0;
+      for (var i = 0; i < _lastSections.length; i++) {
+        dispatchSection(_lastSections[i]);
+      }
+    }
+  }
+
   function init() {
     loadSections(function (sections) {
       if (!sections || sections.length === 0) {
         console.log('[Values CMS] No CMS sections — using HTML fallback');
+        _lastSections = null;
         return;
       }
+      _lastSections = sections;
       CUSTOM_ORDER = 0;
       for (var i = 0; i < sections.length; i++) {
         dispatchSection(sections[i]);
       }
       console.log('[Values CMS] Rendering complete —', sections.length, 'sections rendered');
+    });
+
+    window.addEventListener('amare:langchange', function () {
+      renderAll();
     });
   }
 

@@ -137,6 +137,8 @@
   /* ------------------------------------------------------------------
      Supabase fetch
      ------------------------------------------------------------------ */
+  var _lastSections = null;
+
   function loadFromSupabase(callback) {
     var MAX_RETRIES = 30;
     var RETRY_MS = 200;
@@ -240,11 +242,21 @@
   /* ------------------------------------------------------------------
      Bootstrap
      ------------------------------------------------------------------ */
+  function renderAll() {
+    if (_lastSections && _lastSections.length > 0) {
+      console.log('[Activities CMS] Re-rendering', _lastSections.length, 'CMS sections...');
+      for (var i = 0; i < _lastSections.length; i++) {
+        injectSection(_lastSections[i]);
+      }
+    }
+  }
+
   function init() {
     console.log('[Activities CMS] Starting...');
 
     loadFromSupabase(function (sections) {
       if (sections && sections.length > 0) {
+        _lastSections = sections;
         console.log('[Activities CMS] Rendering', sections.length, 'CMS sections...');
         for (var i = 0; i < sections.length; i++) {
           injectSection(sections[i]);
@@ -252,8 +264,13 @@
         console.log('[Activities CMS] Rendering complete');
       } else {
         console.log('[Activities CMS] No CMS sections — using HTML fallback');
+        _lastSections = null;
         injectAllFallbacks();
       }
+    });
+
+    window.addEventListener('amare:langchange', function () {
+      renderAll();
     });
   }
 

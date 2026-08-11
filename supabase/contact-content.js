@@ -330,6 +330,14 @@
     // Re-apply our values every time the global settings change.
     window.addEventListener('amare:settingschange', reapplyContactInfo);
 
+    window.addEventListener('amare:langchange', function () {
+      if (loadedSections && loadedSections.length > 0) {
+        console.log('[CONTACT CMS] Re-rendering', loadedSections.length, 'CMS sections...');
+        for (var i = 0; i < loadedSections.length; i++) injectSection(loadedSections[i]);
+        reapplyContactInfo();
+      }
+    });
+
     loadFromSupabase(function (sections) {
       if (sections && sections.length > 0) {
         loadedSections = sections;
@@ -338,6 +346,7 @@
         console.log('[CONTACT CMS] Rendering complete');
       } else {
         console.log('[CONTACT CMS] No CMS sections — HTML fallback');
+        loadedSections = [];
       }
     });
   }

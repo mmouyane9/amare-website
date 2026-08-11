@@ -286,6 +286,8 @@
   /* ------------------------------------------------------------------
      Supabase fetch
      ------------------------------------------------------------------ */
+  var _lastSections = null;
+
   function loadSections(callback) {
     var MAX_RETRIES = 30;
     var RETRY_MS = 200;
@@ -423,17 +425,32 @@
     }
   }
 
+  function renderAll() {
+    if (_lastSections && _lastSections.length > 0) {
+      console.log('[National Vision CMS] Re-rendering', _lastSections.length, 'CMS sections...');
+      for (var i = 0; i < _lastSections.length; i++) {
+        dispatchSection(_lastSections[i]);
+      }
+    }
+  }
+
   function init() {
     loadSections(function (sections) {
       if (!sections || sections.length === 0) {
         console.log('[National Vision CMS] No sections — using HTML fallback');
+        _lastSections = null;
         return;
       }
+      _lastSections = sections;
       console.log('[National Vision CMS] Loaded ' + sections.length + ' sections — injecting...');
       for (var i = 0; i < sections.length; i++) {
         dispatchSection(sections[i]);
       }
       console.log('[National Vision CMS] Rendering complete — ' + sections.length + ' sections processed');
+    });
+
+    window.addEventListener('amare:langchange', function () {
+      renderAll();
     });
   }
 

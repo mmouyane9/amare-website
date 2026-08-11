@@ -327,7 +327,7 @@ export default function CityDetailsPage() {
             <CardHeader>
               <CardDescription>عدد الأعضاء</CardDescription>
               <CardTitle className="text-2xl font-semibold tracking-tight">
-                {1.toLocaleString()}
+                {1}
               </CardTitle>
             </CardHeader>
             <CardContent className="pt-1">
@@ -341,7 +341,7 @@ export default function CityDetailsPage() {
             <CardHeader>
               <CardDescription>عدد المنشورات</CardDescription>
               <CardTitle className="text-2xl font-semibold tracking-tight">
-                {0.toLocaleString()}
+                {0}
               </CardTitle>
             </CardHeader>
             <CardContent className="pt-1">

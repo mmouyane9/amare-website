@@ -322,13 +322,13 @@
       <!-- Toolbar -->
       <div class="store-toolbar">
         <div class="store-search">
-          <input type="text" id="searchInput" placeholder="ابحث عن منتج..." aria-label="البحث عن منتج">
+          <input type="text" id="searchInput" data-i18n-placeholder="store.searchPlaceholder" placeholder="ابحث عن منتج..." aria-label="البحث عن منتج">
           <span class="store-search-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
           </span>
         </div>
         <select id="categoryFilter" class="store-filter-select" aria-label="تصفية حسب الفئة">
-          <option value="">جميع الفئات</option>
+          <option value="" data-i18n="store.allCategories">جميع الفئات</option>
           <option value="clothing">✓ الملابس</option>
           <option disabled class="store-filter-sep">──────────</option>
           <option value="devices" disabled>الأجهزة (قريباً)</option>
@@ -525,6 +525,16 @@
 (function() {
   'use strict';
 
+  function pickLang(data, key) {
+    if (!data) return '';
+    var lang = (window.I18n && window.I18n.getCurrentLanguage) ? window.I18n.getCurrentLanguage() : 'ar';
+    var value = data[key + '_' + lang];
+    if (value != null && value !== '') return value;
+    value = data[key + '_ar'];
+    if (value != null && value !== '') return value;
+    return data[key] || '';
+  }
+
   var categoryMap = {
     devices:     { name: 'الأجهزة' },
     clothing:    { name: 'الملابس' },
@@ -552,14 +562,15 @@
   var allProducts = [];
 
   function buildCard(p, i) {
-    var badgeHtml = p.stock > 0 ? '<span class="store-product-badge">متوفر</span>' : '';
+    var t = (window.I18n && window.I18n.t) ? function(k, fb) { return window.I18n.t(k) || fb || ''; } : function(k, fb) { return fb || ''; };
+    var badgeHtml = p.stock > 0 ? '<span class="store-product-badge">' + t('store.available', 'متوفر') + '</span>' : '';
     var imgHtml = p.image_url
-      ? '<img src="' + p.image_url + '" alt="' + p.name + '" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;">'
+      ? '<img src="' + p.image_url + '" alt="' + pickLang(p, 'name') + '" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;">'
       : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">' + iconFor(p.category) + '</svg>';
 
     var featureBadge = '';
     if (p.featured) {
-      featureBadge = '<span class="store-product-badge featured-badge" style="left:14px;right:auto;background:rgba(246,179,0,.12);color:#F6B300;border-color:rgba(246,179,0,.2);">مميز</span>';
+      featureBadge = '<span class="store-product-badge featured-badge" style="left:14px;right:auto;background:rgba(246,179,0,.12);color:#F6B300;border-color:rgba(246,179,0,.2);">' + t('store.featured', 'مميز') + '</span>';
     }
 
     return '<div class="store-product-card reveal in-view" style="--i:' + i + '">' +
@@ -569,12 +580,12 @@
         imgHtml +
       '</div>' +
       '<div class="store-product-body">' +
-        '<h3 class="store-product-name">' + p.name + '</h3>' +
-        '<p class="store-product-desc">' + (p.short_description || '') + '</p>' +
+        '<h3 class="store-product-name">' + pickLang(p, 'name') + '</h3>' +
+        '<p class="store-product-desc">' + pickLang(p, 'short_description') + '</p>' +
         '<div class="store-product-footer">' +
-          '<span class="store-product-price">' + Number(p.price).toLocaleString('fr-FR') + ' د.م</span>' +
+          '<span class="store-product-price">' + Number(p.price).toLocaleString('fr-FR') + ' DH</span>' +
           '<a href="/amare store/product.html?id=' + p.id + '" class="store-product-btn">' +
-            '<span>عرض التفاصيل</span>' +
+            '<span>' + t('store.viewDetails', 'عرض التفاصيل') + '</span>' +
             '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>' +
           '</a>' +
         '</div>' +
@@ -587,7 +598,7 @@
     var countEl = document.getElementById('productsCount');
     var emptyEl = document.getElementById('productsEmpty');
 
-    countEl.textContent = 'جميع المنتجات (' + products.length + ')';
+    countEl.textContent = (window.I18n && window.I18n.t('store.productsCount') || 'جميع المنتجات ({count})').replace('{count}', products.length);
 
     if (!products.length) {
       grid.innerHTML = '';
@@ -611,6 +622,8 @@
       var matchCat = !category || p.category === category;
       var matchSearch = !searchText ||
         (p.name && p.name.toLowerCase().indexOf(searchText) !== -1) ||
+        (p.name_ar && p.name_ar.toLowerCase().indexOf(searchText) !== -1) ||
+        (p.name_fr && p.name_fr.toLowerCase().indexOf(searchText) !== -1) ||
         (p.short_description && p.short_description.toLowerCase().indexOf(searchText) !== -1) ||
         (p.description && p.description.toLowerCase().indexOf(searchText) !== -1);
       return matchCat && matchSearch;
@@ -643,6 +656,10 @@
 
   document.getElementById('categoryFilter').addEventListener('change', function() {
     filterProducts();
+  });
+
+  window.addEventListener('amare:langchange', function() {
+    renderProducts(allProducts);
   });
 
   if (document.readyState === 'loading') {

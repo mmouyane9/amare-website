@@ -128,7 +128,13 @@ function AboutEditor({ data, onChange }: CustomEditorProps) {
         {buttons.map((btn, i) => (
           <RepeaterItem key={btn.id || i} onDelete={() => onChange({ ...data, buttons: buttons.filter((_, j) => j !== i) })}>
             <div className="space-y-2 pr-5">
-              <Input value={btn.label} onChange={(e) => onChange({ ...data, buttons: buttons.map((x, j) => (j === i ? { ...x, label: e.target.value } : x)) })} placeholder="نص الزر" className="h-8 text-sm" />
+              <div className="border border-[#E5E7EB] rounded-lg p-2 space-y-1 bg-[#F8FAFC]">
+                <span className="text-xs font-bold text-[#64748B]">نص الزر</span>
+                <div className="grid grid-cols-2 gap-2">
+                  <Input value={btn.label_ar ?? ''} onChange={(e) => onChange({ ...data, buttons: buttons.map((x, j) => (j === i ? { ...x, label_ar: e.target.value } : x)) })} placeholder="بالعربية" className="h-8 text-sm" />
+                  <Input value={btn.label_fr ?? ''} onChange={(e) => onChange({ ...data, buttons: buttons.map((x, j) => (j === i ? { ...x, label_fr: e.target.value } : x)) })} placeholder="en français" className="h-8 text-sm" />
+                </div>
+              </div>
               <Input value={btn.url} onChange={(e) => onChange({ ...data, buttons: buttons.map((x, j) => (j === i ? { ...x, url: e.target.value } : x)) })} placeholder="الرابط" className="h-8 text-sm" />
             </div>
           </RepeaterItem>
@@ -213,30 +219,50 @@ function FeaturesGridEditor({ data, onChange }: CustomEditorProps) {
 
 function ActivitiesGridEditor({ data, onChange }: CustomEditorProps) {
   const cards = (data.cards ?? []) as Array<{
-    title: string
-    description: string
+    title_ar: string
+    title_fr: string
+    description_ar: string
+    description_fr: string
     image: string
-    linkText: string
+    linkText_ar: string
+    linkText_fr: string
     linkUrl: string
   }>
 
   return (
     <div className="space-y-3">
-      <FieldGroup label="العنوان الرئيسي">
-        <Input value={(data.heading as string) ?? ''} onChange={(e) => onChange({ ...data, heading: e.target.value })} className="h-9 text-sm" />
-      </FieldGroup>
-      <FieldGroup label="الوصف">
-        <Input value={(data.description as string) ?? ''} onChange={(e) => onChange({ ...data, description: e.target.value })} className="h-9 text-sm" />
-      </FieldGroup>
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">العنوان الرئيسي</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية">
+            <Input value={(data.heading_ar as string) ?? ''} onChange={(e) => onChange({ ...data, heading_ar: e.target.value })} placeholder="بالعربية" className="h-8 text-sm" />
+          </FieldGroup>
+          <FieldGroup label="Français">
+            <Input value={(data.heading_fr as string) ?? ''} onChange={(e) => onChange({ ...data, heading_fr: e.target.value })} placeholder="en français" className="h-8 text-sm" />
+          </FieldGroup>
+        </div>
+      </div>
+
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">الوصف</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية">
+            <Input value={(data.description_ar as string) ?? ''} onChange={(e) => onChange({ ...data, description_ar: e.target.value })} placeholder="بالعربية" className="h-8 text-sm" />
+          </FieldGroup>
+          <FieldGroup label="Français">
+            <Input value={(data.description_fr as string) ?? ''} onChange={(e) => onChange({ ...data, description_fr: e.target.value })} placeholder="en français" className="h-8 text-sm" />
+          </FieldGroup>
+        </div>
+      </div>
 
       <div className="space-y-2">
         <SectionLabel>البطاقات</SectionLabel>
         {cards.map((card, i) => (
           <RepeaterItem key={i} onDelete={() => onChange({ ...data, cards: cards.filter((_, j) => j !== i) })}>
-            <div className="space-y-2 pr-5">
+            <div className="space-y-1.5 pr-5">
               <div className="relative aspect-video w-full overflow-hidden rounded-md bg-muted">
                 {card.image ? (
-                  <img src={card.image} alt={card.title} className="size-full object-cover" />
+                  <img src={card.image} alt="" className="size-full object-cover" />
                 ) : (
                   <div className="flex size-full items-center justify-center">
                     <ImageIcon className="size-5 text-muted-foreground" />
@@ -244,17 +270,105 @@ function ActivitiesGridEditor({ data, onChange }: CustomEditorProps) {
                 )}
               </div>
               <Input value={card.image} onChange={(e) => onChange({ ...data, cards: cards.map((x, j) => (j === i ? { ...x, image: e.target.value } : x)) })} placeholder="رابط الصورة" className="h-8 text-sm" />
-              <Input value={card.title} onChange={(e) => onChange({ ...data, cards: cards.map((x, j) => (j === i ? { ...x, title: e.target.value } : x)) })} placeholder="العنوان" className="h-8 text-sm font-medium" />
-              <Textarea value={card.description} onChange={(e) => onChange({ ...data, cards: cards.map((x, j) => (j === i ? { ...x, description: e.target.value } : x)) })} placeholder="الوصف" className="min-h-12 resize-y text-sm" />
-              <div className="flex gap-2">
-                <Input value={card.linkText} onChange={(e) => onChange({ ...data, cards: cards.map((x, j) => (j === i ? { ...x, linkText: e.target.value } : x)) })} placeholder="نص الرابط" className="h-8 flex-1 text-sm" />
-                <Input value={card.linkUrl} onChange={(e) => onChange({ ...data, cards: cards.map((x, j) => (j === i ? { ...x, linkUrl: e.target.value } : x)) })} placeholder="الرابط" className="h-8 flex-1 text-sm" />
+              <div className="border border-[#E5E7EB] rounded-lg p-2 space-y-1 bg-[#F8FAFC]">
+                <span className="text-xs font-bold text-[#64748B]">العنوان</span>
+                <div className="grid grid-cols-2 gap-2">
+                  <Input value={card.title_ar ?? ''} onChange={(e) => onChange({ ...data, cards: cards.map((x, j) => (j === i ? { ...x, title_ar: e.target.value } : x)) })} placeholder="بالعربية" className="h-8 text-sm" />
+                  <Input value={card.title_fr ?? ''} onChange={(e) => onChange({ ...data, cards: cards.map((x, j) => (j === i ? { ...x, title_fr: e.target.value } : x)) })} placeholder="en français" className="h-8 text-sm" />
+                </div>
               </div>
+              <div className="border border-[#E5E7EB] rounded-lg p-2 space-y-1 bg-[#F8FAFC]">
+                <span className="text-xs font-bold text-[#64748B]">الوصف</span>
+                <div className="grid grid-cols-2 gap-2">
+                  <Textarea value={card.description_ar ?? ''} onChange={(e) => onChange({ ...data, cards: cards.map((x, j) => (j === i ? { ...x, description_ar: e.target.value } : x)) })} placeholder="بالعربية" className="min-h-12 resize-y text-sm" />
+                  <Textarea value={card.description_fr ?? ''} onChange={(e) => onChange({ ...data, cards: cards.map((x, j) => (j === i ? { ...x, description_fr: e.target.value } : x)) })} placeholder="en français" className="min-h-12 resize-y text-sm" />
+                </div>
+              </div>
+              <div className="border border-[#E5E7EB] rounded-lg p-2 space-y-1 bg-[#F8FAFC]">
+                <span className="text-xs font-bold text-[#64748B]">نص الرابط</span>
+                <div className="grid grid-cols-2 gap-2">
+                  <Input value={card.linkText_ar ?? ''} onChange={(e) => onChange({ ...data, cards: cards.map((x, j) => (j === i ? { ...x, linkText_ar: e.target.value } : x)) })} placeholder="بالعربية" className="h-8 text-sm" />
+                  <Input value={card.linkText_fr ?? ''} onChange={(e) => onChange({ ...data, cards: cards.map((x, j) => (j === i ? { ...x, linkText_fr: e.target.value } : x)) })} placeholder="en français" className="h-8 text-sm" />
+                </div>
+              </div>
+              <Input value={card.linkUrl} onChange={(e) => onChange({ ...data, cards: cards.map((x, j) => (j === i ? { ...x, linkUrl: e.target.value } : x)) })} placeholder="الرابط" className="h-8 text-sm" />
             </div>
           </RepeaterItem>
         ))}
-        <Button type="button" variant="outline" size="sm" onClick={() => onChange({ ...data, cards: [...cards, { title: '', description: '', image: '', linkText: 'اكتشف المزيد', linkUrl: '#' }] })}>
+        <Button type="button" variant="outline" size="sm" onClick={() => onChange({ ...data, cards: [...cards, { title_ar: '', title_fr: '', description_ar: '', description_fr: '', image: '', linkText_ar: '', linkText_fr: '', linkUrl: '#' }] })}>
           <Plus className="size-3.5" /> إضافة بطاقة
+        </Button>
+      </div>
+    </div>
+  )
+}
+
+// =====================================================================
+// ACTIVITIES CTA EDITOR  (_renderer: "activitiesCta")
+// =====================================================================
+
+function ActivitiesCtaEditor({ data, onChange }: CustomEditorProps) {
+  const buttons = (data.buttons ?? []) as Array<{
+    id: string
+    label_ar: string
+    label_fr: string
+    url: string
+    variant: string
+  }>
+
+  return (
+    <div className="space-y-3">
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">العنوان الرئيسي</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية">
+            <Input value={(data.heading_ar as string) ?? ''} onChange={(e) => onChange({ ...data, heading_ar: e.target.value })} placeholder="بالعربية" className="h-8 text-sm" />
+          </FieldGroup>
+          <FieldGroup label="Français">
+            <Input value={(data.heading_fr as string) ?? ''} onChange={(e) => onChange({ ...data, heading_fr: e.target.value })} placeholder="en français" className="h-8 text-sm" />
+          </FieldGroup>
+        </div>
+      </div>
+
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">الوصف</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية">
+            <Textarea value={(data.description_ar as string) ?? ''} onChange={(e) => onChange({ ...data, description_ar: e.target.value })} placeholder="بالعربية" className="min-h-16 resize-y text-sm" />
+          </FieldGroup>
+          <FieldGroup label="Français">
+            <Textarea value={(data.description_fr as string) ?? ''} onChange={(e) => onChange({ ...data, description_fr: e.target.value })} placeholder="en français" className="min-h-16 resize-y text-sm" />
+          </FieldGroup>
+        </div>
+      </div>
+
+      <div className="space-y-2">
+        <SectionLabel>الأزرار</SectionLabel>
+        {buttons.map((btn, i) => (
+          <RepeaterItem key={btn.id || i} onDelete={() => onChange({ ...data, buttons: buttons.filter((_, j) => j !== i) })}>
+            <div className="space-y-1.5 pr-5">
+              <div className="border border-[#E5E7EB] rounded-lg p-2 space-y-1 bg-[#F8FAFC]">
+                <span className="text-xs font-bold text-[#64748B]">نص الزر</span>
+                <div className="grid grid-cols-2 gap-2">
+                  <Input value={btn.label_ar ?? ''} onChange={(e) => onChange({ ...data, buttons: buttons.map((x, j) => (j === i ? { ...x, label_ar: e.target.value } : x)) })} placeholder="بالعربية" className="h-8 text-sm" />
+                  <Input value={btn.label_fr ?? ''} onChange={(e) => onChange({ ...data, buttons: buttons.map((x, j) => (j === i ? { ...x, label_fr: e.target.value } : x)) })} placeholder="en français" className="h-8 text-sm" />
+                </div>
+              </div>
+              <Input value={btn.url} onChange={(e) => onChange({ ...data, buttons: buttons.map((x, j) => (j === i ? { ...x, url: e.target.value } : x)) })} placeholder="الرابط" className="h-8 text-sm" />
+              <select
+                value={btn.variant}
+                onChange={(e) => onChange({ ...data, buttons: buttons.map((x, j) => (j === i ? { ...x, variant: e.target.value } : x)) })}
+                className="h-8 w-full rounded-lg border border-[#E5E7EB] bg-transparent px-2.5 text-xs"
+              >
+                <option value="primary">Primary</option>
+                <option value="secondary">Secondary</option>
+                <option value="outline">Outline</option>
+              </select>
+            </div>
+          </RepeaterItem>
+        ))}
+        <Button type="button" variant="outline" size="sm" onClick={() => onChange({ ...data, buttons: [...buttons, { id: 'btn-' + Date.now(), label_ar: '', label_fr: '', url: '#', variant: 'primary' }] })}>
+          <Plus className="size-3.5" /> إضافة زر
         </Button>
       </div>
     </div>
@@ -553,31 +667,69 @@ function GenericStructuredEditor({ data, onChange }: CustomEditorProps) {
 // =====================================================================
 
 function NationalVisionEditor({ data, onChange }: CustomEditorProps) {
-  const cards = (data.cards ?? []) as Array<{ title: string; description: string }>
+  const cards = (data.cards ?? []) as Array<{ title_ar: string; title_fr: string; description_ar: string; description_fr: string }>
 
   return (
     <div className="space-y-3">
-      <FieldGroup label="العنوان الفرعي (Eyebrow)">
-        <Input value={(data.eyebrow as string) ?? ''} onChange={(e) => onChange({ ...data, eyebrow: e.target.value })} className="h-9 text-sm" />
-      </FieldGroup>
-      <FieldGroup label="العنوان الرئيسي">
-        <Input value={(data.heading as string) ?? ''} onChange={(e) => onChange({ ...data, heading: e.target.value })} className="h-9 text-sm" />
-      </FieldGroup>
-      <FieldGroup label="النص الرئيسي">
-        <Textarea value={(data.description as string) ?? ''} onChange={(e) => onChange({ ...data, description: e.target.value })} className="min-h-20 resize-y text-sm" />
-      </FieldGroup>
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">العنوان الفرعي (Eyebrow)</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية">
+            <Input value={(data.eyebrow_ar as string) ?? ''} onChange={(e) => onChange({ ...data, eyebrow_ar: e.target.value })} placeholder="بالعربية" className="h-8 text-sm" />
+          </FieldGroup>
+          <FieldGroup label="Français">
+            <Input value={(data.eyebrow_fr as string) ?? ''} onChange={(e) => onChange({ ...data, eyebrow_fr: e.target.value })} placeholder="en français" className="h-8 text-sm" />
+          </FieldGroup>
+        </div>
+      </div>
+
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">العنوان الرئيسي</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية">
+            <Input value={(data.heading_ar as string) ?? ''} onChange={(e) => onChange({ ...data, heading_ar: e.target.value })} placeholder="بالعربية" className="h-8 text-sm" />
+          </FieldGroup>
+          <FieldGroup label="Français">
+            <Input value={(data.heading_fr as string) ?? ''} onChange={(e) => onChange({ ...data, heading_fr: e.target.value })} placeholder="en français" className="h-8 text-sm" />
+          </FieldGroup>
+        </div>
+      </div>
+
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">النص الرئيسي</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية">
+            <Textarea value={(data.description_ar as string) ?? ''} onChange={(e) => onChange({ ...data, description_ar: e.target.value })} placeholder="بالعربية" className="min-h-20 resize-y text-sm" />
+          </FieldGroup>
+          <FieldGroup label="Français">
+            <Textarea value={(data.description_fr as string) ?? ''} onChange={(e) => onChange({ ...data, description_fr: e.target.value })} placeholder="en français" className="min-h-20 resize-y text-sm" />
+          </FieldGroup>
+        </div>
+      </div>
 
       <div className="space-y-2">
         <SectionLabel>بطاقات الرؤية</SectionLabel>
         {cards.map((card, i) => (
           <RepeaterItem key={i} onDelete={() => onChange({ ...data, cards: cards.filter((_, j) => j !== i) })}>
-            <div className="space-y-2 pr-5">
-              <Input value={card.title} onChange={(e) => onChange({ ...data, cards: cards.map((x, j) => (j === i ? { ...x, title: e.target.value } : x)) })} placeholder="العنوان" className="h-8 text-sm font-medium" />
-              <Textarea value={card.description} onChange={(e) => onChange({ ...data, cards: cards.map((x, j) => (j === i ? { ...x, description: e.target.value } : x)) })} placeholder="الوصف" className="min-h-12 resize-y text-sm" />
+            <div className="space-y-1.5 pr-5">
+              <div className="border border-[#E5E7EB] rounded-lg p-2 space-y-1 bg-[#F8FAFC]">
+                <span className="text-xs font-bold text-[#64748B]">العنوان</span>
+                <div className="grid grid-cols-2 gap-2">
+                  <Input value={card.title_ar ?? ''} onChange={(e) => onChange({ ...data, cards: cards.map((x, j) => (j === i ? { ...x, title_ar: e.target.value } : x)) })} placeholder="بالعربية" className="h-8 text-sm" />
+                  <Input value={card.title_fr ?? ''} onChange={(e) => onChange({ ...data, cards: cards.map((x, j) => (j === i ? { ...x, title_fr: e.target.value } : x)) })} placeholder="en français" className="h-8 text-sm" />
+                </div>
+              </div>
+              <div className="border border-[#E5E7EB] rounded-lg p-2 space-y-1 bg-[#F8FAFC]">
+                <span className="text-xs font-bold text-[#64748B]">الوصف</span>
+                <div className="grid grid-cols-2 gap-2">
+                  <Textarea value={card.description_ar ?? ''} onChange={(e) => onChange({ ...data, cards: cards.map((x, j) => (j === i ? { ...x, description_ar: e.target.value } : x)) })} placeholder="بالعربية" className="min-h-12 resize-y text-sm" />
+                  <Textarea value={card.description_fr ?? ''} onChange={(e) => onChange({ ...data, cards: cards.map((x, j) => (j === i ? { ...x, description_fr: e.target.value } : x)) })} placeholder="en français" className="min-h-12 resize-y text-sm" />
+                </div>
+              </div>
             </div>
           </RepeaterItem>
         ))}
-        <Button type="button" variant="outline" size="sm" onClick={() => onChange({ ...data, cards: [...cards, { title: '', description: '' }] })}>
+        <Button type="button" variant="outline" size="sm" onClick={() => onChange({ ...data, cards: [...cards, { title_ar: '', title_fr: '', description_ar: '', description_fr: '' }] })}>
           <Plus className="size-3.5" /> إضافة بطاقة
         </Button>
       </div>
@@ -592,15 +744,41 @@ function NationalVisionEditor({ data, onChange }: CustomEditorProps) {
 function MissionEditor({ data, onChange }: CustomEditorProps) {
   return (
     <div className="space-y-3">
-      <FieldGroup label="العنوان الفرعي (Eyebrow)">
-        <Input value={(data.eyebrow as string) ?? ''} onChange={(e) => onChange({ ...data, eyebrow: e.target.value })} className="h-9 text-sm" />
-      </FieldGroup>
-      <FieldGroup label="العنوان الرئيسي">
-        <Input value={(data.heading as string) ?? ''} onChange={(e) => onChange({ ...data, heading: e.target.value })} className="h-9 text-sm" />
-      </FieldGroup>
-      <FieldGroup label="النص الرئيسي">
-        <Textarea value={(data.description as string) ?? ''} onChange={(e) => onChange({ ...data, description: e.target.value })} className="min-h-24 resize-y text-sm" />
-      </FieldGroup>
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">العنوان الفرعي (Eyebrow)</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية">
+            <Input value={(data.eyebrow_ar as string) ?? ''} onChange={(e) => onChange({ ...data, eyebrow_ar: e.target.value })} placeholder="بالعربية" className="h-8 text-sm" />
+          </FieldGroup>
+          <FieldGroup label="Français">
+            <Input value={(data.eyebrow_fr as string) ?? ''} onChange={(e) => onChange({ ...data, eyebrow_fr: e.target.value })} placeholder="en français" className="h-8 text-sm" />
+          </FieldGroup>
+        </div>
+      </div>
+
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">العنوان الرئيسي</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية">
+            <Input value={(data.heading_ar as string) ?? ''} onChange={(e) => onChange({ ...data, heading_ar: e.target.value })} placeholder="بالعربية" className="h-8 text-sm" />
+          </FieldGroup>
+          <FieldGroup label="Français">
+            <Input value={(data.heading_fr as string) ?? ''} onChange={(e) => onChange({ ...data, heading_fr: e.target.value })} placeholder="en français" className="h-8 text-sm" />
+          </FieldGroup>
+        </div>
+      </div>
+
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">النص الرئيسي</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية">
+            <Textarea value={(data.description_ar as string) ?? ''} onChange={(e) => onChange({ ...data, description_ar: e.target.value })} placeholder="بالعربية" className="min-h-24 resize-y text-sm" />
+          </FieldGroup>
+          <FieldGroup label="Français">
+            <Textarea value={(data.description_fr as string) ?? ''} onChange={(e) => onChange({ ...data, description_fr: e.target.value })} placeholder="en français" className="min-h-24 resize-y text-sm" />
+          </FieldGroup>
+        </div>
+      </div>
     </div>
   )
 }
@@ -610,31 +788,69 @@ function MissionEditor({ data, onChange }: CustomEditorProps) {
 // =====================================================================
 
 function ValuesEditor({ data, onChange }: CustomEditorProps) {
-  const cards = (data.cards ?? []) as Array<{ title: string; description: string }>
+  const cards = (data.cards ?? []) as Array<{ title_ar: string; title_fr: string; description_ar: string; description_fr: string }>
 
   return (
     <div className="space-y-3">
-      <FieldGroup label="العنوان الفرعي (Eyebrow)">
-        <Input value={(data.eyebrow as string) ?? ''} onChange={(e) => onChange({ ...data, eyebrow: e.target.value })} className="h-9 text-sm" />
-      </FieldGroup>
-      <FieldGroup label="العنوان الرئيسي">
-        <Input value={(data.heading as string) ?? ''} onChange={(e) => onChange({ ...data, heading: e.target.value })} className="h-9 text-sm" />
-      </FieldGroup>
-      <FieldGroup label="الوصف">
-        <Textarea value={(data.description as string) ?? ''} onChange={(e) => onChange({ ...data, description: e.target.value })} className="min-h-16 resize-y text-sm" />
-      </FieldGroup>
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">العنوان الفرعي (Eyebrow)</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية">
+            <Input value={(data.eyebrow_ar as string) ?? ''} onChange={(e) => onChange({ ...data, eyebrow_ar: e.target.value })} placeholder="بالعربية" className="h-8 text-sm" />
+          </FieldGroup>
+          <FieldGroup label="Français">
+            <Input value={(data.eyebrow_fr as string) ?? ''} onChange={(e) => onChange({ ...data, eyebrow_fr: e.target.value })} placeholder="en français" className="h-8 text-sm" />
+          </FieldGroup>
+        </div>
+      </div>
+
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">العنوان الرئيسي</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية">
+            <Input value={(data.heading_ar as string) ?? ''} onChange={(e) => onChange({ ...data, heading_ar: e.target.value })} placeholder="بالعربية" className="h-8 text-sm" />
+          </FieldGroup>
+          <FieldGroup label="Français">
+            <Input value={(data.heading_fr as string) ?? ''} onChange={(e) => onChange({ ...data, heading_fr: e.target.value })} placeholder="en français" className="h-8 text-sm" />
+          </FieldGroup>
+        </div>
+      </div>
+
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">الوصف</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية">
+            <Textarea value={(data.description_ar as string) ?? ''} onChange={(e) => onChange({ ...data, description_ar: e.target.value })} placeholder="بالعربية" className="min-h-16 resize-y text-sm" />
+          </FieldGroup>
+          <FieldGroup label="Français">
+            <Textarea value={(data.description_fr as string) ?? ''} onChange={(e) => onChange({ ...data, description_fr: e.target.value })} placeholder="en français" className="min-h-16 resize-y text-sm" />
+          </FieldGroup>
+        </div>
+      </div>
 
       <div className="space-y-2">
         <SectionLabel>القيم</SectionLabel>
         {cards.map((card, i) => (
           <RepeaterItem key={i} onDelete={() => onChange({ ...data, cards: cards.filter((_, j) => j !== i) })}>
-            <div className="space-y-2 pr-5">
-              <Input value={card.title} onChange={(e) => onChange({ ...data, cards: cards.map((x, j) => (j === i ? { ...x, title: e.target.value } : x)) })} placeholder="العنوان" className="h-8 text-sm font-medium" />
-              <Textarea value={card.description} onChange={(e) => onChange({ ...data, cards: cards.map((x, j) => (j === i ? { ...x, description: e.target.value } : x)) })} placeholder="الوصف" className="min-h-12 resize-y text-sm" />
+            <div className="space-y-1.5 pr-5">
+              <div className="border border-[#E5E7EB] rounded-lg p-2 space-y-1 bg-[#F8FAFC]">
+                <span className="text-xs font-bold text-[#64748B]">العنوان</span>
+                <div className="grid grid-cols-2 gap-2">
+                  <Input value={card.title_ar ?? ''} onChange={(e) => onChange({ ...data, cards: cards.map((x, j) => (j === i ? { ...x, title_ar: e.target.value } : x)) })} placeholder="بالعربية" className="h-8 text-sm" />
+                  <Input value={card.title_fr ?? ''} onChange={(e) => onChange({ ...data, cards: cards.map((x, j) => (j === i ? { ...x, title_fr: e.target.value } : x)) })} placeholder="en français" className="h-8 text-sm" />
+                </div>
+              </div>
+              <div className="border border-[#E5E7EB] rounded-lg p-2 space-y-1 bg-[#F8FAFC]">
+                <span className="text-xs font-bold text-[#64748B]">الوصف</span>
+                <div className="grid grid-cols-2 gap-2">
+                  <Textarea value={card.description_ar ?? ''} onChange={(e) => onChange({ ...data, cards: cards.map((x, j) => (j === i ? { ...x, description_ar: e.target.value } : x)) })} placeholder="بالعربية" className="min-h-12 resize-y text-sm" />
+                  <Textarea value={card.description_fr ?? ''} onChange={(e) => onChange({ ...data, cards: cards.map((x, j) => (j === i ? { ...x, description_fr: e.target.value } : x)) })} placeholder="en français" className="min-h-12 resize-y text-sm" />
+                </div>
+              </div>
             </div>
           </RepeaterItem>
         ))}
-        <Button type="button" variant="outline" size="sm" onClick={() => onChange({ ...data, cards: [...cards, { title: '', description: '' }] })}>
+        <Button type="button" variant="outline" size="sm" onClick={() => onChange({ ...data, cards: [...cards, { title_ar: '', title_fr: '', description_ar: '', description_fr: '' }] })}>
           <Plus className="size-3.5" /> إضافة قيمة
         </Button>
       </div>
@@ -648,9 +864,12 @@ function ValuesEditor({ data, onChange }: CustomEditorProps) {
 
 function CentralOfficeEditor({ data, onChange }: CustomEditorProps) {
   const members = (data.members ?? []) as Array<{
-    name: string
-    role: string
-    bio: string
+    name_ar: string
+    name_fr: string
+    role_ar: string
+    role_fr: string
+    bio_ar: string
+    bio_fr: string
     color: string
     facebook: string
     instagram: string
@@ -660,26 +879,78 @@ function CentralOfficeEditor({ data, onChange }: CustomEditorProps) {
 
   return (
     <div className="space-y-3">
-      <FieldGroup label="العنوان الفرعي (Eyebrow)">
-        <Input value={(data.eyebrow as string) ?? ''} onChange={(e) => onChange({ ...data, eyebrow: e.target.value })} className="h-9 text-sm" />
-      </FieldGroup>
-      <FieldGroup label="العنوان الرئيسي">
-        <Input value={(data.heading as string) ?? ''} onChange={(e) => onChange({ ...data, heading: e.target.value })} className="h-9 text-sm" />
-      </FieldGroup>
-      <FieldGroup label="النص التعريفي">
-        <Textarea value={(data.description as string) ?? ''} onChange={(e) => onChange({ ...data, description: e.target.value })} className="min-h-20 resize-y text-sm" />
-      </FieldGroup>
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">Eyebrow</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية">
+            <Input value={(data.eyebrow_ar as string) ?? ''} onChange={(e) => onChange({ ...data, eyebrow_ar: e.target.value })} placeholder="بالعربية" className="h-8 text-sm" />
+          </FieldGroup>
+          <FieldGroup label="Français">
+            <Input value={(data.eyebrow_fr as string) ?? ''} onChange={(e) => onChange({ ...data, eyebrow_fr: e.target.value })} placeholder="en français" className="h-8 text-sm" />
+          </FieldGroup>
+        </div>
+      </div>
+
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">العنوان الرئيسي</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية">
+            <Input value={(data.heading_ar as string) ?? ''} onChange={(e) => onChange({ ...data, heading_ar: e.target.value })} placeholder="بالعربية" className="h-8 text-sm" />
+          </FieldGroup>
+          <FieldGroup label="Français">
+            <Input value={(data.heading_fr as string) ?? ''} onChange={(e) => onChange({ ...data, heading_fr: e.target.value })} placeholder="en français" className="h-8 text-sm" />
+          </FieldGroup>
+        </div>
+      </div>
+
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">النص التعريفي</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية">
+            <Textarea value={(data.description_ar as string) ?? ''} onChange={(e) => onChange({ ...data, description_ar: e.target.value })} placeholder="بالعربية" className="min-h-20 resize-y text-sm" />
+          </FieldGroup>
+          <FieldGroup label="Français">
+            <Textarea value={(data.description_fr as string) ?? ''} onChange={(e) => onChange({ ...data, description_fr: e.target.value })} placeholder="en français" className="min-h-20 resize-y text-sm" />
+          </FieldGroup>
+        </div>
+      </div>
 
       <div className="border-t border-[#E5E7EB] pt-3 space-y-3">
-        <FieldGroup label="العنوان الفرعي للفريق">
-          <Input value={(data.teamEyebrow as string) ?? ''} onChange={(e) => onChange({ ...data, teamEyebrow: e.target.value })} className="h-9 text-sm" />
-        </FieldGroup>
-        <FieldGroup label="عنوان الفريق">
-          <Input value={(data.teamHeading as string) ?? ''} onChange={(e) => onChange({ ...data, teamHeading: e.target.value })} className="h-9 text-sm" />
-        </FieldGroup>
-        <FieldGroup label="وصف الفريق">
-          <Textarea value={(data.teamDescription as string) ?? ''} onChange={(e) => onChange({ ...data, teamDescription: e.target.value })} className="min-h-16 resize-y text-sm" />
-        </FieldGroup>
+        <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+          <span className="text-xs font-bold text-[#123B78]">العنوان الفرعي للفريق</span>
+          <div className="grid grid-cols-2 gap-2">
+            <FieldGroup label="العربية">
+              <Input value={(data.teamEyebrow_ar as string) ?? ''} onChange={(e) => onChange({ ...data, teamEyebrow_ar: e.target.value })} placeholder="بالعربية" className="h-8 text-sm" />
+            </FieldGroup>
+            <FieldGroup label="Français">
+              <Input value={(data.teamEyebrow_fr as string) ?? ''} onChange={(e) => onChange({ ...data, teamEyebrow_fr: e.target.value })} placeholder="en français" className="h-8 text-sm" />
+            </FieldGroup>
+          </div>
+        </div>
+
+        <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+          <span className="text-xs font-bold text-[#123B78]">عنوان الفريق</span>
+          <div className="grid grid-cols-2 gap-2">
+            <FieldGroup label="العربية">
+              <Input value={(data.teamHeading_ar as string) ?? ''} onChange={(e) => onChange({ ...data, teamHeading_ar: e.target.value })} placeholder="بالعربية" className="h-8 text-sm" />
+            </FieldGroup>
+            <FieldGroup label="Français">
+              <Input value={(data.teamHeading_fr as string) ?? ''} onChange={(e) => onChange({ ...data, teamHeading_fr: e.target.value })} placeholder="en français" className="h-8 text-sm" />
+            </FieldGroup>
+          </div>
+        </div>
+
+        <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+          <span className="text-xs font-bold text-[#123B78]">وصف الفريق</span>
+          <div className="grid grid-cols-2 gap-2">
+            <FieldGroup label="العربية">
+              <Textarea value={(data.teamDescription_ar as string) ?? ''} onChange={(e) => onChange({ ...data, teamDescription_ar: e.target.value })} placeholder="بالعربية" className="min-h-16 resize-y text-sm" />
+            </FieldGroup>
+            <FieldGroup label="Français">
+              <Textarea value={(data.teamDescription_fr as string) ?? ''} onChange={(e) => onChange({ ...data, teamDescription_fr: e.target.value })} placeholder="en français" className="min-h-16 resize-y text-sm" />
+            </FieldGroup>
+          </div>
+        </div>
       </div>
 
       <div className="space-y-2">
@@ -687,25 +958,41 @@ function CentralOfficeEditor({ data, onChange }: CustomEditorProps) {
         {members.map((m, i) => (
           <RepeaterItem key={i} onDelete={() => onChange({ ...data, members: members.filter((_, j) => j !== i) })}>
             <div className="space-y-1.5 pr-5">
-              <div className="flex gap-2">
-                <Input value={m.name} onChange={(e) => onChange({ ...data, members: members.map((x, j) => (j === i ? { ...x, name: e.target.value } : x)) })} placeholder="الاسم" className="h-8 flex-1 text-sm" />
+              <div className="border border-[#E5E7EB] rounded-lg p-2 space-y-1 bg-[#F8FAFC]">
+                <span className="text-xs font-bold text-[#64748B]">الاسم</span>
+                <div className="grid grid-cols-2 gap-2">
+                  <Input value={m.name_ar ?? ''} onChange={(e) => onChange({ ...data, members: members.map((x, j) => (j === i ? { ...x, name_ar: e.target.value } : x)) })} placeholder="بالعربية" className="h-8 text-sm" />
+                  <Input value={m.name_fr ?? ''} onChange={(e) => onChange({ ...data, members: members.map((x, j) => (j === i ? { ...x, name_fr: e.target.value } : x)) })} placeholder="en français" className="h-8 text-sm" />
+                </div>
+              </div>
+              <div className="border border-[#E5E7EB] rounded-lg p-2 space-y-1 bg-[#F8FAFC]">
+                <span className="text-xs font-bold text-[#64748B]">المنصب</span>
+                <div className="grid grid-cols-2 gap-2">
+                  <Input value={m.role_ar ?? ''} onChange={(e) => onChange({ ...data, members: members.map((x, j) => (j === i ? { ...x, role_ar: e.target.value } : x)) })} placeholder="بالعربية" className="h-8 text-sm" />
+                  <Input value={m.role_fr ?? ''} onChange={(e) => onChange({ ...data, members: members.map((x, j) => (j === i ? { ...x, role_fr: e.target.value } : x)) })} placeholder="en français" className="h-8 text-sm" />
+                </div>
+              </div>
+              <div className="border border-[#E5E7EB] rounded-lg p-2 space-y-1 bg-[#F8FAFC]">
+                <span className="text-xs font-bold text-[#64748B]">النبذة</span>
+                <div className="grid grid-cols-2 gap-2">
+                  <Textarea value={m.bio_ar ?? ''} onChange={(e) => onChange({ ...data, members: members.map((x, j) => (j === i ? { ...x, bio_ar: e.target.value } : x)) })} placeholder="بالعربية" className="min-h-12 resize-y text-sm" />
+                  <Textarea value={m.bio_fr ?? ''} onChange={(e) => onChange({ ...data, members: members.map((x, j) => (j === i ? { ...x, bio_fr: e.target.value } : x)) })} placeholder="en français" className="min-h-12 resize-y text-sm" />
+                </div>
+              </div>
+              <div className="flex gap-2 items-center">
                 <input
                   type="color"
                   value={m.color ?? '#123B78'}
                   onChange={(e) => onChange({ ...data, members: members.map((x, j) => (j === i ? { ...x, color: e.target.value } : x)) })}
                   className="h-8 w-10 cursor-pointer rounded-lg border border-[#E5E7EB] p-0.5"
                 />
-              </div>
-              <Input value={m.role} onChange={(e) => onChange({ ...data, members: members.map((x, j) => (j === i ? { ...x, role: e.target.value } : x)) })} placeholder="المنصب" className="h-8 text-sm" />
-              <Textarea value={m.bio} onChange={(e) => onChange({ ...data, members: members.map((x, j) => (j === i ? { ...x, bio: e.target.value } : x)) })} placeholder="النبذة" className="min-h-12 resize-y text-sm" />
-              <div className="flex gap-2">
                 <Input value={m.facebook} onChange={(e) => onChange({ ...data, members: members.map((x, j) => (j === i ? { ...x, facebook: e.target.value } : x)) })} placeholder="فيسبوك" className="h-8 flex-1 text-sm" />
                 <Input value={m.profileUrl} onChange={(e) => onChange({ ...data, members: members.map((x, j) => (j === i ? { ...x, profileUrl: e.target.value } : x)) })} placeholder="الرابط الشخصي" className="h-8 flex-1 text-sm" />
               </div>
             </div>
           </RepeaterItem>
         ))}
-        <Button type="button" variant="outline" size="sm" onClick={() => onChange({ ...data, members: [...members, { name: '', role: '', bio: '', color: '#123B78', facebook: '#', instagram: '#', linkedin: '#', profileUrl: '#' }] })}>
+        <Button type="button" variant="outline" size="sm" onClick={() => onChange({ ...data, members: [...members, { name_ar: '', name_fr: '', role_ar: '', role_fr: '', bio_ar: '', bio_fr: '', color: '#123B78', facebook: '#', instagram: '#', linkedin: '#', profileUrl: '#' }] })}>
           <Plus className="size-3.5" /> إضافة عضو
         </Button>
       </div>
@@ -718,52 +1005,134 @@ function CentralOfficeEditor({ data, onChange }: CustomEditorProps) {
 // =====================================================================
 
 function ExpansionMapEditor({ data, onChange }: CustomEditorProps) {
-  const regions = (data.regions ?? []) as Array<{ id: string; name: string; status: string; branches: number }>
+  const regions = (data.regions ?? []) as Array<{ id: string; name_ar: string; name_fr: string; status: string; branches: number }>
 
   return (
     <div className="space-y-3">
-      <FieldGroup label="العنوان الفرعي (Eyebrow)">
-        <Input value={(data.eyebrow as string) ?? ''} onChange={(e) => onChange({ ...data, eyebrow: e.target.value })} className="h-9 text-sm" />
-      </FieldGroup>
-      <FieldGroup label="العنوان الرئيسي">
-        <Input value={(data.heading as string) ?? ''} onChange={(e) => onChange({ ...data, heading: e.target.value })} className="h-9 text-sm" />
-      </FieldGroup>
-      <FieldGroup label="النص التعريفي">
-        <Textarea value={(data.description as string) ?? ''} onChange={(e) => onChange({ ...data, description: e.target.value })} className="min-h-20 resize-y text-sm" />
-      </FieldGroup>
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">Eyebrow</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية">
+            <Input value={(data.eyebrow_ar as string) ?? ''} onChange={(e) => onChange({ ...data, eyebrow_ar: e.target.value })} placeholder="بالعربية" className="h-8 text-sm" />
+          </FieldGroup>
+          <FieldGroup label="Français">
+            <Input value={(data.eyebrow_fr as string) ?? ''} onChange={(e) => onChange({ ...data, eyebrow_fr: e.target.value })} placeholder="en français" className="h-8 text-sm" />
+          </FieldGroup>
+        </div>
+      </div>
+
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">العنوان الرئيسي</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية">
+            <Input value={(data.heading_ar as string) ?? ''} onChange={(e) => onChange({ ...data, heading_ar: e.target.value })} placeholder="بالعربية" className="h-8 text-sm" />
+          </FieldGroup>
+          <FieldGroup label="Français">
+            <Input value={(data.heading_fr as string) ?? ''} onChange={(e) => onChange({ ...data, heading_fr: e.target.value })} placeholder="en français" className="h-8 text-sm" />
+          </FieldGroup>
+        </div>
+      </div>
+
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">النص التعريفي</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية">
+            <Textarea value={(data.description_ar as string) ?? ''} onChange={(e) => onChange({ ...data, description_ar: e.target.value })} placeholder="بالعربية" className="min-h-20 resize-y text-sm" />
+          </FieldGroup>
+          <FieldGroup label="Français">
+            <Textarea value={(data.description_fr as string) ?? ''} onChange={(e) => onChange({ ...data, description_fr: e.target.value })} placeholder="en français" className="min-h-20 resize-y text-sm" />
+          </FieldGroup>
+        </div>
+      </div>
 
       <div className="border-t border-[#E5E7EB] pt-3 space-y-3">
-        <FieldGroup label="العنوان الفرعي للخريطة">
-          <Input value={(data.mapEyebrow as string) ?? ''} onChange={(e) => onChange({ ...data, mapEyebrow: e.target.value })} className="h-9 text-sm" />
-        </FieldGroup>
-        <FieldGroup label="عنوان الخريطة">
-          <Input value={(data.mapHeading as string) ?? ''} onChange={(e) => onChange({ ...data, mapHeading: e.target.value })} className="h-9 text-sm" />
-        </FieldGroup>
-        <FieldGroup label="وصف الخريطة">
-          <Textarea value={(data.mapDescription as string) ?? ''} onChange={(e) => onChange({ ...data, mapDescription: e.target.value })} className="min-h-16 resize-y text-sm" />
-        </FieldGroup>
+        <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+          <span className="text-xs font-bold text-[#123B78]">العنوان الفرعي للخريطة</span>
+          <div className="grid grid-cols-2 gap-2">
+            <FieldGroup label="العربية">
+              <Input value={(data.mapEyebrow_ar as string) ?? ''} onChange={(e) => onChange({ ...data, mapEyebrow_ar: e.target.value })} placeholder="بالعربية" className="h-8 text-sm" />
+            </FieldGroup>
+            <FieldGroup label="Français">
+              <Input value={(data.mapEyebrow_fr as string) ?? ''} onChange={(e) => onChange({ ...data, mapEyebrow_fr: e.target.value })} placeholder="en français" className="h-8 text-sm" />
+            </FieldGroup>
+          </div>
+        </div>
+
+        <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+          <span className="text-xs font-bold text-[#123B78]">عنوان الخريطة</span>
+          <div className="grid grid-cols-2 gap-2">
+            <FieldGroup label="العربية">
+              <Input value={(data.mapHeading_ar as string) ?? ''} onChange={(e) => onChange({ ...data, mapHeading_ar: e.target.value })} placeholder="بالعربية" className="h-8 text-sm" />
+            </FieldGroup>
+            <FieldGroup label="Français">
+              <Input value={(data.mapHeading_fr as string) ?? ''} onChange={(e) => onChange({ ...data, mapHeading_fr: e.target.value })} placeholder="en français" className="h-8 text-sm" />
+            </FieldGroup>
+          </div>
+        </div>
+
+        <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+          <span className="text-xs font-bold text-[#123B78]">وصف الخريطة</span>
+          <div className="grid grid-cols-2 gap-2">
+            <FieldGroup label="العربية">
+              <Textarea value={(data.mapDescription_ar as string) ?? ''} onChange={(e) => onChange({ ...data, mapDescription_ar: e.target.value })} placeholder="بالعربية" className="min-h-16 resize-y text-sm" />
+            </FieldGroup>
+            <FieldGroup label="Français">
+              <Textarea value={(data.mapDescription_fr as string) ?? ''} onChange={(e) => onChange({ ...data, mapDescription_fr: e.target.value })} placeholder="en français" className="min-h-16 resize-y text-sm" />
+            </FieldGroup>
+          </div>
+        </div>
       </div>
 
       <div className="border-t border-[#E5E7EB] pt-3 space-y-3">
         <SectionLabel>نصوص دليل الألوان</SectionLabel>
-        <FieldGroup label="عنوان الدليل">
-          <Input value={(data.legendTitle as string) ?? ''} onChange={(e) => onChange({ ...data, legendTitle: e.target.value })} className="h-9 text-sm" />
-        </FieldGroup>
-        <FieldGroup label="شرح الدليل">
-          <Input value={(data.legendSub as string) ?? ''} onChange={(e) => onChange({ ...data, legendSub: e.target.value })} className="h-9 text-sm" />
-        </FieldGroup>
-        <FieldGroup label="نص فروع نشطة">
-          <Input value={(data.legendActive as string) ?? ''} onChange={(e) => onChange({ ...data, legendActive: e.target.value })} className="h-9 text-sm" />
-        </FieldGroup>
-        <FieldGroup label="نص فروع مرتقبة">
-          <Input value={(data.legendUpcoming as string) ?? ''} onChange={(e) => onChange({ ...data, legendUpcoming: e.target.value })} className="h-9 text-sm" />
-        </FieldGroup>
-        <FieldGroup label="نص توسع مستقبلي">
-          <Input value={(data.legendFuture as string) ?? ''} onChange={(e) => onChange({ ...data, legendFuture: e.target.value })} className="h-9 text-sm" />
-        </FieldGroup>
-        <FieldGroup label="نص التفاصيل الفارغة">
-          <Input value={(data.emptyDetail as string) ?? ''} onChange={(e) => onChange({ ...data, emptyDetail: e.target.value })} className="h-9 text-sm" />
-        </FieldGroup>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="عنوان الدليل (AR)">
+            <Input value={(data.legendTitle_ar as string) ?? ''} onChange={(e) => onChange({ ...data, legendTitle_ar: e.target.value })} placeholder="بالعربية" className="h-8 text-sm" />
+          </FieldGroup>
+          <FieldGroup label="عنوان الدليل (FR)">
+            <Input value={(data.legendTitle_fr as string) ?? ''} onChange={(e) => onChange({ ...data, legendTitle_fr: e.target.value })} placeholder="en français" className="h-8 text-sm" />
+          </FieldGroup>
+        </div>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="شرح الدليل (AR)">
+            <Input value={(data.legendSub_ar as string) ?? ''} onChange={(e) => onChange({ ...data, legendSub_ar: e.target.value })} placeholder="بالعربية" className="h-8 text-sm" />
+          </FieldGroup>
+          <FieldGroup label="شرح الدليل (FR)">
+            <Input value={(data.legendSub_fr as string) ?? ''} onChange={(e) => onChange({ ...data, legendSub_fr: e.target.value })} placeholder="en français" className="h-8 text-sm" />
+          </FieldGroup>
+        </div>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="نص فروع نشطة (AR)">
+            <Input value={(data.legendActive_ar as string) ?? ''} onChange={(e) => onChange({ ...data, legendActive_ar: e.target.value })} placeholder="بالعربية" className="h-8 text-sm" />
+          </FieldGroup>
+          <FieldGroup label="نص فروع نشطة (FR)">
+            <Input value={(data.legendActive_fr as string) ?? ''} onChange={(e) => onChange({ ...data, legendActive_fr: e.target.value })} placeholder="en français" className="h-8 text-sm" />
+          </FieldGroup>
+        </div>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="نص فروع مرتقبة (AR)">
+            <Input value={(data.legendUpcoming_ar as string) ?? ''} onChange={(e) => onChange({ ...data, legendUpcoming_ar: e.target.value })} placeholder="بالعربية" className="h-8 text-sm" />
+          </FieldGroup>
+          <FieldGroup label="نص فروع مرتقبة (FR)">
+            <Input value={(data.legendUpcoming_fr as string) ?? ''} onChange={(e) => onChange({ ...data, legendUpcoming_fr: e.target.value })} placeholder="en français" className="h-8 text-sm" />
+          </FieldGroup>
+        </div>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="نص توسع مستقبلي (AR)">
+            <Input value={(data.legendFuture_ar as string) ?? ''} onChange={(e) => onChange({ ...data, legendFuture_ar: e.target.value })} placeholder="بالعربية" className="h-8 text-sm" />
+          </FieldGroup>
+          <FieldGroup label="نص توسع مستقبلي (FR)">
+            <Input value={(data.legendFuture_fr as string) ?? ''} onChange={(e) => onChange({ ...data, legendFuture_fr: e.target.value })} placeholder="en français" className="h-8 text-sm" />
+          </FieldGroup>
+        </div>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="نص التفاصيل الفارغة (AR)">
+            <Input value={(data.emptyDetail_ar as string) ?? ''} onChange={(e) => onChange({ ...data, emptyDetail_ar: e.target.value })} placeholder="بالعربية" className="h-8 text-sm" />
+          </FieldGroup>
+          <FieldGroup label="نص التفاصيل الفارغة (FR)">
+            <Input value={(data.emptyDetail_fr as string) ?? ''} onChange={(e) => onChange({ ...data, emptyDetail_fr: e.target.value })} placeholder="en français" className="h-8 text-sm" />
+          </FieldGroup>
+        </div>
       </div>
 
       <div className="space-y-2">
@@ -773,7 +1142,13 @@ function ExpansionMapEditor({ data, onChange }: CustomEditorProps) {
             <div className="space-y-1.5 pr-5">
               <div className="flex gap-2">
                 <Input value={r.id} onChange={(e) => onChange({ ...data, regions: regions.map((x, j) => (j === i ? { ...x, id: e.target.value } : x)) })} placeholder="الرمز" className="h-8 w-20 text-sm" />
-                <Input value={r.name} onChange={(e) => onChange({ ...data, regions: regions.map((x, j) => (j === i ? { ...x, name: e.target.value } : x)) })} placeholder="الاسم" className="h-8 flex-1 text-sm" />
+              </div>
+              <div className="border border-[#E5E7EB] rounded-lg p-2 space-y-1 bg-[#F8FAFC]">
+                <span className="text-xs font-bold text-[#64748B]">الاسم</span>
+                <div className="grid grid-cols-2 gap-2">
+                  <Input value={r.name_ar ?? ''} onChange={(e) => onChange({ ...data, regions: regions.map((x, j) => (j === i ? { ...x, name_ar: e.target.value } : x)) })} placeholder="بالعربية" className="h-8 text-sm" />
+                  <Input value={r.name_fr ?? ''} onChange={(e) => onChange({ ...data, regions: regions.map((x, j) => (j === i ? { ...x, name_fr: e.target.value } : x)) })} placeholder="en français" className="h-8 text-sm" />
+                </div>
               </div>
               <div className="flex gap-2">
                 <select
@@ -790,7 +1165,7 @@ function ExpansionMapEditor({ data, onChange }: CustomEditorProps) {
             </div>
           </RepeaterItem>
         ))}
-        <Button type="button" variant="outline" size="sm" onClick={() => onChange({ ...data, regions: [...regions, { id: '', name: '', status: 'future', branches: 0 }] })}>
+        <Button type="button" variant="outline" size="sm" onClick={() => onChange({ ...data, regions: [...regions, { id: '', name_ar: '', name_fr: '', status: 'future', branches: 0 }] })}>
           <Plus className="size-3.5" /> إضافة جهة
         </Button>
       </div>
@@ -820,31 +1195,75 @@ function MagFeaturedEditor({ data, onChange }: CustomEditorProps) {
         </div>
         <Input value={image} onChange={(e) => onChange({ ...data, image: e.target.value })} placeholder="رابط الصورة" className="h-9 text-sm" />
       </FieldGroup>
-      <FieldGroup label="التصنيف (Badge)">
-        <Input value={(data.badge as string) ?? ''} onChange={(e) => onChange({ ...data, badge: e.target.value })} className="h-9 text-sm" />
-      </FieldGroup>
-      <FieldGroup label="عنوان المقال">
-        <Input value={(data.heading as string) ?? ''} onChange={(e) => onChange({ ...data, heading: e.target.value })} className="h-9 text-sm" />
-      </FieldGroup>
-      <FieldGroup label="الوصف (Excerpt)">
-        <Textarea value={(data.excerpt as string) ?? ''} onChange={(e) => onChange({ ...data, excerpt: e.target.value })} className="min-h-20 resize-y text-sm" />
-      </FieldGroup>
-      <div className="grid grid-cols-2 gap-2">
-        <FieldGroup label="التاريخ">
-          <Input value={(data.date as string) ?? ''} onChange={(e) => onChange({ ...data, date: e.target.value })} className="h-9 text-sm" />
-        </FieldGroup>
-        <FieldGroup label="مدة القراءة">
-          <Input value={(data.readTime as string) ?? ''} onChange={(e) => onChange({ ...data, readTime: e.target.value })} className="h-9 text-sm" />
-        </FieldGroup>
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">التصنيف (Badge)</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية">
+            <Input value={(data.badge_ar as string) ?? ''} onChange={(e) => onChange({ ...data, badge_ar: e.target.value })} placeholder="بالعربية" className="h-8 text-sm" />
+          </FieldGroup>
+          <FieldGroup label="Français">
+            <Input value={(data.badge_fr as string) ?? ''} onChange={(e) => onChange({ ...data, badge_fr: e.target.value })} placeholder="en français" className="h-8 text-sm" />
+          </FieldGroup>
+        </div>
       </div>
-      <div className="grid grid-cols-2 gap-2">
-        <FieldGroup label="نص الرابط">
-          <Input value={(data.linkLabel as string) ?? ''} onChange={(e) => onChange({ ...data, linkLabel: e.target.value })} className="h-9 text-sm" />
-        </FieldGroup>
-        <FieldGroup label="الرابط">
-          <Input value={(data.linkUrl as string) ?? ''} onChange={(e) => onChange({ ...data, linkUrl: e.target.value })} className="h-9 text-sm" />
-        </FieldGroup>
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">عنوان المقال</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية">
+            <Input value={(data.heading_ar as string) ?? ''} onChange={(e) => onChange({ ...data, heading_ar: e.target.value })} placeholder="بالعربية" className="h-8 text-sm" />
+          </FieldGroup>
+          <FieldGroup label="Français">
+            <Input value={(data.heading_fr as string) ?? ''} onChange={(e) => onChange({ ...data, heading_fr: e.target.value })} placeholder="en français" className="h-8 text-sm" />
+          </FieldGroup>
+        </div>
       </div>
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">الوصف (Excerpt)</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية">
+            <Textarea value={(data.excerpt_ar as string) ?? ''} onChange={(e) => onChange({ ...data, excerpt_ar: e.target.value })} placeholder="بالعربية" className="min-h-20 resize-y text-sm" />
+          </FieldGroup>
+          <FieldGroup label="Français">
+            <Textarea value={(data.excerpt_fr as string) ?? ''} onChange={(e) => onChange({ ...data, excerpt_fr: e.target.value })} placeholder="en français" className="min-h-20 resize-y text-sm" />
+          </FieldGroup>
+        </div>
+      </div>
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">التاريخ</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية">
+            <Input value={(data.date_ar as string) ?? ''} onChange={(e) => onChange({ ...data, date_ar: e.target.value })} placeholder="بالعربية" className="h-8 text-sm" />
+          </FieldGroup>
+          <FieldGroup label="Français">
+            <Input value={(data.date_fr as string) ?? ''} onChange={(e) => onChange({ ...data, date_fr: e.target.value })} placeholder="en français" className="h-8 text-sm" />
+          </FieldGroup>
+        </div>
+      </div>
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">مدة القراءة</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية">
+            <Input value={(data.readTime_ar as string) ?? ''} onChange={(e) => onChange({ ...data, readTime_ar: e.target.value })} placeholder="بالعربية" className="h-8 text-sm" />
+          </FieldGroup>
+          <FieldGroup label="Français">
+            <Input value={(data.readTime_fr as string) ?? ''} onChange={(e) => onChange({ ...data, readTime_fr: e.target.value })} placeholder="en français" className="h-8 text-sm" />
+          </FieldGroup>
+        </div>
+      </div>
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">نص الرابط</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية">
+            <Input value={(data.linkLabel_ar as string) ?? ''} onChange={(e) => onChange({ ...data, linkLabel_ar: e.target.value })} placeholder="بالعربية" className="h-8 text-sm" />
+          </FieldGroup>
+          <FieldGroup label="Français">
+            <Input value={(data.linkLabel_fr as string) ?? ''} onChange={(e) => onChange({ ...data, linkLabel_fr: e.target.value })} placeholder="en français" className="h-8 text-sm" />
+          </FieldGroup>
+        </div>
+      </div>
+      <FieldGroup label="الرابط">
+        <Input value={(data.linkUrl as string) ?? ''} onChange={(e) => onChange({ ...data, linkUrl: e.target.value })} className="h-9 text-sm" />
+      </FieldGroup>
     </div>
   )
 }
@@ -852,56 +1271,84 @@ function MagFeaturedEditor({ data, onChange }: CustomEditorProps) {
 // MAGAZINE LATEST ARTICLES  (_renderer: "magLatest")
 function MagLatestEditor({ data, onChange }: CustomEditorProps) {
   const articles = (data.articles ?? []) as Array<{
-    image: string
-    badge: string
-    title: string
-    excerpt: string
-    date: string
-    readTime: string
+    image: string; badge_ar: string; badge_fr: string
+    title_ar: string; title_fr: string; excerpt_ar: string; excerpt_fr: string
+    date_ar: string; date_fr: string; readTime_ar: string; readTime_fr: string
     linkUrl: string
   }>
 
   return (
     <div className="space-y-3">
-      <FieldGroup label="العنوان الفرعي (Eyebrow)">
-        <Input value={(data.eyebrow as string) ?? ''} onChange={(e) => onChange({ ...data, eyebrow: e.target.value })} className="h-9 text-sm" />
-      </FieldGroup>
-      <FieldGroup label="العنوان الرئيسي">
-        <Input value={(data.heading as string) ?? ''} onChange={(e) => onChange({ ...data, heading: e.target.value })} className="h-9 text-sm" />
-      </FieldGroup>
-      <FieldGroup label="الوصف">
-        <Input value={(data.description as string) ?? ''} onChange={(e) => onChange({ ...data, description: e.target.value })} className="h-9 text-sm" />
-      </FieldGroup>
-
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">Eyebrow</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية"><Input value={(data.eyebrow_ar as string) ?? ''} onChange={(e) => onChange({ ...data, eyebrow_ar: e.target.value })} placeholder="بالعربية" className="h-8 text-sm" /></FieldGroup>
+          <FieldGroup label="Français"><Input value={(data.eyebrow_fr as string) ?? ''} onChange={(e) => onChange({ ...data, eyebrow_fr: e.target.value })} placeholder="en français" className="h-8 text-sm" /></FieldGroup>
+        </div>
+      </div>
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">العنوان الرئيسي</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية"><Input value={(data.heading_ar as string) ?? ''} onChange={(e) => onChange({ ...data, heading_ar: e.target.value })} placeholder="بالعربية" className="h-8 text-sm" /></FieldGroup>
+          <FieldGroup label="Français"><Input value={(data.heading_fr as string) ?? ''} onChange={(e) => onChange({ ...data, heading_fr: e.target.value })} placeholder="en français" className="h-8 text-sm" /></FieldGroup>
+        </div>
+      </div>
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">الوصف</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية"><Input value={(data.description_ar as string) ?? ''} onChange={(e) => onChange({ ...data, description_ar: e.target.value })} placeholder="بالعربية" className="h-8 text-sm" /></FieldGroup>
+          <FieldGroup label="Français"><Input value={(data.description_fr as string) ?? ''} onChange={(e) => onChange({ ...data, description_fr: e.target.value })} placeholder="en français" className="h-8 text-sm" /></FieldGroup>
+        </div>
+      </div>
       <div className="space-y-2">
         <SectionLabel>المقالات</SectionLabel>
         {articles.map((article, i) => (
           <RepeaterItem key={i} onDelete={() => onChange({ ...data, articles: articles.filter((_, j) => j !== i) })}>
-            <div className="space-y-2 pr-5">
+            <div className="space-y-1.5 pr-5">
               <div className="relative aspect-video w-full overflow-hidden rounded-md bg-muted">
-                {article.image ? (
-                  <img src={article.image} alt={article.title} className="size-full object-cover" />
-                ) : (
-                  <div className="flex size-full items-center justify-center">
-                    <ImageIcon className="size-5 text-muted-foreground" />
-                  </div>
-                )}
+                {article.image ? <img src={article.image} alt="" className="size-full object-cover" /> : <div className="flex size-full items-center justify-center"><ImageIcon className="size-5 text-muted-foreground" /></div>}
               </div>
               <Input value={article.image} onChange={(e) => onChange({ ...data, articles: articles.map((x, j) => (j === i ? { ...x, image: e.target.value } : x)) })} placeholder="رابط الصورة" className="h-8 text-sm" />
-              <div className="flex gap-2">
-                <Input value={article.badge} onChange={(e) => onChange({ ...data, articles: articles.map((x, j) => (j === i ? { ...x, badge: e.target.value } : x)) })} placeholder="التصنيف" className="h-8 w-24 text-sm" />
-                <Input value={article.readTime} onChange={(e) => onChange({ ...data, articles: articles.map((x, j) => (j === i ? { ...x, readTime: e.target.value } : x)) })} placeholder="مدة القراءة" className="h-8 flex-1 text-sm" />
+              <div className="border border-[#E5E7EB] rounded-lg p-2 space-y-1 bg-[#F8FAFC]">
+                <span className="text-xs font-bold text-[#64748B]">التصنيف</span>
+                <div className="grid grid-cols-2 gap-2">
+                  <Input value={article.badge_ar ?? ''} onChange={(e) => onChange({ ...data, articles: articles.map((x, j) => (j === i ? { ...x, badge_ar: e.target.value } : x)) })} placeholder="بالعربية" className="h-8 text-sm" />
+                  <Input value={article.badge_fr ?? ''} onChange={(e) => onChange({ ...data, articles: articles.map((x, j) => (j === i ? { ...x, badge_fr: e.target.value } : x)) })} placeholder="en français" className="h-8 text-sm" />
+                </div>
               </div>
-              <Input value={article.title} onChange={(e) => onChange({ ...data, articles: articles.map((x, j) => (j === i ? { ...x, title: e.target.value } : x)) })} placeholder="العنوان" className="h-8 text-sm font-medium" />
-              <Textarea value={article.excerpt} onChange={(e) => onChange({ ...data, articles: articles.map((x, j) => (j === i ? { ...x, excerpt: e.target.value } : x)) })} placeholder="الوصف المختصر" className="min-h-16 resize-y text-sm" />
-              <div className="flex gap-2">
-                <Input value={article.date} onChange={(e) => onChange({ ...data, articles: articles.map((x, j) => (j === i ? { ...x, date: e.target.value } : x)) })} placeholder="التاريخ" className="h-8 flex-1 text-sm" />
-                <Input value={article.linkUrl} onChange={(e) => onChange({ ...data, articles: articles.map((x, j) => (j === i ? { ...x, linkUrl: e.target.value } : x)) })} placeholder="الرابط" className="h-8 flex-1 text-sm" />
+              <div className="border border-[#E5E7EB] rounded-lg p-2 space-y-1 bg-[#F8FAFC]">
+                <span className="text-xs font-bold text-[#64748B]">العنوان</span>
+                <div className="grid grid-cols-2 gap-2">
+                  <Input value={article.title_ar ?? ''} onChange={(e) => onChange({ ...data, articles: articles.map((x, j) => (j === i ? { ...x, title_ar: e.target.value } : x)) })} placeholder="بالعربية" className="h-8 text-sm" />
+                  <Input value={article.title_fr ?? ''} onChange={(e) => onChange({ ...data, articles: articles.map((x, j) => (j === i ? { ...x, title_fr: e.target.value } : x)) })} placeholder="en français" className="h-8 text-sm" />
+                </div>
               </div>
+              <div className="border border-[#E5E7EB] rounded-lg p-2 space-y-1 bg-[#F8FAFC]">
+                <span className="text-xs font-bold text-[#64748B]">الوصف المختصر</span>
+                <div className="grid grid-cols-2 gap-2">
+                  <Textarea value={article.excerpt_ar ?? ''} onChange={(e) => onChange({ ...data, articles: articles.map((x, j) => (j === i ? { ...x, excerpt_ar: e.target.value } : x)) })} placeholder="بالعربية" className="min-h-12 resize-y text-sm" />
+                  <Textarea value={article.excerpt_fr ?? ''} onChange={(e) => onChange({ ...data, articles: articles.map((x, j) => (j === i ? { ...x, excerpt_fr: e.target.value } : x)) })} placeholder="en français" className="min-h-12 resize-y text-sm" />
+                </div>
+              </div>
+              <div className="border border-[#E5E7EB] rounded-lg p-2 space-y-1 bg-[#F8FAFC]">
+                <span className="text-xs font-bold text-[#64748B]">التاريخ</span>
+                <div className="grid grid-cols-2 gap-2">
+                  <Input value={article.date_ar ?? ''} onChange={(e) => onChange({ ...data, articles: articles.map((x, j) => (j === i ? { ...x, date_ar: e.target.value } : x)) })} placeholder="بالعربية" className="h-8 text-sm" />
+                  <Input value={article.date_fr ?? ''} onChange={(e) => onChange({ ...data, articles: articles.map((x, j) => (j === i ? { ...x, date_fr: e.target.value } : x)) })} placeholder="en français" className="h-8 text-sm" />
+                </div>
+              </div>
+              <div className="border border-[#E5E7EB] rounded-lg p-2 space-y-1 bg-[#F8FAFC]">
+                <span className="text-xs font-bold text-[#64748B]">مدة القراءة</span>
+                <div className="grid grid-cols-2 gap-2">
+                  <Input value={article.readTime_ar ?? ''} onChange={(e) => onChange({ ...data, articles: articles.map((x, j) => (j === i ? { ...x, readTime_ar: e.target.value } : x)) })} placeholder="بالعربية" className="h-8 text-sm" />
+                  <Input value={article.readTime_fr ?? ''} onChange={(e) => onChange({ ...data, articles: articles.map((x, j) => (j === i ? { ...x, readTime_fr: e.target.value } : x)) })} placeholder="en français" className="h-8 text-sm" />
+                </div>
+              </div>
+              <Input value={article.linkUrl} onChange={(e) => onChange({ ...data, articles: articles.map((x, j) => (j === i ? { ...x, linkUrl: e.target.value } : x)) })} placeholder="الرابط" className="h-8 text-sm" />
             </div>
           </RepeaterItem>
         ))}
-        <Button type="button" variant="outline" size="sm" onClick={() => onChange({ ...data, articles: [...articles, { image: '', badge: '', title: '', excerpt: '', date: '', readTime: '', linkUrl: '#' }] })}>
+        <Button type="button" variant="outline" size="sm" onClick={() => onChange({ ...data, articles: [...articles, { image: '', badge_ar: '', badge_fr: '', title_ar: '', title_fr: '', excerpt_ar: '', excerpt_fr: '', date_ar: '', date_fr: '', readTime_ar: '', readTime_fr: '', linkUrl: '#' }] })}>
           <Plus className="size-3.5" /> إضافة مقال
         </Button>
       </div>
@@ -911,31 +1358,54 @@ function MagLatestEditor({ data, onChange }: CustomEditorProps) {
 
 // MAGAZINE CATEGORIES  (_renderer: "magCats")
 function MagCatsEditor({ data, onChange }: CustomEditorProps) {
-  const categories = (data.categories ?? []) as Array<{ title: string; count: string }>
+  const categories = (data.categories ?? []) as Array<{ title_ar: string; title_fr: string; count_ar: string; count_fr: string }>
 
   return (
     <div className="space-y-3">
-      <FieldGroup label="العنوان الفرعي (Eyebrow)">
-        <Input value={(data.eyebrow as string) ?? ''} onChange={(e) => onChange({ ...data, eyebrow: e.target.value })} className="h-9 text-sm" />
-      </FieldGroup>
-      <FieldGroup label="العنوان الرئيسي">
-        <Input value={(data.heading as string) ?? ''} onChange={(e) => onChange({ ...data, heading: e.target.value })} className="h-9 text-sm" />
-      </FieldGroup>
-      <FieldGroup label="الوصف">
-        <Input value={(data.description as string) ?? ''} onChange={(e) => onChange({ ...data, description: e.target.value })} className="h-9 text-sm" />
-      </FieldGroup>
-
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">Eyebrow</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية"><Input value={(data.eyebrow_ar as string) ?? ''} onChange={(e) => onChange({ ...data, eyebrow_ar: e.target.value })} placeholder="بالعربية" className="h-8 text-sm" /></FieldGroup>
+          <FieldGroup label="Français"><Input value={(data.eyebrow_fr as string) ?? ''} onChange={(e) => onChange({ ...data, eyebrow_fr: e.target.value })} placeholder="en français" className="h-8 text-sm" /></FieldGroup>
+        </div>
+      </div>
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">العنوان</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية"><Input value={(data.heading_ar as string) ?? ''} onChange={(e) => onChange({ ...data, heading_ar: e.target.value })} placeholder="بالعربية" className="h-8 text-sm" /></FieldGroup>
+          <FieldGroup label="Français"><Input value={(data.heading_fr as string) ?? ''} onChange={(e) => onChange({ ...data, heading_fr: e.target.value })} placeholder="en français" className="h-8 text-sm" /></FieldGroup>
+        </div>
+      </div>
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">الوصف</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية"><Input value={(data.description_ar as string) ?? ''} onChange={(e) => onChange({ ...data, description_ar: e.target.value })} placeholder="بالعربية" className="h-8 text-sm" /></FieldGroup>
+          <FieldGroup label="Français"><Input value={(data.description_fr as string) ?? ''} onChange={(e) => onChange({ ...data, description_fr: e.target.value })} placeholder="en français" className="h-8 text-sm" /></FieldGroup>
+        </div>
+      </div>
       <div className="space-y-2">
         <SectionLabel>الفئات</SectionLabel>
         {categories.map((cat, i) => (
           <RepeaterItem key={i} onDelete={() => onChange({ ...data, categories: categories.filter((_, j) => j !== i) })}>
-            <div className="flex gap-2 pr-5">
-              <Input value={cat.title} onChange={(e) => onChange({ ...data, categories: categories.map((x, j) => (j === i ? { ...x, title: e.target.value } : x)) })} placeholder="اسم الفئة" className="h-8 flex-1 text-sm" />
-              <Input value={cat.count} onChange={(e) => onChange({ ...data, categories: categories.map((x, j) => (j === i ? { ...x, count: e.target.value } : x)) })} placeholder="العدد (مثال: 12 مقالاً)" className="h-8 flex-1 text-sm" />
+            <div className="space-y-1.5 pr-5">
+              <div className="border border-[#E5E7EB] rounded-lg p-2 space-y-1 bg-[#F8FAFC]">
+                <span className="text-xs font-bold text-[#64748B]">اسم الفئة</span>
+                <div className="grid grid-cols-2 gap-2">
+                  <Input value={cat.title_ar ?? ''} onChange={(e) => onChange({ ...data, categories: categories.map((x, j) => (j === i ? { ...x, title_ar: e.target.value } : x)) })} placeholder="بالعربية" className="h-8 text-sm" />
+                  <Input value={cat.title_fr ?? ''} onChange={(e) => onChange({ ...data, categories: categories.map((x, j) => (j === i ? { ...x, title_fr: e.target.value } : x)) })} placeholder="en français" className="h-8 text-sm" />
+                </div>
+              </div>
+              <div className="border border-[#E5E7EB] rounded-lg p-2 space-y-1 bg-[#F8FAFC]">
+                <span className="text-xs font-bold text-[#64748B]">العدد</span>
+                <div className="grid grid-cols-2 gap-2">
+                  <Input value={cat.count_ar ?? ''} onChange={(e) => onChange({ ...data, categories: categories.map((x, j) => (j === i ? { ...x, count_ar: e.target.value } : x)) })} placeholder="بالعربية" className="h-8 text-sm" />
+                  <Input value={cat.count_fr ?? ''} onChange={(e) => onChange({ ...data, categories: categories.map((x, j) => (j === i ? { ...x, count_fr: e.target.value } : x)) })} placeholder="en français" className="h-8 text-sm" />
+                </div>
+              </div>
             </div>
           </RepeaterItem>
         ))}
-        <Button type="button" variant="outline" size="sm" onClick={() => onChange({ ...data, categories: [...categories, { title: '', count: '' }] })}>
+        <Button type="button" variant="outline" size="sm" onClick={() => onChange({ ...data, categories: [...categories, { title_ar: '', title_fr: '', count_ar: '', count_fr: '' }] })}>
           <Plus className="size-3.5" /> إضافة فئة
         </Button>
       </div>
@@ -947,40 +1417,63 @@ function MagCatsEditor({ data, onChange }: CustomEditorProps) {
 function MagNewsletterEditor({ data, onChange }: CustomEditorProps) {
   return (
     <div className="space-y-3">
-      <FieldGroup label="العنوان الرئيسي">
-        <Input value={(data.heading as string) ?? ''} onChange={(e) => onChange({ ...data, heading: e.target.value })} className="h-9 text-sm" />
-      </FieldGroup>
-      <FieldGroup label="الوصف">
-        <Input value={(data.description as string) ?? ''} onChange={(e) => onChange({ ...data, description: e.target.value })} className="h-9 text-sm" />
-      </FieldGroup>
-      <FieldGroup label="نص زر الاشتراك">
-        <Input value={(data.buttonLabel as string) ?? ''} onChange={(e) => onChange({ ...data, buttonLabel: e.target.value })} className="h-9 text-sm" />
-      </FieldGroup>
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">العنوان الرئيسي</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية"><Input value={(data.heading_ar as string) ?? ''} onChange={(e) => onChange({ ...data, heading_ar: e.target.value })} placeholder="بالعربية" className="h-8 text-sm" /></FieldGroup>
+          <FieldGroup label="Français"><Input value={(data.heading_fr as string) ?? ''} onChange={(e) => onChange({ ...data, heading_fr: e.target.value })} placeholder="en français" className="h-8 text-sm" /></FieldGroup>
+        </div>
+      </div>
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">الوصف</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية"><Textarea value={(data.description_ar as string) ?? ''} onChange={(e) => onChange({ ...data, description_ar: e.target.value })} placeholder="بالعربية" className="min-h-16 resize-y text-sm" /></FieldGroup>
+          <FieldGroup label="Français"><Textarea value={(data.description_fr as string) ?? ''} onChange={(e) => onChange({ ...data, description_fr: e.target.value })} placeholder="en français" className="min-h-16 resize-y text-sm" /></FieldGroup>
+        </div>
+      </div>
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">نص زر الاشتراك</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية"><Input value={(data.buttonLabel_ar as string) ?? ''} onChange={(e) => onChange({ ...data, buttonLabel_ar: e.target.value })} placeholder="بالعربية" className="h-8 text-sm" /></FieldGroup>
+          <FieldGroup label="Français"><Input value={(data.buttonLabel_fr as string) ?? ''} onChange={(e) => onChange({ ...data, buttonLabel_fr: e.target.value })} placeholder="en français" className="h-8 text-sm" /></FieldGroup>
+        </div>
+      </div>
     </div>
   )
 }
 
 // MAGAZINE FINAL CTA  (_renderer: "magCta")
 function MagCtaEditor({ data, onChange }: CustomEditorProps) {
-  const buttons = (data.buttons ?? []) as Array<{ id: string; label: string; url: string; variant: string }>
+  const buttons = (data.buttons ?? []) as Array<{ id: string; label_ar: string; label_fr: string; url: string; variant: string }>
 
   return (
     <div className="space-y-3">
-      <FieldGroup label="العنوان الرئيسي">
-        <Input value={(data.heading as string) ?? ''} onChange={(e) => onChange({ ...data, heading: e.target.value })} className="h-9 text-sm" />
-      </FieldGroup>
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">العنوان الرئيسي</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية"><Input value={(data.heading_ar as string) ?? ''} onChange={(e) => onChange({ ...data, heading_ar: e.target.value })} placeholder="بالعربية" className="h-8 text-sm" /></FieldGroup>
+          <FieldGroup label="Français"><Input value={(data.heading_fr as string) ?? ''} onChange={(e) => onChange({ ...data, heading_fr: e.target.value })} placeholder="en français" className="h-8 text-sm" /></FieldGroup>
+        </div>
+      </div>
 
       <div className="space-y-2">
         <SectionLabel>الأزرار</SectionLabel>
         {buttons.map((btn, i) => (
-          <RepeaterItem key={i} onDelete={() => onChange({ ...data, buttons: buttons.filter((_, j) => j !== i) })}>
-            <div className="flex gap-2 pr-5">
-              <Input value={btn.label} onChange={(e) => onChange({ ...data, buttons: buttons.map((x, j) => (j === i ? { ...x, label: e.target.value } : x)) })} placeholder="نص الزر" className="h-8 flex-1 text-sm" />
-              <Input value={btn.url} onChange={(e) => onChange({ ...data, buttons: buttons.map((x, j) => (j === i ? { ...x, url: e.target.value } : x)) })} placeholder="الرابط" className="h-8 flex-1 text-sm" />
+          <RepeaterItem key={btn.id || i} onDelete={() => onChange({ ...data, buttons: buttons.filter((_, j) => j !== i) })}>
+            <div className="space-y-1.5 pr-5">
+              <div className="border border-[#E5E7EB] rounded-lg p-2 space-y-1 bg-[#F8FAFC]">
+                <span className="text-xs font-bold text-[#64748B]">نص الزر</span>
+                <div className="grid grid-cols-2 gap-2">
+                  <Input value={btn.label_ar ?? ''} onChange={(e) => onChange({ ...data, buttons: buttons.map((x, j) => (j === i ? { ...x, label_ar: e.target.value } : x)) })} placeholder="بالعربية" className="h-8 text-sm" />
+                  <Input value={btn.label_fr ?? ''} onChange={(e) => onChange({ ...data, buttons: buttons.map((x, j) => (j === i ? { ...x, label_fr: e.target.value } : x)) })} placeholder="en français" className="h-8 text-sm" />
+                </div>
+              </div>
+              <Input value={btn.url} onChange={(e) => onChange({ ...data, buttons: buttons.map((x, j) => (j === i ? { ...x, url: e.target.value } : x)) })} placeholder="الرابط" className="h-8 text-sm" />
+              <select value={btn.variant} onChange={(e) => onChange({ ...data, buttons: buttons.map((x, j) => (j === i ? { ...x, variant: e.target.value } : x)) })} className="h-8 w-full rounded-lg border border-[#E5E7EB] bg-transparent px-2.5 text-xs"><option value="primary">Primary</option><option value="secondary">Secondary</option><option value="outline">Outline</option></select>
             </div>
           </RepeaterItem>
         ))}
-        <Button type="button" variant="outline" size="sm" onClick={() => onChange({ ...data, buttons: [...buttons, { id: `btn-${Date.now()}`, label: '', url: '#', variant: 'primary' }] })}>
+        <Button type="button" variant="outline" size="sm" onClick={() => onChange({ ...data, buttons: [...buttons, { id: 'btn-'+Date.now(), label_ar:'',label_fr:'',url:'#',variant:'primary' }] })}>
           <Plus className="size-3.5" /> إضافة زر
         </Button>
       </div>
@@ -1814,6 +2307,661 @@ function ContactCtaEditor({ data, onChange }: CustomEditorProps) {
 }
 
 // =====================================================================
+// PARTNER ABOUT EDITOR  (_renderer: "partnerAbout")
+// =====================================================================
+
+function PartnerAboutEditor({ data, onChange }: CustomEditorProps) {
+  const paragraphsAr = (data.paragraphs_ar ?? []) as string[]
+  const paragraphsFr = (data.paragraphs_fr ?? []) as string[]
+  const maxLen = Math.max(paragraphsAr.length, paragraphsFr.length)
+
+  return (
+    <div className="space-y-3">
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">Eyebrow</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية">
+            <Input value={(data.eyebrow_ar as string) ?? ''} onChange={(e) => onChange({ ...data, eyebrow_ar: e.target.value })} placeholder="بالعربية" className="h-8 text-sm" />
+          </FieldGroup>
+          <FieldGroup label="Français">
+            <Input value={(data.eyebrow_fr as string) ?? ''} onChange={(e) => onChange({ ...data, eyebrow_fr: e.target.value })} placeholder="en français" className="h-8 text-sm" />
+          </FieldGroup>
+        </div>
+      </div>
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">العنوان</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية">
+            <Input value={(data.heading_ar as string) ?? ''} onChange={(e) => onChange({ ...data, heading_ar: e.target.value })} placeholder="بالعربية" className="h-8 text-sm" />
+          </FieldGroup>
+          <FieldGroup label="Français">
+            <Input value={(data.heading_fr as string) ?? ''} onChange={(e) => onChange({ ...data, heading_fr: e.target.value })} placeholder="en français" className="h-8 text-sm" />
+          </FieldGroup>
+        </div>
+      </div>
+      <div className="space-y-2">
+        <SectionLabel>الفقرات</SectionLabel>
+        {Array.from({ length: maxLen }).map((_, i) => (
+          <RepeaterItem key={i} onDelete={() => {
+            const ar = [...paragraphsAr]; ar.splice(i, 1)
+            const fr = [...paragraphsFr]; fr.splice(i, 1)
+            onChange({ ...data, paragraphs_ar: ar, paragraphs_fr: fr })
+          }}>
+            <div className="space-y-1.5 pr-5">
+              <FieldGroup label="العربية">
+                <Textarea value={paragraphsAr[i] ?? ''} onChange={(e) => {
+                  const ar = [...paragraphsAr]; ar[i] = e.target.value
+                  onChange({ ...data, paragraphs_ar: ar })
+                }} placeholder="بالعربية" className="min-h-12 resize-y text-sm" />
+              </FieldGroup>
+              <FieldGroup label="Français">
+                <Textarea value={paragraphsFr[i] ?? ''} onChange={(e) => {
+                  const fr = [...paragraphsFr]; fr[i] = e.target.value
+                  onChange({ ...data, paragraphs_fr: fr })
+                }} placeholder="en français" className="min-h-12 resize-y text-sm" />
+              </FieldGroup>
+            </div>
+          </RepeaterItem>
+        ))}
+        <Button type="button" variant="outline" size="sm" onClick={() => onChange({ ...data, paragraphs_ar: [...paragraphsAr, ''], paragraphs_fr: [...paragraphsFr, ''] })}>
+          <Plus className="size-3.5" /> إضافة فقرة
+        </Button>
+      </div>
+      <FieldGroup label="الصورة">
+        <Input value={(data.image as string) ?? ''} onChange={(e) => onChange({ ...data, image: e.target.value })} placeholder="رابط الصورة" className="h-9 text-sm" />
+      </FieldGroup>
+    </div>
+  )
+}
+
+// =====================================================================
+// PARTNER SERVICES EDITOR  (_renderer: "partnerServices")
+// =====================================================================
+
+function PartnerServicesEditor({ data, onChange }: CustomEditorProps) {
+  const cards = (data.cards ?? []) as Array<{ title_ar: string; title_fr: string; description_ar: string; description_fr: string }>
+
+  return (
+    <div className="space-y-3">
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">Eyebrow</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية">
+            <Input value={(data.eyebrow_ar as string) ?? ''} onChange={(e) => onChange({ ...data, eyebrow_ar: e.target.value })} placeholder="بالعربية" className="h-8 text-sm" />
+          </FieldGroup>
+          <FieldGroup label="Français">
+            <Input value={(data.eyebrow_fr as string) ?? ''} onChange={(e) => onChange({ ...data, eyebrow_fr: e.target.value })} placeholder="en français" className="h-8 text-sm" />
+          </FieldGroup>
+        </div>
+      </div>
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">العنوان</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية">
+            <Input value={(data.heading_ar as string) ?? ''} onChange={(e) => onChange({ ...data, heading_ar: e.target.value })} placeholder="بالعربية" className="h-8 text-sm" />
+          </FieldGroup>
+          <FieldGroup label="Français">
+            <Input value={(data.heading_fr as string) ?? ''} onChange={(e) => onChange({ ...data, heading_fr: e.target.value })} placeholder="en français" className="h-8 text-sm" />
+          </FieldGroup>
+        </div>
+      </div>
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">الوصف</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية">
+            <Textarea value={(data.description_ar as string) ?? ''} onChange={(e) => onChange({ ...data, description_ar: e.target.value })} placeholder="بالعربية" className="min-h-16 resize-y text-sm" />
+          </FieldGroup>
+          <FieldGroup label="Français">
+            <Textarea value={(data.description_fr as string) ?? ''} onChange={(e) => onChange({ ...data, description_fr: e.target.value })} placeholder="en français" className="min-h-16 resize-y text-sm" />
+          </FieldGroup>
+        </div>
+      </div>
+      <div className="space-y-2">
+        <SectionLabel>البطاقات</SectionLabel>
+        {cards.map((card, i) => (
+          <RepeaterItem key={i} onDelete={() => onChange({ ...data, cards: cards.filter((_, j) => j !== i) })}>
+            <div className="space-y-1.5 pr-5">
+              <div className="border border-[#E5E7EB] rounded-lg p-2 space-y-1 bg-[#F8FAFC]">
+                <span className="text-xs font-bold text-[#64748B]">العنوان</span>
+                <div className="grid grid-cols-2 gap-2">
+                  <Input value={card.title_ar ?? ''} onChange={(e) => onChange({ ...data, cards: cards.map((x, j) => (j === i ? { ...x, title_ar: e.target.value } : x)) })} placeholder="بالعربية" className="h-8 text-sm" />
+                  <Input value={card.title_fr ?? ''} onChange={(e) => onChange({ ...data, cards: cards.map((x, j) => (j === i ? { ...x, title_fr: e.target.value } : x)) })} placeholder="en français" className="h-8 text-sm" />
+                </div>
+              </div>
+              <div className="border border-[#E5E7EB] rounded-lg p-2 space-y-1 bg-[#F8FAFC]">
+                <span className="text-xs font-bold text-[#64748B]">الوصف</span>
+                <div className="grid grid-cols-2 gap-2">
+                  <Textarea value={card.description_ar ?? ''} onChange={(e) => onChange({ ...data, cards: cards.map((x, j) => (j === i ? { ...x, description_ar: e.target.value } : x)) })} placeholder="بالعربية" className="min-h-12 resize-y text-sm" />
+                  <Textarea value={card.description_fr ?? ''} onChange={(e) => onChange({ ...data, cards: cards.map((x, j) => (j === i ? { ...x, description_fr: e.target.value } : x)) })} placeholder="en français" className="min-h-12 resize-y text-sm" />
+                </div>
+              </div>
+            </div>
+          </RepeaterItem>
+        ))}
+        <Button type="button" variant="outline" size="sm" onClick={() => onChange({ ...data, cards: [...cards, { title_ar: '', title_fr: '', description_ar: '', description_fr: '' }] })}>
+          <Plus className="size-3.5" /> إضافة بطاقة
+        </Button>
+      </div>
+    </div>
+  )
+}
+
+// =====================================================================
+// PARTNER WHY EDITOR  (_renderer: "partnerWhy")
+// =====================================================================
+
+function PartnerWhyEditor({ data, onChange }: CustomEditorProps) {
+  const cards = (data.cards ?? []) as Array<{ title_ar: string; title_fr: string; description_ar: string; description_fr: string }>
+
+  return (
+    <div className="space-y-3">
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">Eyebrow</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية">
+            <Input value={(data.eyebrow_ar as string) ?? ''} onChange={(e) => onChange({ ...data, eyebrow_ar: e.target.value })} placeholder="بالعربية" className="h-8 text-sm" />
+          </FieldGroup>
+          <FieldGroup label="Français">
+            <Input value={(data.eyebrow_fr as string) ?? ''} onChange={(e) => onChange({ ...data, eyebrow_fr: e.target.value })} placeholder="en français" className="h-8 text-sm" />
+          </FieldGroup>
+        </div>
+      </div>
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">العنوان</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية">
+            <Input value={(data.heading_ar as string) ?? ''} onChange={(e) => onChange({ ...data, heading_ar: e.target.value })} placeholder="بالعربية" className="h-8 text-sm" />
+          </FieldGroup>
+          <FieldGroup label="Français">
+            <Input value={(data.heading_fr as string) ?? ''} onChange={(e) => onChange({ ...data, heading_fr: e.target.value })} placeholder="en français" className="h-8 text-sm" />
+          </FieldGroup>
+        </div>
+      </div>
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">الوصف</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية">
+            <Textarea value={(data.description_ar as string) ?? ''} onChange={(e) => onChange({ ...data, description_ar: e.target.value })} placeholder="بالعربية" className="min-h-16 resize-y text-sm" />
+          </FieldGroup>
+          <FieldGroup label="Français">
+            <Textarea value={(data.description_fr as string) ?? ''} onChange={(e) => onChange({ ...data, description_fr: e.target.value })} placeholder="en français" className="min-h-16 resize-y text-sm" />
+          </FieldGroup>
+        </div>
+      </div>
+      <div className="space-y-2">
+        <SectionLabel>بطاقات المميزات</SectionLabel>
+        {cards.map((card, i) => (
+          <RepeaterItem key={i} onDelete={() => onChange({ ...data, cards: cards.filter((_, j) => j !== i) })}>
+            <div className="space-y-1.5 pr-5">
+              <div className="border border-[#E5E7EB] rounded-lg p-2 space-y-1 bg-[#F8FAFC]">
+                <span className="text-xs font-bold text-[#64748B]">العنوان</span>
+                <div className="grid grid-cols-2 gap-2">
+                  <Input value={card.title_ar ?? ''} onChange={(e) => onChange({ ...data, cards: cards.map((x, j) => (j === i ? { ...x, title_ar: e.target.value } : x)) })} placeholder="بالعربية" className="h-8 text-sm" />
+                  <Input value={card.title_fr ?? ''} onChange={(e) => onChange({ ...data, cards: cards.map((x, j) => (j === i ? { ...x, title_fr: e.target.value } : x)) })} placeholder="en français" className="h-8 text-sm" />
+                </div>
+              </div>
+              <div className="border border-[#E5E7EB] rounded-lg p-2 space-y-1 bg-[#F8FAFC]">
+                <span className="text-xs font-bold text-[#64748B]">الوصف</span>
+                <div className="grid grid-cols-2 gap-2">
+                  <Textarea value={card.description_ar ?? ''} onChange={(e) => onChange({ ...data, cards: cards.map((x, j) => (j === i ? { ...x, description_ar: e.target.value } : x)) })} placeholder="بالعربية" className="min-h-12 resize-y text-sm" />
+                  <Textarea value={card.description_fr ?? ''} onChange={(e) => onChange({ ...data, cards: cards.map((x, j) => (j === i ? { ...x, description_fr: e.target.value } : x)) })} placeholder="en français" className="min-h-12 resize-y text-sm" />
+                </div>
+              </div>
+            </div>
+          </RepeaterItem>
+        ))}
+        <Button type="button" variant="outline" size="sm" onClick={() => onChange({ ...data, cards: [...cards, { title_ar: '', title_fr: '', description_ar: '', description_fr: '' }] })}>
+          <Plus className="size-3.5" /> إضافة بطاقة
+        </Button>
+      </div>
+    </div>
+  )
+}
+
+// =====================================================================
+// PARTNER GALLERY EDITOR  (_renderer: "partnerGallery")
+// =====================================================================
+
+function PartnerGalleryEditor({ data, onChange }: CustomEditorProps) {
+  const images = (data.images ?? []) as Array<{ id: string; url: string; alt: string }>
+
+  return (
+    <div className="space-y-3">
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">Eyebrow</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية">
+            <Input value={(data.eyebrow_ar as string) ?? ''} onChange={(e) => onChange({ ...data, eyebrow_ar: e.target.value })} placeholder="بالعربية" className="h-8 text-sm" />
+          </FieldGroup>
+          <FieldGroup label="Français">
+            <Input value={(data.eyebrow_fr as string) ?? ''} onChange={(e) => onChange({ ...data, eyebrow_fr: e.target.value })} placeholder="en français" className="h-8 text-sm" />
+          </FieldGroup>
+        </div>
+      </div>
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">العنوان</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية">
+            <Input value={(data.heading_ar as string) ?? ''} onChange={(e) => onChange({ ...data, heading_ar: e.target.value })} placeholder="بالعربية" className="h-8 text-sm" />
+          </FieldGroup>
+          <FieldGroup label="Français">
+            <Input value={(data.heading_fr as string) ?? ''} onChange={(e) => onChange({ ...data, heading_fr: e.target.value })} placeholder="en français" className="h-8 text-sm" />
+          </FieldGroup>
+        </div>
+      </div>
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">الوصف</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية">
+            <Textarea value={(data.description_ar as string) ?? ''} onChange={(e) => onChange({ ...data, description_ar: e.target.value })} placeholder="بالعربية" className="min-h-16 resize-y text-sm" />
+          </FieldGroup>
+          <FieldGroup label="Français">
+            <Textarea value={(data.description_fr as string) ?? ''} onChange={(e) => onChange({ ...data, description_fr: e.target.value })} placeholder="en français" className="min-h-16 resize-y text-sm" />
+          </FieldGroup>
+        </div>
+      </div>
+      <div className="space-y-2">
+        <SectionLabel>الصور</SectionLabel>
+        {images.map((img, i) => (
+          <div key={img.id || i} className="space-y-1.5">
+            <Input value={img.url} onChange={(e) => onChange({ ...data, images: images.map((x, j) => (j === i ? { ...x, url: e.target.value } : x)) })} placeholder={`رابط الصورة ${i + 1}`} className="h-9 text-sm" />
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+// =====================================================================
+// PARTNER CONTACT EDITOR  (_renderer: "partnerContact")
+// =====================================================================
+
+function PartnerContactEditor({ data, onChange }: CustomEditorProps) {
+  return (
+    <div className="space-y-3">
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">العنوان</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية">
+            <Input value={(data.heading_ar as string) ?? ''} onChange={(e) => onChange({ ...data, heading_ar: e.target.value })} placeholder="بالعربية" className="h-8 text-sm" />
+          </FieldGroup>
+          <FieldGroup label="Français">
+            <Input value={(data.heading_fr as string) ?? ''} onChange={(e) => onChange({ ...data, heading_fr: e.target.value })} placeholder="en français" className="h-8 text-sm" />
+          </FieldGroup>
+        </div>
+      </div>
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">الوصف</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية">
+            <Textarea value={(data.description_ar as string) ?? ''} onChange={(e) => onChange({ ...data, description_ar: e.target.value })} placeholder="بالعربية" className="min-h-16 resize-y text-sm" />
+          </FieldGroup>
+          <FieldGroup label="Français">
+            <Textarea value={(data.description_fr as string) ?? ''} onChange={(e) => onChange({ ...data, description_fr: e.target.value })} placeholder="en français" className="min-h-16 resize-y text-sm" />
+          </FieldGroup>
+        </div>
+      </div>
+      <SectionLabel>معلومات التواصل</SectionLabel>
+      <Input value={(data.email as string) ?? ''} onChange={(e) => onChange({ ...data, email: e.target.value })} placeholder="البريد الإلكتروني" className="h-9 text-sm" />
+      <Input value={(data.phone as string) ?? ''} onChange={(e) => onChange({ ...data, phone: e.target.value })} placeholder="الهاتف" className="h-9 text-sm" />
+      <Input value={(data.website as string) ?? ''} onChange={(e) => onChange({ ...data, website: e.target.value })} placeholder="الموقع الإلكتروني" className="h-9 text-sm" />
+      <Input value={(data.address as string) ?? ''} onChange={(e) => onChange({ ...data, address: e.target.value })} placeholder="العنوان" className="h-9 text-sm" />
+    </div>
+  )
+}
+
+// =====================================================================
+// PARTNER FORM EDITOR  (_renderer: "partnerForm")
+// =====================================================================
+
+function PartnerFormEditor({ data, onChange }: CustomEditorProps) {
+  return (
+    <div className="space-y-3">
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">العنوان</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية">
+            <Input value={(data.heading_ar as string) ?? ''} onChange={(e) => onChange({ ...data, heading_ar: e.target.value })} placeholder="بالعربية" className="h-8 text-sm" />
+          </FieldGroup>
+          <FieldGroup label="Français">
+            <Input value={(data.heading_fr as string) ?? ''} onChange={(e) => onChange({ ...data, heading_fr: e.target.value })} placeholder="en français" className="h-8 text-sm" />
+          </FieldGroup>
+        </div>
+      </div>
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">الوصف</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية">
+            <Textarea value={(data.description_ar as string) ?? ''} onChange={(e) => onChange({ ...data, description_ar: e.target.value })} placeholder="بالعربية" className="min-h-16 resize-y text-sm" />
+          </FieldGroup>
+          <FieldGroup label="Français">
+            <Textarea value={(data.description_fr as string) ?? ''} onChange={(e) => onChange({ ...data, description_fr: e.target.value })} placeholder="en français" className="min-h-16 resize-y text-sm" />
+          </FieldGroup>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// =====================================================================
+// PARTNER CTA EDITOR  (_renderer: "partnerCta")
+// =====================================================================
+
+function PartnerCtaEditor({ data, onChange }: CustomEditorProps) {
+  const buttons = (data.buttons ?? []) as Array<{ id: string; label_ar: string; label_fr: string; url: string; variant: string }>
+
+  return (
+    <div className="space-y-3">
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">العنوان</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية">
+            <Input value={(data.heading_ar as string) ?? ''} onChange={(e) => onChange({ ...data, heading_ar: e.target.value })} placeholder="بالعربية" className="h-8 text-sm" />
+          </FieldGroup>
+          <FieldGroup label="Français">
+            <Input value={(data.heading_fr as string) ?? ''} onChange={(e) => onChange({ ...data, heading_fr: e.target.value })} placeholder="en français" className="h-8 text-sm" />
+          </FieldGroup>
+        </div>
+      </div>
+      <div className="space-y-2">
+        <SectionLabel>الأزرار</SectionLabel>
+        {buttons.map((btn, i) => (
+          <RepeaterItem key={btn.id || i} onDelete={() => onChange({ ...data, buttons: buttons.filter((_, j) => j !== i) })}>
+            <div className="space-y-1.5 pr-5">
+              <div className="border border-[#E5E7EB] rounded-lg p-2 space-y-1 bg-[#F8FAFC]">
+                <span className="text-xs font-bold text-[#64748B]">نص الزر</span>
+                <div className="grid grid-cols-2 gap-2">
+                  <Input value={btn.label_ar ?? ''} onChange={(e) => onChange({ ...data, buttons: buttons.map((x, j) => (j === i ? { ...x, label_ar: e.target.value } : x)) })} placeholder="بالعربية" className="h-8 text-sm" />
+                  <Input value={btn.label_fr ?? ''} onChange={(e) => onChange({ ...data, buttons: buttons.map((x, j) => (j === i ? { ...x, label_fr: e.target.value } : x)) })} placeholder="en français" className="h-8 text-sm" />
+                </div>
+              </div>
+              <Input value={btn.url} onChange={(e) => onChange({ ...data, buttons: buttons.map((x, j) => (j === i ? { ...x, url: e.target.value } : x)) })} placeholder="الرابط" className="h-8 text-sm" />
+              <select value={btn.variant} onChange={(e) => onChange({ ...data, buttons: buttons.map((x, j) => (j === i ? { ...x, variant: e.target.value } : x)) })} className="h-8 w-full rounded-lg border border-[#E5E7EB] bg-transparent px-2.5 text-xs">
+                <option value="primary">Primary</option>
+                <option value="secondary">Secondary</option>
+                <option value="outline">Outline</option>
+              </select>
+            </div>
+          </RepeaterItem>
+        ))}
+        <Button type="button" variant="outline" size="sm" onClick={() => onChange({ ...data, buttons: [...buttons, { id: 'btn-' + Date.now(), label_ar: '', label_fr: '', url: '#', variant: 'primary' }] })}>
+          <Plus className="size-3.5" /> إضافة زر
+        </Button>
+      </div>
+    </div>
+  )
+}
+
+// =====================================================================
+// SOS AMARE EDITORS
+// =====================================================================
+
+function SosHowEditor({ data, onChange }: CustomEditorProps) {
+  const steps = (data.steps ?? []) as Array<{ title_ar: string; title_fr: string; description_ar: string; description_fr: string }>
+  return (
+    <div className="space-y-3">
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">Eyebrow</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية"><Input value={(data.eyebrow_ar as string) ?? ''} onChange={(e) => onChange({ ...data, eyebrow_ar: e.target.value })} placeholder="بالعربية" className="h-8 text-sm" /></FieldGroup>
+          <FieldGroup label="Français"><Input value={(data.eyebrow_fr as string) ?? ''} onChange={(e) => onChange({ ...data, eyebrow_fr: e.target.value })} placeholder="en français" className="h-8 text-sm" /></FieldGroup>
+        </div>
+      </div>
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">العنوان</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية"><Input value={(data.heading_ar as string) ?? ''} onChange={(e) => onChange({ ...data, heading_ar: e.target.value })} placeholder="بالعربية" className="h-8 text-sm" /></FieldGroup>
+          <FieldGroup label="Français"><Input value={(data.heading_fr as string) ?? ''} onChange={(e) => onChange({ ...data, heading_fr: e.target.value })} placeholder="en français" className="h-8 text-sm" /></FieldGroup>
+        </div>
+      </div>
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">الوصف</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية"><Textarea value={(data.description_ar as string) ?? ''} onChange={(e) => onChange({ ...data, description_ar: e.target.value })} placeholder="بالعربية" className="min-h-16 resize-y text-sm" /></FieldGroup>
+          <FieldGroup label="Français"><Textarea value={(data.description_fr as string) ?? ''} onChange={(e) => onChange({ ...data, description_fr: e.target.value })} placeholder="en français" className="min-h-16 resize-y text-sm" /></FieldGroup>
+        </div>
+      </div>
+      <div className="space-y-2">
+        <SectionLabel>الخطوات</SectionLabel>
+        {steps.map((step, i) => (
+          <RepeaterItem key={i} onDelete={() => onChange({ ...data, steps: steps.filter((_, j) => j !== i) })}>
+            <div className="space-y-1.5 pr-5">
+              <div className="border border-[#E5E7EB] rounded-lg p-2 space-y-1 bg-[#F8FAFC]">
+                <span className="text-xs font-bold text-[#64748B]">العنوان</span>
+                <div className="grid grid-cols-2 gap-2">
+                  <Input value={step.title_ar ?? ''} onChange={(e) => onChange({ ...data, steps: steps.map((x, j) => (j === i ? { ...x, title_ar: e.target.value } : x)) })} placeholder="بالعربية" className="h-8 text-sm" />
+                  <Input value={step.title_fr ?? ''} onChange={(e) => onChange({ ...data, steps: steps.map((x, j) => (j === i ? { ...x, title_fr: e.target.value } : x)) })} placeholder="en français" className="h-8 text-sm" />
+                </div>
+              </div>
+              <div className="border border-[#E5E7EB] rounded-lg p-2 space-y-1 bg-[#F8FAFC]">
+                <span className="text-xs font-bold text-[#64748B]">الوصف</span>
+                <div className="grid grid-cols-2 gap-2">
+                  <Textarea value={step.description_ar ?? ''} onChange={(e) => onChange({ ...data, steps: steps.map((x, j) => (j === i ? { ...x, description_ar: e.target.value } : x)) })} placeholder="بالعربية" className="min-h-12 resize-y text-sm" />
+                  <Textarea value={step.description_fr ?? ''} onChange={(e) => onChange({ ...data, steps: steps.map((x, j) => (j === i ? { ...x, description_fr: e.target.value } : x)) })} placeholder="en français" className="min-h-12 resize-y text-sm" />
+                </div>
+              </div>
+            </div>
+          </RepeaterItem>
+        ))}
+        <Button type="button" variant="outline" size="sm" onClick={() => onChange({ ...data, steps: [...steps, { title_ar: '', title_fr: '', description_ar: '', description_fr: '' }] })}>
+          <Plus className="size-3.5" /> إضافة خطوة
+        </Button>
+      </div>
+    </div>
+  )
+}
+
+function SosCategoriesEditor({ data, onChange }: CustomEditorProps) {
+  const categories = (data.categories ?? []) as Array<{ title_ar: string; title_fr: string }>
+  return (
+    <div className="space-y-3">
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">Eyebrow</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية"><Input value={(data.eyebrow_ar as string) ?? ''} onChange={(e) => onChange({ ...data, eyebrow_ar: e.target.value })} placeholder="بالعربية" className="h-8 text-sm" /></FieldGroup>
+          <FieldGroup label="Français"><Input value={(data.eyebrow_fr as string) ?? ''} onChange={(e) => onChange({ ...data, eyebrow_fr: e.target.value })} placeholder="en français" className="h-8 text-sm" /></FieldGroup>
+        </div>
+      </div>
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">العنوان</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية"><Input value={(data.heading_ar as string) ?? ''} onChange={(e) => onChange({ ...data, heading_ar: e.target.value })} placeholder="بالعربية" className="h-8 text-sm" /></FieldGroup>
+          <FieldGroup label="Français"><Input value={(data.heading_fr as string) ?? ''} onChange={(e) => onChange({ ...data, heading_fr: e.target.value })} placeholder="en français" className="h-8 text-sm" /></FieldGroup>
+        </div>
+      </div>
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">الوصف</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية"><Textarea value={(data.description_ar as string) ?? ''} onChange={(e) => onChange({ ...data, description_ar: e.target.value })} placeholder="بالعربية" className="min-h-16 resize-y text-sm" /></FieldGroup>
+          <FieldGroup label="Français"><Textarea value={(data.description_fr as string) ?? ''} onChange={(e) => onChange({ ...data, description_fr: e.target.value })} placeholder="en français" className="min-h-16 resize-y text-sm" /></FieldGroup>
+        </div>
+      </div>
+      <div className="space-y-2">
+        <SectionLabel>الفئات</SectionLabel>
+        {categories.map((cat, i) => (
+          <RepeaterItem key={i} onDelete={() => onChange({ ...data, categories: categories.filter((_, j) => j !== i) })}>
+            <div className="border border-[#E5E7EB] rounded-lg p-2 space-y-1 bg-[#F8FAFC] pr-5">
+              <span className="text-xs font-bold text-[#64748B]">الاسم</span>
+              <div className="grid grid-cols-2 gap-2">
+                <Input value={cat.title_ar ?? ''} onChange={(e) => onChange({ ...data, categories: categories.map((x, j) => (j === i ? { ...x, title_ar: e.target.value } : x)) })} placeholder="بالعربية" className="h-8 text-sm" />
+                <Input value={cat.title_fr ?? ''} onChange={(e) => onChange({ ...data, categories: categories.map((x, j) => (j === i ? { ...x, title_fr: e.target.value } : x)) })} placeholder="en français" className="h-8 text-sm" />
+              </div>
+            </div>
+          </RepeaterItem>
+        ))}
+        <Button type="button" variant="outline" size="sm" onClick={() => onChange({ ...data, categories: [...categories, { title_ar: '', title_fr: '' }] })}>
+          <Plus className="size-3.5" /> إضافة فئة
+        </Button>
+      </div>
+    </div>
+  )
+}
+
+function SosFormEditor({ data, onChange }: CustomEditorProps) {
+  return (
+    <div className="space-y-3">
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">Eyebrow</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية"><Input value={(data.eyebrow_ar as string) ?? ''} onChange={(e) => onChange({ ...data, eyebrow_ar: e.target.value })} placeholder="بالعربية" className="h-8 text-sm" /></FieldGroup>
+          <FieldGroup label="Français"><Input value={(data.eyebrow_fr as string) ?? ''} onChange={(e) => onChange({ ...data, eyebrow_fr: e.target.value })} placeholder="en français" className="h-8 text-sm" /></FieldGroup>
+        </div>
+      </div>
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">العنوان</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية"><Input value={(data.heading_ar as string) ?? ''} onChange={(e) => onChange({ ...data, heading_ar: e.target.value })} placeholder="بالعربية" className="h-8 text-sm" /></FieldGroup>
+          <FieldGroup label="Français"><Input value={(data.heading_fr as string) ?? ''} onChange={(e) => onChange({ ...data, heading_fr: e.target.value })} placeholder="en français" className="h-8 text-sm" /></FieldGroup>
+        </div>
+      </div>
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">الوصف</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية"><Textarea value={(data.description_ar as string) ?? ''} onChange={(e) => onChange({ ...data, description_ar: e.target.value })} placeholder="بالعربية" className="min-h-16 resize-y text-sm" /></FieldGroup>
+          <FieldGroup label="Français"><Textarea value={(data.description_fr as string) ?? ''} onChange={(e) => onChange({ ...data, description_fr: e.target.value })} placeholder="en français" className="min-h-16 resize-y text-sm" /></FieldGroup>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function SosGreenEditor({ data, onChange }: CustomEditorProps) {
+  const buttons = (data.buttons ?? []) as Array<{ id: string; label_ar: string; label_fr: string; url: string; variant: string }>
+  return (
+    <div className="space-y-3">
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">العنوان</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية"><Input value={(data.heading_ar as string) ?? ''} onChange={(e) => onChange({ ...data, heading_ar: e.target.value })} placeholder="بالعربية" className="h-8 text-sm" /></FieldGroup>
+          <FieldGroup label="Français"><Input value={(data.heading_fr as string) ?? ''} onChange={(e) => onChange({ ...data, heading_fr: e.target.value })} placeholder="en français" className="h-8 text-sm" /></FieldGroup>
+        </div>
+      </div>
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">الوصف</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية"><Textarea value={(data.description_ar as string) ?? ''} onChange={(e) => onChange({ ...data, description_ar: e.target.value })} placeholder="بالعربية" className="min-h-16 resize-y text-sm" /></FieldGroup>
+          <FieldGroup label="Français"><Textarea value={(data.description_fr as string) ?? ''} onChange={(e) => onChange({ ...data, description_fr: e.target.value })} placeholder="en français" className="min-h-16 resize-y text-sm" /></FieldGroup>
+        </div>
+      </div>
+      <FieldGroup label="الرقم الأخضر"><Input value={(data.number as string) ?? ''} onChange={(e) => onChange({ ...data, number: e.target.value })} className="h-9 text-sm" /></FieldGroup>
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">ساعات العمل</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية"><Input value={(data.hours_ar as string) ?? ''} onChange={(e) => onChange({ ...data, hours_ar: e.target.value })} placeholder="بالعربية" className="h-8 text-sm" /></FieldGroup>
+          <FieldGroup label="Français"><Input value={(data.hours_fr as string) ?? ''} onChange={(e) => onChange({ ...data, hours_fr: e.target.value })} placeholder="en français" className="h-8 text-sm" /></FieldGroup>
+        </div>
+      </div>
+      <div className="space-y-2">
+        <SectionLabel>الأزرار</SectionLabel>
+        {buttons.map((btn, i) => (
+          <RepeaterItem key={btn.id || i} onDelete={() => onChange({ ...data, buttons: buttons.filter((_, j) => j !== i) })}>
+            <div className="space-y-1.5 pr-5">
+              <div className="border border-[#E5E7EB] rounded-lg p-2 space-y-1 bg-[#F8FAFC]">
+                <span className="text-xs font-bold text-[#64748B]">نص الزر</span>
+                <div className="grid grid-cols-2 gap-2">
+                  <Input value={btn.label_ar ?? ''} onChange={(e) => onChange({ ...data, buttons: buttons.map((x, j) => (j === i ? { ...x, label_ar: e.target.value } : x)) })} placeholder="بالعربية" className="h-8 text-sm" />
+                  <Input value={btn.label_fr ?? ''} onChange={(e) => onChange({ ...data, buttons: buttons.map((x, j) => (j === i ? { ...x, label_fr: e.target.value } : x)) })} placeholder="en français" className="h-8 text-sm" />
+                </div>
+              </div>
+              <Input value={btn.url} onChange={(e) => onChange({ ...data, buttons: buttons.map((x, j) => (j === i ? { ...x, url: e.target.value } : x)) })} placeholder="الرابط" className="h-8 text-sm" />
+              <select value={btn.variant} onChange={(e) => onChange({ ...data, buttons: buttons.map((x, j) => (j === i ? { ...x, variant: e.target.value } : x)) })} className="h-8 w-full rounded-lg border border-[#E5E7EB] bg-transparent px-2.5 text-xs"><option value="primary">Primary</option><option value="secondary">Secondary</option><option value="outline">Outline</option></select>
+            </div>
+          </RepeaterItem>
+        ))}
+        <Button type="button" variant="outline" size="sm" onClick={() => onChange({ ...data, buttons: [...buttons, { id: 'btn-'+Date.now(), label_ar:'',label_fr:'',url:'#',variant:'primary' }] })}><Plus className="size-3.5" /> إضافة زر</Button>
+      </div>
+    </div>
+  )
+}
+
+function SosFaqEditor({ data, onChange }: CustomEditorProps) {
+  const items = (data.items ?? []) as Array<{ question_ar: string; question_fr: string; answer_ar: string; answer_fr: string }>
+  return (
+    <div className="space-y-3">
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">Eyebrow</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية"><Input value={(data.eyebrow_ar as string) ?? ''} onChange={(e) => onChange({ ...data, eyebrow_ar: e.target.value })} placeholder="بالعربية" className="h-8 text-sm" /></FieldGroup>
+          <FieldGroup label="Français"><Input value={(data.eyebrow_fr as string) ?? ''} onChange={(e) => onChange({ ...data, eyebrow_fr: e.target.value })} placeholder="en français" className="h-8 text-sm" /></FieldGroup>
+        </div>
+      </div>
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">العنوان</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية"><Input value={(data.heading_ar as string) ?? ''} onChange={(e) => onChange({ ...data, heading_ar: e.target.value })} placeholder="بالعربية" className="h-8 text-sm" /></FieldGroup>
+          <FieldGroup label="Français"><Input value={(data.heading_fr as string) ?? ''} onChange={(e) => onChange({ ...data, heading_fr: e.target.value })} placeholder="en français" className="h-8 text-sm" /></FieldGroup>
+        </div>
+      </div>
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">الوصف</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية"><Textarea value={(data.description_ar as string) ?? ''} onChange={(e) => onChange({ ...data, description_ar: e.target.value })} placeholder="بالعربية" className="min-h-16 resize-y text-sm" /></FieldGroup>
+          <FieldGroup label="Français"><Textarea value={(data.description_fr as string) ?? ''} onChange={(e) => onChange({ ...data, description_fr: e.target.value })} placeholder="en français" className="min-h-16 resize-y text-sm" /></FieldGroup>
+        </div>
+      </div>
+      <div className="space-y-2">
+        <SectionLabel>الأسئلة</SectionLabel>
+        {items.map((item, i) => (
+          <RepeaterItem key={i} onDelete={() => onChange({ ...data, items: items.filter((_, j) => j !== i) })}>
+            <div className="space-y-1.5 pr-5">
+              <div className="border border-[#E5E7EB] rounded-lg p-2 space-y-1 bg-[#F8FAFC]">
+                <span className="text-xs font-bold text-[#64748B]">السؤال</span>
+                <div className="grid grid-cols-2 gap-2">
+                  <Input value={item.question_ar ?? ''} onChange={(e) => onChange({ ...data, items: items.map((x, j) => (j === i ? { ...x, question_ar: e.target.value } : x)) })} placeholder="بالعربية" className="h-8 text-sm" />
+                  <Input value={item.question_fr ?? ''} onChange={(e) => onChange({ ...data, items: items.map((x, j) => (j === i ? { ...x, question_fr: e.target.value } : x)) })} placeholder="en français" className="h-8 text-sm" />
+                </div>
+              </div>
+              <div className="border border-[#E5E7EB] rounded-lg p-2 space-y-1 bg-[#F8FAFC]">
+                <span className="text-xs font-bold text-[#64748B]">الجواب</span>
+                <div className="grid grid-cols-2 gap-2">
+                  <Textarea value={item.answer_ar ?? ''} onChange={(e) => onChange({ ...data, items: items.map((x, j) => (j === i ? { ...x, answer_ar: e.target.value } : x)) })} placeholder="بالعربية" className="min-h-16 resize-y text-sm" />
+                  <Textarea value={item.answer_fr ?? ''} onChange={(e) => onChange({ ...data, items: items.map((x, j) => (j === i ? { ...x, answer_fr: e.target.value } : x)) })} placeholder="en français" className="min-h-16 resize-y text-sm" />
+                </div>
+              </div>
+            </div>
+          </RepeaterItem>
+        ))}
+        <Button type="button" variant="outline" size="sm" onClick={() => onChange({ ...data, items: [...items, { question_ar: '', question_fr: '', answer_ar: '', answer_fr: '' }] })}><Plus className="size-3.5" /> إضافة سؤال</Button>
+      </div>
+    </div>
+  )
+}
+
+function SosCtaEditor({ data, onChange }: CustomEditorProps) {
+  const buttons = (data.buttons ?? []) as Array<{ id: string; label_ar: string; label_fr: string; url: string; variant: string }>
+  return (
+    <div className="space-y-3">
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">العنوان</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية"><Input value={(data.heading_ar as string) ?? ''} onChange={(e) => onChange({ ...data, heading_ar: e.target.value })} placeholder="بالعربية" className="h-8 text-sm" /></FieldGroup>
+          <FieldGroup label="Français"><Input value={(data.heading_fr as string) ?? ''} onChange={(e) => onChange({ ...data, heading_fr: e.target.value })} placeholder="en français" className="h-8 text-sm" /></FieldGroup>
+        </div>
+      </div>
+      <div className="space-y-2">
+        <SectionLabel>الأزرار</SectionLabel>
+        {buttons.map((btn, i) => (
+          <RepeaterItem key={btn.id || i} onDelete={() => onChange({ ...data, buttons: buttons.filter((_, j) => j !== i) })}>
+            <div className="space-y-1.5 pr-5">
+              <div className="border border-[#E5E7EB] rounded-lg p-2 space-y-1 bg-[#F8FAFC]">
+                <span className="text-xs font-bold text-[#64748B]">نص الزر</span>
+                <div className="grid grid-cols-2 gap-2">
+                  <Input value={btn.label_ar ?? ''} onChange={(e) => onChange({ ...data, buttons: buttons.map((x, j) => (j === i ? { ...x, label_ar: e.target.value } : x)) })} placeholder="بالعربية" className="h-8 text-sm" />
+                  <Input value={btn.label_fr ?? ''} onChange={(e) => onChange({ ...data, buttons: buttons.map((x, j) => (j === i ? { ...x, label_fr: e.target.value } : x)) })} placeholder="en français" className="h-8 text-sm" />
+                </div>
+              </div>
+              <Input value={btn.url} onChange={(e) => onChange({ ...data, buttons: buttons.map((x, j) => (j === i ? { ...x, url: e.target.value } : x)) })} placeholder="الرابط" className="h-8 text-sm" />
+              <select value={btn.variant} onChange={(e) => onChange({ ...data, buttons: buttons.map((x, j) => (j === i ? { ...x, variant: e.target.value } : x)) })} className="h-8 w-full rounded-lg border border-[#E5E7EB] bg-transparent px-2.5 text-xs"><option value="primary">Primary</option><option value="secondary">Secondary</option><option value="outline">Outline</option></select>
+            </div>
+          </RepeaterItem>
+        ))}
+        <Button type="button" variant="outline" size="sm" onClick={() => onChange({ ...data, buttons: [...buttons, { id: 'btn-'+Date.now(), label_ar:'',label_fr:'',url:'#',variant:'primary' }] })}><Plus className="size-3.5" /> إضافة زر</Button>
+      </div>
+    </div>
+  )
+}
+
+// =====================================================================
 // RENDERER REGISTRY
 // =====================================================================
 
@@ -1823,6 +2971,7 @@ const RENDERER_EDITORS: Record<string, CustomSectionEditorComponent> = {
   about: AboutEditor,
   featuresGrid: FeaturesGridEditor,
   activitiesGrid: ActivitiesGridEditor,
+  activitiesCta: ActivitiesCtaEditor,
   newsGrid: NewsGridEditor,
   footer: FooterEditor,
   nationalVision: NationalVisionEditor,
@@ -1830,6 +2979,19 @@ const RENDERER_EDITORS: Record<string, CustomSectionEditorComponent> = {
   values: ValuesEditor,
   centralOffice: CentralOfficeEditor,
   expansionMap: ExpansionMapEditor,
+  sosHow: SosHowEditor,
+  sosCategories: SosCategoriesEditor,
+  sosForm: SosFormEditor,
+  sosGreen: SosGreenEditor,
+  sosFaq: SosFaqEditor,
+  sosCta: SosCtaEditor,
+  partnerAbout: PartnerAboutEditor,
+  partnerServices: PartnerServicesEditor,
+  partnerWhy: PartnerWhyEditor,
+  partnerGallery: PartnerGalleryEditor,
+  partnerContact: PartnerContactEditor,
+  partnerForm: PartnerFormEditor,
+  partnerCta: PartnerCtaEditor,
   magFeatured: MagFeaturedEditor,
   magLatest: MagLatestEditor,
   magCats: MagCatsEditor,

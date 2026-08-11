@@ -56,9 +56,15 @@ const PAGE_SIZE = 10
 
 const EMPTY_FORM: ProductCreateInput = {
   name: '',
+  name_ar: '',
+  name_fr: '',
   slug: '',
   short_description: '',
+  short_description_ar: '',
+  short_description_fr: '',
   description: '',
+  description_ar: '',
+  description_fr: '',
   category: 'devices',
   brand: '',
   condition: 'new',
@@ -73,9 +79,15 @@ const EMPTY_FORM: ProductCreateInput = {
 function productToForm(p: Product): ProductCreateInput {
   return {
     name: p.name,
+    name_ar: p.name_ar || p.name || '',
+    name_fr: p.name_fr || '',
     slug: p.slug,
     short_description: p.short_description ?? '',
+    short_description_ar: p.short_description_ar || p.short_description || '',
+    short_description_fr: p.short_description_fr || '',
     description: p.description ?? '',
+    description_ar: p.description_ar || p.description || '',
+    description_fr: p.description_fr || '',
     category: p.category,
     brand: p.brand ?? '',
     condition: p.condition ?? 'new',
@@ -208,7 +220,7 @@ export default function StorePage() {
   const handleFormChange = (field: keyof ProductCreateInput, value: string | number | boolean) => {
     setForm((prev) => ({ ...prev, [field]: value }))
     setErrors((prev) => { const n = { ...prev }; delete n[field]; return n })
-    if (field === 'name') {
+    if (field === 'name_ar') {
       const slug = value.toString().trim().toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9\u0600-\u06FF-]/g, '')
       setForm((prev) => ({ ...prev, slug }))
     }
@@ -238,7 +250,7 @@ export default function StorePage() {
 
   const validateForm = (): boolean => {
     const errs: Record<string, string> = {}
-    if (!form.name.trim()) errs.name = 'اسم المنتج مطلوب'
+    if (!form.name_ar.trim()) errs.name = 'اسم المنتج مطلوب'
     if (!form.price || form.price <= 0) errs.price = 'السعر يجب أن يكون أكبر من 0'
     setErrors(errs)
     return Object.keys(errs).length === 0
@@ -509,14 +521,27 @@ export default function StorePage() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="p-name">اسم المنتج</Label>
-              <Input
-                id="p-name"
-                value={form.name}
-                onChange={(e) => handleFormChange('name', e.target.value)}
-                placeholder="بذلة ميدانية رسمية"
-                className="h-11 text-base"
-              />
+              <Label>اسم المنتج</Label>
+              <div className="grid grid-cols-2 gap-2">
+                <div className="space-y-1">
+                  <span className="text-xs text-muted-foreground">العربية</span>
+                  <Input
+                    value={form.name_ar}
+                    onChange={(e) => handleFormChange('name_ar', e.target.value)}
+                    placeholder="الاسم بالعربية"
+                    className="h-10 text-sm"
+                  />
+                </div>
+                <div className="space-y-1">
+                  <span className="text-xs text-muted-foreground">Français</span>
+                  <Input
+                    value={form.name_fr}
+                    onChange={(e) => handleFormChange('name_fr', e.target.value)}
+                    placeholder="Nom en français"
+                    className="h-10 text-sm"
+                  />
+                </div>
+              </div>
               {errors.name && <p className="text-xs text-red-500">{errors.name}</p>}
             </div>
 
@@ -536,25 +561,51 @@ export default function StorePage() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="p-short">وصف قصير</Label>
-              <Textarea
-                id="p-short"
-                value={form.short_description}
-                onChange={(e) => handleFormChange('short_description', e.target.value)}
-                placeholder="ملخص قصير يظهر على بطاقة المنتج..."
-                rows={3}
-              />
+              <Label>وصف قصير</Label>
+              <div className="grid grid-cols-2 gap-2">
+                <div className="space-y-1">
+                  <span className="text-xs text-muted-foreground">العربية</span>
+                  <Textarea
+                    value={form.short_description_ar}
+                    onChange={(e) => handleFormChange('short_description_ar', e.target.value)}
+                    placeholder="ملخص قصير يظهر على بطاقة المنتج..."
+                    rows={3}
+                  />
+                </div>
+                <div className="space-y-1">
+                  <span className="text-xs text-muted-foreground">Français</span>
+                  <Textarea
+                    value={form.short_description_fr}
+                    onChange={(e) => handleFormChange('short_description_fr', e.target.value)}
+                    placeholder="Résumé court affiché sur la fiche produit..."
+                    rows={3}
+                  />
+                </div>
+              </div>
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="p-desc">تفاصيل المنتج</Label>
-              <Textarea
-                id="p-desc"
-                value={form.description}
-                onChange={(e) => handleFormChange('description', e.target.value)}
-                placeholder="وصف كامل للمنتج يشمل المواصفات والميزات والتفاصيل..."
-                rows={8}
-              />
+              <Label>تفاصيل المنتج</Label>
+              <div className="grid grid-cols-2 gap-2">
+                <div className="space-y-1">
+                  <span className="text-xs text-muted-foreground">العربية</span>
+                  <Textarea
+                    value={form.description_ar}
+                    onChange={(e) => handleFormChange('description_ar', e.target.value)}
+                    placeholder="وصف كامل للمنتج بالعربية..."
+                    rows={8}
+                  />
+                </div>
+                <div className="space-y-1">
+                  <span className="text-xs text-muted-foreground">Français</span>
+                  <Textarea
+                    value={form.description_fr}
+                    onChange={(e) => handleFormChange('description_fr', e.target.value)}
+                    placeholder="Description complète en français..."
+                    rows={8}
+                  />
+                </div>
+              </div>
             </div>
 
             <div className="space-y-2">

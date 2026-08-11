@@ -3,9 +3,15 @@ export interface Product {
   created_at: string
   updated_at: string
   name: string
+  name_ar?: string | null
+  name_fr?: string | null
   slug: string
   short_description: string | null
+  short_description_ar?: string | null
+  short_description_fr?: string | null
   description: string | null
+  description_ar?: string | null
+  description_fr?: string | null
   category: string
   brand: string | null
   condition: string | null
@@ -23,9 +29,15 @@ export interface Product {
 
 export interface ProductCreateInput {
   name: string
+  name_ar: string
+  name_fr: string
   slug: string
   short_description: string
+  short_description_ar: string
+  short_description_fr: string
   description: string
+  description_ar: string
+  description_fr: string
   category: string
   brand: string
   condition: string

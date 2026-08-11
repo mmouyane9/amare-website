@@ -825,18 +825,18 @@
   var FALLBACK_MEMBERS = [];
 
   var FALLBACK_REGIONS = [
-    { id:'MA01', name:'طنجة - تطوان - الحسيمة', status:'active', branches:1 },
-    { id:'MA02', name:'الشرق', status:'upcoming', branches:0 },
-    { id:'MA03', name:'فاس - مكناس', status:'active', branches:2 },
-    { id:'MA04', name:'الرباط - سلا - القنيطرة', status:'active', branches:2 },
-    { id:'MA05', name:'بني ملال - خنيفرة', status:'upcoming', branches:1 },
-    { id:'MA06', name:'الدار البيضاء - سطات', status:'active', branches:3 },
-    { id:'MA07', name:'مراكش - آسفي', status:'upcoming', branches:1 },
-    { id:'MA08', name:'درعة - تافيلالت', status:'upcoming', branches:0 },
-    { id:'MA09', name:'سوس - ماسة', status:'active', branches:4 },
-    { id:'MA10', name:'كلميم - واد نون', status:'future', branches:0 },
-    { id:'MA11', name:'العيون - الساقية الحمراء', status:'future', branches:0 },
-    { id:'MA12', name:'الداخلة - وادي الذهب', status:'future', branches:0 }
+    { id:'MA01', name_ar:'طنجة - تطوان - الحسيمة', name_fr:'Tanger-Tétouan-Al Hoceïma', status:'active', branches:1 },
+    { id:'MA02', name_ar:'الشرق', name_fr:'Oriental', status:'upcoming', branches:0 },
+    { id:'MA03', name_ar:'فاس - مكناس', name_fr:'Fès-Meknès', status:'active', branches:2 },
+    { id:'MA04', name_ar:'الرباط - سلا - القنيطرة', name_fr:'Rabat-Salé-Kénitra', status:'active', branches:2 },
+    { id:'MA05', name_ar:'بني ملال - خنيفرة', name_fr:'Béni Mellal-Khénifra', status:'upcoming', branches:1 },
+    { id:'MA06', name_ar:'الدار البيضاء - سطات', name_fr:'Casablanca-Settat', status:'active', branches:3 },
+    { id:'MA07', name_ar:'مراكش - آسفي', name_fr:'Marrakech-Safi', status:'upcoming', branches:1 },
+    { id:'MA08', name_ar:'درعة - تافيلالت', name_fr:'Drâa-Tafilalet', status:'upcoming', branches:0 },
+    { id:'MA09', name_ar:'سوس - ماسة', name_fr:'Souss-Massa', status:'active', branches:4 },
+    { id:'MA10', name_ar:'كلميم - واد نون', name_fr:'Guelmim-Oued Noun', status:'future', branches:0 },
+    { id:'MA11', name_ar:'العيون - الساقية الحمراء', name_fr:'Laâyoune-Sakia El Hamra', status:'future', branches:0 },
+    { id:'MA12', name_ar:'الداخلة - وادي الذهب', name_fr:'Dakhla-Oued Eddahab', status:'future', branches:0 }
   ];
 
   function getMembers() { return window.__AMARE_ABOUT_CO_MEMBERS || FALLBACK_MEMBERS; }
@@ -844,11 +844,8 @@
     var regions = window.__AMARE_ABOUT_REGIONS;
     if (regions) return regions;
     var lang = (window.I18n && window.I18n.getCurrentLanguage && window.I18n.getCurrentLanguage()) || 'ar';
-    if (lang !== 'fr') return FALLBACK_REGIONS;
     return FALLBACK_REGIONS.map(function(r) {
-      var name = r.name;
-      if (window.I18n) { var t = window.I18n.t(name); if (t !== name) name = t; }
-      return { id: r.id, name: name, status: r.status, branches: r.branches };
+      return { id: r.id, name: r['name_' + lang] || r.name_ar || r.name || '', status: r.status, branches: r.branches };
     });
   }
 
@@ -903,34 +900,18 @@
   }
 
   function memberCard(m, idx) {
-    console.log('[CO DEBUG] memberCard('+idx+') name:', m.name);
-    console.log('[CO DEBUG] memberCard('+idx+') role:', m.role);
-    console.log('[CO DEBUG] memberCard('+idx+') bio:', (m.bio||'').substring(0,40));
-    var photo = memberPhoto(m.name);
-    var imgSrc = photo || avatarDataUri(m.name, m.color);
+    var photoName = m.name_ar || m.name || '';
+    var photo = memberPhoto(photoName);
+    var displayName = m.name || '';
+    var imgSrc = photo || avatarDataUri(displayName, m.color);
     var socs = getSocials();
     var soc = ['facebook','instagram','linkedin'].map(function(k) { var it=socs[k]; return '<a href="'+escapeHtml(m[k]||'#')+'" aria-label="'+escapeHtml(it.label)+'" rel="noopener">'+it.svg+'</a>'; }).join('');
-    var altText = L('about.memberPhoto', 'صورة ') + escapeHtml(m.name);
+    var altText = L('about.memberPhoto', 'صورة ') + escapeHtml(displayName);
     var btnText = L('about.viewProfile', 'عرض الملف الشخصي');
-
     var role = m.role || '';
-    if (window.I18n) {
-      var lang = window.I18n.getCurrentLanguage();
-      if (lang !== 'ar') {
-        var t = window.I18n.t(role);
-        if (t !== role) role = t;
-      }
-    }
     var bio = m.bio || '';
-    if (window.I18n) {
-      var langB = window.I18n.getCurrentLanguage();
-      if (langB !== 'ar') {
-        var tb = window.I18n.t(bio);
-        if (tb !== bio) bio = tb;
-      }
-    }
 
-    return '<article class="co-member-card" style="--i:'+idx+'"><div class="co-member-photo"><img src="'+imgSrc+'" alt="'+altText+'" loading="lazy" width="96" height="96"></div><div class="co-member-body"><h3>'+escapeHtml(m.name)+'</h3><span class="co-member-role">'+escapeHtml(role)+'</span><p>'+escapeHtml(bio)+'</p><div class="co-member-social">'+soc+'</div><a href="'+escapeHtml(m.profileUrl||'#')+'" class="co-member-btn">'+btnText+'</a></div></article>';
+    return '<article class="co-member-card" style="--i:'+idx+'"><div class="co-member-photo"><img src="'+imgSrc+'" alt="'+altText+'" loading="lazy" width="96" height="96"></div><div class="co-member-body"><h3>'+escapeHtml(displayName)+'</h3><span class="co-member-role">'+escapeHtml(role)+'</span><p>'+escapeHtml(bio)+'</p><div class="co-member-social">'+soc+'</div><a href="'+escapeHtml(m.profileUrl||'#')+'" class="co-member-btn">'+btnText+'</a></div></article>';
   }
 
   function renderMembers() {

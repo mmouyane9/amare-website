@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {
   Building2,
@@ -34,16 +34,22 @@ import { Textarea } from '@/components/ui/textarea'
 import { ImagePlus } from 'lucide-react'
 import {
   EMPTY_REGION_FORM,
-  MOCK_REGIONS,
   regionToForm,
   type Region,
   type RegionFormData,
 } from '@/data/branches'
+import {
+  getRegions,
+  createRegion,
+  updateRegion,
+  deleteRegion,
+} from '@/services/branches.service'
 
 export default function BranchesPage() {
   const navigate = useNavigate()
-  const [regions] = useState<Region[]>(MOCK_REGIONS)
-  const [expandedRegions, setExpandedRegions] = useState<Set<string>>(new Set(['1']))
+  const [regions, setRegions] = useState<Region[]>([])
+  const [loading, setLoading] = useState(true)
+  const [expandedRegions, setExpandedRegions] = useState<Set<string>>(new Set())
   const [searchQuery, setSearchQuery] = useState('')
 
   const [regionModalOpen, setRegionModalOpen] = useState(false)
@@ -54,8 +60,19 @@ export default function BranchesPage() {
   const [deleteRegionTarget, setDeleteRegionTarget] = useState<Region | null>(null)
   const [deletingRegion, setDeletingRegion] = useState(false)
 
+  const loadRegions = async () => {
+    try {
+      const data = await getRegions()
+      setRegions(data)
+      if (data.length > 0) setExpandedRegions(new Set([data[0].id]))
+    } catch (e) { console.error(e) }
+    finally { setLoading(false) }
+  }
+
+  useEffect(() => { loadRegions() }, [])
+
   const filteredRegions = regions.filter((r) =>
-    r.name.includes(searchQuery),
+    (r.name_ar || '').includes(searchQuery),
   )
 
   const toggleRegion = (id: string) => {
@@ -70,7 +87,7 @@ export default function BranchesPage() {
   const handleRegionFormChange = (field: keyof RegionFormData, value: string) => {
     setRegionForm((prev) => {
       const next = { ...prev, [field]: value }
-      if (field === 'name') {
+      if (field === 'name_ar') {
         next.slug = value
           .toLowerCase()
           .replace(/\s+/g, '-')
@@ -92,20 +109,29 @@ export default function BranchesPage() {
     setRegionModalOpen(true)
   }
 
-  const handleRegionSave = () => {
+  const handleRegionSave = async () => {
     setRegionSaving(true)
-    setTimeout(() => {
-      setRegionSaving(false)
+    try {
+      if (editingRegion) {
+        await updateRegion(editingRegion.id, regionForm)
+      } else {
+        await createRegion(regionForm)
+      }
       setRegionModalOpen(false)
-    }, 500)
+      loadRegions()
+    } catch (e) { console.error(e) }
+    finally { setRegionSaving(false) }
   }
 
-  const handleRegionDelete = () => {
+  const handleRegionDelete = async () => {
+    if (!deleteRegionTarget) return
     setDeletingRegion(true)
-    setTimeout(() => {
-      setDeletingRegion(false)
+    try {
+      await deleteRegion(deleteRegionTarget.id)
       setDeleteRegionTarget(null)
-    }, 500)
+      loadRegions()
+    } catch (e) { console.error(e) }
+    finally { setDeletingRegion(false) }
   }
 
   return (
@@ -204,7 +230,7 @@ export default function BranchesPage() {
                           className="min-w-0 flex-1 truncate text-right font-medium"
                           onClick={() => navigate(`/branches/${region.id}`)}
                         >
-                          {region.name}
+                          {region.name_ar || region.name_en || ''}
                         </button>
                         <Building2 className="size-4 shrink-0 text-muted-foreground" />
                         <button
@@ -233,7 +259,7 @@ export default function BranchesPage() {
                               className="flex w-full items-center gap-1.5 rounded-md px-2 py-1.5 text-right text-sm text-muted-foreground transition-colors hover:bg-muted/50 hover:text-foreground"
                             >
                               <span className="min-w-0 flex-1 truncate">
-                                {city.name}
+                                {city.name_ar || city.name_en || ''}
                               </span>
                               <MapPin className="size-3.5 shrink-0" />
                             </button>
@@ -279,13 +305,17 @@ export default function BranchesPage() {
           </DialogHeader>
           <div className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="region-name">اسم الجهة</Label>
-              <Input
-                id="region-name"
-                value={regionForm.name}
-                onChange={(e) => handleRegionFormChange('name', e.target.value)}
-                placeholder="أدخل اسم الجهة"
-              />
+              <Label>اسم الجهة</Label>
+              <div className="grid grid-cols-2 gap-2">
+                <div className="space-y-1">
+                  <span className="text-xs text-muted-foreground">العربية</span>
+                  <Input value={regionForm.name_ar} onChange={(e) => handleRegionFormChange('name_ar', e.target.value)} placeholder="بالعربية" />
+                </div>
+                <div className="space-y-1">
+                  <span className="text-xs text-muted-foreground">Français</span>
+                  <Input value={regionForm.name_fr} onChange={(e) => handleRegionFormChange('name_fr', e.target.value)} placeholder="en français" />
+                </div>
+              </div>
             </div>
             <div className="space-y-2">
               <Label htmlFor="region-slug">الرابط</Label>
@@ -297,16 +327,17 @@ export default function BranchesPage() {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="region-desc">الوصف</Label>
-              <Textarea
-                id="region-desc"
-                value={regionForm.description}
-                onChange={(e) =>
-                  handleRegionFormChange('description', e.target.value)
-                }
-                placeholder="وصف مختصر عن الجهة..."
-                rows={3}
-              />
+              <Label>الوصف</Label>
+              <div className="grid grid-cols-2 gap-2">
+                <div className="space-y-1">
+                  <span className="text-xs text-muted-foreground">العربية</span>
+                  <Textarea value={regionForm.description_ar} onChange={(e) => handleRegionFormChange('description_ar', e.target.value)} placeholder="بالعربية" rows={3} />
+                </div>
+                <div className="space-y-1">
+                  <span className="text-xs text-muted-foreground">Français</span>
+                  <Textarea value={regionForm.description_fr} onChange={(e) => handleRegionFormChange('description_fr', e.target.value)} placeholder="en français" rows={3} />
+                </div>
+              </div>
             </div>
             <div className="space-y-2">
               <Label>صورة الغلاف</Label>

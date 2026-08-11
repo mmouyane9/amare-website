@@ -23,31 +23,50 @@
   }
 
   /* ------------------------------------------------------------------
-     Fallback data — matches the hardcoded HTML exactly
+     Bilingual helper — picks key_lang, falls back to key_ar
+     ------------------------------------------------------------------ */
+  function pickBilingual(data, key) {
+    if (!data) return '';
+    var lang = (window.I18n && window.I18n.getCurrentLanguage) ? window.I18n.getCurrentLanguage() : 'ar';
+    var value = data[key + '_' + lang];
+    if (value != null && value !== '') return value;
+    value = data[key + '_ar'];
+    if (value != null && value !== '') return value;
+    return data[key] || '';
+  }
+
+  /* ------------------------------------------------------------------
+     Fallback data — bilingual _ar/_fr format
      ------------------------------------------------------------------ */
   var FALLBACK = {
     hero: {
-      heading: 'أنشطة الجمعية',
-      subheading: 'أنشطتنا',
-      description: 'نظمت الجمعية المغربية لهواة البحث والاستكشاف مجموعة متنوعة من الأنشطة والمبادرات التي تجمع بين الاستكشاف والتكوين والعمل البيئي والتواصل المجتمعي.',
+      heading_ar: 'أنشطة الجمعية',
+      heading_fr: 'Activités de l\'association',
+      subheading_ar: 'أنشطتنا',
+      subheading_fr: 'Nos activités',
+      description_ar: 'نظمت الجمعية المغربية لهواة البحث والاستكشاف مجموعة متنوعة من الأنشطة والمبادرات التي تجمع بين الاستكشاف والتكوين والعمل البيئي والتواصل المجتمعي.',
+      description_fr: 'L\'Association Marocaine des Amateurs de Recherche et d\'Exploration a organisé une diversité d\'activités et d\'initiatives alliant exploration, formation, action environnementale et communication communautaire.',
     },
     activitiesGrid: {
-      heading: 'أنشطتنا',
+      heading_ar: 'أنشطتنا',
+      heading_fr: 'Nos activités',
       cards: [
-        { title: 'الخرجات', description: 'خرجات ميدانية للاستكشاف والتعرف على المواقع والمجالات الطبيعية.' },
-        { title: 'مسابقات وراليات', description: 'تنظيم مسابقات وراليات تجمع بين روح التحدي والاستكشاف.' },
-        { title: 'تكوينات', description: 'تكوينات وورشات لتطوير مهارات الأعضاء والمهتمين بمجال الاستكشاف.' },
-        { title: 'معارض', description: 'المشاركة وتنظيم معارض للتعريف بأنشطة الجمعية وإنجازاتها.' },
-        { title: 'لقاءات', description: 'لقاءات وفعاليات تجمع الأعضاء والشركاء والمهتمين.' },
-        { title: 'حملات بيئية', description: 'مبادرات وحملات تهدف إلى حماية البيئة والتحسيس بأهمية المحافظة عليها.' },
+        { title_ar: 'الخرجات', title_fr: 'Sorties', description_ar: 'خرجات ميدانية للاستكشاف والتعرف على المواقع والمجالات الطبيعية.', description_fr: 'Sorties de terrain pour l\'exploration et la découverte des sites et espaces naturels.' },
+        { title_ar: 'مسابقات وراليات', title_fr: 'Compétitions et rallyes', description_ar: 'تنظيم مسابقات وراليات تجمع بين روح التحدي والاستكشاف.', description_fr: 'Organisation de compétitions et de rallyes alliant esprit de défi et exploration.' },
+        { title_ar: 'تكوينات', title_fr: 'Formations', description_ar: 'تكوينات وورشات لتطوير مهارات الأعضاء والمهتمين بمجال الاستكشاف.', description_fr: 'Formations et ateliers pour développer les compétences des membres et des passionnés d\'exploration.' },
+        { title_ar: 'معارض', title_fr: 'Expositions', description_ar: 'المشاركة وتنظيم معارض للتعريف بأنشطة الجمعية وإنجازاتها.', description_fr: 'Participation et organisation d\'expositions pour faire connaître les activités et réalisations de l\'association.' },
+        { title_ar: 'لقاءات', title_fr: 'Rencontres', description_ar: 'لقاءات وفعاليات تجمع الأعضاء والشركاء والمهتمين.', description_fr: 'Rencontres et événements rassemblant les membres, les partenaires et les passionnés.' },
+        { title_ar: 'حملات بيئية', title_fr: 'Campagnes environnementales', description_ar: 'مبادرات وحملات تهدف إلى حماية البيئة والتحسيس بأهمية المحافظة عليها.', description_fr: 'Initiatives et campagnes visant à protéger l\'environnement et à sensibiliser à l\'importance de sa préservation.' },
       ],
     },
     activitiesCta: {
-      heading: 'اكتشف أنشطتنا',
-      description: 'تابع آخر أنشطة الجمعية ومبادراتها.',
+      heading_ar: 'اكتشف أنشطتنا',
+      heading_fr: 'Découvrez nos activités',
+      description_ar: 'تابع آخر أنشطة الجمعية ومبادراتها.',
+      description_fr: 'Suivez les dernières activités et initiatives de l\'association.',
       buttons: [
-        { label: 'آخر الأخبار', url: '/News/news.html' },
-        { label: 'تواصل معنا', url: '/contact.html' },
+        { label_ar: 'آخر الأخبار', label_fr: 'Dernières actualités', url: '/News/news.html' },
+        { label_ar: 'تواصل معنا', label_fr: 'Contactez-nous', url: '/contact.html' },
       ],
     },
   };
@@ -57,21 +76,21 @@
      ------------------------------------------------------------------ */
   function injectHero(d) {
     var badge = el('.activities-hero-badge');
-    if (badge && d.subheading) {
+    if (badge) {
       var svg = badge.querySelector('svg');
-      badge.innerHTML = (svg ? svg.outerHTML + ' ' : '') + esc(d.subheading);
+      badge.innerHTML = (svg ? svg.outerHTML + ' ' : '') + esc(pickBilingual(d, 'subheading'));
     }
 
     var h1 = el('.activities-hero h1');
-    if (h1 && d.heading) {
-      var parts = (d.heading || '').split(' ');
+    if (h1) {
+      var parts = pickBilingual(d, 'heading').split(' ');
       var lastWord = parts.pop();
       var rest = parts.join(' ');
       h1.innerHTML = esc(rest) + ' <span>' + esc(lastWord) + '</span>';
     }
 
     var desc = el('.activities-hero p');
-    if (desc && d.description) desc.textContent = d.description;
+    if (desc) desc.textContent = pickBilingual(d, 'description');
   }
 
   /* ------------------------------------------------------------------
@@ -83,8 +102,8 @@
       for (var i = 0; i < Math.min(cards.length, d.cards.length); i++) {
         var h3 = cards[i].querySelector('h3');
         var p = cards[i].querySelector('p');
-        if (h3) h3.textContent = d.cards[i].title || '';
-        if (p) p.textContent = d.cards[i].description || '';
+        if (h3) h3.textContent = pickBilingual(d.cards[i], 'title');
+        if (p) p.textContent = pickBilingual(d.cards[i], 'description');
       }
     }
   }
@@ -94,10 +113,10 @@
      ------------------------------------------------------------------ */
   function injectActivitiesCta(d) {
     var h2 = el('#act-cta h2');
-    if (h2 && d.heading) h2.textContent = d.heading;
+    if (h2) h2.textContent = pickBilingual(d, 'heading');
 
     var p = el('#act-cta p');
-    if (p && d.description) p.textContent = d.description;
+    if (p) p.textContent = pickBilingual(d, 'description');
 
     if (d.buttons) {
       var anchors = document.querySelectorAll('#act-cta .act-cta-actions a');
@@ -107,7 +126,7 @@
         if (b) {
           a.href = b.url || '#';
           var svg = a.querySelector('svg');
-          a.textContent = b.label || '';
+          a.textContent = pickBilingual(b, 'label');
           if (svg) a.appendChild(svg);
         }
       }

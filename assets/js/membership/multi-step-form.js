@@ -304,6 +304,11 @@
     card.classList.add('is-enter');
 
     app.goTo(1);
+
+    // Re-translate after navbar/footer renderers have injected their DOM content
+    if (root.I18n && typeof root.I18n.translateContent === 'function') {
+      root.I18n.translateContent(doc);
+    }
   }
 
   if (doc.readyState === 'loading') {

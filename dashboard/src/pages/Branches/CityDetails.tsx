@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import {
   ArrowRight,
@@ -38,118 +38,73 @@ import { Separator } from '@/components/ui/separator'
 import { Switch } from '@/components/ui/switch'
 import { Textarea } from '@/components/ui/textarea'
 
-import { MOCK_REGIONS } from '@/data/branches'
+import { type City, cityToForm } from '@/data/branches'
+import { getCityById, updateCity, getPostsByCity, createPost, updatePost, deletePost, getPostImages, createPostImage, updatePostImage, deletePostImage } from '@/services/branches.service'
+interface PostFormData { title: string; description: string; featured_image?: string }
+interface GalleryFormData { description: string; imageUrl?: string }
 
-interface MockPost {
-  id: string
-  title: string
-  description: string
-  imageUrl?: string
-  date: string
-}
+const EMPTY_POST_FORM: PostFormData = { title: '', description: '' }
+const EMPTY_GALLERY_FORM: GalleryFormData = { description: '' }
 
-interface MockGalleryImage {
-  id: string
-  description: string
-  imageUrl?: string
-}
-
-const MOCK_POSTS: MockPost[] = [
-  {
-    id: 'p1',
-    title: 'استكشاف شلالات أوزود',
-    description: 'رحلة استكشافية رائعة إلى شلالات أوزود الخلابة في جبال الأطلس، مع مجموعة من أعضاء الجمعية.',
-    date: '2025-12-15',
-  },
-  {
-    id: 'p2',
-    title: 'لقاء الأعضاء الشهري',
-    description: 'الاجتماع الشهري لأعضاء فرع أزيلال لمناقشة خطة الأنشطة القادمة والمشاريع الميدانية.',
-    date: '2025-11-28',
-  },
-  {
-    id: 'p3',
-    title: 'حملة تنظيف المسالك الجبلية',
-    description: 'مبادرة بيئية لتنظيف المسالك الجبلية في منطقة أزيلال بمشاركة متطوعين من الجمعية والسكان المحليين.',
-    date: '2025-11-10',
-  },
-  {
-    id: 'p4',
-    title: 'ورشة التصوير الفوتوغرافي',
-    description: 'ورشة تدريبية حول أساسيات التصوير الفوتوغرافي في الطبيعة، نظمها فرع أزيلال للأعضاء الجدد.',
-    date: '2025-10-22',
-  },
-]
-
-const MOCK_GALLERY: MockGalleryImage[] = [
-  { id: 'g1', description: 'منظر عام لشلالات أوزود' },
-  { id: 'g2', description: 'جبال الأطلس في الشتاء' },
-  { id: 'g3', description: 'بحيرة بين الويدان' },
-  { id: 'g4', description: 'الغابات المحيطة بأزيلال' },
-  { id: 'g5', description: 'منظر الغروب من قمم الأطلس' },
-  { id: 'g6', description: 'القرية الجبلية التقليدية' },
-]
-
-interface PostFormData {
-  title: string
-  description: string
-  imageUrl?: string
-}
-
-interface GalleryFormData {
-  description: string
-  imageUrl?: string
-}
-
-const EMPTY_POST_FORM: PostFormData = {
-  title: '',
-  description: '',
-}
-
-const EMPTY_GALLERY_FORM: GalleryFormData = {
-  description: '',
-}
 
 export default function CityDetailsPage() {
   const { regionId, cityId } = useParams<{ regionId: string; cityId: string }>()
   const navigate = useNavigate()
 
-  const region = MOCK_REGIONS.find((r) => r.id === regionId) ?? null
-  const city = region?.cities.find((c) => c.id === cityId) ?? null
-
   const [editing, setEditing] = useState(false)
   const [saving, setSaving] = useState(false)
-  const [form, setForm] = useState({
-    name: city?.name ?? '',
-    description: city?.description ?? '',
-  })
-  const [coverUrl] = useState<string | undefined>(city?.coverImage)
+  const [form, setForm] = useState({ name_ar: '', name_fr: '', slug: '', description_ar: '', description_fr: '', cover_image: '', address: '', phone: '', email: '', facebook: '', whatsapp: '', published: true })
+  const [coverUrl] = useState<string | undefined>(undefined)
 
-  const [settings, setSettings] = useState({
-    showCity: true,
-    allowPosts: true,
-    allowComments: true,
-    allowLikes: true,
-  })
+  const [settings, setSettings] = useState({ published: true })
 
-  const [posts] = useState<MockPost[]>(MOCK_POSTS)
-  const [gallery] = useState<MockGalleryImage[]>(MOCK_GALLERY)
+  const [posts, setPosts] = useState<any[]>([])
+  const [gallery, setGallery] = useState<any[]>([])
+
+  const loadCity = async () => {
+    if (!cityId) return
+    try {
+      const c = await getCityById(cityId)
+      setCity(c)
+      setForm(cityToForm(c))
+      setSettings({ published: c.published !== false })
+    } catch (e) { console.error(e) }
+    finally { setLoading(false) }
+  }
+
+  const loadPosts = async () => {
+    if (!cityId) return
+    try {
+      const p = await getPostsByCity(cityId)
+      setPosts(p)
+      if (p.length > 0) {
+        const g = await getPostImages(p[0].id)
+        setGallery(g)
+      } else { setGallery([]) }
+    } catch (e) { console.error(e) }
+  }
+
+  useEffect(() => { loadCity(); loadPosts() }, [cityId])
 
   const [postModalOpen, setPostModalOpen] = useState(false)
   const [editingPostId, setEditingPostId] = useState<string | null>(null)
   const [postForm, setPostForm] = useState<PostFormData>(EMPTY_POST_FORM)
   const [postSaving, setPostSaving] = useState(false)
-  const [deletePostTarget, setDeletePostTarget] = useState<MockPost | null>(null)
+  const [deletePostTarget, setDeletePostTarget] = useState<any>(null)
   const [deletingPost, setDeletingPost] = useState(false)
 
   const [galleryModalOpen, setGalleryModalOpen] = useState(false)
   const [editingGalleryId, setEditingGalleryId] = useState<string | null>(null)
   const [galleryForm, setGalleryForm] = useState<GalleryFormData>(EMPTY_GALLERY_FORM)
   const [gallerySaving, setGallerySaving] = useState(false)
-  const [deleteImageTarget, setDeleteImageTarget] = useState<MockGalleryImage | null>(null)
+  const [deleteImageTarget, setDeleteImageTarget] = useState<any>(null)
   const [deletingImage, setDeletingImage] = useState(false)
 
-  if (!region || !city) {
+  if (loading) {
+    return <div className="flex flex-col items-center justify-center py-32 text-center"><Loader2 className="size-8 animate-spin text-muted-foreground/40" /><p className="mt-4 text-sm text-muted-foreground">جاري التحميل...</p></div>
+  }
+
+  if (!city) {
     return (
       <div className="flex flex-col items-center justify-center py-32 text-center">
         <Building2 className="size-14 text-muted-foreground/25" />
@@ -171,7 +126,7 @@ export default function CityDetailsPage() {
 
   const handleEditToggle = () => {
     if (editing) {
-      setForm({ name: city.name, description: city.description })
+      setForm({ name: city.name_ar, description: city.description })
     }
     setEditing(!editing)
   }
@@ -180,12 +135,9 @@ export default function CityDetailsPage() {
     setForm((prev) => ({ ...prev, [field]: value }))
   }
 
-  const handleSave = () => {
+  const handleSave = async () => {
     setSaving(true)
-    setTimeout(() => {
-      setSaving(false)
-      setEditing(false)
-    }, 500)
+    try { await updateCity(city!.id, form); setEditing(false); loadCity() } catch (e) { console.error(e) } finally { setSaving(false) }
   }
 
   const openPostCreate = () => {
@@ -194,26 +146,26 @@ export default function CityDetailsPage() {
     setPostModalOpen(true)
   }
 
-  const openPostEdit = (post: MockPost) => {
+  const openPostEdit = (post: any) => {
     setEditingPostId(post.id)
     setPostForm({ title: post.title, description: post.description })
     setPostModalOpen(true)
   }
 
-  const handlePostSave = () => {
+  const handlePostSave = async () => {
     setPostSaving(true)
-    setTimeout(() => {
-      setPostSaving(false)
+    try {
+      if (editingPostId) { await updatePost(editingPostId, postForm) }
+      else { await createPost({ city_id: cityId!, title: postForm.title, content: postForm.description, featured_image: postForm.featured_image || '' }) }
       setPostModalOpen(false)
-    }, 500)
+      loadPosts()
+    } catch (e) { console.error(e) } finally { setPostSaving(false) }
   }
 
-  const handlePostDelete = () => {
+  const handlePostDelete = async () => {
+    if (!deletePostTarget) return
     setDeletingPost(true)
-    setTimeout(() => {
-      setDeletingPost(false)
-      setDeletePostTarget(null)
-    }, 500)
+    try { await deletePost(deletePostTarget.id); setDeletePostTarget(null); loadPosts() } catch (e) { console.error(e) } finally { setDeletingPost(false) }
   }
 
   const openGalleryCreate = () => {
@@ -222,26 +174,29 @@ export default function CityDetailsPage() {
     setGalleryModalOpen(true)
   }
 
-  const openGalleryEdit = (image: MockGalleryImage) => {
+  const openGalleryEdit = (image: any) => {
     setEditingGalleryId(image.id)
     setGalleryForm({ description: image.description })
     setGalleryModalOpen(true)
   }
 
-  const handleGallerySave = () => {
+  const handleGallerySave = async () => {
     setGallerySaving(true)
-    setTimeout(() => {
-      setGallerySaving(false)
+    try {
+      if (editingGalleryId) {
+        await updatePostImage(editingGalleryId, { image_url: galleryForm.imageUrl || '' })
+      } else if (posts.length > 0) {
+        await createPostImage({ post_id: posts[0].id, image_url: galleryForm.imageUrl || '' })
+      }
       setGalleryModalOpen(false)
-    }, 500)
+      loadPosts()
+    } catch (e) { console.error(e) } finally { setGallerySaving(false) }
   }
 
-  const handleImageDelete = () => {
+  const handleImageDelete = async () => {
+    if (!deleteImageTarget) return
     setDeletingImage(true)
-    setTimeout(() => {
-      setDeletingImage(false)
-      setDeleteImageTarget(null)
-    }, 500)
+    try { await deletePostImage(deleteImageTarget.id); setDeleteImageTarget(null); loadPosts() } catch (e) { console.error(e) } finally { setDeletingImage(false) }
   }
 
   return (
@@ -258,16 +213,16 @@ export default function CityDetailsPage() {
           to={`/branches/${region.id}`}
           className="transition-colors hover:text-foreground"
         >
-          {region.name}
+          {regionId}
         </Link>
         <ChevronLeft className="size-3.5" />
-        <span className="font-medium text-foreground">{city.name}</span>
+        <span className="font-medium text-foreground">{city.name_ar}</span>
       </nav>
 
       <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h2 className="text-2xl font-semibold tracking-tight">
-            مدينة {city.name}
+            مدينة {city.name_ar}
           </h2>
           <p className="text-sm text-muted-foreground">
             إدارة صفحة المدينة والمحتوى الخاص بها.
@@ -299,7 +254,7 @@ export default function CityDetailsPage() {
             <div className="relative">
               <img
                 src={coverUrl}
-                alt={city.name}
+                alt={city.name_ar}
                 className="h-56 w-full object-cover"
               />
               <Button
@@ -352,7 +307,7 @@ export default function CityDetailsPage() {
                   <Label className="text-xs text-muted-foreground">
                     اسم المدينة
                   </Label>
-                  <p className="mt-0.5 text-sm font-medium">{city.name}</p>
+                  <p className="mt-0.5 text-sm font-medium">{city.name_ar}</p>
                 </div>
                 <div>
                   <Label className="text-xs text-muted-foreground">
@@ -372,7 +327,7 @@ export default function CityDetailsPage() {
             <CardHeader>
               <CardDescription>عدد الأعضاء</CardDescription>
               <CardTitle className="text-2xl font-semibold tracking-tight">
-                {city.members.toLocaleString()}
+                {1.toLocaleString()}
               </CardTitle>
             </CardHeader>
             <CardContent className="pt-1">
@@ -386,7 +341,7 @@ export default function CityDetailsPage() {
             <CardHeader>
               <CardDescription>عدد المنشورات</CardDescription>
               <CardTitle className="text-2xl font-semibold tracking-tight">
-                {city.posts.toLocaleString()}
+                {0.toLocaleString()}
               </CardTitle>
             </CardHeader>
             <CardContent className="pt-1">
@@ -465,9 +420,9 @@ export default function CityDetailsPage() {
                     className="overflow-hidden rounded-lg border border-border/60 transition-colors hover:border-border"
                   >
                     <div className="flex h-40 items-center justify-center bg-muted/30">
-                      {post.imageUrl ? (
+                      {post.featured_image || post.image_url || '' ? (
                         <img
-                          src={post.imageUrl}
+                          src={post.featured_image || post.image_url || ''}
                           alt={post.title}
                           className="h-full w-full object-cover"
                         />
@@ -560,9 +515,9 @@ export default function CityDetailsPage() {
                     className="overflow-hidden rounded-lg border border-border/60 transition-colors hover:border-border"
                   >
                     <div className="flex h-40 items-center justify-center bg-muted/30">
-                      {image.imageUrl ? (
+                      {image.image_url || '' ? (
                         <img
-                          src={image.imageUrl}
+                          src={image.image_url || ''}
                           alt={image.description}
                           className="h-full w-full object-cover"
                         />
@@ -617,9 +572,9 @@ export default function CityDetailsPage() {
                 </p>
               </div>
               <Switch
-                checked={settings.showCity}
+                checked={settings.published}
                 onCheckedChange={(v) =>
-                  setSettings((prev) => ({ ...prev, showCity: v }))
+                  setSettings((prev) => ({ ...prev, published: v }))
                 }
               />
             </div>

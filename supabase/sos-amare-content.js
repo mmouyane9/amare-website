@@ -24,6 +24,16 @@
     return /sos-amare/i.test(path);
   }
 
+  function pickBilingual(data, key) {
+    if (!data) return '';
+    var lang = (window.I18n && window.I18n.getCurrentLanguage) ? window.I18n.getCurrentLanguage() : 'ar';
+    var value = data[key + '_' + lang];
+    if (value != null && value !== '') return value;
+    value = data[key + '_ar'];
+    if (value != null && value !== '') return value;
+    return data[key] || '';
+  }
+
   function setEyebrow(sec, text) {
     var el = sec.querySelector('.sos-section-eyebrow');
     if (el && text) {
@@ -48,32 +58,32 @@
       if (!buttons[i]) continue;
       anchors[i].href = buttons[i].url || '#';
       var svg = anchors[i].querySelector('svg');
-      anchors[i].textContent = buttons[i].label || '';
+      anchors[i].textContent = pickBilingual(buttons[i], 'label');
       if (svg) anchors[i].appendChild(svg);
     }
   }
 
   function injectHero(d) {
     var h1 = document.querySelector('.sos-hero h1');
-    if (h1 && d.heading) h1.textContent = d.heading;
+    if (h1) h1.textContent = pickBilingual(d, 'heading');
     var sub = document.querySelector('.sos-hero-subtitle');
-    if (sub && d.description) sub.textContent = d.description;
+    if (sub) sub.textContent = pickBilingual(d, 'description');
     injectButtons(document.querySelectorAll('.sos-hero-actions a'), d.buttons);
   }
 
   function injectSosHow(d) {
     var sec = document.querySelector('#sosHow');
     if (!sec) return;
-    setEyebrow(sec, d.eyebrow);
-    setTitle(sec, d.heading);
-    setDesc(sec, d.description);
+    setEyebrow(sec, pickBilingual(d, 'eyebrow'));
+    setTitle(sec, pickBilingual(d, 'heading'));
+    setDesc(sec, pickBilingual(d, 'description'));
     if (d.steps) {
       var cards = sec.querySelectorAll('.sos-how-card');
       for (var i = 0; i < Math.min(cards.length, d.steps.length); i++) {
         var h3 = cards[i].querySelector('h3');
         var p = cards[i].querySelector('p');
-        if (h3) h3.textContent = d.steps[i].title || '';
-        if (p) p.textContent = d.steps[i].description || '';
+        if (h3) h3.textContent = pickBilingual(d.steps[i], 'title');
+        if (p) p.textContent = pickBilingual(d.steps[i], 'description');
       }
     }
   }
@@ -81,14 +91,14 @@
   function injectSosCategories(d) {
     var sec = document.querySelector('#sosCats');
     if (!sec) return;
-    setEyebrow(sec, d.eyebrow);
-    setTitle(sec, d.heading);
-    setDesc(sec, d.description);
+    setEyebrow(sec, pickBilingual(d, 'eyebrow'));
+    setTitle(sec, pickBilingual(d, 'heading'));
+    setDesc(sec, pickBilingual(d, 'description'));
     if (d.categories) {
       var cards = sec.querySelectorAll('.sos-cat-card');
       for (var i = 0; i < Math.min(cards.length, d.categories.length); i++) {
         var h3 = cards[i].querySelector('h3');
-        if (h3) h3.textContent = d.categories[i].title || '';
+        if (h3) h3.textContent = pickBilingual(d.categories[i], 'title');
       }
     }
   }
@@ -96,18 +106,18 @@
   function injectSosForm(d) {
     var sec = document.querySelector('#sosForm');
     if (!sec) return;
-    setEyebrow(sec, d.eyebrow);
-    setTitle(sec, d.heading);
-    setDesc(sec, d.description);
+    setEyebrow(sec, pickBilingual(d, 'eyebrow'));
+    setTitle(sec, pickBilingual(d, 'heading'));
+    setDesc(sec, pickBilingual(d, 'description'));
   }
 
   function injectSosGreen(d) {
     var sec = document.querySelector('#sosGreen');
     if (!sec) return;
     var h2 = sec.querySelector('h2');
-    if (h2 && d.heading) h2.textContent = d.heading;
+    if (h2) h2.textContent = pickBilingual(d, 'heading');
     var desc = sec.querySelector('.sos-green-desc');
-    if (desc && d.description) desc.textContent = d.description;
+    if (desc) desc.textContent = pickBilingual(d, 'description');
     var num = sec.querySelector('.sos-green-number');
     if (num && d.number) {
       var svg = num.querySelector('svg');
@@ -116,9 +126,9 @@
     }
     injectButtons(sec.querySelectorAll('.sos-green-actions a'), d.buttons);
     var hours = sec.querySelector('.sos-green-hours');
-    if (hours && d.hours) {
+    if (hours) {
       var hSvg = hours.querySelector('svg');
-      hours.textContent = d.hours;
+      hours.textContent = pickBilingual(d, 'hours');
       if (hSvg) hours.insertBefore(hSvg, hours.firstChild);
     }
   }
@@ -126,16 +136,16 @@
   function injectSosFaq(d) {
     var sec = document.querySelector('#sosFaq');
     if (!sec) return;
-    setEyebrow(sec, d.eyebrow);
-    setTitle(sec, d.heading);
-    setDesc(sec, d.description);
+    setEyebrow(sec, pickBilingual(d, 'eyebrow'));
+    setTitle(sec, pickBilingual(d, 'heading'));
+    setDesc(sec, pickBilingual(d, 'description'));
     if (d.items) {
       var items = sec.querySelectorAll('.sos-faq-item');
       for (var i = 0; i < Math.min(items.length, d.items.length); i++) {
         var q = items[i].querySelector('.sos-faq-question span');
         var a = items[i].querySelector('.sos-faq-answer-inner');
-        if (q) q.textContent = d.items[i].question || '';
-        if (a) a.textContent = d.items[i].answer || '';
+        if (q) q.textContent = pickBilingual(d.items[i], 'question');
+        if (a) a.textContent = pickBilingual(d.items[i], 'answer');
       }
     }
   }
@@ -144,7 +154,7 @@
     var sec = document.querySelector('#sosCta');
     if (!sec) return;
     var h2 = sec.querySelector('h2');
-    if (h2 && d.heading) h2.textContent = d.heading;
+    if (h2) h2.textContent = pickBilingual(d, 'heading');
     injectButtons(sec.querySelectorAll('.sos-cta-actions a'), d.buttons);
   }
 

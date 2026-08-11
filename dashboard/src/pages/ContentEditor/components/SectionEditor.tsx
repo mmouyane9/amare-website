@@ -314,42 +314,78 @@ export function FaqItemEditor({
 
 export function HeroEditor({ section, onChange }: SectionEditorProps) {
   const data = section.data as Record<string, unknown>
-  const buttons = (data.buttons ?? []) as SectionButton[]
+  const buttons = (data.buttons ?? []) as Array<{ id: string; label_ar?: string; label_fr?: string; url: string; variant: string }>
 
   return (
     <div className="space-y-3">
-      <TextField
-        label="Title"
-        value={(data.heading as string) ?? ''}
-        onChange={(v) => onChange({ ...data, heading: v })}
-      />
-      <TextField
-        label="Subtitle"
-        value={(data.subheading as string) ?? ''}
-        onChange={(v) => onChange({ ...data, subheading: v })}
-      />
-      <TextareaField
-        label="Description"
-        value={(data.description as string) ?? ''}
-        onChange={(v) => onChange({ ...data, description: v })}
-      />
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">Title</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية">
+            <Input value={(data.heading_ar as string) ?? ''} onChange={(e) => onChange({ ...data, heading_ar: e.target.value })} placeholder="بالعربية" className="h-8 text-sm" />
+          </FieldGroup>
+          <FieldGroup label="Français">
+            <Input value={(data.heading_fr as string) ?? ''} onChange={(e) => onChange({ ...data, heading_fr: e.target.value })} placeholder="en français" className="h-8 text-sm" />
+          </FieldGroup>
+        </div>
+      </div>
+
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">Subtitle</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية">
+            <Input value={(data.subheading_ar as string) ?? ''} onChange={(e) => onChange({ ...data, subheading_ar: e.target.value })} placeholder="بالعربية" className="h-8 text-sm" />
+          </FieldGroup>
+          <FieldGroup label="Français">
+            <Input value={(data.subheading_fr as string) ?? ''} onChange={(e) => onChange({ ...data, subheading_fr: e.target.value })} placeholder="en français" className="h-8 text-sm" />
+          </FieldGroup>
+        </div>
+      </div>
+
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">Description</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية">
+            <Textarea value={(data.description_ar as string) ?? ''} onChange={(e) => onChange({ ...data, description_ar: e.target.value })} placeholder="بالعربية" className="min-h-20 resize-y text-sm" />
+          </FieldGroup>
+          <FieldGroup label="Français">
+            <Textarea value={(data.description_fr as string) ?? ''} onChange={(e) => onChange({ ...data, description_fr: e.target.value })} placeholder="en français" className="min-h-20 resize-y text-sm" />
+          </FieldGroup>
+        </div>
+      </div>
+
       <ImageField
         label="Background Image"
         value={(data.backgroundImage as string) ?? ''}
         onChange={(v) => onChange({ ...data, backgroundImage: v })}
       />
+
       <div className="space-y-1.5">
         <label className="block text-xs font-medium text-muted-foreground">Buttons</label>
         <div className="space-y-2">
           {buttons.map((btn) => (
-            <ButtonEditor
-              key={btn.id}
-              button={btn}
-              onChange={(b) =>
-                onChange({ ...data, buttons: buttons.map((x) => (x.id === b.id ? b : x)) })
-              }
-              onDelete={() => onChange({ ...data, buttons: buttons.filter((x) => x.id !== btn.id) })}
-            />
+            <div key={btn.id} className="relative space-y-2 rounded-xl border border-[#E5E7EB] bg-gray-50 p-3">
+              <div className="border border-[#E5E7EB] rounded-lg p-2 space-y-1 bg-white">
+                <span className="text-xs font-bold text-[#64748B]">Label</span>
+                <div className="grid grid-cols-2 gap-2">
+                  <Input value={btn.label_ar ?? ''} onChange={(e) => onChange({ ...data, buttons: buttons.map((x) => (x.id === btn.id ? { ...x, label_ar: e.target.value } : x)) })} placeholder="بالعربية" className="h-8 text-sm" />
+                  <Input value={btn.label_fr ?? ''} onChange={(e) => onChange({ ...data, buttons: buttons.map((x) => (x.id === btn.id ? { ...x, label_fr: e.target.value } : x)) })} placeholder="en français" className="h-8 text-sm" />
+                </div>
+              </div>
+              <Input value={btn.url} onChange={(e) => onChange({ ...data, buttons: buttons.map((x) => (x.id === btn.id ? { ...x, url: e.target.value } : x)) })} placeholder="URL" className="h-8 text-sm" />
+              <select
+                value={btn.variant}
+                onChange={(e) => onChange({ ...data, buttons: buttons.map((x) => (x.id === btn.id ? { ...x, variant: e.target.value } : x)) })}
+                className="h-8 w-full rounded-lg border border-[#E5E7EB] bg-transparent px-2.5 text-xs"
+              >
+                <option value="primary">Primary</option>
+                <option value="secondary">Secondary</option>
+                <option value="outline">Outline</option>
+              </select>
+              <button type="button" onClick={() => onChange({ ...data, buttons: buttons.filter((x) => x.id !== btn.id) })} className="absolute right-2 top-2 rounded p-0.5 text-muted-foreground hover:bg-destructive/10 hover:text-destructive">
+                <Trash2 className="size-3.5" />
+              </button>
+            </div>
           ))}
         </div>
         <Button
@@ -363,10 +399,11 @@ export function HeroEditor({ section, onChange }: SectionEditorProps) {
                 ...buttons,
                 {
                   id: generateButtonId(),
-                  label: 'New Button',
+                  label_ar: '',
+                  label_fr: '',
                   url: '#',
                   variant: 'primary',
-                } satisfies SectionButton,
+                },
               ],
             })
           }
@@ -589,26 +626,50 @@ export function CtaEditor({ section, onChange }: SectionEditorProps) {
   const data = section.data as Record<string, unknown>
   return (
     <div className="space-y-3">
-      <TextField
-        label="Heading"
-        value={(data.heading as string) ?? ''}
-        onChange={(v) => onChange({ ...data, heading: v })}
-      />
-      <TextareaField
-        label="Description"
-        value={(data.description as string) ?? ''}
-        onChange={(v) => onChange({ ...data, description: v })}
-      />
-      <TextField
-        label="Button Text"
-        value={(data.buttonLabel as string) ?? ''}
-        onChange={(v) => onChange({ ...data, buttonLabel: v })}
-      />
-      <TextField
-        label="Button URL"
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">Heading</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية">
+            <Input value={(data.heading_ar as string) ?? ''} onChange={(e) => onChange({ ...data, heading_ar: e.target.value })} placeholder="بالعربية" className="h-8 text-sm" />
+          </FieldGroup>
+          <FieldGroup label="Français">
+            <Input value={(data.heading_fr as string) ?? ''} onChange={(e) => onChange({ ...data, heading_fr: e.target.value })} placeholder="en français" className="h-8 text-sm" />
+          </FieldGroup>
+        </div>
+      </div>
+
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">Description</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية">
+            <Textarea value={(data.description_ar as string) ?? ''} onChange={(e) => onChange({ ...data, description_ar: e.target.value })} placeholder="بالعربية" className="min-h-16 resize-y text-sm" />
+          </FieldGroup>
+          <FieldGroup label="Français">
+            <Textarea value={(data.description_fr as string) ?? ''} onChange={(e) => onChange({ ...data, description_fr: e.target.value })} placeholder="en français" className="min-h-16 resize-y text-sm" />
+          </FieldGroup>
+        </div>
+      </div>
+
+      <div className="border border-[#E5E7EB] rounded-lg p-3 space-y-2 bg-[#F8FAFC]">
+        <span className="text-xs font-bold text-[#123B78]">Button Text</span>
+        <div className="grid grid-cols-2 gap-2">
+          <FieldGroup label="العربية">
+            <Input value={(data.buttonLabel_ar as string) ?? ''} onChange={(e) => onChange({ ...data, buttonLabel_ar: e.target.value })} placeholder="بالعربية" className="h-8 text-sm" />
+          </FieldGroup>
+          <FieldGroup label="Français">
+            <Input value={(data.buttonLabel_fr as string) ?? ''} onChange={(e) => onChange({ ...data, buttonLabel_fr: e.target.value })} placeholder="en français" className="h-8 text-sm" />
+          </FieldGroup>
+        </div>
+      </div>
+
+      <input
+        type="text"
         value={(data.buttonUrl as string) ?? ''}
-        onChange={(v) => onChange({ ...data, buttonUrl: v })}
+        onChange={(e) => onChange({ ...data, buttonUrl: e.target.value })}
+        placeholder="Button URL"
+        className="h-9 w-full rounded-lg border border-[#E5E7EB] bg-transparent px-3 text-sm"
       />
+
       <ImageField
         label="Background Image"
         value={(data.backgroundImage as string) ?? ''}

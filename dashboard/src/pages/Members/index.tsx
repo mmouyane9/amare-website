@@ -3,6 +3,8 @@ import {
   ChevronLeft,
   ChevronRight,
   Check,
+  Download,
+  Image as ImageIcon,
   Loader2,
   Pencil,
   Plus,
@@ -55,6 +57,7 @@ import {
   type Member,
   type MemberCreateInput,
 } from '@/services/members.service'
+import { generateMembershipPdfBlob, downloadPdf } from '@/lib/membershipPdf'
 
 const PAGE_SIZE = 10
 
@@ -179,6 +182,22 @@ export default function MembersPage() {
   const [editingMember, setEditingMember] = useState<Member | null>(null)
   const [form, setForm] = useState<MemberCreateInput>(EMPTY_FORM)
   const [errors, setErrors] = useState<Record<string, string>>({})
+
+  const [generatingPdf, setGeneratingPdf] = useState<string | null>(null)
+
+  const handleDownloadPdf = async (member: Member) => {
+    setGeneratingPdf(member.id)
+    try {
+      const blob = await generateMembershipPdfBlob(member)
+      downloadPdf(blob, member.member_number || member.id)
+      toast.success('تم تحميل الوثيقة بنجاح')
+    } catch (err) {
+      console.error('PDF generation failed:', err)
+      toast.error('فشل إنشاء وثيقة العضوية')
+    } finally {
+      setGeneratingPdf(null)
+    }
+  }
 
   const [deleteTarget, setDeleteTarget] = useState<Member | null>(null)
   const [deleting, setDeleting] = useState(false)
@@ -330,6 +349,26 @@ export default function MembersPage() {
         </Button>
       </div>
 
+      {/* Stats Cards */}
+      <div className="mb-4 grid grid-cols-3 gap-3">
+        <div className="rounded-xl border border-border/60 bg-card p-4">
+          <p className="text-xs text-muted-foreground">إجمالي الأعضاء</p>
+          <p className="text-2xl font-bold">{total}</p>
+        </div>
+        <div className="rounded-xl border border-border/60 bg-card p-4">
+          <p className="text-xs text-muted-foreground">نشط</p>
+          <p className="text-2xl font-bold text-emerald-600">
+            {members.filter((m) => m.status === 'active').length}
+          </p>
+        </div>
+        <div className="rounded-xl border border-border/60 bg-card p-4">
+          <p className="text-xs text-muted-foreground">غير نشط</p>
+          <p className="text-2xl font-bold text-muted-foreground">
+            {members.filter((m) => m.status === 'inactive').length}
+          </p>
+        </div>
+      </div>
+
       <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center">
         <div className="relative flex-1">
           <Search className="pointer-events-none absolute top-1/2 right-3 size-4 -translate-y-1/2 text-muted-foreground" />
@@ -446,6 +485,19 @@ export default function MembersPage() {
                   </TableCell>
                   <TableCell>
                     <div className="flex items-center gap-1">
+                      <Button
+                        variant="ghost"
+                        size="icon-xs"
+                        onClick={() => handleDownloadPdf(member)}
+                        disabled={generatingPdf === member.id}
+                        title="تحميل PDF"
+                      >
+                        {generatingPdf === member.id ? (
+                          <Loader2 className="size-3 animate-spin" />
+                        ) : (
+                          <Download className="size-3" />
+                        )}
+                      </Button>
                       <Button
                         variant="ghost"
                         size="icon-xs"
@@ -653,6 +705,39 @@ export default function MembersPage() {
               />
             </div>
           </div>
+
+          {editingMember && (editingMember.profile_photo_url || editingMember.national_id_front_url || editingMember.national_id_back_url) && (
+            <div className="border-t pt-3 mt-2">
+              <p className="mb-2 text-xs font-medium text-muted-foreground">المستندات</p>
+              <div className="flex gap-3 flex-wrap">
+                {editingMember.profile_photo_url && (
+                  <a href={editingMember.profile_photo_url} target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-1">
+                    <div className="h-16 w-16 overflow-hidden rounded-lg border">
+                      <img src={editingMember.profile_photo_url} alt="الصورة الشخصية" className="size-full object-cover" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
+                    </div>
+                    <span className="text-[10px] text-muted-foreground">الصورة</span>
+                  </a>
+                )}
+                {editingMember.national_id_front_url && (
+                  <a href={editingMember.national_id_front_url} target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-1">
+                    <div className="h-16 w-24 overflow-hidden rounded-lg border">
+                      <img src={editingMember.national_id_front_url} alt="واجهة البطاقة" className="size-full object-cover" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
+                    </div>
+                    <span className="text-[10px] text-muted-foreground">البطاقة (أمام)</span>
+                  </a>
+                )}
+                {editingMember.national_id_back_url && (
+                  <a href={editingMember.national_id_back_url} target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-1">
+                    <div className="h-16 w-24 overflow-hidden rounded-lg border">
+                      <img src={editingMember.national_id_back_url} alt="ظهر البطاقة" className="size-full object-cover" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
+                    </div>
+                    <span className="text-[10px] text-muted-foreground">البطاقة (خلف)</span>
+                  </a>
+                )}
+              </div>
+            </div>
+          )}
+
           <DialogFooter>
             <Button
               variant="outline"

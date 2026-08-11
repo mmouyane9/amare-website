@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import {
   ArrowRight,
@@ -39,32 +39,32 @@ import { Textarea } from '@/components/ui/textarea'
 
 import {
   EMPTY_CITY_FORM,
-  MOCK_REGIONS,
-  MOCK_STATS,
+  cityToForm,
+  type Region,
   type City,
   type CityFormData,
 } from '@/data/branches'
+import {
+  getRegionById,
+  getCitiesByRegion,
+  createCity,
+  updateCity,
+  deleteCity,
+  updateRegion,
+} from '@/services/branches.service'
 
 export default function RegionDetailsPage() {
   const { regionId } = useParams<{ regionId: string }>()
   const navigate = useNavigate()
 
-  const region = MOCK_REGIONS.find((r) => r.id === regionId) ?? null
-  const stats = region ? (MOCK_STATS[region.id] ?? { members: 0, posts: 0, comments: 0 }) : { members: 0, posts: 0, comments: 0 }
+  const [region, setRegion] = useState<Region | null>(null)
+  const [cities, setCities] = useState<City[]>([])
+  const [loading, setLoading] = useState(true)
 
   const [editing, setEditing] = useState(false)
   const [saving, setSaving] = useState(false)
-  const [form, setForm] = useState({
-    name: region?.name ?? '',
-    slug: region?.slug ?? '',
-    description: region?.description ?? '',
-  })
-  const [settings, setSettings] = useState({
-    showRegion: region?.showRegion ?? true,
-    allowPosts: region?.allowPosts ?? true,
-    allowComments: region?.allowComments ?? true,
-    allowLikes: region?.allowLikes ?? true,
-  })
+  const [form, setForm] = useState({ name_ar: '', name_fr: '', slug: '', description_ar: '', description_fr: '' })
+  const [settings, setSettings] = useState({ published: true })
 
   const [cityModalOpen, setCityModalOpen] = useState(false)
   const [editingCityId, setEditingCityId] = useState<string | null>(null)
@@ -74,93 +74,80 @@ export default function RegionDetailsPage() {
   const [deleteCityTarget, setDeleteCityTarget] = useState<City | null>(null)
   const [deletingCity, setDeletingCity] = useState(false)
 
+  const loadData = async () => {
+    if (!regionId) return
+    try {
+      const r = await getRegionById(regionId)
+      setRegion(r)
+      setForm({ name_ar: r.name_ar || '', name_fr: r.name_fr || '', slug: r.slug, description_ar: r.description_ar || r.description || '', description_fr: r.description_fr || '' })
+      setSettings({ published: r.published !== false })
+      const c = await getCitiesByRegion(regionId)
+      setCities(c)
+    } catch (e) { console.error(e) }
+    finally { setLoading(false) }
+  }
+
+  useEffect(() => { loadData() }, [regionId])
+
+  if (loading) {
+    return <div className="flex flex-col items-center justify-center py-32 text-center"><Loader2 className="size-8 animate-spin text-muted-foreground/40" /><p className="mt-4 text-sm text-muted-foreground">جاري التحميل...</p></div>
+  }
+
   if (!region) {
     return (
       <div className="flex flex-col items-center justify-center py-32 text-center">
         <Building2 className="size-14 text-muted-foreground/25" />
-        <p className="mt-4 text-sm font-medium text-muted-foreground">
-          الجهة غير موجودة.
-        </p>
-        <Button
-          variant="outline"
-          size="sm"
-          className="mt-4 gap-1.5"
-          onClick={() => navigate('/branches')}
-        >
-          <ChevronLeft className="size-3.5" />
-          العودة إلى الفروع الجهوية
-        </Button>
+        <p className="mt-4 text-sm font-medium text-muted-foreground">الجهة غير موجودة.</p>
+        <Button variant="outline" size="sm" className="mt-4 gap-1.5" onClick={() => navigate('/branches')}><ChevronLeft className="size-3.5" />العودة إلى الفروع الجهوية</Button>
       </div>
     )
   }
 
   const handleEditToggle = () => {
-    if (editing) {
-      setForm({
-        name: region.name,
-        slug: region.slug,
-        description: region.description,
-      })
-    }
+    if (editing) { setForm({ name_ar: region.name_ar_ar || '', name_fr: region.name_ar_fr || '', slug: region.slug, description_ar: region.description_ar || region.description || '', description_fr: region.description_fr || '' }) }
     setEditing(!editing)
   }
 
-  const handleFormChange = (field: 'name' | 'slug' | 'description', value: string) => {
+  const handleFormChange = (field: string, value: string) => {
     setForm((prev) => {
       const next = { ...prev, [field]: value }
-      if (field === 'name') {
-        next.slug = value
-          .toLowerCase()
-          .replace(/\s+/g, '-')
-          .replace(/[^a-z0-9\u0600-\u06FF-]/g, '')
-      }
+      if (field === 'name_ar') { next.slug = value.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9\u0600-\u06FF-]/g, '') }
       return next
     })
   }
 
-  const handleSave = () => {
+  const handleSave = async () => {
     setSaving(true)
-    setTimeout(() => {
-      setSaving(false)
-      setEditing(false)
-    }, 500)
+    try { await updateRegion(region.id, form); setEditing(false); loadData() } catch (e) { console.error(e) } finally { setSaving(false) }
   }
 
-  const handleCityFormChange = (field: keyof CityFormData, value: string) => {
-    setCityForm((prev) => ({ ...prev, [field]: value }))
-  }
+  const handleCityFormChange = (field: keyof CityFormData, value: string) => { setCityForm((prev) => ({ ...prev, [field]: value })) }
 
-  const openCityCreate = () => {
-    setEditingCityId(null)
-    setCityForm(EMPTY_CITY_FORM)
-    setCityModalOpen(true)
-  }
+  const openCityCreate = () => { setEditingCityId(null); setCityForm(EMPTY_CITY_FORM); setCityModalOpen(true) }
 
   const openCityEdit = (city: City) => {
     setEditingCityId(city.id)
-    setCityForm({ name: city.name, description: city.description })
+    setCityForm({ name_ar: city.name_ar || '', name_fr: city.name_fr || '', slug: city.slug, description_ar: city.description_ar || city.description || '', description_fr: city.description_fr || '', cover_image: city.cover_image || '', address: city.address || '', phone: city.phone || '', email: city.email || '', facebook: city.facebook || '', whatsapp: city.whatsapp || '', published: city.published !== false })
     setCityModalOpen(true)
   }
 
-  const handleCitySave = () => {
+  const handleCitySave = async () => {
     setCitySaving(true)
-    setTimeout(() => {
-      setCitySaving(false)
-      setCityModalOpen(false)
-    }, 500)
+    try {
+      if (editingCityId) { await updateCity(editingCityId, { ...cityForm, region_id: region.id }) }
+      else { await createCity({ ...cityForm, region_id: region.id }) }
+      setCityModalOpen(false); loadData()
+    } catch (e) { console.error(e) } finally { setCitySaving(false) }
   }
 
-  const handleCityDelete = () => {
+  const handleCityDelete = async () => {
+    if (!deleteCityTarget) return
     setDeletingCity(true)
-    setTimeout(() => {
-      setDeletingCity(false)
-      setDeleteCityTarget(null)
-    }, 500)
+    try { await deleteCity(deleteCityTarget.id); setDeleteCityTarget(null); loadData() } catch (e) { console.error(e) } finally { setDeletingCity(false) }
   }
 
-  const regionCityCount = region.cities.length
-  const regionMembers = region.cities.reduce((sum, c) => sum + c.members, 0)
-  const regionPosts = region.cities.reduce((sum, c) => sum + c.posts, 0)
+  const regionCityCount = cities.length
+  const regionMembers = cities.reduce((sum) => sum + 1, 0)
 
   return (
     <div>
@@ -172,12 +159,12 @@ export default function RegionDetailsPage() {
           الفروع الجهوية
         </Link>
         <ChevronLeft className="size-3.5" />
-        <span className="font-medium text-foreground">{region.name}</span>
+        <span className="font-medium text-foreground">{region.name_ar}</span>
       </nav>
 
       <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h2 className="text-2xl font-semibold tracking-tight">{region.name}</h2>
+          <h2 className="text-2xl font-semibold tracking-tight">{region.name_ar}</h2>
           <p className="text-sm text-muted-foreground">
             إدارة معلومات الجهة والمدن التابعة لها.
           </p>
@@ -208,7 +195,7 @@ export default function RegionDetailsPage() {
             <div className="relative">
               <img
                 src={region.coverImage}
-                alt={region.name}
+                alt={region.name_ar}
                 className="h-48 w-full object-cover"
               />
               <Button
@@ -278,7 +265,7 @@ export default function RegionDetailsPage() {
                   <Label className="text-xs text-muted-foreground">
                     اسم الجهة
                   </Label>
-                  <p className="mt-0.5 text-sm font-medium">{region.name}</p>
+                  <p className="mt-0.5 text-sm font-medium">{region.name_ar}</p>
                 </div>
                 <div>
                   <Label className="text-xs text-muted-foreground">
@@ -399,7 +386,7 @@ export default function RegionDetailsPage() {
                         <MapPin className="size-3.5" />
                       </span>
                       <div className="min-w-0 flex-1 text-right">
-                        <p className="text-sm font-medium">{city.name}</p>
+                        <p className="text-sm font-medium">{city.name_ar || city.name_en || ''}</p>
                       </div>
                     </div>
 
@@ -467,7 +454,7 @@ export default function RegionDetailsPage() {
               <Switch
                 checked={settings.showRegion}
                 onCheckedChange={(v) =>
-                  setSettings((prev) => ({ ...prev, showRegion: v }))
+                  setSettings((prev) => ({ ...prev, published: v }))
                 }
               />
             </div>
@@ -537,7 +524,7 @@ export default function RegionDetailsPage() {
               <Label htmlFor="city-name">اسم المدينة</Label>
               <Input
                 id="city-name"
-                value={cityForm.name}
+                value={cityForm.name_ar}
                 onChange={(e) => handleCityFormChange('name', e.target.value)}
                 placeholder="أدخل اسم المدينة"
               />
@@ -546,7 +533,7 @@ export default function RegionDetailsPage() {
               <Label htmlFor="city-desc">الوصف</Label>
               <Textarea
                 id="city-desc"
-                value={cityForm.description}
+                value={cityForm.description_ar}
                 onChange={(e) =>
                   handleCityFormChange('description', e.target.value)
                 }

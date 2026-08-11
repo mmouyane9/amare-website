@@ -28,6 +28,16 @@
     return /amare-magazine/i.test(path);
   }
 
+  function pickBilingual(data, key) {
+    if (!data) return '';
+    var lang = (window.I18n && window.I18n.getCurrentLanguage) ? window.I18n.getCurrentLanguage() : 'ar';
+    var value = data[key + '_' + lang];
+    if (value != null && value !== '') return value;
+    value = data[key + '_ar'];
+    if (value != null && value !== '') return value;
+    return data[key] || '';
+  }
+
   function setEyebrow(sec, text) {
     var el = sec.querySelector('.mag-section-eyebrow');
     if (el && text) {
@@ -52,7 +62,7 @@
       if (!buttons[i]) continue;
       anchors[i].href = buttons[i].url || '#';
       var svg = anchors[i].querySelector('svg');
-      anchors[i].textContent = buttons[i].label || '';
+      anchors[i].textContent = pickBilingual(buttons[i], 'label');
       if (svg) anchors[i].appendChild(svg);
     }
   }
@@ -93,9 +103,9 @@
 
   function injectHero(d) {
     var h1 = document.querySelector('.mag-hero h1');
-    if (h1 && d.heading) setHeroHeading(h1, d.heading);
+    if (h1) setHeroHeading(h1, pickBilingual(d, 'heading'));
     var sub = document.querySelector('.mag-hero-subtitle');
-    if (sub && d.description) sub.textContent = d.description;
+    if (sub) sub.textContent = pickBilingual(d, 'description');
     injectButtons(document.querySelectorAll('.mag-hero-actions a'), d.buttons);
   }
 
@@ -105,22 +115,20 @@
     var body = sec.querySelector('.mag-featured-body');
     if (!body) return;
     var badge = body.querySelector('.mag-badge');
-    if (badge && d.badge) badge.textContent = d.badge;
+    if (badge) badge.textContent = pickBilingual(d, 'badge');
     var h2 = body.querySelector('h2');
-    if (h2 && d.heading) h2.textContent = d.heading;
+    if (h2) h2.textContent = pickBilingual(d, 'heading');
     var excerpt = body.querySelector('.mag-excerpt');
-    if (excerpt && d.excerpt) excerpt.textContent = d.excerpt;
+    if (excerpt) excerpt.textContent = pickBilingual(d, 'excerpt');
     var meta = body.querySelectorAll('.mag-meta-item');
-    if (meta[0] && d.date) setMetaText(meta[0], d.date);
-    if (meta[1] && d.readTime) setMetaText(meta[1], d.readTime);
+    if (meta[0]) setMetaText(meta[0], pickBilingual(d, 'date'));
+    if (meta[1]) setMetaText(meta[1], pickBilingual(d, 'readTime'));
     var more = body.querySelector('.mag-read-more');
     if (more) {
       if (d.linkUrl) more.href = d.linkUrl;
-      if (d.linkLabel) {
-        var svg = more.querySelector('svg');
-        more.textContent = d.linkLabel;
-        if (svg) more.appendChild(svg);
-      }
+      var svg = more.querySelector('svg');
+      more.textContent = pickBilingual(d, 'linkLabel');
+      if (svg) more.appendChild(svg);
     }
     setImage(sec.querySelector('.mag-featured-image'), d.image);
   }
@@ -128,23 +136,23 @@
   function injectMagLatest(d) {
     var sec = document.querySelector('#magLatest');
     if (!sec) return;
-    setEyebrow(sec, d.eyebrow);
-    setTitle(sec, d.heading);
-    setDesc(sec, d.description);
+    setEyebrow(sec, pickBilingual(d, 'eyebrow'));
+    setTitle(sec, pickBilingual(d, 'heading'));
+    setDesc(sec, pickBilingual(d, 'description'));
     if (d.articles) {
       var cards = sec.querySelectorAll('.mag-article-card');
       for (var i = 0; i < Math.min(cards.length, d.articles.length); i++) {
         var a = d.articles[i];
         var card = cards[i];
         var badge = card.querySelector('.mag-badge');
-        if (badge && a.badge) badge.textContent = a.badge;
+        if (badge) badge.textContent = pickBilingual(a, 'badge');
         var h3 = card.querySelector('h3');
-        if (h3 && a.title) h3.textContent = a.title;
+        if (h3) h3.textContent = pickBilingual(a, 'title');
         var excerpt = card.querySelector('.mag-excerpt');
-        if (excerpt && a.excerpt) excerpt.textContent = a.excerpt;
+        if (excerpt) excerpt.textContent = pickBilingual(a, 'excerpt');
         var meta = card.querySelectorAll('.mag-meta-item');
-        if (meta[0] && a.date) setMetaText(meta[0], a.date);
-        if (meta[1] && a.readTime) setMetaText(meta[1], a.readTime);
+        if (meta[0]) setMetaText(meta[0], pickBilingual(a, 'date'));
+        if (meta[1]) setMetaText(meta[1], pickBilingual(a, 'readTime'));
         var more = card.querySelector('.mag-read-more');
         if (more && a.linkUrl) more.href = a.linkUrl;
         setImage(card.querySelector('.mag-article-image'), a.image);
@@ -155,17 +163,17 @@
   function injectMagCats(d) {
     var sec = document.querySelector('#magCats');
     if (!sec) return;
-    setEyebrow(sec, d.eyebrow);
-    setTitle(sec, d.heading);
-    setDesc(sec, d.description);
+    setEyebrow(sec, pickBilingual(d, 'eyebrow'));
+    setTitle(sec, pickBilingual(d, 'heading'));
+    setDesc(sec, pickBilingual(d, 'description'));
     if (d.categories) {
       var cards = sec.querySelectorAll('.mag-cat-card');
       for (var i = 0; i < Math.min(cards.length, d.categories.length); i++) {
         var c = d.categories[i];
         var h3 = cards[i].querySelector('h3');
         var count = cards[i].querySelector('.mag-cat-count');
-        if (h3 && c.title) h3.textContent = c.title;
-        if (count && c.count) count.textContent = c.count;
+        if (h3) h3.textContent = pickBilingual(c, 'title');
+        if (count) count.textContent = pickBilingual(c, 'count');
       }
     }
   }
@@ -174,13 +182,13 @@
     var sec = document.querySelector('#magNewsletter');
     if (!sec) return;
     var h2 = sec.querySelector('.mag-newsletter-inner h2');
-    if (h2 && d.heading) h2.textContent = d.heading;
+    if (h2) h2.textContent = pickBilingual(d, 'heading');
     var desc = sec.querySelector('.mag-newsletter-desc');
-    if (desc && d.description) desc.textContent = d.description;
+    if (desc) desc.textContent = pickBilingual(d, 'description');
     var btn = sec.querySelector('.mag-newsletter-form button');
-    if (btn && d.buttonLabel) {
+    if (btn) {
       var svg = btn.querySelector('svg');
-      btn.textContent = d.buttonLabel;
+      btn.textContent = pickBilingual(d, 'buttonLabel');
       if (svg) btn.appendChild(svg);
     }
   }
@@ -189,7 +197,7 @@
     var sec = document.querySelector('#magCta');
     if (!sec) return;
     var h2 = sec.querySelector('.mag-cta-inner h2');
-    if (h2 && d.heading) h2.textContent = d.heading;
+    if (h2) h2.textContent = pickBilingual(d, 'heading');
     injectButtons(sec.querySelectorAll('.mag-cta-actions a'), d.buttons);
   }
 

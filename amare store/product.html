@@ -319,6 +319,16 @@
 (function() {
   'use strict';
 
+  function pickLang(data, key) {
+    if (!data) return '';
+    var lang = (window.I18n && window.I18n.getCurrentLanguage) ? window.I18n.getCurrentLanguage() : 'ar';
+    var value = data[key + '_' + lang];
+    if (value != null && value !== '') return value;
+    value = data[key + '_ar'];
+    if (value != null && value !== '') return value;
+    return data[key] || '';
+  }
+
   var categoryMap = {
     devices: { name: 'الأجهزة' },
     clothing: { name: 'الملابس' },
@@ -350,11 +360,12 @@
   function getIcon(cat) { return PRODUCT_ICONS[cat] || DEFAULT_ICON; }
 
   function renderProduct(p) {
-    document.title = p.name + ' | متجر AMARE الرسمي';
+    var productName = pickLang(p, 'name');
+    document.title = productName + ' | متجر AMARE الرسمي';
 
     var galleryMain = document.getElementById('galleryMain');
     if (p.image_url) {
-      galleryMain.innerHTML = '<img src="' + p.image_url + '" alt="' + p.name + '" style="width:100%;height:100%;object-fit:cover;">';
+      galleryMain.innerHTML = '<img src="' + p.image_url + '" alt="' + productName + '" style="width:100%;height:100%;object-fit:cover;">';
     } else {
       galleryMain.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">' + getIcon(p.category) + '</svg>';
     }
@@ -375,22 +386,27 @@
     }
     galleryThumbs.innerHTML = thumbHtml;
 
-    document.getElementById('breadcrumbName').textContent = p.name;
+    document.getElementById('breadcrumbName').textContent = productName;
 
-    document.getElementById('infoName').textContent = p.name;
-    document.getElementById('infoPrice').textContent = Number(p.price).toLocaleString('fr-FR') + ' د.م';
-    document.getElementById('infoDesc').textContent = p.description || p.short_description || '';
+    document.getElementById('infoName').textContent = productName;
+    document.getElementById('infoPrice').textContent = Number(p.price).toLocaleString('fr-FR') + ' DH';
+    document.getElementById('infoDesc').textContent = pickLang(p, 'description') || pickLang(p, 'short_description');
 
-    var waMessage = encodeURIComponent('السلام عليكم،\n\nأرغب في شراء المنتج التالي:\n\n📦 اسم المنتج: ' + p.name + '\n\nشكراً لكم.');
-    document.getElementById('whatsappBtn').href = 'https://wa.me/212671114371?text=' + waMessage;
+    var waMsg = (window.I18n && window.I18n.t) ? window.I18n.t('store.orderWhatsApp').replace('{name}', productName) : ('السلام عليكم،\n\nأرغب في شراء المنتج التالي:\n\n📦 اسم المنتج: ' + productName + '\n\nشكراً لكم.');
+    document.getElementById('whatsappBtn').href = 'https://wa.me/212671114371?text=' + encodeURIComponent(waMsg);
 
     var specsHtml = '';
-    if (p.brand) specsHtml += '<div class="store-product-spec"><span class="store-product-spec-dot"></span>العلامة: ' + p.brand + '</div>';
-    if (p.condition) specsHtml += '<div class="store-product-spec"><span class="store-product-spec-dot"></span>الحالة: ' + (p.condition === 'new' ? 'جديد' : p.condition === 'used' ? 'مستعمل' : 'مجدد') + '</div>';
-    if (p.sku) specsHtml += '<div class="store-product-spec"><span class="store-product-spec-dot"></span>رمز المنتج: ' + p.sku + '</div>';
+    var t = (window.I18n && window.I18n.t) ? function(k) { return window.I18n.t(k); } : function(k) { return k; };
+    if (p.brand) specsHtml += '<div class="store-product-spec"><span class="store-product-spec-dot"></span>' + t('store.brand') + ': ' + p.brand + '</div>';
+    if (p.condition) {
+      var condLabel = p.condition === 'new' ? t('store.conditionNew') : p.condition === 'used' ? t('store.conditionUsed') : t('store.conditionRefurbished');
+      specsHtml += '<div class="store-product-spec"><span class="store-product-spec-dot"></span>' + t('store.condition') + ': ' + condLabel + '</div>';
+    }
+    if (p.sku) specsHtml += '<div class="store-product-spec"><span class="store-product-spec-dot"></span>' + t('store.sku') + ': ' + p.sku + '</div>';
     var catName = categoryMap[p.category];
-    specsHtml += '<div class="store-product-spec"><span class="store-product-spec-dot"></span>الفئة: ' + (catName ? catName.name : p.category) + '</div>';
-    specsHtml += '<div class="store-product-spec"><span class="store-product-spec-dot"></span>المخزون: ' + (p.stock > 0 ? p.stock + ' قطعة' : 'غير متوفر') + '</div>';
+    specsHtml += '<div class="store-product-spec"><span class="store-product-spec-dot"></span>' + t('store.category') + ': ' + (catName ? catName.name : p.category) + '</div>';
+    var stockText = p.stock > 0 ? t('store.stockInStock').replace('{count}', p.stock) : t('store.stockOut');
+    specsHtml += '<div class="store-product-spec"><span class="store-product-spec-dot"></span>' + t('store.stock') + ': ' + stockText + '</div>';
     document.getElementById('infoSpecs').innerHTML = specsHtml;
   }
 
@@ -399,7 +415,10 @@
     document.getElementById('infoPrice').textContent = '---';
     document.getElementById('infoDesc').textContent = 'عذراً، لم يتم العثور على المنتج المطلوب.';
     document.getElementById('infoSpecs').innerHTML = '';
+    document.title = 'المنتج غير موجود | متجر AMARE';
   }
+
+  var currentProduct = null;
 
   function fetchProduct() {
     var client = window.supabaseClient || (window.Supabase && window.Supabase.getClient ? window.Supabase.getClient() : null);
@@ -419,10 +438,15 @@
     query.single()
       .then(function(res) {
         if (res.error || !res.data) { renderError(); return; }
-        renderProduct(res.data);
+        currentProduct = res.data;
+        renderProduct(currentProduct);
       })
       .catch(function() { renderError(); });
   }
+
+  window.addEventListener('amare:langchange', function() {
+    if (currentProduct) renderProduct(currentProduct);
+  });
 
   var galleryThumbs = document.getElementById('galleryThumbs');
   if (galleryThumbs) {

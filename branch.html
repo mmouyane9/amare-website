@@ -1078,390 +1078,125 @@
 <!-- ===== Dynamic Region Data ===== -->
 <script>
 (function() {
+  'use strict';
+
+  function pickLang(data, key) {
+    if (!data) return '';
+    var lang = (window.I18n && window.I18n.getCurrentLanguage) ? window.I18n.getCurrentLanguage() : 'ar';
+    var value = data[key + '_' + lang];
+    if (value != null && value !== '') return value;
+    value = data[key + '_ar'];
+    if (value != null && value !== '') return value;
+    return data[key] || '';
+  }
+
   var params = new URLSearchParams(window.location.search);
   var slug = params.get('slug');
   if (!slug) return;
 
-  var regions = {
-    'tanger-tetouan-al-hoceima': {
-      name: 'جهة طنجة - تطوان - الحسيمة',
-      heroDesc: 'الجهة الشمالية للمملكة المغربية، تطل على البحر الأبيض المتوسط والمحيط الأطلسي. تضم مدناً تاريخية وثقافية غنية، وهي بوابة المغرب نحو أوروبا.',
-      heroBg: 'https://images.unsplash.com/photo-1577979780245-5516627e28a4?w=1600&q=80',
-      aboutTitle: 'إحدى الجهات الإثنتي عشرة للمملكة المغربية',
-      aboutText: 'تقع جهة طنجة - تطوان - الحسيمة في أقصى شمال المملكة المغربية، وتعتبر بوابة المغرب نحو أوروبا عبر مضيق جبل طارق. تتميز الجهة بتنوعها الجغرافي والثقافي الفريد، حيث تجمع بين السواحل المتوسطية والأطلسية والجبال الريفية الشاهقة. تضم الجهة مدناً تاريخية عريقة مثل طنجة وتطوان وشفشاون، وتعد مركزاً اقتصادياً وصناعياً مهماً بفضل ميناء طنجة المتوسط. كما تشتهر بتراثها الأندلسي وحرفها التقليدية ومطبخها المتنوع.',
-      cities: [
-        { name: 'طنجة', slug: 'tangier', desc: 'مدينة ساحلية استراتيجية تطل على مضيق جبل طارق، ملتقى الحضارات المتوسطية.' },
-        { name: 'تطوان', slug: 'tetouan', desc: 'عاصمة الشمال وملتقى الحضارات الأندلسية والمغربية، مدينة التراث العالمي.' },
-        { name: 'الحسيمة', slug: 'al-hoceima', desc: 'لؤلؤة البحر الأبيض المتوسط بشواطئها الخلابة ومنتزهها الوطني.' },
-        { name: 'شفشاون', slug: 'chefchaouen', desc: 'المدينة الزرقاء الساحرة في جبال الريف، جوهرة السياحة المغربية.' },
-        { name: 'العرائش', slug: 'larache', desc: 'مدينة ساحلية تاريخية على المحيط الأطلسي بموقعها عند مصب نهر اللوكوس.' },
-        { name: 'وزان', slug: 'ouezzane', desc: 'مدينة تاريخية وروحية في شمال المغرب، مهد الزاوية الوزانية.' },
-        { name: 'الفحص أنجرة', slug: 'fahs-anjra', desc: 'منطقة ساحلية قريبة من طنجة، تتميز بطبيعتها الخضراء وشواطئها.' },
-        { name: 'المضيق الفنيدق', slug: 'mdiq-fnideq', desc: 'منطقة سياحية ساحلية على البحر المتوسط، وجهة راقية للاستجمام.' }
-      ],
-      activities: [
-        { title: 'رحلة استكشاف جبال الريف', desc: 'رحلة ميدانية لاستكشاف المسالك الجبلية في منطقة الريف بمشاركة 30 عضواً.', img: 'https://images.unsplash.com/photo-1551632811-561732d1e306?w=600&q=80' },
-        { title: 'حملة تنظيف شاطئ المضيق', desc: 'مبادرة بيئية لتنظيف شاطئ المضيق بمشاركة متطوعين من الجمعية والسكان المحليين.', img: 'https://images.unsplash.com/photo-1531058020387-3be344556be6?w=600&q=80' },
-        { title: 'ورشة التصوير الفوتوغرافي', desc: 'ورشة تدريبية حول أساسيات التصوير في الطبيعة، نظمها فرع الجهة للأعضاء الجدد.', img: 'https://images.unsplash.com/photo-1515187029135-7eefa3b2c9a1?w=600&q=80' }
-      ],
-      gallery: [
-        'https://images.unsplash.com/photo-1590073242678-6a7fa60b0a7c?w=600&q=80',
-        'https://images.unsplash.com/photo-1577979780245-5516627e28a4?w=600&q=80',
-        'https://images.unsplash.com/photo-1509027572446-af8401acfdc9?w=600&q=80',
-        'https://images.unsplash.com/photo-1544001254-1a14112e5e00?w=600&q=80',
-        'https://images.unsplash.com/photo-1539020140153-f79d8e9b8e3a?w=600&q=80',
-        'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&q=80'
-      ],
-      ctaText: 'انضم إلى فرع جهة طنجة - تطوان - الحسيمة وشارك في الأنشطة والفعاليات، وساهم في تنمية منطقتك مع فريق من المتطوعين المتحمسين.'
-    },
-    'oriental': {
-      name: 'جهة الشرق',
-      heroDesc: 'الجهة الشرقية للمغرب، تمتد من البحر المتوسط شمالاً إلى الصحراء جنوباً. منطقة غنية بالتاريخ والثقافة والتنوع الطبيعي.',
-      heroBg: 'https://images.unsplash.com/photo-1570045729474-86e17c8a51eb?w=1600&q=80',
-      aboutTitle: 'إحدى الجهات الإثنتي عشرة للمملكة المغربية',
-      aboutText: 'تمتد جهة الشرق على مساحة شاسعة من الساحل المتوسطي شمالاً حتى واحات الصحراء جنوباً. تضم الجهة مدناً تاريخية عريقة مثل وجدة والناظور وبركان، وتتميز بتنوعها الثقافي واللغوي الذي يجمع بين الأمازيغية والعربية. تشتهر الجهة بمناطقها الفلاحية الخصبة ومناجمها الغنية وشواطئها المتوسطية الجميلة.',
-      cities: [
-        { name: 'وجدة', slug: 'oujda', desc: 'عاصمة الجهة الشرقية ومدينة الألف عام بتاريخها العريق.' },
-        { name: 'الناظور', slug: 'nador', desc: 'مدينة ساحلية مهمة على البحر المتوسط وميناء بني نصار.' },
-        { name: 'بركان', slug: 'berkane', desc: 'مدينة فلاحية معروفة بإنتاج الحمضيات عالية الجودة.' },
-        { name: 'الدريوش', slug: 'driouch', desc: 'منطقة جبلية وساحلية في الريف الشرقي بطبيعة خلابة.' },
-        { name: 'جرادة', slug: 'jerada', desc: 'مدينة منجمية تاريخية في شرق المغرب.' },
-        { name: 'فكيك', slug: 'figuig', desc: 'واحة صحراوية بتاريخ عريق في أقصى الشرق المغربي.' },
-        { name: 'تاوريرت', slug: 'taourirt', desc: 'مدينة تاريخية بقصبتها الشهيرة وموقعها الاستراتيجي.' },
-        { name: 'جرسيف', slug: 'guercif', desc: 'ملتقى الطرق بين الشرق وفاس ومركز تجاري مهم.' }
-      ],
-      activities: [
-        { title: 'استكشاف واحة فكيك', desc: 'رحلة استكشافية إلى واحة فكيك التاريخية للتعرف على تراثها المعماري.', img: 'https://images.unsplash.com/photo-1509027572446-af8401acfdc9?w=600&q=80' },
-        { title: 'مهرجان الليمون ببركان', desc: 'المشاركة في مهرجان الليمون السنوي بمدينة بركان للتعريف بالمنتوج المحلي.', img: 'https://images.unsplash.com/photo-1551632811-561732d1e306?w=600&q=80' },
-        { title: 'حملة تشجير جبال بني يزناسن', desc: 'مبادرة بيئية لتشجير المناطق الجبلية ببني يزناسن بمشاركة المجتمع المدني.', img: 'https://images.unsplash.com/photo-1531058020387-3be344556be6?w=600&q=80' }
-      ],
-      gallery: [
-        'https://images.unsplash.com/photo-1570045729474-86e17c8a51eb?w=600&q=80',
-        'https://images.unsplash.com/photo-1509027572446-af8401acfdc9?w=600&q=80',
-        'https://images.unsplash.com/photo-1544001254-1a14112e5e00?w=600&q=80',
-        'https://images.unsplash.com/photo-1531058020387-3be344556be6?w=600&q=80'
-      ],
-      ctaText: 'انضم إلى فرع جهة الشرق وشارك في الأنشطة والفعاليات، وساهم في تنمية منطقتك مع فريق من المتطوعين المتحمسين.'
-    },
-    'fes-meknes': {
-      name: 'جهة فاس - مكناس',
-      heroDesc: 'الجهة الروحية والعلمية للمغرب، تضم أقدم الجامعات والمدن الإمبراطورية. مهد الحضارة والعلم والتاريخ العريق.',
-      heroBg: 'https://images.unsplash.com/photo-1539020140153-f79d8e9b8e3a?w=1600&q=80',
-      aboutTitle: 'إحدى الجهات الإثنتي عشرة للمملكة المغربية',
-      aboutText: 'تعتبر جهة فاس - مكناس القلب التاريخي والروحي للمغرب، حيث تضم مدينة فاس العريقة التي تأسست في القرن الثامن الميلادي وتحتضن أقدم جامعة في العالم. تجمع الجهة بين التاريخ العريق والحداثة، وتشتهر بصناعاتها التقليدية ومدارسها العتيقة وأسواقها التاريخية. كما تضم مدينة مكناس الإمبراطورية وإفران السويسرية وصفرو مدينة الشلالات.',
-      cities: [
-        { name: 'فاس', slug: 'fes', desc: 'العاصمة العلمية والروحية للمملكة المغربية بأزقتها التاريخية.' },
-        { name: 'مكناس', slug: 'meknes', desc: 'المدينة الإمبراطورية بأسوارها ومعالمها التاريخية العريقة.' },
-        { name: 'تازة', slug: 'taza', desc: 'الممر الاستراتيجي بين الشرق والغرب بمغاراته الشهيرة.' },
-        { name: 'صفرو', slug: 'sefrou', desc: 'مدينة الشلالات والطبيعة الخلابة وكرزها المشهور.' },
-        { name: 'إفران', slug: 'ifrane', desc: 'سويسرا المغرب بمناظرها الجبلية وثلوجها وغابات الأرز.' },
-        { name: 'الحاجب', slug: 'el-hajeb', desc: 'مدينة فلاحية في سفح الأطلس المتوسط.' },
-        { name: 'بولمان', slug: 'boulemane', desc: 'منطقة جبلية وسياحية في الأطلس المتوسط.' },
-        { name: 'مولاي يعقوب', slug: 'moulay-yacoub', desc: 'منتجع صحي طبيعي بمياهه الكبريتية المعدنية.' },
-        { name: 'تاونات', slug: 'taounate', desc: 'منطقة فلاحية خصبة في مقدمة جبال الريف.' }
-      ],
-      activities: [
-        { title: 'جولة في المدينة القديمة بفاس', desc: 'رحلة ثقافية لاستكشاف أسرار المدينة القديمة بفاس ومعالمها التاريخية.', img: 'https://images.unsplash.com/photo-1539020140153-f79d8e9b8e3a?w=600&q=80' },
-        { title: 'مخيم شتوي بإفران', desc: 'مخيم شتوي لأعضاء الجمعية في غابات الأرز بإفران مع أنشطة ثلجية.', img: 'https://images.unsplash.com/photo-1551632811-561732d1e306?w=600&q=80' },
-        { title: 'معرض الصناعة التقليدية', desc: 'تنظيم معرض للصناعة التقليدية المحلية بمشاركة حرفيي الجهة.', img: 'https://images.unsplash.com/photo-1515187029135-7eefa3b2c9a1?w=600&q=80' }
-      ],
-      gallery: [
-        'https://images.unsplash.com/photo-1539020140153-f79d8e9b8e3a?w=600&q=80',
-        'https://images.unsplash.com/photo-1577979780245-5516627e28a4?w=600&q=80',
-        'https://images.unsplash.com/photo-1590073242678-6a7fa60b0a7c?w=600&q=80'
-      ],
-      ctaText: 'انضم إلى فرع جهة فاس - مكناس وشارك في الأنشطة والفعاليات، وساهم في تنمية منطقتك مع فريق من المتطوعين المتحمسين.'
-    },
-    'rabat-sale-kenitra': {
-      name: 'جهة الرباط - سلا - القنيطرة',
-      heroDesc: 'الجهة الإدارية والحكومية للمملكة، تضم العاصمة الرباط ومراكز القرار. تجمع بين التاريخ العريق والحاضر المزدهر.',
-      heroBg: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1600&q=80',
-      aboutTitle: 'إحدى الجهات الإثنتي عشرة للمملكة المغربية',
-      aboutText: 'تضم جهة الرباط - سلا - القنيطرة العاصمة الإدارية للمملكة المغربية، وتجمع بين المؤسسات الحكومية والمراكز الثقافية والمعالم التاريخية المصنفة ضمن التراث العالمي لليونسكو. تمتد الجهة على الساحل الأطلسي وتضم مدناً عريقة مثل الرباط وسلا والقنيطرة، وتعد مركزاً للتعليم العالي والبحث العلمي والدبلوماسية.',
-      cities: [
-        { name: 'الرباط', slug: 'rabat', desc: 'عاصمة المملكة المغربية ومدينة الأنوار بمعالمها التاريخية.' },
-        { name: 'سلا', slug: 'sale', desc: 'المدينة العريقة على الضفة اليمنى لنهر أبي رقراق.' },
-        { name: 'القنيطرة', slug: 'kenitra', desc: 'مدينة صناعية وميناء نهري مهم على نهر سبو.' },
-        { name: 'الخميسات', slug: 'khemisset', desc: 'مدينة أمازيغية بالأطلس المتوسط بتراثها الثقافي.' },
-        { name: 'سيدي قاسم', slug: 'sidi-kacem', desc: 'مركز فلاحي مهم في سهل الغرب.' },
-        { name: 'سيدي سليمان', slug: 'sidi-slimane', desc: 'مدينة فلاحية في منطقة الغرب الخصبة.' },
-        { name: 'الصخيرات تمارة', slug: 'skhirate-temara', desc: 'منطقة ساحلية وسياحية قرب العاصمة بشواطئها الجميلة.' }
-      ],
-      activities: [
-        { title: 'زيارة صومعة حسان', desc: 'جولة ثقافية في الموقع التاريخي لصومعة حسان وضريح محمد الخامس.', img: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&q=80' },
-        { title: 'ورشة البيئة بسلا', desc: 'ورشة توعوية حول حماية البيئة بنهر أبي رقراق بمشاركة تلاميذ المدارس.', img: 'https://images.unsplash.com/photo-1531058020387-3be344556be6?w=600&q=80' },
-        { title: 'ملتقى الجمعيات المدنية', desc: 'تنظيم ملتقى للجمعيات المدنية بجهة الرباط لتبادل الخبرات والتجارب.', img: 'https://images.unsplash.com/photo-1515187029135-7eefa3b2c9a1?w=600&q=80' }
-      ],
-      gallery: [
-        'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&q=80',
-        'https://images.unsplash.com/photo-1590073242678-6a7fa60b0a7c?w=600&q=80',
-        'https://images.unsplash.com/photo-1577979780245-5516627e28a4?w=600&q=80'
-      ],
-      ctaText: 'انضم إلى فرع جهة الرباط - سلا - القنيطرة وشارك في الأنشطة والفعاليات، وساهم في تنمية منطقتك مع فريق من المتطوعين المتحمسين.'
-    },
-    'beni-mellal-khenifra': {
-      name: 'جهة بني ملال - خنيفرة',
-      heroDesc: 'الجهة الوسطى للمغرب، تجمع بين السهول الفلاحية الخصبة وجبال الأطلس المتوسط الشامخة. منطقة الطبيعة والفلاحة.',
-      heroBg: 'https://images.unsplash.com/photo-1551632811-561732d1e306?w=1600&q=80',
-      aboutTitle: 'إحدى الجهات الإثنتي عشرة للمملكة المغربية',
-      aboutText: 'تقع جهة بني ملال - خنيفرة في قلب المغرب، وتتميز بتنوعها الجغرافي الذي يجمع بين سهول تادلة الفلاحية الخصبة وجبال الأطلس المتوسط الشاهقة. تشتهر الجهة بإنتاجها الزراعي الغني ومناظرها الطبيعية الخلابة، وتضم مواقع سياحية فريدة مثل شلالات أوزود وبحيرة بين الويدان. كما تحتضن مناجم الفوسفاط بخريبكة التي تعد من أكبر احتياطيات الفوسفاط في العالم.',
-      cities: [
-        { name: 'بني ملال', slug: 'beni-mellal', desc: 'عاصمة الجهة وبوابة الأطلس المتوسط بموقعها الاستراتيجي.' },
-        { name: 'أزيلال', slug: 'azilal', desc: 'منطقة جبلية سياحية بشلالات أوزود الخلابة.' },
-        { name: 'خنيفرة', slug: 'khenifra', desc: 'المدينة الحمراء في قلب الأطلس المتوسط بطبيعتها البكر.' },
-        { name: 'الفقيه بن صالح', slug: 'fquih-ben-salah', desc: 'مركز فلاحي وتجاري مهم في سهول تادلة.' },
-        { name: 'خريبكة', slug: 'khouribga', desc: 'عاصمة الفوسفاط المغربي ومركز تعديني مهم.' }
-      ],
-      activities: [
-        { title: 'رحلة إلى شلالات أوزود', desc: 'رحلة استكشافية إلى شلالات أوزود الخلابة في قلب جبال الأطلس.', img: 'https://images.unsplash.com/photo-1551632811-561732d1e306?w=600&q=80' },
-        { title: 'مهرجان الفلاحة بتادلة', desc: 'المشاركة في مهرجان الفلاحة بسهول تادلة لعرض المنتوجات المحلية.', img: 'https://images.unsplash.com/photo-1531058020387-3be344556be6?w=600&q=80' },
-        { title: 'استكشاف بحيرة بين الويدان', desc: 'رحلة استكشافية لبحيرة بين الويدان والتعريف بمؤهلاتها السياحية.', img: 'https://images.unsplash.com/photo-1515187029135-7eefa3b2c9a1?w=600&q=80' }
-      ],
-      gallery: [
-        'https://images.unsplash.com/photo-1551632811-561732d1e306?w=600&q=80',
-        'https://images.unsplash.com/photo-1531058020387-3be344556be6?w=600&q=80',
-        'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&q=80'
-      ],
-      ctaText: 'انضم إلى فرع جهة بني ملال - خنيفرة وشارك في الأنشطة والفعاليات، وساهم في تنمية منطقتك مع فريق من المتطوعين المتحمسين.'
-    },
-    'casablanca-settat': {
-      name: 'جهة الدار البيضاء - سطات',
-      heroDesc: 'القطب الاقتصادي والتجاري الأول للمغرب، تضم العاصمة الاقتصادية الدار البيضاء. قلب المغرب النابض بالحياة والأعمال.',
-      heroBg: 'https://images.unsplash.com/photo-1515187029135-7eefa3b2c9a1?w=1600&q=80',
-      aboutTitle: 'إحدى الجهات الإثنتي عشرة للمملكة المغربية',
-      aboutText: 'تعد جهة الدار البيضاء - سطات القلب الاقتصادي النابض للمغرب، حيث تضم العاصمة الاقتصادية الدار البيضاء التي تعتبر أكبر مدينة في المغرب والمركز المالي والتجاري الأول. تمتد الجهة على الساحل الأطلسي وتضم ميناء الدار البيضاء الذي يعد من أكبر الموانئ في إفريقيا. كما تشتهر بمدنها الصناعية والتجارية الهامة مثل المحمدية والجديدة وسطات.',
-      cities: [
-        { name: 'الدار البيضاء', slug: 'casablanca', desc: 'العاصمة الاقتصادية وأكبر مدينة في المغرب بمعمارها الفريد.' },
-        { name: 'المحمدية', slug: 'mohammedia', desc: 'مدينة ساحلية صناعية وترفيهية بشواطئها الجميلة.' },
-        { name: 'الجديدة', slug: 'el-jadida', desc: 'مدينة ساحلية تاريخية بمازاغان البرتغالية المسجلة في اليونسكو.' },
-        { name: 'سطات', slug: 'settat', desc: 'مركز فلاحي وتجاري في السهول الداخلية.' },
-        { name: 'برشيد', slug: 'berrechid', desc: 'مدينة فلاحية وصناعية سريعة النمو.' },
-        { name: 'بنسليمان', slug: 'benslimane', desc: 'منطقة غابوية وفلاحية قرب العاصمة الاقتصادية.' },
-        { name: 'سيدي بنور', slug: 'sidi-bennour', desc: 'مدينة فلاحية معروفة بإنتاجها الزراعي المتنوع.' },
-        { name: 'النواصر', slug: 'nouaceur', desc: 'منطقة المطار الدولي محمد الخامس.' },
-        { name: 'مديونة', slug: 'mediouna', desc: 'منطقة صناعية ولوجستية قرب الدار البيضاء.' }
-      ],
-      activities: [
-        { title: 'ملتقى ريادة الأعمال', desc: 'تنظيم ملتقى لريادة الأعمال لفائدة شباب الجهة بمشاركة خبراء ومقاولين.', img: 'https://images.unsplash.com/photo-1515187029135-7eefa3b2c9a1?w=600&q=80' },
-        { title: 'حملة تشجير بالدار البيضاء', desc: 'مبادرة بيئية لتشجير الفضاءات الخضراء بمدينة الدار البيضاء.', img: 'https://images.unsplash.com/photo-1531058020387-3be344556be6?w=600&q=80' },
-        { title: 'زيارة المدينة القديمة', desc: 'جولة استكشافية في المدينة القديمة للدار البيضاء للتعريف بتراثها.', img: 'https://images.unsplash.com/photo-1551632811-561732d1e306?w=600&q=80' }
-      ],
-      gallery: [
-        'https://images.unsplash.com/photo-1515187029135-7eefa3b2c9a1?w=600&q=80',
-        'https://images.unsplash.com/photo-1590073242678-6a7fa60b0a7c?w=600&q=80',
-        'https://images.unsplash.com/photo-1577979780245-5516627e28a4?w=600&q=80'
-      ],
-      ctaText: 'انضم إلى فرع جهة الدار البيضاء - سطات وشارك في الأنشطة والفعاليات، وساهم في تنمية منطقتك مع فريق من المتطوعين المتحمسين.'
-    },
-    'marrakech-safi': {
-      name: 'جهة مراكش - آسفي',
-      heroDesc: 'الجهة السياحية الأولى للمغرب، تضم المدينة الحمراء مراكش وساحل المحيط الأطلسي. حيث يلتقي التاريخ بالجمال.',
-      heroBg: 'https://images.unsplash.com/photo-1590073242678-6a7fa60b0a7c?w=1600&q=80',
-      aboutTitle: 'إحدى الجهات الإثنتي عشرة للمملكة المغربية',
-      aboutText: 'تعد جهة مراكش - آسفي الوجهة السياحية الأولى في المغرب، حيث تضم المدينة الحمراء مراكش التي تجذب ملايين السياح سنوياً بفضل أسواقها التقليدية ومعالمها التاريخية وساحة جامع الفنا. تمتد الجهة على الساحل الأطلسي وتضم مدناً ساحلية جميلة مثل آسفي والصويرة، وتشتهر بصناعاتها التقليدية وفنونها العريقة.',
-      cities: [
-        { name: 'مراكش', slug: 'marrakech', desc: 'المدينة الحمراء وعاصمة السياحة المغربية بأسواقها ومعالمها.' },
-        { name: 'آسفي', slug: 'safi', desc: 'مدينة ساحلية تاريخية وعاصمة الفخار المغربي.' },
-        { name: 'الصويرة', slug: 'essaouira', desc: 'جوهرة المحيط الأطلسي ومدينة الرياح بمينائها التاريخي.' },
-        { name: 'قلعة السراغنة', slug: 'kelaa-sraghna', desc: 'مركز فلاحي مهم في سهول الحوز.' },
-        { name: 'الرحامنة', slug: 'rehamna', desc: 'منطقة سهبية وفلاحية شمال مراكش.' },
-        { name: 'شيشاوة', slug: 'chichaoua', desc: 'منطقة فلاحية تقع جنوب مدينة مراكش.' },
-        { name: 'اليوسفية', slug: 'youssoufia', desc: 'مدينة منجمية وفلاحية في السهول الغربية.' },
-        { name: 'الحوز', slug: 'al-haouz', desc: 'منطقة جبلية تضم جزءاً من الأطلس الكبير.' }
-      ],
-      activities: [
-        { title: 'جولة في ساحة جامع الفنا', desc: 'جولة استكشافية في ساحة جامع الفنا الشهيرة للتعرف على تراثها الحي.', img: 'https://images.unsplash.com/photo-1590073242678-6a7fa60b0a7c?w=600&q=80' },
-        { title: 'مهرجان كناوة بالصويرة', desc: 'المشاركة في مهرجان كناوة للموسيقى العالمية بمدينة الصويرة.', img: 'https://images.unsplash.com/photo-1577979780245-5516627e28a4?w=600&q=80' },
-        { title: 'ورشة الفخار بآسفي', desc: 'ورشة تدريبية حول فن صناعة الفخار في مدينة آسفي.', img: 'https://images.unsplash.com/photo-1551632811-561732d1e306?w=600&q=80' }
-      ],
-      gallery: [
-        'https://images.unsplash.com/photo-1590073242678-6a7fa60b0a7c?w=600&q=80',
-        'https://images.unsplash.com/photo-1577979780245-5516627e28a4?w=600&q=80',
-        'https://images.unsplash.com/photo-1544001254-1a14112e5e00?w=600&q=80'
-      ],
-      ctaText: 'انضم إلى فرع جهة مراكش - آسفي وشارك في الأنشطة والفعاليات، وساهم في تنمية منطقتك مع فريق من المتطوعين المتحمسين.'
-    },
-    'draa-tafilalet': {
-      name: 'جهة درعة - تافيلالت',
-      heroDesc: 'الجهة الصحراوية الشرقية، مهد الدولة العلوية ومنبع التمور المغربية. حيث تلتقي الواحات بالصحراء.',
-      heroBg: 'https://images.unsplash.com/photo-1544001254-1a14112e5e00?w=1600&q=80',
-      aboutTitle: 'إحدى الجهات الإثنتي عشرة للمملكة المغربية',
-      aboutText: 'تعتبر جهة درعة - تافيلالت مهد الدولة العلوية الشريفة ومنبع التمور المغربية الفاخرة. تمتد الجهة على مساحة شاسعة من الأطلس الكبير شرقاً حتى عمق الصحراء، وتضم واحات النخيل الخلابة وقصور الطين التاريخية. تشتهر الجهة بورزازات هوليود إفريقيا ومضيق تودغا السياحي وزاكورة بوابة الصحراء الكبرى.',
-      cities: [
-        { name: 'الرشيدية', slug: 'errachidia', desc: 'عاصمة الجهة وبوابة الصحراء الشرقية.' },
-        { name: 'ورزازات', slug: 'ouarzazate', desc: 'هوليود إفريقيا ومدينة القصور والقصبات التاريخية.' },
-        { name: 'زاكورة', slug: 'zagora', desc: 'واحة النخيل وبوابة الصحراء الكبرى.' },
-        { name: 'تنغير', slug: 'tinghir', desc: 'مدينة الواحات ومضيق تودغا الشهير.' },
-        { name: 'ميدلت', slug: 'midelt', desc: 'مدينة التفاح والجبال في الأطلس الكبير.' }
-      ],
-      activities: [
-        { title: 'استكشاف قصور ورزازات', desc: 'رحلة لاستكشاف القصور والقصبات التاريخية في منطقة ورزازات.', img: 'https://images.unsplash.com/photo-1544001254-1a14112e5e00?w=600&q=80' },
-        { title: 'مهرجان التمور بتافيلالت', desc: 'المشاركة في مهرجان التمور السنوي بمنطقة تافيلالت.', img: 'https://images.unsplash.com/photo-1551632811-561732d1e306?w=600&q=80' },
-        { title: 'رحلة إلى واحات زاكورة', desc: 'رحلة استكشافية إلى واحات النخيل بمنطقة زاكورة.', img: 'https://images.unsplash.com/photo-1577979780245-5516627e28a4?w=600&q=80' }
-      ],
-      gallery: [
-        'https://images.unsplash.com/photo-1544001254-1a14112e5e00?w=600&q=80',
-        'https://images.unsplash.com/photo-1551632811-561732d1e306?w=600&q=80',
-        'https://images.unsplash.com/photo-1577979780245-5516627e28a4?w=600&q=80'
-      ],
-      ctaText: 'انضم إلى فرع جهة درعة - تافيلالت وشارك في الأنشطة والفعاليات، وساهم في تنمية منطقتك مع فريق من المتطوعين المتحمسين.'
-    },
-    'souss-massa': {
-      name: 'جهة سوس - ماسة',
-      heroDesc: 'الجهة الجنوبية الغربية، قطب فلاحي وسياحي يطل على المحيط الأطلسي. أرض الأركان والثقافة الأمازيغية.',
-      heroBg: 'https://images.unsplash.com/photo-1509027572446-af8401acfdc9?w=1600&q=80',
-      aboutTitle: 'إحدى الجهات الإثنتي عشرة للمملكة المغربية',
-      aboutText: 'تعد جهة سوس - ماسة من أهم الأقطاب الفلاحية والسياحية في المغرب، حيث تشتهر بأشجار الأركان الفريدة وشواطئ أكادير الذهبية. تجمع الجهة بين السهل الخصب وجبال الأطلس الصغير، وتعتبر مركزاً للثقافة الأمازيغية الأصيلة. تضم مدناً هامة مثل أكادير عاصمة السياحة الشاطئية وتارودانت المدينة العتيقة وتيزنيت مدينة الفضة.',
-      cities: [
-        { name: 'أكادير', slug: 'agadir', desc: 'عاصمة السياحة الشاطئية في المغرب بشواطئها الذهبية.' },
-        { name: 'إنزكان', slug: 'inezgane', desc: 'قطب تجاري واقتصادي مهم في منطقة سوس.' },
-        { name: 'تارودانت', slug: 'taroudant', desc: 'المدينة العتيقة بسورها التاريخي وتراثها العريق.' },
-        { name: 'تيزنيت', slug: 'tiznit', desc: 'مدينة الفضة والحرف التقليدية الأصيلة.' },
-        { name: 'اشتوكة آيت باها', slug: 'chtouka-ait-baha', desc: 'منطقة فلاحية وساحلية خصبة بإنتاجها المتنوع.' },
-        { name: 'طاطا', slug: 'tata', desc: 'واحة صحراوية في جنوب شرق المغرب.' }
-      ],
-      activities: [
-        { title: 'مهرجان تيميتار بأكادير', desc: 'المشاركة في مهرجان تيميتار للموسيقى الأمازيغية والعالمية.', img: 'https://images.unsplash.com/photo-1509027572446-af8401acfdc9?w=600&q=80' },
-        { title: 'استكشاف غابات الأركان', desc: 'رحلة إلى غابات الأركان للتعرف على الشجرة الفريدة ومنتوجاتها.', img: 'https://images.unsplash.com/photo-1515187029135-7eefa3b2c9a1?w=600&q=80' },
-        { title: 'حملة تنظيف شاطئ أكادير', desc: 'مبادرة بيئية لتنظيف شاطئ أكادير بمشاركة متطوعين وسياح.', img: 'https://images.unsplash.com/photo-1531058020387-3be344556be6?w=600&q=80' }
-      ],
-      gallery: [
-        'https://images.unsplash.com/photo-1509027572446-af8401acfdc9?w=600&q=80',
-        'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&q=80',
-        'https://images.unsplash.com/photo-1515187029135-7eefa3b2c9a1?w=600&q=80'
-      ],
-      ctaText: 'انضم إلى فرع جهة سوس - ماسة وشارك في الأنشطة والفعاليات، وساهم في تنمية منطقتك مع فريق من المتطوعين المتحمسين.'
-    },
-    'guelmim-oued-noun': {
-      name: 'جهة كلميم - واد نون',
-      heroDesc: 'بوابة الصحراء المغربية، ملتقى الثقافات الصحراوية والأمازيغية. حيث تبدأ رمال الصحراء.',
-      heroBg: 'https://images.unsplash.com/photo-1544001254-1a14112e5e00?w=1600&q=80',
-      aboutTitle: 'إحدى الجهات الإثنتي عشرة للمملكة المغربية',
-      aboutText: 'تعتبر جهة كلميم - واد نون بوابة الصحراء المغربية وملتقى الثقافات الصحراوية والأمازيغية. تشتهر الجهة بأسواقها التقليدية ومواسمها الثقافية التي تعكس التراث الحساني الأصيل. تضم مدناً تاريخية مثل كلميم مدينة القوافل وطانطان مدينة المواسم وسيدي إفني المدينة الساحلية الجميلة.',
-      cities: [
-        { name: 'كلميم', slug: 'guelmim', desc: 'بوابة الصحراء ومدينة القوافل بأسواقها التقليدية.' },
-        { name: 'طانطان', slug: 'tan-tan', desc: 'مدينة المواسم الصحراوية والتراث الحساني الأصيل.' },
-        { name: 'سيدي إفني', slug: 'sidi-ifni', desc: 'مدينة ساحلية بشواطئها البكر ومبانيها التاريخية.' },
-        { name: 'آسا الزاك', slug: 'assa-zag', desc: 'واحة صحراوية في عمق الجنوب المغربي.' }
-      ],
-      activities: [
-        { title: 'موسم طانطان الثقافي', desc: 'المشاركة في موسم طانطان الثقافي المصنف ضمن التراث العالمي.', img: 'https://images.unsplash.com/photo-1544001254-1a14112e5e00?w=600&q=80' },
-        { title: 'سوق الإبل بكلميم', desc: 'زيارة سوق الإبل التقليدي بمدينة كلميم والتعريف بأهميته.', img: 'https://images.unsplash.com/photo-1551632811-561732d1e306?w=600&q=80' },
-        { title: 'استكشاف ساحل سيدي إفني', desc: 'رحلة استكشافية لسواحل سيدي إفني البكر والتعريف بمؤهلاتها.', img: 'https://images.unsplash.com/photo-1531058020387-3be344556be6?w=600&q=80' }
-      ],
-      gallery: [
-        'https://images.unsplash.com/photo-1544001254-1a14112e5e00?w=600&q=80',
-        'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&q=80',
-        'https://images.unsplash.com/photo-1551632811-561732d1e306?w=600&q=80'
-      ],
-      ctaText: 'انضم إلى فرع جهة كلميم - واد نون وشارك في الأنشطة والفعاليات، وساهم في تنمية منطقتك مع فريق من المتطوعين المتحمسين.'
-    },
-    'laayoune-sakia-el-hamra': {
-      name: 'جهة العيون - الساقية الحمراء',
-      heroDesc: 'كبرى جهات الجنوب المغربي، عاصمة الصحراء المغربية. أرض الفرص والتنمية في الصحراء.',
-      heroBg: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1600&q=80',
-      aboutTitle: 'إحدى الجهات الإثنتي عشرة للمملكة المغربية',
-      aboutText: 'تعد جهة العيون - الساقية الحمراء كبرى جهات الجنوب المغربي وعاصمة الصحراء المغربية. تشهد الجهة نهضة تنموية كبيرة في مختلف المجالات بفضل المشاريع الكبرى التي أطلقتها الدولة. تتميز بثقافتها الحسانية الأصيلة وموقعها الاستراتيجي على المحيط الأطلسي، وتضم مدناً هامة مثل العيون والسمارة وبوجدور.',
-      cities: [
-        { name: 'العيون', slug: 'laayoune', desc: 'عاصمة الصحراء المغربية وأكبر مدن الجنوب.' },
-        { name: 'السمارة', slug: 'smara', desc: 'مدينة تاريخية وروحية في عمق الصحراء.' },
-        { name: 'بوجدور', slug: 'boujdour', desc: 'مدينة ساحلية صحراوية على المحيط الأطلسي.' },
-        { name: 'طرفاية', slug: 'tarfaya', desc: 'مدينة ساحلية جنوبية بتاريخ بحري عريق.' }
-      ],
-      activities: [
-        { title: 'مهرجان العيون الثقافي', desc: 'المشاركة في مهرجان العيون الثقافي للتعريف بالتراث الحساني.', img: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&q=80' },
-        { title: 'حملة تشجير بالعيون', desc: 'مبادرة بيئية لتشجير الفضاءات الخضراء بمدينة العيون.', img: 'https://images.unsplash.com/photo-1551632811-561732d1e306?w=600&q=80' },
-        { title: 'زيارة ميناء العيون', desc: 'زيارة تعليمية لميناء العيون للتعريف بأهميته الاقتصادية.', img: 'https://images.unsplash.com/photo-1515187029135-7eefa3b2c9a1?w=600&q=80' }
-      ],
-      gallery: [
-        'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&q=80',
-        'https://images.unsplash.com/photo-1544001254-1a14112e5e00?w=600&q=80',
-        'https://images.unsplash.com/photo-1515187029135-7eefa3b2c9a1?w=600&q=80'
-      ],
-      ctaText: 'انضم إلى فرع جهة العيون - الساقية الحمراء وشارك في الأنشطة والفعاليات، وساهم في تنمية منطقتك مع فريق من المتطوعين المتحمسين.'
-    },
-    'dakhla-oued-eddahab': {
-      name: 'جهة الداخلة - وادي الذهب',
-      heroDesc: 'أقصى جنوب المغرب، جنة الرياضات المائية والصيد البحري. حيث يلتقي الصحراء بالمحيط.',
-      heroBg: 'https://images.unsplash.com/photo-1551632811-561732d1e306?w=1600&q=80',
-      aboutTitle: 'إحدى الجهات الإثنتي عشرة للمملكة المغربية',
-      aboutText: 'تقع جهة الداخلة - وادي الذهب في أقصى جنوب المملكة المغربية، وتعتبر جنة حقيقية لعشاق الرياضات المائية بفضل شبه جزيرتها الفريدة ورياحها المثالية لممارسة الرياضات الشراعية. تشتهر الجهة بثرواتها البحرية الغنية وشواطئها البكر، وتعد وجهة سياحية عالمية متنامية تستقطب عشاق الطبيعة والمغامرة من مختلف أنحاء العالم.',
-      cities: [
-        { name: 'الداخلة', slug: 'dakhla', desc: 'جوهرة الجنوب وشبه جزيرة ساحرة لعشاق الرياضات المائية.' },
-        { name: 'أوسرد', slug: 'aousserd', desc: 'منطقة صحراوية شاسعة في الجنوب الشرقي.' }
-      ],
-      activities: [
-        { title: 'مهرجان الداخلة للرياضات المائية', desc: 'المشاركة في مهرجان الداخلة الدولي للرياضات المائية والشراعية.', img: 'https://images.unsplash.com/photo-1551632811-561732d1e306?w=600&q=80' },
-        { title: 'حملة تنظيف شاطئ الداخلة', desc: 'مبادرة بيئية لتنظيف شواطئ الداخلة والمحافظة على بيئتها.', img: 'https://images.unsplash.com/photo-1531058020387-3be344556be6?w=600&q=80' },
-        { title: 'استكشاف خليج الداخلة', desc: 'رحلة استكشافية في خليج الداخلة للتعريف بتنوعه البيئي.', img: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&q=80' }
-      ],
-      gallery: [
-        'https://images.unsplash.com/photo-1551632811-561732d1e306?w=600&q=80',
-        'https://images.unsplash.com/photo-1531058020387-3be344556be6?w=600&q=80',
-        'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&q=80'
-      ],
-      ctaText: 'انضم إلى فرع جهة الداخلة - وادي الذهب وشارك في الأنشطة والفعاليات، وساهم في تنمية منطقتك مع فريق من المتطوعين المتحمسين.'
+  function updateSEO(name) {
+    var title = name + ' | الفروع الجهوية | الجمعية المغربية لهواة البحث والاستكشاف';
+    document.title = title;
+    var metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) metaDesc.setAttribute('content', 'الفرع الجهوي لـ' + name + ' — تعرف على أنشطة ومدن هذه الجهة وانضم إلى فريقها.');
+    document.querySelector('meta[property="og:title"]').setAttribute('content', title);
+    document.querySelector('meta[property="og:description"]').setAttribute('content', 'تعرف على أنشطة ومدن ' + name + ' وانضم إلى فريقها.');
+  }
+
+  function renderRegion(region, cities, posts, gallery) {
+    var name = pickLang(region, 'name') || region.name_ar || '';
+    var desc = pickLang(region, 'description') || region.description_ar || region.description || '';
+
+    updateSEO(name);
+
+    document.getElementById('heroTitle').textContent = name;
+
+    var heroDescEl = document.querySelector('.branch-hero-subtitle');
+    if (heroDescEl) heroDescEl.textContent = desc.substring(0, 200);
+
+    var aboutTextEl = document.getElementById('aboutText');
+    if (aboutTextEl) aboutTextEl.textContent = desc;
+
+    var citiesGrid = document.getElementById('citiesGrid');
+    if (citiesGrid && cities.length) {
+      var html = '';
+      for (var i = 0; i < cities.length; i++) {
+        var c = cities[i];
+        html += '<div class="branch-city-card reveal" style="--i:' + i + '">' +
+          '<div class="branch-city-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>' +
+          '<h3>' + pickLang(c, 'name') + '</h3>' +
+          '<p>' + pickLang(c, 'description') + '</p>' +
+          '</div>';
+      }
+      citiesGrid.innerHTML = html;
     }
-  };
 
-  var region = regions[slug];
-  var main = document.getElementById('main');
-  if (!main) return;
+    // Activities from branch_posts
+    var actGrid = document.querySelector('.branch-activities-grid');
+    if (actGrid && posts.length) {
+      var actHtml = '';
+      for (var j = 0; j < Math.min(posts.length, 3); j++) {
+        var p = posts[j];
+        actHtml += '<article class="branch-activity-card reveal" style="--i:' + j + '">' +
+          '<div class="branch-activity-img">' + (p.featured_image ? '<img src="' + p.featured_image + '" alt="" style="width:100%;height:100%;object-fit:cover;">' : '') + '</div>' +
+          '<div class="branch-activity-body"><h3>' + (p.title || '') + '</h3>' +
+          '<p>' + (p.content || '').substring(0, 120) + '</p>' +
+          '<a href="#" class="branch-activity-more">قراءة المزيد <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a></div></article>';
+      }
+      actGrid.innerHTML = actHtml;
+    }
 
-  if (!region) {
-    var heroSection = document.querySelector('.branch-hero');
-    if (heroSection) heroSection.remove();
-    main.innerHTML = '<section class="branch-404"><div class="container"><div class="branch-404-inner"><div class="branch-404-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg></div><h1>الجهة غير موجودة</h1><p>عذراً، الجهة التي تبحث عنها غير متوفرة. يرجى التحقق من الرابط أو العودة إلى قائمة الفروع الجهوية.</p><a href="/branch.html" class="btn btn-primary">العودة إلى الفروع الجهوية</a></div></div></section>';
-    return;
+    // Gallery from branch_post_images
+    var galGrid = document.querySelector('.branch-gallery-grid');
+    if (galGrid && gallery.length) {
+      var galHtml = '';
+      for (var k = 0; k < Math.min(gallery.length, 6); k++) {
+        var g = gallery[k];
+        var isLarge = k === 0 ? ' branch-gallery-item-large' : '';
+        galHtml += '<div class="branch-gallery-item' + isLarge + ' reveal"><img src="' + (g.image_url || g.cover_image || '') + '" alt="" style="width:100%;height:100%;object-fit:cover;"></div>';
+      }
+      galGrid.innerHTML = galHtml;
+    }
   }
 
-  document.title = region.name + ' | الفروع الجهوية | الجمعية المغربية لهواة البحث والاستكشاف';
-  var ogTitle = document.querySelector('meta[property="og:title"]');
-  if (ogTitle) ogTitle.setAttribute('content', region.name + ' | الفروع الجهوية');
+  function fetchAndRender() {
+    var client = window.supabaseClient || (window.Supabase && window.Supabase.getClient ? window.Supabase.getClient() : null);
+    if (!client) { console.warn('[Branch] Supabase not ready'); return; }
 
-  var heroBgEl = document.querySelector('.branch-hero-bg');
-  if (heroBgEl) heroBgEl.style.backgroundImage = 'url(\'' + region.heroBg + '\')';
-
-  var heroTitle = document.querySelector('.branch-hero h1');
-  if (heroTitle) heroTitle.textContent = region.name;
-  var heroDesc = document.querySelector('.branch-hero p');
-  if (heroDesc) heroDesc.textContent = region.heroDesc;
-
-  var aboutHeading = document.querySelector('.branch-about-card h2');
-  if (aboutHeading) aboutHeading.textContent = region.name;
-  var aboutTitleSmall = document.querySelector('.branch-about-title-small');
-  if (aboutTitleSmall) aboutTitleSmall.textContent = region.aboutTitle;
-  var aboutText = document.querySelector('.branch-about-card p:last-of-type');
-  if (aboutText) aboutText.textContent = region.aboutText;
-
-  var cityPinSvg = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>';
-  var citiesHtml = '';
-  for (var ci = 0; ci < region.cities.length; ci++) {
-    var city = region.cities[ci];
-    citiesHtml += '<article class="branch-city-card reveal"><span class="branch-city-icon">' + cityPinSvg + '</span><h3>' + city.name + '</h3><p>' + city.desc + '</p><a href="/city.html?slug=' + (city.slug || '') + '" class="branch-city-link">استكشف <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></a></article>';
+    client.from('regions').select('*').eq('slug', slug).eq('published', true).single()
+      .then(function(res) {
+        if (res.error || !res.data) { console.warn('[Branch] Region not found:', slug); return; }
+        var region = res.data;
+        client.from('cities').select('*').eq('region_id', region.id).eq('published', true).order('created_at')
+          .then(function(cres) {
+            var cities = cres.data || [];
+            // Load posts for region-level activities
+            client.from('branch_posts').select('*, cities!inner(region_id)').eq('cities.region_id', region.id).eq('published', true).order('created_at', { ascending: false }).limit(3)
+              .then(function(pres) {
+                var posts = pres.data || [];
+                // Load gallery from post images
+                var postIds = posts.map(function(p) { return p.id; });
+                if (postIds.length) {
+                  client.from('branch_post_images').select('*').in('post_id', postIds).order('created_at', { ascending: false }).limit(6)
+                    .then(function(gres) {
+                      renderRegion(region, cities, posts, gres.data || []);
+                    });
+                } else {
+                  renderRegion(region, cities, posts, []);
+                }
+              });
+          });
+      })
+      .catch(function(e) { console.warn('[Branch] Error:', e); });
   }
-  var citiesGrid = document.querySelector('.branch-cities-grid');
-  if (citiesGrid) citiesGrid.innerHTML = citiesHtml;
 
-  var actsHtml = '';
-  for (var ai = 0; ai < region.activities.length; ai++) {
-    var act = region.activities[ai];
-    actsHtml += '<article class="branch-activity-card reveal"><div class="branch-activity-img"><img src="' + act.img + '" alt="' + act.title + '" loading="lazy"></div><div class="branch-activity-body"><h3>' + act.title + '</h3><p>' + act.desc + '</p><a href="#" class="branch-activity-more">قراءة المزيد <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></a></div></article>';
+  window.addEventListener('amare:langchange', function() { fetchAndRender(); });
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() { setTimeout(fetchAndRender, 200); });
+  } else {
+    setTimeout(fetchAndRender, 200);
   }
-  var actsGrid = document.querySelector('.branch-activities-grid');
-  if (actsGrid) actsGrid.innerHTML = actsHtml;
-
-  var galleryHtml = '';
-  for (var gi = 0; gi < region.gallery.length; gi++) {
-    var cls = 'branch-gallery-item reveal';
-    if (gi === 0) cls += ' branch-gallery-item-large';
-    galleryHtml += '<div class="' + cls + '"><img src="' + region.gallery[gi] + '" alt="' + region.name + '" loading="lazy"></div>';
-  }
-  var galleryGrid = document.querySelector('.branch-gallery-grid');
-  if (galleryGrid) galleryGrid.innerHTML = galleryHtml;
-
-  var ctaTextEl = document.querySelector('.branch-cta p');
-  if (ctaTextEl) ctaTextEl.textContent = region.ctaText;
 })();
 </script>
 

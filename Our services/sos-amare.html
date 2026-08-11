@@ -1248,86 +1248,86 @@
       <form id="sosReportForm" novalidate>
         <div class="sos-form-grid">
           <div class="sos-form-group">
-            <label for="fullName">الاسم الكامل *</label>
-            <input type="text" id="fullName" name="full_name" placeholder="أدخل اسمك الكامل" required>
-            <span class="sos-form-error">الاسم الكامل مطلوب</span>
+            <label for="fullName" data-i18n="sos.form.fullNameLabel">الاسم الكامل *</label>
+            <input type="text" id="fullName" name="full_name" data-i18n-placeholder="sos.form.fullNamePlaceholder" placeholder="أدخل اسمك الكامل" required>
+            <span class="sos-form-error" data-i18n="sos.form.fullNameError">الاسم الكامل مطلوب</span>
           </div>
 
           <div class="sos-form-group">
-            <label for="phone">رقم الهاتف *</label>
+            <label for="phone" data-i18n="sos.form.phoneLabel">رقم الهاتف *</label>
             <input type="tel" id="phone" name="phone" placeholder="06 XX XX XX XX" required dir="ltr">
-            <span class="sos-form-error">رقم الهاتف مطلوب</span>
+            <span class="sos-form-error" data-i18n="sos.form.phoneError">رقم الهاتف مطلوب</span>
           </div>
 
           <div class="sos-form-group">
-            <label for="email">البريد الإلكتروني <span class="optional">(اختياري)</span></label>
+            <label for="email" data-i18n-html="sos.form.emailLabel">البريد الإلكتروني <span class="optional">(اختياري)</span></label>
             <input type="email" id="email" name="email" placeholder="example@email.com" dir="ltr">
-            <span class="sos-form-error">يرجى إدخال بريد إلكتروني صالح</span>
+            <span class="sos-form-error" data-i18n="sos.form.emailError">يرجى إدخال بريد إلكتروني صالح</span>
           </div>
 
           <div class="sos-form-group">
-            <label for="city">المدينة *</label>
+            <label for="city" data-i18n="sos.form.cityLabel">المدينة *</label>
             <select id="city" name="city" required>
-              <option value="">اختر المدينة</option>
-              <option value="أكادير">أكادير</option>
-              <option value="الدار البيضاء">الدار البيضاء</option>
-              <option value="الرباط">الرباط</option>
-              <option value="مراكش">مراكش</option>
-              <option value="فاس">فاس</option>
-              <option value="طنجة">طنجة</option>
-              <option value="مكناس">مكناس</option>
-              <option value="وجدة">وجدة</option>
-              <option value="العيون">العيون</option>
-              <option value="الداخلة">الداخلة</option>
-              <option value="تطوان">تطوان</option>
-              <option value="آسفي">آسفي</option>
-              <option value="الجديدة">الجديدة</option>
-              <option value="الناظور">الناظور</option>
-              <option value="خريبكة">خريبكة</option>
-              <option value="بني ملال">بني ملال</option>
-              <option value="تارودانت">تارودانت</option>
-              <option value="تيزنيت">تيزنيت</option>
-              <option value="أخرى">أخرى</option>
+              <option value="" data-i18n="sos.form.cityDefault">اختر المدينة</option>
+              <option value="أكادير" data-i18n="sos.form.cityAgadir">أكادير</option>
+              <option value="الدار البيضاء" data-i18n="sos.form.cityCasablanca">الدار البيضاء</option>
+              <option value="الرباط" data-i18n="sos.form.cityRabat">الرباط</option>
+              <option value="مراكش" data-i18n="sos.form.cityMarrakech">مراكش</option>
+              <option value="فاس" data-i18n="sos.form.cityFes">فاس</option>
+              <option value="طنجة" data-i18n="sos.form.cityTanger">طنجة</option>
+              <option value="مكناس" data-i18n="sos.form.cityMeknes">مكناس</option>
+              <option value="وجدة" data-i18n="sos.form.cityOujda">وجدة</option>
+              <option value="العيون" data-i18n="sos.form.cityLaayoune">العيون</option>
+              <option value="الداخلة" data-i18n="sos.form.cityDakhla">الداخلة</option>
+              <option value="تطوان" data-i18n="sos.form.cityTetouan">تطوان</option>
+              <option value="آسفي" data-i18n="sos.form.citySafi">آسفي</option>
+              <option value="الجديدة" data-i18n="sos.form.cityElJadida">الجديدة</option>
+              <option value="الناظور" data-i18n="sos.form.cityNador">الناظور</option>
+              <option value="خريبكة" data-i18n="sos.form.cityKhouribga">خريبكة</option>
+              <option value="بني ملال" data-i18n="sos.form.cityBeniMellal">بني ملال</option>
+              <option value="تارودانت" data-i18n="sos.form.cityTaroudant">تارودانت</option>
+              <option value="تيزنيت" data-i18n="sos.form.cityTiznit">تيزنيت</option>
+              <option value="أخرى" data-i18n="sos.form.cityOther">أخرى</option>
             </select>
-            <span class="sos-form-error">المدينة مطلوبة</span>
+            <span class="sos-form-error" data-i18n="sos.form.cityError">المدينة مطلوبة</span>
           </div>
 
           <div class="sos-form-group">
-            <label for="itemType">نوع الغرض *</label>
+            <label for="itemType" data-i18n="sos.form.itemTypeLabel">نوع الغرض *</label>
             <select id="itemType" name="item_type" required>
-              <option value="">اختر نوع الغرض</option>
-              <option value="البطاقات الوطنية">البطاقات الوطنية</option>
-              <option value="جواز السفر">جواز السفر</option>
-              <option value="رخصة السياقة">رخصة السياقة</option>
-              <option value="محفظة">محفظة</option>
-              <option value="هاتف">هاتف</option>
-              <option value="مفاتيح">مفاتيح</option>
-              <option value="وثائق">وثائق</option>
-              <option value="أغراض أخرى">أغراض أخرى</option>
+              <option value="" data-i18n="sos.form.itemTypeDefault">اختر نوع الغرض</option>
+              <option value="البطاقات الوطنية" data-i18n="sos.form.itemTypeCards">البطاقات الوطنية</option>
+              <option value="جواز السفر" data-i18n="sos.form.itemTypePassport">جواز السفر</option>
+              <option value="رخصة السياقة" data-i18n="sos.form.itemTypeLicense">رخصة السياقة</option>
+              <option value="محفظة" data-i18n="sos.form.itemTypeWallet">محفظة</option>
+              <option value="هاتف" data-i18n="sos.form.itemTypePhone">هاتف</option>
+              <option value="مفاتيح" data-i18n="sos.form.itemTypeKeys">مفاتيح</option>
+              <option value="وثائق" data-i18n="sos.form.itemTypeDocuments">وثائق</option>
+              <option value="أغراض أخرى" data-i18n="sos.form.itemTypeOther">أغراض أخرى</option>
             </select>
-            <span class="sos-form-error">نوع الغرض مطلوب</span>
+            <span class="sos-form-error" data-i18n="sos.form.itemTypeError">نوع الغرض مطلوب</span>
           </div>
 
           <div class="sos-form-group">
-            <label for="lostDate">تاريخ الفقدان *</label>
+            <label for="lostDate" data-i18n="sos.form.lostDateLabel">تاريخ الفقدان *</label>
             <input type="date" id="lostDate" name="lost_date" required>
-            <span class="sos-form-error">تاريخ الفقدان مطلوب</span>
+            <span class="sos-form-error" data-i18n="sos.form.lostDateError">تاريخ الفقدان مطلوب</span>
           </div>
 
           <div class="sos-form-group full">
-            <label for="description">وصف الغرض *</label>
-            <textarea id="description" name="description" placeholder="صف الغرض المفقود بالتفصيل (اللون، العلامة، المحتويات، أي علامات مميزة...)" required></textarea>
-            <span class="sos-form-error">وصف الغرض مطلوب</span>
+            <label for="description" data-i18n="sos.form.descriptionLabel">وصف الغرض *</label>
+            <textarea id="description" name="description" data-i18n-placeholder="sos.form.descriptionPlaceholder" placeholder="صف الغرض المفقود بالتفصيل (اللون، العلامة، المحتويات، أي علامات مميزة...)" required></textarea>
+            <span class="sos-form-error" data-i18n="sos.form.descriptionError">وصف الغرض مطلوب</span>
           </div>
 
           <div class="sos-form-group full">
-            <label for="lostLocation">مكان الفقدان *</label>
-            <input type="text" id="lostLocation" name="lost_location" placeholder="أين فقدت الغرض؟ (اسم المكان، الحي، الشارع...)" required>
-            <span class="sos-form-error">مكان الفقدان مطلوب</span>
+            <label for="lostLocation" data-i18n="sos.form.lostLocationLabel">مكان الفقدان *</label>
+            <input type="text" id="lostLocation" name="lost_location" data-i18n-placeholder="sos.form.lostLocationPlaceholder" placeholder="أين فقدت الغرض؟ (اسم المكان، الحي، الشارع...)" required>
+            <span class="sos-form-error" data-i18n="sos.form.lostLocationError">مكان الفقدان مطلوب</span>
           </div>
 
           <div class="sos-form-group full">
-            <label>رفع صورة <span class="optional">(اختياري)</span></label>
+            <label data-i18n-html="sos.form.fileUploadLabel">رفع صورة <span class="optional">(اختياري)</span></label>
             <div class="sos-form-file">
               <input type="file" id="itemImage" name="item_image" accept="image/*">
               <label for="itemImage" class="sos-form-file-label">
@@ -1336,7 +1336,7 @@
                   <circle cx="8.5" cy="8.5" r="1.5"/>
                   <polyline points="21 15 16 10 5 21"/>
                 </svg>
-                <span>اضغط لرفع صورة للغرض المفقود</span>
+                <span data-i18n="sos.form.fileUploadText">اضغط لرفع صورة للغرض المفقود</span>
               </label>
             </div>
           </div>
@@ -1344,7 +1344,7 @@
 
         <div class="sos-form-submit">
           <button type="submit" class="btn btn-accent">
-            إرسال البلاغ
+            <span data-i18n="sos.form.submit">إرسال البلاغ</span>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>
           </button>
         </div>
@@ -1357,8 +1357,8 @@
             <polyline points="22 4 12 14.01 9 11.01"/>
           </svg>
         </div>
-        <h3>تم إرسال البلاغ بنجاح!</h3>
-        <p>شكراً لتواصلك معنا. سنقوم بمراجعة بلاغك ونشره عبر قنوات الجمعية في أقرب وقت ممكن. سنتواصل معك فور العثور على غرضك.</p>
+        <h3 data-i18n="sos.form.successTitle">تم إرسال البلاغ بنجاح!</h3>
+        <p data-i18n="sos.form.successMessage">شكراً لتواصلك معنا. سنقوم بمراجعة بلاغك ونشره عبر قنوات الجمعية في أقرب وقت ممكن. سنتواصل معك فور العثور على غرضك.</p>
       </div>
     </div>
   </div>

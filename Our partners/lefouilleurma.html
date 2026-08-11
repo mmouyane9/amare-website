@@ -942,46 +942,46 @@
       <form id="prPartnerForm" novalidate>
         <div class="pr-form-grid">
           <div class="pr-form-group">
-            <label for="fullName">الاسم الكامل</label>
-            <input type="text" id="fullName" name="fullName" placeholder="الاسم الكامل" required>
-            <span class="pr-form-error">هذا الحقل مطلوب</span>
+            <label for="fullName" data-i18n="partner.form.fullName">الاسم الكامل</label>
+            <input type="text" id="fullName" name="fullName" data-i18n-placeholder="partner.form.fullNamePlaceholder" placeholder="الاسم الكامل" required>
+            <span class="pr-form-error" data-i18n="partner.form.fullNameRequired">هذا الحقل مطلوب</span>
           </div>
           <div class="pr-form-group">
-            <label for="email">البريد الإلكتروني</label>
+            <label for="email" data-i18n="partner.form.email">البريد الإلكتروني</label>
             <input type="email" id="email" name="email" placeholder="example@email.com" dir="ltr" required>
-            <span class="pr-form-error">يرجى إدخال بريد إلكتروني صالح</span>
+            <span class="pr-form-error" data-i18n="partner.form.emailInvalid">يرجى إدخال بريد إلكتروني صالح</span>
           </div>
           <div class="pr-form-group">
-            <label for="phone">الهاتف</label>
+            <label for="phone" data-i18n="partner.form.phone">الهاتف</label>
             <input type="tel" id="phone" name="phone" placeholder="+212 6XX XXX XXX" dir="ltr">
           </div>
           <div class="pr-form-group">
-            <label for="subject">الموضوع</label>
+            <label for="subject" data-i18n="partner.form.subject">الموضوع</label>
             <select id="subject" name="subject">
-              <option value="">اختر الموضوع</option>
-              <option value="partnership">طلب شراكة</option>
-              <option value="service">استفسار عن خدمة</option>
-              <option value="collaboration">تعاون مشترك</option>
-              <option value="other">أخرى</option>
+              <option value="" data-i18n="partner.form.subjectDefault">اختر الموضوع</option>
+              <option value="partnership" data-i18n="partner.form.subjectPartnership">طلب شراكة</option>
+              <option value="service" data-i18n="partner.form.subjectService">استفسار عن خدمة</option>
+              <option value="collaboration" data-i18n="partner.form.subjectCollaboration">تعاون مشترك</option>
+              <option value="other" data-i18n="partner.form.subjectOther">أخرى</option>
             </select>
           </div>
           <div class="pr-form-group full">
-            <label for="message">الرسالة</label>
-            <textarea id="message" name="message" placeholder="اكتب رسالتك هنا..." required></textarea>
-            <span class="pr-form-error">هذا الحقل مطلوب</span>
+            <label for="message" data-i18n="partner.form.message">الرسالة</label>
+            <textarea id="message" name="message" data-i18n-placeholder="partner.form.messagePlaceholder" placeholder="اكتب رسالتك هنا..." required></textarea>
+            <span class="pr-form-error" data-i18n="partner.form.messageRequired">هذا الحقل مطلوب</span>
           </div>
         </div>
         <div class="pr-form-submit">
           <button type="submit" class="btn btn-accent">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>
-            إرسال
+            <span data-i18n="partner.form.submit">إرسال</span>
           </button>
         </div>
       </form>
       <div class="pr-form-success" id="prFormSuccess">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-        <h3>تم الإرسال بنجاح!</h3>
-        <p>شكرًا لتواصلكم معنا. سنقوم بالرد على استفساركم في أقرب وقت ممكن.</p>
+        <h3 data-i18n="partner.form.successTitle">تم الإرسال بنجاح!</h3>
+        <p data-i18n="partner.form.successMessage">شكرًا لتواصلكم معنا. سنقوم بالرد على استفساركم في أقرب وقت ممكن.</p>
       </div>
     </div>
   </div>

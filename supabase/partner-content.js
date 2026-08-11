@@ -23,24 +23,37 @@
     return '/partners/' + raw;
   }
 
+  /* ------------------------------------------------------------------
+     Bilingual helper — picks key_lang, falls back to key_ar
+     ------------------------------------------------------------------ */
+  function pickBilingual(data, key) {
+    if (!data) return '';
+    var lang = (window.I18n && window.I18n.getCurrentLanguage) ? window.I18n.getCurrentLanguage() : 'ar';
+    var value = data[key + '_' + lang];
+    if (value != null && value !== '') return value;
+    value = data[key + '_ar'];
+    if (value != null && value !== '') return value;
+    return data[key] || '';
+  }
+
   /* ------------------------------------------------------------------ */
   function injectHero(d) {
     var badge = document.querySelector('.pr-hero-badge');
-    if (badge && d.subheading) {
+    if (badge) {
       var svg = badge.querySelector('svg');
-      badge.innerHTML = (svg ? svg.outerHTML + ' ' : '') + esc(d.subheading);
+      badge.innerHTML = (svg ? svg.outerHTML + ' ' : '') + esc(pickBilingual(d, 'subheading'));
     }
     var h1 = document.querySelector('.pr-hero h1 span') || document.querySelector('.pr-hero h1');
-    if (h1 && d.heading) h1.textContent = d.heading;
+    if (h1) h1.textContent = pickBilingual(d, 'heading');
     var sub = document.querySelector('.pr-hero-subtitle');
-    if (sub && d.description) sub.textContent = d.description;
+    if (sub) sub.textContent = pickBilingual(d, 'description');
     var anchors = document.querySelectorAll('.pr-hero-actions a, .pr-cta-actions a');
     if (d.buttons && d.buttons.length) {
       for (var i = 0; i < anchors.length; i++) {
         if (d.buttons[i]) {
           anchors[i].href = d.buttons[i].url || '#';
           var svg = anchors[i].querySelector('svg');
-          anchors[i].textContent = d.buttons[i].label || '';
+          anchors[i].textContent = pickBilingual(d.buttons[i], 'label');
           if (svg) anchors[i].appendChild(svg);
         }
       }
@@ -49,16 +62,20 @@
 
   function injectPartnerAbout(d) {
     var eyebrow = document.querySelector('.pr-about-text .pr-section-eyebrow');
-    if (eyebrow && d.eyebrow) {
+    if (eyebrow) {
       var svg = eyebrow.querySelector('svg');
-      eyebrow.innerHTML = (svg ? svg.outerHTML + ' ' : '') + esc(d.eyebrow);
+      eyebrow.innerHTML = (svg ? svg.outerHTML + ' ' : '') + esc(pickBilingual(d, 'eyebrow'));
     }
     var heading = document.querySelector('.pr-about-text h2');
-    if (heading && d.heading) heading.textContent = d.heading;
-    if (d.paragraphs) {
+    if (heading) heading.textContent = pickBilingual(d, 'heading');
+    var parasAr = d.paragraphs_ar || d.paragraphs || [];
+    var parasFr = d.paragraphs_fr || d.paragraphs || [];
+    var lang = (window.I18n && window.I18n.getCurrentLanguage) ? window.I18n.getCurrentLanguage() : 'ar';
+    var activeParas = (lang === 'fr' && parasFr.length > 0) ? parasFr : parasAr;
+    if (activeParas.length) {
       var paras = document.querySelectorAll('.pr-about-text p');
-      for (var i = 0; i < Math.min(paras.length, d.paragraphs.length); i++) {
-        paras[i].textContent = d.paragraphs[i];
+      for (var i = 0; i < Math.min(paras.length, activeParas.length); i++) {
+        paras[i].textContent = activeParas[i];
       }
     }
     if (d.image) {
@@ -73,21 +90,21 @@
     var sec = document.querySelector('#prServices');
     if (!sec) return;
     var eyebrow = sec.querySelector('.pr-section-eyebrow');
-    if (eyebrow && d.eyebrow) {
+    if (eyebrow) {
       var svg = eyebrow.querySelector('svg');
-      eyebrow.innerHTML = (svg ? svg.outerHTML + ' ' : '') + esc(d.eyebrow);
+      eyebrow.innerHTML = (svg ? svg.outerHTML + ' ' : '') + esc(pickBilingual(d, 'eyebrow'));
     }
     var h2 = sec.querySelector('.pr-section-title');
-    if (h2 && d.heading) h2.textContent = d.heading;
+    if (h2) h2.textContent = pickBilingual(d, 'heading');
     var desc = sec.querySelector('.pr-section-desc');
-    if (desc && d.description) desc.textContent = d.description;
+    if (desc) desc.textContent = pickBilingual(d, 'description');
     if (d.cards) {
       var cards = sec.querySelectorAll('.pr-service-card');
       for (var i = 0; i < Math.min(cards.length, d.cards.length); i++) {
         var h3 = cards[i].querySelector('h3');
         var p = cards[i].querySelector('p');
-        if (h3) h3.textContent = d.cards[i].title || '';
-        if (p) p.textContent = d.cards[i].description || '';
+        if (h3) h3.textContent = pickBilingual(d.cards[i], 'title');
+        if (p) p.textContent = pickBilingual(d.cards[i], 'description');
       }
     }
   }
@@ -96,21 +113,21 @@
     var sec = document.querySelector('#prWhy');
     if (!sec) return;
     var eyebrow = sec.querySelector('.pr-section-eyebrow');
-    if (eyebrow && d.eyebrow) {
+    if (eyebrow) {
       var svg = eyebrow.querySelector('svg');
-      eyebrow.innerHTML = (svg ? svg.outerHTML + ' ' : '') + esc(d.eyebrow);
+      eyebrow.innerHTML = (svg ? svg.outerHTML + ' ' : '') + esc(pickBilingual(d, 'eyebrow'));
     }
     var h2 = sec.querySelector('.pr-section-title');
-    if (h2 && d.heading) h2.textContent = d.heading;
+    if (h2) h2.textContent = pickBilingual(d, 'heading');
     var desc = sec.querySelector('.pr-section-desc');
-    if (desc && d.description) desc.textContent = d.description;
+    if (desc) desc.textContent = pickBilingual(d, 'description');
     if (d.cards) {
       var cards = sec.querySelectorAll('.pr-why-card');
       for (var i = 0; i < Math.min(cards.length, d.cards.length); i++) {
         var h3 = cards[i].querySelector('h3');
         var p = cards[i].querySelector('p');
-        if (h3) h3.textContent = d.cards[i].title || '';
-        if (p) p.textContent = d.cards[i].description || '';
+        if (h3) h3.textContent = pickBilingual(d.cards[i], 'title');
+        if (p) p.textContent = pickBilingual(d.cards[i], 'description');
       }
     }
   }
@@ -119,14 +136,14 @@
     var sec = document.querySelector('#prGallery');
     if (!sec) return;
     var eyebrow = sec.querySelector('.pr-section-eyebrow');
-    if (eyebrow && d.eyebrow) {
+    if (eyebrow) {
       var svg = eyebrow.querySelector('svg');
-      eyebrow.innerHTML = (svg ? svg.outerHTML + ' ' : '') + esc(d.eyebrow);
+      eyebrow.innerHTML = (svg ? svg.outerHTML + ' ' : '') + esc(pickBilingual(d, 'eyebrow'));
     }
     var h2 = sec.querySelector('.pr-section-title');
-    if (h2 && d.heading) h2.textContent = d.heading;
+    if (h2) h2.textContent = pickBilingual(d, 'heading');
     var desc = sec.querySelector('.pr-section-desc');
-    if (desc && d.description) desc.textContent = d.description;
+    if (desc) desc.textContent = pickBilingual(d, 'description');
     if (d.images) {
       var items = sec.querySelectorAll('.pr-gallery-item');
       for (var i = 0; i < Math.min(items.length, d.images.length); i++) {
@@ -145,9 +162,9 @@
     var sec = document.querySelector('#prContactInfo');
     if (!sec) return;
     var h2 = sec.querySelector('.pr-section-title');
-    if (h2 && d.heading) h2.textContent = d.heading;
+    if (h2) h2.textContent = pickBilingual(d, 'heading');
     var desc = sec.querySelector('.pr-section-desc');
-    if (desc && d.description) desc.textContent = d.description;
+    if (desc) desc.textContent = pickBilingual(d, 'description');
     var cards = sec.querySelectorAll('.pr-contact-card');
     var values = [d.email, d.phone, d.website, d.address];
     for (var i = 0; i < Math.min(cards.length, values.length); i++) {
@@ -160,23 +177,23 @@
     var sec = document.querySelector('#prForm');
     if (!sec) return;
     var h2 = sec.querySelector('.pr-section-title');
-    if (h2 && d.heading) h2.textContent = d.heading;
+    if (h2) h2.textContent = pickBilingual(d, 'heading');
     var desc = sec.querySelector('.pr-section-desc');
-    if (desc && d.description) desc.textContent = d.description;
+    if (desc) desc.textContent = pickBilingual(d, 'description');
   }
 
   function injectPartnerCta(d) {
     var sec = document.querySelector('#prCta');
     if (!sec) return;
     var h2 = sec.querySelector('h2');
-    if (h2 && d.heading) h2.textContent = d.heading;
+    if (h2) h2.textContent = pickBilingual(d, 'heading');
     if (d.buttons && d.buttons.length) {
       var anchors = sec.querySelectorAll('.pr-cta-actions a');
       for (var i = 0; i < anchors.length; i++) {
         if (d.buttons[i]) {
           anchors[i].href = d.buttons[i].url || '#';
           var svg = anchors[i].querySelector('svg');
-          anchors[i].textContent = d.buttons[i].label || '';
+          anchors[i].textContent = pickBilingual(d.buttons[i], 'label');
           if (svg) anchors[i].appendChild(svg);
         }
       }

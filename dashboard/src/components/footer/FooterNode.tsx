@@ -120,7 +120,7 @@ export default function FooterNode({
             node.parent_id ? 'text-muted-foreground' : 'font-semibold text-foreground'
           } ${!node.is_visible ? 'line-through' : ''}`}
         >
-          {node.title_ar}
+          {node.label_ar}
         </span>
 
         {node.parent_id && node.url && (

@@ -17,12 +17,14 @@
     contact_email: 'association.amare.agadir@gmail.com',
     phone: '+212 684869996',
     whatsapp: '+212684869996',
-    address: 'ص.ب 749 أيت ملول 86150',
-    google_maps_url: 'https://www.google.com/maps?q=30.385528,-9.448611',
+    address: 'الطابق الأول، الشقة 4، المجمع التجاري تيويزي، تكاديرت، أكادير',
+    address_ar: 'الطابق الأول، الشقة 4، المجمع التجاري تيويزي، تكاديرت، أكادير',
+    address_fr: '1er étage, Appartement 4, Complexe Commercial Tiwizi, Takadirt, Agadir',
+    google_maps_url: 'https://maps.app.goo.gl/VCXL3tC7vZWpzS5UA',
     working_hours: 'الإثنين - الجمعة | 09:00 - 18:00',
-    logo_url: 'Amare%20files%20/logo.png',
-    footer_logo_url: 'Amare%20files%20/logo.png',
-    favicon_url: 'Amare%20files%20/logo.png',
+    logo_url: '/Amare%20files%20/logo.png',
+    footer_logo_url: '/Amare%20files%20/logo.png',
+    favicon_url: '/Amare%20files%20/logo.png',
     facebook: null,
     instagram: null,
     linkedin: null,
@@ -57,6 +59,8 @@
       phone: row.phone || FALLBACK.phone,
       whatsapp: row.whatsapp || FALLBACK.whatsapp,
       address: row.address || FALLBACK.address,
+      address_ar: row.address_ar || row.address || FALLBACK.address_ar,
+      address_fr: row.address_fr || FALLBACK.address_fr,
       google_maps_url: row.google_maps_url || FALLBACK.google_maps_url,
       working_hours: row.working_hours || FALLBACK.working_hours,
       logo_url: row.logo_url || FALLBACK.logo_url,
@@ -104,6 +108,17 @@
     }
   }
 
+  function resolveAddress(settings) {
+    var lang =
+      window.I18n && window.I18n.getCurrentLanguage
+        ? window.I18n.getCurrentLanguage()
+        : 'ar';
+    if (lang === 'fr') {
+      return settings.address_fr || settings.address_ar || '';
+    }
+    return settings.address_ar || '';
+  }
+
   function updateDOM(settings) {
     /* --- Browser title --- */
     if (window.I18n && window.I18n.pageTitle) {
@@ -137,7 +152,10 @@
     for (var i = 0; i < elements.length; i++) {
       var el = elements[i];
       var key = el.getAttribute('data-amare-setting');
-      if (key && settings[key] !== undefined) {
+      if (!key) continue;
+      if (key === 'address') {
+        applyToElement(el, resolveAddress(settings));
+      } else if (settings[key] !== undefined) {
         applyToElement(el, settings[key]);
       }
     }
@@ -241,13 +259,20 @@
   }
 
   /* ---------------------------------------------------------------
-     Realtime subscription
-     --------------------------------------------------------------- */
+      Realtime subscription
+      --------------------------------------------------------------- */
+  var realtimeChannel = null;
+
   function subscribeRealtime(callback) {
     var client = getClient();
-    if (!client) return;
+    if (!client) return false;
 
-    client
+    if (realtimeChannel) {
+      realtimeChannel.unsubscribe();
+      realtimeChannel = null;
+    }
+
+    realtimeChannel = client
       .channel('website_settings_public')
       .on(
         'postgres_changes',
@@ -256,19 +281,29 @@
           var settings = normalizeSettings(payload.new);
           currentSettings = settings;
           cacheSettings(settings);
-          callback(settings);
+          window.__AMARE_SETTINGS__ = settings;
+          updateDOM(settings);
+          reTranslateI18n();
+          window.dispatchEvent(new CustomEvent('amare:settingschange', { detail: settings }));
         }
       )
       .subscribe();
+    return true;
   }
 
   /* ---------------------------------------------------------------
      Fetch from Supabase
      --------------------------------------------------------------- */
+  var fetchRetries = 0;
+  var MAX_FETCH_RETRIES = 60;
+
   function fetchAndApply() {
     var client = getClient();
     if (!client) {
-      applyFallback();
+      fetchRetries++;
+      if (fetchRetries < MAX_FETCH_RETRIES) {
+        setTimeout(fetchAndApply, 500);
+      }
       return;
     }
 
@@ -287,17 +322,54 @@
         cacheSettings(settings);
         window.__AMARE_SETTINGS__ = settings;
         updateDOM(settings);
+        reTranslateI18n();
         window.dispatchEvent(new CustomEvent('amare:settingschange', { detail: settings }));
+
+        if (!realtimeSubscribed) {
+          realtimeSubscribed = subscribeRealtime(function (settings) {
+            window.__AMARE_SETTINGS__ = settings;
+            updateDOM(settings);
+            reTranslateI18n();
+          });
+        }
       })
       .catch(function () {
         applyFallback();
       });
   }
 
+  var realtimeSubscribed = false;
+
   function applyFallback() {
     currentSettings = FALLBACK;
     window.__AMARE_SETTINGS__ = FALLBACK;
     updateDOM(FALLBACK);
+    reTranslateI18n();
+  }
+
+  /* ---------------------------------------------------------------
+     i18n re-translation after CMS data updates
+     --------------------------------------------------------------- */
+  function reTranslateI18n() {
+    if (!window.I18n || !window.I18n.getCurrentLanguage) return;
+
+    var lang = window.I18n.getCurrentLanguage();
+    var elements = document.querySelectorAll('[data-amare-setting][data-i18n]');
+
+    for (var i = 0; i < elements.length; i++) {
+      var el = elements[i];
+      el.setAttribute('data-i18n-ar-original', el.textContent || '');
+
+      if (lang === 'fr' && window.I18n.t) {
+        var key = el.getAttribute('data-i18n');
+        if (key) {
+          var translated = window.I18n.t(key);
+          if (translated && translated.indexOf(key) !== 0) {
+            el.textContent = translated;
+          }
+        }
+      }
+    }
   }
 
   /* ---------------------------------------------------------------
@@ -310,16 +382,11 @@
       currentSettings = cached;
       window.__AMARE_SETTINGS__ = cached;
       updateDOM(cached);
+      reTranslateI18n();
     }
 
-    /* 2. Fetch fresh in background */
+    /* 2. Fetch fresh from CMS in background (retries until Supabase is ready) */
     fetchAndApply();
-
-    /* 3. Subscribe to realtime */
-    subscribeRealtime(function (settings) {
-      window.__AMARE_SETTINGS__ = settings;
-      updateDOM(settings);
-    });
   }
 
   if (document.readyState === 'loading') {

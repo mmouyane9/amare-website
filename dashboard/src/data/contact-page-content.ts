@@ -1,30 +1,12 @@
 /**
- * اتصل بنا (CONTACT) page content — extracted from /contact.html
+ * اتصل بنا (CONTACT) page content — bilingual _ar/_fr format
  *
- * This file is the JSON representation of the current live Contact page.
- * Every section heading, the 4 contact cards (address / phone / email /
- * working hours), the info-card text, the social links, the contact form
- * labels + placeholders + subject options, the Google Maps URL, the 4 FAQ
- * items and the final CTA are captured exactly as they appear in the source
- * HTML.
- *
- * NOTE: the page has NO content images — hero art is pure CSS and the cards
- * render inline SVG icons — so there are no image fields.
- *
- * The contact page reuses the GLOBAL website_settings for its contact info
- * elements (data-amare-setting attributes filled by supabase/website-settings.js).
- * This loader carries the same values in the Contact page's own sections and
- * re-applies them on the 'amare:settingschange' event, so the Contact page
- * CMS content is authoritative for this page while the footer/navbar keep the
- * global values. Social links and the map URL are '#' / the embed URL in the
- * source — preserved as-is and editable (no invented URLs).
+ * Mirrors the SQL migration 00032_contact_bilingual.sql.
+ * Every section supports Arabic and French via paired fields.
+ * Non-translatable fields (url, id, mapUrl, variant) remain shared.
  */
 
 import type { PageSection } from '@/types/content'
-
-// ---------------------------------------------------------------------------
-// CMS JSON — exact representation of the live Contact page
-// ---------------------------------------------------------------------------
 
 export const CONTACT_PAGE_SECTIONS: PageSection[] = [
   // =====================================================================
@@ -36,23 +18,24 @@ export const CONTACT_PAGE_SECTIONS: PageSection[] = [
     enabled: true,
     order: 1,
     data: {
-      heading: 'يسعدنا التواصل معكم',
-      subheading: 'تواصل معنا',
-      description:
+      heading_ar: 'يسعدنا التواصل معكم',
+      heading_fr: 'Nous serions ravis de vous entendre',
+      subheading_ar: 'تواصل معنا',
+      subheading_fr: 'Contactez-nous',
+      description_ar:
         'إذا كانت لديكم أي استفسارات أو اقتراحات أو ترغبون في الانضمام إلى الجمعية، لا تترددوا في التواصل معنا.',
+      description_fr:
+        "Si vous avez des questions, des suggestions ou souhaitez rejoindre l'association, n'hésitez pas à nous contacter.",
       backgroundImage: '',
       buttons: [
-        { id: 'btn-contact-hero-message', label: 'أرسل رسالة', url: '#contactFormSection', variant: 'primary' },
-        { id: 'btn-contact-hero-faq', label: 'الأسئلة الشائعة', url: '#contactFaq', variant: 'secondary' },
+        { id: 'btn-contact-hero-message', label_ar: 'أرسل رسالة', label_fr: 'Envoyer un message', url: '#contactFormSection', variant: 'primary' },
+        { id: 'btn-contact-hero-faq', label_ar: 'الأسئلة الشائعة', label_fr: 'Questions fréquentes', url: '#contactFaq', variant: 'secondary' },
       ],
     },
   },
 
   // =====================================================================
   // 2. CONTACT CARDS  (#contactCards)
-  // The 4 contact info fields (address / phone / email / working hours).
-  // Icons stay static (SVG in the page) — title, value and detail are
-  // editable. The same values feed the info-card list in the form section.
   // =====================================================================
   {
     id: 'sec-contact-cards',
@@ -61,24 +44,24 @@ export const CONTACT_PAGE_SECTIONS: PageSection[] = [
     order: 2,
     data: {
       _renderer: 'contactCards',
-      eyebrow: 'معلومات سريعة',
-      heading: 'قنوات التواصل',
-      description: 'اختر الطريقة الأنسب للتواصل مع فريق الجمعية وسنرد عليكم في أقرب وقت ممكن.',
+      eyebrow_ar: 'معلومات سريعة',
+      eyebrow_fr: 'Informations rapides',
+      heading_ar: 'قنوات التواصل',
+      heading_fr: 'Canaux de contact',
+      description_ar: 'اختر الطريقة الأنسب للتواصل مع فريق الجمعية وسنرد عليكم في أقرب وقت ممكن.',
+      description_fr:
+        "Choisissez le moyen le plus adapté pour contacter l'équipe de l'association et nous vous répondrons dans les plus brefs délais.",
       items: [
-        { id: 'address', title: 'العنوان', value: 'المغرب', detail: 'أيت ملول، أكادير' },
-        { id: 'phone', title: 'الهاتف', value: '+212 684 869 996', detail: '' },
-        { id: 'email', title: 'البريد الإلكتروني', value: 'association.amare.agadir@gmail.com', detail: '' },
-        { id: 'hours', title: 'ساعات العمل', value: 'الإثنين - الجمعة', detail: '09:00 - 18:00' },
+        { id: 'address', title_ar: 'العنوان', title_fr: 'Adresse', value_ar: 'المغرب', value_fr: 'Maroc', detail_ar: 'أيت ملول، أكادير', detail_fr: 'Aït Melloul, Agadir' },
+        { id: 'phone', title_ar: 'الهاتف', title_fr: 'Téléphone', value_ar: '+212 684 869 996', value_fr: '+212 684 869 996', detail_ar: '', detail_fr: '' },
+        { id: 'email', title_ar: 'البريد الإلكتروني', title_fr: 'E-mail', value_ar: 'association.amare.agadir@gmail.com', value_fr: 'association.amare.agadir@gmail.com', detail_ar: '', detail_fr: '' },
+        { id: 'hours', title_ar: 'ساعات العمل', title_fr: 'Heures de travail', value_ar: 'الإثنين - الجمعة', value_fr: 'Lundi - Vendredi', detail_ar: '09:00 - 18:00', detail_fr: '09:00 - 18:00' },
       ],
     },
   },
 
   // =====================================================================
   // 3. CONTACT FORM + INFO CARD  (#contactFormSection)
-  // Section head + info-card text + social links + form labels/placeholders
-  // + subject options + submit label. The info-card VALUES (address, phone,
-  // email, hours) come from the contactCards section (single source of
-  // truth). Form validation stays in contact.html's inline JS — untouched.
   // =====================================================================
   {
     id: 'sec-contact-form',
@@ -87,36 +70,48 @@ export const CONTACT_PAGE_SECTIONS: PageSection[] = [
     order: 3,
     data: {
       _renderer: 'contactForm',
-      eyebrow: 'أرسل لنا رسالة',
-      heading: 'نحن هنا من أجلكم',
-      description: 'املأ النموذج التالي وسيتواصل معكم فريقنا في أقرب وقت.',
-      infoTitle: 'معلومات التواصل',
-      infoDescription:
+      eyebrow_ar: 'أرسل لنا رسالة',
+      eyebrow_fr: 'Envoyez-nous un message',
+      heading_ar: 'نحن هنا من أجلكم',
+      heading_fr: 'Nous sommes là pour vous',
+      description_ar: 'املأ النموذج التالي وسيتواصل معكم فريقنا في أقرب وقت.',
+      description_fr:
+        'Remplissez le formulaire suivant et notre équipe vous contactera dans les plus brefs délais.',
+      infoTitle_ar: 'معلومات التواصل',
+      infoTitle_fr: 'Informations de contact',
+      infoDescription_ar:
         'فريقنا جاهز للرد على استفساراتكم من الإثنين إلى الجمعة. لا تترددوا في التواصل معنا عبر أي وسيلة تناسبكم.',
-      socialTitle: 'تابعونا على',
+      infoDescription_fr:
+        "Notre équipe est prête à répondre à vos questions du lundi au vendredi. N'hésitez pas à nous contacter par le moyen qui vous convient.",
+      socialTitle_ar: 'تابعونا على',
+      socialTitle_fr: 'Suivez-nous sur',
       social: [
-        { id: 'fb', label: 'فيسبوك', url: '#' },
-        { id: 'ig', label: 'إنستغرام', url: '#' },
-        { id: 'in', label: 'لينكدإن', url: '#' },
-        { id: 'yt', label: 'يوتيوب', url: '#' },
+        { id: 'fb', label_ar: 'فيسبوك', label_fr: 'Facebook', url: '#' },
+        { id: 'ig', label_ar: 'إنستغرام', label_fr: 'Instagram', url: '#' },
+        { id: 'in', label_ar: 'لينكدإن', label_fr: 'LinkedIn', url: '#' },
+        { id: 'yt', label_ar: 'يوتيوب', label_fr: 'YouTube', url: '#' },
       ],
-      formTitle: 'أرسل لنا رسالة',
-      formDescription: 'جميع الحقول إلزامية. سيتم الرد على رسالتك في أقرب وقت ممكن.',
+      formTitle_ar: 'أرسل لنا رسالة',
+      formTitle_fr: 'Envoyez-nous un message',
+      formDescription_ar: 'جميع الحقول إلزامية. سيتم الرد على رسالتك في أقرب وقت ممكن.',
+      formDescription_fr:
+        'Tous les champs sont obligatoires. Vous recevrez une réponse dans les plus brefs délais.',
       fields: [
-        { id: 'name', label: 'الاسم الكامل', placeholder: 'أدخل اسمك الكامل' },
-        { id: 'email', label: 'البريد الإلكتروني', placeholder: 'example@email.com' },
-        { id: 'phone', label: 'رقم الهاتف', placeholder: '+212 6XX XX XX XX' },
-        { id: 'subject', label: 'الموضوع', placeholder: 'اختر موضوع الرسالة' },
-        { id: 'message', label: 'الرسالة', placeholder: 'اكتب رسالتك هنا...' },
+        { id: 'name', label_ar: 'الاسم الكامل', label_fr: 'Nom complet', placeholder_ar: 'أدخل اسمك الكامل', placeholder_fr: 'Entrez votre nom complet' },
+        { id: 'email', label_ar: 'البريد الإلكتروني', label_fr: 'E-mail', placeholder_ar: 'example@email.com', placeholder_fr: 'exemple@email.com' },
+        { id: 'phone', label_ar: 'رقم الهاتف', label_fr: 'Téléphone', placeholder_ar: '+212 6XX XX XX XX', placeholder_fr: '+212 6XX XX XX XX' },
+        { id: 'subject', label_ar: 'الموضوع', label_fr: 'Sujet', placeholder_ar: 'اختر موضوع الرسالة', placeholder_fr: 'Choisissez le sujet du message' },
+        { id: 'message', label_ar: 'الرسالة', label_fr: 'Message', placeholder_ar: 'اكتب رسالتك هنا...', placeholder_fr: 'Écrivez votre message ici...' },
       ],
-      subjects: ['استفسار', 'انضمام إلى الجمعية', 'اقتراح', 'تطوع', 'أخرى'],
-      submitLabel: 'إرسال الرسالة',
+      subjects_ar: ['استفسار', 'انضمام إلى الجمعية', 'اقتراح', 'تطوع', 'أخرى'],
+      subjects_fr: ["Demande d'information", "Adhésion à l'association", 'Suggestion', 'Bénévolat', 'Autre'],
+      submitLabel_ar: 'إرسال الرسالة',
+      submitLabel_fr: 'Envoyer le message',
     },
   },
 
   // =====================================================================
   // 4. MAP  (#contactMap)
-  // mapUrl = the Google Maps embed URL of the current iframe src.
   // =====================================================================
   {
     id: 'sec-contact-map',
@@ -125,8 +120,10 @@ export const CONTACT_PAGE_SECTIONS: PageSection[] = [
     order: 4,
     data: {
       _renderer: 'contactMap',
-      eyebrow: 'العثور علينا',
-      heading: 'موقعنا',
+      eyebrow_ar: 'العثور علينا',
+      eyebrow_fr: 'Nous trouver',
+      heading_ar: 'موقعنا',
+      heading_fr: 'Notre emplacement',
       mapUrl: 'https://www.google.com/maps?q=30.385528,-9.448611&z=16&output=embed',
     },
   },
@@ -141,36 +138,44 @@ export const CONTACT_PAGE_SECTIONS: PageSection[] = [
     order: 5,
     data: {
       _renderer: 'contactFaq',
-      eyebrow: 'الأسئلة الشائعة',
-      heading: 'لديكم أسئلة؟ لدينا إجابات',
-      description: 'جمعنا لكم الإجابات عن أكثر الأسئلة تكرارًا حول الجمعية وطرق التواصل.',
+      eyebrow_ar: 'الأسئلة الشائعة',
+      eyebrow_fr: 'Questions fréquentes',
+      heading_ar: 'لديكم أسئلة؟ لدينا إجابات',
+      heading_fr: 'Vous avez des questions ? Nous avons des réponses',
+      description_ar: 'جمعنا لكم الإجابات عن أكثر الأسئلة تكرارًا حول الجمعية وطرق التواصل.',
+      description_fr:
+        "Nous avons rassemblé pour vous les réponses aux questions les plus fréquentes sur l'association et les moyens de contact.",
       items: [
         {
-          question: 'كيف يمكنني الانضمام للجمعية؟',
-          answer:
-            'يمكنكم الانضمام إلى الجمعية عبر ملء استمارة الانخراط المتوفرة على صفحة "انخرط معنا"، أو بزيارة مقر الجمعية مباشرة، أو بمراسلتنا عبر البريد الإلكتروني. تُدرَس جميع الطلبات خلال أسبوع واحد من التوصل بها.',
+          question_ar: 'كيف يمكنني الانضمام للجمعية؟',
+          question_fr: "Comment puis-je adhérer à l'association ?",
+          answer_ar: 'يمكنكم الانضمام إلى الجمعية عبر ملء استمارة الانخراط المتوفرة على صفحة "انخرط معنا"، أو بزيارة مقر الجمعية مباشرة، أو بمراسلتنا عبر البريد الإلكتروني. تُدرَس جميع الطلبات خلال أسبوع واحد من التوصل بها.',
+          answer_fr: "Vous pouvez adhérer à l'association en remplissant le formulaire d'adhésion disponible sur la page \"Rejoignez-nous\", en visitant le siège de l'association, ou en nous contactant par e-mail. Toutes les demandes sont examinées dans un délai d'une semaine.",
         },
         {
-          question: 'كيف أتواصل مع الإدارة؟',
-          answer:
-            'يمكنكم التواصل مع الإدارة عبر الهاتف +212 684 869 996 من الإثنين إلى الجمعة بين 09:00 و18:00، أو عبر البريد الإلكتروني association.amare.agadir@gmail.com، وسنعاود الاتصال بكم في أقرب وقت ممكن.',
+          question_ar: 'كيف أتواصل مع الإدارة؟',
+          question_fr: "Comment contacter l'administration ?",
+          answer_ar: 'يمكنكم التواصل مع الإدارة عبر الهاتف +212 684 869 996 من الإثنين إلى الجمعة بين 09:00 و18:00، أو عبر البريد الإلكتروني association.amare.agadir@gmail.com، وسنعاود الاتصال بكم في أقرب وقت ممكن.',
+          answer_fr: 'Vous pouvez contacter l\'administration par téléphone au +212 684 869 996 du lundi au vendredi entre 09:00 et 18:00, ou par e-mail à association.amare.agadir@gmail.com. Nous vous répondrons dans les plus brefs délais.',
         },
         {
-          question: 'هل يمكنني التطوع؟',
-          answer:
-            'بالتأكيد! نرحب دائمًا بالمتطوعين الجدد. يمكنكم التسجيل عبر نموذج الانخراط أو التواصل معنا مباشرة، وسيتواصل معكم فريق التطوع لتحديد الأنشطة والمجالات التي تناسب مهاراتكم واهتماماتكم.',
+          question_ar: 'هل يمكنني التطوع؟',
+          question_fr: 'Puis-je devenir bénévole ?',
+          answer_ar: 'بالتأكيد! نرحب دائمًا بالمتطوعين الجدد. يمكنكم التسجيل عبر نموذج الانخراط أو التواصل معنا مباشرة، وسيتواصل معكم فريق التطوع لتحديد الأنشطة والمجالات التي تناسب مهاراتكم واهتماماتكم.',
+          answer_fr: "Bien sûr ! Nous accueillons toujours de nouveaux bénévoles. Vous pouvez vous inscrire via le formulaire d'adhésion ou nous contacter directement. Notre équipe de bénévolat vous contactera pour déterminer les activités et domaines qui correspondent à vos compétences et intérêts.",
         },
         {
-          question: 'كيف أقدم اقتراحاً؟',
-          answer:
-            'يمكنكم إرسال اقتراحاتكم عبر نموذج التواصل في هذه الصفحة مع تحديد الموضوع "اقتراح"، أو عبر البريد الإلكتروني مباشرة. نعتمد على أفكاركم وملاحظاتكم لتطوير برامجنا وتحسين خدماتنا.',
+          question_ar: 'كيف أقدم اقتراحاً؟',
+          question_fr: 'Comment soumettre une suggestion ?',
+          answer_ar: 'يمكنكم إرسال اقتراحاتكم عبر نموذج التواصل في هذه الصفحة مع تحديد الموضوع "اقتراح"، أو عبر البريد الإلكتروني مباشرة. نعتمد على أفكاركم وملاحظاتكم لتطوير برامجنا وتحسين خدماتنا.',
+          answer_fr: "Vous pouvez envoyer vos suggestions via le formulaire de contact sur cette page en sélectionnant le sujet \"Suggestion\", ou directement par e-mail. Nous comptons sur vos idées et remarques pour développer nos programmes et améliorer nos services.",
         },
       ],
     },
   },
 
   // =====================================================================
-  // 6. FINAL CTA  (#contactCta)
+  // 6. CTA BANNER  (#contactCta)
   // =====================================================================
   {
     id: 'sec-contact-cta',
@@ -179,9 +184,11 @@ export const CONTACT_PAGE_SECTIONS: PageSection[] = [
     order: 6,
     data: {
       _renderer: 'contactCta',
-      heading: 'نحن هنا للإجابة عن جميع استفساراتكم',
-      description: 'انضموا إلى عائلة الجمعية وساهموا معنا في صنع أثر حقيقي في المجتمع.',
-      button: { label: 'انضم إلينا', url: 'Join us/join-us-online.html' },
+      heading_ar: 'نحن هنا للإجابة عن جميع استفساراتكم',
+      heading_fr: 'Nous sommes là pour répondre à toutes vos questions',
+      description_ar: 'انضموا إلى عائلة الجمعية وساهموا معنا في صنع أثر حقيقي في المجتمع.',
+      description_fr: "Rejoignez la famille de l'association et contribuez avec nous à avoir un impact réel dans la communauté.",
+      button: { label_ar: 'انضم إلينا', label_fr: 'Rejoignez-nous', url: 'Join us/join-us-online.html' },
     },
   },
 ]

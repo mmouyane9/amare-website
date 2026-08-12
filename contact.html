@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>تواصل معنا | الجمعية المغربية لهواة البحث والاستكشاف</title>
-<meta name="description" content="تواصل مع الجمعية المغربية لهواة البحث والاستكشاف — إذا كانت لديكم أي استفسارات أو اقتراحات أو ترغبون في الانضمام إلى الجمعية، لا تترددوا في التواصل معنا.">
+<meta name="description" content="تواصل مع الجمعية المغربية لهواة البحث والاستكشاف — إذا كانت لديكم أي استفسارات أو اقتراحات أو ترغبون في الانضمام إلى الجمعية، لا تترددوا في التواصل معنا." data-i18n-content="contact.metaDesc">
 <meta name="keywords" content="جمعية, تنمية, تطوع, المغرب, تواصل معنا, انضم, عمل خيري">
 <meta name="author" content="الجمعية المغربية لهواة البحث والاستكشاف">
 <link rel="shortcut icon" href="/Amare%20files%20/logo.png" type="image/x-icon">
@@ -20,7 +20,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="/style.css">
-<link rel="stylesheet" href="/contact.css">
 <style>
   /* ==========================================================================
    Contact Page — Premium styles (uses design tokens from style.css)
@@ -1227,7 +1226,7 @@
                 <div class="contact-input">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v12H5.17L2 19.17V4z"/><path d="M8 9h8M8 13h5"/></svg>
                   <select id="contactSubject" name="subject" required>
-                    <option value="" selected disabled>اختر موضوع الرسالة</option>
+                    <option value="" selected disabled data-i18n="contact.form.subjectPlaceholder">اختر موضوع الرسالة</option>
                     <option value="استفسار">استفسار</option>
                     <option value="انضمام">انضمام إلى الجمعية</option>
                     <option value="اقتراح">اقتراح</option>
@@ -1378,10 +1377,10 @@
             <img src="/Amare%20files%20/logo.png" alt="AMARE Logo" class="topbar-brand-logo">
           </span>
           <span>
-            <span class="brand-name" data-amare-setting="association_name">الجمعية المغربية لهواة البحث والاستكشاف</span><br>
+            <span class="brand-name" data-i18n="organization.name" data-amare-setting="association_name">الجمعية المغربية لهواة البحث والاستكشاف</span><br>
           </span>
         </div>
-        <p data-amare-setting="organization_description">الجمعية المغربية لهواة البحث والاستكشاف هي إطار قانوني وطني يجمع الهواة تحت راية واحدة لصون التراث الوطني المغربي.</p>
+        <p data-i18n="organization.description" data-amare-setting="organization_description">الجمعية المغربية لهواة البحث والاستكشاف هي إطار قانوني وطني يجمع الهواة تحت راية واحدة لصون التراث الوطني المغربي.</p>
         <div class="footer-social">
           <a href="#" aria-label="فيسبوك"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg></a>
           <a href="#" aria-label="إنستغرام"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
@@ -1440,15 +1439,14 @@
       <div class="footer-location">
         <h4>موقعنا</h4>
         <div class="footer-map-card">
-          <span class="footer-map-badge" data-amare-setting="address">📍 Ait Melloul, Agadir</span>
+          <span class="footer-map-badge">📍 Ait Melloul, Agadir</span>
           <iframe
             src="https://www.google.com/maps?q=30.385528,-9.448611&z=16&output=embed"
             loading="lazy"
             allowfullscreen
             referrerpolicy="no-referrer-when-downgrade"
             title="موقع الجمعية على الخريطة"
-            class="footer-map-frame"
-            data-amare-setting="google_maps_url"></iframe>
+            class="footer-map-frame"></iframe>
           <div class="footer-map-footer">
             <a href="https://www.google.com/maps?q=30.385528,-9.448611" target="_blank" rel="noopener" class="footer-map-btn" data-amare-setting="google_maps_url" data-amare-href="true">Open in Google Maps</a>
           </div>
@@ -1457,7 +1455,7 @@
     </div>
 
     <div class="footer-bottom">
-      <p>© 2026 <span data-amare-setting="association_name">الجمعية المغربية لهواة البحث والاستكشاف</span>. جميع الحقوق محفوظة.</p>
+      <p data-i18n="organization.copyright">© 2026 الجمعية المغربية لهواة البحث والاستكشاف. جميع الحقوق محفوظة.</p>
       <div class="footer-bottom-links">
         <a href="#" data-i18n="footer.privacy">سياسة الخصوصية</a>
         <a href="#" data-i18n="footer.terms">الشروط والأحكام</a>
@@ -1467,17 +1465,14 @@
 </footer>
 
 <!-- ===== Back to Top ===== -->
-<button class="back-to-top" id="backToTop" aria-label="العودة إلى الأعلى">
+<button class="back-to-top" id="backToTop" aria-label="العودة إلى الأعلى" data-i18n-aria-label="misc.backToTop">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M18 15l-6-6-6 6"/></svg>
 </button>
 
 <script src="/supabase/website-settings.js"></script>
-<script src="/supabase/hero-service.js"></script>
-<script src="/supabase/home-content.js"></script>
 <script src="/supabase/navbar-loader.js"></script>
 <script src="/supabase/contact-content.js"></script>
 <script src="/script.js"></script>
-<script src="/contact.js"></script>
 <script>
   /* ==========================================================================
    Contact Page — FAQ accordion + contact form handling
@@ -1519,35 +1514,39 @@
   var form = document.getElementById('contactForm');
   if (!form) return;
 
+  function t(key, fallback) {
+    return (window.I18n && window.I18n.t(key)) || fallback;
+  }
+
   var fields = {
     name: {
       input: document.getElementById('contactName'),
       error: document.getElementById('contactNameError'),
-      msg: 'يرجى إدخال الاسم الكامل.',
+      msg: function () { return t('contact.form.nameError', 'يرجى إدخال الاسم الكامل.'); },
       validate: function (v) { return v.trim().length >= 3; }
     },
     email: {
       input: document.getElementById('contactEmail'),
       error: document.getElementById('contactEmailError'),
-      msg: 'يرجى إدخال بريد إلكتروني صحيح.',
+      msg: function () { return t('contact.form.emailError', 'يرجى إدخال بريد إلكتروني صحيح.'); },
       validate: function (v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()); }
     },
     phone: {
       input: document.getElementById('contactPhone'),
       error: document.getElementById('contactPhoneError'),
-      msg: 'يرجى إدخال رقم هاتف صحيح.',
+      msg: function () { return t('contact.form.phoneError', 'يرجى إدخال رقم هاتف صحيح.'); },
       validate: function (v) { return /^\+?[0-9\s\-()]{8,20}$/.test(v.trim()); }
     },
     subject: {
       input: document.getElementById('contactSubject'),
       error: document.getElementById('contactSubjectError'),
-      msg: 'يرجى اختيار موضوع الرسالة.',
+      msg: function () { return t('contact.form.subjectError', 'يرجى اختيار موضوع الرسالة.'); },
       validate: function (v) { return v.trim().length > 0; }
     },
     message: {
       input: document.getElementById('contactMessage'),
       error: document.getElementById('contactMessageError'),
-      msg: 'يرجى كتابة رسالتك (10 أحرف على الأقل).',
+      msg: function () { return t('contact.form.messageError', 'يرجى كتابة رسالتك (10 أحرف على الأقل).'); },
       validate: function (v) { return v.trim().length >= 10; }
     }
   };
@@ -1576,7 +1575,7 @@
       var ok = field.validate(value);
 
       field.input.classList.toggle('invalid', !ok);
-      if (field.error) field.error.textContent = ok ? '' : field.msg;
+      if (field.error) field.error.textContent = ok ? '' : field.msg();
       if (!ok && !firstInvalid) firstInvalid = field.input;
     });
 
@@ -1584,14 +1583,14 @@
       firstInvalid.focus();
       if (msgEl) {
         msgEl.className = 'contact-form-msg error';
-        msgEl.textContent = 'يرجى تصحيح الحقول المحددة قبل الإرسال.';
+        msgEl.textContent = t('contact.form.validationError', 'يرجى تصحيح الحقول المحددة قبل الإرسال.');
       }
       return;
     }
 
     if (msgEl) {
       msgEl.className = 'contact-form-msg success';
-      msgEl.textContent = 'شكرًا لتواصلكم معنا! تم استلام رسالتكم بنجاح وسنعاود الاتصال بكم في أقرب وقت.';
+      msgEl.textContent = t('contact.form.success', 'شكرًا لتواصلكم معنا! تم استلام رسالتكم بنجاح وسنعاود الاتصال بكم في أقرب وقت.');
     }
     form.reset();
   });

@@ -284,9 +284,9 @@ export default function FooterPage() {
         <TabsList className="w-full justify-start overflow-x-auto">
           <TabsTrigger value="all">كل الأعمدة</TabsTrigger>
           {columns.map((col) => (
-            <TabsTrigger key={col.id} value={col.id}>
-              {col.title_ar}
-            </TabsTrigger>
+              <TabsTrigger key={col.id} value={col.id}>
+                {col.label_ar || col.title_ar}
+              </TabsTrigger>
           ))}
         </TabsList>
 
@@ -298,7 +298,7 @@ export default function FooterPage() {
                 className="rounded-xl border border-border/60 bg-card"
               >
                 <div className="flex items-center justify-between border-b px-4 py-3">
-                  <h3 className="text-sm font-semibold">{col.title_ar}</h3>
+                  <h3 className="text-sm font-semibold">{col.label_ar || col.title_ar}</h3>
                   <span className="rounded bg-muted px-2 py-0.5 text-[10px] text-muted-foreground">
                     {ICON_MAP[col.type] || col.type}
                   </span>
@@ -338,7 +338,7 @@ export default function FooterPage() {
           <TabsContent key={col.id} value={col.id} className="mt-4">
             <div className="mb-3 flex items-center gap-2 text-sm text-muted-foreground">
               <LayoutList className="size-4" />
-              العمود: {col.title_ar}
+               العمود: {col.label_ar || col.title_ar}
               <span className="rounded bg-muted px-2 py-0.5 text-[10px]">
                 {col.type === 'about'
                   ? 'حول الجمعية'
@@ -382,7 +382,7 @@ export default function FooterPage() {
         onOpenChange={(open) => {
           if (!open) setDeleteTarget(null)
         }}
-        title={deleteTarget?.title_ar ?? ''}
+        title={deleteTarget?.label_ar ?? ''}
         onConfirm={handleDelete}
         loading={deleting}
       />

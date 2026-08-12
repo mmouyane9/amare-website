@@ -33,16 +33,26 @@
     return /news\.html/i.test(path);
   }
 
-  // Set text while preserving the first FontAwesome <i> / <svg> icon child.
+  /* Bilingual helper — picks key_lang, falls back to key_ar, then key. */
+  function pickBilingual(data, key) {
+    if (!data) return '';
+    var lang = (window.I18n && window.I18n.getCurrentLanguage) ? window.I18n.getCurrentLanguage() : 'ar';
+    var value = data[key + '_' + lang];
+    if (value != null && value !== '') return value;
+    value = data[key + '_ar'];
+    if (value != null && value !== '') return value;
+    return data[key] || '';
+  }
+
+  // Set text while preserving the first SVG icon child.
   function setTextWithIcon(el, text) {
     if (!el) return;
-    var icon = el.querySelector('i, svg');
+    var icon = el.querySelector('svg');
     el.textContent = text || '';
     if (icon) el.insertBefore(icon, el.firstChild);
   }
 
   // Set a heading, re-wrapping the highlighted word in the accent span.
-  // Reuses the existing em span's class so the accent styling is preserved.
   function setTitleWithEm(el, heading, headingEm) {
     if (!el) return;
     var h = String(heading || '');
@@ -70,68 +80,66 @@
     if (d && description) d.textContent = description;
   }
 
-  function injectButtons(anchors, buttons) {
+  function injectButtons(anchors, buttons, field) {
     if (!buttons || !buttons.length) return;
     for (var i = 0; i < anchors.length; i++) {
       if (!buttons[i]) continue;
       anchors[i].href = buttons[i].url || '#';
-      setTextWithIcon(anchors[i], buttons[i].label);
+      setTextWithIcon(anchors[i], pickBilingual(buttons[i], field || 'label'));
     }
   }
 
   function injectHero(d) {
     var h1 = document.querySelector('.nw-hero h1');
-    if (h1) setTitleWithEm(h1, d.heading, d.headingEm);
+    if (h1) setTitleWithEm(h1, pickBilingual(d, 'heading'), pickBilingual(d, 'headingEm'));
     var badge = document.querySelector('.nw-hero-badge');
-    if (badge && d.subheading) setTextWithIcon(badge, d.subheading);
+    if (badge) setTextWithIcon(badge, pickBilingual(d, 'subheading'));
     var subtitle = document.querySelector('.nw-hero-subtitle');
-    if (subtitle && d.description) subtitle.textContent = d.description;
-    injectButtons(document.querySelectorAll('.nw-hero-actions a'), d.buttons);
+    if (subtitle) subtitle.textContent = pickBilingual(d, 'description');
+    injectButtons(document.querySelectorAll('.nw-hero-actions a'), d.buttons, 'label');
   }
 
   function injectNwFeatured(d) {
     var sec = document.querySelector('#nwFeatured');
     if (!sec) return;
-    setSectionHead(sec, d.eyebrow, d.heading, d.description);
+    setSectionHead(sec, pickBilingual(d, 'eyebrow'), pickBilingual(d, 'heading'), null);
   }
 
   function injectNwGrid(d) {
     var sec = document.querySelector('#nwLatest');
     if (!sec) return;
-    setSectionHead(sec, d.eyebrow, d.heading, d.description);
-    // News cards are no longer fed from CMS sections — they come from the
-    // public.news table via supabase/news-articles.js (real published data).
+    setSectionHead(sec, pickBilingual(d, 'eyebrow'), pickBilingual(d, 'heading'), pickBilingual(d, 'description'));
   }
 
   function injectNwCategories(d) {
     var sec = document.querySelector('#nwCategories');
     if (!sec) return;
-    setSectionHead(sec, d.eyebrow, d.heading, d.description);
+    setSectionHead(sec, pickBilingual(d, 'eyebrow'), pickBilingual(d, 'heading'), pickBilingual(d, 'description'));
   }
 
   function injectNwSearch(d) {
     var sec = document.querySelector('#nwSearch');
     if (!sec) return;
-    setSectionHead(sec, d.eyebrow, d.heading, d.description);
+    setSectionHead(sec, pickBilingual(d, 'eyebrow'), pickBilingual(d, 'heading'), null);
   }
 
   function injectNwNewsletter(d) {
     var sec = document.querySelector('#nwNewsletter');
     if (!sec) return;
     var title = sec.querySelector('.nw-newsletter-inner h2');
-    if (title && d.heading) title.textContent = d.heading;
+    if (title) title.textContent = pickBilingual(d, 'heading');
     var desc = sec.querySelector('.nw-newsletter-inner p');
-    if (desc && d.description) desc.textContent = d.description;
+    if (desc) desc.textContent = pickBilingual(d, 'description');
     var btn = sec.querySelector('.nw-newsletter-form button');
-    if (btn && d.buttonLabel) btn.textContent = d.buttonLabel;
+    if (btn) btn.textContent = pickBilingual(d, 'buttonLabel');
   }
 
   function injectNwCta(d) {
     var sec = document.querySelector('#nwCta');
     if (!sec) return;
     var title = sec.querySelector('.nw-cta-inner h2');
-    if (title && d.heading) title.textContent = d.heading;
-    injectButtons(sec.querySelectorAll('.nw-cta-actions a'), d.buttons);
+    if (title) title.textContent = pickBilingual(d, 'heading');
+    injectButtons(sec.querySelectorAll('.nw-cta-actions a'), d.buttons, 'label');
   }
 
   var pending = null;

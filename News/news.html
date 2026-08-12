@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>الأخبار | آخر أخبار الجمعية | الجمعية المغربية لهواة البحث والاستكشاف</title>
-<meta name="description" content="آخر أخبار الجمعية المغربية لهواة البحث والاستكشاف — تابع الأنشطة والفعاليات والشراكات والمسابقات والحملات البيئية وكل جديد.">
+<meta name="description" content="آخر أخبار الجمعية المغربية لهواة البحث والاستكشاف — تابع الأنشطة والفعاليات والشراكات والمسابقات والحملات البيئية وكل جديد." data-i18n-content="news.metaDesc">
 <meta name="keywords" content="أخبار, الجمعية المغربية, AMARE, أنشطة, فعاليات, شراكات, مسابقات, حملات بيئية">
 <meta name="author" content="الجمعية المغربية لهواة البحث والاستكشاف">
 <link rel="shortcut icon" href="/Amare%20files%20/logo.png" type="image/x-icon">
@@ -601,18 +601,18 @@
       <div class="nw-state-icon" aria-hidden="true">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
       </div>
-      <h3 class="nw-state-title">لا توجد أخبار منشورة بعد</h3>
-      <p class="nw-state-desc">ستتوفر أخبار وأنشطة الجمعية هنا بمجرد نشرها. عد قريباً للاطلاع على آخر المستجدات.</p>
-      <a href="/index.html" class="btn btn-primary">العودة إلى الرئيسية</a>
+      <h3 class="nw-state-title" data-i18n="news.emptyTitle">لا توجد أخبار منشورة بعد</h3>
+      <p class="nw-state-desc" data-i18n="news.emptyDesc">ستتوفر أخبار وأنشطة الجمعية هنا بمجرد نشرها. عد قريباً للاطلاع على آخر المستجدات.</p>
+      <a href="/index.html" class="btn btn-primary" data-i18n="news.emptyBtn">العودة إلى الرئيسية</a>
     </div>
 
     <div class="nw-state nw-state-error" id="newsError" hidden>
       <div class="nw-state-icon" aria-hidden="true">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
       </div>
-      <h3 class="nw-state-title">تعذر تحميل الأخبار</h3>
-      <p class="nw-state-desc">حدث خطأ ما أثناء جلب الأخبار. يرجى المحاولة مرة أخرى بعد قليل.</p>
-      <button type="button" class="btn btn-primary" id="newsRetryBtn">إعادة المحاولة</button>
+      <h3 class="nw-state-title" data-i18n="news.errorTitle">تعذر تحميل الأخبار</h3>
+      <p class="nw-state-desc" data-i18n="news.errorDesc">حدث خطأ ما أثناء جلب الأخبار. يرجى المحاولة مرة أخرى بعد قليل.</p>
+      <button type="button" class="btn btn-primary" id="newsRetryBtn" data-i18n="news.errorBtn">إعادة المحاولة</button>
     </div>
   </div>
 </section>
@@ -645,26 +645,26 @@
     <div class="nw-search-bar">
       <div class="nw-search-input">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        <input type="text" placeholder="ابحث عن خبر..." id="searchInput">
+        <input type="text" placeholder="ابحث عن خبر..." id="searchInput" data-i18n-placeholder="news.searchPlaceholder">
       </div>
       <select class="nw-search-filter" id="searchCategory">
-        <option value="">جميع الفئات</option>
-        <option value="activities">أنشطة</option>
-        <option value="partnerships">شراكات</option>
-        <option value="competitions">مسابقات</option>
-        <option value="outings">خرجات</option>
-        <option value="environmental">حملات بيئية</option>
-        <option value="exhibitions">معارض</option>
-        <option value="association">الجمعية</option>
-        <option value="announcements">إعلانات</option>
+        <option value="" data-i18n="news.searchAllCats">جميع الفئات</option>
+        <option value="activities" data-i18n="news.catActivities">أنشطة</option>
+        <option value="partnerships" data-i18n="news.catPartnerships">شراكات</option>
+        <option value="competitions" data-i18n="news.catCompetitions">مسابقات</option>
+        <option value="outings" data-i18n="news.catOutings">خرجات</option>
+        <option value="environmental" data-i18n="news.catEnvironmental">حملات بيئية</option>
+        <option value="exhibitions" data-i18n="news.catExhibitions">معارض</option>
+        <option value="association" data-i18n="news.catAssociation">الجمعية</option>
+        <option value="announcements" data-i18n="news.catAnnouncements">إعلانات</option>
       </select>
       <select class="nw-search-filter" id="searchYear">
-        <option value="">جميع السنوات</option>
+        <option value="" data-i18n="news.searchAllYears">جميع السنوات</option>
         <option value="2026">2026</option>
         <option value="2025">2025</option>
         <option value="2024">2024</option>
       </select>
-      <button class="nw-search-btn" id="searchBtn">بحث</button>
+      <button class="nw-search-btn" id="searchBtn" data-i18n="news.searchBtn">بحث</button>
     </div>
   </div>
 </section>
@@ -680,7 +680,7 @@
       <h2>اشترك في نشرتنا الإخبارية</h2>
       <p>توصل بأحدث الأخبار والفعاليات مباشرة على بريدك الإلكتروني.</p>
       <form class="nw-newsletter-form" id="newsletterForm" novalidate>
-        <input type="email" placeholder="البريد الإلكتروني" dir="ltr" required id="newsletterEmail">
+        <input type="email" placeholder="البريد الإلكتروني" dir="ltr" required id="newsletterEmail" data-i18n-placeholder="newsletter.placeholder">
         <button type="submit">اشترك الآن</button>
       </form>
     </div>
@@ -720,10 +720,10 @@
             <img src="/Amare%20files%20/logo.png" alt="AMARE Logo" class="topbar-brand-logo">
           </span>
           <span>
-            <span class="brand-name">الجمعية المغربية لهواة البحث والاستكشاف</span><br>
+            <span class="brand-name" data-i18n="organization.name">الجمعية المغربية لهواة البحث والاستكشاف</span><br>
           </span>
         </div>
-        <p data-amare-setting="organization_description">الجمعية المغربية لهواة البحث والاستكشاف هي إطار قانوني وطني يجمع الهواة تحت راية واحدة لصون التراث الوطني المغربي.</p>
+        <p data-i18n="organization.description" data-amare-setting="organization_description">الجمعية المغربية لهواة البحث والاستكشاف هي إطار قانوني وطني يجمع الهواة تحت راية واحدة لصون التراث الوطني المغربي.</p>
         <div class="footer-social">
           <a href="#" aria-label="فيسبوك"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg></a>
           <a href="#" aria-label="إنستغرام"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
@@ -778,7 +778,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <p>© 2026 الجمعية المغربية لهواة البحث والاستكشاف. جميع الحقوق محفوظة.</p>
+      <p data-i18n="organization.copyright">© 2026 الجمعية المغربية لهواة البحث والاستكشاف. جميع الحقوق محفوظة.</p>
       <div class="footer-bottom-links">
         <a href="#" data-i18n="footer.privacy">سياسة الخصوصية</a>
         <a href="#" data-i18n="footer.terms">الشروط والأحكام</a>
@@ -787,7 +787,7 @@
   </div>
 </footer>
 
-<button class="back-to-top" id="backToTop" aria-label="العودة إلى الأعلى">
+<button class="back-to-top" id="backToTop" aria-label="العودة إلى الأعلى" data-i18n-aria-label="misc.backToTop">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M18 15l-6-6-6 6"/></svg>
 </button>
 
@@ -908,11 +908,12 @@
     var html = '';
     categories.forEach(function (c) {
       var isActive = active === c.id;
+      var countLabel = (window.I18n && window.I18n.t('news.articleCount')) || '{count} خبر';
       html +=
         '<div class="nw-cat-card' + (isActive ? ' active' : '') + '" data-category="' + c.id + '">' +
           '<div class="nw-cat-icon">' + c.icon + '</div>' +
           '<h3>' + c.label + '</h3>' +
-          '<span>' + c.count + ' خبر</span>' +
+          '<span>' + countLabel.replace('{count}', c.count) + '</span>' +
         '</div>';
     });
     container.innerHTML = html;
@@ -961,7 +962,7 @@
       var email = document.getElementById('newsletterEmail');
       if (!email.value.trim()) return;
       email.value = '';
-      alert('تم الاشتراك بنجاح! شكراً لانضمامك إلى نشرتنا الإخبارية.');
+      alert((window.I18n && window.I18n.t('newsletter.success')) || 'تم الاشتراك بنجاح! شكراً لانضمامك إلى نشرتنا الإخبارية.');
     });
   }
 

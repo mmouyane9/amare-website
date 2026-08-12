@@ -233,6 +233,39 @@
       'page.contact': 'اتصل بنا | الجمعية المغربية لهواة البحث والاستكشاف',
       'page.login': 'تسجيل الدخول | الجمعية المغربية لهواة البحث والاستكشاف',
 
+      'page.whoarewe': 'من نحن | الجمعية المغربية لهواة البحث والاستكشاف',
+      'page.activities': 'أنشطتنا | الجمعية المغربية لهواة البحث والاستكشاف',
+      'page.partners': 'شركاؤنا | الجمعية المغربية لهواة البحث والاستكشاف',
+      'page.lefouilleurma': 'Le Fouilleur.ma | الجمعية المغربية لهواة البحث والاستكشاف',
+      'page.senotec': 'Senotec | الجمعية المغربية لهواة البحث والاستكشاف',
+      'page.astromet': 'Astromet | الجمعية المغربية لهواة البحث والاستكشاف',
+      'page.ancpp': 'ANCPP | الجمعية المغربية لهواة البحث والاستكشاف',
+      'page.omsds': 'OMSDS | الجمعية المغربية لهواة البحث والاستكشاف',
+      'page.sosamare': 'SOS Amare | الجمعية المغربية لهواة البحث والاستكشاف',
+      'page.amarestore': 'متجر AMARE | الجمعية المغربية لهواة البحث والاستكشاف',
+      'page.amaremagazine': 'مجلة AMARE | الجمعية المغربية لهواة البحث والاستكشاف',
+
+      'page.onlinejoin': 'الانخراط الإلكتروني | الجمعية المغربية لهواة البحث والاستكشاف',
+      'page.renewal': 'تجديد الانخراط | الجمعية المغربية لهواة البحث والاستكشاف',
+      'page.documents': 'وثائق الانخراط | الجمعية المغربية لهواة البحث والاستكشاف',
+
+      'page.archive': 'الأرشيف | الجمعية المغربية لهواة البحث والاستكشاف',
+      'page.competition': 'المسابقات | الجمعية المغربية لهواة البحث والاستكشاف',
+
+      'page.branch': 'الفروع الجهوية | الجمعية المغربية لهواة البحث والاستكشاف',
+      'page.branch.tanger-tetouan-al-hoceima': 'جهة طنجة تطوان الحسيمة | الجمعية المغربية لهواة البحث والاستكشاف',
+      'page.branch.oriental': 'الجهة الشرقية | الجمعية المغربية لهواة البحث والاستكشاف',
+      'page.branch.fes-meknes': 'جهة فاس مكناس | الجمعية المغربية لهواة البحث والاستكشاف',
+      'page.branch.rabat-sale-kenitra': 'جهة الرباط سلا القنيطرة | الجمعية المغربية لهواة البحث والاستكشاف',
+      'page.branch.beni-mellal-khenifra': 'جهة بني ملال خنيفرة | الجمعية المغربية لهواة البحث والاستكشاف',
+      'page.branch.casablanca-settat': 'جهة الدار البيضاء سطات | الجمعية المغربية لهواة البحث والاستكشاف',
+      'page.branch.marrakech-safi': 'جهة مراكش آسفي | الجمعية المغربية لهواة البحث والاستكشاف',
+      'page.branch.draa-tafilalet': 'جهة درعة تافيلالت | الجمعية المغربية لهواة البحث والاستكشاف',
+      'page.branch.souss-massa': 'جهة سوس ماسة | الجمعية المغربية لهواة البحث والاستكشاف',
+      'page.branch.guelmim-oued-noun': 'جهة كلميم واد نون | الجمعية المغربية لهواة البحث والاستكشاف',
+      'page.branch.laayoune-sakia-el-hamra': 'جهة العيون الساقية الحمراء | الجمعية المغربية لهواة البحث والاستكشاف',
+      'page.branch.dakhla-oued-eddahab': 'جهة الداخلة وادي الذهب | الجمعية المغربية لهواة البحث والاستكشاف',
+
       'about.memberPhoto': 'صورة ',
       'about.viewProfile': 'عرض الملف الشخصي',
       'map.branchCount': 'عدد الفروع',
@@ -433,7 +466,40 @@
       'join.otp.verified': 'تم التحقق من البريد الإلكتروني بنجاح.',
       'join.upload.subtitle': 'الصورة الشخصية وصورتا البطاقة الوطنية',
       'join.review.subtitle': 'تأكد من صحة جميع البيانات قبل الإرسال',
-      'join.success.saved': 'تم حفظ معلوماتكم بنجاح.',
+
+      'news.searchPlaceholder': 'ابحث عن خبر...',
+      'news.searchBtn': 'بحث',
+      'news.searchAllCats': 'جميع الفئات',
+      'news.searchAllYears': 'جميع السنوات',
+      'news.catActivities': 'أنشطة',
+      'news.catPartnerships': 'شراكات',
+      'news.catCompetitions': 'مسابقات',
+      'news.catOutings': 'خرجات',
+      'news.catEnvironmental': 'حملات بيئية',
+      'news.catExhibitions': 'معارض',
+      'news.catAssociation': 'الجمعية',
+      'news.catAnnouncements': 'إعلانات',
+      'news.emptyTitle': 'لا توجد أخبار منشورة بعد',
+      'news.emptyDesc': 'ستتوفر أخبار وأنشطة الجمعية هنا بمجرد نشرها. عد قريباً للاطلاع على آخر المستجدات.',
+      'news.emptyBtn': 'العودة إلى الرئيسية',
+      'news.errorTitle': 'تعذر تحميل الأخبار',
+      'news.errorDesc': 'حدث خطأ ما أثناء جلب الأخبار. يرجى المحاولة مرة أخرى بعد قليل.',
+      'news.errorBtn': 'إعادة المحاولة',
+      'news.cardReadMore': 'اقرأ المزيد',
+      'news.cardDefaultTitle': 'بدون عنوان',
+      'news.cardCategory': 'أخبار',
+      'news.articleCount': '{count} خبر',
+      'news.metaDesc': 'آخر أخبار الجمعية المغربية لهواة البحث والاستكشاف — تابع الأنشطة والفعاليات والشراكات والمسابقات والحملات البيئية وكل جديد.',
+
+      'contact.metaDesc': 'تواصل مع الجمعية المغربية لهواة البحث والاستكشاف — إذا كانت لديكم أي استفسارات أو اقتراحات أو ترغبون في الانضمام إلى الجمعية، لا تترددوا في التواصل معنا.',
+      'contact.form.nameError': 'يرجى إدخال الاسم الكامل.',
+      'contact.form.emailError': 'يرجى إدخال بريد إلكتروني صحيح.',
+      'contact.form.phoneError': 'يرجى إدخال رقم هاتف صحيح.',
+      'contact.form.subjectError': 'يرجى اختيار موضوع الرسالة.',
+      'contact.form.subjectPlaceholder': 'اختر موضوع الرسالة',
+      'contact.form.messageError': 'يرجى كتابة رسالتك (10 أحرف على الأقل).',
+      'contact.form.validationError': 'يرجى تصحيح الحقول المحددة قبل الإرسال.',
+      'contact.form.success': 'شكرًا لتواصلكم معنا! تم استلام رسالتكم بنجاح وسنعاود الاتصال بكم في أقرب وقت.',
     },
 
     fr: {
@@ -593,6 +659,39 @@
       'page.news': 'Actualités | Dernières nouvelles | Association marocaine des amateurs de recherche et d’exploration',
       'page.contact': 'Contactez-nous | Association marocaine des amateurs de recherche et d’exploration',
       'page.login': 'Connexion | Association marocaine des amateurs de recherche et d’exploration',
+
+      'page.whoarewe': 'Qui sommes-nous | Association Marocaine des Amateurs de Recherche et d’Exploration',
+      'page.activities': 'Nos activités | Association Marocaine des Amateurs de Recherche et d’Exploration',
+      'page.partners': 'Nos partenaires | Association Marocaine des Amateurs de Recherche et d’Exploration',
+      'page.lefouilleurma': 'Le Fouilleur.ma | Association Marocaine des Amateurs de Recherche et d’Exploration',
+      'page.senotec': 'Senotec | Association Marocaine des Amateurs de Recherche et d’Exploration',
+      'page.astromet': 'Astromet | Association Marocaine des Amateurs de Recherche et d’Exploration',
+      'page.ancpp': 'ANCPP | Association Marocaine des Amateurs de Recherche et d’Exploration',
+      'page.omsds': 'OMSDS | Association Marocaine des Amateurs de Recherche et d’Exploration',
+      'page.sosamare': 'SOS Amare | Association Marocaine des Amateurs de Recherche et d’Exploration',
+      'page.amarestore': 'Boutique AMARE | Association Marocaine des Amateurs de Recherche et d’Exploration',
+      'page.amaremagazine': 'Magazine AMARE | Association Marocaine des Amateurs de Recherche et d’Exploration',
+
+      'page.onlinejoin': 'Adhésion en ligne | Association Marocaine des Amateurs de Recherche et d’Exploration',
+      'page.renewal': 'Renouvellement de l’adhésion | Association Marocaine des Amateurs de Recherche et d’Exploration',
+      'page.documents': 'Documents d’adhésion | Association Marocaine des Amateurs de Recherche et d’Exploration',
+
+      'page.archive': 'Archives | Association Marocaine des Amateurs de Recherche et d’Exploration',
+      'page.competition': 'Concours | Association Marocaine des Amateurs de Recherche et d’Exploration',
+
+      'page.branch': 'Branches régionales | Association Marocaine des Amateurs de Recherche et d’Exploration',
+      'page.branch.tanger-tetouan-al-hoceima': 'Tanger-Tétouan-Al Hoceïma | Association Marocaine des Amateurs de Recherche et d’Exploration',
+      'page.branch.oriental': 'L’Oriental | Association Marocaine des Amateurs de Recherche et d’Exploration',
+      'page.branch.fes-meknes': 'Fès-Meknès | Association Marocaine des Amateurs de Recherche et d’Exploration',
+      'page.branch.rabat-sale-kenitra': 'Rabat-Salé-Kénitra | Association Marocaine des Amateurs de Recherche et d’Exploration',
+      'page.branch.beni-mellal-khenifra': 'Béni Mellal-Khénifra | Association Marocaine des Amateurs de Recherche et d’Exploration',
+      'page.branch.casablanca-settat': 'Casablanca-Settat | Association Marocaine des Amateurs de Recherche et d’Exploration',
+      'page.branch.marrakech-safi': 'Marrakech-Safi | Association Marocaine des Amateurs de Recherche et d’Exploration',
+      'page.branch.draa-tafilalet': 'Drâa-Tafilalet | Association Marocaine des Amateurs de Recherche et d’Exploration',
+      'page.branch.souss-massa': 'Souss-Massa | Association Marocaine des Amateurs de Recherche et d’Exploration',
+      'page.branch.guelmim-oued-noun': 'Guelmim-Oued Noun | Association Marocaine des Amateurs de Recherche et d’Exploration',
+      'page.branch.laayoune-sakia-el-hamra': 'Laâyoune-Sakia El Hamra | Association Marocaine des Amateurs de Recherche et d’Exploration',
+      'page.branch.dakhla-oued-eddahab': 'Dakhla-Oued Ed-Dahab | Association Marocaine des Amateurs de Recherche et d’Exploration',
 
       'about.memberPhoto': 'Photo de ',
       'about.viewProfile': 'Voir le profil',
@@ -794,6 +893,40 @@
       'join.otp.verified': 'E-mail vérifié avec succès.',
       'join.upload.subtitle': 'Photo personnelle et photos de la carte nationale',
       'join.review.subtitle': 'Vérifiez toutes les informations avant de soumettre',
+
+      'news.searchPlaceholder': 'Rechercher une actualité...',
+      'news.searchBtn': 'Rechercher',
+      'news.searchAllCats': 'Toutes les catégories',
+      'news.searchAllYears': 'Toutes les années',
+      'news.catActivities': 'Activités',
+      'news.catPartnerships': 'Partenariats',
+      'news.catCompetitions': 'Concours',
+      'news.catOutings': 'Sorties',
+      'news.catEnvironmental': 'Campagnes environnementales',
+      'news.catExhibitions': 'Expositions',
+      'news.catAssociation': 'Association',
+      'news.catAnnouncements': 'Annonces',
+      'news.emptyTitle': 'Aucune actualité publiée pour le moment',
+      'news.emptyDesc': "Les actualités et activités de l'association seront disponibles ici dès leur publication. Revenez bientôt pour découvrir les dernières nouveautés.",
+      'news.emptyBtn': "Retour à l'accueil",
+      'news.errorTitle': 'Impossible de charger les actualités',
+      'news.errorDesc': "Une erreur s'est produite lors du chargement des actualités. Veuillez réessayer dans un instant.",
+      'news.errorBtn': 'Réessayer',
+      'news.cardReadMore': 'Lire la suite',
+      'news.cardDefaultTitle': 'Sans titre',
+      'news.cardCategory': 'Actualités',
+      'news.articleCount': '{count} actualités',
+      'news.metaDesc': "Dernières actualités de l'Association Marocaine des Amateurs de Recherche et d'Exploration — Suivez les activités, événements, partenariats, concours et campagnes environnementales.",
+
+      'contact.metaDesc': "Contactez l'Association Marocaine des Amateurs de Recherche et d'Exploration — Si vous avez des questions, des suggestions ou souhaitez rejoindre l'association, n'hésitez pas à nous contacter.",
+      'contact.form.nameError': 'Veuillez entrer votre nom complet.',
+      'contact.form.emailError': 'Veuillez entrer une adresse e-mail valide.',
+      'contact.form.phoneError': 'Veuillez entrer un numéro de téléphone valide.',
+      'contact.form.subjectError': 'Veuillez choisir un sujet.',
+      'contact.form.subjectPlaceholder': 'Choisissez le sujet du message',
+      'contact.form.messageError': 'Veuillez écrire votre message (10 caractères minimum).',
+      'contact.form.validationError': 'Veuillez corriger les champs indiqués avant l\'envoi.',
+      'contact.form.success': 'Merci de nous avoir contactés ! Votre message a été reçu avec succès et nous vous répondrons dans les plus brefs délais.',
     },
   };
 
@@ -1053,9 +1186,11 @@
     return item.description_ar || '';
   }
 
-  /* Footer rows share the same shape as nav rows (title_ar/title_en) */
+  /* Footer rows now have label_ar / label_fr */
   function resolveFooterLabel(item) {
-    return resolveNavLabel(item);
+    if (!item) return '';
+    if (currentLanguage === 'ar') return item.label_ar || item.title_ar || '';
+    return item.label_fr || item.label_ar || item.title_ar || '';
   }
 
   /* ------------------------------------------------------------------ */
@@ -1201,14 +1336,37 @@
   function updatePageTitle() {
     var pageKey = document.documentElement ? document.documentElement.getAttribute('data-i18n-page') : null;
     if (!pageKey) return;
-    var key = 'page.' + pageKey;
+
+    var key;
+    if (pageKey === 'branch') {
+      var slug = getBranchSlug();
+      if (slug) {
+        key = 'page.branch.' + slug;
+      } else {
+        key = 'page.branch';
+      }
+    } else {
+      key = 'page.' + pageKey;
+    }
+
     var title = translations[currentLanguage] && translations[currentLanguage][key];
     if (!title) {
       title = translations[DEFAULT_LANG] && translations[DEFAULT_LANG][key];
     }
+    if (!title && pageKey === 'branch') {
+      title = translations[currentLanguage] && translations[currentLanguage]['page.branch'];
+      if (!title) {
+        title = translations[DEFAULT_LANG] && translations[DEFAULT_LANG]['page.branch'];
+      }
+    }
     if (title) {
       document.title = title;
     }
+  }
+
+  function getBranchSlug() {
+    var params = new URLSearchParams(window.location.search);
+    return params.get('slug');
   }
 
   function translatePage() {
@@ -1388,7 +1546,16 @@
   function pageTitle() {
     var pageKey = document.documentElement ? document.documentElement.getAttribute('data-i18n-page') : null;
     if (!pageKey) return null;
-    var val = t('page.' + pageKey);
+
+    var key;
+    if (pageKey === 'branch') {
+      var slug = getBranchSlug();
+      key = slug ? 'page.branch.' + slug : 'page.branch';
+    } else {
+      key = 'page.' + pageKey;
+    }
+
+    var val = t(key);
     if (val && val.indexOf('page.') !== 0) return val;
     return null;
   }

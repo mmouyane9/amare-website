@@ -50,7 +50,8 @@ export default function FooterModal({
   defaultColumnId,
   defaultParentId,
 }: Props) {
-  const [titleAr, setTitleAr] = useState('')
+  const [labelAr, setLabelAr] = useState('')
+  const [labelFr, setLabelFr] = useState('')
   const [url, setUrl] = useState('')
   const [value, setValue] = useState('')
   const [linkType, setLinkType] = useState<'url' | 'tel' | 'mailto' | 'map' | 'none'>('url')
@@ -65,7 +66,8 @@ export default function FooterModal({
 
   useEffect(() => {
     if (editingItem) {
-      setTitleAr(editingItem.title_ar)
+      setLabelAr(editingItem.label_ar || editingItem.title_ar || '')
+      setLabelFr(editingItem.label_fr ?? '')
       setUrl(editingItem.url ?? '')
       setValue(editingItem.value ?? '')
       setLinkType(editingItem.link_type)
@@ -75,7 +77,8 @@ export default function FooterModal({
       setIsVisible(editingItem.is_visible)
       setOpenInNewTab(editingItem.open_in_new_tab)
     } else {
-      setTitleAr('')
+      setLabelAr('')
+      setLabelFr('')
       setUrl('')
       setValue('')
       setLinkType('url')
@@ -90,14 +93,15 @@ export default function FooterModal({
 
   const handleSubmit = async () => {
     const validationErrors: Record<string, string> = {}
-    if (!titleAr.trim()) validationErrors.title_ar = 'اسم الرابط مطلوب'
+    if (!labelAr.trim()) validationErrors.label_ar = 'اسم الرابط بالعربية مطلوب'
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors)
       return
     }
 
     const input: FooterItemCreateInput = {
-      title_ar: titleAr.trim(),
+      label_ar: labelAr.trim(),
+      label_fr: labelFr.trim() || undefined,
       url: url.trim() || undefined,
       value: value.trim() || undefined,
       link_type: linkType,
@@ -128,24 +132,34 @@ export default function FooterModal({
         </DialogHeader>
 
         <div className="grid max-h-[60vh] grid-cols-2 gap-3 overflow-y-auto py-1">
-          <div className="col-span-2">
-            <Label htmlFor="footer-title-ar">اسم الرابط *</Label>
+          <div className="col-span-2 sm:col-span-1">
+            <Label htmlFor="footer-label-ar">اسم الرابط بالعربية *</Label>
             <Input
-              id="footer-title-ar"
-              value={titleAr}
+              id="footer-label-ar"
+              value={labelAr}
               onChange={(e) => {
-                setTitleAr(e.target.value)
+                setLabelAr(e.target.value)
                 setErrors((prev) => {
                   const next = { ...prev }
-                  delete next.title_ar
+                  delete next.label_ar
                   return next
                 })
               }}
-              aria-invalid={!!errors.title_ar}
+              aria-invalid={!!errors.label_ar}
             />
-            {errors.title_ar && (
-              <p className="mt-1 text-xs text-destructive">{errors.title_ar}</p>
+            {errors.label_ar && (
+              <p className="mt-1 text-xs text-destructive">{errors.label_ar}</p>
             )}
+          </div>
+
+          <div className="col-span-2 sm:col-span-1">
+            <Label htmlFor="footer-label-fr">اسم الرابط بالفرنسية</Label>
+            <Input
+              id="footer-label-fr"
+              value={labelFr}
+              onChange={(e) => setLabelFr(e.target.value)}
+              placeholder="Accueil"
+            />
           </div>
 
           <div className="col-span-2 sm:col-span-1">
@@ -157,7 +171,7 @@ export default function FooterModal({
               <SelectContent>
                 {columns.map((col) => (
                   <SelectItem key={col.id} value={col.id}>
-                    {col.title_ar}
+                    {col.label_ar || col.title_ar}
                   </SelectItem>
                 ))}
               </SelectContent>

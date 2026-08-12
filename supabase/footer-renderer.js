@@ -43,11 +43,25 @@
     if (window.I18n && window.I18n.resolveFooterLabel) {
       return window.I18n.resolveFooterLabel(item);
     }
-    return item.title_ar || item.title_en || '';
+    return item.label_ar || item.title_ar || '';
   }
 
   function resolveColumnLabel(column) {
     return resolveLabel(column);
+  }
+
+  /* Resolve the footer contact address from website_settings (bilingual). */
+  function resolveAddress() {
+    var settings = window.__AMARE_SETTINGS__ || null;
+    if (!settings) return '';
+    var lang =
+      window.I18n && window.I18n.getCurrentLanguage
+        ? window.I18n.getCurrentLanguage()
+        : 'ar';
+    if (lang === 'fr') {
+      return settings.address_fr || settings.address_ar || '';
+    }
+    return settings.address_ar || '';
   }
 
   /* ==========================================================================
@@ -75,13 +89,12 @@
 
   function renderContactColumn(column, items) {
     var container = document.getElementById('footer-contact-' + column.id);
-    // Find the contact container: any div with <h4>تواصل معنا</h4> followed by .footer-contact
+    var colLabel = column.label_ar || column.title_ar || '';
     var contactUl = document.querySelector('.footer-contact');
     if (!contactUl) {
-      // Try to find by nav aria-label
       var navs = document.querySelectorAll('nav[aria-label]');
       for (var n = 0; n < navs.length; n++) {
-        if (navs[n].getAttribute('aria-label') === column.title_ar) {
+        if (navs[n].getAttribute('aria-label') === colLabel) {
           contactUl = navs[n].querySelector('.footer-contact');
           break;
         }
@@ -95,6 +108,8 @@
     }
     if (!contactUl) return;
 
+    contactUl.setAttribute('data-amare-no-translate', '');
+
     var html = '';
     for (var i = 0; i < items.length; i++) {
       var item = items[i];
@@ -102,6 +117,9 @@
 
       var icon = contactIcon(item.icon || 'map-pin');
       var value = item.value || resolveLabel(item);
+      if (item.link_type === 'none' || item.icon === 'map-pin') {
+        value = resolveAddress();
+      }
 
       html += '<li>';
 
@@ -122,15 +140,14 @@
   }
 
   function renderLinksColumn(column, items) {
-    // Find the <nav> with the column's aria-label
+    var colLabel = column.label_ar || column.title_ar || '';
     var nav = document.querySelector(
-      'nav[aria-label="' + column.title_ar + '"]'
+      'nav[aria-label="' + colLabel + '"]'
     );
     if (!nav) {
-      // Try matching each nav by aria-label
       var allNavs = document.querySelectorAll('nav[aria-label]');
       for (var n = 0; n < allNavs.length; n++) {
-        if (allNavs[n].getAttribute('aria-label') === column.title_ar) {
+        if (allNavs[n].getAttribute('aria-label') === colLabel) {
           nav = allNavs[n];
           break;
         }
@@ -144,6 +161,8 @@
 
     var ul = nav.querySelector('.footer-links');
     if (!ul) return;
+
+    ul.setAttribute('data-amare-no-translate', '');
 
     var html = '';
     for (var i = 0; i < items.length; i++) {
@@ -165,6 +184,8 @@
   function renderMapColumn(column, items) {
     var mapContainer = document.querySelector('.footer-location');
     if (!mapContainer) return;
+
+    mapContainer.setAttribute('data-amare-no-translate', '');
 
     var h4 = mapContainer.querySelector('h4');
     if (h4) h4.textContent = resolveColumnLabel(column);
@@ -190,12 +211,14 @@
       iframe.title = resolveLabel(mapItem);
     }
 
-    // Update the "Open in Google Maps" button
+    // Update the "Open in Google Maps" button — always use the CMS share URL
     var btn = mapContainer.querySelector('.footer-map-btn');
-    if (btn && mapItem.url) {
-      // Convert embed URL to maps URL if needed
-      var mapsUrl = mapItem.url.replace('&output=embed', '');
-      btn.href = mapsUrl;
+    if (btn) {
+      var settings = window.__AMARE_SETTINGS__ || null;
+      var shareUrl =
+        (settings && settings.google_maps_url) ||
+        (mapItem.url ? mapItem.url.replace('&output=embed', '') : '');
+      if (shareUrl) btn.href = shareUrl;
     }
   }
 
@@ -218,10 +241,10 @@
 
             var fingerprint = JSON.stringify([
               columns.map(function (c) {
-                return [c.id, c.title_ar, c.type, c.sort_order, c.is_visible].join('|');
+                return [c.id, c.label_ar || c.title_ar, c.label_fr, c.type, c.sort_order, c.is_visible].join('|');
               }),
               items.map(function (i) {
-                return [i.id, i.title_ar, i.url, i.value, i.column_id, i.sort_order, i.is_visible].join('|');
+                return [i.id, i.label_ar || i.title_ar, i.label_fr, i.url, i.value, i.column_id, i.sort_order, i.is_visible].join('|');
               }),
             ]);
 
@@ -297,6 +320,12 @@
     // Re-render labels when the language changes (data is unchanged, so the
     // fingerprint cache must be reset to force a repaint).
     window.addEventListener('amare:langchange', function () {
+      lastRendered = '';
+      fetchAndRender();
+    });
+
+    // Re-render the contact address when website_settings change via realtime.
+    window.addEventListener('amare:settingschange', function () {
       lastRendered = '';
       fetchAndRender();
     });

@@ -23,6 +23,17 @@
     return (s && s[key]) || defaultValue;
   }
 
+  /* Bilingual helper — picks key_lang, falls back to key_ar, then key. */
+  function pickBilingual(data, key) {
+    if (!data) return '';
+    var lang = (window.I18n && window.I18n.getCurrentLanguage) ? window.I18n.getCurrentLanguage() : 'ar';
+    var value = data[key + '_' + lang];
+    if (value != null && value !== '') return value;
+    value = data[key + '_ar'];
+    if (value != null && value !== '') return value;
+    return data[key] || '';
+  }
+
   /* Use the translated fallback from I18n when available (Arabic is the
      default), otherwise the hardcoded Arabic fallback below. */
   function localizedFallback() {
@@ -137,7 +148,7 @@
     },
     footer: {
       brandName: getSetting('association_name', 'الجمعية المغربية لهواة البحث والاستكشاف'),
-      brandLogo: getSetting('logo_url', 'Amare%20files%20/logo.png'),
+      brandLogo: getSetting('logo_url', '/Amare%20files%20/logo.png'),
       description: getSetting('association_name', 'الجمعية المغربية لهواة البحث والاستكشاف') + ' هي إطار قانوني وطني يجمع الهواة تحت راية واحدة لصون التراث الوطني المغربي.',
       socialLinks: [
         { platform: 'facebook', url: '#' },
@@ -218,7 +229,7 @@
   function injectHero(d) {
     var h1 = el('.hero-inner h1');
     if (h1) {
-      var lines = (L(d.heading || '')).split('\n');
+      var lines = (L(pickBilingual(d, 'heading') || '')).split('\n');
       var html = '';
       for (var i = 0; i < lines.length; i++) {
         var line = lines[i].trim();
@@ -235,7 +246,7 @@
 
     var eyebrow = el('.hero-inner .hero-eyebrow');
     if (eyebrow) {
-      var eyebrowText = L(d.eyebrow || d.subheading || '');
+      var eyebrowText = L(pickBilingual(d, 'eyebrow') || pickBilingual(d, 'subheading') || '');
       /* Strip misplaced Arabic "إلى" when followed by a competition name
          like "DETECTLAND MAROC 2" (CMS data artifact). */
       eyebrowText = eyebrowText.replace(/^إلى\s+(?=[A-Z])/i, '');
@@ -243,7 +254,7 @@
     }
 
     var desc = el('.hero-inner p.hero-fade');
-    if (desc && d.description) desc.textContent = L(d.description);
+    if (desc && pickBilingual(d, 'description')) desc.textContent = L(pickBilingual(d, 'description'));
 
     var actions = el('.hero-actions');
     if (actions && d.buttons) {
@@ -251,13 +262,13 @@
       var anchors = actions.querySelectorAll('a');
       for (var j = 0; j < anchors.length; j++) {
         var a = anchors[j], b = d.buttons[j];
-        if (!b || !b.label) { a.style.display = 'none'; continue; }
+        if (!b || !pickBilingual(b, 'label')) { a.style.display = 'none'; continue; }
         a.style.display = '';
         var svgs = a.querySelectorAll('svg'), svgHtml = '';
         for (var k = 0; k < svgs.length; k++) svgHtml += svgs[k].outerHTML;
         a.href = b.url || '';
-        var btnLabel = L(b.label);
-        if (btnLabel === b.label) {
+        var btnLabel = L(pickBilingual(b, 'label'));
+        if (btnLabel === pickBilingual(b, 'label')) {
           var key = heroCtaKeys[j] || '';
           var keyVal = (window.I18n && key && window.I18n.t(key));
           if (keyVal && keyVal !== key) btnLabel = keyVal;
@@ -275,25 +286,25 @@
   /* ABOUT (renderer: about) */
   function injectAbout(d) {
     var eyebrow = el('.about-eyebrow');
-    if (eyebrow && d.eyebrow) {
+    if (eyebrow && pickBilingual(d, 'eyebrow')) {
       var svg = eyebrow.querySelector('svg');
-      eyebrow.innerHTML = (svg ? svg.outerHTML + ' ' : '') + esc(L(d.eyebrow));
+      eyebrow.innerHTML = (svg ? svg.outerHTML + ' ' : '') + esc(L(pickBilingual(d, 'eyebrow')));
     }
 
     var title = el('.about-title');
-    if (title && d.heading !== undefined) {
-      var hl = L(d.headingHighlight || '');
-      title.innerHTML = esc(L(d.heading || '')) + ' <span class="about-title-em">' + esc(hl) + '</span>';
-      if (d.headingSub) title.innerHTML += ' ' + esc(L(d.headingSub));
+    if (title && pickBilingual(d, 'heading') !== undefined) {
+      var hl = L(pickBilingual(d, 'headingHighlight') || '');
+      title.innerHTML = esc(L(pickBilingual(d, 'heading') || '')) + ' <span class="about-title-em">' + esc(hl) + '</span>';
+      if (pickBilingual(d, 'headingSub')) title.innerHTML += ' ' + esc(L(pickBilingual(d, 'headingSub')));
     }
 
     var descHead = el('.about-desc-head');
-    if (descHead && d.description) descHead.textContent = L(d.description);
+    if (descHead && pickBilingual(d, 'description')) descHead.textContent = L(pickBilingual(d, 'description'));
 
     var paragraphs = document.querySelectorAll('.about-content .about-text');
     if (d.paragraphs) {
       for (var p = 0; p < Math.min(paragraphs.length, d.paragraphs.length); p++) {
-        paragraphs[p].textContent = L(d.paragraphs[p]);
+        paragraphs[p].textContent = L(pickBilingual(d.paragraphs, p));
       }
     }
 
@@ -302,8 +313,8 @@
       for (var f = 0; f < Math.min(featureItems.length, d.features.length); f++) {
         var ft = featureItems[f].querySelector('.about-ftitle');
         var fd = featureItems[f].querySelector('.about-fdesc');
-        if (ft) ft.textContent = L(d.features[f].title || '');
-        if (fd) fd.textContent = L(d.features[f].description || '');
+        if (ft) ft.textContent = L(pickBilingual(d.features[f], 'title') || '');
+        if (fd) fd.textContent = L(pickBilingual(d.features[f], 'description') || '');
       }
     }
 
@@ -312,7 +323,7 @@
       for (var ab = 0; ab < Math.min(aboutBtns.length, d.buttons.length); ab++) {
         var ba = aboutBtns[ab], bb = d.buttons[ab];
         ba.href = bb.url || '#';
-        var translatedLabel = L(bb.label);
+        var translatedLabel = L(pickBilingual(bb, 'label'));
         var bSpan = ba.querySelector('span');
         if (bSpan) bSpan.textContent = translatedLabel;
         else {
@@ -326,7 +337,7 @@
     var aboutImg = el('.about-visual .about-img');
     if (aboutImg && d.image) {
       aboutImg.src = d.image.url || '';
-      aboutImg.alt = L(d.image.alt || '');
+      aboutImg.alt = L(pickBilingual(d.image, 'alt') || '');
     }
 
     if (d.stats) {
@@ -339,7 +350,7 @@
           statNum.setAttribute('data-count', d.stats[s].value);
           statNum.setAttribute('data-suffix', d.stats[s].suffix || '');
         }
-        if (statLbl) statLbl.textContent = L(d.stats[s].label);
+        if (statLbl) statLbl.textContent = L(pickBilingual(d.stats[s], 'label'));
       }
     }
   }
@@ -347,21 +358,21 @@
   /* FEATURES GRID (renderer: featuresGrid) */
   function injectFeaturesGrid(d) {
     var eyebrow = el('#features .eyebrow');
-    if (eyebrow && d.eyebrow) eyebrow.textContent = L(d.eyebrow);
+    if (eyebrow && pickBilingual(d, 'eyebrow')) eyebrow.textContent = L(pickBilingual(d, 'eyebrow'));
 
     var heading = el('#features .section-title');
-    if (heading && d.heading) heading.textContent = L(d.heading);
+    if (heading && pickBilingual(d, 'heading')) heading.textContent = L(pickBilingual(d, 'heading'));
 
     var desc = el('#features .section-desc');
-    if (desc && d.description) desc.textContent = L(d.description);
+    if (desc && pickBilingual(d, 'description')) desc.textContent = L(pickBilingual(d, 'description'));
 
     var cards = document.querySelectorAll('#features .feature-card');
     if (d.cards) {
       for (var i = 0; i < Math.min(cards.length, d.cards.length); i++) {
         var h3 = cards[i].querySelector('h3');
         var p = cards[i].querySelector('p');
-        if (h3) h3.textContent = L(d.cards[i].heading || '');
-        if (p) p.textContent = L(d.cards[i].description || '');
+        if (h3) h3.textContent = L(pickBilingual(d.cards[i], 'heading') || '');
+        if (p) p.textContent = L(pickBilingual(d.cards[i], 'description') || '');
       }
     }
   }
@@ -369,10 +380,10 @@
   /* ACTIVITIES GRID (renderer: activitiesGrid) */
   function injectActivitiesGrid(d) {
     var heading = el('.activities-title');
-    if (heading && d.heading) heading.textContent = L(d.heading);
+    if (heading && pickBilingual(d, 'heading')) heading.textContent = L(pickBilingual(d, 'heading'));
 
     var desc = el('.activities-desc');
-    if (desc && d.description) desc.textContent = L(d.description);
+    if (desc && pickBilingual(d, 'description')) desc.textContent = L(pickBilingual(d, 'description'));
 
     var cards = document.querySelectorAll('#services .activity-card');
     if (d.cards) {
@@ -384,14 +395,14 @@
 
         if (img && d.cards[i].image) {
           img.src = d.cards[i].image;
-          img.alt = L(d.cards[i].title || '');
+          img.alt = L(pickBilingual(d.cards[i], 'title') || '');
         }
-        if (title) title.textContent = L(d.cards[i].title || '');
-        if (cardDesc) cardDesc.textContent = L(d.cards[i].description || '');
+        if (title) title.textContent = L(pickBilingual(d.cards[i], 'title') || '');
+        if (cardDesc) cardDesc.textContent = L(pickBilingual(d.cards[i], 'description') || '');
         if (link) {
           link.href = d.cards[i].linkUrl || '#';
           var arrow = link.querySelector('.activity-link-arrow');
-          link.innerHTML = esc(L(d.cards[i].linkText || '')) + (arrow ? ' <span class="activity-link-arrow">' + arrow.textContent + '</span>' : '');
+          link.innerHTML = esc(L(pickBilingual(d.cards[i], 'linkText') || '')) + (arrow ? ' <span class="activity-link-arrow">' + arrow.textContent + '</span>' : '');
         }
       }
     }
@@ -400,10 +411,10 @@
   /* NEWS GRID (renderer: newsGrid) */
   function injectNewsGrid(d) {
     var eyebrow = el('#news .eyebrow');
-    if (eyebrow && d.eyebrow) eyebrow.textContent = L(d.eyebrow);
+    if (eyebrow && pickBilingual(d, 'eyebrow')) eyebrow.textContent = L(pickBilingual(d, 'eyebrow'));
 
     var heading = el('#news .section-title');
-    if (heading && d.heading) heading.textContent = L(d.heading);
+    if (heading && pickBilingual(d, 'heading')) heading.textContent = L(pickBilingual(d, 'heading'));
 
     var cards = document.querySelectorAll('#news .news-card');
     if (d.cards) {
@@ -414,17 +425,17 @@
         var title = cards[i].querySelector('h3');
         var more = cards[i].querySelector('.news-more');
 
-        if (img && d.cards[i].image) { img.src = d.cards[i].image; img.alt = L(d.cards[i].title || ''); }
-        if (badge && d.cards[i].badge) badge.textContent = L(d.cards[i].badge);
-        if (date && d.cards[i].date) {
+        if (img && d.cards[i].image) { img.src = d.cards[i].image; img.alt = L(pickBilingual(d.cards[i], 'title') || ''); }
+        if (badge && pickBilingual(d.cards[i], 'badge')) badge.textContent = L(pickBilingual(d.cards[i], 'badge'));
+        if (date && pickBilingual(d.cards[i], 'date')) {
           var svg = date.querySelector('svg');
-          date.innerHTML = (svg ? svg.outerHTML + ' ' : '') + esc(L(d.cards[i].date));
+          date.innerHTML = (svg ? svg.outerHTML + ' ' : '') + esc(L(pickBilingual(d.cards[i], 'date')));
         }
-        if (title) title.textContent = L(d.cards[i].title || '');
+        if (title) title.textContent = L(pickBilingual(d.cards[i], 'title') || '');
         if (more) {
           more.href = d.cards[i].linkUrl || '#';
           var msvg = more.querySelector('svg');
-          more.innerHTML = esc(L(d.cards[i].linkText || '')) + ' ' + (msvg ? msvg.outerHTML : '');
+          more.innerHTML = esc(L(pickBilingual(d.cards[i], 'linkText') || '')) + ' ' + (msvg ? msvg.outerHTML : '');
         }
       }
     }
@@ -435,7 +446,7 @@
      hint prevents a wrong branch on translated headings. When called from
      CMS dispatch, detection is done on the raw Arabic heading. */
   function injectCta(d, isNewsletter) {
-    var heading = d.heading || '';
+    var heading = pickBilingual(d, 'heading') || '';
 
     /* Detect which CTA section by heading keywords (raw Arabic) */
     var isNl = isNewsletter !== undefined
@@ -445,27 +456,27 @@
     if (isNl) {
       /* Newsletter */
       var nh = el('#newsletter h2');
-      if (nh && d.heading) {
-        var nlHeading = L(d.heading);
-        if (nlHeading === d.heading && !/[\u0600-\u06FF]/.test(d.heading)) {
+      if (nh && pickBilingual(d, 'heading')) {
+        var nlHeading = L(pickBilingual(d, 'heading'));
+        if (nlHeading === pickBilingual(d, 'heading') && !/[\u0600-\u06FF]/.test(pickBilingual(d, 'heading'))) {
           nlHeading = (window.I18n && window.I18n.t('newsletter.title')) || nlHeading;
         }
         nh.textContent = nlHeading;
       }
 
       var nd = el('#newsletter p');
-      if (nd && d.description) {
-        var nlDesc = L(d.description);
-        if (nlDesc === d.description && !/[\u0600-\u06FF]/.test(d.description)) {
+      if (nd && pickBilingual(d, 'description')) {
+        var nlDesc = L(pickBilingual(d, 'description'));
+        if (nlDesc === pickBilingual(d, 'description') && !/[\u0600-\u06FF]/.test(pickBilingual(d, 'description'))) {
           nlDesc = (window.I18n && window.I18n.t('newsletter.desc')) || nlDesc;
         }
         nd.textContent = nlDesc;
       }
 
       var nbtn = el('#newsletter button[type="submit"]');
-      if (nbtn && d.buttonLabel) {
-        var nlBtn = L(d.buttonLabel);
-        if (nlBtn === d.buttonLabel && !/[\u0600-\u06FF]/.test(d.buttonLabel)) {
+      if (nbtn && pickBilingual(d, 'buttonLabel')) {
+        var nlBtn = L(pickBilingual(d, 'buttonLabel'));
+        if (nlBtn === pickBilingual(d, 'buttonLabel') && !/[\u0600-\u06FF]/.test(pickBilingual(d, 'buttonLabel'))) {
           nlBtn = (window.I18n && window.I18n.t('newsletter.cta')) || nlBtn;
         }
         nbtn.textContent = nlBtn;
@@ -477,10 +488,10 @@
       var se = el('.store-eyebrow');
       if (se) {
         var seSvg = se.querySelector('svg');
-        var seLabel = L(d.eyebrowLabel || 'متجر AMARE');
+        var seLabel = L(pickBilingual(d, 'eyebrowLabel') || 'متجر AMARE');
         /* If the L() helper could not translate a non-Arabic source,
            fall back to the key-based translation. */
-        if (seLabel === (d.eyebrowLabel || 'متجر AMARE') && !/[\u0600-\u06FF]/.test(seLabel)) {
+        if (seLabel === (pickBilingual(d, 'eyebrowLabel') || 'متجر AMARE') && !/[\u0600-\u06FF]/.test(seLabel)) {
           seLabel = (window.I18n && window.I18n.t('store.eyebrow')) || seLabel;
         }
         se.innerHTML = (seSvg ? seSvg.outerHTML + ' ' : '') + esc(seLabel);
@@ -488,11 +499,11 @@
 
       /* Heading / title */
       var sh = el('.store-title');
-      if (sh && d.heading) {
-        var headingTranslated = L(d.heading);
+      if (sh && pickBilingual(d, 'heading')) {
+        var headingTranslated = L(pickBilingual(d, 'heading'));
         /* If L() returned the source unchanged and it has no Arabic chars,
            fall back to the i18n key (which already carries the <br>). */
-        if (headingTranslated === d.heading && !/[\u0600-\u06FF]/.test(d.heading)) {
+        if (headingTranslated === pickBilingual(d, 'heading') && !/[\u0600-\u06FF]/.test(pickBilingual(d, 'heading'))) {
           headingTranslated = (window.I18n && window.I18n.t('store.title')) || headingTranslated;
           sh.innerHTML = headingTranslated;
         } else {
@@ -502,9 +513,9 @@
 
       /* Description */
       var sd = el('.store-desc');
-      if (sd && d.description) {
-        var descTranslated = L(d.description);
-        if (descTranslated === d.description && !/[\u0600-\u06FF]/.test(d.description)) {
+      if (sd && pickBilingual(d, 'description')) {
+        var descTranslated = L(pickBilingual(d, 'description'));
+        if (descTranslated === pickBilingual(d, 'description') && !/[\u0600-\u06FF]/.test(pickBilingual(d, 'description'))) {
           descTranslated = (window.I18n && window.I18n.t('store.desc')) || descTranslated;
         }
         sd.textContent = descTranslated;
@@ -515,8 +526,8 @@
       if (sbtn) {
         sbtn.href = d.buttonUrl || '#';
         var btnSvg = sbtn.querySelector('svg');
-        var btnLabel = L(d.buttonLabel || '');
-        if (btnLabel === (d.buttonLabel || '') && !/[\u0600-\u06FF]/.test(d.buttonLabel || '')) {
+        var btnLabel = L(pickBilingual(d, 'buttonLabel') || '');
+        if (btnLabel === (pickBilingual(d, 'buttonLabel') || '') && !/[\u0600-\u06FF]/.test(pickBilingual(d, 'buttonLabel') || '')) {
           btnLabel = (window.I18n && window.I18n.t('store.cta')) || btnLabel;
         }
         sbtn.innerHTML = (btnSvg ? btnSvg.outerHTML + ' ' : '') + '<span>' + esc(btnLabel) + '</span>';
@@ -532,13 +543,13 @@
   /* FOOTER (renderer: footer) */
   function injectFooter(d) {
     var brandName = el('.footer-brand .brand-name');
-    if (brandName && d.brandName) brandName.textContent = d.brandName;
+    if (brandName && pickBilingual(d, 'brandName')) brandName.textContent = pickBilingual(d, 'brandName');
 
     var brandLogo = el('.footer-brand .brand-mark img');
     if (brandLogo && d.brandLogo) brandLogo.src = d.brandLogo;
 
     var desc = el('.footer-about p');
-    if (desc && d.description) desc.textContent = d.description;
+    if (desc && pickBilingual(d, 'description')) desc.textContent = pickBilingual(d, 'description');
 
     /* Social links */
     var socialAnchors = document.querySelectorAll('.footer-social a');
@@ -548,29 +559,17 @@
       }
     }
 
-    /* Quick links */
-    var quickUl = document.querySelector('nav[data-amare-section="quick-links"] ul');
-    var quickH4 = document.querySelector('nav[data-amare-section="quick-links"] h4');
-    if (quickH4 && d.quickLinksHeading) quickH4.textContent = d.quickLinksHeading;
-
-    var programsUl = document.querySelector('nav[data-amare-section="programs"] ul');
-    var programsH4 = document.querySelector('nav[data-amare-section="programs"] h4');
-    if (programsH4 && d.programsHeading) programsH4.textContent = d.programsHeading;
-
-    injectLinkList(quickUl, d.quickLinks);
-    injectLinkList(programsUl, d.programs);
-
     /* Contact */
     var contactH4 = el('.footer-contact');
     if (contactH4) {
       var contactParent = contactH4.parentElement;
       var contactHeading = contactParent ? contactParent.querySelector('h4') : null;
-      if (contactHeading && d.contactHeading) contactHeading.textContent = d.contactHeading;
+      if (contactHeading && pickBilingual(d, 'contactHeading')) contactHeading.textContent = pickBilingual(d, 'contactHeading');
 
       var contactLis = contactH4.querySelectorAll('li');
       if (d.contact && contactLis.length >= 3) {
         var spans0 = contactLis[0].querySelectorAll('span');
-        if (spans0.length > 0) spans0[spans0.length - 1].textContent = d.contact.address || '';
+        if (spans0.length > 0) spans0[spans0.length - 1].textContent = pickBilingual(d.contact, 'address') || '';
         var spans1 = contactLis[1].querySelectorAll('span');
         if (spans1.length > 0) spans1[spans1.length - 1].textContent = d.contact.phone || '';
         var spans2 = contactLis[2].querySelectorAll('span');
@@ -580,10 +579,10 @@
 
     /* Map */
     var mapBadge = el('.footer-map-badge');
-    if (mapBadge && d.mapLabel) mapBadge.textContent = d.mapLabel;
+    if (mapBadge && pickBilingual(d, 'mapLabel')) mapBadge.textContent = pickBilingual(d, 'mapLabel');
 
     var mapHeading = el('.footer-location h4');
-    if (mapHeading && d.mapHeading) mapHeading.textContent = d.mapHeading;
+    if (mapHeading && pickBilingual(d, 'mapHeading')) mapHeading.textContent = pickBilingual(d, 'mapHeading');
 
     var gmUrl = d.googleMapsUrl;
     if (!gmUrl && d.mapLat && d.mapLon) {
@@ -602,13 +601,13 @@
 
     /* Copyright */
     var copyright = el('.footer-bottom p');
-    if (copyright && d.copyright) copyright.textContent = d.copyright;
+    if (copyright && pickBilingual(d, 'copyright')) copyright.textContent = pickBilingual(d, 'copyright');
 
     var bottomLinkAnchors = document.querySelectorAll('.footer-bottom-links a');
     if (d.bottomLinks) {
       for (var bl = 0; bl < Math.min(bottomLinkAnchors.length, d.bottomLinks.length); bl++) {
         bottomLinkAnchors[bl].href = d.bottomLinks[bl].url || '#';
-        bottomLinkAnchors[bl].textContent = d.bottomLinks[bl].label || '';
+        bottomLinkAnchors[bl].textContent = pickBilingual(d.bottomLinks[bl], 'label') || '';
       }
     }
   }
@@ -620,7 +619,7 @@
       var a = lis[i].querySelector('a');
       if (a) {
         a.href = items[i].url || '#';
-        a.textContent = items[i].label || '';
+        a.textContent = pickBilingual(items[i], 'label') || '';
       }
     }
   }
@@ -678,7 +677,7 @@
           statNum.setAttribute('data-count', val);
           statNum.setAttribute('data-suffix', suffix);
         }
-        if (statLbl) statLbl.textContent = L(d.stats[s].label);
+        if (statLbl) statLbl.textContent = L(pickBilingual(d.stats[s], 'label'));
       }
     }
   }

@@ -15,8 +15,10 @@ DROP TABLE IF EXISTS public.footer_columns CASCADE;
 -- ============================================================================
 CREATE TABLE public.footer_columns (
   id          uuid DEFAULT gen_random_uuid() PRIMARY KEY,
-  title_ar    text NOT NULL,
+  title_ar    text,
   title_en    text,
+  label_ar    text NOT NULL,
+  label_fr    text,
   icon        text,
   type        text NOT NULL DEFAULT 'links'
               CHECK (type IN ('about', 'links', 'contact', 'map')),
@@ -33,8 +35,10 @@ CREATE TABLE public.footer_items (
   id              uuid DEFAULT gen_random_uuid() PRIMARY KEY,
   column_id       uuid REFERENCES public.footer_columns(id) ON DELETE CASCADE,
   parent_id       uuid REFERENCES public.footer_items(id) ON DELETE CASCADE,
-  title_ar        text NOT NULL,
+  title_ar        text,
   title_en        text,
+  label_ar        text NOT NULL,
+  label_fr        text,
   url             text,
   value           text,
   link_type       text NOT NULL DEFAULT 'url'
@@ -156,76 +160,76 @@ END $$;
 -- ============================================================================
 
 -- Column 1: حول الجمعية
-INSERT INTO public.footer_columns (title_ar, title_en, type, sort_order, is_visible)
-VALUES ('حول الجمعية', 'About the Association', 'about', 1, true);
+INSERT INTO public.footer_columns (title_ar, title_en, label_ar, label_fr, type, sort_order, is_visible)
+VALUES ('حول الجمعية', 'About the Association', 'حول الجمعية', 'À propos de l''association', 'about', 1, true);
 
 -- Column 2: روابط سريعة
 WITH col_links AS (
-  INSERT INTO public.footer_columns (title_ar, title_en, type, sort_order, is_visible)
-  VALUES ('روابط سريعة', 'Quick Links', 'links', 2, true)
+  INSERT INTO public.footer_columns (title_ar, title_en, label_ar, label_fr, type, sort_order, is_visible)
+  VALUES ('روابط سريعة', 'Quick Links', 'روابط سريعة', 'Liens rapides', 'links', 2, true)
   RETURNING id
 )
-INSERT INTO public.footer_items (column_id, title_ar, title_en, url, sort_order, is_visible)
-SELECT id, name_ar, name_en, url, sort, true
+INSERT INTO public.footer_items (column_id, title_ar, title_en, label_ar, label_fr, url, sort_order, is_visible)
+SELECT id, name_ar, name_en, label_ar, label_fr, url, sort, true
 FROM (
   VALUES
-    ('الرئيسية',       'Home',         '#home',                  1),
-    ('من نحن',         'About Us',     '#about',                 2),
-    ('أنشطتنا',         'Activities',   '#',                      3),
-    ('شركاؤنا',         'Partners',     '#',                      4),
-    ('خدماتنا',         'Services',     '#services',              5),
-    ('الفروع الجهوية',   'Branches',     'branch.html',           6),
-    ('انخرط معنا',       'Join Us',      'Join%20us/index.html',  7),
-    ('الأخبار',         'News',         'News/news.html',         8),
-    ('الأرشيف',         'Archive',      'Archive/archive.html',   9),
-    ('اتصل بنا',        'Contact Us',   'contact.html',           10)
-) AS t(name_ar, name_en, url, sort), col_links;
+    ('الرئيسية',       'Home',         'الرئيسية',       'Accueil',              'index.html',                           1),
+    ('من نحن',         'About Us',     'من نحن',         'À propos de nous',     'Who%20are%20we/index.html',            2),
+    ('أنشطتنا',         'Activities',   'أنشطتنا',         'Nos activités',        'Our%20activities/index.html',          3),
+    ('شركاؤنا',         'Partners',     'شركاؤنا',         'Nos partenaires',      'Our%20partners/lefouilleurma.html',    4),
+    ('خدماتنا',         'Services',     'خدماتنا',         'Nos services',         'Our%20services/sos-amare.html',        5),
+    ('الفروع الجهوية',   'Branches',     'الفروع الجهوية',   'Branches régionales',  'branch.html',                          6),
+    ('انخرط معنا',       'Join Us',      'انخرط معنا',       'Rejoignez-nous',       'Join%20us/join-us-online.html',        7),
+    ('الأخبار',         'News',         'الأخبار',         'Actualités',           'News/news.html',                       8),
+    ('الأرشيف',         'Archive',      'الأرشيف',         'Archives',             'Archive/archive.html',                 9),
+    ('اتصل بنا',        'Contact Us',   'اتصل بنا',        'Contactez-nous',       'contact.html',                         10)
+) AS t(name_ar, name_en, label_ar, label_fr, url, sort), col_links;
 
 -- Column 3: برامجنا
 WITH col_programs AS (
-  INSERT INTO public.footer_columns (title_ar, title_en, type, sort_order, is_visible)
-  VALUES ('برامجنا', 'Our Programs', 'links', 3, true)
+  INSERT INTO public.footer_columns (title_ar, title_en, label_ar, label_fr, type, sort_order, is_visible)
+  VALUES ('برامجنا', 'Our Programs', 'برامجنا', 'Nos programmes', 'links', 3, true)
   RETURNING id
 )
-INSERT INTO public.footer_items (column_id, title_ar, title_en, url, sort_order, is_visible)
-SELECT id, name_ar, name_en, url, sort, true
+INSERT INTO public.footer_items (column_id, title_ar, title_en, label_ar, label_fr, url, sort_order, is_visible)
+SELECT id, name_ar, name_en, label_ar, label_fr, url, sort, true
 FROM (
   VALUES
-    ('SOS AMARE',           'SOS AMARE',           'Our%20services/sos-amare.html',           1),
-    ('متجر AMARE',           'AMARE Store',         'amare%20store/index.html',                2),
-    ('بيت المستكشف Amare',    'Explorer House',      'Our%20services/explorer-house.html',      3),
-    ('مجلة Amare',           'AMARE Magazine',      'Our%20services/amare-magazine.html',      4),
-    ('أكاديمية Amare',        'AMARE Academy',       'Our%20services/amare-academy.html',       5),
-    ('النوادي',              'Clubs',               'clubs/',                                   6),
-    ('المستشار القانوني',      'Legal Advisor',       'Our%20services/legal-advisor.html',       7),
-    ('عقد التأمين',           'Insurance Contract',  'Our%20services/insurance-contract.html',   8)
-) AS t(name_ar, name_en, url, sort), col_programs;
+    ('SOS AMARE',           'SOS AMARE',           'SOS AMARE',              'SOS AMARE',               'Our%20services/sos-amare.html',           1),
+    ('متجر AMARE',           'AMARE Store',         'متجر AMARE',              'Boutique AMARE',          'amare%20store/index.html',                2),
+    ('بيت المستكشف Amare',    'Explorer House',      'بيت المستكشف Amare',       'Maison de l''explorateur', 'Our%20services/explorer-house.html',      3),
+    ('مجلة Amare',           'AMARE Magazine',      'مجلة Amare',              'Magazine Amare',          'Our%20services/amare-magazine.html',      4),
+    ('أكاديمية Amare',        'AMARE Academy',       'أكاديمية Amare',           'Académie Amare',          'Our%20services/amare-academy.html',       5),
+    ('النوادي',              'Clubs',               'النوادي',                 'Clubs',                   'clubs/',                                   6),
+    ('المستشار القانوني',      'Legal Advisor',       'المستشار القانوني',         'Conseiller juridique',    'Our%20services/legal-advisor.html',       7),
+    ('عقد التأمين',           'Insurance Contract',  'عقد التأمين',              'Contrat d''assurance',     'Our%20services/insurance-contract.html',   8)
+) AS t(name_ar, name_en, label_ar, label_fr, url, sort), col_programs;
 
 -- Column 4: تواصل معنا
 WITH col_contact AS (
-  INSERT INTO public.footer_columns (title_ar, title_en, type, sort_order, is_visible)
-  VALUES ('تواصل معنا', 'Contact Us', 'contact', 4, true)
+  INSERT INTO public.footer_columns (title_ar, title_en, label_ar, label_fr, type, sort_order, is_visible)
+  VALUES ('تواصل معنا', 'Contact Us', 'تواصل معنا', 'Contactez-nous', 'contact', 4, true)
   RETURNING id
 )
-INSERT INTO public.footer_items (column_id, title_ar, icon, value, url, link_type, sort_order, is_visible)
-SELECT id, label, icon, val, url, ltype, sort, true
+INSERT INTO public.footer_items (column_id, title_ar, label_ar, label_fr, icon, value, url, link_type, sort_order, is_visible)
+SELECT id, label_ar, label_ar, label_fr, icon, val, url, ltype, sort, true
 FROM (
   VALUES
-    ('العنوان',   'map-pin', 'ص.ب 749 أيت ملول 86150',           NULL,                                        'none',   1),
-    ('الهاتف',    'phone',   '+212 684869996',                   'tel:+212684869996',                         'tel',    2),
-    ('البريد',    'mail',    'association.amare.agadir@gmail.com','mailto:association.amare.agadir@gmail.com', 'mailto', 3)
-) AS t(label, icon, val, url, ltype, sort), col_contact;
+    ('العنوان', 'العنوان',   'Adresse',   'map-pin', 'ص.ب 749 أيت ملول 86150',           NULL,                                        'none',   1),
+    ('الهاتف',  'الهاتف',    'Téléphone', 'phone',   '+212 684869996',                   'tel:+212684869996',                         'tel',    2),
+    ('البريد',  'البريد',    'E-mail',    'mail',    'association.amare.agadir@gmail.com','mailto:association.amare.agadir@gmail.com', 'mailto', 3)
+) AS t(label_ar, label_ar2, label_fr, icon, val, url, ltype, sort), col_contact;
 
 -- Column 5: موقعنا
 WITH col_map AS (
-  INSERT INTO public.footer_columns (title_ar, title_en, type, sort_order, is_visible)
-  VALUES ('موقعنا', 'Our Location', 'map', 5, true)
+  INSERT INTO public.footer_columns (title_ar, title_en, label_ar, label_fr, type, sort_order, is_visible)
+  VALUES ('موقعنا', 'Our Location', 'موقعنا', 'Notre localisation', 'map', 5, true)
   RETURNING id
 )
-INSERT INTO public.footer_items (column_id, title_ar, value, url, link_type, sort_order, is_visible)
-SELECT id, label, val, url, ltype, sort, true
+INSERT INTO public.footer_items (column_id, title_ar, label_ar, label_fr, value, url, link_type, sort_order, is_visible)
+SELECT id, label_ar, label_ar, label_fr, val, url, ltype, sort, true
 FROM (
   VALUES
-    ('الموقع', '📍 Ait Melloul, Agadir', 'https://www.google.com/maps?q=30.385528,-9.448611&z=16&output=embed', 'map', 1)
-) AS t(label, val, url, ltype, sort), col_map;
+    ('الموقع', 'الموقع', 'Emplacement', '📍 Ait Melloul, Agadir', 'https://www.google.com/maps?q=30.385528,-9.448611&z=16&output=embed', 'map', 1)
+) AS t(label_ar, label_ar2, label_fr, val, url, ltype, sort), col_map;
 ""

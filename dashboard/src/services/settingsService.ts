@@ -8,6 +8,8 @@ export interface WebsiteSettings {
   phone: string | null
   whatsapp: string | null
   address: string | null
+  address_ar: string | null
+  address_fr: string | null
   google_maps_url: string | null
   working_hours: string | null
   logo_url: string | null
@@ -36,6 +38,8 @@ const DEFAULT_SETTINGS: WebsiteSettings = {
   phone: null,
   whatsapp: null,
   address: null,
+  address_ar: null,
+  address_fr: null,
   google_maps_url: null,
   working_hours: null,
   logo_url: null,

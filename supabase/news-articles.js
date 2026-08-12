@@ -34,13 +34,14 @@
     return /news\.html/i.test(window.location.pathname);
   }
 
-  // published_at → formatted Arabic date (e.g. "5 أغسطس 2026")
-  function formatArabicDate(iso) {
+  // published_at → formatted date according to active language
+  function formatLocalDate(iso) {
     if (!iso) return '';
     var d = new Date(iso);
     if (isNaN(d.getTime())) return '';
     try {
-      return d.toLocaleDateString('ar-MA', {
+      var lang = (window.I18n && window.I18n.getCurrentLanguage) ? window.I18n.getCurrentLanguage() : 'ar';
+      return d.toLocaleDateString(lang === 'fr' ? 'fr-FR' : 'ar-MA', {
         year: 'numeric',
         month: 'long',
         day: 'numeric',
@@ -50,28 +51,34 @@
     }
   }
 
-  // Map a public.news row onto the page's card data model.
+  function pickI18nLabel(key, fallback) {
+    if (window.I18n && window.I18n.t) return window.I18n.t(key);
+    return fallback;
+  }
+
+  // Map a public.news row onto the page's card data model,
+  // selecting language-appropriate fields when available.
   function mapRow(row) {
+    var lang = (window.I18n && window.I18n.getCurrentLanguage) ? window.I18n.getCurrentLanguage() : 'ar';
     var slug = String(row.slug || '').trim();
     return {
       id: row.id,
-      title: row.title || 'بدون عنوان',
+      title: (lang === 'fr' && row.title_fr) ? row.title_fr : (row.title || pickI18nLabel('news.cardDefaultTitle', 'بدون عنوان')),
       slug: slug,
       image: row.featured_image || null,
-      summary: row.excerpt || null,
-      content: row.content || null,
-      date: formatArabicDate(row.published_at),
+      summary: (lang === 'fr' && row.excerpt_fr) ? row.excerpt_fr : (row.excerpt || null),
+      content: (lang === 'fr' && row.content_fr) ? row.content_fr : (row.content || null),
+      date: formatLocalDate(row.published_at),
       published_at: row.published_at,
-      // The news table has no category column — use a single neutral category.
       category: 'association',
-      catLabel: 'أخبار',
+      catLabel: pickI18nLabel('news.cardCategory', 'أخبار'),
       catClass: 'cat-association',
       author: '',
       featured: false,
       linkUrl: slug
         ? 'article.html?slug=' + encodeURIComponent(slug)
         : '#',
-      linkLabel: 'اقرأ المزيد',
+      linkLabel: pickI18nLabel('news.cardReadMore', 'اقرأ المزيد'),
     };
   }
 
@@ -129,6 +136,8 @@
     }
   }
 
+  var _lastRows = null;
+
   function init() {
     if (!isNewsPage()) return;
 
@@ -149,17 +158,30 @@
         wireRetry();
         return;
       }
+      _lastRows = rows;
       page.setData(rows.map(mapRow));
       page.render();
     });
   }
 
+  function reRender() {
+    if (!_lastRows || !_lastRows.length) return;
+    var page = window.NewsPage;
+    if (!page) return;
+    page.setData(_lastRows.map(mapRow));
+    page.render();
+  }
+
   // Public API — used by the retry button on the error state.
-  window.AMARE_NewsArticles = { reload: init };
+  window.AMARE_NewsArticles = { reload: init, rerender: reRender };
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {
     init();
   }
+
+  window.addEventListener('amare:langchange', function () {
+    reRender();
+  });
 })();

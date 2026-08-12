@@ -57,7 +57,9 @@ export function GeneralSettings() {
         contact_email: form.contact_email.trim(),
         phone: form.phone?.trim() || null,
         whatsapp: form.whatsapp?.trim() || null,
-        address: form.address?.trim() || null,
+        address: form.address_ar?.trim() || form.address?.trim() || null,
+        address_ar: form.address_ar?.trim() || form.address?.trim() || null,
+        address_fr: form.address_fr?.trim() || null,
         google_maps_url: form.google_maps_url?.trim() || null,
         working_hours: form.working_hours?.trim() || null,
       })
@@ -157,15 +159,27 @@ export function GeneralSettings() {
           </div>
         </div>
 
-        <div className="space-y-1.5">
-          <Label htmlFor="general-address">العنوان</Label>
-          <Textarea
-            id="general-address"
-            value={form?.address ?? ''}
-            onChange={(e) => updateField('address', e.target.value)}
-            placeholder="المغرب"
-            className="min-h-16"
-          />
+        <div className="grid gap-5 sm:grid-cols-2">
+          <div className="space-y-1.5">
+            <Label htmlFor="general-address-ar">العنوان بالعربية</Label>
+            <Textarea
+              id="general-address-ar"
+              value={form?.address_ar ?? form?.address ?? ''}
+              onChange={(e) => updateField('address_ar', e.target.value)}
+              placeholder="الطابق الأول، الشقة 4..."
+              className="min-h-16"
+            />
+          </div>
+          <div className="space-y-1.5">
+            <Label htmlFor="general-address-fr">العنوان بالفرنسية</Label>
+            <Textarea
+              id="general-address-fr"
+              value={form?.address_fr ?? ''}
+              onChange={(e) => updateField('address_fr', e.target.value)}
+              placeholder="1er étage, Appartement 4..."
+              className="min-h-16"
+            />
+          </div>
         </div>
 
         <div className="space-y-1.5">

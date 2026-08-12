@@ -4,8 +4,9 @@
    Include this ONE script on every page and it will load the entire
    Supabase chain in the correct order:
 
-     CDN SDK → i18n → i18n-text → config → client → database → storage →
-     auth → realtime → index → navbar-renderer → footer-renderer → navbar
+      CDN SDK → i18n → i18n-text → config → client → website-settings →
+      database → storage → auth → realtime → index → navbar-renderer →
+      footer-renderer → navbar
 
    The script auto-detects its own directory, so it works at any page depth
    without changing the path.
@@ -27,6 +28,7 @@
     'i18n-text.js',
     'config.js',
     'client.js',
+    'website-settings.js',
     'database.js',
     'storage.js',
     'auth.js',
@@ -78,10 +80,14 @@
       }.bind(null, base + files[i]));
     }
 
-    chain.catch(function (err) {
-      console.error('[NavbarLoader] Boot failed:', err);
-    });
+    return chain;
   }
 
-  boot();
+  // Expose the boot promise so pages can wait for the Supabase client to be
+  // initialised before running queries (instead of relying on fixed delays).
+  // Resolves when the full chain (SDK → config → client → … → index) is loaded.
+  window.AmareSupabaseReady = boot();
+  window.AmareSupabaseReady.catch(function (err) {
+    console.error('[NavbarLoader] Boot failed:', err);
+  });
 })();

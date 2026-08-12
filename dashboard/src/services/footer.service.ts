@@ -92,8 +92,9 @@ export async function createItem(
   const payload = {
     column_id: input.column_id ?? null,
     parent_id: input.parent_id ?? null,
-    title_ar: input.title_ar,
-    title_en: input.title_en ?? null,
+    title_ar: input.label_ar,
+    label_ar: input.label_ar,
+    label_fr: input.label_fr ?? null,
     url: input.url ?? null,
     value: input.value ?? null,
     link_type: input.link_type ?? 'url',

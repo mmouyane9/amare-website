@@ -39,7 +39,6 @@ import { Textarea } from '@/components/ui/textarea'
 
 import {
   EMPTY_CITY_FORM,
-  cityToForm,
   type Region,
   type City,
   type CityFormData,
@@ -104,7 +103,7 @@ export default function RegionDetailsPage() {
   }
 
   const handleEditToggle = () => {
-    if (editing) { setForm({ name_ar: region.name_ar_ar || '', name_fr: region.name_ar_fr || '', slug: region.slug, description_ar: region.description_ar || region.description || '', description_fr: region.description_fr || '' }) }
+    if (editing) { setForm({ name_ar: region.name_ar || '', name_fr: region.name_ar || '', slug: region.slug, description_ar: region.description_ar || region.description || '', description_fr: region.description_fr || '' }) }
     setEditing(!editing)
   }
 
@@ -121,7 +120,7 @@ export default function RegionDetailsPage() {
     try { await updateRegion(region.id, form); setEditing(false); loadData() } catch (e) { console.error(e) } finally { setSaving(false) }
   }
 
-  const handleCityFormChange = (field: keyof CityFormData, value: string) => { setCityForm((prev) => ({ ...prev, [field]: value })) }
+  const handleCityFormChange = (field: string, value: string) => { setCityForm((prev) => ({ ...prev, [field]: value })) }
 
   const openCityCreate = () => { setEditingCityId(null); setCityForm(EMPTY_CITY_FORM); setCityModalOpen(true) }
 
@@ -191,10 +190,10 @@ export default function RegionDetailsPage() {
 
       <div className="space-y-6">
         <Card className="overflow-hidden">
-          {region.coverImage ? (
+          {region.cover_image ? (
             <div className="relative">
               <img
-                src={region.coverImage}
+                src={region.cover_image}
                 alt={region.name_ar}
                 className="h-48 w-full object-cover"
               />
@@ -237,7 +236,7 @@ export default function RegionDetailsPage() {
                   <Label htmlFor="region-name">اسم الجهة</Label>
                   <Input
                     id="region-name"
-                    value={form.name}
+                    value={form.name_ar}
                     onChange={(e) => handleFormChange('name', e.target.value)}
                   />
                 </div>
@@ -253,7 +252,7 @@ export default function RegionDetailsPage() {
                   <Label htmlFor="region-desc">الوصف</Label>
                   <Textarea
                     id="region-desc"
-                    value={form.description}
+                    value={form.description_ar}
                     onChange={(e) => handleFormChange('description', e.target.value)}
                     rows={3}
                   />
@@ -317,7 +316,7 @@ export default function RegionDetailsPage() {
             <CardHeader>
               <CardDescription>عدد المنشورات</CardDescription>
               <CardTitle className="text-2xl font-semibold tracking-tight">
-                {regionPosts.toLocaleString()}
+                {0}
               </CardTitle>
             </CardHeader>
             <CardContent className="pt-1">
@@ -331,7 +330,7 @@ export default function RegionDetailsPage() {
             <CardHeader>
               <CardDescription>عدد التعليقات</CardDescription>
               <CardTitle className="text-2xl font-semibold tracking-tight">
-                {stats.comments.toLocaleString()}
+                {0}
               </CardTitle>
             </CardHeader>
             <CardContent className="pt-1">
@@ -364,7 +363,7 @@ export default function RegionDetailsPage() {
           </CardHeader>
           <CardContent>
             <Separator className="mb-4" />
-            {region.cities.length === 0 ? (
+            {(region.cities || []).length === 0 ? (
               <div className="flex flex-col items-center justify-center py-10 text-center">
                 <MapPin className="size-8 text-muted-foreground/40" />
                 <p className="mt-2 text-sm font-medium text-muted-foreground">
@@ -376,7 +375,7 @@ export default function RegionDetailsPage() {
               </div>
             ) : (
               <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-                {region.cities.map((city) => (
+                {(region.cities || []).map((city) => (
                   <div
                     key={city.id}
                     className="flex flex-col rounded-lg border border-border/60 p-4 transition-colors hover:border-border"
@@ -452,7 +451,7 @@ export default function RegionDetailsPage() {
                 </p>
               </div>
               <Switch
-                checked={settings.showRegion}
+                checked={settings.published}
                 onCheckedChange={(v) =>
                   setSettings((prev) => ({ ...prev, published: v }))
                 }
@@ -467,7 +466,7 @@ export default function RegionDetailsPage() {
                 </p>
               </div>
               <Switch
-                checked={settings.allowPosts}
+                checked={settings.published}
                 onCheckedChange={(v) =>
                   setSettings((prev) => ({ ...prev, allowPosts: v }))
                 }
@@ -482,7 +481,7 @@ export default function RegionDetailsPage() {
                 </p>
               </div>
               <Switch
-                checked={settings.allowComments}
+                checked={settings.published}
                 onCheckedChange={(v) =>
                   setSettings((prev) => ({ ...prev, allowComments: v }))
                 }
@@ -497,7 +496,7 @@ export default function RegionDetailsPage() {
                 </p>
               </div>
               <Switch
-                checked={settings.allowLikes}
+                checked={settings.published}
                 onCheckedChange={(v) =>
                   setSettings((prev) => ({ ...prev, allowLikes: v }))
                 }
@@ -525,7 +524,7 @@ export default function RegionDetailsPage() {
               <Input
                 id="city-name"
                 value={cityForm.name_ar}
-                onChange={(e) => handleCityFormChange('name', e.target.value)}
+                onChange={(e) => handleCityFormChange('name_ar', e.target.value)}
                 placeholder="أدخل اسم المدينة"
               />
             </div>
@@ -535,7 +534,7 @@ export default function RegionDetailsPage() {
                 id="city-desc"
                 value={cityForm.description_ar}
                 onChange={(e) =>
-                  handleCityFormChange('description', e.target.value)
+                  handleCityFormChange('description_ar', e.target.value)
                 }
                 placeholder="وصف مختصر عن المدينة..."
                 rows={3}
@@ -579,7 +578,7 @@ export default function RegionDetailsPage() {
             <DialogDescription>
               هل أنت متأكد من حذف{' '}
               <span className="font-medium text-foreground">
-                {deleteCityTarget?.name ?? 'هذه المدينة'}
+                {deleteCityTarget?.name_ar ?? 'هذه المدينة'}
               </span>
               ؟ لا يمكن التراجع عن هذا الإجراء.
             </DialogDescription>

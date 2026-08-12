@@ -128,12 +128,12 @@ export default function CityDetailsPage() {
 
   const handleEditToggle = () => {
     if (editing) {
-      setForm({ name: city.name_ar, description: city.description })
+      setForm(prev => ({ ...prev, name_ar: city?.name_ar || '', description_ar: city?.description_ar || '' }))
     }
     setEditing(!editing)
   }
 
-  const handleFormChange = (field: 'name' | 'description', value: string) => {
+  const handleFormChange = (field: string, value: string) => {
     setForm((prev) => ({ ...prev, [field]: value }))
   }
 
@@ -212,7 +212,7 @@ export default function CityDetailsPage() {
         </Link>
         <ChevronLeft className="size-3.5" />
         <Link
-          to={`/branches/${region.id}`}
+          to={`/branches/${regionId}`}
           className="transition-colors hover:text-foreground"
         >
           {regionId}
@@ -289,16 +289,16 @@ export default function CityDetailsPage() {
                   <Label htmlFor="city-name">اسم المدينة</Label>
                   <Input
                     id="city-name"
-                    value={form.name}
-                    onChange={(e) => handleFormChange('name', e.target.value)}
+                    value={form.name_ar}
+                    onChange={(e) => handleFormChange('name_ar', e.target.value)}
                   />
                 </div>
                 <div className="space-y-1.5">
                   <Label htmlFor="city-desc">نبذة قصيرة</Label>
                   <Textarea
                     id="city-desc"
-                    value={form.description}
-                    onChange={(e) => handleFormChange('description', e.target.value)}
+                    value={form.description_ar}
+                    onChange={(e) => handleFormChange('description_ar', e.target.value)}
                     rows={2}
                   />
                 </div>
@@ -589,9 +589,9 @@ export default function CityDetailsPage() {
                 </p>
               </div>
               <Switch
-                checked={settings.allowPosts}
-                onCheckedChange={(v) =>
-                  setSettings((prev) => ({ ...prev, allowPosts: v }))
+                checked={settings.published}
+                onCheckedChange={() =>
+                  undefined
                 }
               />
             </div>
@@ -604,9 +604,9 @@ export default function CityDetailsPage() {
                 </p>
               </div>
               <Switch
-                checked={settings.allowComments}
-                onCheckedChange={(v) =>
-                  setSettings((prev) => ({ ...prev, allowComments: v }))
+                checked={settings.published}
+                onCheckedChange={() =>
+                  undefined
                 }
               />
             </div>
@@ -619,9 +619,9 @@ export default function CityDetailsPage() {
                 </p>
               </div>
               <Switch
-                checked={settings.allowLikes}
-                onCheckedChange={(v) =>
-                  setSettings((prev) => ({ ...prev, allowLikes: v }))
+                checked={settings.published}
+                onCheckedChange={() =>
+                  undefined
                 }
               />
             </div>

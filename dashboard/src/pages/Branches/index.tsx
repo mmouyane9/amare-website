@@ -48,7 +48,7 @@ import {
 export default function BranchesPage() {
   const navigate = useNavigate()
   const [regions, setRegions] = useState<Region[]>([])
-  const [loading, setLoading] = useState(true)
+  useState(true)
   const [expandedRegions, setExpandedRegions] = useState<Set<string>>(new Set())
   const [searchQuery, setSearchQuery] = useState('')
 
@@ -66,7 +66,7 @@ export default function BranchesPage() {
       setRegions(data)
       if (data.length > 0) setExpandedRegions(new Set([data[0].id]))
     } catch (e) { console.error(e) }
-    finally { setLoading(false) }
+    finally {  }
   }
 
   useEffect(() => { loadRegions() }, [])
@@ -230,7 +230,7 @@ export default function BranchesPage() {
                           className="min-w-0 flex-1 truncate text-right font-medium"
                           onClick={() => navigate(`/branches/${region.id}`)}
                         >
-                          {region.name_ar || region.name_en || ''}
+                          {region.name_ar || region.name_ar || ''}
                         </button>
                         <Building2 className="size-4 shrink-0 text-muted-foreground" />
                         <button
@@ -249,9 +249,9 @@ export default function BranchesPage() {
                         </button>
                       </div>
 
-                      {isExpanded && region.cities.length > 0 && (
+                      {isExpanded && (region.cities || []).length > 0 && (
                         <div className="mr-5">
-                          {region.cities.map((city) => (
+                          {(region.cities || []).map((city) => (
                             <button
                               key={city.id}
                               type="button"
@@ -267,7 +267,7 @@ export default function BranchesPage() {
                         </div>
                       )}
 
-                      {isExpanded && region.cities.length === 0 && (
+                      {isExpanded && (region.cities || []).length === 0 && (
                         <div className="mr-5 px-2 py-1.5 text-xs text-muted-foreground/60">
                           لا توجد مدن بعد
                         </div>
@@ -377,7 +377,7 @@ export default function BranchesPage() {
             <DialogDescription>
               هل أنت متأكد من حذف{' '}
               <span className="font-medium text-foreground">
-                {deleteRegionTarget?.name ?? 'هذه الجهة'}
+                {deleteRegionTarget?.name_ar ?? 'هذه الجهة'}
               </span>
               ؟ لا يمكن التراجع عن هذا الإجراء.
             </DialogDescription>

@@ -67,7 +67,7 @@ interface CustomEditorProps {
 function AboutEditor({ data, onChange }: CustomEditorProps) {
   const paragraphs = (data.paragraphs ?? []) as string[]
   const features = (data.features ?? []) as Array<{ title: string; description: string }>
-  const buttons = (data.buttons ?? []) as Array<{ id: string; label: string; url: string; variant: string }>
+  const buttons = (data.buttons ?? []) as Array<{ id: string; label?: string; label_ar?: string; label_fr?: string; url: string; variant: string }>
   const image = (data.image ?? { url: '', alt: '' }) as { url: string; alt: string }
   const stats = (data.stats ?? []) as Array<{ value: string; suffix: string; label: string }>
 
@@ -1627,7 +1627,7 @@ function DocFaqEditor({ data, onChange }: CustomEditorProps) {
 
 // DOCUMENTS FINAL CTA  (_renderer: "docCta")
 function DocCtaEditor({ data, onChange }: CustomEditorProps) {
-  const buttons = (data.buttons ?? []) as Array<{ id: string; label: string; url: string; variant: string }>
+  const buttons = (data.buttons ?? []) as Array<{ id: string; label?: string; label_ar?: string; label_fr?: string; url: string; variant: string }>
 
   return (
     <div className="space-y-3">
@@ -1820,7 +1820,7 @@ function NwNewsletterEditor({ data, onChange }: CustomEditorProps) {
 
 // FINAL CTA  (_renderer: "nwCta")
 function NwCtaEditor({ data, onChange }: CustomEditorProps) {
-  const buttons = (data.buttons ?? []) as Array<{ id: string; label: string; url: string; variant: string }>
+  const buttons = (data.buttons ?? []) as Array<{ id: string; label?: string; label_ar?: string; label_fr?: string; url: string; variant: string }>
 
   return (
     <div className="space-y-3">
@@ -2078,7 +2078,7 @@ function ArFaqEditor({ data, onChange }: CustomEditorProps) {
 
 // ARCHIVE FINAL CTA  (_renderer: "arCta")
 function ArCtaEditor({ data, onChange }: CustomEditorProps) {
-  const buttons = (data.buttons ?? []) as Array<{ id: string; label: string; url: string; variant: string }>
+  const buttons = (data.buttons ?? []) as Array<{ id: string; label?: string; label_ar?: string; label_fr?: string; url: string; variant: string }>
 
   return (
     <div className="space-y-3">

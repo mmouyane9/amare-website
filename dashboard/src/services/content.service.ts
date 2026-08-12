@@ -423,14 +423,14 @@ export async function seedPartnersPages(): Promise<void> {
   const partners = [LE_FOUILLEURMA, SENOTEC, ASTROMET, ASSOCIATION_DETECTION_CENTRE, ANCPP, OMSDS]
 
   for (const partner of partners) {
-    const slug = getPartnerSlug(partner.name)
-    const sections = getPartnerSections(partner.name)
+    const slug = getPartnerSlug(partner.name_ar)
+    const sections = getPartnerSections(partner.name_ar)
 
     const { data, error } = await supabase
       .from(PAGES_TABLE)
       .upsert(
         {
-          title: partner.name,
+          title: partner.name_ar,
           slug,
           status: 'published',
           created_by: userId ?? null,
@@ -442,13 +442,13 @@ export async function seedPartnersPages(): Promise<void> {
       .single()
 
     if (error) {
-      console.error('[CMS] seedPartnersPages error for', partner.name, error)
+      console.error('[CMS] seedPartnersPages error for', partner.name_ar, error)
       continue
     }
 
     const page = parsePage(data)
     await saveSections(page.id, sections as unknown as PageSection[])
-    console.log('[CMS] Seeded partner page:', partner.name, slug)
+    console.log('[CMS] Seeded partner page:', partner.name_ar, slug)
   }
 }
 
@@ -458,13 +458,13 @@ export async function seedOnePartnerPage(partnerName: string): Promise<PageRow> 
   const sections = getPartnerSections(partnerName)
 
   // Look up the actual partner data from the name
-  const partner = [LE_FOUILLEURMA, SENOTEC, ASTROMET, ASSOCIATION_DETECTION_CENTRE, ANCPP, OMSDS].find(p => p.name === partnerName) || LE_FOUILLEURMA
+  const partner = [LE_FOUILLEURMA, SENOTEC, ASTROMET, ASSOCIATION_DETECTION_CENTRE, ANCPP, OMSDS].find(p => p.name_ar === partnerName) || LE_FOUILLEURMA
 
   const { data, error } = await supabase
     .from(PAGES_TABLE)
     .upsert(
       {
-        title: partner.name,
+        title: partner.name_ar,
         slug,
         status: 'published',
         created_by: userId ?? null,

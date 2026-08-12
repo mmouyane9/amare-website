@@ -4,7 +4,6 @@ import {
   ChevronRight,
   Check,
   Download,
-  Image as ImageIcon,
   Loader2,
   Pencil,
   Plus,

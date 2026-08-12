@@ -32,7 +32,6 @@ const FIELD_POSITIONS: Record<string, { x: number; y: number; size: number }> = 
   phone: { x: 50, y: 560, size: 14 },
   email: { x: 50, y: 530, size: 14 },
   address: { x: 50, y: 480, size: 12 },
-  photo: { x: 420, y: 640, width: 120, height: 150 },
 }
 
 export async function generateMembershipPdfBlob(member: Member): Promise<Blob> {
@@ -85,12 +84,11 @@ export async function generateMembershipPdfBlob(member: Member): Promise<Blob> {
         } else {
           image = await doc.embedJpg(photoBytes)
         }
-        const pp = FIELD_POSITIONS.photo
         page.drawImage(image, {
-          x: pp.x,
-          y: pp.y,
-          width: (pp as any).width || 120,
-          height: (pp as any).height || 150,
+          x: 420,
+          y: 640,
+          width: 120,
+          height: 150,
         })
       }
     } catch {

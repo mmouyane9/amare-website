@@ -51,6 +51,8 @@ export default function CityDetailsPage() {
   const { regionId, cityId } = useParams<{ regionId: string; cityId: string }>()
   const navigate = useNavigate()
 
+  const [city, setCity] = useState<City | null>(null)
+  const [loading, setLoading] = useState(true)
   const [editing, setEditing] = useState(false)
   const [saving, setSaving] = useState(false)
   const [form, setForm] = useState({ name_ar: '', name_fr: '', slug: '', description_ar: '', description_fr: '', cover_image: '', address: '', phone: '', email: '', facebook: '', whatsapp: '', published: true })

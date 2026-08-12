@@ -99,7 +99,7 @@ export async function generateMembershipPdfBlob(member: Member): Promise<Blob> {
   }
 
   const pdfBytes = await doc.save()
-  return new Blob([pdfBytes], { type: 'application/pdf' })
+  return new Blob([new Uint8Array(pdfBytes)], { type: 'application/pdf' })
 }
 
 export function downloadPdf(blob: Blob, memberNumber: string) {

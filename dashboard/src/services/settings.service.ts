@@ -86,36 +86,61 @@ export async function listAdmins(): Promise<AdminProfile[]> {
   return allData
 }
 
+async function callAdminFunction<T>(
+  action: string,
+  payload: Record<string, unknown>,
+): Promise<T> {
+  const {
+    data: { session },
+  } = await supabase.auth.getSession()
+
+  if (!session?.access_token) {
+    throw new Error('يجب تسجيل الدخول للوصول إلى هذه الخدمة')
+  }
+
+  const response = await fetch(
+    `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/admin-management`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        apikey: import.meta.env.VITE_SUPABASE_ANON_KEY,
+        Authorization: `Bearer ${session.access_token}`,
+      },
+      body: JSON.stringify({ action, ...payload }),
+    },
+  )
+
+  if (response.status === 401) {
+    throw new Error('انتهت الجلسة، يرجى تسجيل الدخول مرة أخرى')
+  }
+
+  let body: { success?: boolean; message?: string; data?: T } = {}
+  try {
+    body = (await response.json()) as typeof body
+  } catch {
+    // ignore malformed responses
+  }
+
+  if (!response.ok || body.success === false) {
+    throw new Error(body.message ?? 'فشلت العملية')
+  }
+
+  return body.data as T
+}
+
 export async function createAdmin(
   email: string,
   password: string,
   fullName: string,
+  role: string,
 ): Promise<AdminProfile> {
-  const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
+  return callAdminFunction<AdminProfile>('create_admin', {
     email,
     password,
-    options: { data: { full_name: fullName } },
+    full_name: fullName,
+    role,
   })
-
-  if (signUpError) throw new Error(signUpError.message)
-  if (!signUpData.user) throw new Error('Failed to create auth user')
-
-  const { data: profile, error: profileError } = await supabase
-    .from('profiles')
-    .upsert(
-      {
-        id: signUpData.user.id,
-        full_name: fullName,
-        email,
-        role: 'super_admin',
-      },
-      { onConflict: 'id' },
-    )
-    .select()
-    .single()
-
-  if (profileError) throw new Error('Failed to create admin profile')
-  return profile as AdminProfile
 }
 
 export async function updateAdmin(
@@ -134,8 +159,7 @@ export async function updateAdmin(
 }
 
 export async function deleteAdmin(id: string): Promise<void> {
-  const { error } = await supabase.from('profiles').delete().eq('id', id)
-  if (error) throw new Error('Failed to delete administrator')
+  await callAdminFunction<null>('delete_admin', { id })
 }
 
 export async function uploadBrandingImage(

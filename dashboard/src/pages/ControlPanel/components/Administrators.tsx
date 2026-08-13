@@ -150,13 +150,18 @@ export function Administrators() {
           setSaving(false)
           return
         }
-        await createAdmin(draft.email, draft.password, draft.full_name)
-        toast.success('تم إضافة المسؤول')
+        await createAdmin(
+          draft.email,
+          draft.password,
+          draft.full_name,
+          draft.role,
+        )
+        toast.success('تم إنشاء المسؤول بنجاح')
       }
       setDialogOpen(false)
       await loadAdmins()
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : 'فشلت العملية')
+      toast.error(err instanceof Error ? err.message : 'فشل إنشاء المسؤول')
     } finally {
       setSaving(false)
     }
@@ -167,11 +172,11 @@ export function Administrators() {
     setRemoving(true)
     try {
       await deleteAdmin(removeTarget.id)
-      toast.success('تم حذف المسؤول')
+      toast.success('تم حذف المسؤول بنجاح')
       setRemoveTarget(null)
       await loadAdmins()
-    } catch {
-      toast.error('فشل حذف المسؤول')
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : 'فشل حذف المسؤول')
     } finally {
       setRemoving(false)
     }

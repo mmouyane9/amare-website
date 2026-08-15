@@ -157,7 +157,7 @@
       ],
       quickLinksHeading: 'روابط سريعة',
       quickLinks: [
-        { label: 'الرئيسية', url: '#home' }, { label: 'اتصل بنا', url: '#about' },
+        { label: 'الرئيسية', url: '/index.html' }, { label: 'اتصل بنا', url: '#about' },
         { label: 'خدماتنا', url: '#services' }, { label: 'الاخبار', url: '#news' },
         { label: 'الارشيف', url: '#newsletter' }, { label: 'الفروع الجهوية', url: '#home' },
         { label: 'انخرط معنا', url: '#about' }, { label: 'شركاؤنا', url: '#services' },

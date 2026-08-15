@@ -305,7 +305,7 @@ BEGIN
       ],
       "quickLinksHeading": "روابط سريعة",
       "quickLinks": [
-        {"label": "الرئيسية", "url": "#home"},
+        {"label": "الرئيسية", "url": "/index.html"},
         {"label": "اتصل بنا", "url": "#about"},
         {"label": "خدماتنا", "url": "#services"},
         {"label": "الاخبار", "url": "#news"},

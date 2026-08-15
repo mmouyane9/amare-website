@@ -399,7 +399,7 @@ export const HOME_PAGE_SECTIONS: PageSection[] = [
         quickLinksHeading_ar: 'روابط سريعة',
         quickLinksHeading_fr: 'Liens rapides',
         quickLinks: [
-          { label_ar: 'الرئيسية', label_fr: 'Accueil', url: '#home' },
+          { label_ar: 'الرئيسية', label_fr: 'Accueil', url: '/index.html' },
           { label_ar: 'اتصل بنا', label_fr: 'Contactez-nous', url: '#about' },
           { label_ar: 'خدماتنا', label_fr: 'Nos services', url: '#services' },
           { label_ar: 'الاخبار', label_fr: 'Actualités', url: '#news' },

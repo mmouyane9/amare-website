@@ -157,7 +157,7 @@ DELETE FROM public.navigation_groups WHERE true;
 
 -- 1. الرئيسية
 INSERT INTO public.navigation_items (title_ar, title_en, url, type, sort_order, is_visible)
-VALUES ('الرئيسية', 'Home', '#home', 'link', 1, true);
+VALUES ('الرئيسية', 'Home', '/index.html', 'link', 1, true);
 
 -- 2. من نحن (dropdown -- 5 children)
 WITH parent_about AS (

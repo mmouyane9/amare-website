@@ -192,7 +192,7 @@ export default function NavigationModal({
               id="nav-url"
               value={url}
               onChange={(e) => setUrl(e.target.value)}
-              placeholder="#home"
+              placeholder="/index.html"
             />
           </div>
 

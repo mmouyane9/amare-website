@@ -173,7 +173,7 @@ INSERT INTO public.footer_items (column_id, title_ar, title_en, label_ar, label_
 SELECT id, name_ar, name_en, label_ar, label_fr, url, sort, true
 FROM (
   VALUES
-    ('الرئيسية',       'Home',         'الرئيسية',       'Accueil',              'index.html',                           1),
+    ('الرئيسية',       'Home',         'الرئيسية',       'Accueil',              '/index.html',                          1),
     ('من نحن',         'About Us',     'من نحن',         'À propos de nous',     'Who%20are%20we/index.html',            2),
     ('أنشطتنا',         'Activities',   'أنشطتنا',         'Nos activités',        'Our%20activities/index.html',          3),
     ('شركاؤنا',         'Partners',     'شركاؤنا',         'Nos partenaires',      'Our%20partners/lefouilleurma.html',    4),

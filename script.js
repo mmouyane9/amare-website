@@ -98,8 +98,15 @@
         var top = section.offsetTop - offset;
         if (window.scrollY >= top) currentId = section.id;
       });
+      var isHomePage = window.location.pathname === '/' || window.location.pathname === '/index.html';
       navAnchors.forEach(function(a) {
-        a.classList.toggle('active', a.getAttribute('href') === '#' + currentId);
+        var href = a.getAttribute('href');
+        var isHomeLink = href === '/' || href === '/index.html' || href === 'index.html' || href === '#home';
+        if (isHomeLink) {
+          a.classList.toggle('active', isHomePage && (currentId === '' || currentId === 'home'));
+        } else {
+          a.classList.toggle('active', href === '#' + currentId);
+        }
       });
     });
   }

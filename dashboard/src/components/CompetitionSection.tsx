@@ -111,11 +111,11 @@ function fieldErrors(input: CompetitionFormState): Record<string, string> {
   if (!input.last_name?.trim()) errors.last_name = 'الاسم الأخير مطلوب'
   if (!input.phone?.trim()) errors.phone = 'رقم الهاتف مطلوب'
   if (!input.city?.trim()) errors.city = 'المدينة مطلوبة'
-  const nationalId = input.national_id?.trim() ?? ''
+  const nationalId = input.national_id?.trim().toUpperCase() ?? ''
   if (!nationalId) {
     errors.national_id = 'رقم البطاقة الوطنية مطلوب'
-  } else if (!/^\d{10}$/.test(nationalId)) {
-    errors.national_id = 'رقم البطاقة الوطنية يجب أن يتكون من 10 أرقام'
+  } else if (!/^[A-Z0-9]{5,12}$/.test(nationalId)) {
+    errors.national_id = 'رقم البطاقة الوطنية يجب أن يتكون من أحرف وأرقام (5 إلى 12)'
   }
   return errors
 }
@@ -586,13 +586,15 @@ export default function CompetitionSection() {
               <Label htmlFor="c-national_id">رقم البطاقة الوطنية *</Label>
               <Input
                 id="c-national_id"
-                inputMode="numeric"
-                maxLength={10}
+                maxLength={12}
                 value={form.national_id ?? ''}
                 onChange={(e) =>
-                  handleFormChange('national_id', e.target.value.replace(/\D/g, ''))
+                  handleFormChange(
+                    'national_id',
+                    e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, ''),
+                  )
                 }
-                placeholder="10 أرقام"
+                placeholder="مثال: AB123456"
                 aria-invalid={!!errors.national_id}
               />
               {errors.national_id && (

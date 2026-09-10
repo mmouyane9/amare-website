@@ -461,7 +461,7 @@
             </div>
             <div class="ms-field">
               <div class="ms-input-wrap">
-                <input type="text" id="compNationalId" class="ms-input" placeholder=" " required autocomplete="off" inputmode="numeric" maxlength="10">
+                <input type="text" id="compNationalId" class="ms-input" placeholder=" " required autocomplete="off" maxlength="12">
                 <label class="ms-label" for="compNationalId">رقم البطاقة الوطنية *</label>
                 <i class="ms-input-icon bi bi-credit-card" aria-hidden="true"></i>
               </div>
@@ -773,8 +773,9 @@
       }
     }
     if (fieldKey === 'nationalId') {
-      if (!/^\d{10}$/.test(v)) {
-        return 'يرجى إدخال رقم البطاقة الوطنية (10 أرقام)';
+      var uid = v.toUpperCase();
+      if (!/^[A-Z0-9]{5,12}$/.test(uid)) {
+        return 'يرجى إدخال رقم البطاقة الوطنية (أحرف وأرقام)';
       }
     }
     return null;
@@ -825,6 +826,17 @@
       var wrap = input.closest('.ms-input-wrap');
       if (input.value) { wrap.classList.add('is-filled'); } else { wrap.classList.remove('is-filled'); }
     });
+  });
+
+  var nationalIdInput = fields.nationalId;
+  nationalIdInput.addEventListener('input', function() {
+    var cleaned = nationalIdInput.value.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 12);
+    if (nationalIdInput.value !== cleaned) {
+      nationalIdInput.value = cleaned;
+      var wrap = nationalIdInput.closest('.ms-input-wrap');
+      if (cleaned) { wrap.classList.add('is-filled'); } else { wrap.classList.remove('is-filled'); }
+      clearError('nationalId');
+    }
   });
 
   function formatFileSize(bytes) {

@@ -99,6 +99,7 @@ const EMPTY_FORM: CompetitionFormState = {
   last_name: '',
   phone: '',
   city: '',
+  national_id: '',
   payment_receipt_url: '',
   notes: '',
   status: 'pending',
@@ -110,6 +111,12 @@ function fieldErrors(input: CompetitionFormState): Record<string, string> {
   if (!input.last_name?.trim()) errors.last_name = 'الاسم الأخير مطلوب'
   if (!input.phone?.trim()) errors.phone = 'رقم الهاتف مطلوب'
   if (!input.city?.trim()) errors.city = 'المدينة مطلوبة'
+  const nationalId = input.national_id?.trim() ?? ''
+  if (!nationalId) {
+    errors.national_id = 'رقم البطاقة الوطنية مطلوب'
+  } else if (!/^\d{10}$/.test(nationalId)) {
+    errors.national_id = 'رقم البطاقة الوطنية يجب أن يتكون من 10 أرقام'
+  }
   return errors
 }
 
@@ -147,7 +154,7 @@ function TableSkeleton() {
     <TableBody>
       {Array.from({ length: 5 }).map((_, i) => (
         <TableRow key={i}>
-          {Array.from({ length: 7 }).map((__, j) => (
+          {Array.from({ length: 8 }).map((__, j) => (
             <TableCell key={j}>
               <span className="block h-4 w-16 animate-pulse rounded bg-muted" />
             </TableCell>
@@ -250,6 +257,7 @@ export default function CompetitionSection() {
       last_name: reg.last_name,
       phone: reg.phone,
       city: reg.city,
+      national_id: reg.national_id ?? '',
       payment_receipt_url: reg.payment_receipt_url ?? '',
       notes: reg.notes ?? '',
       status: reg.status,
@@ -283,6 +291,7 @@ export default function CompetitionSection() {
           last_name: form.last_name,
           phone: form.phone,
           city: form.city,
+          national_id: form.national_id || undefined,
           payment_receipt_url: form.payment_receipt_url || undefined,
           notes: form.notes || undefined,
           status: form.status,
@@ -383,7 +392,7 @@ export default function CompetitionSection() {
           <Search className="pointer-events-none absolute top-1/2 right-3 size-4 -translate-y-1/2 text-muted-foreground" />
           <Input
             type="search"
-            placeholder="ابحث بالاسم أو رقم الهاتف أو المدينة..."
+            placeholder="ابحث بالاسم أو رقم الهاتف أو المدينة أو البطاقة الوطنية..."
             className="h-9 pr-9"
             value={searchInput}
             onChange={(e) => handleSearchInput(e.target.value)}
@@ -409,6 +418,7 @@ export default function CompetitionSection() {
             <TableRow>
               <TableHead>الاسم الكامل</TableHead>
               <TableHead>رقم الهاتف</TableHead>
+              <TableHead>رقم البطاقة الوطنية</TableHead>
               <TableHead>المدينة</TableHead>
               <TableHead>الحالة</TableHead>
               <TableHead>تاريخ التسجيل</TableHead>
@@ -421,7 +431,7 @@ export default function CompetitionSection() {
           ) : registrations.length === 0 ? (
             <TableBody>
               <TableRow>
-                <TableCell colSpan={7}>
+                <TableCell colSpan={8}>
                   <div className="flex flex-col items-center justify-center py-16 text-center">
                     <Trophy className="size-10 text-muted-foreground/40" />
                     <p className="mt-3 text-sm font-medium text-muted-foreground">
@@ -445,6 +455,9 @@ export default function CompetitionSection() {
                   </TableCell>
                   <TableCell className="font-mono text-xs text-muted-foreground">
                     {reg.phone}
+                  </TableCell>
+                  <TableCell className="font-mono text-xs text-muted-foreground">
+                    {reg.national_id ?? '—'}
                   </TableCell>
                   <TableCell className="text-muted-foreground">
                     {reg.city}
@@ -568,6 +581,23 @@ export default function CompetitionSection() {
                   <p className="mt-1 text-xs text-destructive">{errors.last_name}</p>
                 )}
               </div>
+            </div>
+            <div>
+              <Label htmlFor="c-national_id">رقم البطاقة الوطنية *</Label>
+              <Input
+                id="c-national_id"
+                inputMode="numeric"
+                maxLength={10}
+                value={form.national_id ?? ''}
+                onChange={(e) =>
+                  handleFormChange('national_id', e.target.value.replace(/\D/g, ''))
+                }
+                placeholder="10 أرقام"
+                aria-invalid={!!errors.national_id}
+              />
+              {errors.national_id && (
+                <p className="mt-1 text-xs text-destructive">{errors.national_id}</p>
+              )}
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div>
@@ -695,6 +725,8 @@ export default function CompetitionSection() {
                 <span className="font-medium">{fullName(viewTarget)}</span>
                 <span className="text-muted-foreground">رقم الهاتف</span>
                 <span className="font-mono">{viewTarget.phone}</span>
+                <span className="text-muted-foreground">رقم البطاقة الوطنية</span>
+                <span className="font-mono">{viewTarget.national_id ?? '—'}</span>
                 <span className="text-muted-foreground">المدينة</span>
                 <span>{viewTarget.city}</span>
                 <span className="text-muted-foreground">الحالة</span>

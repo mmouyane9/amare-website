@@ -47,6 +47,7 @@ export interface CompetitionRegistration {
   last_name: string
   phone: string
   city: string
+  national_id: string | null
   payment_receipt_url: string
   status: string
   reviewed_at: string | null
@@ -61,6 +62,7 @@ export interface CompetitionCreateInput {
   last_name: string
   phone: string
   city: string
+  national_id?: string
   payment_receipt_url?: string
   notes?: string
 }
@@ -70,6 +72,7 @@ export interface CompetitionUpdateInput {
   last_name?: string
   phone?: string
   city?: string
+  national_id?: string
   payment_receipt_url?: string
   notes?: string
   status?: string
@@ -94,7 +97,7 @@ export async function fetchCompetitionRegistrations(
 
   if (search) {
     query = query.or(
-      `first_name.ilike.%${search}%,last_name.ilike.%${search}%,phone.ilike.%${search}%,city.ilike.%${search}%`,
+      `first_name.ilike.%${search}%,last_name.ilike.%${search}%,phone.ilike.%${search}%,city.ilike.%${search}%,national_id.ilike.%${search}%`,
     )
   }
 

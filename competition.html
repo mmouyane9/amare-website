@@ -459,6 +459,14 @@
               </div>
               <div class="ms-field-error" id="compCityError" role="alert"></div>
             </div>
+            <div class="ms-field">
+              <div class="ms-input-wrap">
+                <input type="text" id="compNationalId" class="ms-input" placeholder=" " required autocomplete="off" inputmode="numeric" maxlength="10">
+                <label class="ms-label" for="compNationalId">رقم البطاقة الوطنية *</label>
+                <i class="ms-input-icon bi bi-credit-card" aria-hidden="true"></i>
+              </div>
+              <div class="ms-field-error" id="compNationalIdError" role="alert"></div>
+            </div>
           </div>
         </div>
 
@@ -677,6 +685,7 @@
     lastName: document.getElementById('compLastName'),
     phone: document.getElementById('compPhone'),
     city: document.getElementById('compCity'),
+    nationalId: document.getElementById('compNationalId'),
   };
 
   const errors = {
@@ -684,6 +693,7 @@
     lastName: document.getElementById('compLastNameError'),
     phone: document.getElementById('compPhoneError'),
     city: document.getElementById('compCityError'),
+    nationalId: document.getElementById('compNationalIdError'),
   };
 
   const receiptZone = document.getElementById('compReceiptZone');
@@ -752,6 +762,7 @@
         lastName: 'يرجى إدخال الاسم العائلي',
         phone: 'يرجى إدخال رقم الهاتف',
         city: 'يرجى إدخال المدينة',
+        nationalId: 'يرجى إدخال رقم البطاقة الوطنية',
       };
       return labels[fieldKey] || 'هذا الحقل مطلوب';
     }
@@ -759,6 +770,11 @@
       var cleaned = v.replace(/[\s\-\(\)]/g, '');
       if (!/^(\+212|0)?[5-7]\d{8}$/.test(cleaned)) {
         return 'يرجى إدخال رقم هاتف مغربي صحيح';
+      }
+    }
+    if (fieldKey === 'nationalId') {
+      if (!/^\d{10}$/.test(v)) {
+        return 'يرجى إدخال رقم البطاقة الوطنية (10 أرقام)';
       }
     }
     return null;
@@ -996,6 +1012,7 @@
           last_name: fields.lastName.value.trim(),
           phone: fields.phone.value.trim(),
           city: fields.city.value.trim(),
+          national_id: fields.nationalId.value.trim(),
           payment_receipt_url: publicUrl,
           status: 'pending'
         })

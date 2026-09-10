@@ -59,6 +59,7 @@ create table if not exists public.competition_registrations (
   last_name           text        not null,
   phone               text        not null,
   city                text        not null,
+  national_id         text,
   payment_receipt_url text        not null,
   status              text        not null default 'pending',
   reviewed_at         timestamptz,
@@ -82,6 +83,9 @@ create index if not exists competition_registrations_phone_idx
 
 create index if not exists competition_registrations_city_idx
   on public.competition_registrations (city);
+
+create index if not exists competition_registrations_national_id_idx
+  on public.competition_registrations (national_id);
 
 -- ---------------------------------------------------------------------------
 -- 3) updated_at trigger

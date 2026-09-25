@@ -19,6 +19,29 @@
 <link rel="stylesheet" href="/style.css">
 <link rel="stylesheet" href="/assets/css/membership.css">
 <style>
+  .competition-page {
+    position: relative;
+    isolation: isolate;
+    background: var(--color-light);
+  }
+
+  .competition-page::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: url("/assets/imagecompitition.png") center / cover no-repeat;
+  }
+
+  .competition-page .ms-hero {
+    background: linear-gradient(rgba(13, 42, 94, 0.8), rgba(15, 156, 209, 0.7));
+  }
+
+  .competition-page .ms-form-section {
+    background: rgba(247, 249, 252, 0.9);
+  }
+
   .ms-hero-sub--wide {
     max-width: 640px;
   }
@@ -161,7 +184,7 @@
   }
 </style>
 </head>
-<body>
+<body class="competition-page">
 
 <div id="loader" aria-hidden="true">
   <div class="loader-mark"></div>

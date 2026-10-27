@@ -11,6 +11,7 @@ import MembershipRequestsPage from '@/pages/MembershipRequests'
 import NewsPage from '@/pages/News'
 import UpdatesPage from '@/pages/Updates'
 import CompetitionPage from '@/pages/Competition'
+import MuseumPage from '@/pages/Museum'
 import StorePage from '@/pages/Store'
 import ContentEditorPage from '@/pages/ContentEditor'
 import BranchesPage from '@/pages/Branches'
@@ -31,6 +32,7 @@ const appRoutes = [
   { path: '/news', element: <NewsPage /> },
   { path: '/updates', element: <UpdatesPage /> },
   { path: '/competition', element: <CompetitionPage /> },
+  { path: '/museum', element: <MuseumPage /> },
   { path: '/branches', element: <BranchesPage /> },
   { path: '/store', element: <StorePage /> },
   { path: '/content-editor', element: <ContentEditorPage /> },

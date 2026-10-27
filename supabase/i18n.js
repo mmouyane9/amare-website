@@ -230,6 +230,7 @@
 
       'page.home': 'الجمعية المغربية لهواة البحث والاستكشاف | معًا نصنع أثرًا حقيقيًا',
       'page.news': 'الأخبار | آخر أخبار الجمعية | الجمعية المغربية لهواة البحث والاستكشاف',
+      'page.museum': 'المتحف الرقمي | اكتشف مقتنيات وتراث الجمعية | الجمعية المغربية لهواة البحث والاستكشاف',
       'page.contact': 'اتصل بنا | الجمعية المغربية لهواة البحث والاستكشاف',
       'page.login': 'تسجيل الدخول | الجمعية المغربية لهواة البحث والاستكشاف',
 
@@ -657,6 +658,7 @@
 
       'page.home': 'Association marocaine des amateurs de recherche et d’exploration | Ensemble, créons un impact réel',
       'page.news': 'Actualités | Dernières nouvelles | Association marocaine des amateurs de recherche et d’exploration',
+      'page.museum': 'Musée numérique | Découvrez les collections et le patrimoine de l’association | Association marocaine des amateurs de recherche et d’exploration',
       'page.contact': 'Contactez-nous | Association marocaine des amateurs de recherche et d’exploration',
       'page.login': 'Connexion | Association marocaine des amateurs de recherche et d’exploration',
 

@@ -490,7 +490,7 @@
   var lastRendered = '';
 
   function fetchAndRender() {
-    db.select('navigation_items', '*', null, { column: 'sort_order', ascending: true })
+    return db.select('navigation_items', '*', null, { column: 'sort_order', ascending: true })
       .then(function (res) {
         var items = (res && res.data) || (Array.isArray(res) ? res : []);
 

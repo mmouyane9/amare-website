@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-i18n-page="museum">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>المتحف الرقمي | اكتشف مقتنيات وتراث الجمعية | الجمعية المغربية لهواة البحث والاستكشاف</title>
+<meta name="description" content="اكتشف المتحف الرقمي للجمعية المغربية لهواة البحث والاستكشاف: مقتنيات ووثائق وصور وفيديوهات توثّق التراث الثقافي والذاكرة الاستكشافية للمغرب.">
+<meta name="keywords" content="المتحف الرقمي, تراث, مقتنيات, الجمعية المغربية, AMARE, ثقافة, استكشاف, المغرب">
+<meta name="author" content="الجمعية المغربية لهواة البحث والاستكشاف">
+<link rel="shortcut icon" href="/Amare%20files%20/logo.png" type="image/x-icon">
+<link rel="canonical" href="https://www.amare.ma/Our%20services/digital-museum.html">
+
+<!-- Open Graph -->
+<meta property="og:title" content="المتحف الرقمي | الجمعية المغربية لهواة البحث والاستكشاف">
+<meta property="og:description" content="مقتنيات ووثائق وصور وفيديوهات توثّق التراث الثقافي والذاكرة الاستكشافية للمغرب.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://www.amare.ma/Amare%20files%20/logo.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
+
+<style>
+/* ==========================================================================
+   Digital Museum — المتحف الرقمي
+   Prefix: ms- (museum)
+   Reuses the existing AMARE palette, Cairo typography and .btn components.
+   ========================================================================== */
+
+body.ms-no-scroll { overflow: hidden; }
+
+/* The page uses the HTML `hidden` attribute for its loading / empty / error
+   states. Several components below set `display`, so enforce `hidden`. */
+[hidden] { display: none !important; }
+
+/* ---------- Hero ---------- */
+.ms-hero {
+  position: relative;
+  overflow: hidden;
+  padding: 118px 0 86px;
+  background:
+    radial-gradient(circle at 12% 18%, rgba(212, 175, 55, .13), transparent 32%),
+    radial-gradient(circle at 88% 78%, rgba(25, 184, 242, .14), transparent 36%),
+    linear-gradient(180deg, #F7FBFF 0%, #EDF6FE 58%, #F8FBFF 100%);
+}
+.ms-hero::before,
+.ms-hero::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.ms-hero::before {
+  width: 340px; height: 340px;
+  inset-inline-start: -150px; top: -120px;
+  border: 1px solid rgba(18, 59, 120, .09);
+  box-shadow: 0 0 0 46px rgba(18, 59, 120, .025), 0 0 0 92px rgba(18, 59, 120, .018);
+}
+.ms-hero::after {
+  width: 240px; height: 240px;
+  inset-inline-end: -90px; bottom: -90px;
+  background: rgba(25, 184, 242, .06);
+}
+.ms-hero-grid {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: minmax(0, 1.06fr) minmax(0, .94fr);
+  gap: 64px;
+  align-items: center;
+}
+.ms-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 16px;
+  margin-bottom: 20px;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(18, 59, 120, .12);
+  background: rgba(255, 255, 255, .78);
+  color: var(--color-navy);
+  box-shadow: 0 6px 20px rgba(18, 59, 120, .07);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: .2px;
+}
+.ms-kicker svg { width: 16px; height: 16px; color: var(--color-accent); }
+.ms-hero h1 {
+  margin: 0 0 18px;
+  color: var(--color-navy);
+  font-size: clamp(38px, 5.5vw, 68px);
+  font-weight: 900;
+  line-height: 1.12;
+  letter-spacing: -1.6px;
+}
+.ms-hero h1 span { color: var(--color-primary-dark); }
+.ms-hero-subtitle {
+  max-width: 610px;
+  margin: 0 0 30px;
+  color: var(--color-text-soft);
+  font-size: clamp(15px, 1.5vw, 18px);
+  line-height: 2.05;
+}
+.ms-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 38px;
+}
+.ms-btn-ghost {
+  background: rgba(255, 255, 255, .72);
+  color: var(--color-navy);
+  border: 1px solid rgba(18, 59, 120, .16);
+  backdrop-filter: blur(6px);
+}
+.ms-btn-ghost:hover {
+  background: #fff;
+  transform: translateY(-3px);
+  box-shadow: 0 16px 34px rgba(18, 59, 120, .13);
+}
+.ms-hero-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.ms-hero-stats li {
+  min-width: 118px;
+  padding: 12px 18px;
+  border-radius: 16px;
+  border: 1px solid rgba(18, 59, 120, .09);
+  background: rgba(255, 255, 255, .68);
+  backdrop-filter: blur(6px);
+}
+.ms-hero-stats strong {
+  display: block;
+  color: var(--color-navy);
+  font-size: 24px;
+  font-weight: 900;
+  line-height: 1.2;
+}
+.ms-hero-stats span {
+  color: var(--color-text-soft);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* Hero art */
+.ms-hero-visual {
+  position: relative;
+  min-height: 430px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ms-visual-glow {
+  position: absolute;
+  width: 330px; height: 330px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(25,184,242,.22) 0%, rgba(25,184,242,0) 68%);
+  filter: blur(4px);
+}
+.ms-frame {
+  position: relative;
+  width: min(340px, 82%);
+  aspect-ratio: 4 / 5;
+  border-radius: 26px;
+  padding: 13px;
+  background: rgba(255, 255, 255, .72);
+  border: 1px solid rgba(255, 255, 255, .9);
+  box-shadow: 0 34px 80px rgba(18, 59, 120, .2), 0 2px 0 rgba(255,255,255,.8) inset;
+  backdrop-filter: blur(8px);
+  transform: rotate(-3deg);
+}
+.ms-frame-inner {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 18px;
+  border: 1px solid rgba(212, 175, 55, .38);
+  background:
+    linear-gradient(160deg, #123B78 0%, #0B2A57 62%, #071C3A 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  color: #fff;
+  text-align: center;
+  padding: 30px 24px;
+}
+.ms-frame-inner::before {
+  content: "";
+  position: absolute;
+  inset: 14px;
+  border: 1px solid rgba(212, 175, 55, .42);
+  border-radius: 10px;
+  pointer-events: none;
+}
+.ms-frame-inner::after {
+  content: "";
+  position: absolute;
+  width: 240px; height: 240px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(212,175,55,.24), transparent 66%);
+  bottom: -80px;
+  inset-inline-start: -40px;
+}
+.ms-frame-icon {
+  position: relative;
+  z-index: 1;
+  width: 92px; height: 92px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid rgba(212, 175, 55, .55);
+  color: var(--color-accent);
+  background: rgba(255, 255, 255, .05);
+}
+.ms-frame-icon svg { width: 44px; height: 44px; }
+.ms-frame-title {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  font-size: 21px;
+  font-weight: 900;
+  letter-spacing: .3px;
+}
+.ms-frame-sub {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  color: rgba(255, 255, 255, .68);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.ms-frame-line {
+  position: relative;
+  z-index: 1;
+  width: 46px;
+  height: 2px;
+  background: var(--color-accent);
+  border-radius: 2px;
+}
+.ms-float {
+  position: absolute;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 11px 15px;
+  border-radius: 14px;
+  background: #fff;
+  border: 1px solid rgba(18, 59, 120, .08);
+  box-shadow: 0 16px 38px rgba(18, 59, 120, .16);
+  color: var(--color-navy);
+  font-size: 12.5px;
+  font-weight: 800;
+}
+.ms-float strong { color: var(--color-primary-dark); font-size: 17px; }
+.ms-float-dot {
+  width: 9px; height: 9px; border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 0 4px rgba(34, 197, 94, .14);
+}
+.ms-float-1 { top: 10%; inset-inline-start: -4%; animation: msFloat 7s ease-in-out infinite; }
+.ms-float-2 { bottom: 8%; inset-inline-end: -5%; animation: msFloat 8s ease-in-out 1.2s infinite; }
+@keyframes msFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+/* ---------- Section heading ---------- */
+.ms-section-head {
+  max-width: 660px;
+  margin: 0 auto 42px;
+  text-align: center;
+}
+.ms-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  color: var(--color-primary-dark);
+  font-size: 12.5px;
+  font-weight: 900;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}
+.ms-eyebrow::before {
+  content: "";
+  width: 22px; height: 2px;
+  border-radius: 2px;
+  background: var(--color-accent);
+}
+.ms-section-title {
+  margin: 0 0 12px;
+  color: var(--color-navy);
+  font-size: clamp(27px, 3.5vw, 42px);
+  font-weight: 900;
+  letter-spacing: -.6px;
+}
+.ms-section-desc {
+  margin: 0;
+  color: var(--color-text-soft);
+  font-size: 15.5px;
+  line-height: 1.9;
+}
+
+/* ---------- Collection ---------- */
+.ms-collection {
+  position: relative;
+  padding: 84px 0 96px;
+  background:
+    linear-gradient(180deg, #FFFFFF 0%, #F7FAFE 48%, #F2F8FE 100%);
+}
+.ms-toolbar {
+  padding: 16px 18px;
+  margin-bottom: 24px;
+  border-radius: 20px;
+  border: 1px solid rgba(18, 59, 120, .09);
+  background: rgba(255, 255, 255, .86);
+  box-shadow: 0 14px 40px rgba(18, 59, 120, .07);
+  backdrop-filter: blur(8px);
+}
+.ms-toolbar-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+.ms-type-filters {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 4px;
+  border-radius: var(--radius-pill);
+  background: #EEF5FC;
+}
+.ms-filter {
+  padding: 8px 17px;
+  border-radius: var(--radius-pill);
+  color: var(--color-navy);
+  font-size: 13px;
+  font-weight: 800;
+  transition: background var(--t-fast), color var(--t-fast), box-shadow var(--t-fast);
+}
+.ms-filter:hover { background: rgba(255, 255, 255, .72); }
+.ms-filter.is-active {
+  background: var(--color-navy);
+  color: #fff;
+  box-shadow: 0 7px 18px rgba(18, 59, 120, .22);
+}
+.ms-toolbar-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.ms-result-count {
+  color: var(--color-text-soft);
+  font-size: 12.5px;
+  font-weight: 700;
+}
+.ms-reset {
+  color: var(--color-primary-dark);
+  font-size: 12.5px;
+  font-weight: 800;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.ms-category-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px dashed rgba(18, 59, 120, .13);
+}
+.ms-category-label {
+  flex: 0 0 auto;
+  color: var(--color-text-soft);
+  font-size: 12px;
+  font-weight: 800;
+}
+.ms-category-chips {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 3px;
+  scrollbar-width: thin;
+}
+.ms-chip {
+  flex: 0 0 auto;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(18, 59, 120, .12);
+  background: #fff;
+  color: var(--color-navy);
+  font-size: 12px;
+  font-weight: 700;
+  transition: all var(--t-fast);
+}
+.ms-chip:hover { border-color: var(--color-primary); color: var(--color-primary-dark); }
+.ms-chip.is-active {
+  background: rgba(25, 184, 242, .12);
+  border-color: rgba(25, 184, 242, .45);
+  color: var(--color-primary-dark);
+}
+
+/* Grid */
+.ms-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 26px;
+}
+.ms-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 22px;
+  border: 1px solid rgba(18, 59, 120, .09);
+  background: #fff;
+  box-shadow: 0 12px 32px rgba(18, 59, 120, .07);
+  transition: transform var(--t-med), box-shadow var(--t-med), border-color var(--t-med);
+}
+.ms-card:hover {
+  transform: translateY(-7px);
+  border-color: rgba(25, 184, 242, .32);
+  box-shadow: 0 28px 56px rgba(18, 59, 120, .15);
+}
+.ms-card-media {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  cursor: pointer;
+  background:
+    linear-gradient(145deg, #123B78 0%, #1D549B 52%, #0C2D5C 100%);
+}
+.ms-card-media .ms-media-el {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .65s var(--ease);
+  pointer-events: none;
+}
+.ms-card:hover .ms-card-media .ms-media-el { transform: scale(1.055); }
+.ms-media-el.is-broken { display: none; }
+.ms-media-fallback {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: rgba(255, 255, 255, .55);
+  background:
+    radial-gradient(circle at 30% 20%, rgba(212,175,55,.24), transparent 40%),
+    linear-gradient(145deg, #123B78, #0B2A57);
+}
+.ms-media-fallback svg { width: 52px; height: 52px; }
+.ms-type-tag {
+  position: absolute;
+  top: 13px;
+  inset-inline-start: 13px;
+  z-index: 2;
+  padding: 5px 11px;
+  border-radius: var(--radius-pill);
+  background: rgba(9, 25, 49, .62);
+  color: #fff;
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: .4px;
+  backdrop-filter: blur(8px);
+}
+.ms-play-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  background: rgba(7, 20, 40, .12);
+}
+.ms-play-btn {
+  width: 58px; height: 58px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .92);
+  color: var(--color-navy);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, .28);
+  transition: transform var(--t-fast), background var(--t-fast);
+}
+.ms-play-btn svg { width: 24px; height: 24px; margin-inline-start: 2px; }
+.ms-card-media:hover .ms-play-btn {
+  transform: scale(1.08);
+  background: #fff;
+}
+.ms-card-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 19px 20px 20px;
+}
+.ms-category-tag {
+  display: inline-block;
+  align-self: flex-start;
+  margin-bottom: 8px;
+  padding: 3px 9px;
+  border-radius: 6px;
+  background: rgba(212, 175, 55, .14);
+  color: #8A6A0B;
+  font-size: 10.5px;
+  font-weight: 900;
+  letter-spacing: .2px;
+}
+.ms-card-title {
+  margin: 0 0 8px;
+  color: var(--color-navy);
+  font-size: 17.5px;
+  font-weight: 900;
+  line-height: 1.45;
+}
+.ms-card-desc {
+  margin: 0 0 16px;
+  color: var(--color-text-soft);
+  font-size: 13px;
+  line-height: 1.8;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.ms-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 13px;
+  border-top: 1px solid rgba(18, 59, 120, .08);
+}
+.ms-card-type {
+  color: var(--color-text-soft);
+  font-size: 11px;
+  font-weight: 700;
+}
+.ms-card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--color-primary-dark);
+  font-size: 12px;
+  font-weight: 900;
+}
+.ms-card-link span { transition: transform var(--t-fast); }
+.ms-card-link:hover span { transform: translateX(-4px); }
+
+/* Loading skeleton */
+.ms-skeleton-card {
+  overflow: hidden;
+  border-radius: 22px;
+  border: 1px solid rgba(18, 59, 120, .07);
+  background: #fff;
+}
+.ms-skeleton-media {
+  aspect-ratio: 4 / 3;
+  background: linear-gradient(100deg, #EAF2FA 30%, #F5FAFF 50%, #EAF2FA 70%);
+  background-size: 220% 100%;
+  animation: msShimmer 1.5s infinite linear;
+}
+.ms-skeleton-body { padding: 20px; }
+.ms-skeleton-line {
+  height: 12px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  background: linear-gradient(100deg, #EDF4FB 30%, #F8FBFF 50%, #EDF4FB 70%);
+  background-size: 220% 100%;
+  animation: msShimmer 1.5s infinite linear;
+}
+.ms-skeleton-line.is-short { width: 56%; }
+.ms-skeleton-line.is-tiny { width: 34%; height: 9px; }
+@keyframes msShimmer {
+  0% { background-position: 120% 0; }
+  100% { background-position: -120% 0; }
+}
+
+/* States */
+.ms-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 62px 24px;
+  border-radius: 24px;
+  border: 1px dashed rgba(18, 59, 120, .18);
+  background: rgba(255, 255, 255, .72);
+}
+.ms-state-icon {
+  display: grid;
+  place-items: center;
+  width: 76px; height: 76px;
+  margin-bottom: 18px;
+  border-radius: 22px;
+  background: rgba(25, 184, 242, .1);
+  color: var(--color-primary-dark);
+}
+.ms-state-icon svg { width: 34px; height: 34px; }
+.ms-state.is-error .ms-state-icon {
+  background: rgba(220, 38, 38, .09);
+  color: #dc2626;
+}
+.ms-state-title {
+  margin: 0 0 8px;
+  color: var(--color-navy);
+  font-size: 21px;
+  font-weight: 900;
+}
+.ms-state-desc {
+  max-width: 440px;
+  margin: 0 0 22px;
+  color: var(--color-text-soft);
+  font-size: 14px;
+  line-height: 1.9;
+}
+.ms-no-results {
+  grid-column: 1 / -1;
+  padding: 46px 20px;
+  text-align: center;
+  border-radius: 20px;
+  border: 1px dashed rgba(18, 59, 120, .16);
+  background: rgba(255, 255, 255, .7);
+  color: var(--color-text-soft);
+  font-size: 14px;
+  font-weight: 700;
+}
+.ms-more-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 36px;
+}
+.ms-more-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 13px 30px;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(18, 59, 120, .16);
+  background: #fff;
+  color: var(--color-navy);
+  box-shadow: 0 10px 26px rgba(18, 59, 120, .08);
+  font-size: 13.5px;
+  font-weight: 900;
+  transition: all var(--t-fast);
+}
+.ms-more-btn:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary-dark);
+  transform: translateY(-3px);
+  box-shadow: 0 18px 38px rgba(25, 184, 242, .18);
+}
+.ms-more-btn svg { width: 17px; height: 17px; }
+
+/* Reveal */
+.ms-reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity .55s var(--ease), transform .55s var(--ease);
+}
+.ms-reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+/* ---------- Lightbox ---------- */
+.ms-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 22px;
+}
+.ms-lightbox[hidden] { display: none; }
+.ms-lightbox-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(5, 14, 28, .88);
+  backdrop-filter: blur(7px);
+}
+.ms-lightbox-panel {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  width: min(1080px, 96vw);
+  max-height: 92vh;
+  opacity: 0;
+  transform: scale(.97);
+  transition: opacity .22s ease, transform .22s ease;
+}
+.ms-lightbox.is-open .ms-lightbox-panel { opacity: 1; transform: scale(1); }
+.ms-lightbox-close {
+  position: absolute;
+  top: -14px;
+  inset-inline-end: -8px;
+  z-index: 4;
+  width: 42px; height: 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--color-navy);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .3);
+  transition: transform var(--t-fast), background var(--t-fast);
+}
+.ms-lightbox-close:hover { transform: rotate(90deg); background: var(--color-accent); }
+.ms-lightbox-close svg { width: 19px; height: 19px; }
+.ms-lightbox-stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 220px;
+  max-height: 70vh;
+  overflow: hidden;
+  border-radius: 18px;
+  background: #000;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, .4);
+}
+.ms-lightbox-image {
+  max-width: 100%;
+  max-height: 70vh;
+  object-fit: contain;
+}
+.ms-lightbox-video {
+  width: 100%;
+  max-height: 70vh;
+  background: #000;
+}
+.ms-lightbox-missing {
+  padding: 60px 24px;
+  color: rgba(255, 255, 255, .78);
+  text-align: center;
+  font-size: 14px;
+}
+.ms-lightbox-caption {
+  max-height: 18vh;
+  overflow-y: auto;
+  padding: 18px 20px 4px;
+  color: #fff;
+}
+.ms-lightbox-category {
+  display: inline-block;
+  margin-bottom: 7px;
+  padding: 3px 10px;
+  border-radius: 6px;
+  background: rgba(212, 175, 55, .2);
+  color: #F3D777;
+  font-size: 11px;
+  font-weight: 800;
+}
+.ms-lightbox-title {
+  margin: 0 0 6px;
+  font-size: clamp(19px, 2.4vw, 26px);
+  font-weight: 900;
+  color: #fff;
+}
+.ms-lightbox-desc {
+  margin: 0;
+  color: rgba(255, 255, 255, .72);
+  font-size: 13.5px;
+  line-height: 1.85;
+  white-space: pre-line;
+}
+/* ---------- CTA ---------- */
+.ms-cta { padding: 0 0 96px; background: #F2F8FE; }
+.ms-cta-card {
+  position: relative;
+  overflow: hidden;
+  padding: 58px 40px;
+  border-radius: 30px;
+  background:
+    radial-gradient(circle at 82% 18%, rgba(212, 175, 55, .3), transparent 34%),
+    linear-gradient(135deg, #123B78 0%, #0B2A57 62%, #071C3A 100%);
+  text-align: center;
+  color: #fff;
+  box-shadow: 0 32px 70px rgba(18, 59, 120, .24);
+}
+.ms-cta-card::before,
+.ms-cta-card::after {
+  content: "";
+  position: absolute;
+  border: 1px solid rgba(255, 255, 255, .1);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.ms-cta-card::before { width: 280px; height: 280px; top: -140px; inset-inline-start: -80px; }
+.ms-cta-card::after { width: 200px; height: 200px; bottom: -110px; inset-inline-end: -50px; }
+.ms-cta-card h2 {
+  position: relative;
+  z-index: 1;
+  margin: 0 0 10px;
+  font-size: clamp(24px, 3.2vw, 36px);
+  font-weight: 900;
+}
+.ms-cta-card p {
+  position: relative;
+  z-index: 1;
+  max-width: 600px;
+  margin: 0 auto 26px;
+  color: rgba(255, 255, 255, .72);
+  font-size: 14.5px;
+  line-height: 1.9;
+}
+.ms-cta-actions {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1080px) {
+  .ms-hero-grid { grid-template-columns: minmax(0, 1fr); gap: 44px; }
+  .ms-hero-copy { text-align: center; }
+  .ms-hero-subtitle { margin-inline: auto; }
+  .ms-hero-actions, .ms-hero-stats { justify-content: center; }
+  .ms-hero-visual { min-height: 360px; max-width: 460px; width: 100%; margin: 0 auto; }
+  .ms-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 760px) {
+  .ms-hero { padding: 78px 0 62px; }
+  .ms-hero h1 { letter-spacing: -1px; }
+  .ms-hero-actions .btn { width: 100%; justify-content: center; }
+  .ms-hero-stats { gap: 8px; }
+  .ms-hero-stats li { flex: 1 1 0; min-width: 0; padding: 10px 12px; }
+  .ms-hero-stats strong { font-size: 20px; }
+  .ms-hero-visual { display: none; }
+  .ms-collection { padding: 62px 0 70px; }
+  .ms-section-head { margin-bottom: 30px; }
+  .ms-toolbar { padding: 13px; border-radius: 16px; }
+  .ms-toolbar-top { flex-direction: column; align-items: stretch; }
+  .ms-type-filters { justify-content: center; }
+  .ms-filter { flex: 1 1 0; text-align: center; }
+  .ms-toolbar-meta { justify-content: space-between; }
+  .ms-category-row { align-items: flex-start; flex-direction: column; gap: 8px; }
+  .ms-grid { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+  .ms-card { border-radius: 18px; }
+  .ms-lightbox { padding: 12px; }
+  .ms-lightbox-close { top: 8px; inset-inline-end: 8px; }
+  .ms-lightbox-stage { border-radius: 14px; max-height: 62vh; }
+  .ms-lightbox-image, .ms-lightbox-video { max-height: 62vh; }
+  .ms-lightbox-caption { max-height: 26vh; padding: 13px 6px 2px; }
+  .ms-cta { padding-bottom: 64px; }
+  .ms-cta-card { padding: 38px 20px; border-radius: 22px; }
+  .ms-cta-actions .btn { width: 100%; justify-content: center; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ms-reveal { opacity: 1; transform: none; transition: none; }
+  .ms-float-1, .ms-float-2, .ms-skeleton-media, .ms-skeleton-line { animation: none; }
+  .ms-card, .ms-card-media .ms-media-el, .ms-more-btn, .ms-btn-ghost { transition: none; }
+}
+</style>
+</head>
+<body>
+
+<a href="#main" class="visually-hidden" data-i18n="misc.skip">تخطَّ إلى المحتوى الرئيسي</a>
+
+<!-- ===== 1. Top Bar ===== -->
+<div class="topbar">
+  <div class="container">
+    <div class="topbar-right">
+      <a href="/index.html" class="topbar-brand" aria-label="الرئيسية" data-i18n-aria-label="topbar.brandAria">
+        <span class="topbar-brand-mark">
+          <img src="/Amare%20files%20/logo.png" alt="AMARE Logo" class="topbar-brand-logo">
+        </span>
+        <span class="topbar-brand-name" data-amare-setting="association_name">الجمعية المغربية لهواة البحث والاستكشاف</span>
+      </a>
+    </div>
+    <div class="topbar-left">
+      <div class="topbar-social">
+        <a href="#" aria-label="فيسبوك" data-i18n-aria-label="social.facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg></a>
+        <a href="#" aria-label="إنستغرام" data-i18n-aria-label="social.instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+        <a href="#" aria-label="لينكدإن" data-i18n-aria-label="social.linkedin"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 5 3.79 6.2 2.3 6.2 1 6.2 0 5 0 3.5 0 2 1.1.8 2.5.8s2.48 1.2 2.48 2.7zM.2 8.5h4.6V23H.2V8.5zM8 8.5h4.4v2h.06c.6-1.2 2.1-2.4 4.4-2.4 4.7 0 5.6 3.1 5.6 7.1V23h-4.6v-6.7c0-1.6 0-3.7-2.3-3.7s-2.6 1.8-2.6 3.6V23H8V8.5z"/></svg></a>
+      </div>
+      <div class="topbar-lang">
+        <button class="lang-btn" type="button" aria-label="اختيار اللغة" data-i18n-aria-label="lang.select">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg>
+          <span class="lang-current">العربية</span>
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="lang-chevron"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <ul class="lang-dropdown">
+          <li><button class="lang-option active" type="button" data-lang="ar"><span class="lang-flag">🇲🇦</span> العربية <span class="lang-check">✓</span></button></li>
+          <li><button class="lang-option" type="button" data-lang="fr"><span class="lang-flag">🇫🇷</span> Français</button></li>
+        </ul>
+      </div>
+      <a href="http://wa.me/+212684869996" target="_blank" rel="noopener" class="topbar-whatsapp ripple" aria-label="تواصل عبر واتساب" data-i18n-aria-label="topbar.whatsappAria">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.6.1-.2.3-.7 1-.9 1.2-.1.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.2-.4.1-.2 0-.4 0-.5s-.6-1.5-.8-2c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s1 2.6 1.1 2.7c.1.2 2 3 4.7 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 2-1.4.2-.6.2-1.2.1-1.3-.1-.1-.3-.2-.6-.3z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.6 1.4 5.1L2 22l5.1-1.3C8.5 21.5 10.2 22 12 22c5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18c-1.6 0-3.1-.4-4.5-1.2l-.3-.2-3.3.9.9-3.2-.2-.3C3.7 14.6 3.2 13.3 3.2 12c0-4.9 3.9-8.8 8.8-8.8s8.8 3.9 8.8 8.8-3.9 8.8-8.8 8.8z"/></svg>
+        <span data-i18n="topbar.whatsapp">واتساب</span>
+      </a>
+      <a href="/login.html" class="topbar-login ripple" aria-label="تسجيل الدخول" data-i18n-aria-label="nav.login">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v18h-6M10 17l5-5-5-5M15 12H3"/></svg>
+        <span data-i18n="nav.login">تسجيل الدخول</span>
+      </a>
+      <a href="/amare%20store/index.html" class="nav-store-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        <span data-i18n="topbar.store">متجر AMARE</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 2. Navbar ===== -->
+<header>
+  <nav class="navbar" id="navbar" aria-label="التنقل الرئيسي" data-i18n-aria-label="nav.main">
+    <div class="container">
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/index.html" data-i18n="nav.home">الرئيسية</a></li>
+        <li data-dropdown="about"><a href="/index.html#about" data-i18n="nav.about">من نحن</a></li>
+        <li data-dropdown="activities"><a href="#" data-i18n="nav.activities">أنشطتنا</a></li>
+        <li data-dropdown="partners"><a href="#" data-i18n="nav.partners">شركاؤنا</a></li>
+        <li data-dropdown="services"><a href="/index.html#services" data-i18n="nav.services">خدماتنا</a></li>
+        <li data-dropdown="branches"><a href="#" data-i18n="nav.branches">الفروع الجهوية</a></li>
+        <li data-dropdown="join"><a href="/Join%20us/join-us-online.html" data-i18n="nav.join">انخرط معنا</a></li>
+        <li><a href="/News/news.html" data-i18n="nav.news">الأخبار</a></li>
+        <li><a href="/Archive/archive.html" data-i18n="nav.archive">الأرشيف</a></li>
+        <li><a href="/contact.html" data-i18n="nav.contact">اتصل بنا</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="hamburger" id="hamburger" aria-label="فتح القائمة" data-i18n-aria-label="nav.openMenu" aria-expanded="false" aria-controls="navLinks">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <div class="mega-dropdown" id="megaDropdown"></div>
+  </nav>
+</header>
+
+<!-- ===== Mobile Header ===== -->
+<div class="mobile-header" id="mobileHeader">
+  <div class="mobile-header-group">
+    <a class="mobile-header-logo" href="/index.html" aria-label="الرئيسية">
+      <img src="/Amare%20files%20/logo.png" alt="AMARE Logo">
+    </a>
+    <a class="mobile-header-brand" href="/index.html" aria-label="الرئيسية">
+      الجمعية المغربية لهواة<br>البحث والاستكشاف
+    </a>
+  </div>
+  <button class="mobile-hamburger" id="mobileHamburger" aria-label="فتح القائمة" aria-expanded="false" aria-controls="mobileDrawer">
+    <span></span><span></span><span></span>
+  </button>
+</div>
+
+<!-- ===== Mobile Drawer ===== -->
+<div class="mobile-drawer" id="mobileDrawer" role="dialog" aria-modal="true" aria-label="القائمة الرئيسية" data-i18n-aria-label="nav.mobileMenu">
+  <div class="mobile-drawer-inner">
+    <div class="mobile-drawer-header">
+      <button class="mobile-drawer-close" id="mobileDrawerClose" aria-label="إغلاق القائمة" data-i18n-aria-label="nav.closeMenu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+      <a class="mobile-drawer-brand" href="/index.html">
+        <img src="/Amare%20files%20/logo.png" alt="AMARE Logo" class="mobile-drawer-brand-logo">
+        <span class="mobile-drawer-brand-name">الجمعية المغربية لهواة البحث والاستكشاف</span>
+      </a>
+    </div>
+    <nav class="mobile-drawer-nav" aria-label="التنقل الرئيسي">
+      <ul class="mobile-drawer-links" id="mobileDrawerLinks">
+        <li><a href="/index.html" data-i18n="nav.home">الرئيسية</a></li>
+        <li class="mobile-drawer-dropdown" data-dd="about">
+          <div class="mobile-drawer-row">
+            <a href="/index.html#about" data-i18n="nav.about">من نحن</a>
+            <button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </div>
+          <ul class="mobile-drawer-sub"></ul>
+        </li>
+        <li class="mobile-drawer-dropdown" data-dd="activities">
+          <div class="mobile-drawer-row">
+            <a href="#" data-i18n="nav.activities">أنشطتنا</a>
+            <button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </div>
+          <ul class="mobile-drawer-sub"></ul>
+        </li>
+        <li class="mobile-drawer-dropdown" data-dd="partners">
+          <div class="mobile-drawer-row">
+            <a href="#" data-i18n="nav.partners">شركاؤنا</a>
+            <button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </div>
+          <ul class="mobile-drawer-sub"></ul>
+        </li>
+        <li class="mobile-drawer-dropdown" data-dd="services">
+          <div class="mobile-drawer-row">
+            <a href="/index.html#services" data-i18n="nav.services">خدماتنا</a>
+            <button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </div>
+          <ul class="mobile-drawer-sub"></ul>
+        </li>
+        <li class="mobile-drawer-dropdown" data-dd="branches">
+          <div class="mobile-drawer-row">
+            <a href="#" data-i18n="nav.branches">الفروع الجهوية</a>
+            <button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </div>
+          <ul class="mobile-drawer-sub"></ul>
+        </li>
+        <li class="mobile-drawer-dropdown" data-dd="join">
+          <div class="mobile-drawer-row">
+            <a href="/Join%20us/index.html" data-i18n="nav.join">انخرط معنا</a>
+            <button class="mobile-drawer-toggle" aria-label="فتح القائمة الفرعية" aria-expanded="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </div>
+          <ul class="mobile-drawer-sub"></ul>
+        </li>
+        <li><a href="/News/news.html" data-i18n="nav.news">الأخبار</a></li>
+        <li><a href="/Archive/archive.html" data-i18n="nav.archive">الأرشيف</a></li>
+        <li><a href="/contact.html" data-i18n="nav.contact">اتصل بنا</a></li>
+      </ul>
+    </nav>
+    <div class="mobile-drawer-bottom">
+      <div class="mobile-drawer-actions">
+        <a href="/login.html" class="mobile-drawer-action mobile-drawer-action-login">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v18h-6M10 17l5-5-5-5M15 12H3"/></svg>
+          <span data-i18n="nav.login">تسجيل الدخول</span>
+        </a>
+        <a href="/amare store/index.html" class="mobile-drawer-action mobile-drawer-action-store">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span data-i18n="nav.store">متجر</span>
+        </a>
+        <a href="https://wa.me/212600000000" target="_blank" rel="noopener" class="mobile-drawer-action mobile-drawer-action-whatsapp">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.6.1-.2.3-.7 1-.9 1.2-.1.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.2-.4.1-.2 0-.4 0-.5s-.6-1.5-.8-2c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s1 2.6 1.1 2.7c.1.2 2 3 4.7 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 2-1.4.2-.6.2-1.2.1-1.3-.1-.1-.3-.2-.6-.3z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.6 1.4 5.1L2 22l5.1-1.3C8.5 21.5 10.2 22 12 22c5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18c-1.6 0-3.1-.4-4.5-1.2l-.3-.2-3.3.9.9-3.2-.2-.3C3.7 14.6 3.2 13.3 3.2 12c0-4.9 3.9-8.8 8.8-8.8s8.8 3.9 8.8 8.8-3.9 8.8-8.8 8.8z"/></svg>
+          <span data-i18n="topbar.whatsapp">واتساب</span>
+        </a>
+      </div>
+      <div class="mobile-drawer-lang">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg>
+        <select aria-label="اختيار اللغة">
+          <option value="ar">العربية</option>
+          <option value="fr">Français</option>
+        </select>
+      </div>
+      <div class="mobile-drawer-social">
+        <a href="#" aria-label="فيسبوك"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg></a>
+        <a href="#" aria-label="إنستغرام"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+        <a href="#" aria-label="لينكدإن"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 5 3.79 6.2 2.3 6.2 1 6.2 0 5 0 3.5 0 2 1.1.8 2.5.8s2.48 1.2 2.48 2.7zM.2 8.5h4.6V23H.2V8.5zM8 8.5h4.4v2h.06c.6-1.2 2.1-2.4 4.4-2.4 4.7 0 5.6 3.1 5.6 7.1V23h-4.6v-6.7c0-1.6 0-3.7-2.3-3.7s-2.6 1.8-2.6 3.6V23H8V8.5z"/></svg></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main id="main">
+
+<!-- ===== 1. Hero ===== -->
+<section class="ms-hero" aria-labelledby="museumTitle">
+  <div class="container">
+    <div class="ms-hero-grid">
+      <div class="ms-hero-copy">
+        <span class="ms-kicker">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 21h18M4 21V10l8-5 8 5v11M9 21v-6h6v6"/></svg>
+          التراث والذاكرة · AMARE
+        </span>
+        <h1 id="museumTitle">المتحف <span>الرقمي</span></h1>
+        <p class="ms-hero-subtitle">
+          بوابة رقمية لاكتشاف مقتنيات الجمعية المغربية لهواة البحث والاستكشاف،
+          من صور ووثائق وفيديوهات توثّق التراث الثقافي والذاكرة الاستكشافية
+          للمغرب، وتُتاح للباحثين والزوار في كل مكان.
+        </p>
+        <div class="ms-hero-actions">
+          <a href="#msCollection" class="btn btn-accent">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L3 21"/></svg>
+            تصفح المجموعة
+          </a>
+          <a href="/contact.html" class="btn ms-btn-ghost">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .3 2 .7 2.9a2 2 0 0 1-.4 2.1L8 10a16 16 0 0 0 6 6l1.3-1.4a2 2 0 0 1 2.1-.4c.9.4 1.9.6 2.9.7a2 2 0 0 1 1.7 2.1z"/></svg>
+            تواصل معنا
+          </a>
+        </div>
+        <ul class="ms-hero-stats" aria-label="إحصاءات المجموعة">
+          <li><strong id="msHeroTotal">0</strong><span>قطعة موثقة</span></li>
+          <li><strong id="msHeroImages">0</strong><span>صورة</span></li>
+          <li><strong id="msHeroVideos">0</strong><span>فيديو</span></li>
+        </ul>
+      </div>
+
+      <div class="ms-hero-visual" aria-hidden="true">
+        <div class="ms-visual-glow"></div>
+        <div class="ms-frame">
+          <div class="ms-frame-inner">
+            <span class="ms-frame-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 21h18M4 21V10l8-5 8 5v11M9 21v-6h6v6M12 5v3"/></svg>
+            </span>
+            <span class="ms-frame-line"></span>
+            <p class="ms-frame-title">ذاكرة تُحفظ رقميًا</p>
+            <p class="ms-frame-sub">AMARE DIGITAL HERITAGE</p>
+            <span class="ms-frame-line"></span>
+          </div>
+        </div>
+        <span class="ms-float ms-float-1"><span class="ms-float-dot"></span> صور وفيديوهات</span>
+        <span class="ms-float ms-float-2"><strong>+</strong> تراث يستحق الاكتشاف</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 2. Collection ===== -->
+<section class="ms-collection" id="msCollection" aria-labelledby="collectionTitle">
+  <div class="container">
+    <div class="ms-section-head">
+      <span class="ms-eyebrow">المجموعة</span>
+      <h2 class="ms-section-title" id="collectionTitle">مقتنيات المتحف</h2>
+      <p class="ms-section-desc">
+        تصفح القطع المتاحة، وفلترها حسب نوع الوسائط أو الفئة، ثم افتح الصور
+        والفيديوهات لمشاهدتها بالحجم الكامل.
+      </p>
+    </div>
+
+    <div class="ms-toolbar">
+      <div class="ms-toolbar-top">
+        <div class="ms-type-filters" role="group" aria-label="تصفية حسب نوع الوسائط">
+          <button type="button" class="ms-filter is-active" data-type="all" aria-pressed="true">الكل</button>
+          <button type="button" class="ms-filter" data-type="image" aria-pressed="false">صور</button>
+          <button type="button" class="ms-filter" data-type="video" aria-pressed="false">فيديوهات</button>
+        </div>
+        <div class="ms-toolbar-meta">
+          <span class="ms-result-count" id="msResultCount" aria-live="polite">جارٍ تحميل المجموعة...</span>
+          <button type="button" class="ms-reset" id="msResetFilters" hidden>إعادة تعيين</button>
+        </div>
+      </div>
+      <div class="ms-category-row" id="msCategoryRow" hidden>
+        <span class="ms-category-label">الفئة</span>
+        <div class="ms-category-chips" id="msCategoryChips" role="group" aria-label="تصفية حسب الفئة"></div>
+      </div>
+    </div>
+
+    <!-- Loading -->
+    <div class="ms-grid" id="msSkeleton" aria-hidden="true">
+      <div class="ms-skeleton-card"><div class="ms-skeleton-media"></div><div class="ms-skeleton-body"><div class="ms-skeleton-line is-tiny"></div><div class="ms-skeleton-line"></div><div class="ms-skeleton-line is-short"></div></div></div>
+      <div class="ms-skeleton-card"><div class="ms-skeleton-media"></div><div class="ms-skeleton-body"><div class="ms-skeleton-line is-tiny"></div><div class="ms-skeleton-line"></div><div class="ms-skeleton-line is-short"></div></div></div>
+      <div class="ms-skeleton-card"><div class="ms-skeleton-media"></div><div class="ms-skeleton-body"><div class="ms-skeleton-line is-tiny"></div><div class="ms-skeleton-line"></div><div class="ms-skeleton-line is-short"></div></div></div>
+      <div class="ms-skeleton-card"><div class="ms-skeleton-media"></div><div class="ms-skeleton-body"><div class="ms-skeleton-line is-tiny"></div><div class="ms-skeleton-line"></div><div class="ms-skeleton-line is-short"></div></div></div>
+      <div class="ms-skeleton-card"><div class="ms-skeleton-media"></div><div class="ms-skeleton-body"><div class="ms-skeleton-line is-tiny"></div><div class="ms-skeleton-line"></div><div class="ms-skeleton-line is-short"></div></div></div>
+      <div class="ms-skeleton-card"><div class="ms-skeleton-media"></div><div class="ms-skeleton-body"><div class="ms-skeleton-line is-tiny"></div><div class="ms-skeleton-line"></div><div class="ms-skeleton-line is-short"></div></div></div>
+    </div>
+
+    <div class="ms-grid" id="msGrid" hidden aria-live="polite"></div>
+
+    <div class="ms-state" id="msEmpty" hidden>
+      <div class="ms-state-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 21h18M4 21V10l8-5 8 5v11M9 21v-6h6v6"/></svg>
+      </div>
+      <h3 class="ms-state-title">المتحف يستعد لاستقبالكم</h3>
+      <p class="ms-state-desc">
+        لا توجد قطع منشورة حاليًا. سيعرض المتحف الرقمي مقتنيات الجمعية فور
+        نشرها من لوحة التحكم. عودوا قريبًا لاكتشاف المجموعة.
+      </p>
+      <a href="/index.html" class="btn btn-primary">العودة إلى الرئيسية</a>
+    </div>
+
+    <div class="ms-state is-error" id="msError" hidden>
+      <div class="ms-state-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      </div>
+      <h3 class="ms-state-title">تعذر تحميل المجموعة</h3>
+      <p class="ms-state-desc">
+        حدث خطأ أثناء جلب مقتنيات المتحف. يرجى المحاولة مرة أخرى بعد قليل.
+      </p>
+      <button type="button" class="btn btn-primary" id="msRetryBtn">إعادة المحاولة</button>
+    </div>
+
+    <div class="ms-more-wrap" id="msMoreWrap" hidden>
+      <button type="button" class="ms-more-btn" id="msLoadMore">
+        عرض المزيد
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+    </div>
+
+    <noscript>
+      <p class="ms-state-desc" style="text-align:center;margin-top:24px;">
+        يتطلب عرض مجموعة المتحف تفعيل JavaScript في المتصفح.
+      </p>
+    </noscript>
+  </div>
+</section>
+
+<!-- ===== 3. CTA ===== -->
+<section class="ms-cta">
+  <div class="container">
+    <div class="ms-cta-card">
+      <h2>ساهم في إثراء المتحف الرقمي</h2>
+      <p>
+        هل تملك وثيقة أو صورة أو قطعة ترتبط بذاكرة الجمعية والتراث المغربي؟
+        تواصل معنا لدراسة إمكانية إضافتها إلى المجموعة الرقمية.
+      </p>
+      <div class="ms-cta-actions">
+        <a href="/contact.html" class="btn btn-accent">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16v16H4z" opacity="0"/><path d="M22 6 12 13 2 6"/><path d="M2 6h20v12H2z"/></svg>
+          تواصل مع الجمعية
+        </a>
+        <a href="/Join%20us/join-us-online.html" class="btn btn-outline" style="background:transparent;color:#fff;border-color:rgba(255,255,255,.35);">
+          انخرط معنا
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ===== Footer ===== -->
+<footer class="footer" id="contact">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-about">
+        <div class="footer-brand">
+          <span class="brand-mark">
+            <img src="/Amare%20files%20/logo.png" alt="AMARE Logo" class="topbar-brand-logo">
+          </span>
+          <span>
+            <span class="brand-name" data-i18n="organization.name">الجمعية المغربية لهواة البحث والاستكشاف</span><br>
+          </span>
+        </div>
+        <p data-i18n="organization.description" data-amare-setting="organization_description">الجمعية المغربية لهواة البحث والاستكشاف هي إطار قانوني وطني يجمع الهواة تحت راية واحدة لصون التراث الوطني المغربي.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="فيسبوك"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg></a>
+          <a href="#" aria-label="إنستغرام"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+          <a href="#" aria-label="لينكدإن"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 5 3.79 6.2 2.3 6.2 1 6.2 0 5 0 3.5 0 2 1.1.8 2.5.8s2.48 1.2 2.48 2.7zM.2 8.5h4.6V23H.2V8.5zM8 8.5h4.4v2h.06c.6-1.2 2.1-2.4 4.4-2.4 4.7 0 5.6 3.1 5.6 7.1V23h-4.6v-6.7c0-1.6 0-3.7-2.3-3.7s-2.6 1.8-2.6 3.6V23H8V8.5z"/></svg></a>
+        </div>
+      </div>
+      <nav aria-label="روابط سريعة">
+        <h4>روابط سريعة</h4>
+        <ul class="footer-links">
+          <li><a href="/index.html" data-i18n="nav.home">الرئيسية</a></li>
+          <li><a href="/contact.html" data-i18n="nav.contact">اتصل بنا</a></li>
+          <li><a href="/index.html#services" data-i18n="nav.services">خدماتنا</a></li>
+          <li><a href="/Our%20services/digital-museum.html">المتحف الرقمي</a></li>
+          <li><a href="/News/news.html">الاخبار</a></li>
+          <li><a href="/Archive/archive.html">الأرشيف</a></li>
+          <li><a href="/Join%20us/join-us-online.html" data-i18n="nav.join">انخرط معنا</a></li>
+          <li><a href="/index.html#about" data-i18n="nav.about">من نحن</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="برامجنا">
+        <h4>برامجنا</h4>
+        <ul class="footer-links">
+          <li><a href="/Our%20services/sos-amare.html">SOS Amare</a></li>
+          <li><a href="/amare store/index.html">متجر Amare</a></li>
+          <li><a href="/Our%20services/amare-magazine.html">مجلة Amare</a></li>
+          <li><a href="/Our%20services/digital-museum.html">المتحف الرقمي</a></li>
+          <li><a href="/News/news.html">الأخبار</a></li>
+        </ul>
+      </nav>
+      <div>
+        <h4>تواصل معنا</h4>
+        <ul class="footer-contact">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>ص.ب 749 أيت ملول 86150</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .3 2 .7 2.9a2 2 0 0 1-.4 2.1L8 10a16 16 0 0 0 6 6l1.3-1.4a2 2 0 0 1 2.1-.4c.9.4 1.9.6 2.9.7a2 2 0 0 1 1.7 2.1z"/></svg><span dir="ltr">+212 684869996</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z" opacity="0"/><path d="M22 6 12 13 2 6"/><path d="M2 6h20v12H2z"/></svg><span dir="ltr">association.amare.agadir@gmail.com</span></li>
+        </ul>
+      </div>
+      <div class="footer-location">
+        <h4>موقعنا</h4>
+        <div class="footer-map-card">
+          <span class="footer-map-badge">📍 Ait Melloul, Agadir</span>
+          <iframe src="https://www.google.com/maps?q=30.385528,-9.448611&z=16&output=embed" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade" title="موقع الجمعية على الخريطة" class="footer-map-frame"></iframe>
+          <div class="footer-map-footer">
+            <a href="https://www.google.com/maps?q=30.385528,-9.448611" target="_blank" rel="noopener" class="footer-map-btn" data-i18n="footer.mapBtn">Open in Google Maps</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p data-i18n="organization.copyright">© 2026 الجمعية المغربية لهواة البحث والاستكشاف. جميع الحقوق محفوظة.</p>
+      <div class="footer-bottom-links">
+        <a href="#" data-i18n="footer.privacy">سياسة الخصوصية</a>
+        <a href="#" data-i18n="footer.terms">الشروط والأحكام</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<button class="back-to-top" id="backToTop" aria-label="العودة إلى الأعلى" data-i18n-aria-label="misc.backToTop">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M18 15l-6-6-6 6"/></svg>
+</button>
+
+<!-- ===== Lightbox ===== -->
+<div class="ms-lightbox" id="msLightbox" role="dialog" aria-modal="true" aria-labelledby="msLightboxTitle" hidden>
+  <div class="ms-lightbox-backdrop" data-close-lightbox></div>
+  <div class="ms-lightbox-panel">
+    <button type="button" class="ms-lightbox-close" id="msLightboxClose" aria-label="إغلاق العارض">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <div class="ms-lightbox-stage" id="msLightboxStage"></div>
+    <div class="ms-lightbox-caption">
+      <span class="ms-lightbox-category" id="msLightboxCategory" hidden></span>
+      <h2 class="ms-lightbox-title" id="msLightboxTitle"></h2>
+      <p class="ms-lightbox-desc" id="msLightboxDesc"></p>
+    </div>
+  </div>
+</div>
+
+<script src="/supabase/navbar-loader.js"></script>
+<script src="/script.js"></script>
+<script src="/supabase/museum-content.js"></script>
+</body>
+</html>
